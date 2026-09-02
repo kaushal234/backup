@@ -1,0 +1,726 @@
+{% trans_default_domain 'sidebar' %}
+
+<!-- Sidebar menu -->
+<nav class="navbar navbar-default navbar-static-side" style="padding-top:0; padding-bottom:0" role="navigation">
+    <div class="container-fluid accordion sidebar-collapse" id="accordionSidebar" style="padding-left:0; padding-right:0">
+        <ul class="navbar-nav nav flex-column" id="side-menu" style="min-width: 100%">
+            <li class="nav-item nav-header" style="max-height:55.5px">
+                <div class="dropdown profile-element" style="--bs-nav-link-padding-x: -1rem">
+                    <a class="nav-link" href="/en/private">
+                        <span>
+                            <img class="img-thumbnail mx-auto" src="/shared/logos/alvest_logo.jpg" alt="logo Alvest" style="display: block; margin-bottom: 0; width: 142px; border: 0; padding: 9.5px ">
+                        </span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    <img class="img-fluid mx-auto" src="/shared/logos/ALVEST_logo.png" alt="small logo Alvest">
+                </div>
+            </li>
+            <li id="searchBar" class="nav-item quick-search">
+
+            </li>
+            <li class="nav-item accordion-item">
+                <a class="nav-link" href="/en/private">
+                    <i class="fa fa-home fa-fw"></i>
+                    <span class="nav-label">{{ 'sidebar.home' | trans }}</span>
+                </a>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingIT" data-bs-toggle="collapse" data-bs-target="#collapseIT">
+                    <button class="accordion-button collapsed" type="button"  aria-expanded="false" aria-controls="collapseIT">
+                        <i class="fa fa-laptop fa-fw"></i>
+                        <span>{{ 'sidebar.it.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseIT" class="accordion-collapse collapse" aria-labelledby="headingIT" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('legacy_mis') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_project_home') }}">{{ 'sidebar.it.mis_project' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_application_home') }}">{{ 'sidebar.it.application' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_modules_home') }}">{{ 'sidebar.it.module' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('trouble_ticket_home') }}" data-agr="TTS">{{ 'sidebar.it.trouble_ticket' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_change_logs_index') }}">{{ 'sidebar.it.changelog' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_mis') }}?m[0]=inventory">{{ 'sidebar.it.inventory' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_groups_home') }}">{{ 'sidebar.it.groups' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_features_index') }}">{{ 'sidebar.it.features' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_gitlab_merge_request_list') }}">{{ 'sidebar.it.gitlab' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_authorized_application_list') }}">{{ 'mis.authorized_applications.title' | trans({}, 'mis') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('mis_guest_user_home') }}">{{ 'mis.guest_user.title' | trans({}, 'mis') }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingLegal" data-bs-toggle="collapse" data-bs-target="#collapseLegal">
+                    <button class="accordion-button collapsed" type="button"  aria-expanded="false" aria-controls="collapseLegal">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        <span>{{ 'sidebar.legal.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseLegal" class="accordion-collapse collapse" aria-labelledby="headingLegal" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('contract_home') }}">{{ 'sidebar.legal.contract' | trans }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingHR" data-bs-toggle="collapse" data-bs-target="#collapseHR">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHR" aria-expanded="false" aria-controls="collapseHR">
+                        <i class="fa fa-users fa-fw"></i>
+                        <span>{{ 'sidebar.hr.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseHR" class="accordion-collapse collapse" aria-labelledby="headingHR" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingHRLevel">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseHRLevel" aria-expanded="false" aria-controls="collapseHRLevel">
+                                <div>
+                                {{ 'sidebar.hr.directory.title' | trans }}
+                                    <i class="fa fa-chevron-right mini-navbar-chevron"></i>
+                                </div>
+                            </button>
+                        </span>
+                        <ul id="collapseHRLevel" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingHRLevel" data-bs-parent="#collapseHR">
+                            <li class="accordion-body"><a href="{{ path('directory_index') }}">{{ 'sidebar.hr.directory.organisation_chart' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('directory_divisions_home') }}">{{ 'sidebar.hr.directory.division' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('directory_sub_divisions_home') }}">{{ 'sidebar.hr.directory.sub_division' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('directory_regions_home') }}">{{ 'sidebar.hr.directory.region' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('directory_business_units_home') }}">{{ 'sidebar.hr.directory.business_unit' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('directory_locations_home') }}">{{ 'sidebar.hr.directory.location' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('directory_premise_list') }}">{{ 'directory.premise.title' | trans({}, 'directory') }}</a></li>
+                            {% if is_granted('ACL_SUPERUSER') or is_granted('ACL_ROLE_CFO') or is_granted('ACL_ROLE_LM') %}
+                                <li class="accordion-body"><a href="{{ path('directory_juridical_locations_home') }}">{{ 'sidebar.hr.directory.juridical_location' | trans }}</a></li>
+                            {% endif %}
+                            <li class="accordion-body"><a href="{{ path('directory_departments_home') }}">{{ 'sidebar.hr.directory.department' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('directory_positions_home') }}">{{ 'sidebar.hr.directory.position' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('position_categories_home') }}">{{ 'directory.position_categories.name' | trans({}, 'directory') }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('legacy_directory_index') }}?m[0]=people">{{ 'sidebar.hr.directory.people' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('directory_mentoring_home') }}">{{ 'sidebar.hr.directory.mentoring' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('contract_type_home') }}">{{ 'directory.contract_type.title.list' | trans({}, 'directory') }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('people_premise_map') }}">{{ 'button.map' | trans({}, 'messages') }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body"><a href="{{ path('legacy_directory_index') }}?m[0]=jobs">{{ 'sidebar.hr.jobs' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('human_resources_new_comers_home') }}?m[0]=events">{{ 'sidebar.hr.new_comers' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('human_resources_leavers_people') }}?m[0]=events">{{ 'sidebar.hr.recent_and_coming_leavers' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('event_home') }}">{{ 'sidebar.hr.events' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('human_resources_employee_staffing_home') }}" data-agr="ESM">{{ 'sidebar.hr.employee_staffing' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_shopfloor') }}index.php?m[0]=hr" target="_blank">{{ 'sidebar.hr.local_hr' | trans }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingFinance" data-bs-toggle="collapse" data-bs-target="#collapseFinance">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinance" aria-expanded="false" aria-controls="collapseFinance">
+                        <i class="fa fa-money-bill-alt fa-fw"></i>
+                        <span>{{ 'sidebar.finance.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseFinance" class="accordion-collapse collapse" aria-labelledby="headingFinance" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('legacy_finance') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('account_receivable_home') }}" data-agr="AR">{{ 'account_receivable.title' | trans({}, 'account_receivable') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('finance_family_home') }}">{{ 'sidebar.common.finance_families' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('manufacturing_margin_home') }}" data-agr="RRR">{{ 'manufacturing_margin.title' | trans({}, 'manufacturing_margin') }}</a></li>
+
+                    <li class="accordion-body accordion-item secondLevel" >
+                        <span id="headingFinanceLevel-sales">
+                            <button class="accordion-button collapsed nav-label mini-level" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinanceLevel-sales" aria-expanded="false" aria-controls="collapseFinanceLevel-sales">
+                                <div>
+                                {{ 'sidebar.finance.sales_activity.title' | trans }}
+                                    <i class="fa fa-chevron-right mini-navbar-chevron"></i>
+                                </div>
+                            </button>
+                        </span>
+                        <ul id="collapseFinanceLevel-sales" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingFinanceLevel-sales" data-bs-parent="#collapseFinance">
+                            <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=activity2&m[1]=bookings">{{ 'sidebar.finance.sales_activity.booking' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=activity2&m[1]=revenue">{{ 'sidebar.finance.sales_activity.revenue' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=activity2&m[1]=backlog">{{ 'sidebar.finance.sales_activity.backlog' | trans }}</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingFinanceLevel-manufacturing">
+                            <button class="accordion-button collapsed nav-label mini-level" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinanceLevel-manufacturing" aria-expanded="false" aria-controls="collapseFinanceLevel-manufacturing">
+                                <div>
+                               {{ 'sidebar.finance.manufacturing_activity.title' | trans }}
+                                    <i class="fa fa-chevron-right mini-navbar-chevron"></i>
+                                </div>
+                            </button>
+                        </span>
+                        <ul id="collapseFinanceLevel-manufacturing" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingFinanceLevel-manufacturing" data-bs-parent="#collapseFinance">
+                            <li class="accordion-body"><a href="{{ path('legacy_manufacturing_index') }}?m[0]=activity&m[1]=bookings">{{ 'sidebar.finance.manufacturing_activity.bookings' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('legacy_manufacturing_index') }}?m[0]=activity&m[1]=revenue">{{ 'sidebar.finance.manufacturing_activity.revenue' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('legacy_manufacturing_index') }}?m[0]=activity&m[1]=backlog">{{ 'sidebar.finance.manufacturing_activity.backlog' | trans }}</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="accordion-body"><a href="{{ path('legacy_finance') }}?m[0]=sor_tran" title="Sales Orders Records Transactions">{{ 'sidebar.finance.sor_transactions' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_finance') }}?m[0]=reports">{{ 'sidebar.common.reports' | trans }}</a></li>
+                    <li class="accordion-body accordion-item secondLevel" >
+                        <span id="headingFinanceBILevel">
+                            <button class="accordion-button collapsed nav-label mini-level" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinanceBILevel" aria-expanded="false" aria-controls="collapseFinanceBILevel">
+                                <div>Power BI Reports<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseFinanceBILevel" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingFinanceBILevel" data-bs-parent="#collapseFinance">
+                            <li class="accordion-body"><a href="{{ path('power_bi_report_home', {filter_report: {subCategories: {value: ['SSO CONTROLLING']}}}) }}">SSO Controlling</a></li>
+                            <li class="accordion-body"><a href="{{ path('power_bi_report_home', {filter_report: {subCategories: {value: ['FACTORY CONTROLLING']}}}) }}">Factory Controlling</a></li>
+                            <li class="accordion-body"><a href="{{ path('power_bi_report_home', {filter_report: {subCategories: {value: ['ACCOUNTING']}}}) }}">Accounting</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingCommunication" data-bs-toggle="collapse" data-bs-target="#collapseCommunication">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication" aria-expanded="false" aria-controls="collapseCommunication">
+                        <i class="fa fa-bullhorn fa-fw"></i>
+                         <span>{{ 'sidebar.communication.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseCommunication" class="accordion-collapse collapse" aria-labelledby="headingCommunication" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-alvest">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-alvest" aria-expanded="false" aria-controls="collapseCommunication-alvest">
+                                <div>Alvest<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-alvest" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-alvest" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'alvest'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_business_cards', {entity: 'alvest'}) }}">{{ 'sidebar.communication.business_card' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_corporate_brochure', {entity: 'alvest'}) }}">{{ 'sidebar.communication.corporate_brochure' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_email_signatures', {entity: 'alvest'}) }}">{{ 'sidebar.communication.email_signature' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'alvest'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'alvest'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_powerpoint_template', {entity: 'alvest'}) }}">{{ 'sidebar.communication.powerpoint' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'alvest'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_wallpapers', {entity: 'alvest'}) }}">{{ 'sidebar.communication.teams_wallpaper' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-aerospecialties">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-aerospecialties" aria-expanded="false" aria-controls="collapseCommunication-aerospecialties">
+                                <div>Aero Specialties<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-aerospecialties" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-aerospecialties" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'aero-specialties'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_brand_guidelines', {entity: 'aero-specialties'}) }}">{{ 'sidebar.communication.guidelines' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_business_cards', {entity: 'aero-specialties'}) }}">{{ 'sidebar.communication.business_card' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_colour_palette', {entity: 'aero-specialties'}) }}">{{ 'sidebar.communication.colour_palette' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'aero-specialties'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'aero-specialties'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'aero-specialties'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-aes">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-aes" aria-expanded="false" aria-controls="collapseCommunication-aes">
+                                <div>AES<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-aes" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-aes" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'aes'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_brand_guidelines', {entity: 'aes'}) }}">{{ 'sidebar.communication.guidelines' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_business_cards', {entity: 'aes'}) }}">{{ 'sidebar.communication.business_card' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_email_signatures', {entity: 'aes'}) }}">{{ 'sidebar.communication.email_signature' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'aes'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'aes'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_powerpoint_template', {entity: 'aes'}) }}">{{ 'sidebar.communication.powerpoint' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'aes'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_wallpapers', {entity: 'aes'}) }}">{{ 'sidebar.communication.teams_wallpaper' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-aaes">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-aaes" aria-expanded="false" aria-controls="collapseCommunication-aaes">
+                                <div>AAES<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-aaes" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-aaes" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'aaes'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_business_cards', {entity: 'aaes'}) }}">{{ 'sidebar.communication.business_card' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_colour_palette', {entity: 'aaes'}) }}">{{ 'sidebar.communication.colour_palette' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_email_signatures', {entity: 'aaes'}) }}">{{ 'sidebar.communication.email_signature' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'aaes'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'aaes'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_powerpoint_template', {entity: 'aaes'}) }}">{{ 'sidebar.communication.powerpoint' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'aaes'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-agsa">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-agsa" aria-expanded="false" aria-controls="collapseCommunication-agsa">
+                                <div>AGSA<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-agsa" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-agsa" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'agsa'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-anderson">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-anderson" aria-expanded="false" aria-controls="collapseCommunication-anderson">
+                                <div>Anderson Airmotive<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-anderson" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-anderson" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'anderson-airmotive'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_email_signatures', {entity: 'anderson-airmotive'}) }}">{{ 'sidebar.communication.email_signature' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'anderson-airmotive'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'anderson-airmotive'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'anderson-airmotive'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-page">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-page" aria-expanded="false" aria-controls="collapseCommunication-page">
+                                <div>Page GSE<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-page" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-page" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'page-gse'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_colour_palette', {entity: 'page-gse'}) }}">{{ 'sidebar.communication.colour_palette' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'page-gse'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'page-gse'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'page-gse'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-sage">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-sage" aria-expanded="false" aria-controls="collapseCommunication-sage">
+                                <div>Sage Parts<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-sage" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-sage" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'sage-parts'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_brand_guidelines', {entity: 'sage-parts'}) }}">{{ 'sidebar.communication.guidelines' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_business_cards', {entity: 'sage-parts'}) }}">{{ 'sidebar.communication.business_card' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'sage-parts'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'sage-parts'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_powerpoint_template', {entity: 'sage-parts'}) }}">{{ 'sidebar.communication.powerpoint' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'sage-parts'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_wallpapers', {entity: 'sage-parts'}) }}">{{ 'sidebar.communication.teams_wallpaper' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-sas">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-sas" aria-expanded="false" aria-controls="collapseCommunication-sas">
+                                <div>SAS<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-sas" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-sas" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'sas'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_business_cards', {entity: 'sas'}) }}">{{ 'sidebar.communication.business_card' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'sas'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'sas'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'sas'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_wallpapers', {entity: 'sas'}) }}">{{ 'sidebar.communication.teams_wallpaper' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-tld">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-tld" aria-expanded="false" aria-controls="collapseCommunication-tld">
+                                <div>TLD<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-tld" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-tld" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'tld'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_business_cards', {entity: 'tld'}) }}">{{ 'sidebar.communication.business_card' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_corporate_brochure', {entity: 'tld'}) }}">{{ 'sidebar.communication.corporate_brochure' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_data_sheets', {entity: 'tld'}) }}">{{ 'sidebar.communication.data_sheet' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_email_signatures', {entity: 'tld'}) }}">{{ 'sidebar.communication.email_signature' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_fact_sheets', {entity: 'tld'}) }}">{{ 'sidebar.communication.fact_sheet' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'tld'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_letterheads', {entity: 'tld'}) }}">{{ 'sidebar.communication.letterhead' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_linkedin_banners', {entity: 'tld'}) }}">{{ 'sidebar.communication.linkedin_banners' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'tld'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_posters', {entity: 'tld'}) }}">{{ 'sidebar.communication.posters' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_powerpoint_template', {entity: 'tld'}) }}">{{ 'sidebar.communication.powerpoint' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'tld'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_songs', {entity: 'tld'}) }}">{{ 'sidebar.communication.song' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_wallpapers', {entity: 'tld'}) }}">{{ 'sidebar.communication.teams_wallpaper' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-wollard">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-wollard" aria-expanded="false" aria-controls="collapseCommunication-wollard">
+                                <div>TLD Wollard<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-wollard" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-wollard" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'tld-wollard'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'tld-wollard'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'tld-wollard'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'tld-wollard'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-tracteasy">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-tracteasy" aria-expanded="false" aria-controls="collapseCommunication-tracteasy">
+                                <div>Tracteasy<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-tracteasy" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-tracteasy" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_brand_guidelines', {entity: 'tracteasy'}) }}">{{ 'sidebar.communication.guidelines' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingCommunication-xops">
+                            <button class="accordion-button collapsed nav-label mini-level " type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommunication-xops" aria-expanded="false" aria-controls="collapseCommunication-xops">
+                                <div>Xops<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseCommunication-xops" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingCommunication-xops" data-bs-parent="#collapseCommunication">
+                            <li class="accordion-body"><a href="{{ path('communication_boiler_plates', {entity: 'xops'}) }}">{{ 'sidebar.communication.boiler_plate' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_business_cards', {entity: 'xops'}) }}">{{ 'sidebar.communication.business_card' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_email_signatures', {entity: 'xops'}) }}">{{ 'sidebar.communication.email_signature' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_group_values', {entity: 'xops'}) }}">{{ 'sidebar.communication.group_values' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_logos', {entity: 'xops'}) }}">{{ 'sidebar.communication.logos' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_powerpoint_template', {entity: 'xops'}) }}">{{ 'sidebar.communication.powerpoint' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_social_media', {entity: 'xops'}) }}">{{ 'sidebar.communication.social_media' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('communication_wallpapers', {entity: 'xops'}) }}">{{ 'sidebar.communication.teams_wallpaper' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body"><a href="{{ path('contact_campaign_home') }}">{{ 'sidebar.communication.contact_campaign' | trans }}</a></li>
+
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingSales" data-bs-toggle="collapse" data-bs-target="#collapseSales">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSales" aria-expanded="false" aria-controls="collapseSales">
+                        <i class="fa fa-rocket fa-fw"></i>
+                        <span>{{ 'sidebar.sales.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseSales" class="accordion-collapse collapse" aria-labelledby="headingSales" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sales_catalogue_type_home')}}">{{ 'sidebar.sales.catalogue' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=gse_aircraft_data">{{ 'sidebar.sales.gse_aircraft_data' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=equotes">{{ 'sidebar.sales.equotes' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('demo_home') }}">{{ 'sidebar.sales.demos' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sales_customers_home') }}">{{ 'sidebar.sales.e_customer' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('surveys_index') }}" title="SRV">{{ 'sidebar.sales.e_customer_survey' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('customer_relationship_team_home') }}">{{ 'sidebar.sales.crt' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sales_contact_home') }}">{{ 'contacts.title' | trans({}, 'contacts') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=inventory">{{ 'sidebar.sales.inventory' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sales_competitors_home') }}">{{ 'sidebar.sales.competition' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sales_orders_home') }}" title="Sales Orders Records">{{ 'sidebar.sales.sor' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=sol" title="Sales Orders Lines">{{ 'sidebar.sales.sol' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sales_quotes_home') }}?m[0]=sol" title="LN Quote">{{ 'sidebar.sales.quote' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('equipment_shipping_record_home') }}" title="Equipment Shipping Records">{{ 'sidebar.sales.esr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sales_areas_home') }}">{{ 'sidebar.sales.sales_areas' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sales_forecasts_home') }}" title="Sales Forecast Records">{{ 'sidebar.sales.sfr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('forecast_closures_home') }}" title="Forecast Closure Records">{{ 'sidebar.sales.fcr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('competitor_pricings_home') }}" title="Competitors Pricing Record">{{ 'sidebar.sales.cpr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('market_intelligence_home') }}" title="Market Intelligence">{{ 'sidebar.sales.mim' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=ccr" title="Customer Communication Records">{{ 'sidebar.sales.ccr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=sac">{{ 'sidebar.sales.sales_app_configurator' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=cust_feedback">{{ 'sidebar.sales.customer_feedback' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=reports">{{ 'sidebar.common.reports' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=kpi" title="Key Performance Indicators">{{ 'sidebar.common.kpi' | trans }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingParts" data-bs-toggle="collapse" data-bs-target="#collapseParts">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseParts" aria-expanded="false" aria-controls="collapseParts">
+                        <i class="fa fa-shopping-cart fa-fw"></i>
+                        <span>{{ 'sidebar.parts.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseParts" class="accordion-collapse collapse" aria-labelledby="headingParts" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('legacy_parts_parts') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_parts_parts') }}?m[0]=cart">{{ 'sidebar.parts.cart' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_parts_parts') }}?m[0]=dino_trno">{{ 'sidebar.parts.track' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('spare_parts_request_home') }}" title="Spare Parts Requests">{{ 'sidebar.parts.spr2' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_parts_parts') }}?m[0]=spr" title="Spare Parts Requests">{{ 'sidebar.parts.spr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('spq_quotations_home') }}" title="Spare Parts Quotes">{{ 'sidebar.parts.spq' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_parts_parts') }}?m[0]=cuno">{{ 'sidebar.parts.customer_dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('parts_dashboard_home') }}">{{ 'sidebar.parts.part_dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_sales') }}?m[0]=extranet">{{ 'contacts.title' | trans({}, 'contacts') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_parts_parts') }}?m[0]=reports">{{ 'sidebar.common.reports' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_parts_parts') }}?m[0]=kpi" title="Key Performance Indicators">{{ 'sidebar.common.kpi' | trans }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingService" data-bs-toggle="collapse" data-bs-target="#collapseService">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseService" aria-expanded="false" aria-controls="collapseService">
+                        <i class="fa fa-wrench fa-fw"></i>
+                        <span>{{ 'sidebar.service.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseService" class="accordion-collapse collapse" aria-labelledby="headingService" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('technician_on_calls_home') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('technician_on_calls_home') }}" title="Technician On Call">{{ 'sidebar.service.toc' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('customer_service_record_planner_home') }}">{{ 'sidebar.service.csr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_service') }}?m[0]=srvo">{{ 'sidebar.service.service_order' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_service') }}?m[0]=scm" title="Service Contract Module">{{ 'sidebar.service.scm' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('service_maintenance_contracts_home') }}" title="Maintenance Contract Management">{{ 'sidebar.service.mcm' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('smw_meeting', {module: 'service'}) }}">{{ 'sidebar.service.smw_meeting' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('service_area_home', {module: 'service'}) }}">{{ 'sidebar.service.service_areas' | trans }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingManufacturing" data-bs-toggle="collapse" data-bs-target="#collapseManufacturing">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseManufacturing" aria-expanded="false" aria-controls="collapseManufacturing">
+                        <i class="fa fa-cogs fa-fw"></i>
+                        <span>{{ 'sidebar.manufacturing.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseManufacturing" class="accordion-collapse collapse" aria-labelledby="headingManufacturing" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('coo_dashboard') }}">{{ 'coo_dashboard.title' | trans({}, 'coo_dashboard') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_index') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('smw_meeting', {module: 'manufacturing'}) }}">{{ 'sidebar.manufacturing.smw_meeting' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_index') }}?m[0]=planning">{{ 'sidebar.manufacturing.planning' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_index') }}?m[0]=pi" title="Process and Inspection Online">{{ 'sidebar.manufacturing.pio' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('product_manufacturing_list') }}">{{ 'product_manufacturing.title' | trans({}, 'product_manufacturing') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_index') }}?m[0]=reports">{{ 'sidebar.common.reports' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('manufacturing_family_home') }}?m[0]=reports">{{ 'manufacturing.family.title' | trans({}, 'manufacturing') | capitalize }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('power_bi_report_home', {filter_report: {category: {value: ['MANUFACTURING']}}}) }}">Power BI Reports</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingEngineering" data-bs-toggle="collapse" data-bs-target="#collapseEngineering">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEngineering" aria-expanded="false" aria-controls="collapseEngineering">
+                        <i class="fa fa-flask fa-fw"></i>
+                        <span>{{ 'sidebar.engineering.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseEngineering" class="accordion-collapse collapse" aria-labelledby="headingEngineering" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('smw_meeting', {module: 'engineering'}) }}">{{ 'sidebar.manufacturing.smw_meeting' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=meap" title="Master EAP">{{ 'sidebar.engineering.meap' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=eap" title="Engineering Activity Process">{{ 'sidebar.engineering.eap' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=cbom" title="Customized Bill Of Material">{{ 'sidebar.engineering.cbom' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=bom" title="Bill Of Material">{{ 'sidebar.engineering.bom' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=edm" title="Engineering Data Management">{{ 'sidebar.engineering.edm' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=pip" title="Product Inovation Proposal">{{ 'sidebar.engineering.pip' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=item_reservation">{{ 'sidebar.engineering.item_reservation' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=inv">{{ 'sidebar.engineering.inventory' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_mis') }}?m[0]=help&m[1]=dms&id=328">{{ 'sidebar.engineering.best_practices' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=timekeeping">{{ 'sidebar.engineering.timekeeping' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=reports&m[1]=search">{{ 'sidebar.engineering.search_tools' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=reports">{{ 'sidebar.common.reports' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('power_bi_report_home', {filter_report: {category: {value: ['ENGINEERING']}}}) }}">Power BI Reports</a></li>
+                    <li class="accordion-body"><a href="{{ path('pictogram_home') }}">{{ 'sidebar.engineering.pictograms'|trans }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingMaterials" data-bs-toggle="collapse" data-bs-target="#collapseMaterials">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterials" aria-expanded="false" aria-controls="collapseMaterials">
+                        <i class="fa fa-truck fa-fw"></i>
+                        <span>{{ 'sidebar.materials.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseMaterials" class="accordion-collapse collapse" aria-labelledby="headingMaterials" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_pur') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('smw_meeting', {module: 'purchasing'}) }}">{{ 'sidebar.materials.smw_meeting' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('supplier_rankings_home') }}">{{ 'sidebar.materials.e_vendors' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('evendors_news_home') }}">{{ 'sidebar.materials.evendors_news' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('xref_home') }}">{{ 'sidebar.materials.xref' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_pur') }}?m[0]=po" title="Purchase Order">{{ 'sidebar.materials.po' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_pur') }}?m[0]=isr" title="Interco Shipping Record">{{ 'sidebar.materials.isr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('vendor_warranty_claim_home') }}" title="Vendor Warranty Claims">{{ 'sidebar.materials.vwc' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_pur') }}?m[0]=rfq" title="Request For Quotation">{{ 'sidebar.materials.rfq' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_pur') }}?m[0]=stdcost">{{ 'sidebar.materials.std_cost' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_eng') }}?m[0]=bom" title="Bill Of Material Benchmark">{{ 'sidebar.materials.bom_benchmark' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_pur') }}?m[0]=reports">{{ 'sidebar.common.reports' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('suppliers_home') }}">{{ 'sidebar.materials.suppliers' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('supplier_rankings_home') }}">{{ 'sidebar.materials.supplier_rankings' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('part_number_task_home') }}">{{ 'sidebar.materials.part_number_task' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('warehouse_task_home') }}">{{ 'sidebar.materials.warehouse_task' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('vendor_users_home') }}">{{ 'sidebar.materials.vendor_users_list' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('power_bi_report_home', {filter_report: {category: {value: ['MATERIALS']}}}) }}">Power BI Reports</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingWarehouse" data-bs-toggle="collapse" data-bs-target="#collapseWarehouse">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWarehouse" aria-expanded="false" aria-controls="collapseWarehouse">
+                        <i class="fa fa-truck fa-warehouse"></i>
+                        <span>{{ 'sidebar.materials.warehouse' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseWarehouse" class="accordion-collapse collapse" aria-labelledby="headingWarehouse" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_whse') }}">{{ 'menu.home'|trans({}, 'messages') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_whse', {m: ['reports']}) }}">{{ 'menu.reports'|trans({}, 'messages') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_whse', {m: ['invseq']}) }}">Inventory Sequences</a></li>
+{#                        <li class="accordion-body"><a href="{{ path('sector_home') }}">{{ 'sector.sector'|trans({}, 'sector')|title }}</a></li>#}
+{#                        <li class="accordion-body"><a href="{{ path('warehouseLocation_home') }}">{{ 'warehouse_location.title.default'|trans({}, 'sector')|title }}</a></li>#}
+                    <li class="accordion-body"><a href="{{ path('warehouse_tasks_mapping_home') }}">{{ 'materials.tasks_mappings.titles.default'|trans({}, 'materials')|title }}</a></li>
+{#                        <li class="accordion-body"><a href="{{ path('wms_bwi_usage') }}">BWI</a></li>#}
+                    <li class="accordion-body"><a href="{{ path('power_bi_report_home', {filter_report: {category: {value: ['WAREHOUSE']}}}) }}">Power BI Reports</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingProductSupport" data-bs-toggle="collapse" data-bs-target="#collapseProductSupport">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProductSupport" aria-expanded="false" aria-controls="collapseProductSupport">
+                        <i class="far fa-life-ring fa-fw"></i>
+                        <span>{{ 'sidebar.product_support.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseProductSupport" class="accordion-collapse collapse" aria-labelledby="headingProductSupport" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('lead_time_home')}}" data-agr="SLT">{{ 'lead_time.lead_time' | trans({}, 'catalogue') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_product_support') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('smw_meeting', {module: 'support'}) }}">{{ 'sidebar.product_support.smw_meeting' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_product_support') }}?m[0]=pdc" title="Product Demerit Claims">{{ 'sidebar.product_support.pdc' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_product_support') }}?m[0]=equipment" data-agr="ER">{{ 'sidebar.product_support.equipment_record' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_product_support') }}?m[0]=wc" data-agr="WC">{{ 'sidebar.product_support.warranty_claim' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_product_support') }}?m[0]=sb" data-agr="SB">{{ 'sidebar.product_support.service_bulletin' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('manuals_home') }}">{{ 'sidebar.product_support.pubs' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('printer_home') }}">{{ 'sidebar.product_support.printers' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('on_time_delivery_planning_home') }}" title="Order Delivery Planning">{{ 'sidebar.product_support.odp' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('support_iata_code_list') }}">{{ 'support.iata.title' | trans({}, 'support') }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingQuality" data-bs-toggle="collapse" data-bs-target="#collapseQuality">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQuality" aria-expanded="false" aria-controls="collapseQuality">
+                        <i class="fa fa-recycle fa-fw"></i>
+                        <span>{{ 'sidebar.quality.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseQuality" class="accordion-collapse collapse" aria-labelledby="headingQuality" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_qa') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('smw_meeting', {module: 'quality'}) }}">{{ 'sidebar.quality.smw_meeting' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('first_article_qualifications_home') }}"  data-agr="first article qualification">{{ 'sidebar.quality.first_article_qualification' | trans }}</a></li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingQualityLevel-tools">
+                            <button class="accordion-button collapsed nav-label mini-level" type="button" data-bs-toggle="collapse" data-bs-target="#collapseQualityLevel-tools" aria-expanded="false" aria-controls="collapseQualityLevel-tools">
+                                 <div>
+                                {{ 'sidebar.quality.calibrated_tools.title' | trans }}
+                                    <i class="fa fa-chevron-right mini-navbar-chevron"></i>
+                                </div>
+                            </button>
+                        </span>
+                        <ul id="collapseQualityLevel-tools" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingQualityLevel-tools" data-bs-parent="#collapseQuality">
+                            <li class="accordion-body"><a href="{{ path('quality_dashboard') }}">{{ 'sidebar.common.dashboard' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('quality_calibrated_tools_home') }}">{{ 'directory.title.search' | trans({}, 'directory')  | capitalize }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('quality_location_areas_home') }}">{{ 'sidebar.quality.calibrated_tools.location_areas' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('quality_calibrated_tool_types_home') }}">{{ 'sidebar.quality.calibrated_tools.tool_types' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('quality_calibrated_otf_home') }}">{{ 'sidebar.quality.calibrated_tools.out_of_tolerance_forms' | trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body"><a href="{{ path('location_cleanliness_home') }}">{{ 'sidebar.quality.cleanliness' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('qhse_home') }}">{{ 'sidebar.quality.qhse' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('non_conformity_home') }}" title="No Conformity Record">{{ 'sidebar.quality.ncr' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_qa') }}?m[0]=cpa" title="Corrective and Preventive Action">{{ 'sidebar.quality.cpa' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('supplier_corrective_action_request_home') }}" title="Supplier Corrective Action Request">{{ 'sidebar.quality.scar' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_qa') }}?m[0]=gt" title="Green Tag">{{ 'sidebar.quality.gt' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('crab_home') }}">{{ 'sidebar.quality.crabs' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('derogation_home') }}">{{ 'sidebar.quality.derogations' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_qa') }}?m[0]=reports">{{ 'sidebar.common.reports' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_manufacturing_index') }}?m[0]=kpi" title="Key Process Indicators">{{ 'sidebar.common.kpi' | trans }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingApAndA" data-bs-toggle="collapse" data-bs-target="#collapseApAndA">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseApAndA" aria-expanded="false" aria-controls="collapseApAndA">
+                        <i class="fa fa-chart-bar fa-fw"></i>
+                        <span>{{ 'sidebar.ap_and_a.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseApAndA" class="accordion-collapse collapse" aria-labelledby="headingApAndA" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('sage_parts_tools_category', { category: 'common_tools' }) }}">{{ 'sidebar.ap_and_a.first_level.common_tools' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sage_parts_tools_category', { category: 'customer_service' }) }}">{{ 'sidebar.ap_and_a.first_level.customer_service' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sage_parts_tools_category', { category: 'finance' }) }}">{{ 'sidebar.ap_and_a.first_level.finance' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sage_parts_tools_category', { category: 'logistics_and_freight' }) }}">{{ 'sidebar.ap_and_a.first_level.logistics_and_freight' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sage_parts_tools_category', { category: 'operations' }) }}">{{ 'sidebar.ap_and_a.first_level.operations' | trans }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('sage_parts_tools_category', { category: 'purchasing' }) }}">{{ 'sidebar.ap_and_a.first_level.supply_chain' | trans }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingAES" data-bs-toggle="collapse" data-bs-target="#collapseAES">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAES" aria-expanded="false" aria-controls="collapseAES">
+                        <i class="fa fa-chart-bar fa-fw"></i>
+                        <span>{{ 'sidebar.aes.title' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapseAES" class="accordion-collapse collapse" aria-labelledby="headingAES" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('powerbi_aes_report_show', { name: 'parts' }) }}">{{ 'sidebar.aes.parts' | trans }}</a></li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingAESSmw">
+                            <button class="accordion-button collapsed nav-label mini-level" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAESSmw" aria-expanded="false" aria-controls="collapseAESSmw">
+                                <div>{{ 'sidebar.aes.smw.title' | trans }}<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseAESSmw" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingAESSmw" data-bs-parent="#collapseAES">
+                            <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'sales' }) }}">{{ 'sidebar.aes.smw.sales' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'echotech' }) }}">{{ 'sidebar.aes.smw.echotech' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'maintenance' }) }}">{{ 'sidebar.aes.smw.maintenance' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'hr' }) }}">{{ 'sidebar.aes.smw.hr' | trans }}</a></li>
+                            {% if is_granted('FEATURE_POWERBI_AES_READ') %}
+                                <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'productivity' }) }}">{{ 'sidebar.aes.smw.productivity' | trans }}</a></li>
+                            {% endif %}
+                            <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'qehs' }) }}">{{ 'sidebar.aes.smw.qehs' | trans }}</a></li>
+                            <li class="accordion-body accordion-item secondLevel">
+                                <span id="headingAESSmwSupplyChain">
+                                    <button class="accordion-button collapsed nav-label mini-level" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAESSmwSupplyChain" aria-expanded="false" aria-controls="collapseAESSmwSupplyChain">
+                                        <div>{{ 'sidebar.aes.smw.supply_chain.title' | trans }}<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                                    </button>
+                                </span>
+                                <ul id="collapseAESSmwSupplyChain" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingAESSmwSupplyChain" data-bs-parent="#collapseAESSmw">
+                                    <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'purchasing' }) }}">{{ 'sidebar.aes.smw.supply_chain.purchasing' | trans }}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="accordion-body accordion-item secondLevel">
+                        <span id="headingAESFinance">
+                            <button class="accordion-button collapsed nav-label mini-level" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAESFinance" aria-expanded="false" aria-controls="collapseAESFinance">
+                                <div>{{ 'sidebar.aes.smw.finance.title' | trans }}<i class="fa fa-chevron-right mini-navbar-chevron"></i></div>
+                            </button>
+                        </span>
+                        <ul id="collapseAESFinance" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingAESFinance" data-bs-parent="#collapseAES">
+                            <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'finance' }) }}">{{ 'sidebar.aes.smw.finance.dashboard' | trans }}</a></li>
+                            <li class="accordion-body"><a href="{{ path('powerbi_aes_smw_report_show', { name: 'inventory' }) }}">{{ 'sidebar.aes.smw.finance.inventory' | trans }}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item d-none">
+                <span class="nav-link accordion-header" id="headingCorporate" data-bs-toggle="collapse" data-bs-target="#collapseCorporate">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCorporate" aria-expanded="false" aria-controls="collapseCorporate">
+                        <span>{{ 'topbar.corporate' | trans({}, 'topbar') }}</span>
+                    </button>
+                </span>
+                <ul id="collapseCorporate" class="accordion-collapse collapse" aria-labelledby="headingCorporate" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('news_index') }}">{{ 'news.name'| trans({}, 'news') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('corporate_pages_main') }}">{{ 'topbar.corporate' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('corporate_pages_ethics') }}">{{ 'topbar.ethics' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('acronyms_home') }}" title="AGR">{{ 'corporate.acronyms.glossary' | trans({}, 'corporate') }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item d-none">
+                <span class="nav-link accordion-header" id="headingCalendar" data-bs-toggle="collapse" data-bs-target="#collapseCalendar">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCalendar" aria-expanded="false" aria-controls="collapseCalendar">
+                        <span>{{ 'topbar.calendar' | trans({}, 'topbar') }}</span>
+                    </button>
+                </span>
+                <ul id="collapseCalendar" class="accordion-collapse collapse" aria-labelledby="headingCalendar" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('task_home') }}" data-agr="{{ 'topbar.group_work_flow' | trans({}, 'topbar') }}">New task</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_calendar') }}?m[0]=gwf" data-agr="{{ 'topbar.group_work_flow' | trans({}, 'topbar') }}">GWF</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_calendar') }}">{{ 'topbar.tasks_and_sequences' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_calendar') }}?m[0]=st&m[1]=STList" data-agr="{{ 'topbar.scheduled_tasks' | trans({}, 'topbar') }}">ST</a></li>
+                    <li class="accordion-body"><a href="{{ path('legacy_calendar') }}?m[0]=bp" data-agr="{{ 'topbar.business_process' | trans({}, 'topbar') }}">BP</a></li>
+                    <li class="accordion-body"><a href="{{ path('meeting_home') }}" data-agr="{{ 'topbar.mom' | trans({}, 'topbar') }}">{{ 'sidebar.sales.mom' | trans() }}</a></li>
+                </ul>
+            </li>
+            <li class="nav-item accordion-item d-none">
+                <span class="nav-link accordion-header" id="headingPortals" data-bs-toggle="collapse" data-bs-target="#collapsePortals">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePortals" aria-expanded="false" aria-controls="collapsePortals">
+                        <span>{{ 'sidebar.portals' | trans }}</span>
+                    </button>
+                </span>
+                <ul id="collapsePortals" class="accordion-collapse collapse" aria-labelledby="headingPortals" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ full_url('portal_shopfloor') }}shop/autoselect.php">{{ 'topbar.shopfloor' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="https://www.tld-gse.com/en/private/bounce/bounce.php?portal=dms">DMS</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_extranet') }}">Extranet</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_evendor') }}">eVendor</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_tldgroup') }}">{{ 'topbar.tld_website' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_machinescloud') }}">Link</a></li>
+                    <li class="accordion-body"><a href="http://www.aes-gse.com">AES</a></li>
+                    <li class="accordion-body"><a href="http://www.smart-airport-systems.com/">SAS</a></li>
+                    <li class="accordion-body"><a href="https://alvest.fr/">ALVEST</a></li>
+                    <li class="accordion-body"><a href="https://www.sageparts.com/">SAGE PARTS</a></li>
+                    <li class="accordion-body"><a href="https://www.aerospecialties.com/">AERO SPECIALTIES</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- End sidebar menu -->

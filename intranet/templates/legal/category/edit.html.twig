@@ -1,0 +1,17 @@
+{% extends 'legal/category/home.html.twig' %}
+{% trans_default_domain 'contract_category' %}
+
+{% block breadcrumb_links %}
+    {{ parent() }}
+    <li class="breadcrumb-item">
+        <a
+                href="{{ path('category_edit', { 'id': id }) }}"
+                {% if app.request.attributes.get('_route') == 'category_edit' %} style="font-weight: bold;"{% endif %}
+        >#{{ id }}</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div id="react">
+    </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+shipping_quotation_request:
+  acronym: SQR
+  title: Shipping Quotation Requests
+  sqr: Shipping Quotation Request
+  fields:
+    answer_deadline: Answer Deadline
+    estimated_pick_up_deadline: Estimated Pick Up Deadline
+    factory_location: Factory / Other pick up location
+    other_location: Other pick up location
+    trucks: Trucks
+    containers: Containers
+    type: Type
+    note: Note
+    key_line: SQRL#%key%
+    transshipment_authorized: Transshipment Authorized
+    hs_code: HS Code
+    rolling_equipment: Rolling Equipment
+    unloading_planned: Unloading Planned
+    lines: Shipping Quotation Request Lines
+    truck_type: Truck Type
+    container_type: Container Type
+    loading_factory: Loading at factory
+    loading_port: Loading at port
+  lines:
+    last_ones: Last 10 Shipping Quotation Request lines
+    filtered: Shipping Quotation Request lines filtered
+    length: Length
+    width: Width
+    height: Height
+    weight: Weight
+    ground_clearance: Ground Clearance
+    add: Add Shipping Quotation Request Line
+    remove: Remove Shipping Quotation Request Line
+  send_request: Send Request
+  trucks:
+    add: Add Truck
+    remove: Remove Truck
+  containers:
+    add: Add Container
+    remove: Remove Container
+  errors:
+    sso: SSO is mandatory.
+    line: At least one SQR line must be entered.
+    incoterms: Incoterm is mandatory.
+    answer_deadline: Answer deadline is mandatory.
+    type: Type is mandatory.
+    inco_location: Inco location location is mandatory.
+    factory_other: Either the field "factory" or "other location" must be filled in.
+    product: You must select a product.
+    estimated_deadline_order: Estimated pick up deadline is mandatory when SQR Line is type ORDER.
+    equipment_record: Equiment record is mandatory when SQR Line is type ORDER.
+    quantity: Quantity is mandatory and should be greater than 0.
+    length: Length is mandatory and should be greater than 0.
+    width: Width is mandatory and should be greater than 0.
+    height: Height is mandatory and should be greater than 0.
+    weight: Weight is mandatory and should be greater than 0.
+    ground_clearance: Ground clearance should be greater than 0.
+    truck_type: Truck type is mandatory.
+    container_type: Container type is mandatory.

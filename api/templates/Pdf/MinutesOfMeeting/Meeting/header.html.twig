@@ -1,0 +1,54 @@
+{% trans_default_domain "pdfs" %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style type="text/css">
+            {{ include('Pdf/fonts/opensans.css.twig') }}
+
+            {{ source('@css/pdf.css') }}
+        </style>
+        {% include 'Pdf/jsWkhtmltopdf.html.twig' %}
+    </head>
+
+    <body onload="subst()">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img id="logo" src="https://www.tld-gse.com/shared/logos/ALVEST_logo_small.png">
+                </div>
+                <div class="col-md-6 text-center">
+                    <h3 class="title">{{ meeting.title }}</h3>
+                    <h4>{{ meeting.location }}</h4>
+                    {% if meeting.confidential is same as(true) %}
+                        {{ source('Pdf/images/confidential_watermark.svg') }}
+                    {% endif %}
+                </div>
+                <div class="col-md-3 text-right">
+                    <h4>
+                        {{ meeting.meetingDate|date('Y-m-d') }}
+                        <br/>
+                    </h4>
+                    <h3 class="title">
+                        {{ 'meeting.host' | trans({}, "pdfs") }}
+                    </h3>
+                    <h5 style="font-size: 130%">
+                        {{ meeting.createdBy }}<br/>
+                        <a href="mailto:{{ meeting.createdBy.email }}">{{ meeting.createdBy.email }}</a>
+                    </h5>
+                </div>
+            </div>
+            <div id="header">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        {{ 'parts_quotation.header.infos.page' | trans({}, "pdfs") }}
+                        <span class="page"></span>/<span class="topage"></span>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+    </body>
+
+</html>

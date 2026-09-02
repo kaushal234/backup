@@ -1,0 +1,235 @@
+BasicRule wl:10011 "mz:$COOKIES_VAR:special";
+BasicRule wl:10343 "mz:COOKIES";
+BasicRule wl:11802 "mz:COOKIES";
+BasicRule wl:10785 "mz:BODY";
+BasicRule wl:12063 "mz:COOKIES";
+BasicRule wl:0 "mz:COOKIES|$URL_X:^/en/private/.*";
+BasicRule wl:0 "mz:COOKIES|$URL_X:^/shared/.*";
+BasicRule wl:6055 "mz:$URL_X:^/devteam/alvest-web-portals.git/.*|URL";
+
+# ID: 2 - Large request
+BasicRule wl:2 "mz:BODY|$URL:/comments";
+BasicRule wl:2 "mz:BODY|$URL:/index.php";
+BasicRule wl:2 "mz:ARGS|$URL:/shop/autoselect.php";
+BasicRule wl:2 "mz:BODY|$URL:/shop/autoselect.php";
+BasicRule wl:2 "mz:BODY|$URL_X:^/api/v4/jobs/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/devteam/alvest-web-portals/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/minutes_of_meeting/meetings/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/mis/trouble_tickets.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/news/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/parts/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/people/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/purchasing/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/quality/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/sales/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/service/customer_service_records/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/supplier-corrective-action-request/comment/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/support/manual_documents/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/tasks/.*";
+BasicRule wl:2 "mz:BODY|$URL_X:^/vendor-warranty-claim/.*";
+
+# ID: 10 - Invalid Hex encoding
+BasicRule wl:10 "mz:BODY|$URL:/comments";
+BasicRule wl:10 "mz:COOKIES|$URL:/shop/autoselect.php";
+BasicRule wl:10 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10 "mz:BODY|$URL_X:^/vendor-warranty-claim/.*";
+
+# ID: 14 - Invalid POST Boundary
+BasicRule wl:14 "mz:BODY|$URL_X:^/sales/.*";
+
+# ID:20 BAD UTF-8
+BasicRule wl:20 "mz:BODY|$URL:/index.php";
+BasicRule wl:20 "mz:ARGS|$URL:/shop/autoselect.php";
+BasicRule wl:20 "mz:BODY|$URL:/shop/autoselect.php";
+BasicRule wl:20 "mz:ARGS|$URL:/shared/get_pic.php";
+BasicRule wl:20 "mz:ARGS|$URL_X:^/en/private/.*";
+BasicRule wl:20 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:20 "mz:URL|$URL_X:^/ion/.*";
+BasicRule wl:20 "mz:ARGS|$URL_X:^/people/.*";
+
+# /api/graphql
+BasicRule wl:0 "mz:ARGS|$URL:/api/graphql";
+BasicRule wl:0 "mz:BODY|$URL:/api/graphql";
+BasicRule wl:0 "mz:COOKIES|$URL:/api/graphql";
+BasicRule wl:0 "mz:HEADERS|$URL:/api/graphql";
+
+# /api/v4/jobs/* : wl URL due to large number hits
+BasicRule wl:0 "mz:BODY|$URL_X:^/api/v4/jobs/.*";
+
+# /comments
+BasicRule wl:10005,10563,11265 "mz:URL|$URL:/comments";
+BasicRule wl:10476,10619,10929,11090,11255,11460,11532,11919,12063,12066,12111,12135,12137,12414 "mz:BODY|$URL:/BasicRule wl:12190,12414,12672 "mz:COOKIES|$URL:/comments";
+
+# /devteam/alvest-web-portals.git/git-upload-pack : wl URL due to large number hits
+BasicRule wl:0 "mz:BODY|$URL:/devteam/alvest-web-portals.git/git-upload-pack";
+
+# /devteam/alvest-web-portals/*
+BasicRule wl:6012,11365 "mz:URL|$URL_X:/devteam/alvest-web-portals/.*";
+BasicRule wl:11793 "mz:COOKIES|$URL_X:/devteam/alvest-web-portals/.*";
+BasicRule wl:6043,11090,11441,11443,11485,11842,12060,12111,12303,12549 "mz:BODY|$URL_X:/devteam/alvest-web-portals/.*";
+
+# /en/private/
+BasicRule wl:11908,12653 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:12653 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:11015 "mz:ARGS|$URL_X:^/en/private/.*";
+BasicRule wl:10340,10642,10650,11510,11516,11761,11762,11783,11908,11911,11919,20003 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10340,10635,10642,11516,11783,11908,11919,12365,12653 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10650,11061 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10014,10642,10650,10662,11518,11525 "mz:ARGS|$URL_X:^/en/private/.*";
+BasicRule wl:10650 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:11928 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10619,11516 "mz:ARGS|$URL_X:^/en/private/.*";
+BasicRule wl:10619,11516 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10340,11783,11908,11910,11919,12653,20003 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:12673 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10340,11783,11911,11919 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10099,10215,10340,10564,10635,10642,10650,10933,11394,11510,11761,11762,11783,11802,11908,11910,11919,11922,11923,11958,12365,12653,20003 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:11908,11919 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10015,10340,1061,10619,10635,10642,10650,10790,10933,10934,11397,11516,11521,11783,11892,11908,11919,11920,11922,12615,12673,12674 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10340,10635,10934,11783,12984,20002 "mz:BODY|$URL_X:^/en/private/.*";
+BasicRule wl:10340,11521,11783,11908 "mz:BODY|$URL_X:^/en/private/.*";
+
+
+
+BasicRule wl:10015,10340,1061,10619,10635,10642,10650,10790,10933,10934,11397,11516,11521,11783,11892,11908,11919,11920,11922,12615,12673,12674,12365,12653 "mz:BODY|$URL_X:^/en/private/manufacturing/.*";
+BasicRule wl:10619,11516 "mz:ARGS|$URL_X:^/en/private/calendar.*";
+BasicRule wl:11908,11928,12653 "mz:BODY|$URL_X:^/en/private/mis/.*";
+BasicRule wl:11015 "mz:ARGS|$URL_X:^en/private/parts.*";
+
+# /en/private/calendar/calendar.php
+### BasicRule wl:10340,10635,11783,11908,11919 "mz:BODY|$URL:/en/private/calendar/calendar.php";
+# /en/private/calendar/calendar.php : Whitelist ALL on var_name=comment or var_name=task or var_name=sup_name (too many rules hits)
+BasicRule wl:0 "mz:$BODY_VAR:comment|$URL:/en/private/calendar/calendar.php";
+BasicRule wl:0 "mz:$BODY_VAR:task|$URL:/en/private/calendar/calendar.php";
+BasicRule wl:0 "mz:$BODY_VAR:sup_name|$URL:/en/private/calendar/calendar.php";
+
+# /en/private/common/index.php
+BasicRule wl:11265 "mz:URL|$URL:/en/private/common/index.php";
+BasicRule wl:10340,10985,11783,11908,11910,11919,12653,20003,11516,11386,11237,10619 "mz:BODY|$URL_X:^/en/private/common.*";
+
+# /en/private/manufacturing/eng/dev.php
+BasicRule wl:10619,11015,11516 "mz:ARGS|$URL:/en/private/manufacturing/eng/dev.php";
+BasicRule wl:10003,10006,10009,10014,10018,10478,10929,10985,11009,11061,11071,11079,11221,11374,11394,11781,11802,12338,12878 "mz:BODY|$URL:/en/private/manufacturing/eng/dev.php";
+
+# /en/private/manufacturing/index.php
+BasicRule wl:10001,10002,10006,10011,10212,10257,10258,10260,10319,10619,10932,11019,11386,11437,11516,11518 "mz:BODY|$URL:/en/private/manufacturing/index.php";
+
+# /en/private/manufacturing/eng/eap/eap_admin.php
+BasicRule wl:10015,10619,11137,11397,11892,11920,12615,12673,12674,12878 "mz:BODY|$URL:/en/private/manufacturing/eng/eap/eap_admin.php";
+
+# /en/private/meetings/*
+BasicRule wl:11908,12653 "mz:BODY|$URL_X:^/en/private/meetings/.*";
+
+# /en/private/mis/mis.php
+BasicRule wl:11911,12338,20002 "mz:BODY|$URL:/en/private/mis/mis.php";
+BasicRule wl:6076 "mz:URL|$URL_X:/en/private/mis/dev/.*";
+
+# /en/private/mis/trouble-tickets/*
+BasicRule wl:10020,10095,10340,10398,10642,10650,11231,11443,11529,11610,11783,11908,11909,11919,12324,12343,12653 "mz:BODY|$URL_X:^/en/private/mis/trouble-tickets/.*";
+
+
+# /en/private/product_support/index.ps.php
+BasicRule wl:7012,10619,10925,10927,10929,10937,10985,11009,11013,11019,11022,11058,11061,11090,11237,11251,11439,11443,11516,11521,11610,11628,11911,11912,11919,12066,12111,12916 "mz:BODY|$URL:/en/private/product_support/index.ps.php";
+BasicRule wl:20 "mz:FILE_EXT|$URL:/en/private/product_support/index.ps.php";
+
+# /en/private/quality/*
+BasicRule wl:10985 "mz:BODY|$URL_X:^/en/private/quality/.*";
+
+# /en/private/support/*
+BasicRule wl:10619,11516 "mz:BODY|$URL_X:^/en/private/support/.*";
+
+# /en/private/sales_service/
+BasicRule wl:10099,10215,10340,10564,10635,10619,10921,10642,10650,10933,11394,11510,11516,11521,11761,11762,11783,11802,11908,11910,11911,11919,11922,11923,11958,12365,12653,20003 "mz:BODY|$URL_X:^/en/private/sales_service/.*";
+
+# /en/private/sales_service/sales.php
+BasicRule wl:10619,10921,10925,10927,11061,11251,11401,11439,11443,11516,11610,11802,11919,12653,12775,12916,20002 "mz:BODY|$URL:/en/private/sales_service/sales.php";
+
+
+# /en/private/sales_service/service.php
+BasicRule wl:10330,10563,10619,10925,10934,11009,11019,11022,11058,11439,11516,11521,11772,11911,11918,12878,12977 "mz:BODY|$URL:/en/private/sales_service/service.php";
+
+# /en/private/service/customer-service-records/*
+BasicRule wl:10006,10635,11386,11513,11516 "mz:ARGS|$URL_X:^/en/private/service/customer-service-records/.*";
+BasicRule wl:10642,10635,11386,11513,11516,11521,12190 "mz:BODY|$URL_X:^/en/private/service/customer-service-records/.*";
+
+# /en/private/login
+# BasicRule wl:10987,11361,12016,20002 "mz:BODY|$URL:/en/private/login";
+# /en/private/login : All hits on BODY var_name=_password
+BasicRule wl:0 "mz:$BODY_VAR:_password|$URL:/en/private/login";
+
+# /equipment_*
+BasicRule wl:10324,10336,10343,10399,10619,11208,11386,11485,11516,12058,12063 "mz:BODY|$URL_X:/equipment_.*";
+
+# /img/status.png
+BasicRule wl:12190,12672 "mz:COOKIES|$URL:/img/status.png";
+
+# /index.php
+BasicRule wl:10007,10340,10479,10561,10671,10672,10675,10680,10688,10692,10788,10790,10798,10916,10922,10927,11079,11085,11397,11402,11606,11786,11787,13053,20006,30004,30005 "mz:ARGS|$URL:/index.php";
+BasicRule wl:12190,12414,12672 "mz:COOKIES|$URL:/index.php";
+
+# /ion/*
+BasicRule wl:10329,10336,10559,10619,10662,10985,11073,11516,12058,12063,12066,12557,12849,13060 "mz:BODY|$URL_X:/ion/.*";
+
+# /locations/*
+BasicRule wl:10343,10399,12063,13060 "mz:BODY|$URL_X:/locations/.*";
+
+# /minutes_of_meeting/*
+BasicRule wl:10006,10019,10024,10095,10319,10338,10340,10398,10399,10635,10642,10927,10929,10932,11251,11378,11443,11460,11471,11485,11498,11529,11610,11628,11807,11905,11908,11919,11924,12060,12343,12653,12936 "mz:BODY|$URL_X:^/minutes_of_meeting/.*";
+
+# /mis/trouble_tickets/*
+BasicRule wl:11265 "mz:URL|$URL_X:^/mis/trouble_tickets/.*";
+BasicRule wl:10006,10007,10019,10024,10095,10321,10333,10334,10338,10340,10399,10635,10671,10678,10731,11231,11251,11266,11358,11376,11438,11460,11610,11807,11908,11910,11919,12040,12060,12157,12190,12343,12653 "mz:BODY|$URL_X:^/mis/trouble_tickets.*";
+
+# /news/news.php
+BasicRule wl:10340,10922,11397,11402,11606,20006,30004,30005 "mz:ARGS|$URL:/news/news.php";
+
+# /parts/toc_spare_parts_requests.*
+BasicRule wl:10985 "mz:BODY|$URL_X:^/parts/toc_spare_parts_requests.*";
+
+# /people/*
+BasicRule wl:11374 "mz:URL|$URL_X:^/people.*";
+BasicRule wl:10330,10336,10343,10457,11073,11485,12058,12063,12557,13060 "mz:BODY|$URL_X:^/people/.*";
+
+# /punchout.php
+BasicRule wl:10000,10002,10019,10288,10319,10340,10341,10397,10671,10688,10693,11266,11443,11602,11610,11615,11783,11787,11938,11957 "mz:BODY|$URL:/punchout.php";
+
+# /purchase-order/*
+BasicRule wl:12590 "mz:COOKIES|$URL_X:/purchase-order/.*";
+BasicRule wl:10925,10985,10986,11009,11014,11015,11021,11439 "mz:BODY|$URL_X:/purchase-order/.*";
+
+# /purchasing/*
+BasicRule wl:10011,10020,10021,10024,10321,10336,10343,10384,10385,10399,10457,10475,10642,10650,10696,10799,10915,10929,10939,10985,11073,11090,11208,11227,11251,11255,11265,11471,11485,11498,11499,11609,11803,12032,12058,12063,12111,12137,12165,12190,12414,12549,12557,12837,13060 "mz:BODY|$URL_X:^/purchasing/.*";
+
+# /quality/*
+BasicRule wl:10006,10024,10210,10324,10329,10334,10336,10343,10350,10399,10447,10457,10475,10619,10642,10650,10781,10915,10929,10985,10996,11071,11073,11208,11227,11237,11255,11265,11371,11386,11394,11471,11485,11498,11499,11516,11959,12032,12058,12063,12111,12137,12557,12674,12837 "mz:BODY|$URL_X:^/quality/.*";
+
+# /sales/*
+BasicRule wl:10100,10334,10336,10343,10399,11073,11255,11394,11456,11471,11485,11498,12032,12058,12063,12111,12557,12878,13060 "mz:BODY|$URL_X:^/sales/.*";
+
+# /service/service_bulletin_customer_service_records/*
+BasicRule wl:10642,11516 "mz:BODY|$URL_X:^/service/service_bulletin_customer_service_records/.*";
+
+# /service/tld_on_call_customer_service_records
+BasicRule wl:10006,10343,10635,11227,11255,11386,11513,11516,12063,12111,10642,10650 "mz:BODY|$URL_X:^/service/tld_on_call_customer_service_records.*";
+
+# /shared/*
+BasicRule wl:11610 "mz:URL|$URL_X:^/shared/.*";
+
+# /shop/*
+BasicRule wl:11610,11919,12956 "mz:URL|$URL_X:^/shop/.*";
+BasicRule wl:12190,12414,12672 "mz:COOKIES|$URL_X:^/shop/.*";
+
+# /shop/autoselect.php
+BasicRule wl:11071,12016,12674 "mz:BODY|$URL:/shop/autoselect.php";
+
+# /supplier-corrective-action-request/comment/*
+BasicRule wl:12590 "mz:COOKIES|$URL_X:^/supplier-corrective-action-request/comment/.*";
+
+# /token
+BasicRule wl:10987,11361,12016,11218,20002 "mz:BODY|$URL:/token";
+
+# /vendor-warranty-claim/*
+BasicRule wl:11265 "mz:URL|$URL_X:^/vendor-warranty-claim/.*";
+BasicRule wl:12590 "mz:COOKIES|$URL_X:^/vendor-warranty-claim/.*";
+BasicRule wl:10005 "mz:BODY|$URL_X:^/vendor-warranty-claim/.*";

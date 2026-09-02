@@ -1,0 +1,3 @@
+<td {% if textRight is defined and textRight is same as (true) %}class="text-end"{% endif %}>
+    {{ item[key] | number_format(decimal is defined ? decimal : 0, '.', ' ') }} {{ item.customerErpReference.sso.currency.name }}
+</td>

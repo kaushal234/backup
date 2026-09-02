@@ -1,0 +1,40 @@
+{% set cellTitle = cell.y ~ ': ' ~ cell.value.description | default('~') %}
+{% if cell.value.updatedAt is defined and cell.value.updatedAt %}
+    {% set updateInfo = 'Last update ' ~ cell.value.updatedAt|date('Y/m/d') %}
+    {% if cell.value.updatedBy is defined and cell.value.updatedBy %}
+        {% set updateInfo = updateInfo ~ ' by ' ~ cell.value.updatedBy.lastname ~ ' ' ~ cell.value.updatedBy.firstname %}
+    {% endif %}
+    {% set cellTitle = cellTitle ~ ' (' ~ updateInfo ~ ')' %}
+{% endif %}
+{% set sfrReportValueFound = reportHotSfr.rows[cell.x][cell.y].value is defined and reportHotSfr.rows[cell.x][cell.y].value > 0 %}
+{% if sfrReportValueFound is same as true %}
+    {% set cellTitle = cellTitle ~ ' / ' ~ ('lead_time.unit_hot_sfr' | trans({'%unit%' : reportQuantityHotSfr.rows[cell.x][cell.y].value, '%hotSfr%' : reportHotSfr.rows[cell.x][cell.y].value }, 'catalogue')) %}
+{% endif %}
+<td data-toggle="tooltip" data-placement="top" title="{{ cellTitle }}" >
+    <div class="row">
+        <div class="col-sm-3">
+            {{ cell.value.weeks | default('') }}
+        </div>
+        <div class="col-sm-3">
+            {% if cell.value.weeks is defined %}
+                {% set diff = cell.value.weeks - (cell.value.previousValue | default(cell.value.weeks)) %}
+                {% if diff > 0 %}
+                    <i class="fa fa-arrow-up"></i>
+                {% elseif diff < 0  %}
+                    <i class="fa fa-arrow-down"></i>
+                {% else %}
+                    <i class="fa fa-equals"></i>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-sm-6">
+            {% if sfrReportValueFound is same as true %}
+                <a class="btn btn-sm btn-danger" style="font-size: 12px; padding: 1px 5px;" href="{{ path('sales_forecasts_home', {family: familyIris[cell.x], hot_deals: true, factory: factoryIris[cell.y]}) }}">
+                    {{ reportHotSfr.rows[cell.x][cell.y].value }} {{ 'lead_time.hot_sfr'|trans({}, 'catalogue') }}
+                </a>
+            {% elseif cell.value.weeks is defined and cell.value.weeks > 0 %}
+                <i class="fa fa-times"></i>
+            {% endif %}
+        </div>
+    </div>
+</td>

@@ -1,0 +1,46 @@
+{% extends '/manufacturing/family/layout.html.twig' %}
+{% trans_default_domain 'manufacturing' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                {% set items = {
+                    name: {
+                        label: 'catalogue.products.name'|trans({}, 'catalogue')|capitalize,
+                    },
+                    testDuration: {
+                        label: 'manufacturing.family.test_duration'|trans|capitalize
+                    },
+                } %}
+                {% if is_granted('FEATURE_MANUFACTURING_FAMILY_ADMIN') %}
+                    {% set items = items | merge ({
+                        edit: {
+                            label: 'menu.edit'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'manufacturing_family_edit',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-warning text-capitalize"><i class="fa fa-pencil-alt"></i></span>',
+                            },
+                        },
+                        delete: {
+                            label: 'menu.delete'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'manufacturing_family_delete',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-danger text-capitalize"><i class="fa fa-trash-alt"></i></span>',
+                            },
+                        }
+                    }) %}
+                {% endif %}
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        items: items,
+                        title: 'manufacturing.family.title'|trans|capitalize,
+                        data: manufacturingFamily
+                    }
+                }, with_context = false) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

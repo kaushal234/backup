@@ -1,0 +1,7 @@
+<td>
+    <a href="{{ path('market_intelligence_files_show', {id: item.id, marketIntelligenceId: marketIntelligenceId}) }}"
+       {% if 'image/' in item.mimeType %}data-bs-toggle="tooltip-image"{% endif %}
+    >
+        {{ value|slice(27) }}
+    </a>
+</td>

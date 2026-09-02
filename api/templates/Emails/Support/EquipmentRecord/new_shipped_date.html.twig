@@ -1,0 +1,19 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <p>{{ 'manufacturing.equipment_record.green_tag_date.message'|trans({
+                '%serialNumber%': equipmentRecord.serialNumber|default(''),
+                '%model%': equipmentRecord.model|default(''),
+                '%customerName%': equipmentRecord.endUser.name|default(''),
+                '%project%': equipmentRecord.project|default(''),
+                '%workOrder%': equipmentRecord.workOrder|default(''),
+            }, 'emails')|nl2br }}</p>
+        <p>{{ 'manufacturing.equipment_record.shipped_date.update_shipped_date'|trans({
+                '%newShippedDate%': equipmentRecord.dateShipped | date('Y-m-d'),
+                '%previousShippedDate%': previousShippedDate,
+            }, 'emails')|nl2br }}</p>
+    </row>
+{% endblock %}

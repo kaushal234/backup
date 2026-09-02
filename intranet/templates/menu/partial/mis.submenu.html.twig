@@ -1,0 +1,33 @@
+<a href="{{ path('legacy_mis') }}">
+    {{ 'menu.home' | trans({}, 'messages') | legacy_encode | raw  }}
+</a>&nbsp;|&nbsp;
+<a href="{{ path('legacy_mis', {m: ['tts']}) }}/en/private/mis/mis.php?m[0]=tts">
+    TTS
+</a>&nbsp;|&nbsp;
+<a href="{{ path('mis_modules_home') }}">
+    {{ 'sidebar.it.module' | trans({}, 'sidebar') | legacy_encode | raw }}
+</a>&nbsp;|&nbsp;
+<a href="{{ path('mis_groups_home') }}">
+    {{ 'sidebar.it.groups' | trans({}, 'sidebar') | legacy_encode | raw }}
+</a>&nbsp;|&nbsp;
+<a href="{{ path('legacy_mis', {m: ['inventory']}) }}">
+    {{ 'sidebar.it.inventory' | trans({}, 'sidebar') | legacy_encode | raw }}
+</a>&nbsp;|&nbsp;
+<a href="{{ path('legacy_mis', {m: ['downloads']}) }}">
+    {{ 'mis.downloads' | trans({}, 'mis') | legacy_encode | raw }}
+</a>&nbsp;|&nbsp;
+<a href="{{ path('legacy_mis', {m: ['dev']}) }}">
+    {{ 'mis.development' | trans({}, 'mis') | legacy_encode | raw }}
+</a>&nbsp;|&nbsp;
+<a href="{{ path('legacy_directory_index', {m: ['people', 'view'], id: 49}) }}">
+    {{ 'mis.modules.fields.moo' | trans({}, 'mis') | legacy_encode | raw }}
+</a>&nbsp;|&nbsp;
+<a href="{{ path('legacy_mis', {m: ['help']}) }}">
+    {{ 'menu.help' | trans({}, 'messages') | legacy_encode | raw }}
+</a>&nbsp;|&nbsp;
+<a href="{{ path('legacy_mis', {m: ['tts', 'gantt2']}) }}">
+    {{ 'mis.maintain_projects' | trans({}, 'mis') | legacy_encode | raw }}
+</a>&nbsp;|&nbsp;
+<a href="{{ full_url('legacy_mis_admin') }}" target="_parent">
+    {{ 'mis.admin' | trans({}, 'mis') | legacy_encode | raw }}
+</a>

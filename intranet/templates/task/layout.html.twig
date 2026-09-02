@@ -1,0 +1,80 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'task' %}
+{% block title %}Task{% endblock %}
+{% set route = app.request.attributes.get('_route') %}
+
+{% block breadcrumb_links %}
+    {{ parent() }}
+    {% if form is defined and form is not null %}
+        {% set labels = {
+            'task_comment': 'task.nav_link.comment',
+            'task_transfer': 'task.nav_link.transfer',
+            'task_reschedule': 'task.nav_link.reschedule',
+            'task_pause': 'task.nav_link.pause',
+            'task_close': 'task.nav_link.close',
+        } %}
+        {% if labels[route] is defined %}
+            <li class="breadcrumb-item">
+                <strong>
+                    {{ labels[route] | trans }}
+                </strong>
+            </li>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="task_add"/>
+        <twig:NavItem:Search route="task_search"/>
+        {% if task is defined and task is not null and task.status != 'PAUSE' and task.status != 'CLOSED' %}
+            <twig:NavItem:Edit route="task_edit" :routeParameters="{'id': task.id}"
+                               :security="is_granted('TASK_WRITE_VOTER', task.getIri())"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    <twig:NavBar:Container>
+        {% if task is defined and task is not null and task.status != 'PAUSE' and task.status != 'CLOSED' %}
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem translationKey="task.nav_link.comment" domain="task"
+                          icon="material-symbols:comment-outline-rounded"
+                          route="task_comment"
+                          :routeParameters="{'id': task.id}"/>
+            <twig:NavItem translationKey="task.nav_link.transfer" domain="task" icon="solar:arrow-right-outline"
+                          route="task_transfer"
+                          :routeParameters="{'id': task.id}"
+                          security="is_granted('TASK_TRANSFER_VOTER', task.getIri())"/>
+            <twig:NavItem translationKey="task.nav_link.reschedule" domain="task" icon="mdi-light:calendar"
+                          route="task_reschedule"
+                          :routeParameters="{'id': task.id}"
+                          :security="is_granted('TASK_TRANSFER_VOTER', task.getIri())"/>
+            <twig:NavItem translationKey="task.nav_link.pause" domain="task"
+                          icon="material-symbols:pause-outline-rounded"
+                          route="task_pause"
+                          :routeParameters="{'id': task.id}" :security="is_granted('FEATURE_PAUSE_UNPAUSE_TASK')"
+                          class="action-warning"/>
+            <twig:NavItem translationKey="task.nav_link.close" domain="task" icon="material-symbols:close-rounded"
+                          route="task_close"
+                          :routeParameters="{'id': task.id}" :security="is_granted('TASK_WRITE_VOTER', task.getIri())"
+                          class="action-danger"/>
+        {% endif %}
+        {% if task is defined and task.status == 'PAUSE' %}
+            <twig:NavItem translationKey="task.nav_link.unpause" domain="task" icon="solar:play-outline"
+                          route="task_comment"
+                          :routeParameters="{'id': task.id}" :security="is_granted('FEATURE_PAUSE_UNPAUSE_TASK')"
+                          class="action-warning"/>
+        {% endif %}
+        {% if task is defined and task.status == 'CLOSED' %}
+            <twig:NavItem translationKey="task.nav_link.reopen" domain="task"
+                          icon="material-symbols:folder-open-outline-rounded"
+                          route="task_reopen"
+                          :routeParameters="{id: task.id}" :security="is_granted('TASK_REOPEN_VOTER', task.getIri())"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

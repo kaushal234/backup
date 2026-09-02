@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"type": "string", "pattern": "^/workflows/resource="},
+    "@type": {"type": "string", "pattern": "^Workflow$"},
+    "resource": {
+      "type": "string"
+    },
+    "availableStatuses": {
+      "type": "array"
+    },
+    "name": {
+      "type": ["string", "null"]
+    }
+  },
+  "required": [
+    "resource",
+    "availableStatuses",
+    "name"
+  ],
+  "additionalProperties": false
+}

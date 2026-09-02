@@ -1,0 +1,12 @@
+App\Entity\Parts\TransportationNote:
+    # /parts/transportation_notes/1
+    transportation_note_1:
+        id: 1
+        country: '@country_1'
+        note: 'Permitted to vomit in the truck !'
+
+    # /parts/transportation_notes/2..3
+    transportation_note_{2..3}:
+        id: <current()>
+        country: '@country_<current()>'
+        note: <paragraphs(3, true)>

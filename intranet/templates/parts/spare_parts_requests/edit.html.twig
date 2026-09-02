@@ -1,0 +1,52 @@
+{% extends 'parts/spare_parts_requests/layout.html.twig' %}
+{% trans_default_domain 'spare_parts_request' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block title %}{{ parent() }}#{{ sparePartsRequest.id }}\{{ 'menu.edit'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>SPR#{{ sparePartsRequest.id }}</h5>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {% if form.proofOfDelivery is defined %}
+                    <p><strong>{{ 'spare_parts_request.fields.proof_of_delivery_description'|trans }}</strong></p>
+                    <div class="row">
+                        <div class="col-md-3">{{ form_row(form.proofOfDelivery) }}</div>
+                    </div>
+                    <hr>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-3">{{ form_row(form.activity) }}</div>
+                    <div class="col-md-3">{{ form_row(form.type) }}</div>
+                    <div class="col-md-3">{{ form_row(form.customer) }}</div>
+                    <div class="col-md-3">{{ form_row(form.airport) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">{{ form_row(form.sph) }}</div>
+                    <div class="col-md-3">{{ form_row(form.sso) }}</div>
+                    <div class="col-md-3">{{ form_row(form.factory) }}</div>
+                    <div class="col-md-3">{{ form_row(form.erpLocation) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.salesOrder) }}</div>
+                    <div class="col-md-6">{{ form_row(form.estimatedShippingDate) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">{{ form_row(form.deliveryNotes) }}</div>
+                </div><div class="row">
+                    <div class="col-md-12">{{ form_row(form.notes) }}</div>
+                </div>
+                {{ form_row(form.submit) }}
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

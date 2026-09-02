@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["@context", "@id", "@type", "id", "guest", "invited", "answer", "training", "createdAt"],
+  "properties": {
+    "@context": {"type": "string"},
+    "@id":  {"type": "string", "pattern": "^/training_attendees/\\d+$"},
+    "@type":  {"type": "string", "pattern": "^TrainingAttendee$"},
+    "id":  {"type": "integer"},
+    "guest":  {"$ref": "../../directory_people/schemas/directory_people_public.json" },
+    "invited":  {"type": "boolean"},
+    "answer":  {"type":  ["null", "boolean"]},
+    "training":  {"type":  ["string"]},
+    "createdAt":  {"type":  ["string"]}
+  }
+}

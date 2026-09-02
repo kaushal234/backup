@@ -1,0 +1,1703 @@
+workflow:
+  rules:
+    # run only on merge request (allow to compare with target)
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      variables:
+        SHELL_TAG: shell-02
+        DOCKER_TAG: docker-02
+        SELENIUM_TAG: selenium-02
+        CYPRESS_TAG: cypress-02
+        GATE_TAG: gate-02
+    # or default branch
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      variables:
+        SHELL_TAG: shell-01
+        DOCKER_TAG: docker-01
+        SELENIUM_TAG: selenium-01
+        CYPRESS_TAG: cypress-01
+        GATE_TAG: gate-01
+    # or tag
+    - if: $CI_COMMIT_TAG
+      variables:
+        SHELL_TAG: shell-01
+        DOCKER_TAG: docker-01
+        SELENIUM_TAG: selenium-01
+        CYPRESS_TAG: cypress-01
+        GATE_TAG: gate-01
+    # or scheduled pipeline
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      variables:
+        SHELL_TAG: shell-02
+        DOCKER_TAG: docker-02
+        SELENIUM_TAG: selenium-02
+        CYPRESS_TAG: cypress-02
+        GATE_TAG: gate-02
+
+default:
+  # It Cancels the jobs if new pipeline replaces it
+  # Remember to set false on all critical jobs (deploy, provisioning, commands)
+  interruptible: true
+
+stages:
+  - build
+  - code-inspection
+  - database
+  - api-unit-tests
+  - api-functional-tests
+  - app-unit-tests
+  - app-functional-tests
+  - e2e-tests
+  - composer-audit
+  - deploy
+  - cleanup
+  - run
+
+variables:
+  DOCKER_BUILDKIT: 1
+  DB: mariadb
+  GSE: alvestfr/gse
+# GSE_DEV: alvestfr/gse-dev
+  API: alvestfr/api
+# API_DEV: alvestfr/api-dev
+  API_TWIG_HELPER_TEST: alvestfr/api-twig-helper-test
+  NGINX: alvestfr/nginx
+  EVENDORS: alvestfr/evendors
+  EXTRANET: alvestfr/extranet-new
+  POWERBI: alvestfr/powerbi
+  MOBILE: alvestfr/mobile
+  DEPLOY: alvestfr/deploy
+  PROVISIONING: alvestfr/provisioning
+  VERSION: 2.6.0
+  MYSQL_ALLOW_EMPTY_PASSWORD: 1
+  APP_ENV: 'test'
+  APP_DEBUG: 0
+  SOAP_CLIENT_RECORD: 0
+  HTTP_CLIENT_RECORD: 0
+  HTTP_CLIENT_ENABLED: 0
+  SELENIUM: selenium/standalone-chromium:147.0
+
+## PIPELINE CONCURRENCY GATE
+
+pipeline-gate:
+  stage: .pre
+  tags: [$GATE_TAG]
+  timeout: 2h
+  before_script:
+    - apk add --no-cache curl jq
+  script: |
+    MAX_CONCURRENT=2
+
+    if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ]; then
+      echo "Pipeline #$CI_PIPELINE_ID (runner-02: MR on $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME, max $MAX_CONCURRENT concurrent MRs)..."
+
+      while true; do
+        PIPELINES=$(curl -sf \
+          --header "JOB-TOKEN: $CI_JOB_TOKEN" \
+          "$CI_API_V4_URL/projects/$CI_PROJECT_ID/pipelines?status=running&per_page=100")
+
+        # If a newer pipeline on the same MR branch exists, this one is superseded — stop it
+        NEWER=$(echo "$PIPELINES" | jq --arg ref "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" \
+          '[.[] | select(.source == "merge_request_event" and .ref == $ref and .id > '"$CI_PIPELINE_ID"')] | length')
+        if [ "$NEWER" -gt "0" ]; then
+          echo "Superseded by a newer pipeline on this MR branch — stopping."
+          exit 1
+        fi
+
+        # Count only pipelines from OTHER MR branches ahead in the queue
+        AHEAD=$(echo "$PIPELINES" | jq --arg ref "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" \
+          '[.[] | select(.source == "merge_request_event" and .ref != $ref) | select(.id < '"$CI_PIPELINE_ID"')] | length')
+        echo "$AHEAD pipeline(s) from other MRs ahead in queue"
+        [ "$AHEAD" -lt "$MAX_CONCURRENT" ] && break
+        sleep 30
+      done
+
+    else
+      # Non-MR pipelines: schedule, main branch push, tags
+      if [ "$CI_PIPELINE_SOURCE" = "schedule" ]; then
+        IS_RUNNER02=1
+        echo "Pipeline #$CI_PIPELINE_ID (runner-02: scheduled) queued (max $MAX_CONCURRENT)..."
+      elif [ "$CI_COMMIT_BRANCH" = "$CI_DEFAULT_BRANCH" ]; then
+        IS_RUNNER02=0
+        echo "Pipeline #$CI_PIPELINE_ID (runner-01: branch $CI_DEFAULT_BRANCH) queued (max $MAX_CONCURRENT)..."
+      elif [ -n "$CI_COMMIT_TAG" ]; then
+        IS_RUNNER02=0
+        echo "Pipeline #$CI_PIPELINE_ID (runner-01: tag $CI_COMMIT_TAG) queued (max $MAX_CONCURRENT)..."
+      fi
+
+      while true; do
+        PIPELINES=$(curl -sf \
+          --header "JOB-TOKEN: $CI_JOB_TOKEN" \
+          "$CI_API_V4_URL/projects/$CI_PROJECT_ID/pipelines?status=running&per_page=100")
+
+        if [ "$IS_RUNNER02" = "1" ]; then
+          # runner-02 peers: scheduled pipelines
+          AHEAD=$(echo "$PIPELINES" | jq \
+            '[.[] | select(.source == "schedule") | select(.id < '"$CI_PIPELINE_ID"')] | length')
+        else
+          # runner-01 peers: main branch (excluding schedule/MR) + any tag
+          AHEAD=$(echo "$PIPELINES" | jq --arg default_branch "$CI_DEFAULT_BRANCH" \
+            '[.[] | select(
+              .tag == true or
+              (.ref == $default_branch and .source != "merge_request_event" and .source != "schedule")
+            ) | select(.id < '"$CI_PIPELINE_ID"')] | length')
+        fi
+
+        echo "$AHEAD pipeline(s) ahead in queue"
+        [ "$AHEAD" -lt "$MAX_CONCURRENT" ] && break
+        sleep 30
+      done
+    fi
+
+    echo "Slot acquired. Starting."
+
+## RULES
+
+.admin-default-rules:
+  rules:
+    - changes:
+        - admin/**/*
+        - docker/images/multistage/gse
+        - .gitlab-ci.yml
+
+.api-default-rules:
+  rules:
+    - changes:
+        - api/**/*
+        - docker/images/multistage/api/**/*
+        - docker/config/api-php-debug.ini
+        - .gitlab-ci.yml
+
+.evendors-default-rules:
+  rules:
+    - changes:
+        - evendors/**/*
+        - docker/images/multistage/evendors/**/*
+        - api/**/*
+        - .gitlab-ci.yml
+
+.evendors-inspection-rules:
+  rules:
+    - changes:
+        - evendors/**/*
+
+.extranet-new-default-rules:
+  rules:
+    - changes:
+        - extranet-new/**/*
+        - docker/images/multistage/extranet/**/*
+        - api/**/*
+        - .gitlab-ci.yml
+
+.mobile-default-rules:
+  rules:
+    - changes:
+        - mobile/**/*
+        - docker/images/multistage/mobile/**/*
+        - .gitlab-ci.yml
+
+.powerbi-default-rules:
+  rules:
+    - changes:
+        - powerbi/**/*
+        - docker/images/multistage/powerbi/**/*
+        - .gitlab-ci.yml
+
+.intranet-default-rules:
+  rules:
+    - changes:
+        - intranet/**/*
+        - api/**/*
+        - docker/images/multistage/gse/**/*
+        - .gitlab-ci.yml
+
+.provisioning-lint-rules:
+  rules:
+    - changes:
+        - provisioning/**/*
+        - docker/images/multistage/provisioning/**/*
+        - .gitlab-ci.yml
+
+.provisioning-trigger-rules:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^provisioning\/.*$/
+      when: manual
+
+.provisioning-check-rules:
+  rules:
+    - changes:
+        - provisioning/**/*
+        - docker/images/multistage/provisioning/**/*
+        - .gitlab-ci.yml
+
+.shared-inc-default-rules:
+  rules:
+    - changes:
+        - shared/inc/**/*
+        - docker/images/multistage/gse/**/*
+        - .gitlab-ci.yml
+
+.shopfloor-default-rules:
+  rules:
+    - changes:
+        - shopfloor/**/*
+        - docker/images/multistage/gse/**/*
+        - .gitlab-ci.yml
+
+.dms-default-rules:
+  rules:
+    - changes:
+        - dms/**/*
+        - docker/images/multistage/gse/**/*
+        - .gitlab-ci.yml
+
+.packages-default-rules:
+  rules:
+    - changes:
+        - packages/**/*
+        - .gitlab-ci.yml
+
+.staging-default-rules:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /staging\/.*$/
+
+.release-default-rules:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /release\/.*$/
+
+.prod-default-rules:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+.skip-for-tags-rules:
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+
+.skip-for-provisioning-rules:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /provisioning\/.*$/
+      when: never
+
+.run-for-tags-rules:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /provisioning\/.*$/
+      when: never
+    - if: $CI_COMMIT_TAG
+
+.run-for-provisioning-rules:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /provisioning\/.*$/
+
+.command-trigger-rules:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG =~ /release\/.*$/
+
+.command-staging-trigger-rules:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /staging\/.*$/
+
+.scheduled-pipeline-composer-audit:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+
+.skip-for-scheduled-pipeline-composer-audit:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+
+# If test needs database access, wait api and db image and use service
+.needs-api:
+  variables: &needs-api-variables
+    FF_NETWORK_PER_BUILD: 1
+    SOAP_CLIENT_RECORD: $SOAP_CLIENT_RECORD
+    HTTP_CLIENT_RECORD: $HTTP_CLIENT_RECORD
+    HTTP_CLIENT_ENABLED: $HTTP_CLIENT_ENABLED
+    ION_CLIENT_ID: $ION_CLIENT_ID
+    ION_CLIENT_SECRET: $ION_CLIENT_SECRET
+    ION_USERNAME: $ION_USERNAME
+    ION_PASSWORD: $ION_PASSWORD
+    SAGE_MTYPE: $SAGE_MTYPE
+    SAGE_CID: $SAGE_CID
+    SAGE_SECRET: $SAGE_SECRET
+  services: &needs-api-services
+    - name: $DB:$CI_COMMIT_SHA
+      alias: $DB
+      command: ['mysqld', '--sql_mode=IGNORE_SPACE,NO_ENGINE_SUBSTITUTION','--innodb-flush-log-at-trx-commit=0']
+    - name: $API:$CI_COMMIT_SHA
+      alias: php-api
+    - name: $NGINX:$CI_COMMIT_SHA
+      alias: api
+  before_script: &needs-api-before-script
+    - timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://api)" != "401" ]]; do sleep 3; done' || false
+
+## ADMIN
+
+.admin-defaults: &admin-defaults
+  stage: code-inspection
+  rules:
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.skip-for-scheduled-pipeline-composer-audit, rules]
+    - !reference [.admin-default-rules, rules]
+  image: $GSE:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-gse"
+  tags: [$DOCKER_TAG]
+  before_script:
+    - cd /srv/alvest-web-portals/admin
+
+admin-phpunit:
+  <<: *admin-defaults
+  stage: app-unit-tests
+  needs:
+    - job: "admin-codingstyle"
+    - job: "admin-dump"
+  script:
+    - vendor/bin/phpunit
+
+admin-codingstyle:
+  <<: *admin-defaults
+  script:
+    - composer cs-check
+
+admin-dump:
+  <<: *admin-defaults
+  script:
+    - vendor/bin/var-dump-check --symfony --exclude vendor .
+
+## DATABASE
+
+api-database-init:
+  stage: database
+  tags: [$SHELL_TAG]
+  rules:
+    - !reference [.skip-for-provisioning-rules, rules]
+    - !reference [.skip-for-scheduled-pipeline-composer-audit, rules]
+    # on api change
+    - !reference [.api-default-rules, rules]
+    # and all components which needs api for tests
+    - !reference [.intranet-default-rules, rules]
+    - !reference [.evendors-default-rules, rules]
+    - !reference [.extranet-new-default-rules, rules]
+    - !reference [.mobile-default-rules, rules]
+    # do not need api yet :
+    #- !reference [.shared-inc-default-rules, rules]
+    #- !reference [.admin-default-rules, rules]
+    #- !reference [.shopfloor-default-rules, rules]
+    #- !reference [.dms-default-rules, rules]
+  before_script:
+    # clean containers remaining from a previous interrupted job
+    - docker rm -f $DB-$CI_COMMIT_SHA || true
+    - docker rm -f api-$CI_COMMIT_SHA || true
+  script: |
+    API_IMAGE_SHA=$(docker image inspect --format '{{.Id}}' $API:$CI_COMMIT_SHA | cut -d: -f 2 | head -c 12)
+    echo "Checking if a mariadb image already exist with the test data of the same API image ($API_IMAGE_SHA)..."
+    if docker tag $DB:$API_IMAGE_SHA $DB:$CI_COMMIT_SHA ; then
+      echo "An image already exist with the same test data, we reuse it"
+    else
+      echo "Mariadb image with test data not found, building new test database..."
+      # Start Mysql
+      docker run -d --name $DB-$CI_COMMIT_SHA -e MYSQL_ALLOW_EMPTY_PASSWORD=true mariadb:10.11 mysqld --sql_mode=IGNORE_SPACE,NO_ENGINE_SUBSTITUTION --innodb-flush-log-at-trx-commit=0
+      # Wait Mysql ready for connection, via tcp
+      for i in $(seq 1 60); do docker exec -i $DB-$CI_COMMIT_SHA mysqladmin ping -h 127.0.0.1 -P 3306 && break; sleep 1; done
+      # Start api
+      docker run -d --name api-$CI_COMMIT_SHA -e APP_ENV=$APP_ENV --link $DB-$CI_COMMIT_SHA:$DB $API:$CI_COMMIT_SHA
+      # load data: steps from .api-database-create
+      docker exec -i -w /srv/api api-$CI_COMMIT_SHA bin/install-keys.sh
+      docker exec -i -w /srv/api api-$CI_COMMIT_SHA bin/console doctrine:database:create --if-not-exists
+      docker exec -i -w /srv/api api-$CI_COMMIT_SHA bin/console doctrine:schema:drop --full-database --force
+      docker exec -i -w /srv/api api-$CI_COMMIT_SHA bin/console doctrine:schema:update -f
+      docker exec -i -w /srv/api api-$CI_COMMIT_SHA bin/console doctrine:database:create --if-not-exists --connection=legacy
+      # import without doctrine:database:import (deprecated)
+      docker exec -i -w /srv/api api-$CI_COMMIT_SHA sh -c "cat tests/resources/sql/legacy.sql | mysql --skip-ssl -h $DB -uroot -D tld_test"
+      docker exec -i -w /srv/api api-$CI_COMMIT_SHA bin/console hautelook:fixtures:load -n --purge-with-truncate
+      # stop mysql
+      docker stop $DB-$CI_COMMIT_SHA
+      # save current container volume data (container commit do not save volumes)
+      docker run -i --rm --volumes-from $DB-$CI_COMMIT_SHA -w /var/lib/mysql alpine tar -cf - . > var-lib-mysql.tar
+      echo "test database size:"
+      ls -lh var-lib-mysql.tar
+      # and build a new image including this data
+      docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/mariadb/Dockerfile --target prod -t $DB:$CI_COMMIT_SHA
+      # also tag the image with the last api commit sha
+      docker tag $DB:$CI_COMMIT_SHA $DB:$API_IMAGE_SHA
+    fi
+  after_script:
+  - docker rm -f $DB-$CI_COMMIT_SHA || true
+  - docker rm -f api-$CI_COMMIT_SHA || true
+
+## API
+
+.api-defaults: &api-defaults
+  stage: api-functional-tests
+  # cancel tests if new pipeline replace
+  tags: [$DOCKER_TAG]
+  rules:
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.api-default-rules, rules]
+    - !reference [.intranet-default-rules, rules]
+  before_script:
+    - cd /srv/api
+    - bin/install-keys.sh
+
+.api-defaults-db: &api-defaults-db
+  <<: *api-defaults
+  image:
+    name: $API:$CI_COMMIT_SHA
+  services:
+    - name: $DB:$CI_COMMIT_SHA
+      alias: $DB
+      command: ['mysqld', '--sql_mode=IGNORE_SPACE,NO_ENGINE_SUBSTITUTION','--innodb-flush-log-at-trx-commit=0']
+
+.api-defaults-nodb: &api-defaults-nodb
+  <<: *api-defaults
+  image:
+    name: $API:$CI_COMMIT_SHA
+    # do not run entrypoint if db is not available
+    entrypoint: [""]
+  needs:
+    - job: "docker-build-api"
+
+api-phpunit:
+  <<: *api-defaults-db
+  stage: api-unit-tests
+  script:
+    - vendor/bin/phpunit
+
+api-behat:
+  <<: *api-defaults-db
+  stage: api-functional-tests
+  script: |
+    export SOAP_CLIENT_RECORD=$SOAP_CLIENT_RECORD
+    export HTTP_CLIENT_RECORD=$HTTP_CLIENT_RECORD
+    export HTTP_CLIENT_ENABLED=$HTTP_CLIENT_ENABLED
+    for suite in $group; do
+      echo $suite
+      vendor/bin/behat --suite=$suite -f progress --strict || error=true
+    done
+    if [ $error ]; then
+      exit 1;
+    fi
+  parallel:
+    matrix:
+      - group:
+        - "mis-project platform api user acl people directory transfer spq"
+        - "sales calibrated-tools cleanliness changelog survey activity news module agr"
+        - "er manual iata fur catalog emission-rating competitor dms sfr mom"
+        - "sor demo finance sales-areas faq currency transport mim subscription product-manufacturing field"
+        - "manufacturing-margin ar qhse warehouse spr authorized_application print printer vendor csr pdi"
+        - "legacy"
+        - "ion"
+        - "scar ncr vwc materials crab esr odp sageparts supplier-ranking notification mis vendor-user"
+        - "ai audit event task base-task pictogram power-bi legal jira document-translation supplier"
+        - "guest-user toc service-areas snowflake"
+
+api-lint:
+  <<: *api-defaults-nodb
+  stage: code-inspection
+  script: |
+    printf "\n==============   php-cs-fixer   ==============\n"
+    composer cs-check || error=true
+    printf "\n==============  var-dump-check  ==============\n"
+    vendor/bin/var-dump-check --symfony --exclude vendor . || error=true
+    printf "\n============== yaml/twig linter ==============\n"
+    bin/console lint:yaml config --parse-tags || error=true
+    bin/console lint:yaml @LegacyBundle --parse-tags || error=true
+    bin/console lint:twig templates/_tests || error=true
+    bin/console lint:twig templates/DataCollector || error=true
+    bin/console lint:twig templates/Emails --env=prod || error=true
+    bin/console lint:twig templates/Helpers --env=prod || error=true
+    bin/console lint:twig templates/Pdf --env=prod || error=true
+    bin/console lint:container || error=true
+    if [ $error ]; then exit 1; fi;
+
+api-phpstan:
+  <<: *api-defaults-nodb
+  stage: code-inspection
+  script:
+    - vendor/bin/phpstan analyse --no-progress
+
+api-schema-validate:
+  <<: *api-defaults-db
+  stage: database
+  needs:
+    - job: "api-database-init"
+  script: |
+    bin/console doctrine:schema:validate
+    
+
+api-check-feature-docs:
+  <<: *api-defaults-nodb
+  stage: code-inspection
+  script:
+    - vendor/bin/feature-doc-validate .
+
+## BUILDS
+
+.docker-build-defaults: &docker-build-defaults
+  stage: build
+  tags: [$SHELL_TAG]
+
+docker-build-gse:
+  <<: *docker-build-defaults
+  rules:
+    # on tag
+    - !reference [.run-for-tags-rules, rules]
+    # on scheduled pipeline
+    - !reference [ .scheduled-pipeline-composer-audit, rules ]
+    # build to test if change on API
+    - !reference [.api-default-rules, rules]
+    # or build for gse components changes
+    - !reference [.intranet-default-rules, rules]
+    - !reference [.shared-inc-default-rules, rules]
+    - !reference [.admin-default-rules, rules]
+    - !reference [.shopfloor-default-rules, rules]
+    - !reference [.dms-default-rules, rules]
+    - !reference [.packages-default-rules, rules ]
+    # build on evendors and extranet-new changes because some jobs need it (twig-helper-unit)
+    - !reference [.evendors-default-rules, rules]
+    - !reference [.extranet-new-default-rules, rules]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/gse/Dockerfile --target prod -t $GSE:$CI_COMMIT_SHA --build-arg VERSION=$CI_COMMIT_SHA
+
+docker-build-api:
+  <<: *docker-build-defaults
+  rules:
+    # on tag
+    - !reference [.run-for-tags-rules, rules]
+    # on scheduled pipeline
+    - !reference [ .scheduled-pipeline-composer-audit, rules ]
+    # on api change
+    - !reference [.api-default-rules, rules]
+    # and all components which needs api for tests
+    - !reference [.intranet-default-rules, rules]
+    - !reference [.evendors-default-rules, rules]
+    - !reference [.extranet-new-default-rules, rules]
+    - !reference [.mobile-default-rules, rules]
+    # do not need api yet :
+    #- !reference [.shared-inc-default-rules, rules]
+    #- !reference [.admin-default-rules, rules]
+    #- !reference [.shopfloor-default-rules, rules]
+    #- !reference [.dms-default-rules, rules]
+  script:
+    - docker build . --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/api/Dockerfile --target prod -t $API:$CI_COMMIT_SHA
+
+docker-build-api-twig-helper-test:
+  <<: *docker-build-defaults
+  rules:
+    - !reference [ .skip-for-tags-rules, rules ]
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .packages-default-rules, rules ]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/packages/api/Dockerfile --target prod -t $API_TWIG_HELPER_TEST:$CI_COMMIT_SHA
+
+docker-build-nginx:
+  <<: *docker-build-defaults
+  rules:
+    # same rules as api
+    # nested !references is not supported: https://docs.gitlab.com/ee/ci/yaml/yaml_optimization.html#reference-tags
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.run-for-tags-rules, rules]
+    # on api change
+    - !reference [.api-default-rules, rules]
+    # and all components which needs api for tests
+    - !reference [.intranet-default-rules, rules]
+    - !reference [.evendors-default-rules, rules]
+    - !reference [.extranet-new-default-rules, rules]
+    - !reference [.mobile-default-rules, rules]
+    # do not need api yet :
+    #- !reference [.shared-inc-default-rules, rules]
+    #- !reference [.admin-default-rules, rules]
+    #- !reference [.shopfloor-default-rules, rules]
+    #- !reference [.dms-default-rules, rules]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/nginx/Dockerfile --target prod -t $NGINX:$CI_COMMIT_SHA
+
+docker-build-evendors:
+  <<: *docker-build-defaults
+  rules:
+    - !reference [.run-for-tags-rules, rules]
+    - !reference [ .scheduled-pipeline-composer-audit, rules ]
+    - !reference [.evendors-default-rules, rules]
+    - !reference [.packages-default-rules, rules ]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/evendors/Dockerfile --target prod -t $EVENDORS:$CI_COMMIT_SHA
+
+docker-build-extranet:
+  <<: *docker-build-defaults
+  rules:
+    - !reference [.run-for-tags-rules, rules]
+    - !reference [ .scheduled-pipeline-composer-audit, rules ]
+    - !reference [.extranet-new-default-rules, rules]
+    - !reference [.packages-default-rules, rules ]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/extranet/Dockerfile --target prod -t $EXTRANET:$CI_COMMIT_SHA
+
+docker-build-mobile:
+  <<: *docker-build-defaults
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.run-for-tags-rules, rules]
+    - !reference [.mobile-default-rules, rules]
+    - !reference [.packages-default-rules, rules ]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/mobile/Dockerfile -t $MOBILE:$CI_COMMIT_SHA
+
+docker-build-deploy:
+  <<: *docker-build-defaults
+  rules:
+    - !reference [.run-for-tags-rules, rules]
+    - !reference [ .scheduled-pipeline-composer-audit, rules ]
+    - !reference [.staging-default-rules, rules]
+    - !reference [.prod-default-rules, rules]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/deploy/Dockerfile --target prod -t $DEPLOY:$CI_COMMIT_SHA --no-cache
+
+docker-build-provisioning:
+  <<: *docker-build-defaults
+  tags: [provisioning-shell]
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.run-for-provisioning-rules, rules]
+    - !reference [.provisioning-trigger-rules, rules]
+    - !reference [.provisioning-check-rules, rules]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/provisioning/Dockerfile --target prod -t $PROVISIONING:$CI_COMMIT_SHA --no-cache
+
+docker-build-powerbi:
+  <<: *docker-build-defaults
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.run-for-tags-rules, rules]
+    - !reference [.powerbi-default-rules, rules]
+  script:
+    - docker build .  --secret id=composer_auth,env=COMPOSER_AUTH -f docker/images/multistage/powerbi/Dockerfile -t $POWERBI:$CI_COMMIT_SHA
+
+docker-cleanup:
+  stage: cleanup
+  tags: [$SHELL_TAG]
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^provisioning\/.*$/'
+      when: never         # skip cleanup on provisioning/* tag. it's needed to run manual jobs on each required server
+    - when: on_success    # run only if pipeline is green. that way, it's easier to retry a single job
+  script: |
+    if test ! -z "$(docker images -q $API:$CI_COMMIT_SHA)"; then
+      API_IMAGE_SHA=$(docker image inspect --format '{{.Id}}' $API:$CI_COMMIT_SHA | cut -d: -f 2 | head -c 12)
+      docker rmi $DB:$API_IMAGE_SHA || true
+    fi
+    docker rmi $DB:$CI_COMMIT_SHA || true
+    docker rmi $NGINX:$CI_COMMIT_SHA || true
+    docker rmi $GSE:$CI_COMMIT_SHA || true
+    docker rmi $API:$CI_COMMIT_SHA || true
+    docker rmi $API_TWIG_HELPER_TEST:$CI_COMMIT_SHA || true
+    docker rmi $EVENDORS:$CI_COMMIT_SHA || true
+    docker rmi $EXTRANET:$CI_COMMIT_SHA || true
+    docker rmi $MOBILE:$CI_COMMIT_SHA || true
+    docker rmi $POWERBI:$CI_COMMIT_SHA || true
+    docker rmi $PROVISIONING:$CI_COMMIT_SHA || true
+    docker rmi $DEPLOY:$CI_COMMIT_SHA || true
+    docker rmi $MOBILE:$CI_COMMIT_SHA || true
+
+## INTRANET
+
+.intranet-defaults: &intranet-defaults
+  stage: app-functional-tests
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.api-default-rules, rules]
+    - !reference [.intranet-default-rules, rules]
+  tags: [$DOCKER_TAG]
+
+# Intranet test which needs api
+.intranet-defaults-api: &intranet-defaults-api
+  <<: *intranet-defaults
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .skip-for-tags-rules, rules ]
+    - !reference [ .api-default-rules, rules ]
+    - !reference [ .intranet-default-rules, rules ]
+  image:
+    name: $GSE:$CI_COMMIT_SHA
+  variables:
+    <<: *needs-api-variables
+    API_URI: http://api
+  services: *needs-api-services
+  before_script:
+    - *needs-api-before-script
+    - cd /srv/alvest-web-portals/intranet
+    - bin/install-keys.sh
+    - echo "Waiting for API ready..."
+
+.intranet-defaults-noapi: &intranet-defaults-noapi
+  <<: *intranet-defaults
+  stage: code-inspection
+  image:
+    name: $GSE:$CI_COMMIT_SHA
+    # do not run entrypoint if db is not available
+    entrypoint: [""]
+  needs:
+    - job: "docker-build-gse"
+  before_script:
+    - cd /srv/alvest-web-portals/intranet
+    - bin/install-keys.sh
+
+.intranet-defaults-unit: &intranet-defaults-unit
+  <<: *intranet-defaults-noapi
+  stage: app-unit-tests
+  needs:
+    - job: "intranet-codingstyle"
+    - job: "intranet-phpstan"
+    - job: "intranet-dump"
+    - job: "intranet-lint"
+
+intranet-behat:
+  <<: *intranet-defaults-api
+  stage: app-functional-tests
+  needs:
+    - job: "intranet-phpunit"
+  services:
+    - *needs-api-services
+  parallel:
+    matrix:
+      # Place your new tests in the last matrix job.
+      # The longest test is legacy (about 9 mins), so we try to parallel other tests to the same duration.
+      - SUITE:
+          - "legacy"
+          - "account-receivable acronym activity calibrated-tool catalog cleanliness competitors-organisation-record contact communication contract crab customer customer-relationship-team"
+          - "customer-service-request demo derogation directory employee-staffing equipment-serial equipment-shipping-record errors first-article-qualification"
+          - "forex freight iata job manual manufacturing market-intelligence materials minutes-of-meeting mis news non-conformity-record on-time-delivery-planning powerbi print printer"
+          - "qhse sales-area sales-forecast-record sales-order-record spare-parts-quote spare-parts-request specification subsidiary-meeting-week supplier-corrective-action-request supplier-ranking"
+          - "sage-parts-tools survey transport user vendor-user vendor-warranty-claim warehouse xref event notification task pictogram document-translation aircraft-compatibility toc service-areas"
+  script: |
+    for suite in $SUITE; do
+      echo $suite
+      vendor/bin/behat --suite=$suite --tags=~@javascript -f progress --profile=ci --strict || error=true
+    done
+    if [ $error ]; then
+      exit 1;
+    fi
+
+intranet-e2e:
+  <<: *intranet-defaults-api
+  stage: e2e-tests
+  tags: [$SELENIUM_TAG]
+  services:
+    - *needs-api-services
+    - name: $GSE:$CI_COMMIT_SHA
+      alias: gse
+    - name: $SELENIUM
+      alias: selenium
+      variables:
+        GRID_DEBUG: true
+  script: |
+    bin/console cache:warmup
+    echo javascript
+    vendor/bin/behat --suite=default --tags=@javascript -f progress --profile=ci --strict || error=true
+    mkdir -p $CI_PROJECT_DIR/intranet/var/cache/test
+    cp var/cache/test/*.jpg $CI_PROJECT_DIR/intranet/var/cache/test/ || echo "No JPGs to copy"
+    if [ $error ]; then
+      exit 1;
+    fi
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - intranet/var/cache/test/*.jpg
+
+intranet-phpunit:
+  <<: *intranet-defaults-noapi
+  stage: app-unit-tests
+  needs:
+    - job: "api-behat"
+  script:
+    - vendor/bin/phpunit
+
+intranet-codingstyle:
+  <<: *intranet-defaults-noapi
+  script:
+    - composer cs-check
+
+intranet-phpstan:
+  <<: *intranet-defaults-noapi
+  script:
+    - vendor/bin/phpstan analyse --no-progress
+
+intranet-dump:
+  <<: *intranet-defaults-noapi
+  script: |
+    if [[ $(ls -d */ | grep -Ev 'assets|bin|cap|config|contrib|documentation|features|legacy|migrations_changelogs|node_modules|public|src|templates|tests|translations|var|vendor') ]]; then
+      echo "Updates have been made to the directory structure, please update .gitlab-ci.yml accordingly";
+      exit 1;
+    fi;
+    vendor/bin/var-dump-check --symfony --exclude vendor .
+
+intranet-mocha:
+  <<: *intranet-defaults-unit
+  script:
+    - yarn run tests
+
+intranet-js-unit:
+  <<: *intranet-defaults-unit
+  script:
+    - yarn run jest:ci
+
+intranet-react-formatter:
+  <<: *intranet-defaults-noapi
+  script:
+    - yarn run format:check
+
+intranet-react-linter:
+  <<: *intranet-defaults-noapi
+  script:
+    - yarn run lint:baseline:check:pipeline
+
+intranet-lint:
+  <<: *intranet-defaults-noapi
+  script:
+    - bin/console lint:yaml config --parse-tags
+    - bin/console lint:yaml @AppBundle --parse-tags
+    - bin/console lint:yaml @ApiBundle --parse-tags
+    - bin/console lint:yaml @LegacyBundle --parse-tags
+    - bin/console lint:yaml @ActivityBundle --parse-tags
+    - bin/console lint:twig templates --env=prod || error=true
+    - bin/console lint:container
+
+intranet-icons:
+  <<: *intranet-defaults-noapi
+  script: |
+    output=$(bin/console ux:icons:lock)
+    echo "$output"
+    if ! echo "$output" | grep -q "Imported 0 icons"; then
+      echo "One or more referenced Symfony UX icons were not vendored locally.";
+      echo "Run 'make ux-icons-lock' locally and commit the resulting SVG files.";
+      exit 1;
+    fi
+
+## PROVISIONING
+
+.provisioning-defaults: &provisioning-defaults
+  image: $PROVISIONING:$CI_COMMIT_SHA
+  tags: [provisioning]
+  interruptible: false
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.provisioning-trigger-rules, rules]
+  before_script:
+    - cd provisioning
+    - echo $ANSIBLE_VAULT_PASSWORD > .vault
+
+provisioning-evendors-production:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i production.yml evendors.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-evendors-staging:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i staging.yml evendors.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-extranet-production:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i production.yml extranet.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-extranet-staging:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i staging.yml extranet.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-mobile-production:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i production.yml mobile.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-mobile-staging:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i staging.yml mobile.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-api-production:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i production.yml api.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-api-staging:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i staging.yml api.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-web-portals-production:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i production.yml portals.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-web-portals-staging:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i staging.yml portals.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-powerbi-production:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i production.yml powerbi.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-powerbi-staging:
+  <<: *provisioning-defaults
+  stage: deploy
+  script:
+    - echo -e "section_start:`date +%s`:ansible\r\e[0KAnsible"
+    - ansible-playbook -i staging.yml powerbi.yml --vault-password-file .vault
+    - echo -e "section_end:`date +%s`:ansible\r\e[0K"
+
+provisioning-lint:
+  image: quay.io/ansible/creator-ee
+  tags: [provisioning]
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .provisioning-lint-rules, rules ]
+    - !reference [ .provisioning-trigger-rules, rules ]
+  stage: code-inspection
+  needs:
+    - job: "docker-build-provisioning"
+  before_script:
+    - cd provisioning
+    - echo $ANSIBLE_VAULT_PASSWORD > .vault
+  script:
+    - ansible-lint -p --force-color api.yml evendors.yml extranet.yml mobile.yml portals.yml powerbi.yml
+
+## SHARED INC
+
+.shared-inc-defaults: &shared-inc-defaults
+  stage: code-inspection
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.shared-inc-default-rules, rules]
+  image: $GSE:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-gse"
+  tags: [$DOCKER_TAG]
+  before_script:
+    - cd shared/inc
+
+shared-inc-dump:
+  <<: *shared-inc-defaults
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - bin/var-dump-check --symfony --exclude vendor .
+
+## SHOPFLOOR
+
+.shopfloor-defaults: &shopfloor-defaults
+  stage: code-inspection
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.shopfloor-default-rules, rules]
+  image: $GSE:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-gse"
+  tags: [$DOCKER_TAG]
+  before_script:
+    - cd shopfloor
+
+shopfloor-dump:
+  <<: *shopfloor-defaults
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - bin/var-dump-check --symfony  --exclude vendor .
+
+shopfloor-phpstan:
+  <<: *shopfloor-defaults
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - vendor/phpstan/phpstan/phpstan analyse --no-progress -c phpstan.neon
+
+shopfloor-codingstyle:
+  <<: *shopfloor-defaults
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - composer cs-check
+
+shopfloor-build-js:
+  <<: *shopfloor-defaults
+  script:
+    - yarn install --silent --frozen-lockfile --cache-folder /usr/local/share/.cache/yarn/
+    - yarn run build
+
+## DMS
+
+.dms-defaults: &dms-defaults
+  stage: code-inspection
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.dms-default-rules, rules]
+  image: $GSE:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-gse"
+  tags: [$DOCKER_TAG]
+  before_script:
+    - cd dms
+
+dms-dump:
+  <<: *dms-defaults
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - vendor/bin/var-dump-check --symfony  --exclude vendor .
+
+dms-phpstan:
+  <<: *dms-defaults
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - vendor/phpstan/phpstan/phpstan analyse --no-progress -c phpstan.neon
+
+dms-codingstyle:
+  <<: *dms-defaults
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - composer cs-check
+
+dms-phpunit:
+  <<: *dms-defaults
+  stage: app-unit-tests
+  needs:
+    - job: "dms-codingstyle"
+    - job: "dms-dump"
+    - job: "dms-phpstan"
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - vendor/bin/phpunit
+
+## EVENDORS
+
+.evendors-defaults: &evendors-defaults
+  stage: app-unit-tests
+  rules:
+    - !reference [.skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.api-default-rules, rules]
+    - !reference [.evendors-default-rules, rules]
+  image: $EVENDORS:$CI_COMMIT_SHA
+  tags: [$DOCKER_TAG]
+  before_script:
+    - cd /srv/evendors
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+  services:
+    - name: $DB:$CI_COMMIT_SHA
+      alias: $DB
+      command: ['mysqld', '--sql_mode=IGNORE_SPACE,NO_ENGINE_SUBSTITUTION','--innodb-flush-log-at-trx-commit=0']
+
+.evendors-defaults-nodb: &evendors-defaults-nodb
+  stage: code-inspection
+  image: $EVENDORS:$CI_COMMIT_SHA
+  rules:
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.skip-for-scheduled-pipeline-composer-audit, rules]
+    - !reference [.evendors-inspection-rules, rules]
+  needs:
+    - job: "docker-build-evendors"
+  tags: [$DOCKER_TAG]
+  before_script:
+    - cd /srv/evendors
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+
+evendors-unit:
+  <<: *evendors-defaults
+  stage: app-unit-tests
+  script:
+    - vendor/bin/phpunit --group unit
+
+evendors-functional:
+  <<: *evendors-defaults
+  stage: app-functional-tests
+  needs:
+    - job: "evendors-unit"
+  script:
+    - vendor/bin/phpunit --group functional
+
+evendors-e2e:
+  <<: *evendors-defaults
+  stage: e2e-tests
+  image:
+    name: $EVENDORS:$CI_COMMIT_SHA
+  variables:
+    <<: *needs-api-variables
+    INTERNAL_API_ENDPOINT: http://api
+  services: *needs-api-services
+  before_script:
+    - *needs-api-before-script
+    - echo "Waiting for API to be ready..."
+  script: |
+    cd evendors
+    export PANTHER_NO_SANDBOX=1
+    export PANTHER_APP_ENV=panther
+    composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    bin/console importmap:install
+    bin/console asset-map:compile
+    vendor/bin/phpunit --group e2e || error=true
+    mkdir -p $CI_PROJECT_DIR/evendors/var/cache/test
+    cp var/cache/test/*.jpg $CI_PROJECT_DIR/evendors/var/cache/test/ || echo "No JPGs to copy"
+    if [ $error ]; then
+      exit 1;
+    fi
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - evendors/var/cache/test/*.jpg
+
+evendors-codingstyle:
+  <<: *evendors-defaults-nodb
+  script:
+    - composer cs-check
+
+evendors-lint:
+  <<: *evendors-defaults-nodb
+  script:
+    - bin/console lint:twig templates --env=prod || error=true
+
+evendors-phpstan:
+  <<: *evendors-defaults-nodb
+  script:
+    - vendor/bin/phpstan analyse --no-progress --memory-limit=512M
+
+
+## EXTRANET v2
+.extranet-defaults: &extranet-defaults
+  rules:
+    - !reference [.skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.api-default-rules, rules]
+    - !reference [.extranet-new-default-rules, rules]
+  image: $EXTRANET:$CI_COMMIT_SHA
+  tags: [$DOCKER_TAG]
+  before_script:
+    - cd extranet-new
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+
+.extranet-defaults-api: &extranet-defaults-api
+  <<: *extranet-defaults
+  services:
+    - name: $DB:$CI_COMMIT_SHA
+      alias: $DB
+      command: ['mysqld', '--sql_mode=IGNORE_SPACE,NO_ENGINE_SUBSTITUTION','--innodb-flush-log-at-trx-commit=0']
+
+.extranet-defaults-no-api: &extranet-defaults-no-api
+  <<: *extranet-defaults
+  stage: code-inspection
+  image:
+    name: $EXTRANET:$CI_COMMIT_SHA
+    # do not run entrypoint if db is not available
+    entrypoint: [""]
+  needs:
+    - job: "docker-build-extranet"
+
+extranet-v2-unit:
+  <<: *extranet-defaults-no-api
+  stage: app-unit-tests
+  needs:
+    - job: "extranet-v2-phpstan"
+    - job: "extranet-v2-codingstyle"
+    - job: "extranet-v2-lint"
+  script:
+    - vendor/bin/phpunit --group unit
+
+## Extranet test which needs api
+extranet-v2-e2e:
+  <<: *extranet-defaults-api
+  stage: e2e-tests
+  variables:
+    <<: *needs-api-variables
+    INTERNAL_API_ENDPOINT: http://api
+  services: *needs-api-services
+  before_script:
+    - *needs-api-before-script
+    - echo "Waiting for API to be ready..."
+  script:
+    - echo "PUBLIC_KEY=$PUBLIC_KEY" >> .env.panther
+    - export PANTHER_NO_HEADLESS=0
+    - export PANTHER_APP_ENV=panther
+    - export PANTHER_BROWSER=firefox
+    - cd extranet-new
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - bin/console importmap:install
+    - bin/console asset-map:compile
+    - vendor/bin/phpunit --group e2e
+
+extranet-v2-codingstyle:
+  <<: *extranet-defaults-no-api
+  script:
+    # We set PHP_CS_FIXER_IGNORE_ENV because PHPCS is not available for PHP8.4 for now
+    - composer cs-check
+
+extranet-v2-lint:
+  <<: *extranet-defaults-no-api
+  script:
+    - bin/console lint:twig templates --env=prod || error=true
+
+extranet-v2-phpstan:
+  <<: *extranet-defaults-no-api
+  script:
+    - vendor/bin/phpstan analyse --no-progress --memory-limit=512M
+
+extranet-v2-icons:
+  <<: *extranet-defaults-no-api
+  script: |
+    output=$(bin/console ux:icons:lock)
+    echo "$output"
+    if ! echo "$output" | grep -q "Imported 0 icons"; then
+      echo "One or more referenced Symfony UX icons were not vendored locally.";
+      echo "Run 'make ux-icons-lock' locally and commit the resulting SVG files.";
+      exit 1;
+    fi
+
+##  MOBILE
+
+.mobile-defaults: &mobile-defaults
+  stage: code-inspection
+  rules:
+    - !reference [.skip-for-scheduled-pipeline-composer-audit, rules]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.mobile-default-rules, rules]
+  image: $MOBILE:$CI_COMMIT_SHA
+  tags: [$DOCKER_TAG]
+  needs:
+    - job: "docker-build-mobile"
+  before_script:
+    - cd mobile
+
+mobile-linter:
+  <<: *mobile-defaults
+  script:
+    - yarn install --silent --frozen-lockfile --no-cache
+    - yarn lint
+
+mobile-version-check:
+  <<: *mobile-defaults
+  # override rules because we need .mobile-default-rules WITHOUT the .gitlab-ci.yml change trigger
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .skip-for-tags-rules, rules ]
+    - changes:
+        - mobile/**/*
+        - docker/images/multistage/mobile/**/*
+  script:
+    - |
+      cd "$CI_PROJECT_DIR"
+      FILE="mobile/src/constants/version.tsx"
+      git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+      CURRENT_VERSION=$(grep -oP 'SW_VERSION\s*=\s*\K\d+' "$FILE" || echo "")
+      BASE_VERSION=$(git show origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME:"$FILE" 2>/dev/null | grep -oP 'SW_VERSION\s*=\s*\K\d+' || echo "")
+      echo "Current branch version: $CURRENT_VERSION"
+      echo "Target branch ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME) version: $BASE_VERSION"
+      if [[ -z "$CURRENT_VERSION" || -z "$BASE_VERSION" ]]; then
+        echo "App Version not found in one of the branches. Skipping version check."
+        exit 0
+      fi
+      if [[ "$CURRENT_VERSION" -le "$BASE_VERSION" ]]; then
+        echo "App Version was not incremented!"
+        exit 1
+      else
+        echo "App Version incremented."
+      fi
+
+.cypress-defaults: &cypress-defaults
+  stage: e2e-tests
+  rules:
+    - !reference [.skip-for-scheduled-pipeline-composer-audit, rules]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.api-default-rules, rules]
+    - !reference [.mobile-default-rules, rules]
+  tags: [docker]
+  variables:
+    <<: *needs-api-variables
+    REACT_APP_API_BASE_URL: http://api
+    CYPRESS_API_BASE_URL: http://api
+
+mobile-e2e:
+  <<: *cypress-defaults
+  tags: [$CYPRESS_TAG]
+  image:
+    name: cypress/included:latest
+    entrypoint: [""]
+  services:
+    - *needs-api-services
+  before_script:
+    - apt-get -y update; apt-get -y install curl
+    - cd mobile
+  script:
+    - yarn install --frozen-lockfile
+    - yarn start &
+    - timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://api)" != "401" ]]; do sleep 3; done' || false
+    - npx wait-on http://localhost:3000
+    - yarn cypress:parallel
+  artifacts:
+    when: on_failure
+    paths:
+      - mobile/cypress/screenshots/**/*.png
+    expire_in: 1 day
+
+## TWIG-HELPER
+twig-helper-codingstyle:
+  <<: *intranet-defaults-noapi
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .skip-for-tags-rules, rules ]
+    - !reference [ .packages-default-rules, rules ]
+  script:
+    - cd /srv/alvest-web-portals/packages/twig_helper
+    - /srv/alvest-web-portals/intranet/vendor/bin/php-cs-fixer fix --dry-run --using-cache=no --no-interaction -v --diff
+
+twig-helper-phpstan:
+  <<: *intranet-defaults-noapi
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .skip-for-tags-rules, rules ]
+    - !reference [ .packages-default-rules, rules ]
+  script:
+    - cd /srv/alvest-web-portals/packages/twig_helper
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - vendor/bin/phpstan analyse --no-progress --memory-limit=512M
+
+twig-helper-unit:
+  stage: app-unit-tests
+  image: ${PROJECT_IMAGE}
+  tags: [$DOCKER_TAG]
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .skip-for-tags-rules, rules ]
+    - !reference [ .packages-default-rules, rules ]
+  needs:
+    - job: "docker-build-evendors"
+    - job: "twig-helper-phpstan"
+    - job: "twig-helper-codingstyle"
+  parallel:
+    matrix:
+      - PROJECT_IMAGE: "$GSE:$CI_COMMIT_SHA"
+        PACKAGE_DIR: packages/twig_helper
+        COMPOSER: composer-gse.json
+      - PROJECT_IMAGE: "$EVENDORS:$CI_COMMIT_SHA"
+        PACKAGE_DIR: /srv/packages/twig_helper
+        COMPOSER: composer-evendors.json
+  before_script:
+    - cd $PACKAGE_DIR
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - vendor/bin/phpunit
+
+twig-helper-unit-api:
+  stage: api-unit-tests
+  image: $API_TWIG_HELPER_TEST:$CI_COMMIT_SHA
+  tags: [$DOCKER_TAG]
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .skip-for-tags-rules, rules ]
+    - !reference [ .packages-default-rules, rules ]
+  needs:
+    - job: "docker-build-api-twig-helper-test"
+  before_script:
+    - cd /srv
+  script:
+    - COMPOSER=composer-api.json composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+    - vendor/bin/phpunit
+
+## TRANSLATOR
+.translator-defaults: &translator-defaults
+  stage: code-inspection
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .skip-for-tags-rules, rules ]
+    - !reference [ .packages-default-rules, rules ]
+  image: $EVENDORS:$CI_COMMIT_SHA
+  tags: [$DOCKER_TAG]
+  before_script:
+    - cd /srv/packages/translator
+    - COMPOSER=composer.dev.json composer install --no-progress --prefer-dist --no-interaction --no-scripts 
+  needs:
+    - job: "docker-build-evendors"
+
+translator-codingstyle:
+  <<: *translator-defaults
+  script:
+    - /srv/evendors/vendor/bin/php-cs-fixer fix --dry-run --using-cache=no --no-interaction -v --diff
+
+translator-phpstan:
+  <<: *translator-defaults
+  script:
+    - /srv/evendors/vendor/bin/phpstan analyse --no-progress --memory-limit=512M
+
+# FEATURE DOC
+.feature-doc-defaults: &feature-doc-defaults
+  stage: code-inspection
+  image: $GSE:$CI_COMMIT_SHA
+  interruptible: true
+  tags: [$DOCKER_TAG]
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [ .skip-for-tags-rules, rules ]
+    - !reference [ .packages-default-rules, rules ]
+  before_script:
+    - cd /srv/alvest-web-portals/packages/feature-doc
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+
+feature-doc-unit:
+  <<: *feature-doc-defaults
+  script:
+    - composer phpunit
+
+feature-doc-codingstyle:
+  <<: *feature-doc-defaults
+  script:
+    - composer cs-check
+
+## POWERBI
+.powerbi-defaults:
+  stage: code-inspection
+  rules:
+    - !reference [ .skip-for-scheduled-pipeline-composer-audit, rules ]
+    - !reference [.skip-for-tags-rules, rules]
+    - !reference [.powerbi-default-rules, rules]
+  image: $POWERBI:$CI_COMMIT_SHA
+  tags: [$DOCKER_TAG]
+
+
+## STAGING
+deploy_staging:
+  stage: deploy
+  image: $DEPLOY:$CI_COMMIT_SHA
+  tags: [deploy]
+  resource_group: staging
+  interruptible: false
+  rules:
+    - !reference [.staging-default-rules, rules]
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts  --no-dev
+    - php vendor/deployer/deployer/bin/dep deploy stage=staging -v --tag=$CI_COMMIT_TAG
+
+deploy_staging_unlock:
+  stage: deploy
+  image: $DEPLOY:$CI_COMMIT_SHA
+  tags: [deploy]
+  resource_group: staging
+  interruptible: false
+  rules:
+    - !reference [.staging-default-rules, rules]
+  when: manual
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts  --no-dev
+    - php vendor/deployer/deployer/bin/dep deploy:unlock stage=staging -v --tag=$CI_COMMIT_TAG
+
+##  PROD
+deploy_prod:
+  stage: deploy
+  image: $DEPLOY:$CI_COMMIT_SHA
+  tags: [deploy]
+  resource_group: production
+  interruptible: false
+  rules:
+    - !reference [.prod-default-rules, rules]
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts  --no-dev
+    - php vendor/deployer/deployer/bin/dep deploy stage=production -v --branch=main
+
+deploy_prod_unlock:
+  stage: deploy
+  image: $DEPLOY:$CI_COMMIT_SHA
+  tags: [deploy]
+  resource_group: production
+  interruptible: false
+  rules:
+    - !reference [.prod-default-rules, rules]
+  when: manual
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts  --no-dev
+    - php vendor/deployer/deployer/bin/dep deploy:unlock stage=production -v --branch=main
+
+deploy_prod_rollback:
+  stage: deploy
+  image: $DEPLOY:$CI_COMMIT_SHA
+  tags: [deploy]
+  resource_group: production
+  interruptible: false
+  rules:
+    - !reference [.prod-default-rules, rules]
+  when: manual
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts  --no-dev
+    - php vendor/deployer/deployer/bin/dep rollback stage=production -v
+
+## COMMANDS
+
+.command-defaults: &command-defaults
+  stage: run
+  image: $DEPLOY:$CI_COMMIT_SHA
+  tags: [provisioning]
+  interruptible: false
+  when: manual
+
+run_api_command:
+  <<: *command-defaults
+  resource_group: production
+  rules:
+    - !reference [.command-trigger-rules, rules]
+  script:
+    - ssh deployer@web-api-01.tld-america.com current/api/bin/console $CMD $ARGS
+
+run_api_staging_command:
+  <<: *command-defaults
+  resource_group: staging
+  rules:
+    - !reference [.command-staging-trigger-rules, rules]
+  script:
+    - ssh deployer@web-stag-api-01.tld-america.com current/api/bin/console $CMD $ARGS
+
+
+# COMPOSER AUDIT
+
+.composer-audit-defaults: &composer-audit-defaults
+  rules:
+    - !reference [ .scheduled-pipeline-composer-audit, rules ]
+  tags: [$DOCKER_TAG]
+  stage: composer-audit
+
+composer-audit-api:
+  <<: *composer-audit-defaults
+  image:
+    name: $API:$CI_COMMIT_SHA
+    # do not run entrypoint if db is not available
+    entrypoint: [ "" ]
+  needs:
+    - job: "docker-build-api"
+  script:
+    - cd /srv/api
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - composer audit --format=plain
+
+composer-audit-evendors:
+  <<: *composer-audit-defaults
+  image: $EVENDORS:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-evendors"
+  script:
+    - cd evendors
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - composer audit --format=plain
+
+composer-audit-extranet-new:
+  <<: *composer-audit-defaults
+  image: $EXTRANET:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-extranet"
+  script:
+    - cd extranet-new
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - composer audit --format=plain
+
+composer-audit-intranet:
+  <<: *composer-audit-defaults
+  image: $GSE:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-gse"
+  script:
+    - cd intranet
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - composer audit --format=plain
+
+composer-audit-admin:
+  <<: *composer-audit-defaults
+  image: $GSE:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-gse"
+  script:
+    - cd admin
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - composer audit --format=plain
+
+composer-audit-dms:
+  <<: *composer-audit-defaults
+  image: $GSE:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-gse"
+  script:
+    - cd dms
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - composer audit --format=plain
+
+composer-audit-shopfloor:
+  <<: *composer-audit-defaults
+  image: $GSE:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-gse"
+  script:
+    - cd shopfloor
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - composer audit --format=plain
+
+composer-audit-deployer:
+  <<: *composer-audit-defaults
+  image: $DEPLOY:$CI_COMMIT_SHA
+  needs:
+    - job: "docker-build-deploy"
+  script:
+    - composer install --no-progress --prefer-dist --no-interaction --no-scripts
+    - composer audit --format=plain
+
+## Nofitication when pipeline fails
+#notify-devteam:
+#  stage: notification
+#  image : alpine/curl
+#  tags: [$DOCKER_TAG]
+#  script:
+#    # todo: replace mail credential
+#    #- echo "sending a mail to devteam"
+#    #- |
+#    #  echo "To: devteam@tld-america.com
+#    #  Subject: ION test suites failed ! Check newly created jira Task and solve
+#    #  From: noreply@tld-gse.com
+#    #  Content-Type: text/html; charset=UTF-8" >> mail
+#    #- curl -s --url 'smtp://webmail.alvest.fr:587' --ssl-reqd --user $MAILER_USER:$MAILER_PASSWORD --mail-from 'noreply@tld-gse.com' --mail-rcpt 'devteam@tld-america.com' --upload-file mail
+#    #- echo "mail sent"
+#    - echo "creating a jira us"
+#    - "curl -s --request POST --url 'https://alvestgroup.atlassian.net/rest/api/3/issue' --header 'Content-Type: application/json' --user $JIRA_USER:$JIRA_TOKEN --data-raw '{\"fields\": {\"project\": {\"id\": \"10026\"}, \"summary\": \"Fix ION test suites with record enabled\", \"issuetype\": {\"id\": \"10052\"}}}'"
+#    - echo "jira issue created"
+#  rules:
+#    - if: $CI_PIPELINE_SOURCE == "schedule"
+#  when: on_failure

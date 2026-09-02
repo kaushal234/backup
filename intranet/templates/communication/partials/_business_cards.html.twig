@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="text-center article-title">
+                    {% set entity = entity | replace({'-': ' '}) %}
+                    <h1>{{ entity | upper }} Business Cards</h1>
+                </div>
+
+                <div class="row">
+                    <p>All business cards will have to be under the exact following format. They will have to be at least in English. The size chosen is the Credit card size.</p>
+
+                    <div class="">
+                        <table class="table table-striped table-responsive">
+                            <tbody>
+                            {% for key, businessCard in businessCards %}
+                                <tr>
+                                    <td>{{ key }}</td>
+                                    <td align="right">
+                                        {% for extension, path in businessCard %}
+                                            {% set filepath = asset(upload_uri ~ '/corporate/' ~ path) %}
+                                            <a class="btn btn-primary" target="_blank" href="{{ filepath }}"><i class="fa fa-file-{{ extension == 'pdf' ? 'pdf' : 'word' }}"></i>&nbsp;{{ extension | upper }}</a>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

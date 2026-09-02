@@ -1,0 +1,190 @@
+{% extends 'sales/catalogue/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'catalogue.certificates.details' | trans,
+                    items: {
+                        id: {
+                            label: 'demo.fields.id'|trans({}, 'demo')
+                        },
+                        productType: {
+                            properties: ['product.family.productType.englishName'],
+                            label: 'catalogue.type.product_type'|trans,
+                            link:{
+                                route: 'sales_catalogue_type_show',
+                                params: {'id':'product.family.productType.@id'},
+                            }
+                        },
+                        product: {
+                            label: 'catalogue.products.product'|trans,
+                            properties: ['product.name'],
+                            link:{
+                                route: 'sales_catalogue_product_show',
+                                params: {'id':'product.@id'},
+                            }
+                        },
+                        emissionRatings: {
+                            label: 'sales_forecasts.fields.tier'|trans({}, 'sales_forecasts'),
+                            properties: ['emissionRating.name'],
+                        },
+                        engineeringActivityProcess: {
+                            label: 'catalogue.certificates.fields.eap_number'|trans,
+                        },
+                        testReportNumber: {
+                            label: 'catalogue.certificates.fields.test_report_number'|trans,
+                        },
+                        expectedAt: {
+                            label: 'catalogue.certificates.fields.expected_at'|trans,
+                            filters: 'date("Y-m-d")',
+                            preserveNull: true,
+                        },
+                        expiredAt: {
+                            label: 'catalogue.certificates.fields.expired_at'|trans,
+                            filters: 'date("Y-m-d")',
+                            preserveNull: true,
+                        },
+                        factory: {
+                            properties: ['factory.name'],
+                            label: 'fields.factory'|trans({}, 'messages'),
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'factory.@id'},
+                            }
+                        },
+                        description: {
+                            label: 'survey.fields.description'|trans({}, 'surveys'),
+                        },
+                        url: {
+                            label: 'customers.fields.url'|trans({}, 'sales_customers')|trans|capitalize,
+                        },
+                    },
+                    data: productCertificate
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9" id="product-certificates-files">
+            {% set items = {
+                filePath: {
+                    label: 'menu.files'|trans({}, 'messages')|capitalize,
+                    filters : 'slice(19)',
+                    link:{
+                        route: 'sales_product_certificate_file_show',
+                        params: {
+                            'id': 'id'
+                        },
+                        fixedParams: {
+                            'productCertificateId': productCertificate.id
+                        }
+                    },
+                },
+                description: {
+                    label: 'demo.fields.file_description'|trans({}, 'demo')|capitalize,
+                },
+                createdAt: {
+                    label: 'demo.fields.created_at'|trans({}, 'demo')|capitalize,
+                    filters: 'date("Y-m-d H:i:s")'
+                },
+                size: {
+                    label: 'size'|trans({}, 'messages')|trans|capitalize,
+                    filters : 'readable_filesize'
+                },
+            } %}
+
+            {% if is_granted('FEATURE_PRODUCT_CERTIFICATE_ADMIN') or is_granted('MOO_CAT') %}
+                {% set items = items | merge ({
+                    delete: {
+                        label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                        sortable: false,
+                        class: 'text-end',
+                        link: {
+                            route: 'sales_delete_product_certificate_file',
+                            params: {'id': 'id'},
+                            fixedParams: {'productCertificateId': productCertificate.id, '_token': csrf_token('delete_product_certificate_file')},
+                            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                            popup: {
+                                type: 'confirmation',
+                                title: 'Confirmation',
+                                message: 'Are you sure to delete ?',
+                            },
+                        },
+                    },
+                }) %}
+            {% endif %}
+
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: items,
+                    title: 'menu.files'|trans({}, 'messages'),
+                    data: productCertificate.files,
+                    search: false,
+                    pagination: false,
+                    initialSorting: 'createdAt'
+                }
+            }, with_context = false) }}
+        </div>
+        {% if is_granted('FEATURE_PRODUCT_CERTIFICATE_ADMIN') or is_granted('MOO_CAT') %}
+            <div class="col-md-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'demo.fields.add_file'|trans({}, 'demo') }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% form_theme formFile 'form_theme_vertical.html.twig' %}
+
+                                {{ form_start(formFile, { action: path('sales_product_certificates_show', {'id': productCertificate.id}) }) }}
+                                {{ form_errors(formFile) }}
+
+                                {{ form_row(formFile.file) }}
+                                {{ form_row(formFile.description) }}
+
+                                {{ form_rest(formFile) }}
+                                {{ form_end(formFile) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'menu.logs'|trans({}, 'messages') |capitalize }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="logs-block" data-resource="{{ productCertificate.iri }}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+
+
+

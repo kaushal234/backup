@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.title.warranty_claims'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.customer_portal'|trans,
+        hero_title: 'extranet.title.warranty_claims'|trans,
+        hero_sub: 'extranet.title.warranty_claims_intro'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.title.warranty_claims'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="section-head">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.title.my_warranty_claims'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.title.my_warranty_claims'|trans }}</h2>
+                </div>
+            </div>
+
+            <div class="dt-wrap">
+                {{ data_table(datatable) }}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

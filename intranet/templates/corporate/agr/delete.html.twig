@@ -1,0 +1,35 @@
+{% extends 'corporate/agr/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set acronym_id = iri_id(acronym) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.delete'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'menu.delete'|trans([], 'messages')|capitalize }}</h3>
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class=row">
+                <label class="col-sm-2 col-form-label required">AGR#</label>
+                <div class="col-sm-10">
+                    <div class="form-control">{{ acronym_id }}</div>
+                </div>
+            </div>
+            <div>
+                <label class="col-sm-2 col-form-label required">{{ 'fields.name'|trans([], 'messages') }}</label>
+                <div class="col-sm-10">
+                    <div class="form-control">{{ acronym.acronym }}</div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+
+            <div class="float-end">
+                <button type="submit" class="btn btn-primary">{{ 'button.delete'|trans([], 'messages')|capitalize }}</button>
+             </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

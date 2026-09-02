@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/audit_logs"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"type": "string"},
+          "@type": { "type": "string" },
+          "value": { "type": "string" },
+          "time": { "type": ["number", "null"] },
+          "month": { "type": ["string", "null"] }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "value",
+          "time"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

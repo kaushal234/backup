@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/mis/specifications/\\d+(/status)?$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "module": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "pattern": "^/modules/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "id",
+        "name"
+      ]
+    },
+    "id": {
+      "type": "integer"
+    },
+    "userStories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {
+            "pattern": "^/mis/user_stories/\\d+(/status)?$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "category": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "category",
+          "description",
+          "status",
+          "createdBy"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "module",
+    "id",
+    "userStories",
+    "status"
+  ],
+  "additionalProperties": false
+}

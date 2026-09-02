@@ -1,0 +1,14 @@
+{% extends 'quality/layout.html.twig' %}
+{% trans_default_domain 'location_areas' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('quality/location_areas/partial/_form.html.twig', {
+        title: 'location_areas.title.edit'|trans,
+        form: form,
+        action: path('quality_location_areas_edit', { id: iri_id(locationArea)}),
+        cancel_link: path('quality_location_areas_home'),
+        id: locationArea
+    }, with_context=false) }}
+{% endblock %}

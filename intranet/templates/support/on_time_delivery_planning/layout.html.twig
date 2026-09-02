@@ -1,0 +1,10 @@
+{% extends '/support/layout.html.twig' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Search route="on_time_delivery_planning_show"/>
+        {% if filtered is defined and filtered is true %}
+            <twig:NavItem:Edit route="on_time_delivery_planning_edit" :routeParameters="app.request.query.all"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,204 @@
+HTTP/1.0 503 Service Unavailable
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html
+
+<html lang="en">
+  <head>
+    <title>Site Maintenance</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, sans-serif;
+        color: #808487;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+      }
+
+      .main_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        max-width: 500px;
+        flex-direction: column;
+        margin: 0 32px;
+        padding: 32px 0;
+      }
+
+      .logo {
+        height: 40px;
+        text-align: center;
+      }
+
+      .heading {
+        color: #000000;
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 2.5rem;
+        letter-spacing: 0.00735em;
+        margin: 48px 0 24px 0;
+      }
+
+      .description {
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 1.1rem;
+        letter-spacing: 0.00938em;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 32px;
+      }
+
+      .illustration {
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        margin: auto;
+      }
+
+      .description.small {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+      }
+
+      .link_wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0158a6;
+        gap: 2px;
+        cursor: pointer;
+      }
+
+      .arrow {
+        width: 16px;
+        color: #0158a6;
+      }
+
+      .link_text_wrapper {
+        display: ruby;
+        line-height: 1.4;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translate3d(0, 40px, 0);
+        }
+
+        to {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      .fadeInUp {
+        animation-name: fadeInUp;
+        animation-duration: 2.5s;
+        animation-fill-mode: both;
+      }
+
+      @media (max-width: 700px) {
+        .main_wrapper {
+          margin: auto 32px;
+          max-height: fit-content;
+        }
+
+        .heading {
+          font-size: 1.6rem;
+          margin: 32px 0 24px 0;
+        }
+
+        .logo {
+          height: 35px;
+        }
+
+        .description {
+          font-size: 1rem;
+        }
+
+        .description.small {
+          font-size: 0.875rem;
+        }
+      }
+
+      @media (max-width: 450px) {
+        .logo {
+          height: 30px;
+        }
+
+        .heading {
+          font-size: 1.2rem;
+        }
+
+        .description {
+          font-size: 0.875rem;
+        }
+
+        .description.small {
+          font-size: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="fadeInUp">
+    <div class="main_wrapper">
+      <img
+        class="logo"
+        src="https://devteamtld.github.io/maintenance/assets/alvest-logo.png"
+        alt="logo"
+      />
+      <div class="heading">We'll Be Back Soon</div>
+      <div class="description">
+        <div>
+          Alvest Intranet is down for scheduled maintenance and expect to back
+          online in a few minutes.
+        </div>
+      </div>
+      <img
+        class="illustration"
+        src="https://devteamtld.github.io/maintenance/assets/illustration.jpeg"
+        alt="illustration"
+      />
+      <div class="description small">
+        <div class="link_text_wrapper">
+          In the meantime, feel free to explore our website to learn more about
+          our campaigns and exciting initiatives
+          <div class="link_wrapper" id="link">
+            Go to website
+            <img
+              class="arrow"
+              src="https://devteamtld.github.io/maintenance/assets/arrow.svg"
+              alt="arrow"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const link = document.getElementById("link");
+
+      link.addEventListener("click", () => {
+        window.location.href = "https://alvest.fr/";
+      });
+    </script>
+  </body>
+</html>

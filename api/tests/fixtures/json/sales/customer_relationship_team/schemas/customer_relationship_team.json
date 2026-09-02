@@ -1,0 +1,236 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/customer_relationship_teams/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "customerBusinessPartnerCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/sales/customers/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "name"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "erpLocation": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../../directory_location/schemas/directory_location_public.json" }
+      ]
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "taskId": {
+      "type": ["integer", "null"]
+    },
+    "partsLocation": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../../directory_location/schemas/directory_location_public.json" }
+      ]
+    },
+    "partsRepresentative": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/people/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "photo": {
+              "oneOf": [
+                { "type": "null" },
+                { "$ref": "../../../shared/schemas/file_light.json" }
+              ]
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "username": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "firstname",
+            "lastname",
+            "email",
+            "username",
+            "photo"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "salesRepresentative": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/people/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "photo": {
+              "oneOf": [
+                { "type": "null" },
+                { "$ref": "../../../shared/schemas/file_light.json" }
+              ]
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "username": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "firstname",
+            "lastname",
+            "email",
+            "username",
+            "photo"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "serviceLocation": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../../directory_location/schemas/directory_location_public.json" }
+      ]
+    },
+    "serviceRepresentative": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/people/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "photo": {
+              "oneOf": [
+                { "type": "null" },
+                { "$ref": "../../../shared/schemas/file_light.json" }
+              ]
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "username": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "firstname",
+            "lastname",
+            "email",
+            "username",
+            "photo"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "required": [
+    "customer",
+    "serviceLocation",
+    "customerBusinessPartnerCode",
+    "erpLocation",
+    "partsRepresentative",
+    "id",
+    "taskId",
+    "salesRepresentative",
+    "legacyId",
+    "partsLocation",
+    "serviceRepresentative",
+    "@context",
+    "@id",
+    "@type"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,55 @@
+{% extends 'sales/layout.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ 'sales_order.title'|trans({}, 'sales_orders')|capitalize }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if order is not defined %}
+            <twig:NavItem:Add route="sales_orders_add" :security="is_granted('FEATURE_SALES_ORDER_CREATE')"/>
+        {% endif %}
+        {% if order is defined %}
+            <twig:NavItem:NewTask route="sales_orders_tasks" :routeParameters="{id: order.id}"/>
+            <twig:NavItem translationKey="sales_order.nav_link.logs" domain="sales_orders" icon="mynaui:list"
+                          route="sales_orders_logs"
+                          :routeParameters="{id: order.id}"/>
+            <twig:NavItem:Duplicate route="sales_orders_duplicate" :routeParameters=" {id: order.id}"
+                                    :security="is_granted('FEATURE_SALES_ORDER_CREATE')"/>
+            <twig:NavItem:Delete route="sales_orders_delete" :routeParameters="{id: order.id}"
+                                 :security="is_granted('FEATURE_SALES_ORDER_CREATE')"/>
+            <twig:NavItem translationKey="sales_order.nav_link.print" domain="sales_orders"
+                          icon="material-symbols:print-outline-rounded" route="legacy_sales"
+                          :routeParameters="{m: ['sor', 'view', 'print'], id: order.legacyId}"
+                          :security="is_granted('FEATURE_SALES_ORDER_CREATE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if order is defined %}
+
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Add route="sales_orders_add" :security="is_granted('FEATURE_SALES_ORDER_CREATE')"/>
+            <twig:NavItem:Edit route="sales_orders_edit" :routeParameters="{id: order.id}"
+                               :security="is_granted('FEATURE_SALES_ORDER_CREATE')"/>
+            <twig:NavItem:Files route="sales_orders_files" :routeParameters="{id: order.id}"/>
+            <twig:NavItem:Add translationKey="sales_order.nav_link.add_sol" domain="sales_orders" route="legacy_sales"
+                              :routeParameters="{m: ['sol', 'form', 'addSOL'], pid: order.legacyId}"
+                              :security="is_granted('FEATURE_SALES_ORDER_CREATE') and order.status != 'CLOSED'"/>
+            {% if is_granted('FEATURE_SALES_ORDER_CREATE') and is_granted('FEATURE_SALES_ORDER_STATUS_UPDATE') %}
+                {% for currentStatus, nextStatus in {PENDING: 'IN PROGRESS', 'IN PROGRESS': 'CLOSED'} %}
+                    {% if order.status == currentStatus %}
+                        <twig:NavItem icon="hugeicons:status" route="sales_orders_status" translationKey="next_status"
+                                      :routeParameters=" { 'id': order.id, 'status': nextStatus }">
+                            {{ nextStatus }}
+                        </twig:NavItem>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

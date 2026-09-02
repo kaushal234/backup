@@ -1,0 +1,16 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        mainLogos: [],
+        secondaryLogos: {
+            'TLD Wollard Logo': {
+                'eps': 'tld_wollard/logos/TLD_WOLLARD_CMYK.eps',
+                'jpg': 'tld_wollard/logos/TLD_WOLLARD_CMYK.jpg',
+                'png': 'tld_wollard/logos/TLD_WOLLARD_RGB.png',
+            },
+        },
+    }) }}
+{% endblock %}

@@ -1,0 +1,103 @@
+{% trans_default_domain 'sales_forecasts' %}
+<div class="row">
+    <div class="col-md-6">
+        {% set items = {
+            filePath: {
+                label: 'menu.files'|trans({}, 'messages')|capitalize,
+                filters : 'slice(37)',
+            },
+            description: {
+                label: 'fields.description'|trans({}, 'messages') | capitalize,
+            },
+            createdAt: {
+                label: 'customers.fields.created_at'|trans({}, 'sales_customers')|capitalize,
+                filters: 'date("Y-m-d H:i:s")'
+            },
+            size: {
+                label: 'size'|trans({}, 'messages')|trans|capitalize,
+                filters : 'readable_filesize'
+            },
+        } %}
+        {% if is_granted('SALES_FORECAST_ACCESS_VOTER', item['@id']) %}
+            {% set items = items | merge ({
+                download: {
+                    label: 'menu.download'|trans({}, 'messages')|capitalize,
+                    link:{
+                        route: 'sales_forecast_files_show',
+                        content: '<span class="btn btn-primary btn-sm"><i class="fa fa-download fa-fw"></i></span>',
+                        params: {
+                            'id': 'id'
+                        },
+                        fixedParams: {
+                            'salesForecastId': item.id
+                        }
+                    },
+                    sortable: false,
+                    class: 'text-center'
+                },
+            }) %}
+        {% endif %}
+        {% if is_granted('SALES_FORECAST_EDIT_VOTER', item['@id']) %}
+            {% set items = items | merge ({
+                delete: {
+                    label: 'menu.delete'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'sales_forecast_delete_file',
+                        fixedParams: {'salesForecastId': item.id, '_token': csrf_token('delete_sales_forecast_file')},
+                        params: {'id':'id'},
+                        content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                        popup: {
+                            type: 'confirmation',
+                            title: 'Confirmation',
+                            message: 'Are you sure to delete ?',
+                        },
+                    },
+                    sortable: false,
+                    class: 'text-center'
+                },
+            }) %}
+        {% endif %}
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: items,
+                title: 'menu.files'|trans({}, 'messages')|capitalize,
+                data: item.salesForecastFiles,
+                search: false,
+                initialSorting: false,
+                pagination: false
+            }
+        }, with_context = false) }}
+    </div>
+    {% if is_granted('SALES_FORECAST_EDIT_VOTER', item['@id']) %}
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.fields.add_file' | trans([], 'demo') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% form_theme form 'form_theme_vertical.html.twig' %}
+
+                            {{ form_start(form) }}
+                            {{ form_errors(form) }}
+
+                            {{ form_row(form.file) }}
+                            {{ form_row(form.description) }}
+                            {{ form_row(form.submit) }}
+
+                            {{ form_rest(form) }}
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

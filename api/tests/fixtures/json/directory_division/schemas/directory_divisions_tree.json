@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/divisions$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/divisions/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "subDivisions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"type": "string"},
+                "@type": {"type": "string"},
+                "legacyId": {"type": "integer"},
+                "name": {"type": "string"},
+                "regions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"type": "string"},
+                      "@type": {"type": "string"},
+                      "legacyId": {"type": "integer"},
+                      "name": {"type": "string"},
+                      "businessUnits": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "@id": {"type": "string"},
+                            "@type": {"type": "string"},
+                            "legacyId": {"type": "integer"},
+                            "name": {"type": "string"},
+                            "disabled": {"type": "boolean"}
+                          },
+                          "required": [
+                            "@id",
+                            "@type",
+                            "name",
+                            "legacyId",
+                            "disabled"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name",
+                      "legacyId",
+                      "businessUnits"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId",
+                "regions"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "legacyId",
+          "subDivisions"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

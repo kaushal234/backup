@@ -1,0 +1,290 @@
+.nav-item.accordion-item{
+  position: relative;
+  display: block;
+}
+
+.nav-link {
+  &.accordion-header {
+    color: #a7b1c2;
+    font-weight: 600;
+    padding: 14px 20px 14px 25px;
+    position: relative;
+    display: block;
+
+    i {
+      margin-right: 10px;
+    }
+  }
+}
+.navbar-nav {
+  .accordion-body{
+    border-bottom: none !important;
+    text-decoration: none;
+    list-style: none;
+
+    > a{
+      padding: 7px 10px;
+      padding-left: 52px;
+    }
+
+    > span > button{
+      padding: 7px 10px;
+      padding-left: 52px;
+    }
+
+    > *{
+      color: #a7b1c2;
+      font-weight: 600;
+    }
+
+    > *:hover{
+      color : white;
+    }
+  }
+}
+
+.accordion-collapse{
+  padding-left: 0;
+}
+
+
+.accordion {
+  --bs-accordion-color:unset;
+  --bs-accordion-bg: unset;
+  --bs-accordion-border-color: unset;
+  --bs-accordion-border-width:unset;
+  --bs-accordion-border-radius: unset;
+  --bs-accordion-inner-border-radius: unset;
+  --bs-accordion-btn-padding-x: unset;
+  --bs-accordion-btn-padding-y: unset;
+  --bs-accordion-btn-bg: unset;
+  --bs-accordion-btn-focus-border-color: unset;
+  --bs-accordion-body-padding-x: unset;
+  --bs-accordion-body-padding-y: unset;
+  --bs-accordion-active-color: unset;
+  --bs-accordion-active-bg: unset;
+  --bs-accordion-transition: unset;
+  --bs-accordion-btn-color: unset;
+  --bs-accordion-btn-focus-box-shadow: unset;
+  --bs-accordion-btn-icon-width: 0.7rem;
+}
+
+.accordion-item {
+  &:first-of-type {
+    border-top-left-radius:unset;
+    border-top-right-radius: unset;
+  }
+
+  &:last-of-type {
+    border-bottom-right-radius: unset;
+    border-bottom-left-radius:unset;
+  }
+
+  &:not(:first-of-type) {
+    border-top: unset;
+  }
+
+  color: unset;
+  background-color:unset;
+  border: unset;
+}
+
+.accordion-button {
+  font-size: unset;
+  font-weight: 600;
+  color: #a7b1c2;
+}
+
+.accordion-header, .accordion-body {
+  cursor: pointer;
+}
+
+.accordion-item:hover > span > button{
+  color:white;
+}
+
+.accordion-body:hover > a{
+  color: white;
+}
+
+.accordion-body > a{
+  display: block;
+}
+
+.accordion-item:hover {
+  background-color: #293846;
+}
+
+.thirdLevel {
+  padding-left: 0;
+  padding-top: 5px;
+  & > li > a {
+    padding-left: 62px!important;
+  }
+}
+
+.accordion {
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+//MINI-NAVBAR
+body.mini-navbar .profile-element, body.mini-navbar .nav-label, body.mini-navbar .navbar-default .nav li span button span{
+  display: none;
+}
+
+body.mini-navbar .mini-level{
+  display: block;
+  padding-left: unset;
+}
+
+body.mini-navbar .accordion{
+  --bs-accordion-btn-icon : unset;
+  --bs-accordion-btn-active-icon : unset;
+  --bs-accordion-active-bg: unset;
+}
+body.mini-navbar #side-menu li{
+  width: 70px;
+}
+
+body.mini-navbar .fa-fw{
+  font-size: 16px;
+}
+
+body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav li:hover > .accordion-collapse, .mini-navbar .nav li:focus > .accordion-collapse{
+  display: block;
+  border-radius: 0 2px 2px 0;
+  min-width: 140px;
+  height: auto;
+  transition: height .25s;
+}
+
+body.mini-navbar .navbar-default .nav > li > .accordion-collapse li a{
+  font-size: 12px;
+  border-radius: 3px;
+  padding: 10px 10px 10px 0px;
+}
+
+body.mini-navbar .navbar-default .nav > li > .accordion-collapse li span button{
+  font-size: 12px;
+  border-radius: 3px;
+  padding: 10px 10px 10px 0px;
+}
+
+.mini-navbar .thirdLevel > li > a{
+  padding-left: unset!important;
+}
+
+body.mini-navbar nav .accordion-collapse{
+  position: absolute;
+  left: 70px;
+  top: 0;
+  background-color: $nav-bg;
+  padding: 10px 10px 10px 15px;
+  font-size: 12px;
+}
+
+body.mini-navbar li.active .accordion-collapse{
+  left: 65px;
+  margin-left: 10px;
+}
+
+body.mini-navbar .accordion-body{
+  padding-left: unset;
+}
+
+//SEARCH SIDEBAR
+
+#search-result{
+  display: block;
+  position: relative;
+}
+
+.nav.accordion-collapse > li > a {
+  padding: 7px 10px;
+  padding-left: 52px;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+
+
+//TOPBAR
+
+nav.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#page-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.nav-link.dropdown-toggle > i{
+  color: #a7b1c2;
+  font-size: 24px;
+
+  &:hover {
+    color: white;
+  }
+}
+
+#page-wrapper > .navbar .nav-item.dropdown > .dropdown-toggle::after{
+  content:none;
+}
+
+.dropdown-messages.application-container {
+  width: 310px;
+  min-width: 0;
+}
+
+li > .icon {
+  width: 96px;
+  height: 50px;
+  text-align: center;
+  float: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.icon > a {
+  width: 100% !important;
+  display: block !important;
+}
+
+.icon > a > i {
+  width: 100%;
+  font-size: 30px;
+}
+
+.icon > a > img {
+  height: 30px;
+  width: auto;
+}
+
+body.mini-navbar li.secondLevel{
+  min-width: 120px;
+  position: relative;
+  display: block;
+}
+body.mini-navbar li.secondLevel ul{
+  min-width: 140px;
+  position: absolute;
+  left: 120px;
+  top: -10px;
+}
+
+body.mini-navbar li.secondLevel span button div{
+  display: flex;
+  min-width: 120px;
+  justify-content: space-between;align-items: baseline
+}
+
+.mini-navbar-chevron{
+  display: none;
+}
+
+body.mini-navbar .mini-navbar-chevron{
+  display: block;
+}

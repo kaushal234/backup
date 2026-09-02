@@ -1,0 +1,44 @@
+{% form_theme form 'generic/_live_norender_theme.html.twig' %}
+
+<div {{ attributes }}>
+    <div class="live-loader">
+        <div class="live-loader__spinner">
+            <twig:UX:Icon name="svg-spinners:ring-resize" width="36" height="36" />
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+
+    {{ form_label(form.status) }}
+    {{ form_widget(form.status) }}
+    {{ form_row(form.hourmeter) }}
+
+    {% if form.startedDate is defined %}
+        {{ form_row(form.startedDate) }}
+    {% endif %}
+
+    {% if form.endedDate is defined %}
+        {{ form_row(form.endedDate) }}
+    {% endif %}
+
+    {% if form.answerSurveyCustomerServiceRecords is defined %}
+        {{ form_row(form.answerSurveyCustomerServiceRecords) }}
+    {% endif %}
+
+    {% if form.solveToc is defined %}
+        <div class="intervention-solve-toc-checkbox">
+            {{ form_row(form.solveToc) }}
+        </div>
+
+        {% if form.symptoms is defined %}
+            {{ form_row(form.symptoms) }}
+            {{ form_row(form.rootCause) }}
+            {{ form_row(form.solution) }}
+        {% endif %}
+    {% endif %}
+
+    <button type="submit" class="btn btn-info text-capitalize">
+        {{ 'intervention.submit'|trans({}, 'customer_service_record') }}
+    </button>
+    {{ form_end(form) }}
+</div>

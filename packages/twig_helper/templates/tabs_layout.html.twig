@@ -1,0 +1,50 @@
+{% extends '@AlvestTwigHelper/tabs_layout_base.html.twig' %}
+
+{% block tabs %}
+    {% set displayLinkTab = (tabsData.link|default(null)) is null %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabs-container">
+                {{ block('tabs_header') }}
+                {{ block('tabs_content') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block tabs_header %}
+    <ul class="nav nav-tabs" role="tablist">
+        {% for key, tab in tabsData.tabs %}
+            {{ block('tab_header') }}
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block tabs_content %}
+    <div class="tab-content">
+        {% for key, tab in tabsData.tabs %}
+            {{ block('tab_content') }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block tab_header %}
+    <li {% if ((tab.defaultTab|default(false)) is same as(true) and displayLinkTab == true) or (tabsData.link is defined and tabsData.link == key) %}class="nav-item"{% endif %}>
+        <a class="nav-link{% if loop.first %} active{% endif %}" data-bs-toggle="tab" href="#{{ key }}">
+            {{ tab.label }}
+            {% if tab.badge is defined %}
+                <span class="badge badge-{{ tab.badge < 1 ? 'danger' : 'primary' }}">{{ tab.badge }}</span>
+            {% endif %}
+        </a>
+    </li>
+{% endblock %}
+
+{% block tab_content %}
+    <div role="tabpanel" id="{{ key }}" class="tab-pane{% if ((tab.defaultTab|default(false)) is same as(true) and displayLinkTab == true) or (tabsData.link is defined and tabsData.link == key) %} active{% endif %}">
+        <div class="panel-body">
+            {% set templateParams = { item: tabsData.data } | merge(tab.templateParams|default([])) %}
+            {{ include(tab.template, templateParams, with_context=true) }}
+        </div>
+    </div>
+{% endblock %}

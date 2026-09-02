@@ -1,0 +1,53 @@
+{% extends 'engineering/pictogram/layout.html.twig' %}
+{% trans_default_domain 'engineering_pictogram' %}
+
+{% block content %}
+    <div class="row mt-2">
+        <div class="col-xl-5 col-md-12">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'pictogram_view' | trans,
+                    items: {
+                        id: {label: 'fields.id'|trans({}, 'engineering_pictogram')},
+                        description: {label: 'fields.description'|trans({}, 'engineering_pictogram')},
+                        category: {
+                            label: 'category_view'|trans({}, 'engineering_pictogram'),
+                            properties: ['category.name']
+                        },
+
+                    },
+                    data: pictogram,
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-xl-7 col-md-12">
+            {{ include('@AlvestTwigHelper/tabs_layout.html.twig', {
+                tabsData: {
+                    tabs: {
+                        picture: {
+                            defaultTab: true,
+                            label: 'picture' | trans(),
+                            template: '/engineering/pictogram/tabs/picture.html.twig',
+                        },
+                        files: {
+                            label: 'files' | trans(),
+                            template: '/engineering/pictogram/tabs/files.html.twig',
+                        },
+                        logs: {
+                            label: 'directory.people.activity.labels.logs' | trans({}, 'directory'),
+                            template: '/engineering/pictogram/tabs/logs.html.twig',
+                        },
+                    },
+                    data: {},
+                    link: app.request.query.get('tab')
+                },
+            }) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

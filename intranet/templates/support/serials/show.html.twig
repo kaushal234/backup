@@ -1,0 +1,81 @@
+{% extends 'support/serials/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-4">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'support.equipment_record.information'|trans,
+                    items: {
+                        id: {
+                            label: 'support.equipment_record.fields.id'|trans()|capitalize,
+                        },
+                        legacyId: {
+                            label: 'support.equipment_record.fields.legacy_id'|trans()|capitalize,
+                        },
+                        serialNumber: {
+                            label: 'support.equipment_record.fields.serial_number'|trans|capitalize,
+                        },
+                        model: {
+                            label: 'service.equipment_record.fields.model'|trans({}, 'service')|capitalize,
+                        },
+                        location: {
+                            properties: ['manufacturerLocation.name'],
+                            label: 'support.equipment_record.fields.manufacturer_location'|trans()|capitalize,
+                        },
+                        buyer: {
+                            properties: ['buyer.name'],
+                            label: 'support.equipment_record.fields.buyer'|trans()|capitalize,
+                        },
+                        dateShipped: {
+                            label: 'support.equipment_record.fields.date_shipped'|trans()|capitalize,
+                            filters: 'date("Y-m-d H:i:s")',
+                            preserveNull: true
+                        },
+                        greenTagDate: {
+                            label: 'support.equipment_record.fields.green_tag_date'|trans()|capitalize,
+                            filters: 'date("Y-m-d H:i:s")',
+                            preserveNull: true
+                        },
+                    },
+                    data: equipmentRecord
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-8">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        component: {
+                            properties: ['component.name'],
+                            label: 'support.serials.fields.component'|trans({}, 'support')
+                        },
+                        model: {
+                            label: 'service.equipment_record.fields.model'|trans({}, 'service')|capitalize,
+                        },
+                        serial: {
+                            label: 'support.serials.fields.serial'|trans({}, 'support'),
+                        },
+                        brand: {
+                            label: 'support.serials.fields.brand'|trans({}, 'support'),
+                        }
+                    },
+                    title: 'support.serials.title'|trans(),
+                    data: equipmentRecord.serials,
+                    initialSorting: false,
+                    search: false,
+                    pagination: false
+                }
+            }, with_context = false )}}
+
+            <hx:include src="/en/private/product_support/equipment/serial_hinclude.php?id={{ equipmentRecord.legacyId }}">
+                <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+            </hx:include>
+        </div>
+    </div>
+{% endblock content %}

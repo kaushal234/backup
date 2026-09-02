@@ -1,0 +1,9 @@
+{% set concatValue = kValue is defined and kValue ? 'K' : '' %}
+{% set addCurrency = withCurrency is defined and withCurrency is same as (false) ? false : true %}
+{% set scale = scale | default (1000) %}
+<td {% if textRight is defined and textRight is same as (true) %}class="text-end"{% endif %}>
+    {% if item[key] is not same as(0) %}
+        {% set decimal = item[key] < scale ? 2 : 0 %}
+        {{ item[key] | number_format(decimal, '.', ' ') | concat(concatValue)}} {% if addCurrency %}{{ currency is defined ? currency.name : item.currency.name is defined ? item.currency.name : item.currency }}{% endif %}
+    {% endif %}
+</td>

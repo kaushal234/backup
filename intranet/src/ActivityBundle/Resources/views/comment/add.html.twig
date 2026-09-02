@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'activity' %}
+
+{% block content %}
+
+{{ include('@Activity/comment/_form.html.twig', {
+    form: form,
+    action: path('comment_add', { resourceIriId: resourceIriId }),
+    cancel_link: backUrl
+}, with_context=false) }}
+
+{% endblock %}

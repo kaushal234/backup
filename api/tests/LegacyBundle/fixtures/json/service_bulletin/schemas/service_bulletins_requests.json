@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "@id": {"pattern": "^/service_bulletins"},
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "@id": {"pattern": "^/service_bulletins/\\d+$"},
+                    "@type": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": ["string"]
+                    },
+                    "type": {
+                        "type": ["string"]
+                    },
+                    "title": {
+                        "type": ["string"]
+                    },
+                    "category": {
+                        "type": ["string"]
+                    },
+                    "description": {
+                        "type": ["string"]
+                    },
+                    "confidential": {
+                        "type": ["string"]
+                    },
+                    "createdAt": {
+                        "type": ["string", "null"]
+                    },
+                    "ssdDecidedAt": {
+                        "type": ["string", "null"]
+                    },
+                    "partsNeeded": {
+                        "type": ["boolean"]
+                    }
+                },
+                "required": [
+                    "@id",
+                    "@type",
+                    "id",
+                    "status",
+                    "type",
+                    "title",
+                    "description",
+                    "confidential",
+                    "category",
+                    "partsNeeded",
+                    "createdAt",
+                    "ssdDecidedAt"
+                ]
+            }
+        }
+    },
+    "required": ["hydra:member", "@id"]
+}

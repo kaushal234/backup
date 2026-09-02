@@ -1,0 +1,9 @@
+{% extends 'directory/position/layout.html.twig' %}
+
+{% set id = iri_id(position) %}
+
+{% block title %}{{ position.code }} members{% endblock %}
+
+{% block content %}
+    {{ data_table(membersDataTable) }}
+{% endblock %}

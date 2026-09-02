@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/surveys/campaigns$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:view": {
+      "type": "object"
+    },
+    "hydra:member": {
+      "type": "array",
+      "additionalItems": false,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@id": {
+            "type": "string"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "photo": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "../../shared/schemas/file_light.json" }
+                ]
+              },
+              "username": {
+                "type": "string"
+              },
+              "hidden": {
+                "type": "boolean"
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "passwordUpdatedAt": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "passwordExpirationDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "photo",
+              "username",
+              "hidden",
+              "disabled",
+              "passwordUpdatedAt",
+              "firstname",
+              "lastname",
+              "email",
+              "passwordExpirationDate"
+            ]
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "sentAt": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "description",
+          "model",
+          "createdBy",
+          "createdAt",
+          "sentAt"
+        ]
+      }
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:search": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "@type": {
+          "type": "string"
+        },
+        "hydra:template": {
+          "type": "string"
+        },
+        "hydra:variableRepresentation": {
+          "type": "string"
+        },
+        "hydra:mapping": {
+          "type": "array",
+          "additionalItems": false,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@type": {
+                "type": "string"
+              },
+              "variable": {
+                "type": "string"
+              },
+              "property": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "@type",
+              "variable",
+              "property",
+              "required"
+            ]
+          }
+        }
+      },
+      "required": [
+        "@type",
+        "hydra:template",
+        "hydra:variableRepresentation",
+        "hydra:mapping"
+      ]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:totalItems",
+    "hydra:search"
+  ]
+}

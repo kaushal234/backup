@@ -1,0 +1,28 @@
+<div class="checkout-wrap row mb-lg-5 pb-lg-4">
+    <ul class="flex-status checkout-bar">
+        {% set previousStatuses = statuses|slice(0, statuses|arrayKeySearchInChild(current))|keys %}
+
+        {% for key, status in statuses %}
+            {% set translationStatus = current in status ? current : key %}
+            <li
+                class="
+                    {% if current != status[0] %}
+                        d-none d-lg-block
+                    {% endif %}
+                    {% if current in status %}
+                        {% if not loop.last %}active{% else %} close-status{% endif %}
+                    {% else %}
+                        {% if loop.first %}first visited{% endif %}
+                    {% endif %}
+
+                    {% if not loop.first and key in previousStatuses %}previous visited{% endif %}
+                ">
+                {% if translation is defined %}
+                    {{ (translation.key_prefix ~ '.' ~ translationStatus|lower)|trans({}, translation.domain) }}
+                {% else %}
+                    {{ translationStatus }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

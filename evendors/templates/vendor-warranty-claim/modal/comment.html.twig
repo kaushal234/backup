@@ -1,0 +1,33 @@
+{% set form = create_vwc_comment_add_form(claim) %}
+<button type="button" class="btn btn-outline-primary float-end" data-bs-toggle="modal" data-bs-target="#new_comment_modal">
+    <span class="mx-4">{{ 'display.comments.form.new.show'|trans }}</span>
+</button>
+
+<div class="modal carousel-fade" id="new_comment_modal" tabindex="-1" aria-labelledby="#new_comment_modal_label" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content display-style">
+            {{ form_start(form) }}
+            <div class="modal-header border-dark border-1">
+                <h5 class="modal-title text-black" id="new_comment_modal_label">{{ 'display.comments.form.new.caption'|trans }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="mb-2">
+                        {{ form_label(form.message, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.message) }}
+                    </div>
+                    <div class="mb-2">
+                        {{ form_label(form.file, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.file) }}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer border-dark">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ 'display.comments.form.new.hide'|trans }}</button>
+                <button type="submit" class="btn btn-primary" id="{{ form.vars.id }}_new_submit" >{{ 'display.comments.form.new.submit'|trans }}</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_wallpapers.html.twig', {
+        wallpapers: [
+            'sas/wallpapers/SAS Teams-Wallpaper 1.jpg',
+            'sas/wallpapers/SAS Teams-Wallpaper 2.jpg',
+            'sas/wallpapers/SAS Teams-Wallpaper 3.jpg',
+        ],
+    }) }}
+{% endblock %}

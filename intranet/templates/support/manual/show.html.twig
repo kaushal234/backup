@@ -1,0 +1,219 @@
+{% extends 'support/manual/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {% if manual.equipmentRecord is null %}
+        <div class="alert alert-warning">{{ 'support.manuals.warning_no_er'|trans }}</div>
+    {% endif %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-8">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'support.manual.title'|trans,
+                    items: {
+                        id: {
+                            label: 'support.manuals.fields.id'|trans|capitalize,
+                        },
+                        legacyId: {
+                            label: 'support.manuals.fields.legacy_id'|trans|capitalize,
+                        },
+                        status: {
+                            label: 'support.manual.fields.status'|trans|capitalize,
+                        },
+                        model: {
+                            properties: ['equipmentRecord.model'],
+                            label: 'support.manual.fields.model'|trans|capitalize
+                        },
+                        description: {
+                            label: 'support.manuals.fields.description'|trans|capitalize,
+                        },
+                        features: {
+                            label: 'support.manuals.fields.features'|trans|capitalize,
+                            filters: ['nl2br']
+                        },
+                        language: {
+                            label: 'support.manual.fields.language'|trans|capitalize,
+                        },
+                        createdAt: {
+                            label: 'support.manuals.fields.created_at'|trans,
+                            filters: 'date("Y-m-d H:i:s")',
+                            preserveNull: true
+                        },
+                    },
+                    data: manual
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-4">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'support.equipment_record.information'|trans,
+                    items: {
+                        id: {
+                            label: 'support.equipment_record.fields.id'|trans()|capitalize,
+                        },
+                        legacyId: {
+                            label: 'support.equipment_record.fields.legacy_id'|trans()|capitalize,
+                        },
+                        serialNumber: {
+                            label: 'support.equipment_record.fields.serial_number'|trans|capitalize,
+                        },
+                        location: {
+                            properties: ['manufacturerLocation.name'],
+                            label: 'support.equipment_record.fields.manufacturer_location'|trans()|capitalize,
+                        },
+                        buyer: {
+                            properties: ['buyer.name'],
+                            label: 'support.equipment_record.fields.buyer'|trans()|capitalize,
+                        },
+                        dateShipped: {
+                            label: 'support.equipment_record.fields.date_shipped'|trans()|capitalize,
+                            filters: 'date("Y-m-d H:i:s")',
+                            preserveNull: true
+                        },
+                        greenTagDate: {
+                            label: 'support.equipment_record.fields.green_tag_date'|trans()|capitalize,
+                            filters: 'date("Y-m-d H:i:s")',
+                            preserveNull: true
+                        },
+                    },
+                    data: manual.equipmentRecord
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'support.manual.button.filters' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('support/manual/filters.html.twig', {
+                        form: formFilter,
+                        resetPath: path('manuals_show', {'id' : manual.id})
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    {% if documentsData is not empty %}
+        <h1>{{ 'support.manual_documents.title'|trans }}</h1>
+        <h2>{{ 'support.manual_documents.manual_section_title'|trans|upper }}</h2>
+        <br>
+    {% else %}
+        <p>{{ 'support.manual_documents.no_result'|trans }}</p>
+    {% endif %}
+
+    {% set partsDiagramAlreadyShown = false %}
+    {% for key, documentData in documentsData %}
+        {% if partsDiagramAlreadyShown is same as false and documentData[0].type is same as 'PARTS DIAGRAM' %}
+            {% set partsDiagramAlreadyShown = true %}
+            <h2>{{ 'support.manual_documents.parts_diagram_title'|trans|upper }}</h2>
+            <br>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                {% set reportTableTitle = key|length > 0 ? ('support.manual_documents.categories.'~key)|trans : ('support.manual_documents.categories.unknown'|trans) %}
+                {% set columns = {
+                    position: {
+                        label: 'support.manual_documents.fields.position'|trans,
+                    },
+                    id: {
+                        label: 'support.manual_documents.fields.id'|trans|capitalize,
+                        link:{
+                            route: 'manual_documents_show',
+                            params: {'id':'@id'},
+                        }
+                    },
+                    factoryNumber: {
+                        label: 'support.manual_documents.fields.factory_number'|trans,
+                        link: {
+                            route: 'legacy_manufacturing_eng',
+                            params: {'erp': 'erp', 'pn': 'factoryNumber', 'date': 'date'},
+                            fixedParams: {m: ['bom', 'view'], btnSubmit: 'Submit'}
+                        }
+                    },
+                    revision: {
+                        label: 'support.manual_documents.fields.revision'|trans,
+                    },
+                    type: {
+                        label: 'support.manual_documents.fields.type'|trans,
+                    },
+                    category: {
+                        properties: ['category.name'],
+                        label: 'support.manual_documents.fields.category'|trans,
+                    },
+                    description: {
+                        label: 'support.manual_documents.fields.description'|trans,
+                    },
+                    otherDescription: {
+                        label: 'support.manual_documents.fields.other_description'|trans,
+                    },
+                    view: {
+                        label: 'menu.view'|trans([], 'messages')|capitalize,
+                        link:{
+                            route: 'manual_documents_show',
+                            params: {'id':'@id'},
+                            content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                        },
+                        sortable: false,
+                        class : 'text-end'
+                    },
+                    filePath: {
+                        label: 'menu.pdf'|trans({}, 'messages')|capitalize,
+                        link:{
+                            route: 'manual_document_download_pdf_file',
+                            params: {
+                                'manualDocumentId': 'id'
+                            },
+                            content: '<span class="btn btn-primary btn-sm"><i class="fa fa-file-pdf fa-fw"></i></span>',
+                            target: '_blank'
+                        },
+                    }
+                } %}
+                {% if manual.language == 'ENGLISH' %}
+                    {# Removing element #}
+                    {% set columns = columns | filter((v, k) => k != 'otherDescription') %}
+                {% endif %}
+
+                {% embed 'helper/_report_table.html.twig' with {
+                    reportTable: {
+                        items: columns,
+                        title: reportTableTitle,
+                        data: documentData,
+                        initialSorting: 'id',
+                        pagination: false,
+                        search: false,
+                        totalNumber: false
+                    }
+                } %}
+
+                    {% block card_header_after %}
+                        <div class="ibox-tools">
+                            {% if key|length > 0 and is_granted('MANUAL_EDIT_VOTER', manual['equipmentRecord']['@id']) %}
+                                <a class="btn btn-warning btn-sm" style="color: #fff;" href="{{ path('manuals_edit_documents_by_category', {id: manual.id, category : key}) }}"><i class="fa fa-pencil-alt"></i></a>
+                            {% endif %}
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                    {% endblock %}
+
+                {% endembed %}
+
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

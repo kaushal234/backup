@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'ai' %}
+
+{% block title %}Alvi Chatbot{% endblock %}
+
+{% block content %}
+    <div class="chat-shell d-flex">
+
+        <twig:chat:sidebar currentLogId="{{ currentLog.id ?? null }}"/>
+        <main class="chat-main flex-grow-1 d-flex flex-column">
+            {% block chat_main %}{% endblock %}
+        </main>
+
+    </div>
+{% endblock %}

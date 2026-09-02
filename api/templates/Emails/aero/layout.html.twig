@@ -1,0 +1,22 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+
+{% block content %}
+    <div id="aerospecialties">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block header %}
+    {% include 'Emails/aero/_partials/header.html.twig' %}
+    <row id="hero">
+        <columns>
+            {% block banner %}
+                <img class="banner" src="https://www.tld-gse.com/shared/emails/aero/aero_banner.png">
+            {% endblock %}
+        </columns>
+    </row>
+{% endblock %}
+
+{% block footer %}
+    {% include 'Emails/alvest/_partials/footer.html.twig' with {'link': 'https://www.aerospecialties.com', 'img': 'https://www.tld-gse.com/shared/emails/aero/aero-logo-shadow-small.png'} only %}
+{% endblock %}

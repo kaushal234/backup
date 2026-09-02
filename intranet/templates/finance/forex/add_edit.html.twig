@@ -1,0 +1,51 @@
+{% extends 'finance/forex/layout.html.twig' %}
+
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-lg-8">
+            {{ form_errors(form) }}
+            <div class="mail-box-header clearfix">
+                {% if exchangeRate is defined %}
+                <h2>{{ 'forex.forms.edit.title' | trans({}, 'forex') }}</h2>
+                {% else %}
+                    <h2>{{ 'forex.forms.add.title' | trans({}, 'forex') }}</h2>
+                {% endif %}
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {% if exchangeRate is defined %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div>
+                                    <label class="col-form-label">Id</label>
+                                    <p class="form-control-plaintext">{{ exchangeRate.id }}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div>
+                                    <label class="col-form-label">Legacy Id</label>
+                                    <p class="form-control-plaintext">{{ exchangeRate.legacyId }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.currency) }}
+                    {{ form_row(form.applicatedOn) }}
+                    {{ form_row(form.rate) }}
+                    
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-info m-t-xl">{{ 'button.submit'|trans({}, 'messages')|capitalize }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+    
+{% endblock %}
+

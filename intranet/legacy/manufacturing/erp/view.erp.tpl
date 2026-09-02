@@ -1,0 +1,30 @@
+<table>
+<tr>
+	<th>ERP#</th><td>{$erp.erp}</td>
+</tr>
+<tr>
+	<th>Location</th><td>{$erp.location}</td>
+</tr>
+<tr>
+	<th>Region</th><td>{$erp.region}</td>
+</tr>
+<tr>
+	<th>Company Name</th><td>{$erp.company_name}</td>
+</tr>
+<tr>
+	<th>Address</th><td>
+	{$erp.street1}
+	{$erp.street2}<br>
+	{$erp.town}<br>
+	{$erp.city}<br>
+	{$erp.state}<br>
+	{$erp.country}<br>
+	{$erp.postal_code}</td>
+</tr>
+<tr>
+	<th>Tel</th><td>{$erp.tel}</td>
+</tr>
+<tr>
+	<th>Fax</th><td>{$erp.fax}</td>
+</tr>
+</table>

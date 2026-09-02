@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type":"object",
+  "properties":{
+    "@id": {"type": "string", "pattern": "^/training_subscriptions$"},
+    "hydra:member":{
+      "type":"array",
+      "items":{
+        "type": "object",
+        "properties": {
+          "@id": {"type": "string", "pattern": "^/training_subscriptions/\\d+$"},
+          "@type": {"type": "string", "pattern": "^TrainingSubscription$"},
+          "id": {"type": "integer"},
+          "category": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ],
+                "properties": {
+                  "@id": {"type": "string", "pattern": "^/training_categories/\\d+$"},
+                  "@type": {"type": "string", "pattern": "^TrainingCategory$"},
+                  "name": {"type": "string"}
+                }
+              }
+            ]
+          },
+          "type": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ],
+                "properties": {
+                  "@id": {"type": "string", "pattern": "^/training_types/\\d+$"},
+                  "@type": {"type": "string", "pattern": "^TrainingType$"},
+                  "name": {"type": "string"}
+                }
+              }
+            ]
+          },
+          "subscriber": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "category",
+          "type",
+          "subscriber"
+        ],
+        "additionalProperties": false
+      },
+      "minItems":1
+    }
+  },
+  "required":[
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

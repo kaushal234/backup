@@ -1,0 +1,12 @@
+{% set currentUrl = path(app.request.attributes.get('_route'), {
+    id: app.request.attributes.get('id')
+}) %}
+<li class="nav-item">
+    <a
+            class="nav-link{% if currentUrl == url %} active{% endif %}"
+            href="{{ url }}"
+            data-turbo-frame="_self"
+    >
+        {% block content %}{% endblock %}
+    </a>
+</li>

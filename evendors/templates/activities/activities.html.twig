@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col">
+        <div class="display-card">
+            <div class="card-body p-0">
+                <div class="border-bottom border-1 border-dark py-2 px-1">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="fs-5 ps-2 text-dark my-1">{{ 'display.comments.caption'|trans }}</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-2">
+                    {% for activity in activities %}
+                        <div class="mx-5">
+                            <div class="py-2">
+                                <div class="mb-1">
+                                    {% set date = activity.updatedAt|format_date %}
+                                    {% set time = activity.updatedAt|format_datetime('none', 'short', locale='fr') %}
+                                    {% set timezone = activity.updatedAt|date('e') %}
+                                    {% if activity.metadata.firstname is defined and activity.metadata.lastname is defined %}
+                                        <span class="fw-bold text-primary">{{ activity.metadata.firstname }} {{ activity.metadata.lastname }}</span>
+                                    {% elseif activity.user is not null %}
+                                        <span class="fw-bold">{{ activity.user.firstname }} {{ activity.user.lastname }}</span>
+                                    {% else %}
+                                        <span class="fw-bold text-primary">{{ 'display.comments.anonymous'|trans }}</span>
+                                    {% endif %}
+                                    <span class="text-muted">{{ 'display.comments.date_time'|trans({date: date, time: time, timezone: timezone}) }}</span>
+                                </div>
+                                <div>
+                                    {% if activity.type == 'Log' %}
+                                        {% for key, changeSet in activity.changeSet %}
+                                            {% set continue = false %}
+                                            {% if changeSet[0] is null and changeSet[1] is null %}
+                                                {% set continue = true %}
+                                            {% endif %}
+                                            {% if continue == false %}
+                                                {% set before = include('activities/value.html.twig', { value: changeSet[0]|default('empty') }, with_context=false) %}
+                                                {% set after = include('activities/value.html.twig', { value: changeSet[1]|default('empty') }, with_context=false) %}
+                                                <p class="m-0 text-break">{{ 'display.comments.changeset'|trans({before: before, after:after, property: key}) |raw}}</p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="m-0 text-break">{{ activity.message|raw|nl2br }}</p>
+                                        {% if activity.files is not empty %}
+                                            <p>
+                                                <a class="btn btn-outline-primary btn-sm" href="{{ relative_path(activity.iri ~ '/file/' ~ activity.files.0.id) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                                    </svg>
+                                                    &nbsp;{{ 'display.comments.attached_file'|trans }}
+                                                </a>
+                                            </p>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="w-100 p-3">
+                            <p class="text-center m-0 text-muted">{{ 'display.comments.empty'|trans }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

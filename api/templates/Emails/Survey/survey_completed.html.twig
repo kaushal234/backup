@@ -1,0 +1,25 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    {% set survey = publishedSurvey.campaign.model %}
+    {% set target = publishedSurvey.target %}
+
+    {% set surveyLink = url('survey_show', {surveyId: survey.id, campaignId: publishedSurvey.campaign.id, token: publishedSurvey.token}) %}
+
+    <row>
+        <columns>
+            <p>
+                {{ 'survey.completed.message' | trans({
+                    '%target_name%': target.displayName,
+                    '%survey_name%': survey.name
+                }) }}
+            </p>
+            <p>
+                <a href="{{ surveyLink }}">{{ 'survey.completed.click_here' | trans }}</a>
+            </p>
+        </columns>
+    </row>
+{% endblock %}

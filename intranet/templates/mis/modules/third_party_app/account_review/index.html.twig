@@ -1,0 +1,81 @@
+{% extends 'mis/modules/showLight.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block content %}
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                createdAt: {
+                    label: 'mis.account_review.columns.created_at'|trans,
+                    filters: 'date("Y-m-d H:i:s")'
+                },
+                createdBy: {
+                    label: 'mis.account_review.columns.created_by'|trans,
+                    properties: ['createdBy.lastname', 'createdBy.firstname'],
+                    link: {
+                        route: 'directory_people_show',
+                        params: {'id':'createdBy.@id'}
+                    }
+                },
+                countStartAdminUsers: {
+                    label: 'mis.account_review.columns.count_start_admin_users'|trans,
+                },
+                countEndAdminUsers: {
+                    label: 'mis.account_review.columns.count_end_admin_users'|trans,
+                },
+                adminAccountsConfirmed: {
+                    label: 'mis.account_review.columns.admin_accounts_confirmed'|trans,
+                    boolean: {
+                        'true': '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                        'false': '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>',
+                    },
+                },
+                countAppUsers: {
+                    label: 'mis.account_review.columns.count_app_users'|trans,
+                },
+                userAccountsConfirmed: {
+                    label: 'mis.account_review.columns.user_accounts_confirmed'|trans,
+                    boolean: {
+                        'true': '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                        'false': '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>',
+                    },
+                },
+                countStartMembers: {
+                    label: 'mis.account_review.columns.count_start_members'|trans,
+                },
+                countEndMembers: {
+                    label: 'mis.account_review.columns.count_end_members'|trans,
+                },
+                countDisabledAccounts: {
+                    label: 'mis.account_review.columns.count_disabled_accounts'|trans,
+                },
+                countEnabledAccounts: {
+                    label: 'mis.account_review.columns.count_enabled_accounts'|trans,
+                },
+                file: {
+                    label: 'menu.file'|trans({}, 'messages'),
+                    link:{
+                        route: 'mis_modules_account_review_file',
+                        fixedParams: {moduleId: module.id},
+                        params: {accountReviewId: 'id', id : 'mainFile.id'},
+                        class : 'text-center',
+                        content: '<span class="btn btn-warning btn-sm"><i class="fa fa-download fa-fw"></i></span>',
+                    }
+                },
+                view: {
+                    label: 'menu.view'|trans({}, 'messages'),
+                    link:{
+                        route: 'mis_modules_account_review_show',
+                        params: {'id':'@id'},
+                        fixedParams: { moduleId: module.id },
+                        content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+            },
+            title: 'mis.account_review.title'|trans,
+            data: accountReviews,
+        }
+    }, with_context = false) }}
+{% endblock content %}

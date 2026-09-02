@@ -1,0 +1,14 @@
+App\Entity\Support\ManualPrint:
+  # support/manual_prints/1
+  print_1:
+    id: e99e8e95-0245-4dc7-ace0-749c6838991c
+    manual: '@manual_1'
+    manualPrinter: '@printer_1'
+    standard: 1
+    full: 2
+    extra: 0
+    chapter5: 1
+    comment: 'printing is not greeny btw'
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    createdBy: '@user_basic'
+    requestedDeliveryDate: <(new \DateTime('2021-12-01 17:12:00'))>

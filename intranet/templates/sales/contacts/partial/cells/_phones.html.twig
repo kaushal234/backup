@@ -1,0 +1,13 @@
+{% trans_default_domain 'contacts' %}
+<td>
+    <table>
+        <tbody>
+        {% for phone in item.phones %}
+            <tr>
+                <th>{{ phone.type |trans|capitalize }}</th>
+                <td>{{ phone.number }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</td>

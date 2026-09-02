@@ -1,0 +1,198 @@
+survey:
+  page_titles:
+    list: Surveys
+    add: Add a survey
+    edit: Edit a survey
+    show: Survey %name%
+  nav_link:
+    campaign_actions: Campaign actions
+    campaigns: Campaigns
+    group_actions: Group actions
+    groups: Groups
+    home: Home
+    item_actions: Item actions
+    items: Items
+    new_campaign: New campaign
+    new_survey: New survey
+    rating_type: Rating types
+    rating_type_actions: Rating type actions
+    survey_actions: Survey actions
+    surveys: Surveys
+  fields:
+    id: Id
+    name: Name
+    description: Description
+    expirationDate: Expiration Date
+    createdBy: Created By
+  publication_form:
+    country: Country of eCustomer
+    roles: Roles attached to eCustomer's CRTs
+    sales_location: Sales Location of CRTs
+    parts_location: Parts Location of CRTs
+    service_location: Service Location of CRTs
+    customer: eCustomer
+    extranet_users: Extranet users
+    generate_list: Generate list of contacts
+    select_criterias: Select some criteria
+    refresh: Refresh
+    refresh_list: Refresh the list of eCustomers
+    select_and_generate: Select eCustomers and generate contact list
+
+messages:
+  delete_confirmation: Are you sure you want to delete '%name%'?
+  grid_delete_confirmation: Are you sure?
+  view_public_confirmation: Beware that all answers you may submit on this survey will be saved.
+  success:
+    survey:
+      add: The survey has been added successfully.
+      edit:  The survey has been successfully updated.
+      delete: The survey has been removed
+    item:
+      add: Survey item `%name%` has been added successfully.
+      edit:  Item `%name%` has been successfully updated.
+      delete: The survey item has been removed.
+    group:
+      add: Group `%name%` has been added successfully.
+      edit: Group `%name%` has been successfully updated.
+      delete: The group has been removed.
+    rating:
+      add: Rating type `%name%` has been added successfully.
+      edit: Rating type `%name%` has been successfully updated.
+      delete: The rating type has been removed.
+    published:
+      add: The survey has been published.
+      edit: Survey published has been updated.
+      delete: The published survey has been deleted.
+    campaign:
+      create: The campaign has been created.
+      new_sequence: The validation sequence %seqLink% requires you attention.
+      add: The campaign has been published.
+      edit: Campaign has been updated.
+      delete: The campaign has been deleted.
+  error:
+    survey:
+      delete: The survey hasn't been removed
+    item:
+      delete: The survey item hasn't been removed.
+    group:
+      delete: The survey group couldn't be removed.
+    rating:
+      delete: The rating type couldn't be removed.
+    published:
+      delete: The published survey couldn't be removed.
+    campaign:
+      delete: The campaign couldn't be removed.
+  add:
+    new_survey: New Survey
+    new_item: New Item
+    new_group: New Group
+    new_rating_type: New Rating Type
+    campaign_desc: Description
+    new_campaign: New Campaign
+
+
+make_selection: Make your selection...
+
+fields_labels:
+  survey: Survey
+  group: Group
+  item: Item
+
+general_fields:
+  to: To
+  description: Description
+  createdAt: Created at
+  sentAt: Sent at
+  updatedAt: Updated at
+  createdBy: Created By
+  updatedBy: Updated By
+  campaign_s: Campaign(s)
+  published: Published
+  publishedOn: Published On
+  totalAnswers: Total Answers
+  totalComments: Total Comments
+  average: Average
+  view_public: Public view
+
+rating_type:
+  page_titles:
+    list: Rating Types
+    add: Add a new rating type
+    edit: Edit `%name%`
+  fields:
+    min: From
+    max: To
+    minLabel: From label
+    maxLabel: To label
+
+group:
+  page_titles:
+    list: Groups
+    add: Add a new group
+    edit: Edit a group
+  fields:
+    name: Group name
+
+survey_items:
+  page_titles:
+    list: Items
+    add: Add a new survey item.
+    edit: Edit `%name%`
+  fields:
+    id: Id
+    description: Question
+
+campaign:
+  title: Campaigns
+
+published:
+  page_titles:
+    list: Published Surveys
+    add: Publish this survey
+    edit: Modify `%token%` published survey
+    edit_campaign: Edit Campaign
+    edit_success: The campaign has been successfully updated
+    delete_success: The campaign has been successfully deleted
+    delete_error: Something went wrong and the campaign could not be deleted
+  fields:
+    token: Token
+    target: Published for
+    survey: Survey
+    isOpened: Is opened
+    totalItemsAnswered: Answered
+    totalRemainingItems: Remaining
+    totalItems: Total items
+
+answers: Answers
+no_answers_yet: No answers
+comments: Comments
+
+statistics:
+  groups:
+    survey: Number of distinct surveys.
+    createdBy: Created by different users.
+  items:
+    created:
+      month: Items created in the last month
+      year: Items created in the last year
+  published:
+    month: Published last month
+    year: Published in last 12 months
+  created:
+    month: Created in the last month
+    year: Created in the past 12 months
+  expiration:
+    already_expired: Expired
+    month: Expires in 30 days
+    2months: Expires in 2 months
+    year: Expires inside 12 months
+  results:
+    calculated_current_page: Results have been calculated based ONLY for the current page.
+
+show:
+  publish:
+    new: Publish survey
+  rating_type:
+    new: Add a new rating type
+  group:
+    new: Add a new survey group

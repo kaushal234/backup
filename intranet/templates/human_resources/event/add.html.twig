@@ -1,0 +1,11 @@
+{% extends 'human_resources/event/layout.html.twig' %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'events' }) }}"></script>
+{% endblock %}

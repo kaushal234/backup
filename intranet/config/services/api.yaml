@@ -1,0 +1,25 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    ApiBundle\Http\:
+        resource: '../../src/ApiBundle/Http'
+
+    ApiBundle\Request\:
+        resource: '../../src/ApiBundle/Request'
+
+    ApiBundle\Client:
+        public: true
+        arguments:
+            $options:
+                base_uri: '%api.uri%'
+                headers:
+                    Content-Type: "application/ld+json"
+                    Accept: "application/ld+json"
+
+    ApiBundle\ClientExceptionMapper:
+
+    AppBundle\Service\DataProvider:
+        public: true

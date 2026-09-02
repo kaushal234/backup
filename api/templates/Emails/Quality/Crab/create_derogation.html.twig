@@ -1,0 +1,23 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <a href="{{ url('crab', { id: crab.id }) }}">
+                {{ 'crab.derogation.new' | trans(
+                    {
+                        '%id%': crab.id,
+                        '%assignor_firstname%': crab.derogation.assignor.firstname,
+                        '%assignor_lastname%': crab.derogation.assignor.lastname,
+                        '%assignee_firstname%': crab.derogation.assignee.firstname,
+                        '%assignee_lastname%': crab.derogation.assignee.lastname
+                    })
+                }}
+            </a>
+            <br/>
+            <p>{{ crab.derogation.description }}</p>
+            {{ include('Emails/Quality/Crab/partials/_crab_association_data.html.twig', {crab: crab}) }}
+        </columns>
+    </row>
+{% endblock %}

@@ -1,0 +1,60 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/finance/finance_families$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/finance/finance_families/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "factories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "archived",
+          "factories"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}
+

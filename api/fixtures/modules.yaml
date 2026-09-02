@@ -1,0 +1,649 @@
+App\Entity\Module\Module:
+    module_fixed_1:
+        id: 1
+        name: "YEAH"
+        operationalOwner: '@user_transferred'
+        misOwner: '@user_transferred'
+        shortDescription: "Ceci est un test"
+        fullDescription: "Ceci est un test"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean(0)>
+        application: '@application_intranet'
+        specification: '@specification_1'
+    module_fixed_2:
+        id: 2
+        name: "2RE"
+        operationalOwner: '@user_basic'
+        misOwner: '@user_basic'
+        shortDescription: "Ceci est un test"
+        fullDescription: "Ceci est un test"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        application: '@application_intranet'
+        specification: '@specification_2'
+        localKeyUsers:
+            - '@user_basic'
+
+    module_fixed_3:
+        id: 3
+        name: "ODIL"
+        operationalOwner: '@user_basic'
+        misOwner: '@user_basic'
+        keyUser: '@user_asm'
+        shortDescription: "Qu'est-ce que ça peut bien vouloir dire ?"
+        fullDescription: "Lido, une danseuse ?"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        application: '@application_intranet'
+    module_fixed_4:
+        id: 4
+        name: "ECUST"
+        operationalOwner: '@user_sa'
+        misOwner: '@user_basic'
+        shortDescription: "See, you know"
+        fullDescription: "Because we need a production-like ECUST module"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        application: '@application_intranet'
+    module_fixed_5:
+        id: 5
+        name: "SFR"
+        operationalOwner: '@user_moo_sfr'
+        misOwner: '@user_basic'
+        shortDescription: "Est-ce FR ?"
+        fullDescription: "Because we need a production-like SFR module"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        application: '@application_intranet'
+        localKeyUsers:
+            - '@user_basic'
+    module_fixed_6:
+        id: 6
+        name: "CAT"
+        operationalOwner: '@user_moo_cat'
+        misOwner: '@user_basic'
+        shortDescription: "Miaou"
+        fullDescription: "Because we need a production-like CAT module"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        application: '@application_intranet'
+    module_fixed_7:
+        id: 7
+        name: "DEMO"
+        operationalOwner: '@user_sa'
+        misOwner: '@user_basic'
+        shortDescription: "Ils m'entrainent, au bout de la nuit"
+        fullDescription: "Because we need a production-like DEMO module"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        application: '@application_intranet'
+    module_fixed_8:
+        id: 8
+        name: "CRT"
+        operationalOwner: '@user_sa'
+        misOwner: '@user_basic'
+        shortDescription: "Trop de bisous point n'en faut"
+        fullDescription: "Je trouve que ca va un tout petit peu trop vite entre nous"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        application: '@application_intranet'
+    module_fixed_9:
+        id: 9
+        name: "XU"
+        operationalOwner: '@user_sa'
+        misOwner: '@user_basic'
+        shortDescription: "Y a plus les piles"
+        fullDescription: "Je ne vois pas de quoi vous voulez dire"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        application: '@application_intranet'
+    module_fixed_10:
+        id: 10
+        name: "MIM"
+        operationalOwner: '@user_sa'
+        misOwner: '@user_basic'
+        shortDescription: "C'est mim pas vrai !"
+        fullDescription: "Because we need a production-like MIM module"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+
+    # /modules/11
+    module_atm:
+        id: 11
+        name: ATM
+        operationalOwner: '@user_csm'
+        misOwner: '@user_dev'
+        shortDescription: <sentence()>
+        fullDescription: <paragraph()>
+        migrated: true
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+
+    # /modules/12
+    module_mom:
+        id: 12
+        name: "MOM"
+        operationalOwner: '@user_coo'
+        misOwner: '@user_basic'
+        shortDescription: "C'est mom po vrai !"
+        fullDescription: "Because we need a production-like MOM module"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+
+    # /modules/13
+    module_mis:
+        id: 13
+        name: "MIS"
+        operationalOwner: '@user_cio'
+        misOwner: '@user_basic'
+        shortDescription: "MIS"
+        fullDescription: "MIS Project module"
+        dmsProcedureId: 123
+        dmsHelpId: 321
+        legacyLoc: 1234
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+
+    module_warehouse_task:
+        id: 14
+        name: WHT
+        operationalOwner: '@user_cio'
+        keyUser: '@user_mis'
+        misOwner: '@user_mis'
+        shortDescription: Warehouse task module
+        fullDescription: Warehouse Tasks module have been designed to assign a work, an action, a request to anybody in a warehouse.
+        legacyLoc: 0
+        migrationEstimatedHours: 0
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#EC4757"
+
+    module_part_number_task:
+        id: 15
+        name: PNT
+        frontEndRoute: directory_locations_show
+        operationalOwner: '@user_cio'
+        keyUser: '@user_mis'
+        misOwner: '@user_mis'
+        shortDescription: Part number task module
+        fullDescription: Part number Tasks module have been designed to assign a work, an action, a request to anybody in a factory.
+        legacyLoc: 0
+        migrationEstimatedHours: 0
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#EC4757"
+
+    module_{16..25}:
+        id: <current()>
+        name: <lexify('????')>
+        operationalOwner: '@user_2'
+        misOwner: '@user_2'
+        shortDescription: <sentence(4)>
+        fullDescription: <sentence(12)>
+        dmsProcedureId: '50%? <numberBetween(1,1000)>'
+        dmsHelpId: '50%? <numberBetween(1,1000)>'
+        legacyLoc: <numberBetween(1000,10000)>
+        migrationCurrentStep: '50%? @module_migration_step_1'
+        migrationEstimatedHours: <numberBetween(12,256)>
+        migrated: <boolean(50)>
+        department: '@dpt_sale'
+        application: '@application_intranet'
+
+    # /modules/26
+    module_whse:
+        id: 26
+        name: WHSE
+        operationalOwner: '@user_coo'
+        misOwner: '@user_basic'
+        shortDescription: Warehouse
+        fullDescription: materials warehouse module
+        legacyLoc: 4819
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+
+    # /modules/27
+    module_er:
+        id: 27
+        name: ER
+        frontEndRoute: equipment_shipping_record_show
+        operationalOwner: '@user_coo'
+        misOwner: '@user_basic'
+        shortDescription: Equipment Records
+        fullDescription: Equipment Records Module
+        legacyLoc: 4242
+        migrationEstimatedHours: 18
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        keyUser: '@user_superuser'
+        localKeyUsers:
+            - '@user_basic'
+
+    # /modules/28
+    module_see:
+        id: 28
+        name: SEE
+        operationalOwner: '@user_coo'
+        shortDescription: SEE
+        fullDescription: SEE
+        application: '@application_eng'
+
+    # /modules/29
+    module_kelio:
+        id: 29
+        name: KELIO
+        operationalOwner: '@user_coo'
+        shortDescription: KELIO
+        fullDescription: KELIO
+        application: '@application_hr'
+        misRelative: false
+
+    # /modules/30
+    module_kyriba:
+        id: 30
+        name: KYRIBA
+        operationalOwner: '@user_coo'
+        keyUser: '@user_moo_esr'
+        shortDescription: KYRIBA
+        fullDescription: KYRIBA
+        application: '@application_finance'
+
+    # /modules/31
+    module_birst:
+        id: 31
+        name: Birst
+        operationalOwner: '@user_coo'
+        shortDescription: Birst
+        fullDescription: Birst module
+        legacyLoc: 4242
+        application: '@application_ln'
+
+    # /modules/32
+    module_esr:
+        id: 32
+        name: ESR
+        operationalOwner: '@user_moo_esr'
+        misOwner: '@user_basic'
+        shortDescription: Equipment Shipping Records
+        fullDescription: Equipment Shipping Records Module
+        legacyLoc: 1111
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+
+    # /modules/33
+    module_tts:
+        id: 33
+        name: TTS
+        operationalOwner: '@user_moo_esr'
+        misOwner: '@user_basic'
+        shortDescription: Trouble Ticket System
+        fullDescription: Trouble Ticket System Module
+        legacyLoc: 1111
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#183598"
+        frontEndRoute: 'trouble_ticket_show'
+
+    # /modules/34
+    module_csr:
+        id: 34
+        name: CSR
+        frontEndRoute: customer_service_record_show
+        operationalOwner: '@user_moo_esr'
+        misOwner: '@user_basic'
+        shortDescription: Customer Service Record
+        fullDescription: Customer Service Record Module
+        legacyLoc: 1111
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#EC4757"
+
+    # /modules/35
+    module_crab:
+        id: 35
+        name: CRAB
+        operationalOwner: '@user_moo_esr'
+        misOwner: '@user_basic'
+        shortDescription: Crab
+        fullDescription: CrabModule
+        legacyLoc: 1111
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#EC4757"
+
+    # modules/36
+    module_task:
+        id: 36
+        name: TASK
+        operationalOwner: '@user_moo_cat'
+        misOwner: '@user_mis'
+        shortDescription: Task module
+        fullDescription: Task Module
+        legacyLoc: 1112
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#1458BC"
+
+    module_hmi_pictograms:
+        id: 37
+        name: HMI Pictograms
+        operationalOwner: '@user_moo_cat'
+        misOwner: '@user_mis'
+        shortDescription: HMI Pictograms and symbols
+        fullDescription: Module for sharing HMI Pictograms and symbols across the group, for engineers.
+        legacyLoc: 1112
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#1458BC"
+
+    # 38 and 39 are used for Third party apps
+
+    module_ac:
+        id: 40
+        name: AC
+        operationalOwner: '@user_moo_cat'
+        misOwner: '@user_mis'
+        shortDescription: Non technical Objection
+        fullDescription: Module for sharing compatibility between aircrafts and products
+        legacyLoc: 1113
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#1458BC"
+
+    module_pubs:
+        id: 41
+        name: PUBS
+        operationalOwner: '@user_moo_cat'
+        misOwner: '@user_mis'
+        shortDescription: Manual PUBS
+        fullDescription: Description of PUBS
+        legacyLoc: 1114
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#1458BC"
+        
+    module_crs:
+        id: 42
+        name: CRS
+        operationalOwner: '@user_moo_cat'
+        keyUser: '@user_asm'
+        misOwner: '@user_mis'
+        shortDescription: Contract
+        fullDescription: Module for sharing contracts
+        legacyLoc: 1113
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#1458BC"
+
+    module_guest_user:
+        id: 43
+        name: Guest User
+        operationalOwner: '@user_cio'
+        keyUser: '@user_mis'
+        misOwner: '@user_mis'
+        shortDescription: Guest Users
+        fullDescription: Module for guest users
+        legacyLoc: 1115
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#1458BC"
+
+
+    module_toc:
+        id: 44
+        name: TOC
+        operationalOwner: '@user_moo_cat'
+        keyUser: '@user_csm'
+        misOwner: '@user_mis'
+        shortDescription: Technician On Call
+        fullDescription: Module to handle Customer Request
+        legacyLoc: 1113
+        migrationEstimatedHours: 48
+        migrated: true
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#1458BC"
+
+# If you add a new simple module, you have to change IDs of the third party app modules below.
+# And then update their associated tests.
+# Because you can't force ID, and you can't add a new simple module after ThirdPartyApp modules.
+
+App\Entity\Module\ThirdPartyApp\Type\Extended:
+    # /modules/38
+    third_party_app_extended:
+        id: 38
+        name: TPA Extended
+        operationalOwner: '@user_moo_esr'
+        misOwner: '@user_basic'
+        shortDescription: TPA Extended
+        fullDescription: Third Party App Extended
+        legacyLoc: 1111
+        migrationEstimatedHours: 48
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#183598"
+        sso: true
+        mfaUser: true
+        mfaAdmin: true
+        securityReviewFrequency: 9
+        securityReviewDateStart: <dateTimeBetween('-2 months', '-1 month')>
+        accountReviewFrequency: 42
+        accountReviewDateStart: <dateTimeBetween('-2 months', '-1 month')>
+        availabilityClassification: 0
+        integrityClassification: 1
+        confidentialityClassification: 2
+        mainAdmin: '@user_with_department'
+        securityLevel: '@security_level_soc2t2'
+
+App\Entity\Module\ThirdPartyApp\Type\Light:
+    # /modules/39
+    third_party_app_light:
+        id: 39
+        name: TPA Light
+        operationalOwner: '@user_moo_esr'
+        misOwner: '@user_basic'
+        shortDescription: TPA Light
+        fullDescription: Third Party App Light
+        legacyLoc: 1111
+        migrationEstimatedHours: 49
+        migrated: <boolean()>
+        migratedAt: <dateTimeBetween('-2 months', '-1 month')>
+        application: '@application_intranet'
+        notificationColor: "#183598"
+        sso: true
+        mfaUser: true
+        mfaAdmin: true
+        securityReviewFrequency: 9
+        securityReviewDateStart: <dateTimeBetween('-2 months', '-1 month')>
+        accountReviewFrequency: 42
+        accountReviewDateStart: <dateTimeBetween('-2 months', '-1 month')>
+        availabilityClassification: 0
+        integrityClassification: 1
+        confidentialityClassification: 2
+        mainAdmin: '@user_with_department'
+        securityLevel: '@security_level_soc2t2'
+
+App\Entity\Module\ModuleMigrationStep:
+    module_migration_step_fixed:
+        id: 1
+        shortDesc: "Step fixed"
+        fullDesc: "Step fixed full desc"
+    module_migration_step_{1..15}:
+        id: <($current + 1)>
+        shortDesc: <name()>
+        fullDesc: <sentence(6)>
+
+App\Entity\Module\ThirdPartyApp\Member:
+    member_admin:
+        user: '@user_asm'
+        thirdPartyApp: '@third_party_app_extended'
+        admin: 0
+    member_will_be_removed:
+        user: '@user_disabled_and_not_hidden'
+        thirdPartyApp: '@third_party_app_extended'
+        admin: 0
+    member_will_be_boomeranged:
+        user: '@user_boomerang'
+        thirdPartyApp: '@third_party_app_extended'
+        admin: 0
+
+App\Entity\Module\ThirdPartyApp\UpdateTask:
+    update_task_1:
+        id: 1
+        user: '@user_sa'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'GRANT_ACCESS'
+        originType: 'WHITELIST'
+        done: 0
+        confirmed: 1
+        createdBy: '@user_moo_esr'
+    update_task_2:
+        id: 2
+        user: '@user_dss'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'GRANT_ACCESS'
+        originType: 'BUSINESS_UNIT_POSITION'
+        done: 0
+        confirmed: 0
+        createdBy: '@user_superuser'
+    update_task_3:
+        id: 3
+        user: '@user_will_become_sfe'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'GRANT_ACCESS'
+        originType: 'BUSINESS_UNIT_POSITION'
+        done: 0
+        confirmed: 0
+        createdBy: '@user_superuser'
+    update_task_comment:
+        id: 4
+        user: '@user_mis'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'GRANT_ACCESS'
+        originType: 'WHITELIST'
+        done: 0
+        confirmed: 0
+        createdBy: '@user_superuser'
+    update_task_5:
+        id: 5
+        user: '@user_soon_enabled'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'GRANT_ACCESS'
+        originType: 'BUSINESS_UNIT_POSITION'
+        done: 1
+        confirmed: 1
+        createdBy: '@user_superuser'
+        comment: "test comment update task"
+    update_task_6:
+        id: 6
+        user: '@user_disabled_and_soon_enabled'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'GRANT_ACCESS'
+        originType: 'BUSINESS_UNIT_POSITION'
+        done: 0
+        confirmed: 0
+        createdBy: '@user_superuser'
+    update_task_7:
+        id: 7
+        user: '@user_soon_enabled'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'GRANT_ACCESS'
+        originType: 'BUSINESS_UNIT_POSITION'
+        done: 0
+        confirmed: 0
+        createdBy: '@user_superuser'
+    update_task_8:
+        id: 8
+        user: '@user_disabled_and_not_hidden'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'REMOVE_ACCESS'
+        originType: 'BUSINESS_UNIT_POSITION'
+        done: 0
+        confirmed: 0
+        createdBy: '@user_superuser'
+    update_task_for_profile:
+        id: 9
+        user: '@user_with_department'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'GRANT_ACCESS'
+        originType: 'BUSINESS_UNIT_POSITION'
+        done: 0
+        confirmed: 0
+        createdBy: '@user_superuser'
+    # Planned leaver linked to TPA Extended (module 38), administrated by
+    # user_with_department (tonton). Lets us assert a module admin sees future
+    # leavers in their scope (not only people who already left).
+    # (UpdateTask.thirdPartyApp is typed Extended, so a Light module is not valid.)
+    update_task_planned_leaver:
+        id: 10
+        user: '@user_soon_disabled'
+        thirdPartyApp: '@third_party_app_extended'
+        demandType: 'REMOVE_ACCESS'
+        originType: 'BUSINESS_UNIT_POSITION'
+        done: 0
+        confirmed: 0
+        createdBy: '@user_superuser'

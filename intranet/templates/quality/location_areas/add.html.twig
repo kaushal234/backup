@@ -1,0 +1,13 @@
+{% extends 'quality/layout.html.twig' %}
+{% trans_default_domain 'location_areas' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('quality/location_areas/partial/_form.html.twig', {
+        title: 'location_areas.title.add' | trans | title,
+        form: form,
+        action: path('quality_location_areas_add'),
+        cancel_link: path('quality_location_areas_home')
+    }, with_context=false) }}
+{% endblock %}

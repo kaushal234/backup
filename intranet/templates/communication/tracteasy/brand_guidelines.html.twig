@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_brand_guidelines.html.twig', {
+        guidelines: {
+            'Brand Guidelines Tracteasy': {
+                'pdf': 'tracteasy/brand_guidelines/tracteasy-brand-guidelines-2024.pdf',
+            }
+        }
+    }) }}
+{% endblock %}

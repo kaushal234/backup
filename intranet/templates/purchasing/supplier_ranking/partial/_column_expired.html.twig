@@ -1,0 +1,13 @@
+{% set hasExpired = false %}
+
+{% for file in row.data.files %}
+    {% if file.expired %}
+        {% set hasExpired = true %}
+    {% endif %}
+{% endfor %}
+
+{% if hasExpired %}
+    <small class="label label-danger">{{ 'yes'|upper }}</small>
+{% else %}
+    <small class="label label-success">{{ 'no'|upper }}</small>
+{% endif %}

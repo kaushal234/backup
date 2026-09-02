@@ -1,0 +1,1 @@
+<span class="btn btn-sm btn-{% if item.status == 'PENDING' %}warning{% elseif item.status == 'IN PROGRESS' %}info{% else %}default{% endif %}" style="cursor:default">{{ item.status }}</span>

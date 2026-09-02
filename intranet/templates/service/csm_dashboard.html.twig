@@ -1,0 +1,126 @@
+{% extends 'service/dashboard_layout.html.twig' %}
+{% form_theme equipmentRecordSearchForm with ['form_theme_vertical.html.twig'] %}
+{% form_theme partsForm with ['form_theme_vertical.html.twig'] %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            {% set apiRoute = constant('AppBundle\\DataPersister\\Service\\TechnicianOnCallPersister::RESOURCE_URL') %}
+
+            {{ id_search_form(
+                idLabel: false,
+                idPlaceholder: 'TOC by ID',
+                redirectRoute: 'technician_on_calls_show',
+                apiRoute: apiRoute,
+            ) }}
+        </div>
+        <div class="col-md-6">
+            {% set apiRoute = constant('AppBundle\\DataPersister\\Service\\CustomerServiceRecordPersister::CUSTOMER_SERVICE_RECORD_URL') %}
+
+            {{ id_search_form(
+                idLabel: false,
+                idPlaceholder: 'CSR by ID',
+                redirectRoute: 'customer_service_record_show',
+                apiRoute: apiRoute,
+            ) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_start(equipmentRecordSearchForm) }}
+            <div class="row">
+                <div class="col-sm-10">
+                    {{ form_row(equipmentRecordSearchForm) }}
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                </div>
+            </div>
+            {{ form_end(equipmentRecordSearchForm) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_start(partsForm) }}
+            <div class="row">
+                <div class="col-sm-10">
+                    {{ form_row(partsForm) }}
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                </div>
+            </div>
+            {{ form_end(partsForm) }}
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title collapse-link">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <i class="fa fa-chevron-up"></i>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="rounded-0">
+                        {{ form_row(form.technicians, {'attr': {'id': 'technician_choice', 'class': 'scroll-container p-3', 'style': 'max-height: 150px; border: 1px solid #ced4da;'}}) }}
+                    </div>
+                    <div class="rounded-0">
+                        {{ form_row(form.additional) }}
+                    </div>
+                    <div class="form-group text-end mt-3">
+                        <label class="control-label">&nbsp;</label>
+                        <button class="btn btn-primary"
+                                type="submit">{{ 'button.filter'| trans({}, 'messages') | upper }}</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row h-100 mt-3 justify-content-center gap-1">
+        <div class="col-2">
+            {{ render(controller(
+                'AppBundle\\Controller\\Service\\Dashboard\\TechnicianOnCallIndiceFactor1000Controller::home', {users: users}
+            )) }}
+        </div>
+        <div class="col-2">
+            {{ render(controller(
+                'AppBundle\\Controller\\Service\\Dashboard\\TechnicianOnCallInProgressController::home', {users: users}
+            )) }}
+        </div>
+        <div class="col-2">
+            {{ render(controller(
+                'AppBundle\\Controller\\Service\\Dashboard\\TechnicianOnCallInSuspendedController::home', {users: users}
+            )) }}
+        </div>
+        <div class="col-2">
+            {{ render(controller(
+                'AppBundle\\Controller\\Service\\Dashboard\\TechnicianOnCallWaitingFactoryController::home', {users: users}
+            )) }}
+        </div>
+        <div class="col-3">
+            {{ render(controller(
+                'AppBundle\\Controller\\Service\\Dashboard\\TechnicianOnCallFactoryFlagRecentlyClosedController::home', {users: users}
+            )) }}
+        </div>
+    </div>
+    <div class="row h-100 mt-3">
+        <div class="col-6">
+            {{ render(controller(
+                'AppBundle\\Controller\\Service\\Dashboard\\TechnicianOnCallLastController::home', {users: users}
+            )) }}
+        </div>
+        <div class="col-6">
+            {{ render(controller(
+                'AppBundle\\Controller\\Service\\Dashboard\\TechnicianOnCallLateController::home', {users: users}
+            )) }}
+        </div>
+    </div>
+    <div class="row custom-tab-customer-service-record mt-3">
+        <div class="col">
+            {{ render(controller(
+                'AppBundle\\Controller\\Service\\Dashboard\\CustomerServiceRecordTeamPlannerController::home'
+            )) }}
+        </div>
+    </div>
+{% endblock %}

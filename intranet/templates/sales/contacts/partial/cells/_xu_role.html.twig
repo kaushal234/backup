@@ -1,0 +1,9 @@
+{% set roles = [] %}
+<td>
+    {% for role in item.extranetUserAcls %}
+        {% if role.extranetUserGroup.name not in roles %}
+            {% set roles = roles | merge([role.extranetUserGroup.name]) %}
+        {% endif %}
+    {% endfor %}
+    {{ roles | join(', ') }}
+</td>

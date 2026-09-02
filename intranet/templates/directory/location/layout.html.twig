@@ -1,0 +1,21 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.location.title'|trans([], 'messages') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="directory_locations_add" :security="is_granted('ACL_SUPERUSER')"/>
+        {% if location_id is defined %}
+            <twig:NavItem:Edit route="directory_locations_edit" :routeParameters="{ id: location_id }"
+                               :security="is_granted('ACL_SUPERUSER')"/>
+        {% endif %}
+        {% if showDisabled is defined %}
+            <twig:NavItem
+                    :translationKey="showDisabled ? 'directory.location.hide_disabled' : 'directory.location.show_disabled'"
+                    domain="directory"
+                    route="directory_locations_home" :routeParameters="{showDisabled: showDisabled ? false : true}"
+                    icon="bi:eye"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

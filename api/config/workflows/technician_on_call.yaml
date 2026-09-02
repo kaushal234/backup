@@ -1,0 +1,37 @@
+framework:
+  workflows:
+    technician_on_call:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\Service\TechnicianOnCall
+      initial_marking: !php/const App\Entity\Service\TechnicianOnCall::PENDING
+      places:
+        - !php/const App\Entity\Service\TechnicianOnCall::PENDING
+        - !php/const App\Entity\Service\TechnicianOnCall::IN_PROGRESS
+        - !php/const App\Entity\Service\TechnicianOnCall::SOLVED
+        - !php/const App\Entity\Service\TechnicianOnCall::CLOSED
+        - !php/const App\Entity\Service\TechnicianOnCall::SUSPENDED
+      transitions:
+        to_in_progress:
+          from:
+            - !php/const App\Entity\Service\TechnicianOnCall::PENDING
+            - !php/const App\Entity\Service\TechnicianOnCall::SOLVED
+            - !php/const App\Entity\Service\TechnicianOnCall::CLOSED
+            - !php/const App\Entity\Service\TechnicianOnCall::SUSPENDED
+          to: !php/const App\Entity\Service\TechnicianOnCall::IN_PROGRESS
+        to_solved:
+          from:
+            - !php/const App\Entity\Service\TechnicianOnCall::SUSPENDED
+            - !php/const App\Entity\Service\TechnicianOnCall::IN_PROGRESS
+          to: !php/const App\Entity\Service\TechnicianOnCall::SOLVED
+        to_closed:
+          guard: "is_granted('FEATURE_TECHNICIAN_ON_CALL_CLOSED')"
+          from: !php/const App\Entity\Service\TechnicianOnCall::SOLVED
+          to: !php/const App\Entity\Service\TechnicianOnCall::CLOSED
+        to_suspended:
+          guard: "is_granted('FEATURE_TECHNICIAN_ON_CALL_SUSPENDED')"
+          from: !php/const App\Entity\Service\TechnicianOnCall::IN_PROGRESS
+          to: !php/const App\Entity\Service\TechnicianOnCall::SUSPENDED

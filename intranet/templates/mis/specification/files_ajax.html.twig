@@ -1,0 +1,53 @@
+{% trans_default_domain 'mis' %}
+
+{{ include('helper/_report_table.html.twig', {
+    reportTable: {
+        items: {
+            filePath: {
+                label: 'menu.files'|trans([], 'messages')|capitalize,
+                template: 'mis/specification/partial/_file_tooltip.html.twig',
+                templateParams: {
+                    moduleId: moduleId,
+                    userStoryId: userStory.id
+                },
+            },
+            size: {
+                label: 'size'|trans([], 'messages')|capitalize,
+                filters : 'readable_filesize'
+            },
+            poster: {
+                label: 'fields.poster'|trans([], 'messages')|capitalize,
+                properties: ['poster.lastname', 'poster.firstname'],
+                link:{
+                    route: 'directory_people_show',
+                    params: {'id': 'poster.@id'}
+                },
+            },
+            createdAt: {
+                label: 'fields.created_at'|trans([], 'messages'),
+                filters: 'date("Y-m-d H:i:s")'
+            },
+            delete: {
+                label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                sortable: false,
+                class: 'text-end',
+                link: {
+                    route: 'delete_user_story_file',
+                    params: { 'id': 'id'},
+                    fixedParams: { 'moduleId': moduleId, 'userStoryId': userStory.id, '_token': csrf_token('delete_user_story_file')},
+                    content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                    popup: {
+                        type: 'confirmation',
+                        title: 'Confirmation',
+                        message: 'Are you sure to delete ?',
+                    },
+                },
+            },
+        },
+        title: 'mis.specification.file_title'|trans,
+        data: userStory.userStoryFiles,
+        search: false,
+        pagination: false,
+        initialSorting: 'createdAt'
+    }
+}, with_context = false) }}

@@ -1,0 +1,83 @@
+calibration_tool:
+  nav_link:
+    add_tool_types: Add tools types
+    add_tools: Add tools
+    location_areas: Location areas
+    out_of_tolerance_forms: Out of tolerance forms
+    out_of_tolerance_forms_this_tool: Out of tolerance forms for this tool
+    tool_type_actions: Tool types actions
+    tool_types: Tool types
+    tools_actions: Tools actions
+  itemsPerPage: Items per page
+  menu:
+    tools: Tools
+  title:
+    index: Calibrated tools
+    add: Add new calibration tool.
+    edit: Modify calibration tool.
+    dashboard: Dashboard
+    comment: Out of service comment
+  fields:
+    index: Tool Id
+    serialNumber: Tool Serial Number
+    description: Tool Description
+    calibrationLogs: Calibration Events
+    calibrationInterval: Calibration Interval
+    calibrationIntervalUnit:
+      months: months
+      weeks: weeks
+      days: days
+    calibrationNotice:  Calibration Notice
+    purchasingDate:  Purchasing Date
+    nextCalibrationDate:  Next Calibration Date
+    status: Status
+    vendorErp: Vendor Erp
+    vendorName: Vendor Name
+    vendorId: Vendor Id
+    supervisor: Supervisor
+    certificationFile: Certification File
+    calibrationDate: Calibration Date
+    factory:
+      name: Factory Name
+      company: Company
+      address: Factory Address
+      number_of_locations: "{0} _factory_name_ no location areas|{1} _factory_name_ one location area.|]1, Inf[ _factory_name_ has number_of_locations location areas."
+    tool_type: Type
+    location_area: Area
+    created_by: Created By
+    expiresIn: Remaining Days until expiration
+  expiresIn:
+    years: '{0}|{1} One year |]1,Inf[ %nb% years'
+    months: '{0}|{1} One month |]1,12[ %nb% months'
+    days: '{0}Today|{1}Tomorrow|]1,31[ %nb% days'
+    days_only: '%nb% days'
+  new_otf: Create out of tolerance form
+  new_otf_confirmation: Due you want to create a new out of tolerance form?
+  validation_errors:
+      not_blank: This cannot be blank.
+
+  messages:
+    statistics:
+      no_results: No results found!
+    delete: "Are you sure you want to delete %toolName% ?"
+    success:
+      delete: The tool has been removed.
+      add: The tool has been added successfully.
+      edit: The tool has been modified successfully.
+    error:
+      delete:  Something went wrong and the tool could not been deleted. Try again or create a TTS.
+
+  actions:
+    send_to_out_of_service: Take out of service
+    send_to_under_calibration: Send to calibration
+    send_to_active: Activate and send a certificate
+
+days_number: number_of_days days
+ACTIVE: Active
+CALIBRATION_DUE_SOON: Calibration Due Soon
+EXPIRED: Expired
+UNDER_CALIBRATION: Under Calibration
+OUT_OF_SERVICE: Out of Service
+SCRAPPED: Scrapped
+
+make_selection: Make your selection ...

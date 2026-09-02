@@ -1,0 +1,10 @@
+window.onload = function() {
+    const contactPointsSubDivisions = {{ contactPointsSubDivisions|json_encode|raw }}
+    const mainSalesRepresentativeAsmSelectors = document.querySelectorAll('select.asm_select')
+    mainSalesRepresentativeAsmSelectors.forEach(function (el) {
+        const closestSubdivisionSelector = el.closest('.form-control').parentElement.querySelector('select.subdivision_select')
+        el.onchange = function (event) {
+            closestSubdivisionSelector.value = contactPointsSubDivisions[event.target.value]
+        }
+    })
+}

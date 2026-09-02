@@ -1,0 +1,46 @@
+App\Entity\PowerBI\Report:
+  power_bi_report_1:
+    title: BI08
+    description: Inventory Forecast
+    powerBiUuidObject: <( new Symfony\Component\Uid\Uuid("b6105b5b-3441-4cc5-8a4e-54361a9d964b"))>
+    category: MATERIALS
+
+  power_bi_report_2:
+    title: BI37
+    description: Inventory by Site
+    powerBiUuidObject: <( new Symfony\Component\Uid\Uuid("22439092-57de-4442-aee5-85c028283283"))>
+    category: MATERIALS
+
+  power_bi_report_3:
+    title: BI19
+    description: New part numbers creation in LN
+    powerBiUuidObject: <( new Symfony\Component\Uid\Uuid("8f5a692d-eab5-4b76-8a45-ac54783fffdc"))>
+    category: ENGINEERING
+    groups:
+      - '@group_ROLE_POWER_BI'
+
+  power_bi_report_4:
+    title: BI33
+    description: SPH Margins
+    powerBiUuidObject: <( new Symfony\Component\Uid\Uuid("ab52af83-5d15-4d64-838d-2876687bfa95"))>
+    category: FINANCE
+
+  power_bi_report_5:
+    title: BI45
+    description: Cycle Counting
+    powerBiUuidObject: <( new Symfony\Component\Uid\Uuid("438dbfb9-2be4-4553-b56f-33d3259416a2"))>
+    category: FINANCE
+
+  # ID 6
+  power_bi_to_update:
+    title: BI54
+    description: Report to be updated
+    powerBiUuidObject: <( new Symfony\Component\Uid\Uuid("797a978c-b775-46c3-9ae4-43a997104236"))>
+    category: FINANCE
+
+  # ID 7
+  power_bi_to_delete:
+    title: BI71
+    description: Report to be deleted
+    powerBiUuidObject: <( new Symfony\Component\Uid\Uuid("9e033427-ad78-4b0c-9f1a-894ef76a8dc5"))>
+    category: FINANCE

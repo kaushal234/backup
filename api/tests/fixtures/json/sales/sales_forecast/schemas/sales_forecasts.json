@@ -1,0 +1,318 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/sales_forecasts(_my_area|)$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/sales_forecasts/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "masterSalesForecast": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/master_sales_forecasts/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "status": {
+            "type": "string"
+          },
+          "sso": {
+            "$ref": "../../../directory_location/schemas/directory_location_public.json"
+          },
+          "factory": {
+            "$ref": "../../../directory_location/schemas/directory_location_public.json"
+          },
+          "asm": {
+            "$ref": "../../../directory_people/schemas/directory_people_public.json"
+          },
+          "poster": {
+            "$ref": "../../../directory_people/schemas/directory_people_public.json"
+          },
+          "equoteId": {
+            "type": ["string", "null"]
+          },
+          "buyer": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "country": {
+                "oneOf": [
+                  {"type": "null"},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string"}
+                    },
+                    "required": ["name"]
+                  }
+                ]
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId",
+                "country"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "endUser": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "country": {
+                "oneOf": [
+                  {"type": "null"},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string"}
+                    },
+                    "required": ["name"]
+                  }
+                ]
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId",
+                "country"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "thirdParty": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "country": {
+                "oneOf": [
+                  {"type": "null"},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string"}
+                    },
+                    "required": ["name"]
+                  }
+                ]
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId",
+                "country"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "country": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/countries/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "name",
+                  "legacyId"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "airport": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "../../../iata_code/schemas/iata_code.json"
+              }
+            ]
+          },
+          "product": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/products/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "estimatedSaleDate": {
+            "type": "string"
+          },
+          "customerSuccessPercentage": {
+            "type": "integer"
+          },
+          "successPercentage": {
+            "type": "integer"
+          },
+          "delinquent": {
+            "type": "boolean"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "tier": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/emission_ratings/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "quote": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../quotes/schemas/quote_light.json" }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "masterSalesForecast",
+          "status",
+          "sso",
+          "factory",
+          "asm",
+          "poster",
+          "equoteId",
+          "buyer",
+          "endUser",
+          "country",
+          "airport",
+          "product",
+          "quantity",
+          "estimatedSaleDate",
+          "delinquent",
+          "customerSuccessPercentage",
+          "successPercentage",
+          "legacyId",
+          "tier",
+          "quote"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "minItems": 1
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

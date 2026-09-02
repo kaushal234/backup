@@ -1,0 +1,15 @@
+{% extends 'sales/forecast_closures/layout.html.twig' %}
+{% trans_default_domain 'forecast_closures' %}
+
+{% block title %}
+    {{ parent() }} \ {{ 'forecast_closures.title' | trans() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            {{ data_table(forecastClosureDatatable) }}
+        </div>
+    </div>
+    <div id="highcharts-fcr" class="col-md-12 highcharts" data-options="{{ chart|json_encode }}"></div>
+{% endblock %}

@@ -1,0 +1,36 @@
+App\Entity\Support\MaintenanceContract:
+    # maintenance_contracts/1
+    maintenance_contract_active:
+        id: 1
+        startDate: <(new \DateTime('1 month ago'))>
+        expirationDate: <(new \DateTime('+1 month'))>
+        representative: '@user_superuser'
+        endUser: '@customer_for_fur'
+        buyer: '@customer_for_contract'
+        endUserRepresentatives:
+            - '@extranet_user_for_fur'
+            - '@extranet_user_for_contract_enduser'
+            - '@extranet_user_for_contract_enduser_extra'
+        buyerRepresentatives:
+            - '@extranet_user_for_contract_buyer'
+        equipmentRecords:
+            - '@equipment_record_child'
+        description: contrat reverraiiiiiiiiiiiiiiiiiiiiiiiiiis jeee
+
+    # maintenance_contracts/2
+    maintenance_contract_expired:
+        id: 2
+        startDate: <(new \DateTime('6 months ago'))>
+        expirationDate: <(new \DateTime('4 months ago'))>
+        representative: '@user_superuser'
+        endUser: '@customer_for_fur'
+        buyer: '@customer_a_boire'
+        endUserRepresentatives:
+            - '@extranet_user_for_fur'
+            - '@extranet_user_for_contract_enduser'
+        buyerRepresentatives:
+            - '@extranet_user_for_contract_buyer'
+            - '@extranet_user_for_contract_buyer_extra'
+        equipmentRecords:
+            - '@equipment_record_dog'
+        description: contrat nouuuuuuuuuuuuus des demaiiiiiiiiiiiiiiiiiiiiiin

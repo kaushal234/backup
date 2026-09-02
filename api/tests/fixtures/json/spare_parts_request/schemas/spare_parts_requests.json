@@ -1,0 +1,158 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "@id": {"pattern": "^/parts/(toc_|sb_|)spare_parts_requests"},
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "properties": {
+                    "@id": {"pattern": "^/parts/(toc_|sb_|)spare_parts_requests/\\d+$"},
+                    "@type": {"type": "string"},
+                    "tocId": {"type": ["integer", "null"]},
+                    "sbId": {"type": ["integer", "null"]},
+                    "legacyId": {"type": "integer"},
+                    "id": {"type": "integer"},
+                    "createdAt": {"type": "string"},
+                    "status": {"type": "string"},
+                    "activity": {"type": "string"},
+                    "type": {"type": "string"},
+                    "sph": {"$ref": "../../directory_location/schemas/directory_location_public.json" },
+                    "factory": {"$ref": "../../directory_location/schemas/directory_location_public.json" },
+                    "sso": {"$ref": "../../directory_location/schemas/directory_location_public.json" },
+                    "erpLocation": {"$ref": "../../directory_location/schemas/directory_location_public.json" },
+                    "shippingDate": {"type": ["string", "null"]},
+                    "estimatedShippingDate": {"type": ["string", "null"]},
+                    "salesOrder": {"type": ["string", "null"]},
+                    "airport": {
+                        "type": "object",
+                        "properties": {
+                            "@id": {"pattern": "^/airports/\\d+$"},
+                            "@type": { "type": "string" },
+                            "legacyId": {"type": "integer"},
+                            "cityName": {"type": "string"},
+                            "code": {"type": "string"},
+                            "latitude": {"type": ["number", "null"]},
+                            "longitude": {"type": ["number", "null"]}
+                        },
+                        "required": ["@id", "@type", "legacyId", "code", "cityName", "latitude", "longitude"],
+                        "additionalProperties": false
+                    },
+                    "parts": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "@id": {"pattern": "^/parts/spare_parts_request_parts/\\d+$"},
+                                "@type": {"type": "string"},
+                                "legacyId": {"type": "integer"},
+                                "id": {"type": "integer"},
+                                "createdAt": {"type": "string"},
+                                "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                                "deletedAt": {"type": ["null", "string"]},
+                                "deletedBy": {"oneOf": [
+                                    {"type": "null"},
+                                    {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                                ]},
+                                "partNumber": {"type": "string"},
+                                "description": {"type": "string"},
+                                "unitOfMeasure": {"type": "string"},
+                                "quantity": {"type": "integer"},
+                                "comment": {"type": ["null", "string"]},
+                                "shippingOrigin": {
+                                    "oneOf": [
+                                        {"type": "null"},
+                                        {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+                                    ]
+                                },
+                                "plannedDeliveryDate": {"type": ["null", "string"]},
+                                "trackings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "trackingNumber": {"type": "string"},
+                                            "courier": {"type": "string"},
+                                            "shippedQuantity": {"type": "number"},
+                                            "unitOfMeasure": {"type": "number"}
+                                        },
+                                        "required": ["trackingNumber", "courier", "shippedQuantity", "unitOfMeasure"],
+                                        "additionalProperties": false
+                                    }
+                                }
+                            },
+                            "required": ["@id", "@type", "legacyId", "id", "createdAt", "createdBy", "deletedAt", "deletedBy", "partNumber", "description", "unitOfMeasure", "quantity", "comment", "trackings"],
+                            "additionalProperties": false
+                        }
+                    },
+                    "deletedParts": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "@id": {"pattern": "^/parts/spare_parts_request_parts/\\d+$"},
+                                "@type": {"type": "string"},
+                                "id": {"type": "integer"},
+                                "createdAt": {"type": "string"},
+                                "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                                "deletedAt": {"type": ["null", "string"]},
+                                "deletedBy": {"oneOf": [
+                                    {"type": "null"},
+                                    {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                                ]},
+                                "partNumber": {"type": "string"},
+                                "description": {"type": "string"},
+                                "unitOfMeasure": {"type": "string"},
+                                "quantity": {"type": "integer"},
+                                "comment": {"type": ["null", "string"]},
+                                "trackings": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "trackingNumber": {"type": "string"},
+                                            "courier": {"type": "string"},
+                                            "shippedQuantity": {"type": "number"},
+                                            "unitOfMeasure": {"type": "number"}
+                                        },
+                                        "required": ["trackingNumber", "courier", "shippedQuantity", "unitOfMeasure"],
+                                        "additionalProperties": false
+                                    }
+                                }
+                            },
+                            "required": ["@id", "@type", "id", "createdAt", "createdBy", "deletedAt", "deletedBy", "partNumber", "description", "unitOfMeasure", "quantity", "comment", "trackings"],
+                            "additionalProperties": false
+                        }
+                    },
+                    "customer": {
+                        "type": "object",
+                        "properties": {
+                            "@id": {"pattern": "^/sales/customers/\\d+$"},
+                            "@type": { "type": "string" },
+                            "name": {"type": "string"},
+                            "status": {"type": "string"},
+                            "legacyId": {"type": "integer"}
+                        },
+                        "required": ["@id", "@type", "status", "name", "legacyId"],
+                        "additionalProperties": false
+                    },
+                    "technicianOnCall": {
+                        "oneOf": [
+                            {"type": "null"},
+                            {"$ref": "../../technician_on_calls/schemas/technician_on_call.json"}
+                        ]
+                    }
+                },
+                "required": ["@id", "@type", "legacyId", "id", "createdAt", "status", "activity", "type", "sph", "factory", "erpLocation", "estimatedShippingDate", "salesOrder", "airport", "customer"],
+                "additionalProperties": false
+            },
+            "minItems": 1
+        }
+    },
+    "required": [
+        "@context",
+        "@id",
+        "@type",
+        "hydra:member"
+    ]
+}

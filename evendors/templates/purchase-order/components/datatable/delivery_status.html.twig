@@ -1,0 +1,9 @@
+<td>
+    {% for status in item.status %}
+        {% if status is same as 'late' %}
+            <span style="margin-left: 2px" class="badge bg-warning">{{ 'display.table.purchase_order.rows.status.late'|trans }}</span>
+        {% elseif status is same as 'to be delivered within 7 days' %}
+            <span style="margin-left: 2px" class="badge bg-info">{{ 'display.table.purchase_order.rows.status.to_be_delivered'|trans }}</span>
+        {% endif %}
+    {% endfor %}
+</td>

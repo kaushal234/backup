@@ -1,0 +1,17 @@
+export const REGEX = {
+  date: /^(\d{4})-(\d{2})-(\d{2})$/,
+  detailBreadcrumb: /Details \(#\w+\)/i,
+  number: /\d+/,
+  numberWithHash: /#\d+/,
+  sentence: /^[a-zA-Z\s.,*-_()]+$/,
+  word: /\w+/,
+  model: /^(\w+-)*\w+$/,
+  airport: /^[a-zA-Z]{3}$/,
+  tocDetailLink: /\/toc\/details\/\d+/,
+  numberOrDash: /(?:\d+|---)/,
+  tocPartsDetailLink: /\/toc\/details\/\d+\?tab=parts/,
+  dateOrDash: /^(\d{4}-\d{2}-\d{2}|---)$/,
+  outdated: /^(\d+)\s+days\s+\/ IF\s+(1|10|100|1000)$/,
+  boolean: /^(0|1)$/,
+  people: /\/people\/\d+/,
+};

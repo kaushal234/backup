@@ -1,0 +1,9 @@
+<td class="text-end">
+        {{ include('helper/_menu.html.twig', {buttons: {
+                edit: {
+                        route: 'warehouse_tasks_mapping_edit',
+                        params: {id: iri_id(item['@id'])},
+                        security: is_granted('TASKS_MAPPING_WRITE_VOTER', item['@id'])
+                },
+        }}) }}
+</td>

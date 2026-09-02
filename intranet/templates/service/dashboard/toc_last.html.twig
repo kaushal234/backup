@@ -1,0 +1,48 @@
+{% trans_default_domain 'technician_on_call' %}
+
+<div class="card rounded-0 h-100 shadow">
+    <div class="card-header bg-white">
+        <div class="m-0 p-0 d-flex justify-content-start gap-2">
+            <h2>{{ 'toc.title.last' | trans }}</h2>
+            <span
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="{{ 'toc.messages.help.latest'|trans }}"
+            >{{ ux_icon('fa7-solid:circle-info', { width: '15', height: '15' }) }}</span>
+        </div>
+    </div>
+    <div class="card-body h-100 p-2">
+        {% if technicianOnCalls is empty %}
+            <div class="alert alert-success rounded-0 m-0 w-100">
+                {{ 'toc.messages.information.latest'|trans }}
+            </div>
+        {% else %}
+            <table class="table" style="table-layout: fixed; width: 100%;">
+                <thead>
+                <tr>
+                    <th style="width: 10%;">#</th>
+                    <th style="width: 70%;">{{ 'toc.fields.title'|trans }}</th>
+                    <th style="width: 20%;">{{ 'fields.created_at'|trans({}, 'messages') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for technicianOnCall in technicianOnCalls %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('technician_on_calls_show', {id: technicianOnCall.id}) }}">
+                                {{ technicianOnCall.id }}
+                            </a>
+                        </td>
+                        <td>
+                            <p class="text-truncate d-block m-0" style="width: 100%;">
+                                {{ technicianOnCall.title }}
+                            </p>
+                        </td>
+                        <td>{{ technicianOnCall.createdAt|date('Y-m-d ') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>

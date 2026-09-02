@@ -1,0 +1,15 @@
+{% extends 'sales/orders/layout.html.twig' %}
+{% trans_default_domain "sales_orders" %}
+
+{% block title %}{{ parent() }}\{{ 'menu.logs'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+
+    <div class="ibox-content">
+        <div class="logs-block" data-resource="{{ order['@id'] }}" data-show-comment-form="true"></div>
+    </div>
+
+{% endblock %}
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,350 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/TechnicianOnCall.jsonld",
+  "definitions": {
+    "TechnicianOnCall.jsonld": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "@context": {
+          "type": "string"
+        },
+        "@id": {"pattern": "^/service/technician_on_calls/\\d+(/status)?$"},
+        "legacyId": {"type": "integer"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "readOnly": true,
+          "type": "integer"
+        },
+        "confidential": {
+          "type": "boolean"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "example": "PENDING",
+          "type": "string"
+        },
+        "createdAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "deletedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "solvedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "createdBy": {
+          "oneOf": [
+            { "$ref": "../../directory_people/schemas/directory_people_public_photo.json" },
+            { "$ref": "../../user/schemas/extranet_user.json" }
+          ]
+        },
+        "equipmentRecord": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../equipment_record/schemas/equipment_record_service.json" }
+          ]
+        },
+        "assignee": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../directory_people/schemas/directory_people_public_photo.json" }
+          ]
+        },
+        "technician": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../directory_people/schemas/directory_people_public_photo.json" }
+          ]
+        },
+        "errorCodes": {
+          "type": ["string", "null"]
+        },
+        "unitOperationalStatus": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../unit_operational_status/schemas/unit_operational_status.json" }
+          ]
+        },
+        "technicianOnCallType": {
+          "$ref": "../../technician_on_calls/schemas/technician_on_call.json"
+        },
+        "serviceActivity": {
+          "$ref": "../../technician_on_calls/schemas/service_activity.json"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "@id": { "pattern": "^/technician_on_call_tags/\\d+$" },
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "mainContact": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../sales/extranet_user/schemas/extranet_user_er_linked.json" },
+            { "$ref": "../../sales/extranet_user/schemas/extranet_user_light.json" }
+          ]
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "$ref": "../../sales/extranet_user/schemas/extranet_user_er_linked.json" },
+              { "$ref": "../../sales/extranet_user/schemas/extranet_user_light.json" }
+            ]
+          }
+        },
+        "hourMeterTransactions": {
+          "type": "array",
+          "items": { "$ref": "../../hour_meter_transaction/schemas/hour_meter_transaction_light.json" }
+        },
+        "hourMeter": {
+          "oneOf": [{"type":  "integer"}, {"type":  "null"}]
+        },
+        "indiceFactor": {
+          "enum": [
+            "IF 1",
+            "IF 10",
+            "IF 100",
+            "IF 1000"
+          ],
+          "type": "string"
+        },
+        "symptoms": {
+          "type": ["string", "null"]
+        },
+        "originalSymptoms": {
+          "type": ["string", "null"]
+        },
+        "rootCause": {
+          "type": ["string", "null"]
+        },
+        "originalRootCause": {
+          "type": ["string", "null"]
+        },
+        "solution": {
+          "type": ["string", "null"]
+        },
+        "originalSolution": {
+          "type": ["string", "null"]
+        },
+        "mainFile": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../shared/schemas/file.json" }
+          ]
+        },
+        "files": {
+          "oneOf": [
+            { "files": { "$ref": "../../shared/schemas/file.json" } },
+            { "type": "null" }
+          ]
+        },
+        "airport": {
+          "$ref": "../../iata_code/schemas/iata_code.json"
+        },
+        "salesOrganisationService": {
+          "$ref": "../../directory_location/schemas/directory_location_public.json"
+        },
+        "openDays": {
+          "type": "integer"
+        },
+        "daysWithoutActivityStatus": {
+          "type": "string"
+        },
+        "daysWithoutActivity": {
+          "type": "integer"
+        },
+        "customerServiceRecords": {
+          "type": "array",
+          "items": {
+            "$ref": "../../csr/schemas/technician_on_call_customer_service_record.json"
+          }
+        },
+        "currentCustomerServiceRecord": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../csr/schemas/technician_on_call_customer_service_record.json" }
+          ]
+        },
+        "openCustomerServiceRecords": {
+          "type": "boolean"
+        },
+        "isOpen": { "type": "boolean" },
+        "factoryFlag": { "type": "boolean" },
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "technician_on_call_part.json"
+          }
+        },
+        "defectiveParts": {
+          "type": "array",
+          "items": {
+            "$ref": "technician_on_call_defective_part.json"
+          }
+        },
+        "sparePartsRequests": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "array",
+              "items": {
+                "$ref": "../../spare_parts_request/schemas/spare_parts_request.json"
+              }
+            }
+          ]
+        },
+        "customer": {
+          "$ref": "../../sales/customer/schemas/customer_light_with_legacy_id.json"
+        },
+        "thirdPartyName": {
+          "type": ["string", "null"]
+        },
+        "thirdPartyRef": {
+          "type": ["string", "null"]
+        },
+        "thirdPartyHours": {
+          "type": ["integer", "null"]
+        },
+        "thirdPartyJobDescription": {
+          "type": ["string", "null"]
+        },
+        "originalTitle": {"type":  ["string", "null"]},
+        "originalDescription": {"type":  ["string", "null"]},
+        "serialNumber": {"type":  ["string", "null"]},
+        "serviceBulletins": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "array" }
+          ]
+        },
+        "numberOfOpenCustomerServiceRecords": {"type":  "integer"},
+        "warrantyLegacyId": {"type":  ["integer", "null"]},
+        "warrantyInformation": {"type":  ["string", "null"]},
+        "jiraTracteasyIssueKey": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "null"}
+          ]
+        },
+        "survey": {
+          "$ref": "technician_on_call_survey.json"
+        },
+        "token": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string" }
+          ]
+        },
+        "numberOfCustomerServiceRecordFiles": {
+          "type": "integer"
+        },
+        "links": { "type": "object" }
+      },
+      "additionalProperties": false,
+      "required": [
+        "@id",
+        "legacyId",
+        "@type",
+        "id",
+        "confidential",
+        "title",
+        "description",
+        "status",
+        "createdAt",
+        "deletedAt",
+        "updatedAt",
+        "solvedAt",
+        "createdBy",
+        "equipmentRecord",
+        "assignee",
+        "technician",
+        "errorCodes",
+        "unitOperationalStatus",
+        "technicianOnCallType",
+        "serviceActivity",
+        "tags",
+        "contacts",
+        "indiceFactor",
+        "hourMeterTransactions",
+        "hourMeter",
+        "symptoms",
+        "originalSymptoms",
+        "rootCause",
+        "originalRootCause",
+        "solution",
+        "originalSolution",
+        "mainFile",
+        "files",
+        "airport",
+        "salesOrganisationService",
+        "openDays",
+        "daysWithoutActivity",
+        "daysWithoutActivityStatus",
+        "customerServiceRecords",
+        "currentCustomerServiceRecord",
+        "openCustomerServiceRecords",
+        "isOpen",
+        "factoryFlag",
+        "parts",
+        "defectiveParts",
+        "sparePartsRequests",
+        "customer",
+        "thirdPartyName",
+        "thirdPartyRef",
+        "thirdPartyHours",
+        "thirdPartyJobDescription",
+        "originalDescription",
+        "originalTitle",
+        "serialNumber",
+        "numberOfOpenCustomerServiceRecords",
+        "warrantyLegacyId",
+        "token",
+        "numberOfCustomerServiceRecordFiles",
+        "jiraTracteasyIssueKey"
+      ]
+    }
+  }
+}

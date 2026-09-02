@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'contract_category' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="contract_ai_analyze"/>
+        <twig:NavItem translationKey="legal.nav_link.category" domain="legal"
+                      icon="mynaui:list" route="category_home"/>
+        <twig:NavItem translationKey="legal.nav_link.sub_category" domain="legal"
+                      icon="mynaui:list" route="sub_category_home"/>
+        {% if contract is defined and is_granted('CONTRACT_EDIT_VOTER', contract['@id']) %}
+            <twig:NavItem:Edit route="contract_edit" :routeParameters="{id: contract.id}"/>
+            <twig:NavItem translationKey="legal.nav_link.status" domain="legal" icon="hugeicons:status"
+                          route="contract_status" :routeParameters="{id: contract.id}"/>
+        {% endif %}
+        {% if subCategoryDatatable is defined %}
+            <twig:NavItem translationKey="legal.nav_link.contract" domain="legal"
+                          icon="material-symbols:contract-outline-rounded" route="contract_home"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

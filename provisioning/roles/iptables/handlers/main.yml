@@ -1,0 +1,4 @@
+- name: Iptables config file to current in memory rules
+  become: true
+  ansible.builtin.shell: iptables-restore < /etc/iptables/rules.v4
+  listen: "reload iptables"

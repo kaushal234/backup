@@ -1,0 +1,56 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            {% if action == 'creation' %}
+                <p>{{ 'vwc.creation.subject' | trans({'%id%': id}) }}</p>
+            {% else %}
+                <p>{{ 'vwc.status.subject' | trans({'%id%': id, '%previousStatus%': previousStatus, '%status%': vendorWarrantyClaim.status.name}) }}</p>
+            {% endif %}
+            <hr>
+            <a target="_blank" href="{{ url('vendor_warranty_claim', {id: vendorWarrantyClaim.id}) }}">{{ 'vwc.view' | trans({'%id%': id}) }}</a>
+
+            <h5>{{ 'vwc.fields.supplier' | trans }}: {{ vendorWarrantyClaim.supplierName }}</h5>
+            <br>
+            <h5>{{ 'vwc.fields.status_definition' | trans({'%status%': vendorWarrantyClaim.status.name, '%description%': vendorWarrantyClaim.status.description}) }}</h5>
+
+            <div class="row">
+                <div class="col-md-8">
+                    {{ include('Helpers/_association_table.html.twig', {
+                        associationData: {
+                            items: {
+                                status: { label: 'sfr.fields.status' | trans, properties: ['status.name'] },
+                                type: { label: 'training.references.type' | trans | capitalize, template: 'Emails/Purchasing/VendorWarrantyClaim/partial/_cell_type.html.twig', },
+                                module: { label: 'vwc.fields.module' | trans | capitalize, template: 'Emails/Purchasing/VendorWarrantyClaim/partial/_cell_module.html.twig', },
+                                createdAt: { label:'spr.fields.created_at' | trans, filters: ["date('Y-m-d H:i:s')"]},
+                                poster: { label:'sfr.fields.poster' | trans, properties: ['poster.lastname', 'poster.firstname'] },
+                                assignee: { label:'vwc.fields.assignee' | trans, properties: ['assignee.lastname', 'assignee.firstname'] },
+                                erp: { label:'account_receivable.fields.erp' | trans | upper, properties: ['location.name'], filters: ['concat(" - ' ~ vendorWarrantyClaim.location.erp ~ '")'] },
+                                supplierErp: { label: 'vwc.fields.supplier_erp' | trans | capitalize },
+                                supplierNumber: { label: 'first_article_qualification.fields.supplier_number' | trans | capitalize },
+                                supplierName: { label: 'first_article_qualification.fields.supplier_name' | trans | capitalize },
+                                requestedSupplierAction: { label:'vwc.fields.requested_supplier_action' | trans },
+                                scarRequested: {label:'vwc.fields.scar_requested' | trans,boolean: { true: 'Yes', false: 'No' }},
+                                supplierCorrectiveActionRequest: { label:'vwc.fields.scar' | trans, properties: ['supplierCorrectiveActionRequest.id'] },
+                                accepted: {label:'vwc.fields.vwc_accepted' | trans,boolean: { true: 'Yes', false: 'No' }},
+                                supplierReturnMerchandiseAuthorization: { label:'vwc.fields.rma' | trans },
+                                shipBackDefectivePart: {label:'scar.fields.corrective_actions' | trans,boolean: { true: 'Yes', false: 'No' }},
+                                supplierShippingInstruction: { label:'scar.fields.preventive_actions' | trans },
+                                trackingNumber: { label:'vwc.fields.tracking_number' | trans },
+                                currency: { label:'spq.partial_and_full_quotation_summary.header.currency' | trans, properties: ['currency.name'] },
+                                requestedCreditAmount: { label:'vwc.fields.request_credit_amount' | trans },
+                                supplierCreditAmount: { label:'vwc.fields.supplier_credit_amount' | trans },
+                                actualCreditAmount: { label:'vwc.fields.actual_credit_amount' | trans },
+                                resolution: { label:'vwc.fields.resolution' | trans },
+                            },
+                            data: vendorWarrantyClaim,
+                            title: 'VWC#'~id
+                        },
+                    }, with_context = false) }}
+                </div>
+            </div>
+        </columns>
+    </row>
+{% endblock %}

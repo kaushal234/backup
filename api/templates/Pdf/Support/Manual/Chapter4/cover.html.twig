@@ -1,0 +1,56 @@
+{% extends 'Pdf/base.html.twig' %}
+
+{% trans_default_domain "pdfs" %}
+
+{% block stylesheets %}
+    <style type="text/css">
+        {{ include('Pdf/fonts/opensans.css.twig') }}
+        {{ source('@css/chapter4.css') }}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="page-break-after: always; font-size: 24px; font-family: sans-serif; font-weight: bold">
+        <div class="row">
+            <br>
+            <div class="col-md-12 text-center">
+                <br>
+                <h1>{{ 'manual.chapter4.header.title' | trans(locale=manual_locale) }} - {{ 'manual.chapter4.header.subtitle' | trans(locale=manual_locale) }}</h1>
+                <br>
+                <h1>
+                    {{ 'manual.general.model' | trans(locale=manual_locale) }} :
+                    {% if manual.equipmentRecord is defined and manual.equipmentRecord.model is defined %}
+                        {{ manual.equipmentRecord.model|default('manual.general.unknown'|trans(locale=manual_locale))|raw }}
+                    {% else %}
+                        {{ 'manual.general.unknown' | trans(locale=manual_locale) }}
+                    {% endif %}
+                </h1>
+                <h1>
+                    {{ 'manual.general.equipmentRecord' | trans(locale=manual_locale) }} :
+                    {% if manual.equipmentRecord is defined and manual.equipmentRecord.serialNumber is defined %}
+                        {{ manual.equipmentRecord.serialNumber|default('manual.general.unknown'|trans(locale=manual_locale))|raw }}
+                    {% else %}
+                        {{ 'manual.general.unknown' | trans(locale=manual_locale) }}
+                    {% endif %}
+                </h1>
+                <br>
+                <h1>
+                    {{ 'manual.general.description' | trans(locale=manual_locale) }} : {{ manual.description|default('manual.general.unknown'|trans(locale=manual_locale))|raw }}
+                </h1>
+                <br>
+                <h1>
+                    {{ 'manual.general.publicationDate' | trans(locale=manual_locale) }} :
+                    {% if manual.createdAt is not null %}
+                        {{ manual.createdAt|date('Y-m-d') }}
+                    {% else %}
+                        {{ 'manual.general.unknown' | trans(locale=manual_locale) }}
+                    {% endif %}
+                </h1>
+                <br>
+                <h1>
+                    {{ 'manual.general.language' | trans(locale=manual_locale) }} : {{ manual.language|default('manual.general.unknown'|trans(locale=manual_locale))|raw }}
+                </h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'parts/spq/layout.html.twig' %}
+{% trans_default_domain "spq" %}
+
+{% set quotation_id = iri_id(quotation) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    {{ resourceActivities(quotation['@id'], path('spq_quotations_show', { id: quotation_id })) }}
+
+{% endblock %}

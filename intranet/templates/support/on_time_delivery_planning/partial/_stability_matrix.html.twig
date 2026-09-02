@@ -1,0 +1,49 @@
+<div class="table-responsive">
+<table class="table matrix-table tooltip-container">
+    <thead>
+    <tr>
+        <th></th>
+        {% set xKeys = stabilityReport.rows|keys %}
+        {% set yLabels = [] %}
+        {% for x in xKeys %}
+            {% for y in stabilityReport.rows[x]|keys %}
+                {% if y not in yLabels %}
+                    {% set yLabels = yLabels|merge([y]) %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        {% for y in yLabels %}
+            <th class="top-label">{{ y }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for x in xKeys %}
+        <tr>
+            <th scope="row">{{ x }}</th>
+            {% for y in yLabels %}
+                <td>
+                    {% if stabilityReport.rows[x][y] is defined %}
+                        {% set cell = stabilityReport.rows[x][y] %}
+                        {% set modalId = 'detailsModal' ~ x|replace({'-':'', ' ':'', '|':''}) ~ y|replace({'-':'', ' ':'', '|':''}) %}
+                        {% set modalId = 'detailsModal' ~ x|replace({'-':'', ' ':'', '|':''}) ~ y|replace({'-':'', ' ':'', '|':''}) %}
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#{{ modalId }}">
+                            {{ cell.value }}
+                        </a>
+
+                        {{ include('support/on_time_delivery_planning/partial/_stability_matrix_modal.html.twig', {
+                            modalId: modalId,
+                            x: x,
+                            y: y,
+                            extraData: cell.extraData
+                        }) }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>

@@ -1,0 +1,12 @@
+{% set value = attribute(item, key) %}
+<td>
+    {% if value %}
+        <div class="et-expand-wrap">
+            <div class="et-expand-body">{{ value|nl2br }}</div>
+            <button type="button" class="et-expand-btn"
+                    onclick="var b=this.previousElementSibling;b.classList.toggle('is-expanded');this.textContent=b.classList.contains('is-expanded')?'{{ 'menu.view'|trans|capitalize }} less ↑':'{{ 'menu.view'|trans|capitalize }} all ↓'">
+                {{ 'menu.view'|trans|capitalize }} all ↓
+            </button>
+        </div>
+    {% endif %}
+</td>

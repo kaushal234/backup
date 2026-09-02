@@ -1,0 +1,14 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <div class="row" style="margin: 16px;">
+        <p>
+            {{ message|raw }}
+        </p>
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_internal.html.twig') }}
+        <hr>
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_details.html.twig', { technicianOnCall: technicianOnCall }) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+<div class="row">
+    <div class="col-lg-3">
+        {{ form_row(form.customer) }}
+    </div>
+    <div class="col-lg-3">
+        {{ form_row(form.salesRepresentative) }}
+    </div>
+    <div class="col-lg-3">
+        {{ form_row(form.partsRepresentative) }}
+    </div>
+    <div class="col-lg-3">
+        {{ form_row(form.serviceRepresentative) }}
+    </div>
+</div>
+<div class="row">
+    <hr class="hr-line-dashed">
+    <div class="col-lg-4">
+        {{ form_row(form.erpLocation) }}
+    </div>
+    <div class="col-lg-4">
+        {{ form_row(form.partsLocation) }}
+    </div>
+    <div class="col-lg-4">
+        {{ form_row(form.serviceLocation) }}
+    </div>
+</div>
+
+<div class="row">
+    {{ form_rest(form) }}
+    <div class="col-lg-12">
+        <hr class="hr-line-dashed">
+        <div class="float-end">
+            <label class="col-form-label">&nbsp;</label>
+            <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans | upper }}</button>
+            <a href="{{ resetPath }}" class="btn btn-secondary">{{ 'button.reset'| trans | upper }}</a>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

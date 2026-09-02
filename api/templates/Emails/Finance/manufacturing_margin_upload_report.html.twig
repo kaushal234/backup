@@ -1,0 +1,41 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            {{ include('/Helpers/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        serialNumber: {
+                            label: 'manufacturing_margin.fields.serial_number' | trans,
+                            link:{
+                                route: 'legacy_product_support',
+                                params: {'sn':'serialNumber'},
+                                fixedParams: {'m':['equipment', 'search', 'bySn']},
+                            }
+                        },
+                        solId: {
+                            label:'manufacturing_margin.fields.sol' | trans,
+                            link:{
+                                route: 'legacy_sales_service_sales',
+                                params: {'id':'solId'},
+                                fixedParams: {'m':['sol', 'view']},
+                            }
+                        },
+                        factory: { label: 'sfr.fields.factory'|trans },
+                        sso: { label:'sfr.fields.sso'  | trans },
+                        buyer: { label:'demo.fields.customer'  | trans },
+                        model: { label:'sfr.fields.model'  | trans },
+                        actualDirectMarginPercentage: { label:'manufacturing_margin.fields.actual_margin_percentage'  | trans },
+                        standardDirectMarginPercentage: { label:'manufacturing_margin.fields.standard_margin_percentage'  | trans },
+                        estimatedDirectMarginPercentage: { label:'manufacturing_margin.fields.estimated_margin_percentage'  | trans },
+                    },
+                    data: manufacturingMargins,
+                    title: 'manufacturing_margin.title'  | trans
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'materials/evendors_news/layout.html.twig' %}
+
+{% set news_id = iri_id(evendorsNews) %}
+
+{% trans_default_domain "news" %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <small class="font-noraml news-date">
+                    {{ evendorsNews.publishedAt | format_datetime('full', 'medium') }}
+                    {% if evendorsNews.createdBy %}
+                        {{ 'news.by' | trans }} <a
+                            href="{{ path('directory_people_show', {'id': iri_id(evendorsNews.createdBy)}) }}">
+                        {{ evendorsNews.createdBy.lastname ~ ' ' ~ evendorsNews.createdBy.firstname }}
+                    </a>
+                    {% endif %}
+                </small>
+                {% if evendorsNews.factories|length %}
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-md-12">
+                            {% for factory in evendorsNews.factories %}
+                                <span class="label label-info">{{ factory.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="ibox-content">
+                <p>{{ evendorsNews.content | raw}}</p>
+
+                {% if evendorsNews.files is not empty %}
+                    {{ include('materials/evendors_news/partials/_show_files.html.twig', { entry: evendorsNews, displayChoice: "inline-flex" }) }}
+                {% endif %}
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

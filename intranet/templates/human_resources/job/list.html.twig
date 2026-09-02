@@ -1,0 +1,10 @@
+{% extends 'human_resources/job/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10">
+            {{ data_table(jobDatatable) }}
+        </div>
+    </div>
+{% endblock %}

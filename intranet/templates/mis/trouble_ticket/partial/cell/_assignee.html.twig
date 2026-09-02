@@ -1,0 +1,7 @@
+<td>
+    {% if item.assignee is not null %}
+        <a href="{{ path('directory_people_show', {id: iri_id(item.assignee)}) }}">{{ item.assignee.firstname }} {{ item.assignee.lastname }}</a>
+    {% else %}
+        MIS
+    {% endif %}
+</td>

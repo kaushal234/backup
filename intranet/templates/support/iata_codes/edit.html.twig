@@ -1,0 +1,34 @@
+{% extends 'support/iata_codes/layout.html.twig' %}
+{% set id = iri_id(iataCode) %}
+
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'titles.edition'|trans([], 'messages')|capitalize }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {% if id is defined %}
+                        <div>
+                            <label class="col-form-label">Id</label>
+                            <p class="form-control-plaintext">{{ id }}</p>
+                        </div>
+                        <div>
+                            <label class="col-form-label">{{ 'support.iata.fields.type'|trans([], 'support')|capitalize }}</label>
+                            <p class="form-control-plaintext">{{ iataCode.type }}</p>
+                        </div>
+                    {% endif %}
+                    {{ form_widget(form) }}
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary text-capitalize">{{ 'button.submit'|trans }}</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

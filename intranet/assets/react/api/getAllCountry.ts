@@ -1,0 +1,40 @@
+import qs from "qs";
+import { handleApiError } from "../utils/api";
+import { client } from "../store";
+import { IBasicApiResponse } from "../types/IBasicApiResponse";
+import { IGetAllCountryResponse } from "../types/IGetAllCountryResponse";
+
+interface IGetAllCountryApiPayload {
+  searchText?: string;
+}
+
+interface IGetAllCountryApiParams {
+  q?: string;
+  "order[name]": "asc";
+  normalization_groups_override: Array<"country_list" | "country_phone_code">;
+}
+
+const DEFAULT_QUERY_PARAMS: IGetAllCountryApiParams = {
+  "order[name]": "asc",
+  normalization_groups_override: ["country_list", "country_phone_code"],
+};
+
+export const getAllCountry = async (
+  data: IGetAllCountryApiPayload
+): Promise<IBasicApiResponse<IGetAllCountryResponse>> => {
+  try {
+    const queryParams: IGetAllCountryApiParams = DEFAULT_QUERY_PARAMS;
+    // filter
+    queryParams.q = data.searchText;
+    const queryString = qs.stringify(queryParams, { arrayFormat: "brackets" });
+
+    const response = await client.get(`/countries?${queryString}`);
+
+    return {
+      status: response.status,
+      data: response.data,
+    };
+  } catch (error) {
+    return handleApiError<IGetAllCountryResponse>(error);
+  }
+};

@@ -1,0 +1,48 @@
+{% extends 'corporate/agr/layout.html.twig' %}
+{% trans_default_domain 'corporate' %}
+
+{% set acronym_id = acronym|iri_id %}
+
+{% block title %}{{ parent() }}\AGR#{{ acronym_id }}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-6">
+    {{ include('helper/_association_table.html.twig', {
+        'associationData': {
+            'items': {
+                '@id': {
+                    'label':'AGR#',
+                    'filters': 'iri_id'
+                },
+                'acronym': {'label': 'corporate.acronyms.acronym'|trans|capitalize},
+                'shortDescription': {'label': 'fields.short-description'|trans([], 'messages')|capitalize},
+                'description': {
+                    'label': 'fields.description'|trans([], 'messages')|capitalize
+                },
+            },
+            'title': 'corporate.acronyms.acronym-detail'|trans|capitalize,
+            'data': acronym},
+    }, with_context = false) }}
+    </div>
+</div>
+
+    {{ include('helper/_report_table.html.twig', {
+        'reportTable': {
+            'items': {
+                '@id': {
+                    'label': 'id',
+                    'filters': 'iri_id'
+                },
+                'name': {'label': 'fields.short-description'|trans([], 'messages')|capitalize},
+            },
+            'title': 'AGR ' ~ 'fields.lines'|trans([], 'messages')|capitalize,
+            'data': acronym.categories,
+            'pagination': false,
+            'search': false
+        }
+    }, with_context = false) }}
+    {#{{ resourceActivities(acronym['@id'], path('acronyms_show', { id: acronym_id })) }}#}
+
+{% endblock %}

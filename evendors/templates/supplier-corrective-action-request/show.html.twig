@@ -1,0 +1,115 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.supplier_corrective_action_request'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col">
+            {% embed '_components/association_table.html.twig' with {
+                associationData: {
+                    items: {
+                        description: {label: 'display.table.scar.headers.description'|trans},
+                        shortDescription: {label: 'display.table.scar.headers.short_description'|trans},
+                        issueOrigin: {label: 'display.table.scar.headers.root_cause'|trans},
+                        preventiveAction: {label: 'display.table.scar.headers.preventive_actions'|trans},
+                        commercialAgreement: {label: 'display.table.scar.headers.commertical_agreements'|trans},
+                        conclusion: {label: 'display.table.scar.headers.conclusion'|trans},
+                        poster: {
+                            label: 'display.table.scar.headers.poster'|trans,
+                            template: 'supplier-corrective-action-request/components/datatable/poster.html.twig'
+                        },
+                        leader: {
+                            label: 'display.table.scar.headers.leader'|trans,
+                            template: 'supplier-corrective-action-request/components/datatable/leader.html.twig'
+                        },
+                        iFactor: {label: 'display.table.scar.headers.i_factor'|trans},
+                        factoryName: {
+                            label: 'display.table.scar.headers.factory'|trans,
+                            properties: ['factory.name']
+                        },
+                        supplierName: {label: 'display.table.scar.headers.supplier'|trans},
+                        createdAt: {
+                            label: 'display.table.scar.headers.creation_date'|trans,
+                            filters: ['format_date']
+                        },
+                        closedAt: {
+                            label: 'display.table.scar.headers.closed_date'|trans,
+                            template: 'supplier-corrective-action-request/components/datatable/closed_date.html.twig'
+                        },
+                        approvedAt: {
+                            label: 'display.table.scar.headers.approval_date'|trans,
+                            template: 'supplier-corrective-action-request/components/datatable/approval_date.html.twig'
+                        },
+                        statusPresentableValue: {
+                            label: 'display.table.scar.headers.status'|trans,
+                            properties: ['status.presentableValue']
+                        },
+                    },
+                    title: 'display.table.scar.caption.id'|trans({'id': request.id}),
+                    data: request
+                }
+            } %}
+                {% block card_header_after %}
+                    {% if request.status.value not in ['CLOSED', 'VALIDATION', 'PENDING']  %}
+                        <div class="col">
+                            {% include 'supplier-corrective-action-request/modal/comment.html.twig' %}
+                        </div>
+                    {% endif %}
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col">
+            <div class="card">
+                {% if request.mainFile is defined and request.mainFile is not null %}
+                    {% if request.mainFile.extension not in ['png', 'jpg', 'jpeg'] %}
+                        <a href="{{ path('supplier-corrective-action-request:main-file', {id: request.id, fileId: request.mainFile.id}) }}"><img src="{{ asset('images/document.png') }}" draggable="false"></a>
+                    {% else %}
+                        <img class="w-100 h-auto m-auto border border-gray" src="{{ path('supplier-corrective-action-request:main-file', {id: request.id, fileId: request.mainFile.id}) }}" draggable="false">
+                    {% endif %}
+                {% else %}
+                    <img class="w-100 h-auto m-auto border border-gray" src="{{ asset('images/no_photo_catalogue.png') }}" draggable="false">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ include('_components/report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        partNumber: {label: 'display.table.scar_parts.headers.part_number'|trans},
+                        description: {label: 'display.table.scar_parts.headers.description'|trans},
+                    },
+                    title: 'display.table.scar_parts.caption.title'|trans,
+                    id: 'scar-parts-table',
+                    data: request.parts,
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col">
+            {{ include('_components/report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        link: {
+                            label: 'display.table.scar_module.headers.reference'|trans,
+                            template: 'supplier-corrective-action-request/components/datatable/module_link.html.twig'
+                        },
+                        module: {label: 'display.table.scar_module.headers.module'|trans},
+                        description: {
+                            label: 'display.table.scar_module.headers.description'|trans,
+                            template: 'supplier-corrective-action-request/components/datatable/module_description.html.twig'
+                        },
+                    },
+                    title: 'display.table.scar_module.caption.title'|trans,
+                    id: 'scar-modules-table',
+                    data: request.vendorWarrantyClaims,
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+
+    {% include 'files/files.html.twig' with {'files': request.files, 'iri': request.iri} only %}
+    {% include 'activities/activities.html.twig' with {'activities': request.activities} only %}
+
+{% endblock %}

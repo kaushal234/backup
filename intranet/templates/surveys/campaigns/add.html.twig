@@ -1,0 +1,17 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% set survey_id = iri_id(survey) %}
+
+{% block title %}
+    {{ parent() }}\{{ 'published.page_titles.add' | trans  }}
+{% endblock %}
+
+{% block content %}
+    {{ include('surveys/campaigns/partial/_form_customer.html.twig', {
+        title: 'published.page_titles.add'|trans,
+        form: form,
+        action: path('survey_published_add', {id: survey_id}),
+        cancel_link: path('surveys_show', {id: survey_id})
+    }, with_context=false) }}
+{% endblock %}

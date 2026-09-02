@@ -1,0 +1,5 @@
+- name: Restart auditbeat
+  become: true
+  ansible.builtin.systemd:
+    name: auditbeat
+    state: restarted

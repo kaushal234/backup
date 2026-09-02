@@ -1,0 +1,97 @@
+{% trans_default_domain 'sales_customers' %}
+{% set current_route = app.request.get('_route') %}
+{% block content %}
+    {% form_theme form 'form_theme_horizontal.html.twig' %}
+    {{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-md-6 animated fadeInLeft">
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart" id="customer-title">
+                    Main informations
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.customerTypes) }}
+                    {{ form_row(form.inforLNBpCode) }}
+                    {% if current_route is same as 'sales_customers_edit' %}
+                        <div class="mb-3 p-1 row d-flex flex-nowrap">
+                            <label class="col-sm-2 col-form-label">{{ 'customers.fields.business_partner_codes_list' | trans }}</label>
+                            <div class="col-sm-10 border m-1 p-1">
+                                {% for code in customer.inforLnBusinessPartnerCodes %}
+                                    <span class="badge m-1">{{ code }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <hr class="hr-line-dashed">
+                    <h3>{{ 'customers.fields.main_asm' | trans }}</h3>
+                    {{ form_row(form.mainSalesRepresentative) }}
+                    <hr class="hr-line-dashed">
+                    <h3>{{ 'customers.fields.other_asms' | trans }}</h3>
+                    {{ form_row(form.secondarySalesRepresentatives) }}
+                    <hr class="hr-line-dashed">
+                    {{ form_row(form.parentCustomer) }}
+                    {{ form_row(form.childrenCustomers) }}
+                    {% if is_granted("FEATURE_CUSTOMER_ADMIN") or is_granted("MOO_ECUST") %}
+                        <hr class="hr-line-dashed">
+                        {{ form_row(form.hidden) }}
+                        {{ form_row(form.status) }}
+                    {% endif %}
+                    {{ form_row(form.logo) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 animated fadeInRight">
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart" id="customer-title">
+                    Contact informations
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.phone) }}
+                    {{ form_row(form.fax) }}
+                    {{ form_row(form.url) }}
+                </div>
+            </div>
+
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart" id="customer-title">
+                    Address
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.address.street1) }}
+                    {{ form_row(form.address.street2) }}
+                    {{ form_row(form.address.postalCode) }}
+                    {{ form_row(form.address.town) }}
+                    {{ form_row(form.address.city) }}
+                    {{ form_row(form.address.state) }}
+                    {{ form_row(form.country) }}
+                </div>
+            </div>
+
+            {% if customer is defined and customer.legacyAddress is not same as('') %}
+                <div class="mail-box-header clearfix">
+                    <h2 class="float-sart" id="customer-title">
+                        Legacy Address
+                    </h2>
+                </div>
+                <div class="mail-box">
+                    <div class="mail-body">
+                        {{ customer.legacyAddress }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {{ form_row(form.submit) }}
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+

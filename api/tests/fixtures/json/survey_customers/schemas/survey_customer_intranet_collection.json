@@ -1,0 +1,236 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/surveys/published_customers$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@id": {"pattern": "^/surveys/published/.+$"},
+          "@type": {
+            "type": "string"
+          },
+          "customer": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/sales/extranet_users/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "hidden": {
+                "type": "boolean"
+              },
+              "passwordUpdatedAt": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "passwordExpirationDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "username",
+              "disabled",
+              "hidden",
+              "passwordUpdatedAt",
+              "displayName",
+              "firstname",
+              "lastname",
+              "email",
+              "passwordExpirationDate"
+            ]
+          },
+          "token": {
+            "type": "string"
+          },
+          "totalItems": {
+            "type": "integer"
+          },
+          "totalItemsAnswered": {
+            "type": "integer"
+          },
+          "totalRemainingItems": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "target": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/sales/extranet_users/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "hidden": {
+                "type": "boolean"
+              },
+              "passwordUpdatedAt": {
+                "type": "string"
+              },
+              "displayName": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "passwordExpirationDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "username",
+              "disabled",
+              "hidden",
+              "passwordUpdatedAt",
+              "displayName",
+              "firstname",
+              "lastname",
+              "email",
+              "passwordExpirationDate"
+            ]
+          },
+          "isOpened": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "customer",
+          "token",
+          "totalItems",
+          "totalItemsAnswered",
+          "totalRemainingItems",
+          "createdAt",
+          "updatedAt",
+          "target",
+          "isOpened"
+        ]
+      }
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:view": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type"
+      ]
+    },
+    "hydra:search": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "@type": {
+          "type": "string"
+        },
+        "hydra:template": {
+          "type": "string"
+        },
+        "hydra:variableRepresentation": {
+          "type": "string"
+        },
+        "hydra:mapping": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@type": {
+                "type": "string"
+              },
+              "variable": {
+                "type": "string"
+              },
+              "property": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "@type",
+              "variable",
+              "property",
+              "required"
+            ]
+          }
+        }
+      },
+      "required": [
+        "@type",
+        "hydra:template",
+        "hydra:variableRepresentation",
+        "hydra:mapping"
+      ]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:totalItems",
+    "hydra:view",
+    "hydra:search"
+  ]
+}

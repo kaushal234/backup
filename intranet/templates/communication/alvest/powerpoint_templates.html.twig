@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_powerpoint_templates.html.twig', {
+        presentations: {
+            'Alvest template 2021_02': {
+                'pptx': 'alvest/powerpoint_templates/Alvest template 2021_02.pptx'
+            }
+        }
+    }) }}
+{% endblock %}

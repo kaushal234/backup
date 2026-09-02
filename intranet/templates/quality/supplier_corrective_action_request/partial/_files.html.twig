@@ -1,0 +1,75 @@
+{% trans_default_domain "supplier_corrective_action_request" %}
+
+{% set items = {
+    filePath: {
+        label: 'menu.files'|trans([], 'messages')|capitalize,
+        filters : 'slice(36)',
+        link:{
+            route: 'supplier_corrective_action_request_download_file',
+            params: {
+                'id': 'id'
+            },
+            fixedParams: {
+                'scarId': supplierCorrectiveActionRequest.iriId
+            }
+        },
+    },
+    description: {
+        label: 'fields.description'|trans({}, 'messages')|capitalize,
+    },
+    createdAt: {
+        label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+        filters: 'date("Y-m-d H:i:s")'
+    },
+    size: {
+        label: 'size'|trans({}, 'messages')|trans|capitalize,
+        filters : 'readable_filesize'
+    },
+    download: {
+        label: 'menu.download'|trans({}, 'messages')|capitalize,
+        link:{
+            route: 'supplier_corrective_action_request_download_file',
+            content: '<span class="btn btn-primary btn-sm"><i class="fa fa-download fa-fw"></i></span>',
+            params: {
+                'id': 'id'
+            },
+            fixedParams: {
+                'scarId': supplierCorrectiveActionRequest.iriId
+            }
+        },
+        sortable: false,
+        class: 'text-center'
+    },
+} %}
+
+{% if is_granted('FEATURE_SCAR_FILE_DELETE') %}
+    {% set items = items | merge ({
+        delete: {
+            label: 'menu.delete'|trans({}, 'messages')|capitalize,
+            sortable: false,
+            class: 'text-end',
+            link: {
+                route: 'supplier_corrective_action_request_delete_file',
+                params: {'id': 'id'},
+                fixedParams: {'scarId': supplierCorrectiveActionRequest.iriId, '_token': csrf_token('supplier_corrective_action_request_delete_file')},
+                content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                popup: {
+                    type: 'confirmation',
+                    title: 'Confirmation',
+                    message: 'Are you sure to delete ?',
+                },
+            },
+        }
+    }) %}
+{% endif %}
+
+{{ include('helper/_report_table.html.twig', {
+    'reportTable': {
+        items: items,
+        title: 'supplier_corrective_action_request.file_title'|trans,
+        data: supplierCorrectiveActionRequest.files,
+        search: false,
+        pagination: false,
+        initialSorting: 'createdAt'
+    }
+}, with_context = false) }}

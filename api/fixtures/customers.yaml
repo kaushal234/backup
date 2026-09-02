@@ -1,0 +1,208 @@
+App\Entity\Sales\CustomerType:
+    customer_type_top:
+        id: 1
+        name: Top
+
+    customer_type_pot:
+        id: 2
+        name: Pot
+
+    customer_type_{3..10}:
+        id: <current()>
+        name (unique): <word()>
+
+    customer_type_military:
+        id: 11
+        name: Military
+
+App\Entity\Sales\Customer:
+    # /sales/customers/1
+    customer_a_boire:
+        id: 1
+        name : "AIR DE RIEN"
+        hidden: 0
+        url: "http://tam.air"
+        phone: "+33 5 00 00 00 00"
+        fax: "+33 5 11 11 11 11"
+        customerTypes:
+            - "@customer_type_top"
+        address: <entityAddressWithoutCountry()>
+        legacyAddress: ""
+        status: "APPROVED"
+        inforLnBusinessPartnerCodes:
+            - "AA1057"
+            - "AA1058"
+        watchList: true
+        watchListReason: la pô payé
+        easymileJiraProjectKey: "AIRB"
+        legacy_id: 4074
+
+    # /sales/customers/2
+    customer_2:
+        id: 2
+        name (unique): "customer_2"
+        hidden: false
+        legacyAddress: ""
+
+    # /sales/customers/{3..30}
+    customer_{3..30}:
+        id: <current()>
+        name (unique): customer_<current()>
+        hidden: <boolean()>
+        legacyAddress: ""
+
+    # /sales/customers/31
+    customer_for_er:
+        id: 31
+        name: customer_for_er
+        hidden: 0
+        legacyAddress: ""
+
+    # /sales/customers/32
+    customer_asm_transferred:
+        id: 32
+        name : "ASM WILL BE FIRED"
+        parentCustomer: '@customer_2'
+        hidden: 0
+        url: "http://asm.fired"
+        phone: "+33 5 00 00 00 00"
+        fax: "+33 5 11 11 11 11"
+        customerTypes:
+            - "@customer_type_top"
+        mainSalesRepresentative: '@customer_sales_representative_1'
+        address: <entityAddressWithoutCountry()>
+        legacyAddress: ""
+
+    # /sales/customers/33
+    customer_noire:
+        id: 33
+        name : "M'AIR NOIRE"
+        parentCustomer: '@customer_a_boire'
+        hidden: 0
+        url: "http://canad.air"
+        mainSalesRepresentative: '@customer_sales_representative_2'
+        secondarySalesRepresentatives:
+            - '@customer_sales_representative_6'
+        country: "@country_kinder"
+        phone: "+33 5 00 00 00 00"
+        fax: "+33 5 11 11 11 11"
+        customerTypes:
+            - "@customer_type_top"
+        address: <entityAddressWithoutCountry()>
+        legacyAddress: ""
+
+    # /sales/customers/34
+    customer_et_toper:
+        id: 34
+        name : "HELICOPT'AIR"
+        parentCustomer: '@customer_noire'
+        hidden: 0
+        url: "http://tomp.air"
+        phone: "+33 5 00 00 00 00"
+        fax: "+33 5 11 11 11 11"
+        customerTypes:
+            - "@customer_type_top"
+        address: <entityAddressWithoutCountry()>
+        legacyAddress: ""
+        mainSalesRepresentative: '@customer_sales_representative_3'
+        country: "@country_kinder"
+
+    # /sales/customers/35
+    customer_35: #used for intranet CRT creation
+        id: 35
+        name (unique): customer_35
+        hidden: 0
+        legacyAddress: ""
+        mainSalesRepresentative: '@customer_sales_representative_4'
+
+    # /sales/customers/36
+    customer_for_fur: #used for FUR test
+        id: 36
+        name (unique): customer_for_fur
+        hidden: 0
+        legacyAddress: ""
+
+    # /sales/customers/37
+    customer_for_contract: #used for maintenance contracts test
+        id: 37
+        name (unique): <company()>
+        hidden: 0
+        legacyAddress: ""
+
+    # /sales/customers/38
+    customer_military: #used for maintenance contracts test
+        id: 38
+        name (unique): <company()>
+        customerTypes:
+            - '@customer_type_military'
+        hidden: 0
+        legacyAddress: ""
+
+    # /sales/customers/39
+    customer_parent:
+        id: 39
+        name (unique): customer_parent
+        hidden: 0
+        legacyAddress: ""
+        mainSalesRepresentative: '@customer_sales_representative_5'
+
+    # /sales/customers/40
+    customer_nested:
+        id: 40
+        name (unique): customer_nested
+        parentCustomer: '@customer_parent'
+        hidden: 0
+        legacyAddress: ""
+
+    # /sales/customers/41
+    customer_very_nested:
+        id: 41
+        name (unique): customer_very_nested
+        parentCustomer: '@customer_nested'
+        hidden: 0
+        legacyAddress: ""
+
+    # /sales/customers/42
+    customer_very_very_nested:
+        id: 42
+        name (unique): customer_very_very_nested
+        parentCustomer: '@customer_very_nested'
+        hidden: 0
+        legacyAddress: ""
+
+    # /sales/customers/43
+    customer_demo:
+        id: 43
+        name (unique): !php/const App\Entity\Sales\Customer::CUSTOMER_DEMO
+        hidden: 0
+        status: "APPROVED"
+        customerTypes:
+            - "@customer_type_top"
+
+    # /sales/customers/44
+    customer_for_order:
+        id: 44
+        name (unique): customer_for_order
+        hidden: 0
+        status: "APPROVED"
+        customerTypes:
+            - "@customer_type_top"
+
+    # /sales/customers/45
+    customer_for_mim:
+        id: 45
+        name (unique): customer_for_mim
+        hidden: 0
+        status: "APPROVED"
+        customerTypes:
+            - "@customer_type_top"
+
+    # /sales/customers/46
+    customer_deleted:
+        id: 46
+        name (unique): Delaited
+        hidden: 0
+        status: "APPROVED"
+        customerTypes:
+            - "@customer_type_top"
+        deletedAt: <(new \DateTime('yesterday'))>

@@ -1,0 +1,10 @@
+{% trans_default_domain 'customer_service_record' %}
+
+{% block content %}
+    <div id="react" class="m-b-lg"></div>
+    <div class="row">
+        <div id="files">
+            {{ include('service/customer_service_record/partial/files_ajax.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

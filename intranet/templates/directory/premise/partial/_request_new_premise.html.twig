@@ -1,0 +1,9 @@
+<div id="ticket-helper" class="d-none">
+    <form id="ticket-helper-form" name="ticket-metadata" action="{{ app_path('trouble_ticket_add') }}" method="post" target="_blank">
+        {% set ticket_metadata = ticket_metadata('PRE')%}
+        {% set ticket_metadata = ticket_metadata | merge({'type' : '9'}) %}
+        {% for key, data in ticket_metadata %}
+            <input type="hidden" name="metadata[{{ key }}]" value="{{ data }}">
+        {% endfor %}
+    </form>
+</div>

@@ -1,0 +1,211 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="text-center article-title">
+                        {% set entity = entity | replace({'-': ' '}) %}
+                        <h1>{{ entity | upper }} Songs</h1>
+                    </div>
+
+                    <p>
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#tld-song-1" role="button" aria-expanded="false" aria-controls="tld-song-1">EN Version</a>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#tld-song-2" aria-expanded="false" aria-controls="tld-song-2">ZH Version</button>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#tld-song-3" aria-expanded="false" aria-controls="tld-song-3">DE Version</button>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#tld-song-4" aria-expanded="false" aria-controls="tld-song-4">PT Version</button>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#tld-song-5" aria-expanded="false" aria-controls="tld-song-5">IT Version</button>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#tld-song-6" aria-expanded="false" aria-controls="tld-song-6">RU Version</button>
+                    </p>
+                    <div>
+                        <div class="collapse multi-collapse" id="tld-song-1">
+                            <div class="card card-body">
+                                <p class="m-0">ON THE RAMP</p>
+                                <br>
+                                <p class="m-0">On the ramp, where we all work</p>
+                                <p class="m-0">Live our customers, who we support,</p>
+                                <p class="m-0">And our friends, in all airports,</p>
+                                <p class="m-0">Use our machines, when they work,</p>
+                                <br>
+                                <p class="m-0">And when they don't, once in a while,</p>
+                                <p class="m-0">It hits us so right, between the eyes,</p>
+                                <p class="m-0">But when we call, the service guys</p>
+                                <p class="m-0">If we can find any, what a surprise!</p>
+                                <br>
+                                <p class="m-0">We all work for TLD GSE, TLD GSE, TLD GSE !</p>
+                                <p class="m-0">We all work for TLD GSE, TLD GSE, TLD GSE !</p>
+                                <br>
+                                <p class="m-0">GPUs and 802s,</p>
+                                <p class="m-0">Our famous NBLs and ABS,</p>
+                                <p class="m-0">929 and the Air starts,</p>
+                                <p class="m-0">and our Towbarless, when they start !</p>
+                                <br>
+                                <p class="m-0">We've flown the world, to each airport,</p>
+                                <p class="m-0">We've sold our equipment, of many sorts,</p>
+                                <p class="m-0">But on the ramp, where we belong,</p>
+                                <p class="m-0">We never miss a chance, to sing our song!</p>
+                                <br>
+                                <p class="m-0">We all work for TLD GSE, TLD GSE, TLD GSE !</p>
+                                <p class="m-0">We all work for TLD GSE, TLD GSE, TLD GSE !</p>
+                                <p class="m-0">We all work for TLD GSE, TLD GSE, TLD GSE !</p>
+                            </div>
+                        </div>
+                        <div class="collapse multi-collapse" id="tld-song-2">
+                            <div class="card card-body">
+                                <p class="m-0">在机坪</p>
+                                <br>
+                                <p class="m-0">在机坪，一起工作</p>
+                                <p class="m-0">客户需要, 我们的支持。</p>
+                                <p class="m-0">在机场，很多朋友</p>
+                                <p class="m-0">都在用我们，的设备。</p>
+                                <br>
+                                <p class="m-0">有时候，不是很好，</p>
+                                <p class="m-0">但是我们很努力。</p>
+                                <p class="m-0">有时候，找不到</p>
+                                <p class="m-0">售后服务不奇怪</p>
+                                <br>
+                                <p class="m-0">我们都在TLD工作，TLD工作，TLD工作！</p>
+                                <p class="m-0">我们都在TLD工作，TLD工作，TLD工作！</p>
+                                <br>
+                                <p class="m-0">电源车和空调车，</p>
+                                <p class="m-0">还有出名的NBL，</p>
+                                <p class="m-0">平台车和气源车，</p>
+                                <p class="m-0">还有我们的无拖杆。</p>
+                                <br>
+                                <p class="m-0">我们飞，全球机场，</p>
+                                <p class="m-0">销售各种，的设备。</p>
+                                <p class="m-0">在属于，我们的机坪，</p>
+                                <p class="m-0">一有机会, 就唱我们的歌。</p>
+                                <br>
+                                <p class="m-0">我们都在TLD工作，TLD工作，TLD工作！</p>
+                                <p class="m-0">我们都在TLD工作，TLD工作，TLD工作！</p>
+                                <p class="m-0">我们都在TLD工作，TLD工作，TLD工作！</p>
+                            </div>
+                        </div>
+                        <div class="collapse multi-collapse" id="tld-song-3">
+                            <div class="card card-body">
+                                <p class="m-0">AM ROLLFELD</p>
+                                <br>
+                                <p class="m-0">Am Roll-feld, fahr’n sie he-rum</p>
+                                <p class="m-0">In Hand von Ku-hun-den, die wir be-dien’</p>
+                                <p class="m-0">Und uns’re Freund’, im Flug-ha-fen</p>
+                                <p class="m-0">Nutz’n die Ma-schien’, wenn sie funk-tio-nier’n</p>
+                                <br>
+                                <p class="m-0">Und falls mal nicht, so ab und zu</p>
+                                <p class="m-0">Sticht’s uns so-fort, di-rekt ins Aug’</p>
+                                <p class="m-0">Dann ru-fen wir, den Ser-vice an</p>
+                                <p class="m-0">Und mit et-was Glück, geht er auch d’ran.</p>
+                                <br>
+                                <p class="m-0">Wir arbeiten für TLD GSE, TLD GSE, TLD GSE</p>
+                                <p class="m-0">Wir arbeiten für TLD GSE, TLD GSE, TLD GSE</p>
+                                <br>
+                                <p class="m-0">Ge-pe-u’s und acht-null-zwei</p>
+                                <p class="m-0">Be-rühm-te En-be-el’s und Ah-be-ess</p>
+                                <p class="m-0">Neun-zwei-neun und Kom-pres-sor’n</p>
+                                <p class="m-0">Und un-s’re fe-he-ten push-back Traktor’n</p>
+                                <br>
+                                <p class="m-0">Wir arbeiten TLD GSE, TLD GSE, TLD GSE</p>
+                                <p class="m-0">Wir arbeiten TLD GSE, TLD GSE, TLD GSE</p>
+                            </div>
+                        </div>
+                        <div class="collapse multi-collapse" id="tld-song-4">
+                            <div class="card card-body">
+                                <p class="m-0">NA RAMPA</p>
+                                <br>
+                                <p class="m-0">Na rampa, onde trabalhamos,</p>
+                                <p class="m-0">Vivem nossos clientes, a quem damos suporte,</p>
+                                <p class="m-0">E nossos amigos, em todos os aeroportos,</p>
+                                <p class="m-0">Usam nossas máquinas, quando funcionam,</p>
+                                <br>
+                                <p class="m-0">E quando năo funcionam, de vez em quando,</p>
+                                <p class="m-0">Bate-nos com força, entre os olhos,</p>
+                                <p class="m-0">Mas quando chamamos, os técnicos,</p>
+                                <p class="m-0">Se conseguimos encontrar algum, que surpresa!</p>
+                                <br>
+                                <p class="m-0">Trabalhamos todos para TLD GSE, TLD GSE, TLD GSE!</p>
+                                <p class="m-0">Trabalhamos todos para TLD GSE, TLD GSE, TLD GSE!</p>
+                                <br>
+                                <p class="m-0">GPUs and 802s,</p>
+                                <p class="m-0">Nossos famosos NBLs e ABS,</p>
+                                <p class="m-0">929 e Air starts,</p>
+                                <p class="m-0">E os Towbarless, quando arrancam!</p>
+                                <br>
+                                <p class="m-0">Sobrevoámos o mundo, para cada aeroporto,</p>
+                                <p class="m-0">Vendemos os nossos equipamentos, de vários tipos,</p>
+                                <p class="m-0">Mas na rampa, onde pertencemos,</p>
+                                <p class="m-0">Nunca perdemos uma oportunidade, de cantar a nossa cançăo!</p>
+                                <br>
+                                <p class="m-0">Trabalhamos todos para TLD GSE, TLD GSE, TLD GSE!</p>
+                                <p class="m-0">Trabalhamos todos para TLD GSE, TLD GSE, TLD GSE!</p>
+                                <p class="m-0">Trabalhamos todos para TLD GSE, TLD GSE, TLD GSE!</p>
+                            </div>
+                        </div>
+                        <div class="collapse multi-collapse" id="tld-song-5">
+                            <div class="card card-body">
+                                <p class="m-0">Sulla rampa</p>
+                                <br>
+                                <p class="m-0">Sulla rampa, dove lavoriam</p>
+                                <p class="m-0">La nostra Vita è il cliente,</p>
+                                <p class="m-0">Negli aeroporti, ci son gli amici, che usan solo TLD,</p>
+                                <p class="m-0">Noi lavoriamo tutti per TLD, tutti per TLD, tutti per TLD.</p>
+                                <br>
+                                <p class="m-0">E anche quando non lavorano, per noi è molto strano,</p>
+                                <p class="m-0">Ma quando chiamano l’assistenza se trovano il problema è per noi una sorpresa.</p>
+                                <br>
+                                <p class="m-0">Noi Lavoriamo tutti per TLD, tutti per TLD, tutti per TLD</p>
+                                <br>
+                                <p class="m-0">GPU e 802S,</p>
+                                <p class="m-0">I nostri famosi scaricatori NBLs e ABS,</p>
+                                <p class="m-0">loader e air starter,</p>
+                                <p class="m-0">e i nostri trattori towbarless, quando partono!</p>
+                                <p class="m-0">Noi Lavoriamo tutti per TLD, tutti per TLD, tutti per TLD</p>
+                                <br>
+                                <p class="m-0">Abbiamo volato in tutto il mondo e in ogni aeroporto</p>
+                                <p class="m-0">abbiamo venduto, mezzi TLD, mezzi TLD, mezzi TLD.</p>
+                                <p class="m-0">Ma sulla rampa, a cui apparteniamo,</p>
+                                <p class="m-0">noi dobbiamo cantar sempre la nostra canzone!</p>
+                                <br>
+                                <p class="m-0">Noi lavoriamo tutti per TLD GSE, TLD GSE, TLD GSE!</p>
+                                <p class="m-0">Lavoriamo tutti per TLD GSE, TLD GSE, TLD GSE!</p>
+                                <p class="m-0">Lavoriamo tutti per TLD GSE, TLD GSE, TLD GSE!</p>
+                            </div>
+                        </div>
+                        <div class="collapse multi-collapse" id="tld-song-6">
+                            <div class="card card-body">
+                                <p class="m-0">Песна TLD</p>
+                                <br>
+                                <p class="m-0">На перроне, где мы все работаем</p>
+                                <p class="m-0">Живут наши клиенты, которых мы поддерживаем,</p>
+                                <p class="m-0">И наши друзья, во всех аэропортах,</p>
+                                <p class="m-0">Используют наши машины, когда работают,</p>
+                                <br>
+                                <p class="m-0">А когда они не работают, время от времени,</p>
+                                <p class="m-0">Это настолько нас поражает, до глубины души,</p>
+                                <p class="m-0">Но когда мы звоним сервис инженерам,</p>
+                                <p class="m-0">И если мы можем найти кого-то, какой сюрприз!</p>
+                                <br>
+                                <p class="m-0">Мы все работаем в TLD GSE, TLD GSE, TLD GSE !</p>
+                                <p class="m-0">Мы все работаем в TLD GSE, TLD GSE, TLD GSE !</p>
+                                <br>
+                                <p class="m-0">GPU и 802е,</p>
+                                <p class="m-0">Наши знаменитые NBL и ABS,</p>
+                                <p class="m-0">929 и УВЗ,</p>
+                                <p class="m-0">И наши безводильные, когда они заводятся!</p>
+                                <br>
+                                <p class="m-0">Мы объездили мир, каждый аэропорт,</p>
+                                <p class="m-0">Мы продали наше оборудование, так много машин!</p>
+                                <p class="m-0">Но на перроне, где мы работаем,</p>
+                                <p class="m-0">Мы никогда не упускаем случай спеть нашу песню!</p>
+                                <br>
+                                <p class="m-0">Мы все работаем в TLD GSE, TLD GSE, TLD GSE !</p>
+                                <p class="m-0">Мы все работаем в TLD GSE, TLD GSE, TLD GSE !</p>
+                                <p class="m-0">Мы все работаем в TLD GSE, TLD GSE, TLD GSE !</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

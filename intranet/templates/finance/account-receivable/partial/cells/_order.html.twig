@@ -1,0 +1,18 @@
+{% trans_default_domain 'messages' %}
+<td>
+    {% if item.order is not null %}
+        <table>
+            <tbody>
+            <tr>
+                <th>{{ 'demo.fields.id'|trans({}, 'demo') }}</th>
+                <td><a href="{{ path('sales_orders_show', {'id': item.order.id}) }}">{{ item.order.id }}</a></td>
+            </tr>
+            <tr>
+                <th>{{ 'sales_order.fields.entered_at'|trans({}, 'sales_orders') | capitalize }}</th>
+                <td>{{ item.order.enteredAt | date("Y-m-d") }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+</td>

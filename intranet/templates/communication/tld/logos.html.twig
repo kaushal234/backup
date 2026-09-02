@@ -1,0 +1,180 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        mainLogos: [],
+        secondaryLogos: {
+            'ASD+': {
+                'eps': 'tld/logos/ASD+_CMYK.eps',
+                'jpg': 'tld/logos/ASD+_CMYK.jpg',
+                'png': 'tld/logos/ASD+_RGB.png',
+            },
+            'iBS': {
+                'eps': 'tld/logos/TLD IBS_CMYK.eps',
+                'jpg': 'tld/logos/TLD IBS_CMYK.eps',
+                'png': 'tld/logos/TLD IBS_RGB.png',
+            },
+            'LINK© GREY 1': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_1_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_1_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_1_RGB.png',
+            },
+            'LINK© GREY 2': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_2_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_2_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_2_RGB.png',
+            },
+            'LINK© GREY 3': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_3_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_3_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_3_RGB.png',
+            },
+            'LINK© GREY 4': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_4_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_4_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_4_RGB.png',
+            },
+            'LINK© GREY 5': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_5_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_5_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_5_RGB.png',
+            },
+            'LINK© GREY 6': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_6_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_6_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_6_RGB.png',
+            },
+            'LINK© GREY 7': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_7_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_7_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_7_RGB.png',
+            },
+            'LINK© GREY 8': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_8_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_8_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_8_RGB.png',
+            },
+            'LINK© GREY 9': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_9_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_9_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_9_RGB.png',
+            },
+            'LINK© GREY ALL': {
+                'eps': 'tld/logos/ALVEST LINK© GREYS_ALL_CMYK.eps',
+                'jpg': 'tld/logos/ALVEST LINK© GREYS_ALL_CMYK.jpg',
+                'png': 'tld/logos/ALVEST LINK© GREYS_ALL_RGB.png',
+            },
+            'TLD BLACK': {
+                'eps': 'tld/logos/TLD_BLACK_CMYK.eps',
+                'jpg': 'tld/logos/TLD_BLACK_CMYK.jpg',
+                'png': 'tld/logos/TLD_BLACK_RGB.png',
+            },
+            'TLD_BLACK_BLACK strapline': {
+                'eps': 'tld/logos/TLD_BLACK_BLACK strapline_CMYK.eps',
+                'jpg': 'tld/logos/TLD_BLACK_BLACK strapline_CMYK.jpg',
+                'png': 'tld/logos/TLD_BLACK_BLACK strapline_RGB.png',
+            },
+            'TLD BLUE': {
+                'eps': 'tld/logos/TLD_BLUE_CMYK.eps',
+                'jpg': 'tld/logos/TLD_BLUE_CMYK.jpg',
+                'png': 'tld/logos/TLD_BLUE_RGB.png',
+            },
+            'TLD_BLUE_DRK GREY strapline': {
+                'eps': 'tld/logos/TLD_BLUE_DRK GREY strapline_CMYK.eps',
+                'jpg': 'tld/logos/TLD_BLUE_DRK GREY strapline_CMYK.jpg',
+                'png': 'tld/logos/TLD_BLUE_DRK GREY strapline_RGB.png',
+            },
+            'TLD_DRK GREY': {
+                'eps': 'tld/logos/TLD_DRK GREY_CMYK.eps',
+                'jpg': 'tld/logos/TLD_DRK GREY_CMYK.jpg',
+                'png': 'tld/logos/TLD_DRK GREY_RGB.png',
+            },
+            'TLD_OUTLINE_BLACK': {
+                'eps': 'tld/logos/TLD_OUTLINE_BLACK_CMYK.eps',
+                'jpg': 'tld/logos/TLD_OUTLINE_BLACK_CMYK.jpg',
+                'png': 'tld/logos/TLD_OUTLINE_BLACK_RGB.png',
+            },
+            'TLD_OUTLINE_BLUE': {
+                'eps': 'tld/logos/TLD_OUTLINE_BLUE_CMYK.eps',
+                'jpg': 'tld/logos/TLD_OUTLINE_BLUE_CMYK.jpg',
+                'png': 'tld/logos/TLD_OUTLINE_BLUE_RGB.png',
+            },
+            'TLD_OUTLINE_DRK GREY': {
+                'eps': 'tld/logos/TLD_OUTLINE_DRK GREY_CMYK.eps',
+                'jpg': 'tld/logos/TLD_OUTLINE_DRK GREY_CMYK.jpg',
+                'png': 'tld/logos/TLD_OUTLINE_DRK GREY_RGB.png',
+            },
+            'TLD_WHITE_BLACK background': {
+                'eps': 'tld/logos/TLD_WHITE_BLACK background_CMYK.eps',
+                'jpg': 'tld/logos/TLD_WHITE_BLACK background_CMYK.jpg',
+                'png': 'tld/logos/TLD_WHITE_BLACK background_RGB.png',
+            },
+            'TLD_WHITE_BLUE background': {
+                'eps': 'tld/logos/TLD_WHITE_BLUE background_CMYK.eps',
+                'jpg': 'tld/logos/TLD_WHITE_BLUE background_CMYK.jpg',
+                'png': 'tld/logos/TLD_WHITE_BLUE background_RGB.png',
+            },
+            'TLD_WHITE_TRANSP background': {
+                'eps': 'tld/logos/TLD_WHITE_TRANSP background_CMYK.eps',
+                'png': 'tld/logos/TLD_WHITE_TRANSP background_RGB.png',
+            },
+            'TLD_WHITE_WHITE Strapline_BLACK background': {
+                'eps': 'tld/logos/TLD_WHITE_WHITE Strapline_BLACK background_CMYK.eps',
+                'jpg': 'tld/logos/TLD_WHITE_WHITE Strapline_BLACK background_CMYK.jpg',
+                'png': 'tld/logos/TLD_WHITE_WHITE Strapline_BLACK background_RGB.png',
+            },
+            'TLD_WHITE_WHITE Strapline_BLUE background': {
+                'eps': 'tld/logos/TLD_WHITE_WHITE Strapline_BLUE background_CMYK.eps',
+                'jpg': 'tld/logos/TLD_WHITE_WHITE Strapline_BLUE background_CMYK.jpg',
+                'png': 'tld/logos/TLD_WHITE_WHITE Strapline_BLUE background_RGB.png',
+            },
+            'TLD Electric horizontal': {
+                'eps': 'tld/logos/TLD Electric_horizontal_CMYK.eps',
+                'jpg': 'tld/logos/TLD Electric_horizontal_CMYK.jpg',
+                'png': 'tld/logos/TLD Electric_horizontal_RGB.png',
+            },
+            'TLD Electric vertical': {
+                'eps': 'tld/logos/TLD Electric_vertical_CMYK.eps',
+                'jpg': 'tld/logos/TLD Electric_vertical_CMYK.jpg',
+                'png': 'tld/logos/TLD Electric_vertical_RGB.png',
+            },
+            'TLD Hybrid horizontal': {
+                'eps': 'tld/logos/TLD Hybrid_horizontal_CMYK.eps',
+                'jpg': 'tld/logos/TLD Hybrid_horizontal_CMYK.jpg',
+                'png': 'tld/logos/TLD Hybrid_horizontal_RGB.png',
+            },
+            'TLD Hybrid vertical': {
+                'eps': 'tld/logos/TLD Hybrid_vertical_CMYK.eps',
+                'jpg': 'tld/logos/TLD Hybrid_vertical_CMYK.jpg',
+                'png': 'tld/logos/TLD Hybrid_vertical_RGB.png',
+            },
+            'TLD Hydrogen horizontal': {
+                'eps': 'tld/logos/TLD Hydrogen_horizontal_CMYK.eps',
+                'jpg': 'tld/logos/TLD Hydrogen_horizontal_CMYK.jpg',
+                'png': 'tld/logos/TLD Hydrogen_horizontal_RGB.png',
+            },
+            'TLD Hydrogen vertical': {
+                'eps': 'tld/logos/TLD Hydrogen_vertical_CMYK.eps',
+                'jpg': 'tld/logos/TLD Hydrogen_vertical_CMYK.jpg',
+                'png': 'tld/logos/TLD Hydrogen_vertical_RGB.png',
+            },
+            'TLD Link logo': {
+                'eps': 'tld/logos/TLD Link Logo EPS.eps',
+                'jpg': 'tld/logos/TLD Link Logo JPG.jpg',
+                'png': 'tld/logos/TLD Link Logo PNG.png',
+            },
+            'TLD Maini BLUE BLACK': {
+                'eps': 'tld/logos/TLD Maini_BLUE_BLACK_CMYK.eps',
+                'jpg': 'tld/logos/TLD Maini_BLUE_BLACK_CMYK.jpg',
+                'png': 'tld/logos/TLD Maini_BLUE_BLACK_RGB.png',
+            },
+            'TLD Maini BLUE MED GREY': {
+                'eps': 'tld/logos/TLD Maini_BLUE_MED GREY_CMYK.eps',
+                'jpg': 'tld/logos/TLD Maini_BLUE_MED GREY_CMYK.jpg',
+                'png': 'tld/logos/TLD Maini_BLUE_MED GREY_RGB.png',
+            },
+        },
+    }) }}
+{% endblock %}

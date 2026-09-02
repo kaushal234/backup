@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["@context", "@type", "@id", "outputLines"],
+  "properties": {
+    "@context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["@vocab", "hydra", "outputLines"],
+      "properties": {
+        "@vocab": { "type": "string" },
+        "hydra": { "type": "string" },
+        "outputLines": { "type": "string" }
+      }
+    },
+    "@type": {
+      "type": "string",
+      "const": "TechnicianOnCallDuplicateOutput"
+    },
+    "@id": {
+      "type": "string",
+      "pattern": "^\\/\\.well-known\\/genid\\/[a-f0-9]+$"
+    },
+    "outputLines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["@type", "@id", "technicianOnCallErrorMessage", "customerServiceRecordId", "customerServiceRecordErrorMessage"],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "TechnicianOnCallDuplicateLineOutput"
+          },
+          "@id": {
+            "type": "string",
+            "pattern": "^\\/\\.well-known\\/genid\\/[a-f0-9]+$"
+          },
+          "serialNumber": { "type": "string" },
+          "technicianOnCallId": { "type": ["integer", "null"] },
+          "technicianOnCallErrorMessage": { "type": ["string", "null"] },
+          "customerServiceRecordId": { "type": ["integer", "null"] },
+          "customerServiceRecordErrorMessage": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

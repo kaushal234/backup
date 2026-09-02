@@ -1,0 +1,14 @@
+{% if this.hasContent %}
+    <span
+            class="datatable-html-tooltip"
+            tabindex="0"
+            data-bs-custom-class="popover-html"
+            data-bs-toggle="popover"
+            data-bs-html="true"
+            data-bs-trigger="hover focus"
+            data-bs-placement="{{ this.placement }}"
+            data-bs-content="{{ this.html|escape('html_attr') }}"
+    >
+        {{ this.short }}
+    </span>
+{% endif %}

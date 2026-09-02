@@ -1,0 +1,21 @@
+<td>
+    {% if reportItem.properties is defined and reportItem.properties is iterable %}
+        {% set value = [] %}
+        {% for propertyPath in reportItem.properties %}
+            {% set propValue = parse_nested(item, propertyPath) %}
+            {% if propValue is not same as(null) %}
+                {% set value = value | merge([propValue]) %}
+            {% endif %}
+        {% endfor %}
+        {% set value = value|length > 0 ? value | join(reportItem.glue|default('&nbsp;')) : null %}
+    {% else %}
+        {% set value = attribute(item, key) %}
+    {% endif %}
+
+    <div class="d-flex align-items-center justify-content-between gap-2">
+        <span>{{ value | raw | nl2br }}</span>
+        <a class="btn btn-sm btn-outline-primary flex-shrink-0" href="{{ path('equipment:edit', {id: equipment.id}) }}">
+            {{ 'menu.edit'|trans|capitalize }}
+        </a>
+    </div>
+</td>

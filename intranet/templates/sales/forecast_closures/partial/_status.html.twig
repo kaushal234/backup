@@ -1,0 +1,14 @@
+<td>
+    {% set statuses = {
+        'PERFORMANCE': 'Technical / Equipment Performance',
+        'SUPPORT': 'Service & Spare Part Support',
+        'SALES': 'Sales Job',
+        'CANCELLED': 'Requirement Cancelled',
+        'PRICE': 'Price',
+        'PAYMENT': 'Payment Terms',
+        'LEAD_TIME': 'Lead-Time',
+        'LOYALTY': 'Customer Loyalty',
+    } %}
+
+    {{ statuses[item.reason] is defined ? statuses[item.reason] : '' }}
+</td>

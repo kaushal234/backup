@@ -1,0 +1,26 @@
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+
+        {{ form_start(form, { action: action }) }}
+        {{ form_errors(form) }}
+
+        <div class="col-md-6">
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart" id="premise-title">
+                    {{ 'directory.premise.transfer.to'|trans({}, 'directory') }}
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.target) }}
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+            </div>
+        </div>
+        {{  form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

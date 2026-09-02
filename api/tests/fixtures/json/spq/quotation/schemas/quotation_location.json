@@ -1,0 +1,297 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/parts/quotations/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "receivedAt": {
+      "type": "string"
+    },
+    "suspendedAt": {
+      "type": ["string", "null"]
+    },
+    "submittedAt": {
+      "type": ["string", "null"]
+    },
+    "firstSubmittedAt": {
+      "type": ["string", "null"]
+    },
+    "expiredAt": {
+      "type": ["string", "null"]
+    },
+    "closedAt": {
+      "type": ["string", "null"]
+    },
+    "poster": {
+      "$ref": "../../../directory_people/schemas/directory_people_public.json"
+    },
+    "source": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../../directory_people/schemas/directory_people_public.json" }
+      ]
+    },
+    "quoter": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../../directory_people/schemas/directory_people_public.json" }
+      ]
+    },
+    "sph": { "$ref": "../../../directory_location/schemas/directory_location.json" },
+    "rfq": {
+      "type": ["string", "null"]
+    },
+    "baanCustomerNumber": {
+      "type": "string"
+    },
+    "baanCustomerName": {
+      "type": "string"
+    },
+    "baanSalesOrder": {
+      "type": ["integer", "null"]
+    },
+    "customerPurchaseOrder": {
+      "type": ["string", "null"]
+    },
+    "status": {
+      "type": "string"
+    },
+    "requestType": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/parts/request_types/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "customerName": {
+      "type": ["string", "null"]
+    },
+    "contactEmails": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "shippedComplete": {
+      "type": "boolean"
+    },
+    "payableService": {
+      "type": "boolean"
+    },
+    "paymentTerms": {
+      "type": "string"
+    },
+    "deliveryAddress": {
+      "type": "object"
+    },
+    "deliveryAddressBaanId": {
+      "type": ["string", "null"]
+    },
+    "billingAddress": {
+      "type": "object"
+    },
+    "billingAddressBaanId": {
+      "type": ["string", "null"]
+    },
+    "language": {
+      "type": "string"
+    },
+    "headerText": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "incoterms": {
+      "type": "string"
+    },
+    "incotermsLocation": {
+      "type": ["string", "null"]
+    },
+    "quotationLines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/parts/quotation_lines/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "position": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "partNumber": {
+            "type": "string"
+          },
+          "displayedPartNumber": {
+            "type": ["string", "null"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "unitBasePrice": {
+            "type": "number"
+          },
+          "totalPrice": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "salesUnit": {
+            "type": "string"
+          },
+          "discount": {
+            "type": "number"
+          },
+          "commission": {
+            "type": "number"
+          },
+          "leadtime": {
+            "type": "integer"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "tax": {
+            "type": "number"
+          },
+          "weight": {
+            "type": "number"
+          },
+          "countryOfOrigin": {
+            "type": ["string", "null"]
+          },
+          "commodityCode": {
+            "type": ["string", "null"]
+          },
+          "itemType": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "position",
+          "status",
+          "partNumber",
+          "displayedPartNumber",
+          "description",
+          "unitBasePrice",
+          "totalPrice",
+          "currency",
+          "salesUnit",
+          "discount",
+          "commission",
+          "leadtime",
+          "comment",
+          "tax",
+          "weight",
+          "countryOfOrigin",
+          "commodityCode",
+          "itemType",
+          "quantity"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "attachedFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "../../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "quotationFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "../../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "forwardingAgent": {
+      "type": ["string", "null"]
+    },
+    "defaultCommission": {
+      "type": "number"
+    },
+    "reason": {
+      "type": ["string", "null"]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "createdAt",
+    "receivedAt",
+    "suspendedAt",
+    "submittedAt",
+    "firstSubmittedAt",
+    "expiredAt",
+    "closedAt",
+    "poster",
+    "source",
+    "quoter",
+    "sph",
+    "baanCustomerNumber",
+    "baanSalesOrder",
+    "status",
+    "requestType",
+    "customerName",
+    "contactEmails",
+    "comment",
+    "shippedComplete",
+    "payableService",
+    "paymentTerms",
+    "deliveryAddressBaanId",
+    "deliveryAddress",
+    "billingAddressBaanId",
+    "billingAddress",
+    "language",
+    "headerText",
+    "incoterms",
+    "incotermsLocation",
+    "quotationLines",
+    "attachedFiles",
+    "quotationFiles",
+    "forwardingAgent",
+    "defaultCommission",
+    "reason"
+  ],
+  "additionalProperties": false
+}

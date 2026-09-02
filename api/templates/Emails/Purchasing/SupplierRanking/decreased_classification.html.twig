@@ -1,0 +1,9 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <strong>{{ supplierRanking.supplierName }}</strong> classification has been changed from <strong>{{ oldClassification }}</strong> to <strong>{{ supplierRanking.classification.name }}</strong> by <a href="{{ url('people', {id: currentUserId}) }}">{{ currentUser }}</a>.<br />
+        <a href="{{ url('supplier_ranking', {id: supplierRanking.id}) }}">Go to supplier ranking page.</a>
+    </row>
+{% endblock %}

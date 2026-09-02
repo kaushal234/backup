@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/product_types$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/product_types/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "publicForTLD": {
+            "type": "boolean"
+          },
+          "publicForAerospecialties": {
+            "type": "boolean"
+          },
+          "publicForSAS": {
+            "type": "boolean"
+          },
+          "frenchName": {
+            "type": ["string", "null"]
+          },
+          "englishName": {
+            "type": ["string", "null"]
+          },
+          "spanishName": {
+            "type": ["string", "null"]
+          },
+          "portugueseName": {
+            "type": ["string", "null"]
+          },
+          "chineseName": {
+            "type": ["string", "null"]
+          },
+          "japaneseName": {
+            "type": ["string", "null"]
+          },
+          "germanName": {
+            "type": ["string", "null"]
+          },
+          "russianName": {
+            "type": ["string", "null"]
+          },
+          "dms": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../../dms/schemas/dms.json"}
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "publicForTLD",
+          "publicForAerospecialties",
+          "publicForSAS",
+          "frenchName",
+          "englishName",
+          "spanishName",
+          "portugueseName",
+          "chineseName",
+          "japaneseName",
+          "germanName",
+          "russianName",
+          "dms"
+        ],
+        "additionalProperties": false,
+        "minItems": 1
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

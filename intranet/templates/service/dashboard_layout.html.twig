@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem
+                translationKey="menu.technician_on_call.title"
+                icon="tabler:adjustments"
+                route="technician_on_call_search"
+        />
+        <twig:NavItem
+                translationKey="menu.customer_service_record.title"
+                icon="tabler:plane"
+                route="customer_service_record_search"
+        />
+        <twig:NavItem
+                translationKey="csr.title.switch_ast"
+                domain="customer_service_record"
+                icon="tabler:user"
+                route="ast_dashboard"
+                :security="app.request.pathInfo is same as '/service/dashboard/dashboard-csm' and is_granted('AST_DASHBOARD')"
+        />
+        <twig:NavItem
+                translationKey="csr.title.dashboard_csm"
+                domain="customer_service_record"
+                icon="tabler:users"
+                route="csm_dashboard"
+                :security="app.request.pathInfo is same as '/service/dashboard/dashboard-ast' and is_granted('CSM_DASHBOARD')"
+        />
+        <twig:NavItem
+                translationKey="toc.button.reports"
+                domain="technician_on_call"
+                icon="tabler:chart-line"
+                route="technician_on_calls_reports"
+        />
+    </twig:NavBar:Container>
+{% endblock %}
+{% block quick_action_bar %}
+    <twig:NavBar:Container>
+        <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+        </li>
+        <twig:NavItem
+                translationKey="toc.button.create_toc"
+                domain="technician_on_call"
+                icon="bitcoin-icons:plus-filled"
+                route="technician_on_calls_write"
+        />
+    </twig:NavBar:Container>
+{% endblock %}

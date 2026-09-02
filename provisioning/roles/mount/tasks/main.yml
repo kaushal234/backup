@@ -1,0 +1,215 @@
+- name: Ensure nfs is installed
+  become: true
+  ansible.builtin.apt:
+    name: nfs-common
+    state: present
+
+# doc for permissions given by infra team :
+# https://alvestgroup.atlassian.net/wiki/spaces/DEV/pages/2125987842/NFS+mount+on+prod+and+staging+servers
+
+- name: Mount nfs shared volume parts_pics from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data0/parts_pics"
+    path: /mnt/grpfps10.parts_pics/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+
+- name: Mount nfs shared volume windsor.released from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data0/windsor.released"
+    path: /mnt/windsor.released/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+
+- name: Mount nfs shared volume global.released from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data0/global.released"
+    path: /mnt/global.released/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+
+- name: Mount nfs shared volume manuals_diagram from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data1/manuals_diagrams"
+    path: /mnt/grpfps10.manuals_diagrams/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+  when: (inventory_hostname in groups['api']) or
+    ((inventory_file | basename) == "production.yml")
+
+- name: Mount nfs shared volume quality from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data2"
+    path: /mnt/grpfps10.data2/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Create local volume manuals_diagram to fake nfs
+  become: true
+  ansible.builtin.file:
+    path: /mnt/grpfps10.manuals_diagrams
+    state: directory
+    owner: deployer
+    group: php_executor
+    mode: '0755'
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "staging.yml")
+
+- name: Mount nfs shared volume dms from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data0/dms"
+    path: /mnt/grpfps10.dms/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+  when: (inventory_hostname in groups['api']) or
+    ((inventory_file | basename) == "production.yml")
+
+- name: Create local volume dms to fake nfs
+  become: true
+  ansible.builtin.file:
+    path: /mnt/grpfps10.dms
+    state: directory
+    owner: deployer
+    group: php_executor
+    mode: '0755'
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "staging.yml")
+
+- name: Mount nfs shared volume of file uploads from file server grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data/uploads"
+    path: /mnt/webprod.uploads/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+  when: (inventory_hostname in groups['api']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Create local volume webprod.uploads to fake nfs
+  become: true
+  ansible.builtin.file:
+    path: /mnt/webprod.uploads
+    state: directory
+    owner: deployer
+    group: php_executor
+    mode: '0755'
+  when: (inventory_hostname in groups['portals']) or
+    ((inventory_file | basename) == "staging.yml")
+
+- name: Mount nfs shared volume STRS_PDF from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data0/STRS_PDF"
+    path: /mnt/grpfps10.strs_pdf/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+  when: ((inventory_file | basename) == "production.yml")
+
+- name: Create local volume STRS_PDF to fake nfs
+  become: true
+  ansible.builtin.file:
+    path: /mnt/grpfps10.strs_pdf
+    state: directory
+    owner: deployer
+    group: php_executor
+    mode: '0755'
+  when: ((inventory_file | basename) == "staging.yml")
+
+- name: Mount nfs shared volume online_approvals from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data0/online_approvals"
+    path: /mnt/grpfps10.online_approvals/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+  when: ((inventory_file | basename) == "production.yml")
+
+- name: Create local volume online_approvals to fake nfs
+  become: true
+  ansible.builtin.file:
+    path: /mnt/grpfps10.online_approvals
+    state: directory
+    owner: deployer
+    group: php_executor
+    mode: '0755'
+  when: ((inventory_file | basename) == "staging.yml")
+
+- name: Mount nfs shared volume shopfloor_webcams from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data0/shopfloor_webcams"
+    path: /mnt/grpfps10.shopfloor_webcams/
+    opts: defaults
+    state: mounted
+    fstype: nfs
+  when: ((inventory_file | basename) == "production.yml")
+
+- name: Create local volume shopfloor_webcams to fake nfs
+  become: true
+  ansible.builtin.file:
+    path: /mnt/grpfps10.shopfloor_webcams
+    state: directory
+    owner: deployer
+    group: php_executor
+    mode: '0755'
+  when: ((inventory_file | basename) == "staging.yml")
+
+- name: Mount nfs shared volume SupplierPaymentAdvice from grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data0/SupplierPaymentAdvice"
+    path: /mnt/grpfps10.SupplierPaymentAdvice
+    opts: defaults
+    state: absent
+    fstype: nfs
+  when: (inventory_hostname in groups['api']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Mount nfs shared volume of file uploads from file server grpfps10
+  become: true
+  ansible.posix.mount:
+    src: "{{ nfs_server_ip }}:/data"
+    path: /data
+    opts: defaults
+    state: mounted
+    fstype: nfs
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Create symlink for uploads dir on api
+  become: true
+  ansible.builtin.file:
+    src: "/mnt/webprod.uploads"
+    dest: "{{ monorepo_path }}/shared/api/uploads"
+    owner: deployer
+    group: php_executor
+    state: link
+  when: (inventory_hostname in groups['api']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Create symlink for uploads dir on portals
+  become: true
+  ansible.builtin.file:
+    src: "/data/uploads"
+    dest: "{{ monorepo_path }}/shared/intranet/legacy/uploads"
+    owner: deployer
+    group: php_executor
+    state: link
+  when: (inventory_hostname in groups['portals']) and ((inventory_file | basename) == "production.yml")

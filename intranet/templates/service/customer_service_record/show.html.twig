@@ -1,0 +1,99 @@
+{% extends 'service/customer_service_record/layout.html.twig' %}
+{% trans_default_domain 'customer_service_record' %}
+
+{% block title %}{{ parent() }}\{{ 'csr.title.detail'|trans }}#{{ customerServiceRecord.id }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    {{ include('service/customer_service_record/partial_show/_status_bar.html.twig') }}
+    {{ include('service/customer_service_record/partial_show/_top_tickets.html.twig') }}
+
+    {% if customerServiceRecord.type is same as 'toc' and customerServiceRecord.closed and customerServiceRecord.technicianOnCall.status is same as 'IN PROGRESS' %}
+        <div class="alert alert-danger" role="alert">
+            {{ 'csr.alert.mind_to_close'|trans }} :
+            <a target="_blank" href="{{ path('technician_on_calls_show', {id: item.technicianOnCall.id}) }}">
+                TOC #{{ item.technicianOnCall.id }}
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12 col-xxl-3">
+            <div class="col-12 col-xxl-12">
+                {{ include('service/customer_service_record/partial_show/_intervention_form.html.twig') }}
+            </div>
+            {% if customerServiceRecord.closed  and 'commissioning' === customerServiceRecord.type %}
+                <div class="col-12 col-xxl-12">
+                    {{ include('service/customer_service_record/partial_show/_survey_details.html.twig') }}
+                </div>
+            {% endif %}
+            <div class="col-12 col-xxl-12">
+                {{ include('service/customer_service_record/partial_show/_csr_details.html.twig') }}
+            </div>
+            <div class="col-12 d-none d-xxl-block">
+                {{ include('service/customer_service_record/partial_show/_customer_details.html.twig') }}
+            </div>
+            <div class="col-12 d-none d-xxl-block">
+                {{ include('service/customer_service_record/partial_show/_customer_contact.html.twig') }}
+            </div>
+            <div class="col-12 d-none d-xxl-block">
+                {{ include('service/customer_service_record/partial_show/_equipment_record_details.html.twig') }}
+            </div>
+            <div class="col-12 d-none d-xxl-block">
+                {{ include('service/customer_service_record/partial_show/_airport_details.html.twig') }}
+            </div>
+        </div>
+        <div class="col-12 col-xxl-6">
+            {% include 'service/customer_service_record/partial_show/_logs_customer_service_records.html.twig' with { 'item': customerServiceRecord } %}
+        </div>
+        <div class="col-12 col-xxl-3 d-flex justify-content-center d-xxl-block">
+            {% if customerServiceRecord.files is not null and customerServiceRecord.files|length > 0 %}
+                {{ component('Swiper', {
+                    files: customerServiceRecord.files,
+                    uploadUri: upload_uri,
+                    fileRouteBuilder: (file) => path('customer_service_record_files_show', {customerServiceRecordId: customerServiceRecord.id, id: file.id})
+                }) }}
+                {{ include('service/customer_service_record/partial/files_light.html.twig') }}
+            {% endif %}
+            <div class="ibox-title">
+                <h5>{{ 'menu.people.tasks'|trans([], 'messages')|capitalize }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <hx:include src="/en/private/calendar/tasks/tasks_hinclude.php?module=CSR&parent_id={{ customerServiceRecord.legacyId }}" id="block_tasks">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+            <br/>
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title"><h5>{{ 'menu.links' | trans({}, 'messages') | capitalize }}</h5>
+                    <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+                </div>
+                {{ include('generic/_links.html.twig', {item: customerServiceRecord, module: 'CSR', legacy:true} ) }}
+            </div>
+            <br/>
+        </div>
+        <div class="col-12 d-xxl-none">
+            {{ include('service/customer_service_record/partial_show/_equipment_record_details.html.twig') }}
+        </div>
+        <div class="col-12 d-xxl-none">
+            {{ include('service/customer_service_record/partial_show/_airport_details.html.twig') }}
+        </div>
+        <div class="col-12 d-xxl-none">
+            {{ include('service/customer_service_record/partial_show/_customer_details.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('partial/_footable.html.twig', {'selectors': ['#block_tasks']}) }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/AnswerSurveyCustomerServiceRecord.jsonld-customer_service_record.answer.update",
+  "definitions": {
+    "AnswerSurveyCustomerServiceRecord.jsonld-customer_service_record.answer.update": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "commissioningCustomerServiceRecord": {
+          "$ref": "#/definitions/CommissioningCustomerServiceRecord.jsonld-customer_service_record.answer.update"
+        },
+        "comment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "questionSurveyCustomerServiceRecord": {
+          "type": "string",
+          "format": "iri-reference"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "iri-reference"
+        },
+        "updatedBy": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "iri-reference"
+        },
+        "answer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "CommissioningCustomerServiceRecord.jsonld-customer_service_record.answer.update": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "answerSurveyCustomerServiceRecords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnswerSurveyCustomerServiceRecord.jsonld-customer_service_record.answer.update"
+          }
+        }
+      }
+    }
+  }
+}

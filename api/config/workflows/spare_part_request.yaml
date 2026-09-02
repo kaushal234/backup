@@ -1,0 +1,26 @@
+framework:
+    workflows:
+        spare_parts_request:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\Parts\SparePartsRequest
+            initial_marking: !php/const App\Entity\Parts\SparePartsRequest::STATUS_PENDING
+            places:
+                - !php/const App\Entity\Parts\SparePartsRequest::STATUS_PENDING
+                - !php/const App\Entity\Parts\SparePartsRequest::STATUS_OPEN
+                - !php/const App\Entity\Parts\SparePartsRequest::STATUS_SHIPPED
+                - !php/const App\Entity\Parts\SparePartsRequest::STATUS_CLOSED
+            transitions:
+                to_open:
+                    from: !php/const App\Entity\Parts\SparePartsRequest::STATUS_PENDING
+                    to: !php/const App\Entity\Parts\SparePartsRequest::STATUS_OPEN
+                to_shipped:
+                    from: !php/const App\Entity\Parts\SparePartsRequest::STATUS_OPEN
+                    to: !php/const App\Entity\Parts\SparePartsRequest::STATUS_SHIPPED
+                to_closed:
+                    guard: "is_granted('FEATURE_SPARE_PARTS_REQUESTS_SHIPPED_TO_CLOSE') or is_granted('MOO_SPR')"
+                    from: !php/const App\Entity\Parts\SparePartsRequest::STATUS_SHIPPED
+                    to: !php/const App\Entity\Parts\SparePartsRequest::STATUS_CLOSED

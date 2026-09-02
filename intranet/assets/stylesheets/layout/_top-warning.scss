@@ -1,0 +1,22 @@
+.env-warning {
+  background: red;
+  color: #2d0000;
+  text-align: center;
+  padding: 10px;
+  a {
+    color: white;
+  }
+
+  &-test {
+    @extend .env-warning;
+    background: red;
+  }
+  &-ln {
+    @extend .env-warning;
+    background: #028002;
+  }
+}
+
+.navbar-placeholder {
+  margin: 0;
+}

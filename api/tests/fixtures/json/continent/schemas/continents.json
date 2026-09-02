@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/continents$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/continents/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "isoCode2": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "@id",
+          "isoCode2",
+          "name"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

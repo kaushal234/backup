@@ -1,0 +1,40 @@
+{% extends 'directory/position_category/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ (positionCategoryType is not null ? 'directory.position_category_types.edit' : 'directory.position_category_types.add')|trans([], 'directory')|capitalize }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.submit) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        {% if positionCategoryType is not null %}
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'menu.logs'|trans([], 'messages')|capitalize }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="logs-block" data-resource="{{ positionCategoryType.iri }}"></div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'finance/account-receivable/layout.html.twig' %}
+{% trans_default_domain 'account_receivable' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filters' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('finance/account-receivable/partial/_form_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('account_receivable_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ form_start(formComment, { action: path('account_receivable_search') }) }}
+            {{ form_errors(formComment) }}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        active: {
+                            label: 'account_receivable.invoice_record.fields.quick_admin' | trans | capitalize,
+                            template: '/finance/account-receivable/partial/cells/_form_cell_checkbox.html.twig',
+                            templateParams: {'form': formComment},
+                        },
+                        category: {
+                            label: 'account_receivable.invoice_record.fields.category' | trans | capitalize,
+                            template: '/finance/account-receivable/partial/cells/_form_cell_category.html.twig',
+                            templateParams: {'form': formComment},
+                        },
+                        expectedPaymentDate: {
+                            label: 'account_receivable.invoice_record.fields.expected_payment_date' | trans | capitalize,
+                            template: '/finance/account-receivable/partial/cells/_form_cell_expected_payment_date.html.twig',
+                            templateParams: {'form': formComment},
+                        },
+                        view: {
+                            label: 'menu.view'|trans({}, 'messages') | capitalize,
+                            link:{
+                                route: 'account_receivable_show',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></span>',
+                            }
+                        },
+                        customer: {
+                            label: 'demo.fields.customer'|trans({}, 'demo'),
+                            properties: ['customerErpReference.customer.name'],
+                            link:{
+                                route: 'sales_customers_show',
+                                params: {'id':'customerErpReference.customer.@id'},
+                            }
+                        },
+                        pcust: {
+                            label: 'account_receivable.fields.pcust'|trans,
+                            properties: ['customerErpReference.customerNumber']
+                        },
+                        company: {
+                            label: 'account_receivable.fields.company'|trans,
+                            properties: ['customerErpReference.sso.erp'],
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'customerErpReference.sso.@id'},
+                            }
+                        },
+                        transactionType: {
+                            label: 'account_receivable.fields.transaction_type'|trans,
+                            properties: ['transactionTypeReference.transactionType.name']
+                        },
+                        erpInvoiceNumber: {label: 'account_receivable.fields.erp_invoice_number'|trans},
+                        country: {
+                            label: 'demo.fields.country'|trans({}, 'demo'),
+                            properties: ['country.name']
+                        },
+                        invoiceDate: {
+                            label: 'account_receivable.fields.invoice_date'|trans,
+                            filters: 'date("Y-m-d")',
+                        },
+                        dueDate: {
+                            label: 'account_receivable.fields.due_date'|trans,
+                            filters: 'date("Y-m-d")',
+                        },
+                        balanceAmount: {
+                            label: 'account_receivable.fields.balance_amount'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                            sortable: 'numeric',
+                        },
+                        balanceAmountLocalCurrency: {
+                            label: 'account_receivable.fields.balance_amount_local'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value_local_currency.html.twig',
+                            sortable: 'numeric',
+                        },
+                        revisedDueDate: {
+                            label: 'account_receivable.invoice_record.fields.revised_due_date'|trans,
+                            properties: ['invoiceRecord.revisedDueDate'],
+                            preserveNull: true,
+                            filters: 'date("Y-m-d")',
+                        },
+                        delinquent: {
+                            label: 'demo.fields.delinquent'|trans({}, 'demo'),
+                            boolean: {
+                                true: '<div class="text-center"><span class="d-none">1</span><i class="fa fa-circle text-danger"></i></div>',
+                                false: '<div class="text-center"><span class="d-none">0</span><i class="fa fa-circle" style="color: #009639"></i></div>'
+                            }
+                        }
+                    },
+                    initialSorting: false,
+                    search: searchTable,
+                    title: reportTitle|trans,
+                    data: accountReceivables,
+                    tooltip: {
+                        nested: true,
+                        property: 'invoiceRecord.lastComment'
+                    }
+                }
+            }, with_context = false) }}
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="ibox-content">
+                        <p style="color: red; font-weight: bold">Check above which AR you want to comment and then submit</p>
+                        {{ form_widget(formComment.comment) }}
+                        <br>
+                        {{ form_row(formComment.submit) }}
+                    </div>
+                </div>
+                {{ form_rest(formComment) }}
+            </div>
+            {{ form_end(formComment) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        window.onload = function() {
+            Array.from(document.getElementsByClassName('field-to-disable')).forEach((field) => {
+                field.disabled = true
+            })
+            Array.from(document.getElementsByClassName('disable-field')).forEach((checkbox) => {
+                checkbox.addEventListener('change', function (event) {
+                    Array.from(event.target.closest('tr').querySelectorAll('.field-to-disable')).forEach((input) => {
+                        input.disabled = !event.target.checked
+                    })
+                }, false)
+            })
+        }
+    </script>
+{% endblock %}

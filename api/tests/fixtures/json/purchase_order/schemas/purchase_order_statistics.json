@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/ion/purchase_order_statistics"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/ion/purchase_order_statistics/.*"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "buyFromSupplierCode": {
+            "type": "string"
+          },
+          "buyFromSupplierName": {
+            "type": "string"
+          },
+          "terminated": {
+            "type": "boolean"
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "emailAddress": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "code",
+                "emailAddress"
+              ],
+              "additionalProperties": false
+            },
+          "uniqueItems": true
+        },
+        "internalContacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "type": "string"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "emailAddress": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "code",
+              "emailAddress"
+            ],
+            "additionalProperties": false
+          },
+          "uniqueItems": true
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "type": "string"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "orderIdentifier": {
+                "type": "string"
+              },
+              "lineIdentifier": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "string"
+              },
+              "late": {
+                "type": "boolean"
+              },
+              "unconfirmed": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "orderIdentifier",
+              "lineIdentifier",
+              "sequence",
+              "late",
+              "unconfirmed"
+            ],
+            "additionalProperties": false
+          },
+          "uniqueItems": true
+        }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "buyFromSupplierCode",
+          "buyFromSupplierName",
+          "terminated",
+          "contacts",
+          "internalContacts",
+          "lines"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

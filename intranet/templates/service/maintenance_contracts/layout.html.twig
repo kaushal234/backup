@@ -1,0 +1,11 @@
+{% extends 'service/layout.html.twig' %}
+{% trans_default_domain 'service' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="service_maintenance_contracts_add" :security="is_granted('FEATURE_MAINTENANCE_CONTRACT_WRITE')"/>
+        {% if contract is defined %}
+            <twig:NavItem:Edit route="service_maintenance_contracts_edit" :routeParameters="{ id: id }" :security="is_granted('FEATURE_MAINTENANCE_CONTRACT_WRITE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

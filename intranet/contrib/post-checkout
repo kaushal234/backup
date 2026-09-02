@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Put this file at: .git/hooks/post-checkout
+# and make it executable
+
+
+PREV_COMMIT=$1
+POST_COMMIT=$2
+
+GIT_DIR=$(git rev-parse --git-dir)
+GIT_DIR_MERGE="$GIT_DIR"/rebase-merge
+GIT_DIR_APPLY="$GIT_DIR"/rebase-apply
+
+GIT_MERGE_REBASE=false
+[[ (-d "$GIT_DIR_MERGE" && -f "$GIT_DIR_MERGE/interactive") || -d "$GIT_DIR_APPLY" ]] && GIT_MERGE_REBASE=true
+
+NOCOLOR='\e[0m'
+REDCOLOR='\e[37;41m'
+
+if [[ -f composer.lock ]]; then
+    DIFF=`git diff --shortstat $PREV_COMMIT..$POST_COMMIT composer.lock`
+    if [[ $DIFF != "" ]]; then
+	if [[ $GIT_MERGE_REBASE = false ]]; then
+	    echo -e "$REDCOLOR composer.lock has changed: running composer install $NOCOLOR"
+	    #Here makefile command
+	    (cd ../dev_docker && make composer-install)
+	else
+	    echo -e "$REDCOLOR composer.lock has changed BUT you are in the middle of a rebase or a merge. Please run composer by yourself using the Makefile $NOCOLOR"
+	fi
+    fi
+fi
+
+
+if [[ -f package.json ]]; then
+    DIFF=`git diff --shortstat $PREV_COMMIT..$POST_COMMIT package.json`
+    if [[ $DIFF != "" ]]; then
+	if [[ $GIT_MERGE_REBASE = false ]]; then
+	    echo -e "$REDCOLOR package.json has changed: running npm install $NOCOLOR"
+	    #Here makefile command
+	    (cd ../dev_docker && make npm-install && make gulp-deploy)
+	else
+	    echo -e "$REDCOLOR package.json has changed BUT you are in the middle of a rebase or a merge. Please run npm by yourself using the Makefile $NOCOLOR"
+	fi
+    fi
+fi

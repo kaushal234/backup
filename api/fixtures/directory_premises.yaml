@@ -1,0 +1,60 @@
+App\Entity\Directory\Premise:
+  #/premises/1
+  premise_moa:
+    id: 1
+    name: "Andalouza"
+    description: "The building in PNL club"
+    tags: ['@premise_tag_1', '@premise_tag_2']
+    address: <entityAddress()>
+    latitude: 45.6
+    longitude: 55.2
+    supportTeam: '@support_team_nala'
+
+  #/premises/2
+  premise_crap:
+    id: 2
+    name: "Bamacoco"
+    description: "Flat on the Departemental Puget huile olive"
+    tags: ['@premise_tag_2']
+    archived: true
+    address: <entityAddress()>
+
+  #/premises/3
+  premise_home_office:
+    id: 3
+    name: "Chémoi"
+    description: "It is my home"
+    tags: ['@premise_tag_3']
+    archived: true
+    address: <entityAddress()>
+
+  #/premises/4
+  premise_to_be_transferred:
+    id: 4
+    name: "Transferred"
+    description: "Somewhere else"
+    tags: ['@premise_tag_3']
+    address: <entityAddress()>
+    latitude: 15.6
+    longitude: 75.2
+
+App\Entity\Directory\PremiseTag:
+  premise_tag_1:
+    name: "Boulodrome"
+    createdAt: <dateTimeInInterval('-30 days', '-2 days')>
+    createdBy: "@user_hr"
+
+  premise_tag_2:
+    name: "Bureau tout terrain"
+    createdAt: <dateTimeInInterval('-30 days', '-2 days')>
+    createdBy: "@user_hr"
+
+  premise_tag_3:
+    name: "Home Office (restricted)"
+    createdAt: <dateTimeInInterval('-30 days', '-2 days')>
+    createdBy: "@user_hr"
+
+  premise_tag_4:
+    name: "Home Office"
+    createdAt: <dateTimeInInterval('-30 days', '-2 days')>
+    createdBy: "@user_hr"

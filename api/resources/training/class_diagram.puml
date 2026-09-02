@@ -1,0 +1,187 @@
+@startuml
+
+namespace App {
+    namespace  Entity {
+        namespace HumanResources {
+            class Training {
+                - int $id
+                - People $organizer
+                - People $trainer
+                - string $meetingPlace
+                - string $timezone
+                - \DateTimeImmutable $startingAt
+                - \DateTimeImmutable $endingAt
+                - Collection $attendees
+                - ?int $attendanceLimit = null
+                - string $status = self::PLANNED
+                - string $designation
+                - string $content
+                - ?string $level = null
+                - bool $open
+                - bool $mandatory
+                - string $language
+                - ?TrainingCategory $category = null
+                - ?TrainingType $type = null
+                - Collection $files
+            }
+            class TrainingAttendee {
+                - int $id
+                - People $guest
+                - bool $invited
+                - ?bool $answer
+                - Training $training
+                - \DateTimeInterface $createdAt
+            }
+            class TrainingCategory {
+                - int $id
+                - string $name
+                - Collection $trainings
+            }
+            class TrainingFile {
+                - int $id
+                - Training $training
+            }
+            class TrainingSubscription {
+                - int $id
+                - ?TrainingCategory $category
+                - ?TrainingType $type
+                - People $subscriber
+            }
+            class TrainingType {
+                - int $id
+                - string $name
+                - Collection $trainings
+            }
+            class TrainingFeedback {
+                - int $id
+                - int $note
+                - string $comment
+                - TrainingAttendee $attendee
+            }
+        }
+
+        namespace Directory {
+            class People extends User
+        }
+        App.Entity.HumanResources.Training "Many" --* "One" App.Entity.Directory.People: to
+        App.Entity.HumanResources.Training "Many" --* "One" App.Entity.Directory.People: to
+        App.Entity.HumanResources.Training "One" *-- "Many" App.Entity.HumanResources.TrainingAttendee: to
+        App.Entity.HumanResources.Training "Many" --o "One" App.Entity.HumanResources.TrainingCategory: to
+        App.Entity.HumanResources.Training "Many" --o "One" App.Entity.HumanResources.TrainingType: to
+        App.Entity.HumanResources.Training "One" *-- "Many" App.Entity.HumanResources.TrainingFile: to
+        App.Entity.HumanResources.TrainingAttendee "Many" --o "One" App.Entity.Directory.People: to
+        App.Entity.HumanResources.TrainingAttendee "Many" --o "One" App.Entity.HumanResources.Training: to
+        App.Entity.HumanResources.TrainingSubscription "Many" --o "One" App.Entity.HumanResources.TrainingType: to
+        App.Entity.HumanResources.TrainingSubscription "Many" --o "One" App.Entity.HumanResources.TrainingCategory: to
+        App.Entity.HumanResources.TrainingSubscription "Many" --o "One" App.Entity.Directory.People: to
+        App.Entity.Directory.User "Many" --o "One" App.Entity.HumanResources.TrainingFile: to
+        App.Entity.HumanResources.TrainingFeedback "One" --o "One" App.Entity.HumanResources.TrainingAttendee: to
+    }
+    namespace Security\Voter {
+        namespace HumanResources {
+            class TrainingAttendeeDeletionVoter extends App.Security\Voter.AbstractVoter
+            class TrainingAttendeeEditionVoter extends App.Security\Voter.AbstractVoter
+            class TrainingEditionVoter extends App.Security\Voter.AbstractVoter
+        }
+        abstract class AbstractVoter extends vendor.Voter
+    }
+
+    namespace EventListener\HumanResources {
+        class TrainingListener {
+            + cloneAttendees()
+            + notify()
+        }
+        class TrainingAttendeeListener {
+            + onSubscription()
+            + notify()
+        }
+        class TrainingSubscriptionListener {
+            + autoFillSubscriber()
+        }
+        class TrainingWorkflowListener {
+            + guardDone()
+            + guardPlanned()
+            + onCancellation()
+            + onPlanned()
+            + onDone()
+        }
+    }
+    namespace Report\Handler {
+            namespace HumanResources {
+                class TrainingCategoriesOrTypesNameByTrainingStatus implements App.Report\Handler.ReportHandlerInterface
+                class MyTrainingByStatusHandler implements App.Report\Handler.ReportHandlerInterface
+            }
+        }
+    namespace Serializer\Denormalizer {
+        class TrainingDenormalizer
+        class TrainingAttendeeDenormalizer
+    }
+    namespace MessageHandler\Finance {
+        class CalendarEventCreationHandler
+        class CalendarEventDeletionHandler
+    }
+    namespace FileSystem\Persistence\ContextProviders\HumanResources {
+        class TrainingFileAdapterContextProvider
+    }
+    namespace Notifier\HumanResources {
+        class TrainingNotifier {
+            + sendMaximumAttendanceReached()
+            + sendInvitation()
+            + notifySubscribers()
+            + sendAttendeeOutlookReminder()
+            + sendAttendeeOutlookCancellation()
+            + sendTrainerOutlookReminder()
+            + sendTrainerOutlookCancellation()
+            + sendWithdrawal()
+            + sendCancellation()
+            + sendRescheduling()
+            + sendCreation()
+            + sendTrainerUpdate()
+            + sendInvitationDeletion()
+            + sendFeedbackRequest()
+            + sendContentUpdate()
+            + getSubscribedServices()
+            - buildContext()
+        }
+    }
+    namespace Repository\HumanResources {
+        class TrainingSubscriptionRepository
+    }
+    namespace Command\HumanResources {
+        class TrainingReminderCommand {
+            # execute()
+        }
+    }
+}
+namespace vendor {
+        abstract class Voter
+        class Security
+        interface EntityManagerInterface
+        interface IriConverterInterface
+        interface MailerInterface
+        interface MessageBusInterface
+        interface ContextAwareCollectionDataProviderInterface
+}
+
+App.EventListener\HumanResources.TrainingListener <|.. App.Notifier\HumanResources.TrainingNotifier
+App.EventListener\HumanResources.TrainingListener <|.. vendor.EntityManagerInterface
+App.EventListener\HumanResources.TrainingListener ..|> App.Entity.HumanResources.Training : listen
+App.EventListener\HumanResources.TrainingAttendeeListener <|.. vendor.Security
+App.EventListener\HumanResources.TrainingAttendeeListener ..|> App.Notifier\HumanResources.TrainingNotifier
+App.EventListener\HumanResources.TrainingAttendeeListener <|.. vendor.EntityManagerInterface
+App.EventListener\HumanResources.TrainingAttendeeListener ..|> App.Entity.HumanResources.TrainingAttendee : listen
+App.EventListener\HumanResources.TrainingSubscriptionListener <|.. vendor.Security
+App.EventListener\HumanResources.TrainingSubscriptionListener ..|> App.Entity.HumanResources.TrainingSubscription : listen
+App.EventListener\HumanResources.TrainingWorkflowListener <|.. App.Notifier\HumanResources.TrainingNotifier
+App.EventListener\HumanResources.TrainingWorkflowListener ..|> App.Entity.HumanResources.Training : listen
+App.Notifier\HumanResources.TrainingNotifier <|.. App.Repository\HumanResources.TrainingSubscriptionRepository
+App.Notifier\HumanResources.TrainingNotifier <|.. vendor.IriConverterInterface
+App.Notifier\HumanResources.TrainingNotifier <|.. vendor.MailerInterface
+App.Notifier\HumanResources.TrainingNotifier <|.. vendor.MessageBusInterface
+App.Entity.HumanResources.TrainingFile <|.. App.FileSystem\Persistence\ContextProviders\HumanResources.TrainingFileAdapterContextProvider : persist
+App.Entity.HumanResources.Training <|.. App.Serializer\Denormalizer.TrainingDenormalizer
+App.Entity.HumanResources.TrainingAttendee <|.. App.Serializer\Denormalizer.TrainingAttendeeDenormalizer
+App.Command\HumanResources.TrainingReminderCommand <|.. vendor.ContextAwareCollectionDataProviderInterface
+App.Command\HumanResources.TrainingReminderCommand <|.. App.Notifier\HumanResources.TrainingNotifier
+
+@enduml

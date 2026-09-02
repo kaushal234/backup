@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\ION\Resources\Manufacturing\JobShop\CustomizedBillOfMaterials;
+
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use App\ION\DataProvider\CachedIONItemDataProvider;
+use App\ION\Filter\DataAreaFilter;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Attribute\Groups;
+
+#[ApiResource(
+    operations: [
+        new Get(requirements: ['id' => '.*']),
+    ],
+    routePrefix: 'ion/customized-bill-of-materials',
+    normalizationContext: ['groups' => ['cbom', 'ion:item', 'ion:engineering:revision']],
+    denormalizationContext: [],
+    provider: CachedIONItemDataProvider::class,
+)]
+#[ApiFilter(DataAreaFilter::class, properties: ['date', 'otherLanguage'])]
+class View extends CustomizedBillOfMaterials
+{
+    #[Groups(['cbom'])]
+    public string $product = '';
+
+    #[Groups(['cbom'])]
+    public ?string $itemDescription = null;
+
+    #[Groups(['cbom'])]
+    public ?string $itemOtherDescription = null;
+
+    /**
+     * @var Collection<ViewItems>
+     */
+    protected Collection $items;
+}

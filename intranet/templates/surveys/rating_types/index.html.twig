@@ -1,0 +1,100 @@
+{% extends 'surveys/layout.html.twig' %}
+
+{% trans_default_domain 'surveys' %}
+
+{% block title %} {{ parent() }} / {{ 'rating_type.page_titles.list' | trans([]) }} {% endblock %}
+
+{% set survey_id = iri_id(survey) %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ include ('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'data': ratingTypes,
+                    'title': 'rating_type.page_titles.list' | trans | upper,
+                    'pagination': false,
+                    'items': {
+                        'description': {
+                            'label': 'general_fields.description'| trans | capitalize,
+                            'class': 'small',
+                            'link':{
+                                'route': 'survey_rating_types_show',
+                                'params': { 'ratingId':'@id' },
+                                'fixedParams': { 'id': survey_id },
+                            },
+                            'filters': ['u.truncate(60)']
+                        },
+                        'min': {
+                            'label': 'rating_type.fields.min'| trans | capitalize,
+                            'class': 'small',
+                            'filters': ['format_number']
+                        },
+                        'minLabel': {
+                            'label': 'rating_type.fields.minLabel'| trans | capitalize,
+                            'class': 'small',
+                            'filters': ['u.truncate(20)'],
+                            'preserveNull': true
+                        },
+                        'max': {
+                            'label': 'rating_type.fields.max'| trans | capitalize,
+                            'class': 'small',
+                            'filters': ['format_number'],
+                        },
+                        'maxLabel': {
+                            'label': 'rating_type.fields.maxLabel'| trans | capitalize,
+                            'class': 'small',
+                            'filters': ['u.truncate(20)'],
+                            'preserveNull': true
+                        },
+                        'surveyName': {
+                            'label': 'fields_labels.survey'| trans | capitalize,
+                            'class': 'small text-center',
+                            'properties': ['survey.name'],
+                            'link': {
+                                'route': 'surveys_show',
+                                'params': { 'id': 'survey.@id' },
+                            }
+                        },
+                        'view': {
+                            'label': 'menu.view'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'survey_rating_types_show',
+                                'params': { 'ratingId':'@id' },
+                                'fixedParams': { 'id': survey_id },
+                                'content': '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        },
+                        'edit': {
+                            'label': 'menu.edit'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'survey_rating_types_edit',
+                                'params': { 'ratingId':'@id' },
+                                'fixedParams': { 'id': survey_id },
+                                'content': '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        },
+                        'delete': {
+                            'label': 'menu.delete'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'survey_rating_types_delete',
+                                'params': { 'ratingId':'@id' },
+                                'fixedParams': { 'id': survey_id },
+                                'popup': {
+                                    'message': 'messages.grid_delete_confirmation' | trans | capitalize
+                                },
+                                'content': '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        }
+                    }
+                }
+            }) }}
+        </div>
+    </div>
+{% endblock %}

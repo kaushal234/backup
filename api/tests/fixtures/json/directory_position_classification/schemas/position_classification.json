@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/position_classifications/\\d+$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "correction": {"type": "integer"},
+    "comment": {"type": ["null", "string"]},
+    "budget": {"type": ["null", "integer"]},
+    "previousYearCorrectedTotal": {"type": ["null", "integer"]},
+    "reforecast": {"type": ["null", "integer"]},
+    "positions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/positions/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "code": {"type": "string"},
+          "description": {"type": "string"}
+        },
+        "required": ["@id", "@type", "id", "code", "description"],
+        "additionalProperties": false
+      }
+    },
+    "businessUnit": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/business_units/\\d+$"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"}
+      },
+      "required": ["@id", "@type", "name"],
+      "additionalProperties": false
+    },
+    "positionCategory": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/position_categories/\\d+$"},
+        "@type": {"type": "string"},
+        "id": {"type": "integer"},
+        "name": {"type": "string"},
+        "description": {"type": "string"},
+        "directHeadcount": { "type": "boolean" },
+        "divisions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "positionCategoryType": {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/position_category_types/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {"type": "integer"},
+            "name": {"type": "string"}
+          },
+          "required": ["@id", "@type", "id", "name"]
+        }
+      },
+      "required": ["@id", "@type", "id", "name", "description", "positionCategoryType", "directHeadcount", "divisions"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["@context", "@id", "@type", "id", "positions", "businessUnit", "positionCategory", "correction", "comment", "previousYearCorrectedTotal", "budget", "reforecast"],
+  "additionalProperties": false
+}

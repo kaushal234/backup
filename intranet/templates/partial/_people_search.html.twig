@@ -1,0 +1,13 @@
+{% trans_default_domain 'directory' %}
+
+<div class="entry {{ entriesClass }}">
+    <a href="{{ path('directory_people_show', {id: iri_id(entry)}) }}">
+    {% if entry.photo is not empty %}
+        <img width="64" src="{{ asset(upload_uri ~ '/' ~ entry.photo.filePath) }}?width=64">
+    {% else %}
+        <img width="64" src="/shared/no_photo.jpg">
+    {% endif %}<br>
+    {{ entry.lastname }}, {{ entry.firstname }}</a><br>
+    {% if entry.businessUnit is not empty %}{{ entry.businessUnit.name }}{% else %}-{% endif %}<br>
+    {{ entry.jobTitle }}
+</div>

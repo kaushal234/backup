@@ -1,0 +1,42 @@
+{% block content %}
+{{ include('Pdf/fonts/fonts.css.twig', {
+            fonts: [
+                {
+                    'name': 'open_sans',
+                    'alt': 'serif',
+                    'variants': [
+                        {
+                            'weight': 'normal',
+                            'style': 'normal',
+                            'path': '@fonts/OpenSans-Regular-webfont.ttf'
+                        },
+                        {
+                            'weight': 'normal',
+                            'style': 'italic',
+                            'path': '@fonts/OpenSans-Italic-webfont.ttf'
+                        },
+                        {
+                            'weight': 'bold',
+                            'style': 'normal',
+                            'path': '@fonts/OpenSans-Bold-webfont.ttf'
+                        },
+                        {
+                            'weight': 'bold',
+                            'style': 'italic',
+                            'path': '@fonts/OpenSans-BoldItalic-webfont.ttf'
+                        },
+                        {
+                            'weight': 900,
+                            'style': 'normal',
+                            'path': '@fonts/OpenSans-ExtraBold-webfont.ttf'
+                        },
+                        {
+                            'weight': 900,
+                            'style': 'italic',
+                            'path': '@fonts/OpenSans-ExtraBoldItalic-webfont.ttf'
+                        }
+                    ]
+                }
+            ]
+        }, with_context=false) }}
+{% endblock content %}

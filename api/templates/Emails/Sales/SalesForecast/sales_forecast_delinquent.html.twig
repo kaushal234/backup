@@ -1,0 +1,62 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+
+            <p>{{ 'sfr.delinquent.header' | trans }}</p>
+            <p>{{ 'sfr.delinquent.body' | trans }}</p>
+            <p>{{ 'sfr.delinquent.footer' | trans }}</p>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover association-table">
+                    <thead>
+                    <tr>
+                        <th>SFR#</th>
+                        <th>{{ 'sfr.fields.status' | trans }}</th>
+                        <th>{{ 'sfr.fields.estimated_sale_date' | trans }}</th>
+                        <th>{{ 'sfr.fields.customer_buyer' | trans }}</th>
+                        <th>{{ 'sfr.fields.customer_country' | trans }}</th>
+                        <th>{{ 'sfr.fields.customer_user' | trans }}</th>
+                        <th>{{ 'sfr.fields.third_party' | trans }}</th>
+                        <th>{{ 'sfr.fields.factory' | trans }}</th>
+                        <th>{{ 'sfr.fields.sso' | trans }}</th>
+                        <th>{{ 'sfr.fields.asm' | trans }}</th>
+                        <th>{{ 'sfr.fields.model' | trans }}</th>
+                        <th>{{ 'sfr.fields.quantity' | trans }}</th>
+                        <th>{{ 'sfr.fields.customer_purchase_percentage' | trans }}</th>
+                        <th>{{ 'sfr.fields.alvest_success_percentage' | trans }}</th>
+                        <th>{{ 'sfr.fields.total_success_percentage' | trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+            {% for salesForecast in salesForecasts %}
+                        <tr>
+                            <td><a href="{{ url('sales_forecast', { id: salesForecast.id }) }}">{{ salesForecast.id }}</a></td>
+                            <td>{{ salesForecast.status }}</td>
+                            <td>{{ salesForecast.estimatedSaleDate | date('Y-m') }}</td>
+                            {{ include('Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', {item: salesForecast.buyer}) }}
+                            <td>{{ salesForecast.country.name }}</td>
+                            {{ include('Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', {item: salesForecast.endUser}) }}
+                            {{ include('Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', {item: salesForecast.thirdParty}) }}
+                            <td>{{ salesForecast.factory.name }}</td>
+                            <td>{{ salesForecast.sso.name }}</td>
+                            <td>{{ salesForecast.asm.lastname }} {{ salesForecast.asm.firstname }}</td>
+                            <td>{{ salesForecast.product.name }}</td>
+                            <td>{{ salesForecast.quantity }}</td>
+                            <td>{{ salesForecast.customerSuccessPercentage }}</td>
+                            <td>{{ salesForecast.successPercentage }}</td>
+                            <td>{{ salesForecast.customerSuccessPercentage * salesForecast.successPercentage / 100 }}</td>
+                        </tr>
+            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </columns>
+    </row>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'sales/layout.html.twig' %}
+{% trans_default_domain 'market_intelligence' %}
+
+{% block title %}{{ parent() }} \ {{ ('market_intelligence.title'|trans) }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if marketIntelligence is not defined %}
+            <twig:NavItem:Add route="market_intelligence_add"/>
+        {% endif %}
+        <twig:NavItem translationKey="market_intelligence.nav_link.my_mim_subscriptions" domain="market_intelligence"
+                      icon="mdi:bell-outline" route="market_intelligence_subscription_home"/>
+        <twig:NavItem translationKey="market_intelligence.nav_link.my_mim_subscriptions" domain="market_intelligence"
+                      icon="mynaui:list" route="market_intelligence_type_home"/>
+        {% if marketIntelligence is defined %}
+            <twig:NavItem:Details route="market_intelligence_show" :routeParameters="{id: marketIntelligence.id}"/>
+            <twig:NavItem:Delete route="market_intelligence_delete" :routeParameters="{ id: marketIntelligence.id }"
+                                 :security="is_granted('MARKET_INTELLIGENCE_ADMIN_VOTER', marketIntelligence['@id'])"/>
+        {% endif %}
+        {% if marketIntelligenceSubscriptions is defined %}
+            <twig:NavItem:Add translationKey="market_intelligence.nav_link.add_subscription"
+                              domain="market_intelligence"
+                              route="market_intelligence_subscription_add"/>
+
+        {% endif %}
+        {% if marketIntelligenceTypes is defined %}
+            <twig:NavItem:Add translationKey="market_intelligence.nav_link.add_market_intelligence_type"
+                              domain="market_intelligence"
+                              route="market_intelligence_type_add"
+                              :security="is_granted('FEATURE_MARKET_INTELLIGENCE_TYPE_WRITE') or is_granted('MOO_MIM')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if marketIntelligence is defined %}
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Add route="market_intelligence_add"/>
+            <twig:NavItem:Edit route="market_intelligence_edit" :routeParameters="{id: marketIntelligence.id}"
+                               :security="is_granted('MARKET_INTELLIGENCE_ADMIN_VOTER', marketIntelligence['@id'])"/>
+            <twig:NavItem:Files route="market_intelligence_files" :routeParameters="{id: marketIntelligence.id}"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'MIM', parent_id: marketIntelligence.id }"/>
+            <twig:NavItem:NewTask route="legacy_calendar"
+                                  :routeParameters="{ m: ['tasks', 'form', 'newTask'], module: 'MIM', parent_id: marketIntelligence.legacyId }"
+                                  :security="marketIntelligence.legacyId is not same as(null)"/>
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

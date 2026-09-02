@@ -1,0 +1,8 @@
+{% set roles = [] %}
+{% for role in value %}
+    {% if role.extranetUserGroup.name is defined and role.extranetUserGroup.name not in roles %}
+        {% set roles = roles | merge([role.extranetUserGroup.name]) %}
+    {% endif %}
+{% endfor %}
+{{ roles | join(', ') }}
+

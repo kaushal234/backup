@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/departments$"},
+    "@context": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/departments/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "sso": {
+            "type": "boolean"
+          },
+          "factory": {
+            "type": "boolean"
+          },
+          "legacyId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "name",
+          "sso",
+          "factory"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:member"
+  ]
+}

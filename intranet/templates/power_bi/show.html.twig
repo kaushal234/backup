@@ -1,0 +1,15 @@
+{% extends 'power_bi/layout.html.twig' %}
+
+{% block title %}{{ parent() }} / {{ report.title }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <section data-report-id="{{ report.powerBiUuid }}" class="report-container embed-container col m-3 p-0">
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('powerbiClient') }}
+{% endblock javascripts %}

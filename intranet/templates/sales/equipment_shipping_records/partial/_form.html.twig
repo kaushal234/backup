@@ -1,0 +1,116 @@
+{% trans_default_domain 'equipment_shipping_record' %}
+
+{% macro collection_item(form) %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    {{ form_row(form.equipmentRecord) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.estimatedPickUpDate, { attr: { 'data-autofill-target': 'estimated-pick-up-date' } }) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.vesselLoadingDate, { attr: { 'data-autofill-target': 'vessel-loading-date' } }) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.estimatedArrivalDate, { attr: { 'data-autofill-target': 'estimated-arrival-date' } }) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.actualArrivalDate, { attr: { 'data-autofill-target': 'actual-arrival-date' } }) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.truckType) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    {{ form_row(form.comment) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.estimatedPickUpDateConfirmation, { attr: { class: 'form-control mt-4' } }) }}
+                </div>
+                <div class="col-md-2 pt-4">
+                    {{ block('collection_widget_delete', 'bootstrap_base_layout.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% import _self as forms %}
+
+{% form_theme esrForm 'form_theme_vertical.html.twig' %}
+{% form_theme esrForm.equipmentShippingRecordLines _self %}
+
+{% block collection_prototype %}
+    {% if prototype is defined and not prototype.rendered %}
+        {{ forms.collection_item(prototype) }}
+    {% endif %}
+{% endblock %}
+
+{% block collection_widget_item %}
+    {% if child is defined %}
+        <div class="form-collection-item">
+            {{ forms.collection_item(child) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% set autofillTargets = [
+    'estimated-pick-up-date',
+    'vessel-loading-date',
+    'estimated-arrival-date',
+    'actual-arrival-date'
+] %}
+
+<div class="ibox-content">
+    <div class="alert alert-warning mb-3">
+        {{ 'equipment_shipping_record.messages.customer_sync_warning' | trans }}
+    </div>
+    {{ form_start(esrForm) }}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(esrForm.sso) }}
+            {{ form_row(esrForm.modality) }}
+            {{ form_row(esrForm.incoterm) }}
+            {{ form_row(esrForm.loadingPlace) }}
+            {{ form_row(esrForm.departurePlace) }}
+            {{ form_row(esrForm.arrivalPlace) }}
+            {{ form_widget(esrForm.shipAuthorization) }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form_row(esrForm.customer) }}
+            {{ form_row(esrForm.forwarder) }}
+            {{ form_row(esrForm.carrier) }}
+            {{ form_row(esrForm.notes) }}
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>{{ 'equipment_shipping_record.line.long_title' | trans }}</h2>
+    {% if showSolInformationMessage is defined %}
+        <div class="alert alert-info mb-3">
+            {{ 'equipment_shipping_record.messages.auto_added_er_warning' | trans }}
+        </div>
+    {% endif %}
+
+    <div class="row ms-1 mb-3">
+        {% for target in autofillTargets %}
+            <div class="col-md-2{{ loop.first ? ' offset-md-2' : '' }}">
+                {{ include('sales/equipment_shipping_records/partial/inputs/datepicker_filling.html.twig', { target: target }) }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        {{ form_row(esrForm.equipmentShippingRecordLines) }}
+    </div>
+
+    {{ form_row(esrForm.submit) }}
+    {{ form_end(esrForm) }}
+</div>

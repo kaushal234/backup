@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/contract_types"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/contract_types/\\d+$"},
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

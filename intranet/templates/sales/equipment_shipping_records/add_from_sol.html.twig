@@ -1,0 +1,125 @@
+{% extends 'sales/equipment_shipping_records/layout.html.twig' %}
+{% trans_default_domain 'equipment_shipping_record' %}
+
+{% block title %} {{ 'equipment_shipping_record.new' | trans({}, 'equipment_shipping_record') }}\ {{ parent() }} {% endblock %}
+
+{% block content %}
+    <div class="ibox-content">
+        {% form_theme esrForm 'form_theme_vertical.html.twig' %}
+        {{ form_start(esrForm) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_widget(esrForm.idEsr) }}
+                {{ form_row(esrForm.sso) }}
+                {{ form_row(esrForm.modality) }}
+                {{ form_row(esrForm.incoterm) }}
+                {{ form_row(esrForm.loadingPlace) }}
+                {{ form_row(esrForm.departurePlace) }}
+                {{ form_row(esrForm.arrivalPlace) }}
+                {{ form_widget(esrForm.shipAuthorization) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(esrForm.customer) }}
+                {{ form_row(esrForm.forwarder) }}
+                {{ form_row(esrForm.carrier) }}
+                {{ form_row(esrForm.notes) }}
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body col-md-12">
+                <h2 class="card-title">{{ 'equipment_shipping_record.line.long_title' | trans() }}</h2>
+                <div name="datePickerFillers" style="position: relative">
+                    <div class="row">
+                        <div class="custom-width">
+                        </div>
+                        <div class="custom-width">
+                            {{ include('sales/equipment_shipping_records/partial/inputs/datepicker_filling.html.twig', { target: 'estimatedPickUpDate',  }) }}
+                        </div>
+                        <div class="custom-width">
+                            {{ include('sales/equipment_shipping_records/partial/inputs/datepicker_filling.html.twig', { target: 'vesselLoadingDate',  }) }}
+                        </div>
+                        <div class="custom-width">
+                            {{ include('sales/equipment_shipping_records/partial/inputs/datepicker_filling.html.twig', { target: 'estimatedArrivalDate',  }) }}
+                        </div>
+                        <div class="custom-width">
+                            {{ include('sales/equipment_shipping_records/partial/inputs/datepicker_filling.html.twig', { target: 'actualArrivalDate',  }) }}
+                        </div>
+                    </div>
+                </div>
+
+                {% for equipmentShippingRecordLine in esrForm.equipmentShippingRecordLines %}
+                    {{ form_widget(equipmentShippingRecordLine.equipmentRecord) }}
+                    {{ form_widget(equipmentShippingRecordLine.idLine) }}
+                    <div class="row">
+                        <div class="custom-width">
+                            {{ form_label(equipmentShippingRecordLine.equipmentRecordVisible, null, {'label_attr' : {'class' : 'col-md-12', 'style': 'display : flex'}}) }}
+                            {{ form_widget(equipmentShippingRecordLine.equipmentRecordVisible) }}
+                        </div>
+                        <div class="custom-width">
+                            {{ form_label(equipmentShippingRecordLine.estimatedPickUpDate, null, {'label_attr' : {'class' : 'col-md-12', 'style': 'display : flex'}}) }}
+                            {{ form_widget(equipmentShippingRecordLine.estimatedPickUpDate) }}
+                        </div>
+                        <div class="custom-width">
+                            {{ form_label(equipmentShippingRecordLine.vesselLoadingDate, null, {'label_attr' : {'class' : 'col-md-12', 'style': 'display : flex'}}) }}
+                            {{ form_widget(equipmentShippingRecordLine.vesselLoadingDate) }}
+                        </div>
+                        <div class="custom-width">
+                            {{ form_label(equipmentShippingRecordLine.estimatedArrivalDate, null, {'label_attr' : {'class' : 'col-md-12', 'style': 'display : flex'}}) }}
+                            {{ form_widget(equipmentShippingRecordLine.estimatedArrivalDate) }}
+                        </div>
+                        <div class="custom-width">
+                            {{ form_label(equipmentShippingRecordLine.actualArrivalDate, null, {'label_attr' : {'class' : 'col-md-12', 'style': 'display : flex'}}) }}
+                            {{ form_widget(equipmentShippingRecordLine.actualArrivalDate) }}
+                        </div>
+                        <div class="custom-width">
+                            {{ form_label(equipmentShippingRecordLine.truckType, null, {'label_attr' : {'class' : 'col-md-12', 'style': 'display : flex'}}) }}
+                            {{ form_widget(equipmentShippingRecordLine.truckType) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_label(equipmentShippingRecordLine.comment, null, {'label_attr' : {'class' : 'col-md-12', 'style': 'display : flex'}}) }}
+                            {{ form_widget(equipmentShippingRecordLine.comment) }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {{ form_row(esrForm.submit) }}
+        {{ form_end(esrForm) }}
+    </div>
+
+    <style>
+        .custom-width {
+            width: 12%;
+        }
+        @media (max-width: 1250px) {
+            .custom-width {
+                float: right;
+                width: 100%
+            }
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        window.onload = function() {
+            document
+                .querySelector('div[name="datePickerFillers"]')
+                .querySelectorAll('button[data-action="fill"]')
+                .forEach((button) => {
+                    button.addEventListener("click", function () {
+                        let target = $(button).attr('data-target');
+                        let value = $(button).prev('input').val();
+                        $("input[name*=" + target + "]").val(value);
+                    })
+                });
+            $('.add-another-collection-widget').remove()
+        }
+    </script>
+
+
+{% endblock %}

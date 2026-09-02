@@ -1,0 +1,48 @@
+App\Entity\Finance\AccountReceivable:
+
+  #/finance/account_receivables/1
+  account_receivable_1:
+    id: 1
+    customerErpReference: "@customer_erp_reference_1"
+    transactionTypeReference: "@transaction_type_reference_1"
+    erpInvoiceNumber: 1234
+    country: "@country_kinder"
+    invoiceDate: <dateTimeBetween('-30 days','-1 days')>
+    dueDate: <dateTimeBetween('-90 days','-61 days')>
+    currency: "@cur_USD"
+    originalAmount: 124.85
+    originalAmountLocalCurrency: 124.85
+    balanceAmount: 24000.85
+    balanceAmountLocalCurrency: 124.85
+    delinquent: true
+
+  #/finance/account_receivables/2
+  account_receivable_2:
+    id: 2
+    customerErpReference: "@customer_erp_reference_2"
+    transactionTypeReference: "@transaction_type_reference_1"
+    erpInvoiceNumber: 5678
+    country: "@country_kinder"
+    invoiceDate: <dateTimeBetween('-30 days','-1 days')>
+    dueDate: <dateTimeBetween('+1 days','+30 days')>
+    currency: "@cur_USD"
+    originalAmount: 666.66
+    originalAmountLocalCurrency: 666.66
+    balanceAmount: 666.65
+    balanceAmountLocalCurrency: 666.65
+
+  #/finance/account_receivables/3
+  account_receivable_3:
+    id: 3
+    customerErpReference: "@customer_erp_reference_2"
+    transactionTypeReference: "@transaction_type_reference_1"
+    erpInvoiceNumber: 123456789
+    country: "@country_kinder"
+    invoiceDate: <dateTimeBetween('-30 days','-1 days')>
+    dueDate: <dateTimeBetween('+1 days','+30 days')>
+    currency: "@cur_USD"
+    originalAmount: 100980
+    originalAmountLocalCurrency: 100980
+    balanceAmount: 100980
+    balanceAmountLocalCurrency: 100980
+    delinquent: true

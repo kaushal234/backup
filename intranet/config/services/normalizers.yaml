@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        bind:
+            $uploadDir: '%upload_dir%'
+
+    AppBundle\Service\Serializer\:
+        resource: '../../src/AppBundle/Service/Serializer/*'
+        tags: ['serializer.normalizer']

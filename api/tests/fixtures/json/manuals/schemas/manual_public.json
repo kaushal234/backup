@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/support/manuals/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "description": {
+      "type": ["string", "null"]
+    },
+    "features": {
+      "type": ["string", "null"]
+    },
+    "language": {
+      "type": ["string", "null"]
+    },
+    "status": {
+      "type": ["string", "null"]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "legacyId",
+    "description",
+    "features",
+    "language",
+    "status",
+    "createdAt"
+  ]
+}

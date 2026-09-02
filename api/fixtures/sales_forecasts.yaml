@@ -1,0 +1,339 @@
+App\Entity\Sales\SalesForecast:
+    # /sales/sales_forecasts/1
+    sfr_1:
+        id: 1
+        status: "BUDGET"
+        sso: "@location_sso"
+        factory: "@location_404"
+        poster: "@user_asm"
+        asm: "@user_asm"
+        equoteId: 1
+        buyer: "@customer_a_boire"
+        endUser: "@customer_35"
+        country: '@country_1'
+        airport: "@airport_teumanto"
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <dateTimeBetween('30 days', '60 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/2
+    sfr_2:
+        id: 2
+        status: "BUDGET"
+        sso: "@location_sso"
+        factory: "@location_factory"
+        poster: "@user_basic"
+        asm: "@user_basic"
+        equoteId: 2
+        buyer: "@customer_35"
+        endUser: "@customer_very_very_nested"
+        country: '@country_1'
+        airport: "@airport_favor"
+        product: "@catalog_product_3"
+        quantity: 69
+        estimatedSaleDate: <(new \DateTime("2222-02"))>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/3
+    sfr_3:
+        id: 3
+        status: "BUDGET"
+        sso: "@location_5"
+        factory: "@location_6"
+        poster: "@user_basic"
+        asm: "@user_basic"
+        equoteId: 3
+        buyer: "@customer_et_toper"
+        endUser: "@customer_noire"
+        airport: "@airport_teumanto"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <dateTimeBetween('66 days', '99 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/4
+    sfr_4:
+        id: 4
+        status: "ORDERED"
+        sso: "@location_sso"
+        factory: "@location_factory"
+        poster: "@user_basic"
+        asm: "@user_asm_transferred"
+        equoteId: 4
+        buyer: "@customer_noire"
+        endUser: "@customer_et_toper"
+        country: '@country_1'
+        airport: "@airport_teumanto"
+        product: "@catalog_product_2"
+        quantity: 69
+        closedAt: <dateTimeBetween('-10 days', 'now')>
+        estimatedSaleDate: <dateTimeBetween('66 days', '99 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/5
+    sfr_5:
+        id: 5
+        status: "BUDGET"
+        sso: "@location_fixedToFalse"
+        factory: "@location_5"
+        poster: "@user_basic"
+        asm: "@user_basic"
+        equoteId: 5
+        buyer: "@customer_2"
+        endUser: "@customer_noire"
+        country: '@country_1'
+        airport: "@airport_teumanto"
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <dateTimeBetween('66 days', '99 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/6
+    sfr_6:
+        id: 6
+        status: "BUDGET"
+        sso: "@location_5"
+        factory: "@location_fixedToFalse"
+        poster: "@user_basic"
+        asm: "@user_basic"
+        buyer: "@customer_noire"
+        endUser: "@customer_2"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <dateTimeBetween('66 days', '99 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/7
+    sfr_military_buyer:
+        id: 7
+        status: "BUDGET"
+        sso: "@location_with_transferred_representative"
+        factory: "@location_with_transferred_representative"
+        poster: "@user_basic"
+        asm: "@user_hr"
+        buyer: "@customer_military"
+        endUser: "@customer_noire"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <dateTimeBetween('66 days', '99 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/8
+    sfr_military_end_user:
+        id: 8
+        status: "BUDGET"
+        sso: "@location_with_transferred_representative"
+        factory: "@location_with_transferred_representative"
+        poster: "@user_basic"
+        asm: "@user_hr"
+        buyer: "@customer_noire"
+        endUser: "@customer_military"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <dateTimeBetween('66 days', '99 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/9
+    sfr_delinquent_1:
+        id: 9
+        status: "BUDGET"
+        sso: "@location_sso"
+        factory: "@location_factory"
+        poster: "@user_basic"
+        asm: "@user_asm"
+        buyer: "@customer_14"
+        endUser: "@customer_14"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <(new \DateTime("2666-06"))>
+        updatedAt: <dateTimeInInterval('- 32 days', '- 500 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        delinquent: true
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/10
+    sfr_delinquent_2:
+        id: 10
+        status: "BUDGET"
+        sso: "@location_0"
+        factory: "@location_0"
+        poster: "@user_basic"
+        asm: "@user_asm"
+        buyer: "@customer_14"
+        endUser: "@customer_14"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <(new \DateTime("2050-11-01"))>
+        updatedAt: <dateTimeInInterval('- 63 days', '- 500 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        delinquent: true
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/11
+    sfr_delinquent_3:
+        id: 11
+        status: "BUDGET"
+        sso: "@location_sso"
+        factory: "@location_factory"
+        poster: "@user_basic"
+        asm: "@user_asm"
+        buyer: "@customer_14"
+        endUser: "@customer_14"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        airport: "@airport_favor"
+        quantity: 69
+        estimatedSaleDate: <(new \DateTime("2050-12-01"))>
+        updatedAt: <dateTimeInInterval('- 93 days', '- 500 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        delinquent: true
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/12
+    sfr_12:
+        id: 12
+        status: "BUDGET"
+        sso: "@location_sso"
+        factory: "@location_factory"
+        poster: "@user_basic"
+        asm: "@user_asm"
+        buyer: "@customer_14"
+        endUser: "@customer_14"
+        product: "@catalog_product_1"
+        country: '@country_1'
+        airport: "@airport_teumanto"
+        quantity: 69
+        estimatedSaleDate: <(new \DateTime("2050-12-01"))>
+        updatedAt: <dateTimeInInterval('- 93 days', '- 500 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        delinquent: false
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/13
+    sfr_13:
+        id: 13
+        status: "BUDGET"
+        sso: "@location_5"
+        factory: "@location_fixedToFalse"
+        poster: "@user_basic"
+        asm: "@user_basic"
+        airport: "@airport_favor"
+        buyer: "@customer_noire"
+        endUser: "@customer_2"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <dateTimeBetween('66 days', '99 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/14
+    sfr_14:
+        id: 14
+        status: "BUDGET"
+        sso: "@location_sso"
+        factory: "@location_factory"
+        poster: "@user_basic"
+        asm: "@user_basic"
+        airport: "@airport_favor"
+        buyer: "@customer_noire"
+        endUser: "@customer_2"
+        country: '@country_1'
+        product: "@catalog_product_1"
+        quantity: 69
+        estimatedSaleDate: <dateTimeBetween('1 days', '15 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/sales_forecasts/15
+    sfr_15:
+        id: 15
+        status: "LOST"
+        sso: "@location_sso"
+        factory: "@location_factory"
+        poster: "@user_basic"
+        asm: "@user_asm_transferred"
+        equoteId: 4
+        buyer: "@customer_deleted"
+        endUser: "@customer_et_toper"
+        country: '@country_kinder'
+        airport: "@airport_teumanto"
+        product: "@catalog_product_2"
+        quantity: 69
+        closedAt: <dateTimeBetween('-10 days', 'now')>
+        estimatedSaleDate: <dateTimeBetween('66 days', '99 days')>
+        customerSuccessPercentage: 90
+        successPercentage: 80
+        tier: "@emission_rating_1"
+        price: 12
+        margin: 10
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>

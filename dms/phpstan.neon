@@ -1,0 +1,13 @@
+parameters:
+    parallel:
+        processTimeout: 300.0
+    level: 5
+    paths:
+        - web
+        - src
+
+    inferPrivatePropertyTypeFromConstructor: true
+    reportUnmatchedIgnoredErrors: false
+
+includes:
+    - phpstan-baseline.neon

@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AppBundle\Filters\Type\Sales;
+
+use AppBundle\Form\Type\Sales\Catalogue\ProductTypeAutocompleteChoiceType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class CompetitorFilterType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('productTypes', ProductTypeAutocompleteChoiceType::class, [
+                'required' => false,
+                'multiple' => true,
+            ])
+            ->add('download', SubmitType::class, [
+                'label' => 'menu.download',
+                'translation_domain' => 'messages',
+                'attr' => ['class' => 'btn btn-primary btn-danger text-uppercase'],
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'csrf_protection' => false,
+        ]);
+    }
+}

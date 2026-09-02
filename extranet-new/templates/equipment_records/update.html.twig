@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.fields.equipment'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.fields.equipments'|trans,
+        hero_title: 'menu.edit'|trans|capitalize,
+        hero_sub: equipment.serialNumber,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.fields.equipments'|trans, href: path('equipment:index') },
+            { label: equipment.serialNumber, href: path('equipment:show', {id: equipment.id}) },
+            { label: 'menu.edit'|trans|capitalize }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            {{ form_start(form) }}
+            <div class="info-grid">
+                <div class="info-card span-2" style="overflow: visible">
+                    <div class="info-head" style="border-top-left-radius: var(--r-md); border-top-right-radius: var(--r-md)"><span class="ph-bar"></span><h3>{{ 'extranet.fields.equipment'|trans }}</h3></div>
+                    <div class="info-body">
+                        {{ form_errors(form) }}
+                        <div class="field-grid">
+                            <div class="field-block">{{ form_row(form.customerSerialNumber) }}</div>
+                            <div class="field-block">{{ form_row(form.airport) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acct-savebar">
+                <a class="btn-outline-tld" style="height:52px" href="{{ path('equipment:show', {id: equipment.id}) }}">{{ 'menu.cancel'|trans|capitalize }}</a>
+                <button type="submit" class="btn-find" data-turbo="false">{{ 'extranet.form.update'|trans }}</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </section>
+</div>
+{% endblock %}

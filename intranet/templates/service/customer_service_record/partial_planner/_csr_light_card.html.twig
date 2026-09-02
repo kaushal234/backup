@@ -1,0 +1,26 @@
+<div class="col-md hover-text">
+    {% if customerServiceRecord.airport.code is defined %}
+    <span class="tooltip-text" id="top">{{ customerServiceRecord.airport.code }}</span>
+    {% endif %}
+    <div>{# Use to wrap the selected classes #}
+        <div class="p-2 csr-card-planner border bl-default
+        {% if customerServiceRecord.status is same as 'IN-PROGRESS' %} bl-info {% endif %}
+        {% if customerServiceRecord.status is same as 'COMPLETED' %} bl-success {% endif %}
+        {% if customerServiceRecord.toContinue %} bl-warning {% endif %}
+        "
+             {% if customerServiceRecord.status is same as 'COMPLETED' %}style="color: lightgrey;"{% endif %}
+             data-iri="{{ customerServiceRecord['@id'] }}" data-id="{{ customerServiceRecord['id'] }}"
+             style="height: 60px">
+            <h4 class="row" style="--bs-gutter-x: 0; letter-spacing: 0.03rem">
+                <span class="col-md-8">
+                    <a style="color: inherit" href="{{ path('customer_service_record_show', {'id': customerServiceRecord.id}) }}">
+                         CSR#{{ customerServiceRecord.id }}
+                    </a>
+                </span>
+                <span class="col-md-4 text-end">{% if customerServiceRecord.type is not same as 'commissioning' %}{{ customerServiceRecord.type|upper }}{% else %}COM.{% endif %}</span>
+                <span class="col-md-12">{{ customerServiceRecord.equipmentRecord.serialNumber }} - {{ customerServiceRecord.equipmentRecord.model }}</span>
+                <span class="col-md-12" style="font-size: 10px; font-weight: initial; padding-top: 0.2rem">{{ customerServiceRecord.equipmentRecord.endUser.name }}</span>
+            </h4>
+        </div>
+    </div>
+</div>

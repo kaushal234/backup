@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/logs$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:search": {
+      "type": "object"
+    },
+    "hydra:view": {
+      "type": "object"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/logs/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "legacyId": {"type": "integer"},
+          "resource": {"type": "string"},
+          "discriminator": {"type": ["string","null"]},
+          "action": {"type": "string"},
+          "changeSet": {"type": ["object", "array"]},
+          "user": {"type": ["object", "null"]},
+          "createdAt": {"type": "string"},
+          "updatedAt": {"type": "string"},
+          "public": {"type": "boolean"},
+          "from": {"type": ["string", "null"]},
+          "metadata": { "type": ["object", "array"] }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "action",
+          "changeSet",
+          "user",
+          "createdAt",
+          "updatedAt",
+          "public",
+          "resource",
+          "from",
+          "metadata"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:totalItems",
+    "hydra:search",
+    "hydra:member"
+  ],
+  "additionalProperties": false
+}

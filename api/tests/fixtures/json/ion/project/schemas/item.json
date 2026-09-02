@@ -1,0 +1,102 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/ion/projects/.+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "site": {
+      "type": "string"
+    },
+    "projectIdentifier": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "productionOrders": {
+      "type": "array",
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "@id": {
+            "type": "string"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "productionOrderIdentifier": {
+            "type": "string"
+          },
+          "productionStart": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "@id": {
+                  "type": "string"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "operationIdentifier": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "reference": {
+                  "type": "string"
+                },
+                "referenceDescription": {
+                  "type": "string"
+                },
+                "task": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "operationIdentifier",
+                "status",
+                "reference",
+                "referenceDescription",
+                "task"
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "productionOrderIdentifier",
+            "status",
+            "operations"
+          ]
+        },
+        "uniqueItems": true
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "@context",
+    "site",
+    "status",
+    "productionOrders"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,399 @@
+support:
+    title: Support
+    nav_link:
+        add_printer: Add printer
+        cancel: Cancel
+        chapter_four: Chapter 4
+        combine_full: Combine full
+        combine_standard: Combine standard
+        download_cd: Download CD
+        download_zip: Download zip
+        equipment_record: ER (#%id%)
+        extranet_qr_code: Extranet QR code
+        home: Home
+        logs: Logs
+        manual: Manual
+        manual_actions: Manual actions
+        manuals_list: Manuals list
+        name_plate: Name plate
+        parts_list: Parts list
+        pdf: PDF
+        printer_home: Printer home
+        printers: Printers
+        prints: Prints
+        publish_new_manual: Publish new manual
+        rspl: RSPL
+        user_guide: User guide
+    reports:
+        titles:
+            pre_delivery_inspection_per_: "Pre-delivery inspections per "
+            upcoming_pre_delivery_inspections: Upcoming Pre-delivery Inspections
+            odp_stability: "ODP stability : Count of Estimated GT date change during the month"
+            odp_overview: Actual GTs done last month/Late GT/ Estimated GT in future 6 months
+            late_equipment_record: Late equipment record
+            top_late_sols: Top-5 Most Late SOLs
+        helpers:
+            upcoming_pre_delivery_inspections : This table shows the number of Equipment records with an estimated GreenTag Date in the next 30 days for which an inspection is scheduled.
+        top_late_sols:
+            sol: 'SOL #'
+            buyer: 'Customer Buyer'
+            user: 'Customer User'
+            promise_date: 'Factory Promised Delivery Date'
+            egt: 'Estimated green tag date'
+            product: 'Product'
+            quantity: 'Quantity'
+            empty: 'No late SOLs found'
+    iata:
+        title: IATA Codes
+        fields:
+            country: Country
+            type: Type
+            code: Code
+            city_name: City Name
+            city_code: City Code (3 digits)
+            state: State
+            name: Name
+            source: Source
+            airport: Airport
+            latitude: Latitude
+            longitude: Longitude
+        messages:
+            success:
+              add: The %type% %code% has been successfully created
+              edit: The %type% %code% has been successfully edited
+    serials:
+        title: Serial numbers list
+        fields:
+            make_selection: Select a component
+            component: Component
+            schematics: Schematics
+            serial: Serial
+            edition: Serials have been successfully edited.
+            brand: Brand
+        component:
+            manual_not_editable: The line with component MANUAL cannot be created / edited / deleted.
+
+    printer:
+        printers: Printers
+        printer: Printer
+        add: Add printer
+        edit:
+            title: Printer edition
+            success: Printer has been successfully saved
+        delete:
+            success: Printer deleted successfully
+            error: Printer could not be deleted
+        fields:
+            make_selection: Select a printer
+
+    manual:
+        title: Manual details
+        make_selection: Select a language
+        button:
+            filters: FILTERS (search in this manual)
+        fields:
+            id: Id
+            description: Description
+            features: Features
+            status: Status
+            language: Language
+            brand: Brand
+            model: Model
+            other equipments button: Other Equipment
+            Specify other equipments: Specify other equipment (optional)
+            Specify other equipments help: Add other Equipment Records serials if you want to generate a manual for multiple equipment. They must have the same manufacturing location and type, otherwise the list displayed will be empty.
+        messages:
+            success:
+                delete: Manual has successfully been deleted
+                create: Manual has successfully been created
+                edit: Manual has successfully been edited
+                file: File has been successfully added to Document
+            error:
+                delete: Something went wrong and the Manual could not be deleted
+
+    manuals:
+        title: Manuals list
+        last_created: Last Manuals created
+        last_created_filtered: Last 500 Manuals created filtered
+        fields:
+            id: Id
+            legacy_id: Legacy Id
+            description: Description
+            features: Features
+            language: Language
+            status: Status
+            created_at: Created At
+            quick_access: Quick Access
+        menu:
+            homepage: Manuals
+            search: Search by Brand and Model
+            home: Home
+            rspl: RSPL
+            partsInventory: Parts list
+            chapter4: Chapter 4
+            chapter4_pdf_parts_manual: DOWNLOAD CHAPTER 4 PDF Parts Manual
+            download: Download Zip
+            prints: Prints
+            publish: Publish new manual
+            standard: Combine standard
+            full: Combine full
+            cd: Download CD
+            qr_code: Extranet QR Code
+            qr_code_plate: Name Plate
+        button:
+            filters: FILTERS (search in all manuals) / Please use some filters to get result and avoid errors
+        warning_no_er: This manual is for archival purposes only.
+
+    manual_document:
+        title: Document details
+        collection: Documents list
+
+    manual_documents:
+        categories:
+            Accessories and Options: Accessories and Options
+            Body-Chassis: Body-Chassis
+            Boom: Boom
+            Bridge: Bridge
+            Covers and Panels: Covers and Panels
+            Chapter 0: 'Chapter 0 : Introduction'
+            Chapter 1: 'Chapter 1 : General Information & Operating Instructions'
+            Chapter 2: 'Chapter 2 : Maintenance'
+            Chapter 3: 'Chapter 3 : Overhaul / Major Repair'
+            Chapter 5: 'Chapter 5 : Manufacturers Appendices'
+            Electrical System: Electrical System
+            Elevator: Elevator
+            Hydraulic System: Hydraulic System
+            Lifting-Scissors System: Lifting-Scissors System
+            Power Plant: Power Plant
+            Suspension, Tires and Brakes: Suspensions, Tires and Brakes
+            User Interfaces and Cab: User Interfaces and Cab
+            PLUMBING: Plumbing
+            Pneumatic System: Pneumatic System
+            Refrigeration System: Refrigeration System
+            TRANSMISSION: Transmission
+            unknown: Unknown Category
+
+        title: Operation and Parts Manual
+        no_result : No result with this filter. Reset or search another Part Number
+        manual_section_title: Manual Sections
+        parts_diagram_title: Parts Diagram
+        fields:
+            id: Document number
+            position: Position
+            factory_number: Factory#
+            revision: Revision
+            category: Category
+            make_selection: Select a category
+            type: Type
+            quantity: Quantity
+            description: Description
+            other_description: Other Description
+            add_file: Add/Replace file
+        links:
+            manual: Manual
+            pdf: pdf
+        messages:
+            success:
+                delete: Document has successfully been deleted
+                create: Document has successfully been created
+                edit: Document has successfully been edited
+
+    manual_document_parts:
+        title: Parts list
+        rpsl: RSPL
+        fields:
+            id: Id
+            position: Position
+            part_number: Part#
+            quantity: Quantity
+            unit_of_measure: Unit
+            preventive: P
+            maintenance: M
+            overhaul: O
+            critical: C
+            group: Group
+            make_selection: Select a group
+        collection: Parts list
+        filter_part_number: Part Number
+        filter_part_description: Part Description
+
+    manual_document_files:
+        title: File attached
+        fields:
+            id: Id
+            description: Description
+            created_at: Created at
+
+    equipment_record:
+        information: Equipment Record Information
+        messages:
+            not_imported: This ER is not yet processed by the system. Please try again tomorrow and open a ticket if problem persist.
+        links:
+            equipment_record: ER (#%id%)
+        cbom:
+            warning: You are about to test CBOM transfer to a manual for this equipment record.
+            success: Equipment Record is now publishable
+            submit: Validate CBOM and make ER publishable
+            validate: Validate CBOM
+            critical_error: Critical error(s) when trying to publish the manual. You must fix them before retrying.
+            non_critical_error : Non critical error(s) when trying to publish the manual. It would be better to fix them, but you can publish anyway.
+            unknown_error: Something went wrong and the Manual could not be created. Please retry or contact MIS
+            test:
+                title: Test the CBOM for publishing a manual
+                helper: You are about to test the transfer to manual for this CBOM. Please click on the button below to confirm and start the test.
+                important: This test will use the CBOM as of the Ship Date of the ER, if not available the current date will be used.
+                vault: This will test the presence of files on vault server
+        publish:
+            warning : You are about to publish a manual for this equipment.
+            success: Manual successfully published
+            title: New manual generation
+            submit: Publish
+        fields:
+            id: ID
+            legacy_id: Legacy ID
+            serial_number: Serial number
+            manufacturer_location: Manufacturer location
+            factory_promised_delivery_date: Factory Promised Delivery Date
+            green_tag_date: Green tag date
+            date_shipped: Date shipped
+            buyer: Buyer
+            end_user: End User
+            customer: Customer Asset#
+            sol: "SOL #"
+            inspection: Inspection
+            first_green_tag_date: First green tag date
+            first_estimated_green_tag_date: First estimated green tag date
+            estimated_green_tag_date: Estimated green tag date
+            estimated_green_tag_date_after: Estimated GT date after
+            estimated_green_tag_date_before: Estimated GT date before
+            yellow_tag_date: Yellow tag date
+            sales_organisation: Sales organisation
+            emission_rating: Emission rating
+            work_order: Work order
+            type: Type
+            light: Light
+            exclude_light: Exclude Light
+            pre_assembly: Pre-Assembly
+            combination_mode: Combination mode
+            odp_comment: ODP comment
+            shipped: included Shipped ER
+            green_tag_date_before : Green tag date before
+            green_tag_date_after : Green tag date after
+            first_green_tag_date_before: First Green tag date before
+            first_green_tag_date_after: First Green tag date after
+            pre_delivery_inspection_date : PDI Date
+            pre_delivery_inspection_status : PDI Status
+        info:
+            never_green_tagged: Never Green Tagged
+        success:
+            Successfully edited
+        odp_edit_errors:
+            date_shipped_without_green_tag: Equipment Record %legacyId% cannot be shipped without a GreenTag
+            green_tag_without_estimated: Equipment Record %legacyId% cannot be GreenTagged without Estimated GreenTag Date
+            green_tag_with_crabs: "Can't GreenTag Equipment Record %legacyId%: %crabsCount% crab(s) not closed"
+            green_tag_without_order: Only Light Equipment Records can be GreenTagged without Order
+            green_tag_with_wrong_order_line_status: EquipmentRecord %legacyId% cannot be GreenTagged because its order line status is %orderLineStatus%
+            green_tag_with_late_sequence: "EquipmentRecord %legacyId% cannot be GreenTagged because it has an open 'Late Green Tag Date' sequence"
+
+    manual_print:
+        title: Print details
+        collection: Prints list
+        fields:
+            id: Id
+            standard: Standard
+            full: Full
+            extra: Extra
+            chapter5: Chapter 5
+            comment: Comment
+            manual: Manual
+            requestedDeliveryDate: Requested Delivery Date
+            downloadedAt: Downloaded At
+        add:
+            title: Print request creation
+            success: Print request has been successfully created. The printer will be notified by mail shortly.
+        delete:
+            success: Print deleted successfully
+            error: Print could not be deleted
+        button:
+            submit: Validate Request and notify Printer
+        max_download_reached: Please contact the requestor of this ManualPrint to generate a new Manual Print request.
+
+    odp:
+        by_factory_sales_organisation: ODP by Factory, Sales Organisation
+        factory_dashboard: Factory Dashboard
+        sso_dashboard: SSO Dashboard
+
+    green_tag_report:
+        value: Number of first GT
+        by_month: By Month
+        factory: Factory
+        total: Total
+        in_range: In range
+        percentage: "%"
+        interval: Interval
+        selected_month: Selected Month
+        last_6_months: Last 6 months
+        title: GT linearity in %factory% for %period%
+        helper: |
+         How to read this chart
+            Daily Value : number of units which passed Green Tag or voluntary Yellow Tag that day.
+            Linearity baseline for the KPI: the 1st day of the month, the system will count the No. of ER’s (excluding ER lite and PAS) with estimated GT in the month or voluntary 1st YT date (stock units) scheduled in the month, divided by the number of working days in the month (excluding days off).
+            Min-Max range around the linearity baseline defined as follows:
+            • If the baseline is less than 3 units per day, the range goes from baseline to baseline + 1.
+            • If the baseline is between 3 and 5 units per day, the range goes from baseline to baseline + 2.
+            • If the baseline is 5 or more units per day, the range goes from baseline - 1 to baseline + 2.
+            
+            KPI: no. of days within the Min-Max range in the period divided by no. of working days for same period
+    
+            This helps you see if daily production is within the expected range for the month.
+    
+    qr_code_plate: 
+        heading: Name Plate Generator
+        mfg_location:
+            label: MFG Location
+            placeholder: Please Enter MFG Location
+            error: Please enter a valid MFG location.
+        model:
+            label: Model
+            placeholder: Please Enter Model
+            error: Please enter a valid model.
+        mfg_date:
+            label: MFG Date
+            placeholder: Please Enter MFG Date
+            error: Please enter a valid MFG date.
+        serial_number:
+            label: Serial Number
+            placeholder: Please Enter Serial Number
+            error: Please enter a valid serial number.
+        unladen_kg:
+            label: Unladen (KG)
+            placeholder: Please Enter Unladen (KG)
+            error: 
+                required: Please enter a valid unladen.
+                char_limit: The combined length of Unladen (KG) and Unladen (LBS) must not exceed 14 characters.
+                zero: The value must be greater than 0.
+        unladen_lbs:
+            label: Unladen (LBS)
+            placeholder: Please Enter Unladen (LBS)
+            error: 
+                required: Please enter a valid unladen.
+                zero: The value must be greater than 0.
+        rated_power_kw:
+            label: Rated Power (KW)
+            placeholder: Please Enter Rated Power (KW)
+            error: 
+                required: Please enter a valid rated power.
+                char_limit: The combined length of Rated Power (KW) and Rated Power (HP) must not exceed 14 characters.
+                zero: The value must be greater than 0.
+        rated_power_hp:
+            label: Rated Power (HP)
+            placeholder: Please Enter Rated Power (HP)
+            error: 
+                required: Please enter a valid rated power.
+                zero: The value must be greater than 0.
+        ce_logo:
+            label: CE Logo
+        download: Download Name Plate
+        success: 
+            title: Success
+            description: File Downloaded Successfully

@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_business_cards.html.twig', {
+        businessCards: {
+            'TLD business card': {
+                'pdf': 'tld/business_cards/businesscard-tld.pdf',
+            },
+        },
+    }) }}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% trans_default_domain translation_domain|default(data_table.vars.translation_domain) %}
+{% set value = value|default(text_values[value]|default(null))|trans %}
+{% if value %}
+    <span
+            class="label
+            {% if label_classes[value] is defined %}
+             label-{{ label_classes[value] }}
+            {% elseif color in ['danger', 'success', 'info', 'primary', 'warning'] %}
+             label-{{ color }}
+            {% elseif color is not null %}
+             label-default
+            {% endif %}"
+            {% if color %}
+                style="background-color: {{ color }};"
+            {% endif %}
+    >
+        {{ value }}
+    </span>
+{% endif %}

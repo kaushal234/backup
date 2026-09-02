@@ -1,0 +1,12 @@
+{% set options = {
+    'PHASE 0': '#FFFFA5',
+    'PHASE 1': '#ADC7E9',
+    'PHASE 2': '#5E91D3',
+    'PHASE 3': '#DFF1D3',
+    'PHASE 4': '#9FD77F',
+    'PENDING': '#FFFFFF',
+    'CANCELLED': '#D9D9D9',
+    'CLOSED': '#D9D9D9',
+} %}
+
+<span class="badge" style="background-color : {{ options[value] }}">{{ value }}</span>

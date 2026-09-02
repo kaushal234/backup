@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'cleanliness' %}
+{% block title %}Location Cleanliness{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="cleanliness.nav_link.list" domain="cleanliness" icon="mynaui:list" route="location_cleanliness_list"/>
+        <twig:NavItem translationKey="cleanliness.nav_link.benchmark_factory" domain="cleanliness" icon="ant-design:retweet-outlined" route="cleanliness_benchmark" :routeParameters="{type: 'factories'}"/>
+        <twig:NavItem translationKey="cleanliness.nav_link.Benchmark_no_factory" domain="cleanliness" icon="ant-design:retweet-outlined" route="cleanliness_benchmark" :routeParameters="{type: 'non-factories'}"/>
+    </twig:NavBar:Container>
+{% endblock %}

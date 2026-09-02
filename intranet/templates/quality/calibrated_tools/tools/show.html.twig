@@ -1,0 +1,195 @@
+{% extends '/quality/calibrated_tools/layout.html.twig' %}
+{% trans_default_domain 'calibration_tool' %}
+
+{% set tool_id = iri_id(tool) %}
+{% set sliceLimit = 50 %}
+{% set tool_name = tool.description | u.truncate(sliceLimit) %}
+
+{% block title %}{{ parent() }} \ {{ 'menu.view' | trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'calibration_tools.titles.tools'| trans([], "messages") }} :
+                        {{ tool_name }}
+                    </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    {% if is_granted('FEATURE_TOOL_WRITE') %}
+                        <div id="tool-actions">
+                            <h3>Actions</h3>
+
+                            {% set statusIcons = {'send_to_out_of_service': 'times', 'send_to_under_calibration': 'recycle', 'send_to_active': 'bolt'} %}
+                            {% set statusColor = {'send_to_out_of_service': 'danger', 'send_to_under_calibration': 'warning', 'send_to_active': 'primary'} %}
+
+                            {% for status in tool.availableStatuses %}
+                                {% if status != 'SCRAPPED' %}
+                                    {% set statusAction = 'send_to_' ~ (status|lower) %}
+                                    <a href="{{ path('quality_calibrated_tools_status', { 'id': tool.id, 'status': status }) }}" class="btn btn-{{ statusColor[statusAction] }} text-capitalize">
+                                        <i class="fa fa-{{ statusIcons[statusAction] }}"></i>&nbsp;{{ ('calibration_tool.actions.' ~ statusAction) | trans }}
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <hr>
+                    <div class="">
+                        <div class="col-lg-6">
+                            <div>
+                                <table class="table table-bordered table-hover association-table table-responsive">
+                                    {% set locationArea = tool.locationArea %}
+                                    {% set factory = locationArea.factory %}
+
+                                    <tbody>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.index' | trans | upper }}</th>
+                                        <td >{{ tool_id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.serialNumber' | trans | upper }}</th>
+                                        <td>{{ tool.serialNumber }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.description'| trans | upper  }}</th>
+                                        <td>{{ tool.description | u.wordwrap }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.calibrationInterval'| trans | upper }}</th>
+                                        <td>{{ 'days_number' | trans({ number_of_days: tool.calibrationInterval  | format_number }) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.nextCalibrationDate'| trans | upper }}</th>
+                                        <td>{{ tool.nextCalibrationDate | format_datetime }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.vendorId'| trans | upper }}</th>
+                                        <td>{{ tool.vendorId }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.vendorErp'| trans | upper }}</th>
+                                        <td>{{ tool.vendorErp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.vendorName'| trans | upper }}</th>
+                                        <td>{{ tool.vendorName | u.wordwrap }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div>
+                                <table class="table table-bordered table-hover association-table">
+                                    {% set locationArea = tool.locationArea %}
+                                    {% set factory = locationArea.factory %}
+
+                                    <tbody>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.purchasingDate'| trans | upper }}</th>
+                                        <td >{{ tool.purchasingDate | format_datetime }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.status'| trans | upper }}</th>
+                                        <td colspan="3"><span class="{{ tool.status | status_label }}">{{ tool.status | trans | upper }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.tool_type'| trans | upper }}</th>
+                                        <td colspan="3">
+                                            <a href="{{ path('quality_calibrated_tools_home', {calibration_tool: { toolType: tool.toolType['@id'] }}) }}" target="_blank">
+                                                {{ tool.toolType.description | nl2br | u.wordwrap | u.truncate(500) }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.created_by'| trans | upper }}</th>
+                                        <td>
+                                            <a href="{{ path("directory_people_show", { 'id': iri_id(tool.createdBy) }) }}">
+                                                {{ tool.createdBy.lastname }} {{ tool.createdBy.firstname }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <table class="table table-bordered table-hover association-table">
+                                    {% set locationArea = tool.locationArea %}
+                                    {% set factory = locationArea.factory %}
+
+                                    <tbody>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.location_area' | trans | upper }}</th>
+                                        <td colspan="3">{{ locationArea.name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.supervisor' | trans | upper }}</th>
+                                        <td >
+                                            <a href="{{ path("directory_people_show", { 'id': iri_id(tool.locationArea.supervisor) }) }}">
+                                                {{ locationArea.supervisor.lastname }} {{ locationArea.supervisor.firstname }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.factory.name' | trans | upper }}</th>
+                                        <td>{{ factory.name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.factory.company' | trans | upper }}</th>
+                                        <td>{{ factory.company }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'calibration_tools.titles.tools'| trans([], "messages") }} :
+                        {{ 'calibration_tool.fields.calibrationLogs' | trans | title }}
+                    </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('quality/calibrated_tools/tools/partial/_calibrationLogsList.html.twig', {
+                        tool: tool
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="logs-block" data-resource="{{ tool.iri }}" data-show-comment-form="1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

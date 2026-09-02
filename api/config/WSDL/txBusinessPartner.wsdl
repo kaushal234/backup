@@ -1,0 +1,503 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:bo="http://www.infor.com/businessinterface/txBusinessPartner" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.infor.com/businessinterface/txBusinessPartner" name="txBusinessPartner">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.infor.com/businessinterface/txBusinessPartner">
+			<xsd:complexType name="ListRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="suppressDefaultLanguageBehavior" type="xsd:boolean" minOccurs="0"/>
+								<xsd:element name="maxNumberOfObjects" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorID" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorFetchSize" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="paging" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ListResponseType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="iteratorID" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorFetchSize" type="xsd:long" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txBusinessPartner" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="code" type="bo:tccom.bpid" minOccurs="0"/>
+											<xsd:element name="name" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="role" type="bo:tcbprl" minOccurs="0"/>
+											<xsd:element name="status" type="bo:tccom.prst" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txShowRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txBusinessPartner" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="code" type="bo:tccom.bpid" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txShowResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txBusinessPartner" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="code" type="bo:tccom.bpid" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txTurnoverRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txBusinessPartner" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="code" type="bo:tccom.bpid" minOccurs="0"/>
+											<xsd:element name="orderLineDateAfter" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+											<xsd:element name="orderLineDateBefore" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+											<xsd:element name="title" type="bo:tcctit" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txTurnoverResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txBusinessPartner" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="code" type="bo:tccom.bpid" minOccurs="0"/>
+											<xsd:element name="orderLineDateAfter" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+											<xsd:element name="orderLineDateBefore" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+											<xsd:element name="title" type="bo:tcctit" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txBuyerRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txBusinessPartner" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="code" type="bo:tccom.bpid" minOccurs="1"/>
+											<xsd:element name="site" type="bo:tcsite" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txBuyerResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txBusinessPartner" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="code" type="bo:tccom.bpid" minOccurs="1"/>
+											<xsd:element name="site" type="bo:tcsite" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ActivationType">
+				<xsd:sequence>
+					<xsd:element name="username" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="password" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="company" type="xsd:int" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="Activation" type="bo:ActivationType"/>
+			<xsd:element name="Result" type="bo:Message"/>
+			<xsd:complexType name="InformationArea">
+				<xsd:sequence>
+					<xsd:element name="Message" maxOccurs="unbounded" type="bo:InformationMessage"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Message">
+				<xsd:sequence>
+					<xsd:element name="messageIndex" type="xsd:integer" minOccurs="0"/>
+					<xsd:element name="messageCode" type="xsd:string"/>
+					<xsd:element name="messageType">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="Error"/>
+								<xsd:enumeration value="Warning"/>
+								<xsd:enumeration value="Information"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="messageText" type="xsd:string"/>
+					<xsd:element name="messageSource" type="xsd:string"/>
+					<xsd:element name="MessageDetails" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Message" maxOccurs="unbounded" type="bo:DetailMessage"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="messageCorrectiveAction" type="xsd:string" minOccurs="0"/>
+					<xsd:choice>
+						<xsd:element name="messageAdditionalHelpText" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="messageAdditionalHelpURI" type="xsd:anyURI" minOccurs="0"/>
+					</xsd:choice>
+					<xsd:element name="MessageReference" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="messageReferenceType" type="xsd:string"/>
+								<xsd:element name="messageReferenceInfo" type="xsd:anyType"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DetailMessage">
+				<xsd:complexContent>
+					<xsd:extension base="bo:Message">
+						<xsd:attribute name="ID" type="xsd:ID" use="optional"/>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="InformationMessage">
+				<xsd:complexContent>
+					<xsd:extension base="bo:Message">
+						<xsd:attribute name="ID" type="xsd:ID" use="required"/>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="FilterType">
+				<xsd:choice>
+					<xsd:element name="LogicalExpression" type="bo:LogicalExpressionType"/>
+					<xsd:element name="ComparisonExpression" type="bo:ComparisonExpressionType"/>
+				</xsd:choice>
+			</xsd:complexType>
+			<xsd:complexType name="LogicalExpressionType">
+				<xsd:sequence>
+					<xsd:element name="logicalOperator">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="or"/>
+								<xsd:enumeration value="and"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:choice minOccurs="2" maxOccurs="unbounded">
+						<xsd:element maxOccurs="unbounded" name="LogicalExpression" type="bo:LogicalExpressionType"/>
+						<xsd:element maxOccurs="unbounded" name="ComparisonExpression" type="bo:ComparisonExpressionType"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ComparisonExpressionType">
+				<xsd:sequence>
+					<xsd:element name="comparisonOperator">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="le"/>
+								<xsd:enumeration value="lt"/>
+								<xsd:enumeration value="ge"/>
+								<xsd:enumeration value="gt"/>
+								<xsd:enumeration value="ne"/>
+								<xsd:enumeration value="eq"/>
+								<xsd:enumeration value="like"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:choice minOccurs="2" maxOccurs="2">
+						<xsd:element name="attributeName" type="bo:filterAttributeListDT"/>
+						<xsd:element name="emptyValue" type="bo:EmptyValueType"/>
+						<xsd:element name="instanceValue" type="xsd:string"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="EmptyValueType"/>
+			<xsd:simpleType name="filterAttributeListDT">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="txBusinessPartner.code"/>
+					<xsd:enumeration value="txBusinessPartner.name"/>
+					<xsd:enumeration value="txBusinessPartner.role"/>
+					<xsd:enumeration value="txBusinessPartner.status"/>
+					<xsd:enumeration value="txBusinessPartner.orderLineDateAfter"/>
+					<xsd:enumeration value="txBusinessPartner.orderLineDateBefore"/>
+					<xsd:enumeration value="txBusinessPartner.title"/>
+					<xsd:enumeration value="txBusinessPartner.site"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="SelectionType">
+				<xsd:sequence>
+					<xsd:element name="selectionAttribute" maxOccurs="unbounded">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="*"/>
+								<xsd:enumeration value="txBusinessPartner.*"/>
+								<xsd:enumeration value="txBusinessPartner.code"/>
+								<xsd:enumeration value="txBusinessPartner.name"/>
+								<xsd:enumeration value="txBusinessPartner.role"/>
+								<xsd:enumeration value="txBusinessPartner.status"/>
+								<xsd:enumeration value="txBusinessPartner.orderLineDateAfter"/>
+								<xsd:enumeration value="txBusinessPartner.orderLineDateBefore"/>
+								<xsd:enumeration value="txBusinessPartner.title"/>
+								<xsd:enumeration value="txBusinessPartner.site"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="processingScope">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="not_applicable"/>
+					<xsd:enumeration value="request"/>
+					<xsd:enumeration value="business_entity"/>
+					<xsd:enumeration value="business_entity_component"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="actionType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="create"/>
+					<xsd:enumeration value="createOrChange"/>
+					<xsd:enumeration value="change"/>
+					<xsd:enumeration value="delete"/>
+					<xsd:enumeration value="unchanged"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccom.bpid">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcnama">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="35"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcbprl">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="none"/>
+					<xsd:enumeration value="customer"/>
+					<xsd:enumeration value="supplier"/>
+					<xsd:enumeration value="both"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccom.prst">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="potential"/>
+					<xsd:enumeration value="active"/>
+					<xsd:enumeration value="inactive"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcctit">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcsite">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ListRequest">
+		<wsdl:part name="ListRequest" type="bo:ListRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="ListResponse">
+		<wsdl:part name="ListResponse" type="bo:ListResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="txShowRequest">
+		<wsdl:part name="txShowRequest" type="bo:txShowRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="txShowResponse">
+		<wsdl:part name="txShowResponse" type="bo:txShowResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="txTurnoverRequest">
+		<wsdl:part name="txTurnoverRequest" type="bo:txTurnoverRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="txTurnoverResponse">
+		<wsdl:part name="txTurnoverResponse" type="bo:txTurnoverResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="txBuyerRequest">
+		<wsdl:part name="txBuyerRequest" type="bo:txBuyerRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="txBuyerResponse">
+		<wsdl:part name="txBuyerResponse" type="bo:txBuyerResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="Result">
+		<wsdl:part name="Result" element="bo:Result"/>
+	</wsdl:message>
+	<wsdl:message name="Header">
+		<wsdl:part name="Activation" element="bo:Activation"/>
+	</wsdl:message>
+	<wsdl:portType name="txBusinessPartner">
+		<wsdl:operation name="List">
+			<wsdl:input message="bo:ListRequest"/>
+			<wsdl:output message="bo:ListResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="txShow">
+			<wsdl:input message="bo:txShowRequest"/>
+			<wsdl:output message="bo:txShowResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="txTurnover">
+			<wsdl:input message="bo:txTurnoverRequest"/>
+			<wsdl:output message="bo:txTurnoverResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="txBuyer">
+			<wsdl:input message="bo:txBuyerRequest"/>
+			<wsdl:output message="bo:txBuyerResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="txBusinessPartnerSoapBinding" type="bo:txBusinessPartner">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="List">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txBusinessPartner"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txBusinessPartner"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="txShow">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txBusinessPartner"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txBusinessPartner"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="txTurnover">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txBusinessPartner"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txBusinessPartner"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="txBuyer">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txBusinessPartner"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txBusinessPartner"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="txBusinessPartnerService">
+		<wsdl:port name="txBusinessPartnerSoapPort" binding="bo:txBusinessPartnerSoapBinding">
+			<soap:address location="https://mingle-ionapi.eu1.inforcloudsuite.com/TLD_TST/LN/c4ws/services/txBusinessPartner"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

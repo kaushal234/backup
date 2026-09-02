@@ -1,0 +1,57 @@
+{% extends 'directory/people/logs.html.twig' %}
+
+{% set userConnections = activities|filter(activity => activity['@type'] == 'Activity') %}
+{% set logs = activities|filter(activity => activity['@type'] == 'Log') %}
+{% set comments = activities|filter(activity => activity['@type'] == 'Comment') %}
+
+{% block content %}
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5> {{ 'directory.people.activity.dateFilter' | trans({}, 'directory') }}</h5>
+        </div>
+        <div class="ibox-content mb-3">
+            <div class="row">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-5">
+                        {{ form_widget(form.createdAfter) }}
+                    </div>
+                    <div class="col-5">
+                        {{ form_widget(form.createdBefore) }}
+                    </div>
+                    <div class="col-2 d-grid items-center">
+                        {{ form_widget(form.filter) }}
+                    </div>
+                    {{ form_errors(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        {{ include('@AlvestTwigHelper/tabs_layout.html.twig', {
+            tabsData: {
+                tabs: {
+                    logs: {
+                        defaultTab: true,
+                        label: 'directory.people.activity.labels.logs' | trans({}, 'directory'),
+                        template: '/directory/people/partial/_activities_logs_tab.html.twig',
+                        templateParams: {logs: logs}
+                    },
+                    comments: {
+                        defaultTab: false,
+                        label: 'directory.people.activity.labels.comments' | trans({}, 'directory'),
+                        template: '/directory/people/partial/_activities_comments_tab.html.twig',
+                        templateParams: {comments: comments}
+                    },
+                    userConnexions: {
+                        defaultTab: false,
+                        label: 'directory.people.activity.labels.userConnections' | trans({}, 'directory'),
+                        template: '/directory/people/partial/_activities_connections_tab.html.twig',
+                        templateParams: {userConnections: userConnections}
+                    }
+                },
+                data: {},
+                link: app.request.query.get('tab')
+            },
+        }, with_context = false) }}
+    </div>
+{% endblock %}

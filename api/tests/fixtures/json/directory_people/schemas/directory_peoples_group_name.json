@@ -1,0 +1,323 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "hydra:member",
+    "@id"
+  ],
+  "properties": {
+    "@id": {"pattern": "^/people$"},
+    "hydra:member": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/people/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "enableAt": {
+            "type": ["string", "null"]
+          },
+          "disabledAt": {
+            "type": ["string", "null"]
+          },
+          "plannedDisableAt": {
+            "type": ["string", "null"]
+          },
+          "nickname": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "jobTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "photo": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../shared/schemas/file_light.json" }
+            ]
+          },
+          "businessUnit": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/business_units/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "legalEntity": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/business_units/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "position": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/positions/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "description": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "divisionGroups": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {"pattern": "^/division_groups/\\d+$"},
+                    "@type": {"type": "string"},
+                    "division": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {"pattern": "^/divisions/\\d+$"},
+                        "@type": {"type": "string"},
+                        "name": {"type":  "string"},
+                        "legacyId": {"type": "integer"}
+                      },
+                      "required": ["@id", "@type", "name"],
+                      "additionalProperties": false
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "@id": {"pattern": "^/groups/\\d+$"},
+                          "@type": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "legacyId": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name",
+                          "legacyId"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "@id",
+               "@type",
+              "description",
+              "legacyId",
+              "divisionGroups"
+            ],
+            "additionalProperties": false
+          },
+          "acls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/acls/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "legacyId": {
+                  "type": "integer"
+                },
+                "standard": {
+                  "type": "boolean"
+                },
+                "expiredAt": {
+                  "type": ["string", "null"]
+                },
+                "group": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {"pattern": "^/groups/\\d+$"},
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "legacyId"
+                  ],
+                  "additionalProperties": false
+                },
+                "location": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "@id": {"pattern": "^/locations/\\d+$"},
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "legacyId"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "legacyId",
+                "group",
+                "location",
+                "standard",
+                "expiredAt"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "premise": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^/premises/\\d+$"
+              }
+            ]
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "passwordUpdatedAt": {
+            "type": "string"
+          },
+          "passwordExpirationDate": {
+            "type": "string"
+          },
+          "mentor": {
+            "type": ["object", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "firstname",
+          "lastname",
+          "email",
+          "nickname",
+          "jobTitle",
+          "photo",
+          "legacyId",
+          "username",
+          "hidden",
+          "enableAt",
+          "disabledAt",
+          "plannedDisableAt",
+          "disabled",
+          "passwordUpdatedAt",
+          "premise",
+          "passwordExpirationDate"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{#
+    Per-table theme override for "completed_files_data_table" only (wired via the "themes"
+    option in FileController::review()).
+
+    Goal: keep the "completion review" stats widget in sync with this table's active
+    filters on every pagination/sort/filter interaction, WITHOUT a full page reload.
+
+    Solution: the widget is rendered from inside this table's own <turbo-frame>, using
+    stats computed in SupplierRankingFileDataTableType::buildView() (exposed as
+    data_table.vars.completion_review). Since Turbo's async frame navigation re-renders
+    everything inside the frame together, the widget updates in lockstep with the table -
+    no Turbo Stream / global state / URL query flag needed.
+
+    This block is otherwise an exact copy of datatable_card_theme.html.twig's
+    "kreyu_data_table" block (keep the real <turbo-frame>), with the widget row added.
+#}
+{% extends 'datatable_card_theme.html.twig' %}
+
+{% block kreyu_data_table %}
+    {% set stimulus_controllers = ['kreyu--data-table-bundle--state'] %}
+
+    {% if has_batch_actions %}
+        {% set stimulus_controllers = stimulus_controllers|merge(['kreyu--data-table-bundle--batch']) %}
+    {% endif %}
+
+    <turbo-frame id="kreyu_data_table_{{ name }}" target="_top" data-turbo="true" data-turbo-prefetch="false">
+        <div
+                data-controller="{{ stimulus_controllers|join(' ') }}"
+                data-kreyu--data-table-bundle--state-url-query-parameters-value="{{ url_query_parameters|default({})|json_encode }}"
+        >
+            {% if data_table.vars.completion_review is defined %}
+                <div class="row mb-3">
+                    {{ include('purchasing/supplier_ranking/file/partial/_completion_review_widgets.html.twig', {
+                        totalCompletionRate: data_table.vars.completion_review.totalCompletionRate,
+                        mandatoryCompletionRate: data_table.vars.completion_review.mandatoryCompletionRate,
+                    }) }}
+                </div>
+            {% endif %}
+
+            <div class="ibox">
+                {{ block('action_bar', theme) }}
+                <div class="ibox-content">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center flex-lg-row flex-column gap-2">
+                        {% if filtration_enabled and filtration_form and filtration_form.vars.search_fields|length > 0 %}
+                            {{ block('action_search') }}
+                        {% endif %}
+
+                        {% if has_batch_actions %}
+                            {{ block('batch_action_bar', theme) }}
+                        {% endif %}
+
+                        <div class="d-flex col justify-content-end">
+                            {% for action in actions %}
+                                <div class="ms-1">
+                                    {{ data_table_action(action) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                    {{ block('table', theme) }}
+
+                    {% if pagination_enabled %}
+                        <div class="pagination d-flex flex-wrap justify-content-between align-items-center flex-lg-row flex-column gap-2">
+                            {{ data_table_items_per_page(pagination) }}
+                            {{ data_table_pagination(pagination) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </turbo-frame>
+{% endblock %}

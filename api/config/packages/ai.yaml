@@ -1,0 +1,46 @@
+# config/packages/ai.yaml
+ai:
+    agent:
+        default:
+            platform: ai.platform.mistral
+            model: mistral-small-latest
+            tools: true
+    platform:
+        mistral:
+            api_key: '%env(MISTRAL_API_KEY)%'
+        ollama:
+            endpoint: '%env(OLLAMA_URL)%'
+    store:
+        qdrant:
+            intranet:
+                endpoint: '%env(QDRANT_HOST)%'
+                collection_name: intranet_nomic
+                dimensions: 768
+                distance: cosine
+                api_key: "null"
+            dms:
+                endpoint: '%env(QDRANT_HOST)%'
+                collection_name: dms_nomic
+                dimensions: 768
+                distance: cosine
+                api_key: "null"
+            toc:
+                endpoint: '%env(QDRANT_HOST)%'
+                collection_name: toc_nomic
+                dimensions: 768
+                distance: cosine
+                api_key: "null"
+    vectorizer:
+        default:
+            platform: ai.platform.ollama
+            model: nomic-embed-text
+    retriever:
+        intranet:
+            vectorizer: ai.vectorizer.default
+            store: ai.store.qdrant.intranet
+        dms:
+            vectorizer: ai.vectorizer.default
+            store: ai.store.qdrant.dms
+        toc:
+            vectorizer: ai.vectorizer.default
+            store: ai.store.qdrant.toc

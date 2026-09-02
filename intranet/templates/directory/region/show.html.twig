@@ -1,0 +1,56 @@
+{% extends 'directory/region/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set region_id = iri_id(region) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        '@id': {
+                            label: 'directory.region.name'|trans|upper ~ '#',
+                            filters: 'iri_id',
+                        },
+                        name: {'label': 'directory.region.fields.name'|trans|capitalize},
+                        representative: {
+                            label: 'directory.region.fields.representative'|trans|capitalize,
+                            properties: ['representative.lastname', 'representative.firstname'],
+                            link:{ route: 'directory_people_show', params: {'id':'representative.@id'} },
+                        },
+                        subDivision: {
+                            label: 'directory.sub_division.name'|trans|capitalize,
+                            properties: ['subDivision.name'],
+                            link:{ route: 'directory_sub_divisions_show', params: {'id':'subDivision.@id'} },
+                        },
+                    },
+                    title: 'directory.region.title.view'|trans|capitalize,
+                    data: region
+                },
+            }, with_context = false) }}
+        </div>
+        <div class="col-lg-6">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        name: {
+                            label: 'directory.business_unit.name'|trans|capitalize,
+                            link:{ route: 'directory_business_units_show', params: {'id':'@id'}},
+                        },
+                    },
+                    title: 'directory.business_unit.title.list'|trans|capitalize,
+                    initialSorting: 'name',
+                    data: region.businessUnits,
+                }
+            }, with_context = false) }}
+            {{ include('directory/partial/members.html.twig', {members: members}, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/news$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/news/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "contentShort": {
+            "type": "string"
+          },
+          "banner": {
+            "type": "boolean"
+          },
+          "bannerText": {
+            "type": ["string", "null"]
+          },
+          "division": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../directory_division/schemas/directory_division.json" }
+            ]
+          },
+          "premise": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "object",
+                    "$ref": "../../shared/schemas/address_with_country.json"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "@id": {"pattern": "^/premise_tags/\\d+$"},
+                        "@type": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "@id",
+                        "@type",
+                        "name"
+                      ],
+                      "minItems": 1,
+                      "additionalProperties": false
+                    }
+                  },
+                  "latitude": {
+                    "type": ["number", "null"]
+                  },
+                  "longitude": {
+                    "type": ["number", "null"]
+                  },
+                  "supportTeam": {
+                    "oneOf": [
+                      {"type": "null"},
+                      {"type": "string"}
+                    ]
+                  },
+                  "count": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "name",
+                  "description",
+                  "address",
+                  "tags",
+                  "count",
+                  "latitude",
+                  "longitude",
+                  "supportTeam"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "department": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../directory_department/schemas/directory_department.json" }
+            ]
+          },
+          "majorIncident": {
+            "type": "boolean"
+          },
+          "people": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "email",
+              "legacyId",
+              "username"
+            ],
+            "additionalProperties": false
+          },
+          "files": {
+            "type": "array"
+          },
+          "date": {
+            "type": "string"
+          },
+          "category": {
+            "type": ["object", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "legacyId",
+          "id",
+          "title",
+          "date",
+          "content",
+          "contentShort",
+          "people",
+          "files",
+          "premise",
+          "division",
+          "department",
+          "category",
+          "banner",
+          "bannerText",
+          "majorIncident"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

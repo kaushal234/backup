@@ -1,0 +1,76 @@
+{% extends 'directory/people/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% use 'partial/_paginated_list.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.search'|trans([], 'messages') }}{% endblock %}
+
+{% block list_header %}
+<div class="paginatedList">
+    {% endblock %}
+
+    {% block list_footer %}
+</div>
+{% endblock %}
+
+{% block list_entry %}
+    <div class="entry shortPeople col-sm-6 col-md-3 text-center m-b-lg hover-container">
+        {% if entry.photo is not empty %}
+            <img class="img-fluid" src="{{ asset(upload_uri ~ '/' ~ entry.photo.filePath) }}?width=64">
+        {% else %}
+            <img class="img-fluid" width="64" src="/shared/no_photo.jpg">
+        {% endif %}
+        {% if entry.disabled %}
+            {% if entry.disabledAt is defined and entry.disabledAt is not null and entry.enableAt is defined and entry.enableAt is not null %}
+                {% if entry.disabledAt > entry.enableAt %}
+                    <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_leave'|trans|upper }}</span><br>
+                    <div class="people-date">
+                        {{ 'directory.people.fields.disabled_at'|trans }} : {{ entry.disabledAt|date('d/m/Y') }}
+                    </div>
+                {% else %}
+                    <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_come'|trans|upper }}</span><br>
+                    <div class="people-date">
+                        {{ 'directory.people.fields.enabled_on'|trans }} : {{ entry.enableAt|date('d/m/Y') }}
+                    </div>
+                {% endif %}
+            {% elseif entry.disabledAt is defined and entry.disabledAt is not null %}
+                <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_leave'|trans|upper }}</span><br>
+                <div class="people-date">
+                    {{ 'directory.people.fields.disabled_at'|trans }} : {{ entry.disabledAt|date('d/m/Y') }}
+                </div>
+            {% elseif entry.enableAt is defined and entry.enableAt is not null %}
+                <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_come'|trans|upper }}</span><br>
+                <div class="people-date">
+                    {{ 'directory.people.fields.enabled_on'|trans }} : {{ entry.enableAt|date('d/m/Y') }}
+                </div>
+            {% endif %}
+        {% endif %}
+        <a href="{{ path('directory_people_show', {id: iri_id(entry)}) }}">{{ entry.lastname }}, {{ entry.firstname }}<br>
+        {% if entry.businessUnit is not empty %}{{ entry.businessUnit.name }}{% else %}-{% endif %}<br>
+            {{ entry.jobTitle }}<br>
+            {% if entry.position is not null and entry.position.description is not empty %}
+                {{ entry.position.description }}
+            {% endif %}
+        </a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{ include('/directory/people/search_by_name.html.twig') }}
+
+    {# Search results #}
+    {% set entries = peoples %}
+    {% set noEntriesMessage = 'directory.people.search.no_result'|trans %}
+    {{ block('list') }}
+
+    {# Email list, comma separated #}
+    {% if peoples is not null and peoples|length > 0 %}
+        <p style="clear: both;">{{ 'directory.people.list.email'|trans([], 'directory') }}</p>
+        <p>
+            <i>
+                {{ peoples|map(p => p.email)|join(', ') }}
+            </i>
+        </p>
+    {% endif %}
+
+{% endblock %}

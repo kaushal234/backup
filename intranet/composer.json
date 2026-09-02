@@ -1,0 +1,166 @@
+{
+    "name": "tld/intranet",
+    "license": "proprietary",
+    "type": "project",
+    "description": "The TLD intranet",
+    "autoload": {
+        "psr-4": {
+            "AppBundle\\": "src/AppBundle",
+            "ApiBundle\\": "src/ApiBundle",
+            "ActivityBundle\\": "src/ActivityBundle",
+            "LegacyBundle\\": "src/LegacyBundle",
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\ApiBundle\\": "tests/ApiBundle",
+            "Tests\\AppBundle\\": "tests/AppBundle",
+            "Tests\\LegacyBundle\\": "tests/LegacyBundle",
+            "Tests\\Behat\\": "tests/Behat",
+            "App\\Tests\\": "tests/",
+            "Kreyu\\Bundle\\DataTableBundle\\Tests\\": "vendor/kreyu/data-table-bundle/tests"
+        }
+    },
+    "repositories": {
+        "0": {
+            "type": "vcs",
+            "url": "https://gitlab.alvest.fr/devteam/kreyu-data-table-bundle.git"
+        },
+        "1": {
+            "type": "path",
+            "url": "../packages/twig_helper",
+            "options": {
+                "symlink": false
+            }
+        },
+        "2": {
+            "type": "path",
+            "url": "../packages/translator",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
+    "require": {
+        "php": ">=8.3.0",
+        "ext-exif": "*",
+        "ext-fileinfo": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-soap": "*",
+        "alvest/translator": "^1.2",
+        "alvest/twig-helper": "^1.1",
+        "cakephp/chronos": "^2.4.5",
+        "chillerlan/php-qrcode": "^5.0.5",
+        "doctrine/inflector": "^2.1.0",
+        "egulias/email-validator": "^3.2.6",
+        "friendsofsymfony/ckeditor-bundle": "^2.8",
+        "friendsofsymfony/jsrouting-bundle": "^3.6.1",
+        "incenteev/composer-parameter-handler": "^2.3.0",
+        "knplabs/knp-time-bundle": "^2.5.0",
+        "kreyu/data-table-bundle": "v0.32.2-alpha",
+        "lcobucci/jwt": "^4.3.0",
+        "phpdocumentor/reflection-docblock": "^5.6.7",
+        "phpoffice/phpspreadsheet": "^1.30.6",
+        "phpspec/prophecy-phpunit": "^2.5.0",
+        "sabre/vobject": "^4.6.0",
+        "symfony/apache-pack": "^1.0.1",
+        "symfony/asset": "^7.4.8",
+        "symfony/dotenv": "^7.4.15",
+        "symfony/flex": "^2.11.0",
+        "symfony/form": "^7.4.16",
+        "symfony/http-client": "^7.4.16",
+        "symfony/mime": "^7.4.16",
+        "symfony/monolog-bridge": "^7.4.15",
+        "symfony/monolog-bundle": "^3.11.2",
+        "symfony/polyfill-php74": "^1.41.0",
+        "symfony/property-access": "^7.4.16",
+        "symfony/property-info": "^7.4.16",
+        "symfony/security-bundle": "^7.4.15",
+        "symfony/security-csrf": "^7.4.8",
+        "symfony/serializer": "^7.4.16",
+        "symfony/stimulus-bundle": "^2.36.0",
+        "symfony/translation": "^7.4.16",
+        "symfony/twig-bundle": "^7.4.15",
+        "symfony/ux-icons": "^2.36.1",
+        "symfony/ux-live-component": ">=2.36",
+        "symfony/ux-turbo": "^2.36.0",
+        "symfony/ux-twig-component": "^2.36.0",
+        "symfony/validator": "^7.4.16",
+        "symfony/webpack-encore-bundle": "^2.4.1",
+        "thenetworg/oauth2-azure": "^2.2.6",
+        "twig/extra-bundle": "^2.12|^3.24",
+        "twig/intl-extra": "^3.26.0",
+        "twig/string-extra": "^3.24.0",
+        "twig/twig": "^2.16|^3.28.0",
+        "willdurand/js-translation-bundle": "^8.0"
+    },
+    "require-dev": {
+        "behat/mink": "^1.13",
+        "behat/mink-browserkit-driver": "^2.3",
+        "behat/mink-selenium2-driver": "^1.7",
+        "friends-of-behat/mink-extension": "^2.7.5",
+        "friends-of-behat/symfony-extension": "^2.6.2",
+        "friendsofphp/php-cs-fixer": "^3.95.11",
+        "jangregor/phpstan-prophecy": "^1.0.2",
+        "mink/webdriver-classic-driver": "^1.1.1",
+        "php-parallel-lint/php-var-dump-check": "^0.5.0",
+        "phpstan/phpstan": "^1.12.33",
+        "phpstan/phpstan-phpunit": "^1.4.2",
+        "phpunit/phpunit": "^9.6.34",
+        "rector/rector": "^0.15.25",
+        "soyuka/contexts": "^3.3.13",
+        "symfony/debug-bundle": "^7.4.8",
+        "symfony/phpunit-bridge": "^7.4.16",
+        "symfony/stopwatch": "^7.4.8",
+        "symfony/var-dumper": "^7.4.15",
+        "symfony/web-profiler-bundle": "^7.4.16"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "^7.4.0"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-apcu": "*",
+        "symfony/polyfill-mbstring": "*",
+        "symfony/polyfill-php56": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "cs": "php-cs-fixer fix --no-interaction --config=.php-cs-fixer.php --cache-file .php-cs-fixer.cache",
+        "cs-check": "php-cs-fixer fix --dry-run --diff --using-cache=no --config=.php-cs-fixer.php"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        },
+        "bump-after-update": true,
+        "gitlab-domains": [
+            "gitlab.alvest.fr"
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{% trans_default_domain translation_domain|default(data_table.vars.translation_domain) %}
+{% set value = value|default(text_values[value]|default(null))|trans %}
+{% if value %}
+    <span
+            class="badge
+            {% if label_classes[value] is defined %}
+             bg-{{ label_classes[value] }}
+            {% elseif color is not null %}
+             bg-default
+            {% endif %}"
+            {% if color %}
+                style="background-color: {{ color }};"
+            {% endif %}
+    >
+        {{ value }}
+    </span>
+{% endif %}

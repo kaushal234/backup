@@ -1,0 +1,111 @@
+{% extends 'purchasing/supplier_ranking/layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block content %}
+	<div class="row mt-2">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>{{ 'title'|trans }}</h5>
+			</div>
+			<div class="ibox-content p-0">
+				<div class="row p-4">
+					{{ form_start(form) }}
+					{{ form_errors(form) }}
+
+					{{ form_row(form.location) }}
+					{{ form_row(form.classification) }}
+					{{ form_row(form.expertiseLevel) }}
+					{{ form_row(form.submit) }}
+
+					{{ form_end(form) }}
+				</div>
+				{% if showValues %}
+					<hr>
+					<div class="d-flex align-items-center justify-content-center gap-3 px-3 pb-3 text-muted flex-wrap">
+						<div class="border p-3 d-flex gap-2 flex-grow-1 align-items-center">
+							<div class="fs-5 fw-medium flex-grow-1">
+								{{ 'headers.criteria_7'|trans }} : {{ esgCount }}
+							</div>
+							<div>
+								<a class="esgLink" href="{{ path('supplier_rankings_home', {
+                                    'filter_supplier_ranking': { 
+                                        'criteriaEnvironmentalSocialGovernance': {
+                                            'value': ["null"]
+                                        },
+                                        'location' : {
+                                            'value': formValues.location
+                                        }, 
+                                        'expertiseLevel' : {
+                                            'value': formValues.expertiseLevel
+                                        }, 
+                                        'classification' : {
+                                            'value': formValues.classification
+                                        }, 
+                                    } 
+                                })}}">
+									<span class="btn btn-success btn-sm m-0">
+										<i class="far fa-eye fa-fw"></i>
+									</span>
+								</a>
+							</div>
+						</div>
+						<div class="border p-3 d-flex gap-2 flex-grow-1 align-items-center">
+							<div class="fs-5 fw-medium flex-grow-1">
+								{{ 'headers.criteria_8_full'|trans }} : {{ antiCorruptionCount }}
+							</div>
+							<div>
+								<a href="{{ path('supplier_rankings_home', {
+                                    'filter_supplier_ranking': { 
+                                        'criteriaAntiCorruption': { 
+                                            'value': "null" 
+                                        },
+                                        'location' : {
+                                            'value': formValues.location
+                                        }, 
+                                        'expertiseLevel' : {
+                                            'value': formValues.expertiseLevel
+                                        }, 
+                                        'classification' : {
+                                            'value': formValues.classification
+                                        }, 
+                                    } 
+                                })}}">
+									<span class="btn btn-success btn-sm m-0">
+										<i class="far fa-eye fa-fw"></i>
+									</span>
+								</a>
+							</div>
+						</div>
+						<div class="border p-3 d-flex gap-2 flex-grow-1 align-items-center">
+							<div class="fs-5 fw-medium flex-grow-1">
+								{{ 'headers.criteria_9_full'|trans }} : {{ cybersecurityCount }}
+							</div>
+							<div>
+								<a href="{{ path('supplier_rankings_home', {
+                                    'filter_supplier_ranking': { 
+                                        'criteriaCybersecurity': { 
+                                            'value': "null" 
+                                        },
+                                        'location' : {
+                                            'value': formValues.location
+                                        }, 
+                                        'expertiseLevel' : {
+                                            'value': formValues.expertiseLevel
+                                        }, 
+                                        'classification' : {
+                                            'value': formValues.classification
+                                        }, 
+                                    } 
+                                })}}">
+									<span class="btn btn-success btn-sm m-0">
+										<i class="far fa-eye fa-fw"></i>
+									</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>{% endblock content %}

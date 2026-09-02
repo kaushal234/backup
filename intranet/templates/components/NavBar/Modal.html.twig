@@ -1,0 +1,47 @@
+{% if security is same as true %}
+    <li class="nav-item">
+        <button type="button" id="{{ id }}" {% if name %}name="{{ name }}"{% endif %} class="nav-link m-0 d-flex align-items-center w-100 text-start border-0 text-dark action-primary {{ class }}"
+                data-bs-toggle="modal" data-bs-target="#modal_{{ id }}">
+            {% if icon is defined %}
+                {{ ux_icon(icon, {height: '16px', width: '16px'}) }}
+            {% endif %}
+            <span class="ms-1">{% block content %}{{ translationKey | trans([], domain | default(app.request.attributes.get('moduleDomain'))) }}{% endblock %}</span>
+        </button>
+    </li>
+
+    <div class="modal fade" id="modal_{{ id }}"  tabindex="-1" aria-labelledby="{{ id }}Label" aria-hidden="true">
+        <div class="modal-dialog modal-{{ size }}" role="{{ role }}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% block header %}
+                        {% block title %}
+                            <h1 class="modal-title fs-5" id="{{ id }}Label">
+                                {{ title | trans([], domain | default(app.request.attributes.get('moduleDomain'))) }}
+                            </h1>
+                        {% endblock %}
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    {% endblock %}
+                </div>
+                <div class="modal-body">
+                    {% block body %}
+                        <p>{{ body | raw | trans([], domain | default(app.request.attributes.get('moduleDomain'))) }}</p>
+                    {% endblock %}
+                </div>
+                <div class="modal-footer">
+                    {% block footer %}
+                        <button type="button" class="btn btn-{{ leftButtonColor }} d-flex gap-2"
+                                data-bs-dismiss="modal">
+                            <span>{{ ux_icon(leftButtonIcon, {height: '16px', width: '16px'}) }}</span>
+                            <span>{{ leftButtonText | trans([], domain | default(app.request.attributes.get('moduleDomain'))) }}</span>
+                        </button>
+                        <a type="button" href="{{ path(route, routeParameters) }}" id="button_{{ id }}"
+                           class="btn btn-{{ rightButtonColor }} d-flex gap-3">
+                            <span>{{ ux_icon(rightButtonIcon, {height: '16px', width: '16px'}) }}</span>
+                            <span>{{ rightButtonText | trans([], domain | default(app.request.attributes.get('moduleDomain'))) }}</span>
+                        </a>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

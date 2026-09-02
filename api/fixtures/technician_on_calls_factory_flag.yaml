@@ -1,0 +1,45 @@
+App\Entity\AuditLog:
+  toc_ff_recently_closed_closed:
+    createdBy: '@user_ast_bu2'
+    createdAt: <( new \DateTime('-3 days'))>
+    property: 'factoryFlag'
+    value: ''
+    auditType: 'technician_on_call'
+    referenceId: 39
+  toc_ff_recently_closed_open:
+    createdBy: '@user_ast_bu2'
+    createdAt: <( new \DateTime('-5 days'))>
+    property: 'factoryFlag'
+    value: 1
+    auditType: 'technician_on_call'
+    referenceId: 39
+    next: '@toc_ff_recently_closed_closed'
+  toc_ff_formerly_closed_closed:
+    createdBy: '@user_ast_bu2'
+    createdAt: <( new \DateTime('-5 days'))>
+    property: 'factoryFlag'
+    value: ''
+    auditType: 'technician_on_call'
+    referenceId: 40
+  toc_ff_formerly_closed_open:
+    createdBy: '@user_ast_bu2'
+    createdAt: <( new \DateTime('-5 days'))>
+    property: 'factoryFlag'
+    value: 1
+    auditType: 'technician_on_call'
+    referenceId: 40
+    next: '@toc_ff_formerly_closed_closed'
+  toc_ff_recently_create:
+    createdBy: '@user_ast_bu2'
+    property: 'factoryFlag'
+    value: ''
+    auditType: 'technician_on_call'
+    referenceId: 41
+    createdAt: <( new \DateTime('now'))>
+  toc_ff_sso_2:
+    createdBy: '@user_ast_bu2'
+    property: 'factoryFlag'
+    value: 1
+    auditType: 'technician_on_call'
+    referenceId: 43
+    createdAt: <( new \DateTime('now'))>

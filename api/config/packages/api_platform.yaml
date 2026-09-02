@@ -1,0 +1,66 @@
+api_platform:
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Entity'
+            - '%kernel.project_dir%/src/Report'
+            - '%kernel.project_dir%/src/Dto'
+            - '%kernel.project_dir%/src/LegacyBundle/Entity'
+            - '%kernel.project_dir%/src/LegacyBundle/Dto'
+            - '%kernel.project_dir%/src/ION/Resources'
+            - '%kernel.project_dir%/src/ION/Dto'
+            - '%kernel.project_dir%/src/SageParts/Resources'
+            - '%kernel.project_dir%/src/Jira/Resources'
+            - '%kernel.project_dir%/src/SageParts/P21/Resources'
+            - '%kernel.project_dir%/src/AI/Dto'
+    defaults:
+        pagination_items_per_page: 500
+        pagination_client_enabled: true
+        pagination_client_items_per_page: true
+        normalization_context:
+            skip_null_values: false
+        extra_properties:
+            standard_put: false
+        stateless: true
+        openapi: false
+        cache_headers:
+            max_age: 0
+            shared_max_age: 600
+            vary: [ 'Content-Type', 'Authorization', 'Origin' ]
+    formats:
+        jsonld: ['application/ld+json']
+        json: ['application/json']
+        csv: ['text/csv']
+    serializer:
+        hydra_prefix: true
+    use_symfony_listeners: true
+    title: Alvest API
+    description: The Alvest Intranet API
+    version: 1.0.0
+    show_webby: false
+    swagger:
+        swagger_ui_extra_configuration:
+            docExpansion: none
+            filter: true
+    docs_formats:
+        html: ['text/html']
+        jsonopenapi: ['application/vnd.openapi+json']
+        jsonld: ['application/ld+json']
+
+    inflector: app.inflector
+    exception_to_status:
+        Symfony\Component\Serializer\Exception\ExceptionInterface: 400
+        ApiPlatform\Exception\FilterValidationException: 400
+        Doctrine\ORM\OptimisticLockException: 409
+#    beware, enabling this option sets skip_null_values to true in the context because of ApiPlatform\Core\Serializer\SerializerContextBuilder
+#    patch_formats:
+#        json: ['application/merge-patch+json']
+    validator:
+        serialize_payload_fields: ['severity']
+
+when@dev:
+    api_platform:
+        formats:
+            jsonld: ['application/ld+json']
+            json: ['application/json']
+            csv: ['text/csv']
+            html: ['text/html']

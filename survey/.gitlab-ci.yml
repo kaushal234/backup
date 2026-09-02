@@ -1,0 +1,23 @@
+stages:
+  - test
+  - deploy
+
+deploy_test:
+  stage: deploy
+  tags:
+    - deploy
+  only:
+    - dev
+  script:
+    - bundle install --deployment
+    - bundle exec cap test deploy --trace
+
+deploy_prod:
+  stage: deploy
+  tags:
+    - deployprod
+  only:
+    - master
+  script:
+    - bundle install --deployment
+    - bundle exec cap production deploy --trace

@@ -1,0 +1,6 @@
+{%- for property, changes in value -%}
+    {%- if changes[0] is defined -%}
+{{ property }}:
+    {{ changes[0]|stringify }} => {{ changes[1]|stringify }}
+    {% endif -%}
+{%- endfor -%}

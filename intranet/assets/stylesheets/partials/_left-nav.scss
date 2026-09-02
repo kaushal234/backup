@@ -1,0 +1,124 @@
+@use "variables" as variables;
+
+.navbar-static-side {
+  .nav {
+
+    .nav-header {
+      padding: 0;
+      border-bottom: 1px solid #293846;
+      margin-bottom: 31px;
+      background: variables.$top-nav-link-hover-color;
+      border-right: 1px solid variables.$borders;
+
+      .profile-element {
+        position: relative;
+
+        a {
+          > span {
+
+            /* LOGO */
+            .img-thumbnail {
+              margin-bottom: 0;
+              width: 138px;
+              border: 0;
+              padding: 15px;
+            }
+          }
+
+          /* SLOGAN */
+          .block {
+            transition: all 1s ease-in-out;
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: #a7b1c2;
+            font-size: 12px;
+            line-height: 14px;
+            margin-right: 5px;
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+#search-results {
+  display: block;
+}
+
+#search-result {
+  padding-left: 25px;
+}
+
+#searchBar {
+  .form-control,
+  .form-control:focus {
+    transition: none;
+    outline: none;
+    border: none;
+  }
+}
+
+#searchBar > div:nth-child(1) > div:nth-child(1) {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* MINI NAVBAR */
+body.mini-navbar {
+  #side-menu {
+    .nav-header {
+      padding: 7px;
+
+      .logo-element {
+        padding-top: 0;
+        padding-bottom: 2px;
+        color: variables.$tldBlue;
+        font-weight: 700;
+        font-size: 22px;
+      }
+    }
+
+    /* SLOGAN */
+    .block {
+      display: none;
+    }
+  }
+
+  .nav.accordion-collapse > li > a {
+    padding: 7px 10px 7px 10px;
+    flex-wrap: wrap;
+    display: flex;
+    font-size: 13px;
+  }
+
+  a#search-result{
+    display: none;
+  }
+
+  #button-addon2{
+    display: none;
+  }
+
+  ul#search-results{
+    width: 150px;
+    overflow: scroll;
+    top: 55px;
+  }
+
+  #search-results li{
+    width: 120px !important;
+  }
+
+  li#searchBar{
+    div div{
+      margin-right: -15px !important;
+      margin-left: -5px !important;;
+    }
+    input{
+      font-size: 13px;
+    }
+  }
+
+}

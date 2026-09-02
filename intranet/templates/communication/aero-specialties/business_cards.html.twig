@@ -1,0 +1,16 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_business_cards.html.twig', {
+        businessCards: {
+            'AERO Specialties business card 1': {
+                'pdf': 'aero_specialties/business_cards/AERO Specialties Business Card Example V2.pdf'
+            },
+            'AERO Specialties business card 2': {
+                'pdf': 'aero_specialties/business_cards/AERO Specialties Business Card Example.pdf'
+            }
+        },
+    }) }}
+{% endblock %}

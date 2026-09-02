@@ -1,0 +1,59 @@
+{% extends '/support/on_time_delivery_planning/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'support.odp.by_factory_sales_organisation' | trans }}</h5>
+            </div>
+            <div class="ibox-content">
+                {{ include('helper/_matrix_table.html.twig', {
+                    data: reportSSObyStatus,
+                    showZero: false,
+                    link: {
+                        route: 'on_time_delivery_planning_show',
+                        xParam: 'manufacturerLocation',
+                        yParam: 'salesOrganisation',
+                    },
+                }, with_context=false) }}
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'support.odp.factory_dashboard' | trans }}</h5>
+            </div>
+            <div class="ibox-content">
+                {{ include('helper/_matrix_table.html.twig', {
+                    data: reportFactoryDashboard,
+                    showZero: false,
+                    hideTotals: 'both',
+                    link: {
+                        route: 'on_time_delivery_planning_show',
+                        xParam: 'odpFilter',
+                        yParam: 'manufacturerLocation',
+                    },
+                }, with_context=false) }}
+            </div>
+        </div>
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'support.odp.sso_dashboard' | trans }}</h5>
+            </div>
+            <div class="ibox-content">
+                {{ include('helper/_matrix_table.html.twig', {
+                    data: reportSsoDashboard,
+                    showZero: false,
+                    hideTotals: 'both',
+                    link: {
+                        route: 'on_time_delivery_planning_show',
+                        xParam: 'odpFilter',
+                        yParam: 'salesOrganisation',
+                    },
+                }, with_context=false) }}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

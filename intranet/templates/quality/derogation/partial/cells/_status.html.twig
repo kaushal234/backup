@@ -1,0 +1,28 @@
+<td class="d-flex justify-content-between">
+    {% if item.status == 'OPEN' and is_granted('FEATURE_DEROGATION_STATUS_CLOSE') %}
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+    <div class="row" style="width: 100%">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            {{ form_row(form.comment) }}
+        </div>
+        <div class="d-flex flex-row-reverse">
+            <div class="p-2">
+                {{ form_widget(form.denied) }}
+            </div>
+            <div class="p-2">
+                {{ form_widget(form.accepted) }}
+
+                {{ form_end(form) }}
+                {% else %}
+                    {{ item.status }}
+                    {% if item.status == 'DENIED' and is_granted('FEATURE_DEROGATION_STATUS_REOPEN') %}
+                        <a href="{{ path('derogation_update_status', {id: item.id, status: 'OPEN'}) }}" class="btn btn-warning">{{ 'crab.derogation.status.reopen'| trans({}, 'crab') }}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</td>
+

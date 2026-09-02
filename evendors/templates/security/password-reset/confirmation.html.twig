@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'security' %}
+
+{% block title %}{{ 'security.title.password_reset'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="row justify-content-md-center my-5">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header border-dark">
+                    <p class="fs-3 text-dark my-1">{{ 'security.form.legend'|trans }}</p>
+                </div>
+                <div class="card-body">
+                    {% for type, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ type }} mb-2" role="alert">{{ message|trans|raw }}</div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    {{ form_start(form) }}
+                    <fieldset>
+                        <div class="mb-2 form-outline form-white">
+                            {{ form_label(form.newPassword.first, null, {'label_attr': {'class': 'mb-1'}}) }}
+                            {{ form_widget(form.newPassword.first) }}
+                            {{ form_errors(form.newPassword.first) }}
+                        </div>
+
+                        <div class="mb-2 form-outline form-white">
+                            {{ form_label(form.newPassword.second, null, {'label_attr': {'class': 'mb-1'}}) }}
+                            {{ form_widget(form.newPassword.second) }}
+                            {{ form_errors(form.newPassword.second) }}
+                        </div>
+
+                        {{ form_errors(form.newPassword) }}
+                        {{ include('security/_password_rules.html.twig') }}
+
+                        <button type="submit" class="mt-2 btn btn-primary w-100">{{ 'security.form.submit.label'|trans }}</button>
+                    </fieldset>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

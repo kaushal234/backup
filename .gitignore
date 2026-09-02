@@ -1,0 +1,23 @@
+/docker/data/
+compose.override.yml
+/vendor/
+/docker/certs/*
+!docker/certs/.gitkeep
+/docker/import/*
+!docker/import/.gitkeep
+
+# ignore symlink on local env
+alvest-web-portals
+
+###> misc/phpstorm ###
+.idea
+###< misc/phpstorm ###
+
+auth.json
+
+.gitlab-ci-local
+
+.DS_Store
+
+/node_modules
+/.ai/

@@ -1,0 +1,23 @@
+{% extends 'sales/customer_relationship_teams/layout.html.twig' %}
+{% trans_default_domain 'customer_relationship_team' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+      window.CRT_APP_PROPS = {{ props|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'customer_relationship_team' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'sales_customers' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

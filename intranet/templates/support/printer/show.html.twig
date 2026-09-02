@@ -1,0 +1,66 @@
+{% extends 'support/printer/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        {{ ('support.printer.printer'|trans|capitalize) ~ ' ' ~ printer.companyName }}
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                <div class="row">
+                    {{ include('helper/_association_table_raw.html.twig', {
+                        associationData: {
+                            items: {
+                                id: {
+                                    label: 'demo.fields.id'|trans({}, 'demo')|capitalize
+                                },
+                                companyName: {
+                                    label: 'directory.location.fields.company'|trans({}, 'directory')|capitalize
+                                },
+                                firstname: {
+                                    label: 'directory.people.fields.firstname'|trans({}, 'directory')|capitalize
+                                },
+                                lastname: {
+                                    label: 'directory.people.fields.lastname'|trans({}, 'directory')|capitalize
+                                },
+                                email: {
+                                    label: 'directory.people.fields.email'|trans({}, 'directory')|capitalize
+                                },
+                                country: {
+                                    properties: ['address.country'],
+                                    label: 'demo.fields.country'|trans({}, 'demo')|capitalize
+                                },
+                                street1: {
+                                    properties: ['address.street1'],
+                                    label: 'address.fields.street1'|trans({}, 'messages')|capitalize
+                                },
+                                street2: {
+                                    properties: ['address.street2'],
+                                    label: 'address.fields.street2'|trans({}, 'messages')|capitalize
+                                },
+                                postalCode: {
+                                    properties: ['address.postalCode'],
+                                    label: 'address.fields.postal_code'|trans({}, 'messages')|capitalize
+                                },
+                                city: {
+                                    properties: ['address.city'],
+                                    label: 'address.fields.city'|trans({}, 'messages')|capitalize
+                                },
+                                state: {
+                                    properties: ['address.state'],
+                                    label: 'address.fields.state'|trans({}, 'messages')|capitalize
+                                }
+                            },
+                            data: printer,
+                        },
+                    }, with_context = false) }}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

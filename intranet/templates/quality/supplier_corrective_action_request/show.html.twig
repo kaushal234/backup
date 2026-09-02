@@ -1,0 +1,62 @@
+{% extends 'quality/supplier_corrective_action_request/layout.html.twig' %}
+{% trans_default_domain 'supplier_corrective_action_request' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block title %} {{ parent() }}#{{ supplierCorrectiveActionRequest.id}} {% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    {{ include('helper/_tabs.html.twig', {
+        tabsData: {
+            tabs: {
+                detail: {
+                    defaultTab: true,
+                    label: 'contacts.menu.detail' | trans({}, 'contacts') | capitalize,
+                    template: 'quality/supplier_corrective_action_request/partial/tabs/_scar_tab.html.twig',
+                    templateParams: {supplierCorrectiveActionRequest: supplierCorrectiveActionRequest, supplierContacts: supplierContacts}
+                },
+                conversation: {
+                    label: 'supplier_corrective_action_request.conversation' | trans() | capitalize,
+                    template: 'quality/supplier_corrective_action_request/partial/tabs/_conversation_tab.html.twig',
+                    templateParams: {supplierCorrectiveActionRequest: supplierCorrectiveActionRequest, comments: comments, form: form}
+                },
+                scarComments: {
+                    label: 'display.table.purchase_order_line.headers.comments' | trans({}, 'messages') | capitalize,
+                    template: 'generic/_logs.html.twig',
+                    templateParams: { addComment: true, hideLogs: true }
+                },
+                scarLogs: {
+                    label: 'menu.logs' | trans({}, 'messages') | capitalize,
+                    template: 'generic/_logs.html.twig',
+                },
+                scarLinks: {
+                    label: 'menu.links' | trans({}, 'messages') | capitalize,
+                    template: 'generic/_links.html.twig',
+                    templateParams: { module: 'SCAR', legacy: false }
+                },
+                tasks: {
+                    label: 'menu.people.tasks' | trans({}, 'messages') | capitalize,
+                    template: 'quality/supplier_corrective_action_request/partial/tabs/_tasks_tab.html.twig',
+                },
+                files: {
+                    label: 'menu.files' | trans({}, 'messages') | capitalize,
+                    template: 'quality/supplier_corrective_action_request/partial/tabs/_files_tab.html.twig',
+                    templateParams: {supplierCorrectiveActionRequest: supplierCorrectiveActionRequest, formFiles: formFiles},
+                    badge: supplierCorrectiveActionRequest.files | length,
+                },
+                subscription: {
+                    label: 'subscribers' | trans({}, 'messages'),
+                    template: 'generic/_subscriptions.html.twig',
+                },
+            },
+            data: supplierCorrectiveActionRequest,
+            link: app.request.query.get('tab'),
+        },
+    }, with_context = false) }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

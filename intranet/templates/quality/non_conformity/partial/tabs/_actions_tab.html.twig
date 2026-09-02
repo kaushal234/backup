@@ -1,0 +1,113 @@
+{% trans_default_domain 'non_conformity' %}
+<div class="row">
+    <div class="col-md-6">
+        {{ include('helper/_association_table.html.twig', {
+            associationData: {
+                items: {
+                    solution: { label: 'non_conformity.fields.solution'|trans },
+                    scrap: {
+                        label:'non_conformity.fields.scrap' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    rework: {
+                        label:'non_conformity.fields.rework' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    useAsIs: {
+                        label:'non_conformity.fields.use_as_is' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    firstArticleInspection: {
+                        label:'non_conformity.fields.fai' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    derogation: {
+                        label:'non_conformity.fields.derogation' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    returnVendor: {
+                        label:'non_conformity.fields.return_vendor' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    chargeVendorForRepair: {
+                        label:'non_conformity.fields.charge_vendor' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    supplierCorrectiveActionRequest: {
+                        label:'non_conformity.fields.scar' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    internalCorrectiveActionRequest: {
+                        label:'non_conformity.fields.car' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    containment: {
+                        label:'non_conformity.fields.containment' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    other: {
+                        label:'non_conformity.fields.other' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    actionComment: {
+                        label:'non_conformity.fields.action_comment' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                    repairApprover: {
+                        properties: ['repairApprover.lastname', 'repairApprover.firstname'],
+                        label: 'non_conformity.fields.repair_approver' | trans,
+                        link: {
+                            route: 'directory_people_show',
+                            params: {'id':'repairApprover.@id'}
+                        }
+                    },
+                    repairApprovalDate: {
+                        label: 'non_conformity.fields.repair_approval_date'|trans,
+                        filters: 'date("Y-m-d")',
+                        preserveNull: true,
+                    },
+                },
+                data: item,
+                title: 'non_conformity.title.action_conclusion' | trans,
+                pagination: false,
+                search: false
+            }
+        }, with_context = false )}}
+    </div>
+</div>

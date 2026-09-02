@@ -1,0 +1,169 @@
+{% extends '@AlvestTwigHelper/table_layout.html.twig' %}
+
+{% set table = reportTable %}
+
+{% block table %}
+    {% if (reportTable.search is not defined or reportTable.search != false) and sluggifiedTitle is defined %}
+        {% set table_attr = table_attr|merge({'data-filter': '#filter-' ~ sluggifiedTitle}) %}
+    {% endif %}
+    {% if (reportTable.pagination is defined and reportTable.pagination is same as(false)) or reportTable.pagination.paginationUrl is defined %}
+        {% set table_attr = table_attr|merge({'data-do-not-paginate': 'true'}) %}
+    {% endif %}
+    {% if reportTable.pagination is not defined or (reportTable.pagination is not same as(false) and reportTable.pagination is not iterable) %}
+        {% set table_attr = table_attr|merge({'data-page-size': reportTable.pagination|default(20)}) %}
+    {% elseif reportTable.pagination == false %}
+        {% set table_attr = table_attr|merge({'data-page-size': '9999999'}) %}
+    {% endif %}
+    <div class="table-responsive">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block table_search %}
+    <div class="input-group search-table">
+        <div class="input-group-text"><i class="fa fa-search"></i></div>
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block table_column %}
+    {% set column_attr = column_attr|merge({class: block('column_default_class')|trim}) %}
+    {% if item.class is defined %}
+        {% set column_attr = column_attr|merge({class: (column_attr.class ~ ' ' ~ item.class)|trim}) %}
+    {% endif %}
+    {% if item.collapse is defined and item.collapse == true %}
+        <th {% with {attr: column_attr} %}{{ block('attributes') }}{% endwith %} data-hide="all">{{ item.label|raw }}</th>
+    {% else %}
+        <th {% with {attr: column_attr} %}{{ block('attributes') }}{% endwith %} data-toggle="true"
+                {% if reportTable.initialSorting is defined and reportTable.initialSorting == key %}
+                    data-sort-initial="true"
+                {% elseif reportTable.initialSorting is not defined and loop.index == 1 %}
+                    data-type="numeric" data-sort-initial="true"
+                {% endif %}
+                {% if item.sortable is defined and item.sortable == false  %} data-sort-ignore="true" {% endif %}
+                {% if item.sortable is defined and item.sortable == 'numeric'  %} data-type="numeric" {% endif %}
+        >
+            {{ item.label|raw }}
+        </th>
+    {% endif %}
+{% endblock table_column %}
+
+{% block table_row %}
+    <tr {% if table.tooltip is defined %}
+            {% if table.tooltip.nested is defined and table.tooltip.nested == true %}
+                {% set tooltipProperty = parse_nested(item, table.tooltip.property) %}
+            {% else %}
+                {% set tooltipProperty = item[table.tooltip.property]  %}
+            {% endif %}
+            {% set tooltipPlacement = table.tooltip.placement|default('top') %}
+        {% if tooltipProperty is defined and tooltipPlacement is defined %}
+            data-toggle="tooltip" data-placement="{{ tooltipPlacement }}" title="{{ tooltipProperty }}"
+        {% endif %}
+            {% endif %}>
+        {% for key, itemProperty in table.items %}
+            {% with {reportItem: itemProperty} %}
+                {{ block('table_cell') }}
+            {% endwith %}
+        {% endfor %}
+    </tr>
+{% endblock %}
+
+{% block table_cell %}
+    {% if attribute(item, key) is defined or itemProperty.properties is defined %}
+        {% if itemProperty.properties is defined and itemProperty.properties is iterable %}
+            {% set value = [] %}
+            {% for propertyPath in itemProperty.properties %}
+                {% set propValue = parse_nested(item, propertyPath) %}
+                {% if (propValue is same as(true) or propValue is same as(false)) %}
+                    {% if itemProperty.boolean is defined %}
+                        {% set value = propValue ? itemProperty.boolean.true : itemProperty.boolean.false %}
+                    {% else %}
+                        {% set value = (propValue ? 'yes' : 'no')|trans([], 'messages') %}
+                    {% endif %}
+                {% elseif propValue is not same as(null) %}
+                    {% set value = value | merge([propValue]) %}
+                {% endif %}
+            {% endfor %}
+            {% set value = value|length > 0 ? value|join(itemProperty.glue|default('&nbsp;')) : null %}
+            {# is boolean #}
+        {% elseif attribute(item, key) is same as(true) or attribute(item, key) is same as(false) %}
+            {% if itemProperty.boolean is defined %}
+                {% set value = attribute(item, key) ? itemProperty.boolean.true : itemProperty.boolean.false %}
+            {% else %}
+                {% set value = (attribute(item, key) ? 'yes' : 'no')|trans([], 'messages') %}
+            {% endif %}
+        {% else %}
+            {% set value = attribute(item, key) %}
+        {% endif %}
+    {% else %}
+        {% set value = key %}
+    {% endif %}
+
+    {% if itemProperty.filters is defined and (itemProperty.preserveNull is not defined or itemProperty.preserveNull is not same as(true) or value is not same as(null)) %}
+        {% set value = value|filters(itemProperty.filters) %}
+    {% endif %}
+
+    {% if itemProperty.template is defined %}
+        {% set templateParams =  { 'item': item, 'itemProperty': itemProperty, 'key': key } %}
+        {% if itemProperty.templateParams is defined %}
+            {% set templateParams = templateParams | merge(itemProperty.templateParams) %}
+        {% endif %}
+        {{ include(itemProperty.template, templateParams, with_context=true) }}
+    {% else %}
+        <td {% if itemProperty.class is defined %} class="{{ itemProperty.class }}" {% endif %}
+                {% if itemProperty.tooltip is defined %}
+                    {% set tooltipProperty = itemProperty.tooltip.property  %}
+                    {% set tooltipPlacement = itemProperty.tooltip.placement|default('top') %}
+                    {% if item[tooltipProperty] is defined and tooltipPlacement is defined %}
+                        data-toggle="tooltip" data-placement="{{ tooltipPlacement }}" title="{{ item[tooltipProperty] }}"
+                    {% endif %}
+                {% endif %}
+        >
+            {% if itemProperty.link is defined %}
+                {{ block('cell_link') }}
+            {% else %}
+                {{ value | raw }}
+            {% endif %}
+        </td>
+    {% endif %}
+{% endblock %}
+
+{% block cell_link %}
+    {% set preparedParams = {} %}
+    {% set validParams = true %}
+
+    {% if itemProperty.link.params is defined %}
+        {% for param, propertyPath in itemProperty.link.params %}
+            {% set forceIri = itemProperty.link.forceIri is defined ? itemProperty.link.forceIri : false %}
+            {% set propValue = parse_nested(item, propertyPath, forceIri) %}
+
+            {% if propValue is null %}
+                {% set validParams = false %}
+            {% else %}
+                {% set preparedParams = preparedParams | merge({(param): propValue}) %}
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
+    {% if itemProperty.link.fixedParams is defined %}
+        {% set preparedParams = preparedParams | merge(itemProperty.link.fixedParams) %}
+    {% endif %}
+
+    {% if validParams is same as(true) %}
+        {% if itemProperty.link.fullUrl is defined and itemProperty.link.fullUrl is same as(true) %}
+            {% set url = full_url(itemProperty.link.route, preparedParams) %}
+        {% else %}
+            {% set url = path(itemProperty.link.route, preparedParams) %}
+        {% endif %}
+        <a href="{{ url }}"
+                {% if itemProperty.link.popup is defined %} onclick="return confirm('{{ itemProperty.link.popup.message }}');" {% endif %}
+                {% if itemProperty.link.target is defined %} target="{{ itemProperty.link.target }}" {% endif %}>
+            {% if itemProperty.link.content is defined %}
+                {{ itemProperty.link.content|raw }}
+            {% else %}
+                {{ value | raw }}
+            {% endif %}
+        </a>
+    {% endif %}
+{% endblock %}

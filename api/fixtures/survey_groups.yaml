@@ -1,0 +1,21 @@
+App\Entity\Survey\Group:
+  first_group:
+    id: 1
+    name: Group 0
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>
+    createdBy: "@user_gceo"
+    updatedBy: "@user_superuser"
+    sorting: 0
+    survey: "@first_survey"
+
+  survey_group_{0..4}:
+    id: <($current + 2)>
+    name: Group Range <current()>
+    description: <text()>
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>
+    sorting: <current()>
+    createdBy: "@user_gceo"
+    updatedBy: "@user_superuser"
+    survey: "@first_survey"

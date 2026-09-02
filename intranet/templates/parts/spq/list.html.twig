@@ -1,0 +1,113 @@
+{% extends 'parts/spq/layout.html.twig' %}
+
+{% trans_default_domain "spq" %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('parts/spq/partials/_form_filters.html.twig', {
+                        form: formFilters,
+                        resetPath: path('spq_quotations_list')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if quotations.pagination.estimatedNumberOfPages != 1 %}
+    <div class="row">
+        <div class="col-xs-12">
+            {{ include('partial/_pagination.html.twig', {
+                currentPage: currentPage is defined ? currentPage : 1,
+                paginationUrl: paginationUrl,
+                entries: quotations
+            }) }}
+        </div>
+    </div>
+    {% endif %}
+    {% set localizeddateFilter = user.timeZone is defined ? "format_datetime('medium', 'medium', 'timezone="~user.timeZone~"')" : "format_datetime" %}
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                id: {
+                    label: '#',
+                    sortable: 'numeric',
+                    link:{
+                        route: 'spq_quotations_show',
+                        params: {id:'@id'}
+                    }
+                },
+                quoter: {
+                    properties: ['quoter.firstname', 'quoter.lastname'],
+                    label: 'spq.quotations.fields.quoter'|trans|capitalize
+                },
+                status: {
+                    label: 'spq.quotations.fields.status'|trans|capitalize,
+                    template: 'parts/spq/partials/_status.html.twig',
+                },
+                baanCustomerName: {label: 'spq.quotations.fields.customer.title'|trans|capitalize},
+                baanCustomerNumber: {label: 'spq.quotations.fields.cuno'|trans|capitalize},
+                sph: {
+                    properties: ['sph.name'],
+                    label: 'spq.quotations.fields.sph'|trans|capitalize
+                },
+                submittedAt: {
+                    preserveNull: true,
+                    filters: localizeddateFilter,
+                    label: 'spq.quotations.fields.submitted_at'|trans|capitalize
+                },
+                totalExcludingTaxes: {
+                    filters: ['number_format(2)'],
+                    label: 'spq.quotations.fields.total_excluding_taxes'|trans|capitalize,
+                    sortable: 'numeric',
+                    class: 'text-end'
+                },
+                currency: {
+                    label: 'spq.quotations.fields.currency'|trans|capitalize
+                },
+                baanSalesOrder: {
+                    label: 'spq.quotations.fields.general.sales_order'|trans|capitalize
+                },
+                rfq: {
+                    label: 'RFQ',
+                    collapse: true
+                },
+                reason: {
+                    label: 'Lost reason',
+                    collapse: true
+                }
+            },
+            title: 'spq.title'|trans|capitalize,
+            data: quotations,
+            pagination: false,
+            initialSorting: false
+        }
+    }, with_context = false) }}
+
+    {% if quotations.pagination.estimatedNumberOfPages != 1 %}
+    <div class="row">
+        <div class="col-xs-12">
+        {{ include('partial/_pagination.html.twig', {
+            currentPage: currentPage is defined ? currentPage : 1,
+            paginationUrl: paginationUrl,
+            entries: quotations
+        }) }}
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

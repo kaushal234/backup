@@ -1,0 +1,62 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block content %}
+    {{ include('communication/partials/_posters.html.twig', {
+        posters: {
+            'Quality 80x60CM IMP': {
+                'pdf': 'tld/posters/POSTER Quality 80x60-EN IMP.pdf',
+            },
+            'Quality 80x60CM IMPBD': {
+                'pdf': 'tld/posters/POSTER Quality 80x60-EN IMPBD.pdf',
+            },
+            'Quality 36x24INCH IMP': {
+                'pdf': 'tld/posters/POSTER QUALITY 36x24 inch-IMP.pdf',
+            },
+            'Quality 48x36INCH IMPBD': {
+                'pdf': 'tld/posters/POSTER QUALITY 48x36 inch-IMP.pdf',
+            },
+            'Standard 60x80CM IMP': {
+                'pdf': 'tld/posters/POSTERS 60x80-IMP.pdf',
+            },
+            'Standard 80x60CM IMP': {
+                'pdf': 'tld/posters/POSTERS 80x60-IMP.pdf',
+            },
+            'Standard 120x80CM IMP': {
+                'pdf': 'tld/posters/POSTERS 120x80-IMP.pdf',
+            },
+            'Standard 80x120CM IMP': {
+                'pdf': 'tld/posters/POSTERS 80x120-IMP.pdf',
+            },
+            'Standard 24x36INCH IMP': {
+                'pdf': 'tld/posters/POSTERS 24x36 inch-IMP.pdf',
+            },
+            'Standard 30x40INCH IMP': {
+                'pdf': 'tld/posters/30 x 40 inch.pdf',
+            },
+            'Standard 36x24INCH IMP': {
+                'pdf': 'tld/posters/POSTERS 36x24 inch.pdf',
+            },
+            'Standard 36x48INCH IMP': {
+                'pdf': 'tld/posters/POSTERS 36x48 inch-IMP.pdf',
+            },
+            'Standard 40x31INCH IMP': {
+                'pdf': 'tld/posters/40x31.pdf',
+            },
+            'Standard 48x36INCH IMP': {
+                'pdf': 'tld/posters/48x36 inch.pdf',
+            },
+            'POSTER MIL F35 48x36 INCH BD': {
+                'pdf': 'tld/posters/POSTER_MIL_F35_48x36_INCH_BD.pdf',
+            },
+            'POSTER MIL F35 48x36 INCH HD': {
+                'pdf': 'tld/posters/POSTER_MIL_F35_48x36_INCH_HD.pdf',
+            },
+            'POSTER MIL F35 80x60 CM BD': {
+                'pdf': 'tld/posters/POSTER_MIL_F35_80x60_CM_BD.pdf',
+            },
+            'POSTER MIL F35 80x60 CM HD': {
+                'pdf': 'tld/posters/POSTER_MIL_F35_80x60_CM_HD.pdf',
+            },
+        },
+    }) }}
+{% endblock %}

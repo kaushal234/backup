@@ -1,0 +1,68 @@
+{% extends 'minutes_of_meeting/layout.html.twig' %}
+{% trans_default_domain "meeting" %}
+
+{% block content %}
+<script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+{% if meeting.status == 'OPEN' %}
+    <div class="alert alert-info alert-dismissable">
+        {{ 'meeting.information' | trans() }}
+    </div>
+{% endif %}
+<div class="row">
+    {% set tabs = {
+        meeting: {
+            defaultTab: true,
+            label: 'meeting.meeting' | trans ,
+            template: 'minutes_of_meeting/meetings/partial/tabs/_details_tab.html.twig',
+        },
+        fullDescription: {
+            label: 'meeting.fields.fullDescription' | trans,
+            template: 'minutes_of_meeting/meetings/partial/tabs/_full_description.html.twig',
+        }
+    } %}
+    {% if meeting.quick == false %}
+        {% set tabs = tabs | merge({
+            action: {
+                label: 'meeting.actions.title'|trans,
+                template: 'minutes_of_meeting/meetings/partial/tabs/_actions.html.twig',
+                badge: meeting.actions | length,
+            }
+        }) %}
+    {% endif %}
+    {% set tabs = tabs | merge({
+        momLogs: {
+            label: 'menu.logs' | trans({}, 'messages') | capitalize,
+            template: 'generic/_logs.html.twig',
+        },
+        subscription: {
+            label: 'subscribers' | trans({}, 'messages'),
+            template: 'generic/_subscriptions.html.twig',
+        },
+        links: {
+            label: 'links' | trans({}, 'messages') | capitalize,
+            template: 'generic/_links.html.twig',
+            templateParams: { module: 'MOM', legacy: false }
+        },
+        files: {
+            label: 'menu.files' | trans({}, 'messages') | capitalize,
+            template: 'minutes_of_meeting/meetings/partial/tabs/_files.html.twig',
+            templateParams: {formFiles: formFiles},
+            badge: meeting.files | length,
+        }
+    }) %}
+    {{ include('helper/_tabs.html.twig', {
+        tabsData: {
+            tabs: tabs,
+            data: meeting,
+            link: app.request.query.get('tab'),
+        },
+    }, with_context = false) }}
+</div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

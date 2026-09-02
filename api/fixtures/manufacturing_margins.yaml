@@ -1,0 +1,63 @@
+App\Entity\Finance\ManufacturingMargin:
+  # finance/manufacturing_margins/1
+  manufacturing_margin_1:
+    id: 1
+    equipmentRecord: '@equipment_record_remi'
+    currency: '@cur_USD'
+    actualHours: 123
+    standardHours: 129
+    optionConfigurationParameterHours: 10
+    standardLabourCost: 999
+    actualLabourCost: 1000
+    standardMaterialCost: 9999
+    actualMaterialCost: 10000
+    standardOtherMaterialCost: 99
+    actualOtherMaterialCost: 100
+    standardOtherDirectCost: 9
+    actualOtherDirectCost: 10
+    comment: 'Just for tests'
+    exportedAt: <(new \DateTime("2016-02"))>
+    factoryRevenue: 19999
+    legacyId: 2450
+
+  # finance/manufacturing_margins/2
+  manufacturing_margin_2:
+    id: 2
+    equipmentRecord: '@equipment_record_parent'
+    currency: '@cur_USD'
+    actualHours: 123
+    standardHours: 129
+    optionConfigurationParameterHours: 10
+    standardLabourCost: 999
+    actualLabourCost: 1000
+    standardMaterialCost: 9999
+    actualMaterialCost: 10000
+    standardOtherMaterialCost: 99
+    actualOtherMaterialCost: 100
+    standardOtherDirectCost: 9
+    actualOtherDirectCost: 10
+    comment: 'Just for tests'
+    exportedAt: <dateTimeBetween('-30 days', 'now')>
+    factoryRevenue: 19999
+    legacyId: 2451
+
+  # finance/manufacturing_margins/3
+  manufacturing_margin_not_accessible:
+    id: 3
+    equipmentRecord: '@equipment_record_1'
+    currency: '@cur_USD'
+    actualHours: 545
+    standardHours: 321
+    optionConfigurationParameterHours: 12
+    standardLabourCost: 999
+    actualLabourCost: 998
+    standardMaterialCost: 5555
+    actualMaterialCost: 20001
+    standardOtherMaterialCost: 56
+    actualOtherMaterialCost: 87
+    standardOtherDirectCost: 2
+    actualOtherDirectCost: 9
+    comment: 'FC, MPE, PS cannot see me'
+    exportedAt: <dateTimeBetween('-30 days', 'now')>
+    factoryRevenue: 25552
+    legacyId: 2452

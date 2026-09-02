@@ -1,0 +1,5 @@
+{% if item.leader is not null %}
+        <td><a href="mailto:{{ item.leader.email }}" target="_blank">{{ 'display.table.scar.rows.leader.template'|trans({firstname: item.leader.firstname, lastname: item.leader.lastname}) }}</a></td>
+{% else %}
+        <td>{{ 'generic.not_available'|trans }}</td>
+{% endif %}

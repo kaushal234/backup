@@ -1,0 +1,11 @@
+<td>
+        <p>
+                {{ item.createdBy.firstname }} {{ item.createdBy.lastname }}
+        </p>
+        <div>
+                {{ item.createdBy.email }}
+        </div>
+        <div>
+                {{ include('Emails/Service/TechnicianOnCall/_partials/cell/_phones.html.twig', {'phone_list': item.createdBy.phones}) }}
+        </div>
+</td>

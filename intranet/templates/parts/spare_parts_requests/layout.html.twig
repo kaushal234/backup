@@ -1,0 +1,30 @@
+{% extends 'parts/layout.html.twig' %}
+{% trans_default_domain 'spare_parts_request' %}
+{% block title %}{{ parent() }}\{{ 'spare_parts_request.spr'|trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Search route="spare_parts_request_list"/>
+        <twig:NavItem translationKey="spare_parts_request.nav_link.delivery_addresses" domain="spare_parts_request"
+                      icon="mynaui:list" route="delivery_addresses"
+                      :security="(is_granted('FEATURE_SPARE_PARTS_REQUESTS_EDIT_FULL') or is_granted('MOO_SPR') or is_granted('FEATURE_SPARE_PARTS_REQUESTS_SHIPPED_TO_CLOSE'))"/>
+        {% if sparePartsRequest is defined %}
+            <twig:NavItem:Details route="spare_parts_request_show" :routeParameters="{id: sparePartsRequest.id}"/>
+            <twig:NavItem:Edit route="spare_parts_request_edit" :routeParameters="{id: sparePartsRequest.id}"
+                               :security="(is_granted('FEATURE_SPARE_PARTS_REQUESTS_EDIT_FULL') or is_granted('MOO_SPR')) and sparePartsRequest.status not in ['CLOSED', 'MERGED']"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'SPR', parent_id: sparePartsRequest.id}"/>
+            <twig:NavItem:NewTask translationKey="button.new_task"
+                                  domain="messages" route="legacy_calendar"
+                                  :routeParameters="{ m: ['tasks', 'form', 'newTask'], module: 'SPR', parent_id: sparePartsRequest.legacyId }"/>
+            {% if sparePartsRequest['@type'] == 'TocSparePartsRequest' %}
+                <twig:NavItem target="_blank" icon="icon-park-outline:audit" route="technician_on_calls_show" translationKey="spare_parts_request.nav_link.toc_id"
+                              :routeParameters="{id: sparePartsRequest.technicianOnCall|iri_id}">{{ 'spare_parts_request.nav_link.toc_id' | trans([],'spare_parts_request') }} {{ sparePartsRequest.tocId }}</twig:NavItem>
+            {% endif %}
+            {% if sparePartsRequest['@type'] == 'SbSparePartsRequest' %}
+                <twig:NavItem target="_blank" icon="icon-park-outline:audit" route="legacy_product_support" translationKey="spare_parts_request.nav_link.sb_id"
+                              :routeParameters="{m: ['sb', 'view'], id: sparePartsRequest.sbId}">{{ 'spare_parts_request.nav_link.sb_id' | trans([],'spare_parts_request') }} {{ sparePartsRequest.sbId }}</twig:NavItem>
+            {% endif %}
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

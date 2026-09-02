@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/finance/currencies/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "name"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,50 @@
+App\Entity\Sales\ForecastClosure:
+    # /sales/forecast_closures/1
+    fcr_1:
+        salesForecast: "@sfr_2"
+        status: "ORDERED"
+        orderedQuantity: 12
+        comment: "aw yeah we got it!"
+        price: 666.66
+        currency: "@cur_EUR"
+        reason: LOYALTY
+        poster: "@user_basic"
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/forecast_closures/2
+    fcr_2:
+        salesForecast: "@sfr_5"
+        status: "LOST"
+        orderedQuantity: 12
+        comment: "in translation"
+        price: 666.66
+        currency: "@cur_EUR"
+        reason: PERFORMANCE
+        poster: "@user_basic"
+        competitor: "@competitor_2"
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/forecast_closures/3
+    fcr_3:
+        salesForecast: "@sfr_12"
+        status: "LOST"
+        orderedQuantity: 12
+        comment: "in translation"
+        price: 666.66
+        currency: "@cur_EUR"
+        reason: PERFORMANCE
+        poster: "@user_basic"
+        competitor: "@competitor_2"
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /sales/forecast_closures/4
+    fcr_4:
+        salesForecast: "@sfr_4"
+        status: "ORDERED"
+        orderedQuantity: 12
+        comment: "aw yeah we got it!"
+        price: 666.66
+        currency: "@cur_EUR"
+        reason: LOYALTY
+        poster: "@user_basic"
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>

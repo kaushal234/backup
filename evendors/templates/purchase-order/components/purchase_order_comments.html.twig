@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-body p-0">
+        <div class="card-header border-bottom border-1 border-dark py-2 px-1">
+            <div class="row">
+                <div class="col">
+                    <h3 class="fs-5 ps-2 text-dark my-1">{{ 'display.comments.caption'|trans }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-2">
+            {% for comment in order.comments %}
+                <div class="w-100 mx-5">
+                    <div class="py-2">
+                        <div class="mb-1">
+                            {% set date = comment.updatedAt|format_date %}
+                            {% set time = comment.updatedAt|date('H:m') %}
+                            {% set timezone = comment.updatedAt|date('e') %}
+                            {% if comment.user is null %}
+                                <span class="fw-bold text-primary">{{ get_site_name(order.supplierNumber) }}</span>
+                            {% else %}
+                                <span class="fw-bold">{{ comment.user.firstname }}</span>
+                            {% endif %}
+                            <span class="text-muted">{{ 'display.comments.date_time'|trans({date: date, time: time, timezone: timezone}) }}</span>
+                        </div>
+                        <div>
+                            <p class="m-0">{{ comment.message }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="w-100 p-3">
+                    <p class="text-center m-0 text-muted">{{ 'display.comments.empty'|trans }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [ "hydra:member", "@id" ],
+  "properties": {
+    "@id": {"pattern": "^/people$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/people/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "nickname": {
+            "type": ["string","null"]
+          },
+          "premise": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^/premises/\\d+$"
+              }
+            ]
+          },
+          "jobTitle": {
+            "type": ["string","null"]
+          },
+          "enableAt": {
+            "type": ["string", "null"]
+          },
+          "disabledAt": {
+            "type": ["string", "null"]
+          },
+          "plannedDisableAt": {
+            "type": ["string", "null"]
+          },
+          "photo": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../shared/schemas/file_light.json" }
+            ]
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "passwordUpdatedAt": {
+            "type": "string"
+          },
+          "passwordExpirationDate": {
+            "type": "string"
+          },
+          "businessUnit": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "legacyId": {"type": "integer"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "legalEntity": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "legacyId": {"type": "integer"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "contractType": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/contract_types/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "description": { "type": "string" }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "name",
+                  "description"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "coefficient": {
+            "type": ["integer", "null"]
+          },
+          "mentor": {
+            "type": ["object", "null"]
+          },
+          "mentees": {
+            "type": "array",
+            "items": {
+              "oneOf": [{"type": "object"}, { "type": "string" }]
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "firstname",
+          "lastname",
+          "email",
+          "nickname",
+          "jobTitle",
+          "photo",
+          "legacyId",
+          "username",
+          "disabledAt",
+          "plannedDisableAt",
+          "enableAt",
+          "hidden",
+          "disabled",
+          "passwordUpdatedAt",
+          "premise",
+          "passwordExpirationDate"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  }
+}

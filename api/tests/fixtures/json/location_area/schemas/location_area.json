@@ -1,0 +1,67 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "@id": {"pattern": "^/location_areas/\\d+$"},
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "factory": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/locations/\\d+$"},
+        "@type": { "type": "string" },
+        "name": { "type": "string" },
+        "company": { "type": "string" }
+      },
+      "required": [ "@id", "@type", "name", "company"],
+      "additionalProperties": false
+    },
+    "supervisor": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/people/\\d+$"},
+        "@type": { "type": "string" },
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" },
+        "email": { "type": "string" },
+        "username": { "type": "string" }
+      },
+      "required": [ "@id", "@type", "firstname", "lastname", "email", "username"],
+      "additionalProperties": false
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "toolsCount": {
+      "type": "integer"
+    },
+    "factoryAddress": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "@id",
+    "@context",
+    "@type",
+    "name",
+    "supervisor",
+    "tools",
+    "toolsCount",
+    "factory"
+  ],
+  "additionalProperties": false
+}

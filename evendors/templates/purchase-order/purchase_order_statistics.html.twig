@@ -1,0 +1,23 @@
+{% set statsList = statsList ?? ['Late', 'Unconfirmed', 'To be delivered in 7 days'] %}
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between">
+        <h3 class="fs-5 mb-0">{{ 'display.table.purchase_order.stats.title'|trans }}</h3>
+        {% if stats['Total'] is defined %}
+            <a id="ordersInProgressLink" href="/purchase-order/edit_all_delivery_date">{{ stats['Total'] }}</a>
+        {% else %}
+            <div class="spinner-border spinner-border-sm" role="status"><span class="sr-only">Loading...</span></div>
+        {% endif %}
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for stat in statsList %}
+            <li class="list-group-item d-flex justify-content-between">
+                <p class="mb-0">{{ stat }}</p>
+                {% if stats[stat] is defined %}
+                    <a href="/purchase-order/edit_all_delivery_date?state={{ stat }}">{{ stats[stat] }}</a>
+                {% else %}
+                    <div class="spinner-border spinner-border-sm" role="status"><span class="sr-only">Loading...</span></div>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

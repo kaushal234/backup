@@ -1,0 +1,64 @@
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+{% trans_default_domain 'task' %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Filter</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content  {% if filtered == false %}collapse{% endif %}">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="row  d-flex">
+                    <div class="col-sm-12 col-md-6 col-xl-2">
+                        {{ form_row(form.module) }}
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-2">
+                        {{ form_row(form.referenceId) }}
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-2">
+                        {{ form_row(form.startedBefore) }}
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-2">
+                        {{ form_row(form.startedAfter) }}
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-2">
+                        {{ form_row(form.endedBefore) }}
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-2">
+                        {{ form_row(form.endedAfter) }}
+                    </div>
+                </div>
+                <div class="row  d-flex">
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        {{ form_row(form.assignee) }}
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        {{ form_row(form.assignor) }}
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-2">
+                        {{ form_row(form.indicesFactor) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr class="hr-line-dashed">
+                        <div class="float-end">
+                            <label class="col-form-label">&nbsp;</label>
+                            <button class="btn btn-primary" type="submit">{{ 'task.fields.filter' | trans | upper }}</button>
+                            <a href="{{ path('task_home') }}" class="btn btn-secondary">{{ 'task.fields.reset'| trans | upper }}</a>
+                            {{ form_widget(form.download) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>

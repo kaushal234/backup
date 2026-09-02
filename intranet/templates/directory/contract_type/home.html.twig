@@ -1,0 +1,75 @@
+{% extends 'directory/contract_type/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+
+            {% set items = {
+                name: {
+                    label: 'fields.name'|trans([], 'messages')|capitalize,
+                },
+                description: {
+                    label: 'fields.description'|trans([], 'messages')|capitalize,
+                },
+            } %}
+
+            {% if is_granted('CONTRACT_TYPE_ADMIN_VOTER') %}
+                {% set items = items | merge ({
+                    edit: {
+                        label: 'menu.edit'|trans({}, 'messages')|capitalize,
+                        link:{
+                            route: 'contract_type_edit',
+                            content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                            params: {id: 'id'},
+                        },
+                        sortable: false,
+                        class: 'text-end'
+                    },
+                    delete: {
+                        label: 'button.delete'|trans({}, 'messages')|capitalize,
+                        link:{
+                            route: 'contract_type_delete',
+                            params: {id: '@id'},
+                            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                            fixedParams: {'_token': csrf_token('delete_contract_type')},
+                            popup: {
+                                type: 'confirmation',
+                                title: 'Confirmation',
+                                message: 'Are you sure you want to delete ?',
+                            },
+                        },
+                        class: "text-end",
+                    },
+                }) %}
+            {% endif %}
+
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: items,
+                    title: 'directory.contract_type.title.list'|trans|capitalize,
+                    data: contractTypes
+                }
+            }, with_context = false) }}
+        </div>
+        {% if is_granted('CONTRACT_TYPE_ADMIN_VOTER') %}
+            <div class="col-md-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'directory.contract_type.title.add' | trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    {{ include('directory/contract_type/partial/_form.html.twig', {
+                        form: form,
+                        action: path('contract_type_home'),
+                    }, with_context=false) }}
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+{% endblock %}

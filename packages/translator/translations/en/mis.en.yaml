@@ -1,0 +1,498 @@
+mis:
+  title: MIS
+  module: Module
+  business_unit: Location
+
+  nav_link:
+    back_to_group: Back to group
+    csv_version: CSV version
+    members: Members
+    record_review: Record a review
+
+  menu:
+    permissions: permissions
+    members: members
+    back_to_group: back to group
+
+  groups:
+    groups-title: groups list
+    group-detail: group detail
+    members_of: members of
+
+  features:
+    feature-detail: feature detail
+    name: Feature
+    title:
+      features_for: features for
+      list: Features
+      grant: Grant a feature
+
+  modules:
+    title: modules list
+    notify_moo: Notify Operational Owner
+    notify_gku: Notify Key User
+    migrated:
+      yes: Symfony
+      no: Legacy
+    migration_changelog: Migration Changelog
+    no_changelog: No changelogs File found for this module
+    hidden: Module disabled for TTS
+    enabled_for_tts: TTS Category
+    security_level: Security Level
+    security_review_frequency: Security Review Frequency
+    account_review_frequency: Account Review Frequency
+    main_admin: Main Admin
+    open_updates_tasks: Update Tasks Open
+    is_sso_activated: SSO
+    password_policy_applied: Password Policy Applied
+    last_security_review_old: Security Review
+    last_account_review_old: Account Review
+    mfa_user: MFA User
+    mfa_admin: MFA Admin
+    admin: Administrate Default Assignees
+    with_open_update_task_only: With Open Update Tasks Only
+    error:
+      edit: Something went wrong and Module could not be updated.
+      admin: Something went wrong and default assignees could not be updated.
+      add: Something went wrong and Module could not be added.
+    success:
+      edit: Module has been successfully updated.
+      admin: Default assignees have been updated.
+      add: Module has been successfully added.
+    fields:
+      front_end_route: Route
+      moo_full: Operational Owner
+      gku_full: Global Key User
+      lku_full: Local Key User
+      lku: LKU
+      moo: MOO
+      dev: MIS Owner
+      application: Application
+      key_user: GKU
+      migrated: migrated
+      disabled: Disabled for Trouble Tickets
+      mis_relative: Handled by MIS
+      dms_procedure: DMS Procedure
+      notification_color: Notification Color
+      local_key_users: Local Key Users
+      dms_help: User Guide
+      legacy_loc: Legacy Lines of Code
+      current_migration_step: Current Migration Step
+      estimated_hours: Estimated Hours
+      name: Name
+      short_desc: Short Description
+      full_desc: Description
+      department: Department
+      required_modules: Required Module
+      transfer_moo: Transfer all non closed tickets assigned to the previous MOO to the new one
+      transfer_dev: Transfer all non closed tickets assigned to the previous MIS owner to the new one
+      security_level: Security Level
+      security_review_frequency: Security review frequency (in months)
+      security_review_date_start: Security review initial date
+      account_review_date_start: Account review initial date
+      account_review_frequency: Account review frequency (in months)
+      main_admin: Main admin
+      sso: SSO
+      password_policy_applied: Password Policy Applied
+      mfa_user: MFA User
+      mfa_admin: MFA Admin
+      user: User
+      type: Type
+      types:
+        module: MODULE
+        light: THIRD PARTY APP / LIGHT
+        extended: THIRD PARTY APP / EXTENDED
+      availability: Availability
+      integrity: Integrity
+      confidentiality: Confidentiality
+      business_unit: Business unit
+      criticity:
+        low: LOW
+        high: HIGH
+        critical: CRITICAL
+    make_selection: Make your selection...
+    lines_of_code: This module has approximately %loc% lines of code in the legacy system.
+    estimated_hours: This module should take approximately %hours% hours to be migrated.
+    migration_current_step: 'Current migration step is <b>%step%</b> : <br>"%desc%"'
+    dependencies:
+      required: Module %moduleName% relies on data from these modules
+      requiring: These module relies on data from module %moduleName%
+    graph:
+      name: Tree view
+      how_to: How to read this graph
+      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a ornare purus. Donec est nibh, molestie vel iaculis vel, tristique at ligula. Ut aliquet, mi a tempor egestas, risus nunc mollis magna, at vehicula nulla enim in ligula. Integer porta urna eros, vel efficitur leo lobortis eu. Sed sit amet malesuada enim, nec mollis neque. Mauris rhoncus, purus a congue tempor, mauris quam convallis est, sit amet tempor massa metus nec urna. Cras pharetra tincidunt lacus.
+      legend: Legend
+      undefined: Analysis pending
+      migration_done: Migration done
+      dependencies_level_1: No dependencies
+      dependencies_level_2: Some dependencies
+      dependencies_level_3: More dependencies
+      dependencies_level_4: A lot of dependencies
+      register_dependency: Register a dependency
+      depends_on: depends on
+    convert:
+      module_to_light:
+        button: Convert to Third Party App / Light
+        confirmation: Are you sure you want to convert this module to Third Party App / Light ?
+      light_to_extended:
+        button: Convert to Third Party App / Extended
+        confirmation: Are you sure you want to convert this module to Third Party App / Extended ?
+      extended_to_light:
+        button: Convert to Third Party App / Light
+        confirmation: |
+          <p>Are you sure you want to convert this module to Third Party App / Light ?</p>
+          <div class="alert alert-warning">
+              This action will delete all update tasks actually in progress.<br />
+              But it will keep actual confirm members, Business Unit/Position, whitelist and blacklist.
+          </div>
+
+  changelog:
+    title: MIS Developments Releases
+    title_edit: Edit Change Log
+    fields:
+      date: Date
+      module: Module
+      type: Type
+      description: Description
+      author: Author
+      ticket: TTS
+    message:
+      success:
+        edit: The change log has been successfully updated.
+
+  downloads: Downloads
+  development: Development
+  maintain_projects: Maintain Projects
+  admin: Admin
+  open_ticket: Open a ticket
+  download_members: Download members
+  access_list: Access list
+  third_party_apps: Third Party Apps
+
+  gitlab:
+    graph_title: MR merged and approved
+    graph_approvers_title: MR approvals by approver
+    report_title: Merged merge requests
+    quantity: Quantity
+    approved: Approved
+    not_approved: Not approved
+    merged_at: Merged at
+    errors:
+      gitlab_api_error: "GitLab API error: "
+
+  authorized_applications:
+    title: Authorized Applications
+    title_singular: Authorized Application
+    new: Register a new application
+    messages:
+      delete_success: The Authorized Application has been successfully removed
+      creation_success: The Authorized Application %application% has been successfully created.
+      key: |
+        <p>Please find the authorization key for the application "%application%" below.</p>
+        <p>Please copy this key now because it is not stored in our system. The application can now access some endpoints of our API by passing this key in the Authorization header, prefixed by "Bearer "<br>Example: <kbd>Authorization: Bearer {KEY}</kbd>)</p>
+    fields:
+      name: Application Name
+      key: Authorization Key
+      disabled: Active
+      key_expires_on: Key expiration date
+
+  specification:
+    add_specification: Add specification
+    add_success: Specification adding with success
+    add_user_story: Add user story
+    create: Create user story
+    createdBy: Created by
+    delete_success: User story delete with success
+    download: Download
+    edit: Edit user story
+    file_title : User story files
+    files: Upload files
+    jira : send to jira
+    list_title: List of user stories
+    loading: Loading ...
+    message: Message
+    module_name: Module Name
+    notification: Notification
+    specification: Specification
+    status: status
+    Pending: Pending
+    planned: Planned
+    development: Development
+    validated: Validated
+    testing: Testing
+    state:
+      building: Building
+      development: Development
+      production: Production
+      pending: Pending
+      planned: Planned
+      testing: Testing
+      validated: Validated
+      update_success: The status has been updated.
+      update_error: It was not possible to update the status.
+    button:
+      add_stories: Add Stories
+      close_all: Close All
+      edit: Edit
+      jira: Send to JIRA
+      file: File
+      notified: Notified
+      delete: Delete
+      status: Update status
+      duplicate: Duplicate
+    tabs:
+      user_story: User story
+      comments: Comments
+      role: Role
+      email:
+        recipient_access : Recipient access
+        copy_access : Copy access
+        other_people_notified : Other people notified
+        notify_followers : Notify followers
+      roles:
+        role_accesses: Role accesses
+        people_property: People property
+    category:
+      create: Create
+      read: Read
+      update: Update
+      delete: Delete
+      report: Report
+      email: Email
+      status: Status
+    user_story_form:
+      message: Message
+      create: Create user story for
+      edit: Edit user story for
+      category: Category
+      submitter: Submitter
+      follower: Follower
+      role: Role
+      location: Location property
+      people_property: People property
+      user_story: User story
+      checkboxEmail: Check if the user story will send an email
+      checkboxNotification: Check if the user story will send an notification
+      role_access: Role Access
+      recipient_notify: Recipient to emailing
+      copy_notify: Copy to emailing
+      object_email: Email Object
+      email: Email Body
+
+      role_to_notify: Role to notify
+      security: Security
+      email_recipients: Recipients to emailing
+      saved: User story successfully saved
+      update: User story successfully update
+      errors:
+        category: Category is mandatory.
+        user_story: User story is mandatory.
+      btn:
+        add: Add user story
+        edit: Edit story
+
+  reports:
+    satisfaction_by_month: Last 12 months TTS satisfaction
+    satisfaction_by_week: Last 12 weeks TTS satisfaction
+    status_by_week:
+      title: TTS by Status, by Week, of types Request and Incident, status Sunday of each week
+      helper: Last 3 months, only filtrable by application
+    status_by_month:
+      title: TTS by Status, by Month, of types Request and Incident, status last Sunday of the month
+      helper: Last year, only filtrable by application
+    type_by_module: TTS by Type, by Module
+    incident_by_module: Incident TTS by Module
+    request_by_module: Request TTS by Module
+    top10_modules_by_type: Top 10 Modules by TTS (Incident & Request)
+
+  security_review:
+    title: Security Reviews
+    add_title: Add new security review
+    buttons:
+      add: Record a review
+    fields:
+      security_level_comment: Security level comment
+      is_password_policy_applied: Is password policy applied according to DMS***
+      is_mfa_admin_applied: Is MFA in place for admin accounts
+      is_mfa_user_applied: Is MFA in place for all users
+      comment: Comment from security review
+      created_at: Review date
+      created_by: Review by
+    success:
+      added: Security review added
+    error:
+      added: Cannot add review
+    alert_confirm: You will not be able to change it later. Are you sure ?
+
+  account_review:
+    title: Account reviews
+    add_title: Add new account review
+    buttons:
+      add: Record a review
+    fields:
+      count_start_admin_users: Number of Admin users at beginning of the review
+      count_end_admin_users: Number of Admin users at the end of the review
+      admins_comment: Main reason of discrepancy
+      admin_accounts_confirmed: Confirm the admin accounts are relevant, and there is no useless admin account granted.
+      count_app_users: Number of users in 3rd App at the start of the review (Only relevant for "Third Party App/Extended")
+      count_start_members: Number of actual users setup within the application at the start of the review
+      count_end_members: Number of actual user accounts within the application at the end of the review
+      count_disabled_accounts: Number of accounts disabled during the review
+      disabled_accounts_comment: Main reason of discrepancy for disabling account
+      count_enabled_accounts: Number of accounts activated during the review
+      enabled_accounts_comment: Main reason of discrepancy for enabling account
+      user_accounts_confirmed: I confirmed that all accounts granted in the 3rd party App are relevant and in line with the confirmed users in the Intranet.
+    columns:
+      created_at: Review date
+      created_by: Review by
+      count_start_admin_users: Number of admins (start)
+      count_end_admin_users: Number of admins (end)
+      admin_accounts_confirmed: Admin accounts confirmed
+      count_app_users: Number of users
+      user_accounts_confirmed: Users account confirmed
+      count_start_members: Number of members (start)
+      count_end_members: Number of members (end)
+      count_disabled_accounts: Accounts disabled
+      count_enabled_accounts: Accounts enabled
+    success:
+      added: Account review added
+    error:
+      added: Cannot add review
+    alert_confirm: You will not be able to change it later. Are you sure ?
+
+  update_task:
+    title: Update tasks
+    pending_update_task_button: Pending Tasks
+    fields:
+      user: User
+      location: Location
+      business_unit: Business unit
+      origin_type: Origin type
+      demand_type: Demand type
+      actions: Actions
+      created_at: Task created at
+      updated_at: Task updated at
+      updated_by: Task updated by
+      module_name: Name
+      third_party_app: Third Party App
+      status: Status
+      arrivalOrDeparture: Arrival/Departure
+      comment: Comment
+    buttons:
+      sync_update_tasks: Synchronize update tasks
+      confirmed: Confirmed
+      denied: Denied
+      pending: Pending
+      completed: Completed
+
+    success:
+      grant_access_accepted: Task granted access accepted successfully
+      grant_access_denied: Task granted access denied successfully
+      remove_access_accepted: Task remove access accepted successfully
+      remove_access_denied: Task remove access denied successfully
+      sync: Update tasks are synchronized
+    error:
+      grant_access_accepted: Task granted access accepted not successfully
+      grant_access_denied: Task granted access denied not successfully
+      remove_access_accepted: Task remove access accepted not successfully
+      remove_access_denied: Task remove access denied not successfully
+      sync: Error when syncing update tasks
+    confirm_modal:
+      grant_confirmed:
+        button: Confirmed
+        target:
+          button: Yes, confirmed
+          message: |
+            By clicking <strong>confirm</strong> you certify that the user <strong>userLastname userFirstname</strong> access to the application <strong>moduleName</strong> is actually granted.
+      grant_denied:
+        button: Denied
+        target:
+          button: Yes, denied
+          message: |
+            By clicking <strong>deny</strong> you certify that you refuse to create an account for <strong>userLastname userFirstname</strong> to the application <strong>moduleName</strong>.<br /> The system will then update the rules setup for this user accordingly.
+      remove_confirmed:
+        button: Confirmed
+        target:
+          button: Yes, confirmed
+          message: |
+            By clicking <strong>confirm</strong> you certify that the user <strong>userLastname userFirstname</strong> access to the application <strong>moduleName</strong> is actually disabled.
+      remove_denied:
+        button: Denied
+        target:
+          button: Yes, denied
+          message: |
+            By clicking <strong>deny</strong> you certify that the user <strong>userLastname userFirstname</strong> access to the application <strong>moduleName</strong> is actually maintened.<br /> The system will then update the rules setup for this user accordingly.
+
+  business_unit_position:
+    title: Business Unit / Position
+    fields:
+      position: Position
+      business_unit: Business Unit
+    delete:
+      popup:
+        title: Confirmation
+        message: Are you sure you want to remove this Business Unit / Position ?
+    success:
+      added: Business unit position added
+      remove: Business unit / position removed successfully
+    error:
+      remove: Cannot remove business unit / position
+      remove_form: 'Cannot remove business unit / position: please refresh your form'
+
+  whitelist:
+    title: Whitelist
+    delete:
+      popup:
+        title: Confirmation
+        message: Are you sure you want to remove this user from whitelist ?
+    success:
+      added: User added to whitelist
+      removed: User removed from whitelist
+    error:
+      removed: Cannot delete user
+
+  blacklist:
+    title: Blacklist
+    delete:
+      popup:
+        title: Confirmation
+        message: Are you sure you want to remove this user from blacklist ?
+    success:
+      added: User added to blacklist
+      removed: User removed from blacklist
+    error:
+      removed: Cannot delete user
+
+  member:
+    title: Members
+    add_administrator: Add administrator
+    fields:
+      user: User
+      business_unit: Business Unit
+      position: Position
+      admin: Admin
+    success:
+      admin_added: Administrator added
+      admin_removed: Administrator removed
+      removed: User deleted successfully
+      new_task: New update task created
+    error:
+      admin_added: Cannot add administrator
+      remove_user: Cannot delete user
+    filter:
+      admin: Show administrators only
+      user: Search user
+    buttons:
+      promote: Promote this member to administrator
+      demote: Demote this administrator to member
+  guest_user:
+    title: Guest Users
+    fields:
+      needs_collaboration_access: Needs collaboration access
+      update_tasks_ratio: Update tasks
+    add:
+      title: Add Guest User
+      success: Guest user successfully added.
+    edit:
+      title: Edit Guest User
+      success: Guest user successfully edited.

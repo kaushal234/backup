@@ -1,0 +1,31 @@
+App\Entity\Quality\LocationArea:
+  iasi:
+    id: 1
+    name: iasi
+    factory: "@location_404"
+    supervisor: "@user_superuser"
+  vaslui:
+    id: 2
+    name: vaslui
+    factory: "@location_3"
+    supervisor: "@user_superuser"
+  botosani:
+    id: 3
+    name: botosani
+    factory: "@location_3"
+    supervisor: "@user_superuser"
+  bacau:
+    id: 4
+    name: bacau
+    factory: "@location_4"
+    supervisor: "@user_hr"
+  with_transferred_supervisor:
+    id: 5
+    name: transferred
+    factory: "@location_4"
+    supervisor: "@user_transferred"
+  locationArea_{1..20}:
+    id: <($current + 5)>
+    name: locationArea <current()>
+    factory: "@location_3"
+    supervisor: "@user_superuser"

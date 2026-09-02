@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.title.technician_on_call'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.customer_portal'|trans,
+        hero_title: 'extranet.title.technician_on_call'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.title.technician_on_call'|trans|capitalize }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="section-head">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.title.customer_portal'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.title.technician_on_call'|trans }}</h2>
+                    {% if is_granted(constant('App\\Security\\Voter\\TechnicianOnCallVoter::CREATE')) %}
+                        <br>
+                        <a class="btn btn-outline-primary" href="{{ path('technician_on_call:create') }}">{{ 'extranet.form.create_toc' | trans | upper }}</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Kreyu datatable — unchanged data plumbing #}
+            <div class="dt-wrap">
+                {{ data_table(datatable) }}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

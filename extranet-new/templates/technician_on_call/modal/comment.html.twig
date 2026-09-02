@@ -1,0 +1,34 @@
+{% set form = create_toc_comment_add_form(technicianOnCall) %}
+<div class="modal fade" id="new_comment_modal" tabindex="-1" aria-labelledby="new_comment_modal_label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content info-card border-0">
+            {{ form_start(form) }}
+            <div class="info-head">
+                <span class="ph-bar"></span>
+                <h3 id="new_comment_modal_label">{{ 'display.comments.form.new.caption'|trans }}</h3>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="info-body">
+                <div class="field-grid">
+                    <div class="field-block full">
+                        {{ form_label(form.message) }}
+                        {{ form_widget(form.message) }}
+                    </div>
+                    <div class="field-block full" data-controller="file-input" data-file-input-empty-value="{{ 'display.comments.form.new.file.empty'|trans }}">
+                        {{ form_label(form.file) }}
+                        {{ form_widget(form.file) }}
+                        <div class="input-group">
+                            <button type="button" class="btn btn-outline-secondary" data-action="file-input#browse">{{ 'display.comments.form.new.file.choose'|trans }}</button>
+                            <span class="form-control text-muted text-truncate" data-file-input-target="filename">{{ 'display.comments.form.new.file.empty'|trans }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-outline-tld" style="height:52px" data-bs-dismiss="modal">{{ 'display.comments.form.new.hide'|trans }}</button>
+                <button type="submit" class="btn-find" id="{{ form.vars.id }}_new_submit">{{ 'display.comments.form.new.submit'|trans }}</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

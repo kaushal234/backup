@@ -1,0 +1,128 @@
+doctrine:
+    dbal:
+        types:
+            nullable_zero_date: App\Doctrine\Type\NullableZeroDateType
+        connections:
+            default:
+                driver: 'pdo_mysql'
+                server_version: 10.11.14-MariaDB
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_unicode_ci
+                url: '%env(resolve:DATABASE_URL)%%env(default::DB_DISCRIMINATOR)%'
+                schema_filter: '~^(?!messenger_messages)~'
+            legacy:
+                driver: 'pdo_mysql'
+                server_version: 10.11.14-MariaDB
+                charset: utf8
+                default_table_options:
+                    charset: utf8
+                    collate: utf8_unicode_ci
+                url: '%env(resolve:LEGACY_DATABASE_URL)%%env(default::DB_DISCRIMINATOR)%'
+            wordpress:
+                driver: 'pdo_mysql'
+                server_version: 10.11.14-MariaDB
+                charset: utf8
+                default_table_options:
+                    charset: utf8
+                    collate: utf8_unicode_ci
+                url: '%env(resolve:WP_DATABASE_URL)%'
+    orm:
+        auto_generate_proxy_classes: true
+        enable_lazy_ghost_objects: true
+        controller_resolver:
+            auto_mapping: false
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
+                    gedmo_translatable:
+                        type: attribute
+                        prefix: Gedmo\Translatable\Entity
+                        dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Translatable/Entity"
+                        alias: GedmoTranslatable
+                        is_bundle: false
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                filters:
+                    softdeleteable:
+                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                        enabled: true
+                    public_files:
+                        class: App\Doctrine\Filter\PublicFileFilter
+                        enabled: false
+                dql:
+                    datetime_functions:
+                        period_diff: DoctrineExtensions\Query\Mysql\PeriodDiff
+                        date_format: DoctrineExtensions\Query\Mysql\DateFormat
+                        now: DoctrineExtensions\Query\Mysql\Now
+                        ceil: DoctrineExtensions\Query\Mysql\Ceil
+                        ifelse: DoctrineExtensions\Query\Mysql\IfElse
+                        timestamp_diff: DoctrineExtensions\Query\Mysql\TimestampDiff
+                        cast: DoctrineExtensions\Query\Mysql\Cast
+                        MONTH: DoctrineExtensions\Query\Mysql\Month
+                        YEAR: DoctrineExtensions\Query\Mysql\Year
+                        ROUND: DoctrineExtensions\Query\Mysql\Round
+                    string_functions:
+                        MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
+                        TYPE: App\Doctrine\Query\TypeFunction
+                    numeric_functions:
+                        FLOOR: DoctrineExtensions\Query\Mysql\Floor
+            legacy:
+                connection: legacy
+                mappings:
+                    LegacyBundle:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/LegacyBundle/Entity'
+                        prefix: 'LegacyBundle\Entity'
+                        alias: LegacyBundle
+                dql:
+                    datetime_functions:
+                        now: DoctrineExtensions\Query\Mysql\Now
+
+when@dev:
+    doctrine:
+        dbal:
+            connections:
+                default:
+                    profiling_collect_backtrace: false
+
+when@test:
+    doctrine:
+        dbal:
+            connections:
+                default:
+                    profiling: true
+                    logging: true
+                legacy:
+                    profiling: true
+                    logging: true
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            metadata_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/people/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "username": {
+      "type": "string"
+    },"department": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "@id",
+            "@type",
+            "name"
+          ],
+          "properties": {
+            "@id": {"type": "string", "pattern": "^/departments/\\d+$"},
+            "@type": {"type": "string", "pattern": "^Department$"},
+            "name": {"type": "string"}
+          }
+        }
+      ]
+    },
+    "businessUnit": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "@id",
+            "@type",
+            "name"
+          ],
+          "properties": {
+            "@id": {"type": "string", "pattern": "^/business_units/\\d+$"},
+            "@type": {"type": "string", "pattern": "^BusinessUnit$"},
+            "name": {"type": "string"}
+          }
+        }
+      ]
+    },
+    "erpIdentifier": {
+      "type": ["string","null"]
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "firstname",
+    "lastname",
+    "email",
+    "username",
+    "department",
+    "businessUnit",
+    "erpIdentifier"
+  ],
+  "additionalProperties": false
+}

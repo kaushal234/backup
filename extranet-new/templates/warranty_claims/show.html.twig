@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WC #{{ warranty_claim.id }} — {{ 'extranet.title.warranty_claim_details'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.my_warranty_claims'|trans,
+        hero_title: 'WC #' ~ warranty_claim.id,
+        hero_sub: warranty_claim.status ~ (warranty_claim.claimDate ? ' · ' ~ warranty_claim.claimDate|date('Y-m-d') : ''),
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.title.my_warranty_claims'|trans, href: path('warranty_claim:index') },
+            { label: 'WC #' ~ warranty_claim.id }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            <div class="row g-4 mb-4 et-tables">
+                <div class="col-12 col-md-6">
+                    <h2 class="section-title mb-3">{{ 'general_information'|trans }}</h2>
+                    {% embed '_components/association_table.html.twig' with {
+                        associationData: {
+                            title: '',
+                            items: {
+                                id: { label: 'WC#' },
+                                claimDate: {
+                                    label: 'display.table.vwc_wc.header.claimDate'|trans,
+                                    filters: 'date("Y-m-d")'
+                                },
+                                status: { label: 'fields.status'|trans },
+                                enteredByUsername: { label: 'display.table.vwc_wc.header.enteredBy'|trans },
+                            },
+                            data: warranty_claim
+                        }
+                    } %}
+                    {% endembed %}
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <h2 class="section-title mb-3">{{ 'extranet.fields.equipments'|trans }}</h2>
+                    {% embed '_components/association_table.html.twig' with {
+                        associationData: {
+                            title: '',
+                            items: {
+                                serialNumber: {
+                                    label: 'calibration_tools.tools.fields.serialNumber'|trans,
+                                    template: 'warranty_claims/partial/_serial_number.html.twig'
+                                },
+                                type: { label: 'display.table.vwc.headers.type'|trans },
+                                equipmentModel: { label: 'display.table.vwc_wc.header.model'|trans },
+                                equipmentLocation: { label: 'display.table.vwc_wc.header.equipmentLocation'|trans },
+                                equipmentHours: { label: 'display.table.vwc_wc.header.hours'|trans },
+                            },
+                            data: warranty_claim
+                        }
+                    } %}
+                    {% endembed %}
+                </div>
+            </div>
+
+            <div class="et-tables">
+                <h2 class="section-title mb-3">{{ 'extranet.title.warranty_claim_details'|trans }}</h2>
+                {% embed '_components/association_table.html.twig' with {
+                    associationData: {
+                        title: '',
+                        items: {
+                            claimantDetails: { label: 'display.table.vwc_wc.header.claimantDetails'|trans },
+                            details: { label: 'market_intelligence.fields.description'|trans({}, 'market_intelligence') },
+                            description: { label: 'display.table.vwc_ncr.header.problem_description'|trans({}, 'messages') },
+                        },
+                        data: warranty_claim
+                    }
+                } %}
+                {% endembed %}
+            </div>
+
+            {% if warranty_claim.parts is not empty %}
+                <div class="et-tables mt-4">
+                    <h2 class="section-title mb-3">{{ 'extranet.title.shipped_parts'|trans }}</h2>
+                    {{ include('_components/report_table.html.twig', {
+                        reportTable: {
+                            title: '',
+                            items: {
+                                sprCreatedAt: {
+                                    label: 'extranet.fields.spr_created_at'|trans,
+                                    preserveNull: true,
+                                    filters: 'date("Y-m-d")',
+                                },
+                                partNumber: { label: 'extranet.fields.part_number'|trans },
+                                partDescription: { label: 'extranet.fields.designation'|trans },
+                                quantity: { label: 'extranet.fields.quantity'|trans },
+                                unitOfMeasure: { label: 'extranet.fields.unit_of_measure'|trans },
+                                sprNumber: { label: 'extranet.fields.spr_number'|trans, preserveNull: true },
+                                sprStatus: { label: 'extranet.fields.spr_status'|trans, preserveNull: true },
+                            },
+                            data: warranty_claim.parts,
+                        }
+                    }, with_context = false) }}
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+</div>
+{% endblock %}

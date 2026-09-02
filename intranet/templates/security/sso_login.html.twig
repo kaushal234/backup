@@ -1,0 +1,33 @@
+{% extends 'security/layout_login.html.twig' %}
+{% trans_default_domain 'security' %}
+
+{% block content %}
+
+    <div class="passwordBox animated fadeInDown">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox-content">
+                    <h2 class="font-bold">{{ 'security.sso-link'|trans }}</h2>
+                    <p>{{ 'security.sso-title'|trans }}</p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% form_theme form 'form_theme_vertical.html.twig' %}
+                            {{ form_start(form) }}
+
+                            <div>
+                                {{ form_row(form.email, { 'attr': {'placeholder': 'security.fields.placeholder' | trans } }) }}
+                                <p>{{ 'security.sso_message' | trans }}</p>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary block full-width m-b mt-4">{{ 'security.fields.continue' | trans([], 'security') }}</button>
+                            </div>
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

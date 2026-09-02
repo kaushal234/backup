@@ -1,0 +1,37 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+fos_ck_editor:
+  base_path: "build/ckeditor"
+  js_path: "build/ckeditor/ckeditor.js"
+  default_config: simple
+  configs:
+    simple:
+      toolbar: "simple"
+      uiColor: "#ffffff"
+    minimal_toolbar:
+      toolbar: [
+        [ 'Bold', 'Italic', 'Underline', 'Strike', "RemoveFormat" ],
+        [ 'NumberedList', 'BulletedList', "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock"],
+        [ "Link", "Unlink"],
+        [ "Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "Undo", "Redo" ],
+      ]
+      height: 0
+      autoGrow_onStartup: true
+      autoGrow_minHeight: 100
+      autoGrow_maxHeight: 500
+      removePlugins: 'elementspath'
+      resize_enabled: true
+      extraPlugins: 'autogrow'
+      autoGrow_bottomSpace: 0
+  toolbars:
+    configs:
+      simple: [ "@text", "@link", "@format" , "@tool" ]
+    items:
+      text: [ "Bold", "Italic", "Underline", "Strike", "RemoveFormat" ]
+      format: [ "NumberedList", "BulletedList", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock" ]
+      link: [ "Link", "Unlink"]
+      tool: [ "Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "Undo", "Redo" ]

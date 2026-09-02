@@ -1,0 +1,28 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <p>{{ 'manufacturing.equipment_record.green_tag_date.message'|trans({
+                '%serialNumber%': equipmentRecord.serialNumber|default(''),
+                '%model%': equipmentRecord.model|default(''),
+                '%customerName%': equipmentRecord.endUser.name|default(''),
+                '%project%': equipmentRecord.project|default(''),
+                '%workOrder%': equipmentRecord.workOrder|default(''),
+            }, 'emails')|nl2br }}</p>
+        <ul>
+            <li>{{ 'manufacturing.equipment_record.green_tag_date.update_gt'|trans({
+                    '%newGreenTagDate%': equipmentRecord.greenTagDate | date('Y-m-d'),
+                    '%previousGreenTagDate%': previousGreenTagDate,
+                }, 'emails')|nl2br }}</li>
+            <li>{{ 'manufacturing.equipment_record.green_tag_date.link_fms_contract'|trans}}</li>
+            <ul>
+                <li>{{ 'manufacturing.equipment_record.contract_fms'|trans}} : {{ equipmentRecord.contractFMS }}</li>
+                <li>{{ 'manufacturing.equipment_record.link_status'|trans}} : {{ (equipmentRecord.tldLink == true) ? 'YES' : 'NO' }}</li>
+                <li>{{ 'manufacturing.equipment_record.sim_card_status'|trans}} : {{ (equipmentRecord.simCardStatusActive == true) ? 'ACTIVE' : 'INACTIVE' }}</li>
+                <li>{{ 'manufacturing.equipment_record.fms_end_use_date'|trans}} : {{ equipmentRecord.calculatedFmsEndUseDate }}</li>
+            </ul>
+        </ul>
+    </row>
+{% endblock %}

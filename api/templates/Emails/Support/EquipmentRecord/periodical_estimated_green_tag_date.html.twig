@@ -1,0 +1,112 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        {{ include('/Helpers/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    serialNumber: {
+                        label:'ncr.fields.serial_number'|trans,
+                        properties: ['equipmentRecord.serialNumber'],
+                        link:{
+                            route: 'legacy_product_support',
+                            params: {'id':'equipmentRecord.legacyId'},
+                            fixedParams: {'m':['equipment', 'view']}
+                        },
+                    },
+                    buyer: {
+                        label:'sor.pending_summary.header.buyer'|trans,
+                        properties: ['equipmentRecord.buyer.name'],
+                    },
+                    endUser: {
+                        label:'sor.pending_summary.header.end_user'|trans,
+                        properties: ['equipmentRecord.endUser.name'],
+                    },
+                    model: {
+                        label:'print.model'|trans,
+                        properties: ['equipmentRecord.model'],
+                    },
+                    factory: {
+                        label:'demo.fields.factory'|trans,
+                        properties: ['equipmentRecord.manufacturerLocation.name']|default(''),
+                    },
+                    solLegacyId: {
+                        label: 'manufacturing_margin.fields.sol'|trans([], 'emails')|capitalize,
+                        properties: ['equipmentRecord.orderFactory.orderLine.legacyId'],
+                        link:{
+                            route: 'legacy_sales',
+                            params: {'id':'equipmentRecord.orderFactory.orderLine.legacyId'},
+                            fixedParams: {'m':['sol', 'view']},
+                        },
+                    },
+                    requestedDeliveryDate: {
+                        label: 'sales_order.factory_order.requested_delivery_date'|trans({}, 'sales_orders')|capitalize,
+                        filters: 'date("Y-m-d")',
+                        properties: ['equipmentRecord.orderFactory.requestedDeliveryDate'],
+                        preserveNull: true,
+                    },
+                    firstEstimatedGreenTagDate: {
+                        label:'manufacturing.equipment_record.first_estimated_gt'|trans,
+                        properties: ['equipmentRecord.firstEstimatedGreenTagDate'],
+                        filters: ["date('Y-m-d')"],
+                        preserveNull: true,
+                    },
+                    previousEstimatedGreenTagDate: {
+                        label:'manufacturing.equipment_record.previous_estimated_gt'|trans,
+                        properties: ['changeSet.estimatedGreenTagDate.0'],
+                        filters: ["date('Y-m-d')"],
+                    },
+                    newEstimatedGreenTagDate: {
+                        label:'manufacturing.equipment_record.new_estimated_gt'|trans,
+                        properties: ['changeSet.estimatedGreenTagDate.1'],
+                        filters: ["date('Y-m-d')"],
+                    },
+                    gapEstimatedGTD: {
+                        label:'manufacturing.equipment_record.gap_gt'|trans,
+                        properties: ['changeSet.gapGreenTag'],
+                        template : 'Emails/Support/EquipmentRecord/_partials/gap_estimated_green_tag_date.html.twig',
+                    },
+                    factoryPromisedDeliveryDate: {
+                        label: 'sales_order.factory_order.factory_promised_delivery_date'|trans({}, 'sales_orders')|capitalize,
+                        filters: 'date("Y-m-d")',
+                        properties: ['equipmentRecord.orderFactory.factoryPromisedDeliveryDate'],
+                        preserveNull: true,
+                    },
+                    gapCustomerPromise: {
+                        label:'sales_order.factory_order.gap_promised_gtd'|trans({}, 'sales_orders')|capitalize,
+                        properties: ['equipmentRecord.orderFactory.gapPromiseGreenTag'],
+                        template : 'Emails/Support/EquipmentRecord/_partials/gap_promise_green_tag_date.html.twig',
+                    },
+                    incoterm: {
+                        label: 'equipment_shipping_record.fields.incoterm'|trans({}, 'equipment_shipping_record')|capitalize,
+                        properties: ['equipmentRecord.orderFactory.orderLine.incoterm.code']
+                    },
+                    inspection: {
+                        properties: ['equipmentRecord.orderFactory.orderLine.inspection'],
+                        label: 'support.equipment_record.fields.inspection'|trans([], 'support')|capitalize,
+                        boolean: { true: 'Yes', false: 'No' },
+                    },
+                    estimatedPickUpDate: {
+                        label: 'equipment_shipping_record.fields.line.estimated_pick_up_date'|trans({}, 'equipment_shipping_record'),
+                        filters: ["date('Y-m-d')"],
+                        properties: ['equipmentRecord.lastEquipmentShippingRecordsLine.estimatedPickUpDate'],
+                        preserveNull: true,
+                    },
+                    vesselLoadingDate: {
+                        label: 'equipment_shipping_record.fields.line.vessel_loading_date'|trans({}, 'equipment_shipping_record'),
+                        filters: ["date('Y-m-d')"],
+                        properties: ['equipmentRecord.equipmentShippingRecordLines.0.vesselLoadingDate'],
+                        preserveNull: true,
+                    },
+                },
+                data: equipmentRecords,
+                title: ''
+            },
+        }, with_context = false) }}
+    </row>
+    <p class="text-center">
+        <a href={{ url('odp') }}>{{ 'manufacturing.equipment_record.link_odp' | trans({}, 'emails') }}</a>
+    </p>
+{% endblock %}

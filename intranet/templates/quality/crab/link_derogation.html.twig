@@ -1,0 +1,29 @@
+{% extends 'quality/crab/layout.html.twig' %}
+{% trans_default_domain 'crab' %}
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'crab.title.link_derogation' | trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="row">
+                        <div class="col-md-8">
+                            {{ form_row(form.derogation) }}
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

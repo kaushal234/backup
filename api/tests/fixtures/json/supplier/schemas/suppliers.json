@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/purchasing/suppliers"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/purchasing/suppliers/\\d+$"},
+          "@type": { "type": "string" },
+          "id": {"type": "integer"},
+          "status": { "type": "string" },
+          "name": { "type": "string" },
+          "code": { "type": "string" },
+          "location": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+            ]
+          },
+          "country": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../country/schemas/country_list.json"}
+            ]
+          },
+          "currency": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../finance_currency/schemas/currency.json"}
+            ]
+          },
+          "buyFrom": {
+            "type": "array",
+            "items": {
+              "$ref": "supplier_location.json"
+            }
+          },
+          "masterBuyer": {
+            "oneOf": [
+              {"type": "null"},
+              { "$ref": "../../directory_people/schemas/directory_people_public.json" }
+            ]
+          }
+        },
+        "required": ["@id", "@type", "id","name", "status", "code", "currency", "buyFrom", "masterBuyer"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

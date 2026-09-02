@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+    <main class="d-flex align-items-center justify-content-center error-center">
+        <div class="px-4 py-4 d-flex flex-column justify-content-center rounded-2 page-hero" style="max-width:540px">
+            <img src="{{ asset('images/logo.svg') }}" alt="ALVEST / TLD" height="36" class="logo-white">
+            <span class="display-1 fw-bold">500</span>
+            <h1 class="h4 fw-semibold mb-2">{{ 'extranet.error.internal_server_error'|trans }}</h1>
+            <p>{{ 'extranet.error.internal_server_error_message'|trans }}</p>
+        </div>
+    </main>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/evendors_news/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "@context": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "publishedAt": {
+      "type": "string"
+    },
+    "unpublishedAt": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": ["string", "null"]
+    },
+    "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+    "factories": {
+      "type": "array",
+      "items": {
+        "$ref": "../../directory_location/schemas/directory_location_public.json"
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "@context",
+    "content",
+    "publishedAt",
+    "unpublishedAt",
+    "createdAt",
+    "updatedAt",
+    "factories",
+    "files",
+    "createdBy"
+  ],
+  "additionalProperties": false
+}

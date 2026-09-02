@@ -1,0 +1,75 @@
+@use "variables" as tldvars;
+
+.report-table-with-filter {
+  padding-bottom: 0;
+
+  #filter {
+    margin-bottom:  20px;
+  }
+
+  .table-responsive {
+    clear: both;
+  }
+}
+
+.ibox-content .search-table {
+  margin-bottom: 12px;
+  .input-group-text {
+    background: tldvars.$tldBlue;
+    color: #FFF;
+  }
+}
+
+.report-table {
+  margin-bottom: 0;
+
+  td.nowrap {
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: 4px 6px 3px!important;
+    vertical-align: middle !important;
+  }
+
+  th {
+    background: tldvars.$tldBlue;
+    color: white;
+  }
+
+  td > a {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .footable-row-detail-cell {
+    width: 92.25%;
+  }
+
+  .footable-row-detail-name {
+    font-weight: bold;
+  }
+
+  .footable-row-detail-value {
+    width: 1000px;
+    text-align: justify;
+    padding-left: 20px;
+  }
+
+  .btn {
+    margin-bottom: 2px;
+  }
+}
+
+.bg-primary {
+  background-color: tldvars.$tldBlue;
+}
+.tld-table-wrapper-sticky{
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.tld-header-sticky{
+  position: sticky;
+  top: 0;
+}

@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/continents/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "isoCode2": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "@id",
+    "@type",
+    "isoCode2",
+    "name"
+  ]
+}

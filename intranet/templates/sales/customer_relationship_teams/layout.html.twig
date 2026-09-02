@@ -1,0 +1,27 @@
+{% extends 'sales/layout.html.twig' %}
+{% trans_default_domain 'customer_relationship_team' %}
+
+{% block title %}{{ parent() }} \ {{ 'customer_relationship_team.title.show' | trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="customer_relationship_team_add"
+                          :security="is_granted('FEATURE_CUSTOMER_RELATIONSHIP_TEAM_WRITE')"/>
+        {% if customerRelationshipTeam.id is defined and customerRelationshipTeam.id is not null %}
+            <twig:NavItem:Details route="customer_relationship_team_show"
+                                  :routeParameters="{'id': customerRelationshipTeam.id}"/>
+            <twig:NavItem:Edit route="customer_relationship_team_edit"
+                               :routeParameters="{'id': customerRelationshipTeam.id}"
+                               :security="is_granted('FEATURE_CUSTOMER_RELATIONSHIP_TEAM_WRITE', customerRelationshipTeam['@id'])"/>
+            <twig:NavItem:Duplicate route="sales_crt_duplicate" :routeParameters="{'id': customerRelationshipTeam.id}"
+                                    :security="is_granted('FEATURE_CUSTOMER_RELATIONSHIP_TEAM_WRITE', customerRelationshipTeam['@id'])"/>
+            <twig:NavItem:Delete route="customer_relationship_team_delete"
+                                 :routeParameters="{'id': customerRelationshipTeam.id}"
+                                 :security="is_granted('FEATURE_CUSTOMER_RELATIONSHIP_TEAM_WRITE', customerRelationshipTeam['@id'])"/>
+            <twig:NavItem translationKey="customer_relationship_team.nav_link.task" icon="mdi-light:calendar"
+                          route="legacy_calendar"
+                          :routeParameters="{ m: ['tasks', 'task', 'view'], id: customerRelationshipTeam.taskId }"
+                          :security="customerRelationshipTeam.taskId is not null"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

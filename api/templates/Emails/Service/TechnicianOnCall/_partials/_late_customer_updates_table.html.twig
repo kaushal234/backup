@@ -1,0 +1,49 @@
+{#
+ Variables:
+   - tocs (array<TechnicianOnCall>, required)
+   - lastExternalLogAtByTocId (array<int, DateTimeInterface|null>, required)
+   - daysSinceLastExternalLogByTocId (array<int, int>, required)
+#}
+<div class="report-table-bordered">
+{{ include('/Helpers/_report_table.html.twig', {
+    reportTable: {
+        items: {
+            id: { label: 'TOC#' },
+            sso: { label: 'SSO', properties: ['salesOrganisationService.name'] },
+            technician: {
+                label: 'Service Technician',
+                properties: ['technician.lastname', 'technician.firstname'],
+                glue: ', ',
+            },
+            status: {
+                label: 'Status',
+                filters: "replace({'_': ' '})",
+            },
+            serialNumber: {
+                label: 'SN',
+                template: 'Emails/Service/TechnicianOnCall/_partials/cell/_serial_number.html.twig',
+            },
+            model: { label: 'Model', properties: ['equipmentRecord.model'] },
+            unitOperationalStatus: { label: 'Operation Status', properties: ['unitOperationalStatus.name'] },
+            customer: { label: 'Customer Name', properties: ['customer.name'] },
+            title: { label: 'Short Problem Description' },
+            createdAt: { label: 'Claim Date', filters: 'date("Y-m-d")' },
+            openDays: { label: 'Days late' },
+            lastExternalLogAt: {
+                label: 'Last External Log Entry',
+                template: 'Emails/Service/TechnicianOnCall/_partials/cell/_last_external_log_at.html.twig',
+                templateParams: { map: lastExternalLogAtByTocId },
+            },
+            daysSinceLastExternalLog: {
+                label: 'No. Days Since Last External Log',
+                template: 'Emails/Service/TechnicianOnCall/_partials/cell/_days_since_last_external_log.html.twig',
+                templateParams: { map: daysSinceLastExternalLogByTocId },
+            },
+            airport: { label: 'APC', properties: ['airport.code'] },
+        },
+        data: tocs,
+        title: '',
+        options: { card: false },
+    },
+}, with_context = false) }}
+</div>

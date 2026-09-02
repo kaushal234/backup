@@ -1,0 +1,215 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/contact_campaigns/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "endedAt": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "owner": {
+      "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+    },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/sales/extranet_users/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "extranetUserProfile": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/sales/extranet_user_profiles/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "customer": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "mainSalesRepresentative": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "@id": {
+                            "pattern": "^/sales/main_sales_representatives/\\d+$"
+                          },
+                          "@type": {
+                            "type": "string"
+                          },
+                          "asm": {
+                            "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "asm"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "mainSalesRepresentative"
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "customer"
+            ]
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "username",
+          "email",
+          "extranetUserProfile",
+          "firstname",
+          "lastname"
+        ]
+      }
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "businessUnits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/business_units/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "representative": {
+            "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/locations/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "company": {
+                "type": "string"
+              },
+              "erp": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "company",
+              "erp"
+            ]
+          },
+          "region": {
+            "type": "string"
+          }
+
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "domain",
+          "representative",
+          "location",
+          "region"
+        ]
+      }
+    },
+    "id": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "name",
+    "startedAt",
+    "endedAt",
+    "status",
+    "description",
+    "owner",
+    "contacts",
+    "createdAt",
+    "businessUnits",
+    "id"
+  ],
+  "additionalProperties": false
+}

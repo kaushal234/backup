@@ -1,0 +1,64 @@
+{% extends 'finance/forex/layout.html.twig' %}
+{% trans_default_domain "forex" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('finance/forex/partial/_form_filter.html.twig', {
+                        form: formFilters,
+                        resetPath: path('forex_search')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                applicatedOn: {
+                    label: 'forex.fields.applicated_on'|trans|capitalize,
+                    filters: 'date("Y-m")',
+                    sortable: false,
+                },
+                type: {
+                    label: 'forex.fields.rate_type'|trans|capitalize,
+                },
+                currency: {
+                    label: 'spq.quotations.fields.currency'|trans({}, 'spq'),
+                    properties: ['currency.name'],
+                },
+                rate: {
+                    label: 'forex.fields.rate_against_euro'|trans|capitalize,
+                    sortable: false,
+                    class: 'text-end'
+                },
+                edit: {
+                    label: 'menu.edit'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'forex_edit',
+                        params: {'id':'@id'},
+                        content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+            },
+            title: reportTitle|trans|capitalize,
+            data: exchangeRates,
+            initialSorting: true,
+            pagination: pagination
+        }
+    }, with_context = false) }}
+
+{% endblock %}
+

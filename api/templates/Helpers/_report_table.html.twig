@@ -1,0 +1,18 @@
+{% extends '@AlvestTwigHelper/report_table_layout.html.twig' %}
+
+{% block card_class %}ibox float-e-margins{% endblock %}
+{% block card_body_class %}ibox-content report-table-with-filter{% endblock %}
+{% block table_class %}{{ parent() }} footable toggle-arrow-tiny report-table{% endblock %}
+{% block column_default_class %}footable-sortable{% endblock %}
+{% block table_search %}{% endblock %}
+
+{% block card_header %}
+    <div class="ibox-title">
+        <h5>{{ table.title|raw }}</h5>
+        {% block card_header_after %}
+            <div class="ibox-tools">
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock card_header %}

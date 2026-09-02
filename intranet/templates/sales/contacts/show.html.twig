@@ -1,0 +1,315 @@
+{% extends 'sales/contacts/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% set profile = extranetUser.extranetUserProfile %}
+        <div class="col-md-12">
+            <div class="row wrapper-content">
+                <div class="col-md-4 text-center">
+                    <h3>{{ 'contacts.fields.contact_status' |trans }}</h3>
+                    <button type="button" {% if profile.archived %}class="btn btn-danger"{% else %} class="btn btn-green" {% endif %}>
+                        {% if profile.archived %}
+                            {{ 'contacts.fields.inactive' | trans }}
+                        {% else %}
+                            {{ 'contacts.fields.active' | trans }}
+                        {% endif %}
+                    </button>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h3>{{ 'contacts.fields.extranet_acess' |trans }}</h3>
+                    <button type="button" {% if extranetUser.disabled %}class="btn btn-danger" {% elseif extranet_user_acls|length == 0 %} class="btn btn-warning" {% else %} class="btn btn-green" {% endif %}>
+                        {% if extranetUser.disabled %}
+                            {{ 'contacts.fields.disabled' | trans }}
+                        {% elseif extranet_user_acls|length == 0 %}
+                            {{ 'contacts.fields.warning_no_role' | trans }}
+                        {% else %}
+                            {{ 'contacts.fields.enabled' | trans }}
+                        {% endif %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'contacts.fields.general' |trans,
+                    items: {
+                        id: {label: 'demo.fields.id'|trans({}, 'demo')},
+                        legacyId: { label: 'contacts.fields.legacy_id'|trans | capitalize },
+                        seqId: {
+                            template: 'sales/contacts/partial/cells/_sequences.html.twig',
+                            label: 'contacts.fields.sequence'|trans | capitalize,
+                            properties: ['extranetUserProfile.seqId'],
+                            link:{
+                                route: 'legacy_calendar',
+                                fixedParams: {'m':['tasks', 'task', 'view']},
+                                params: {'id':'extranetUserProfile.seqId'}
+                            }
+                        },
+                        gender: { label: 'contacts.fields.gender'|trans | capitalize },
+                        lastname: { label: 'contacts.fields.lastname'|trans | capitalize },
+                        firstname: { label: 'contacts.fields.firstname'|trans | capitalize },
+                        division: {
+                            label: 'contacts.fields.division'|trans | capitalize,
+                            properties: ['extranetUserProfile.division'],
+                        },
+                        department: {
+                            label: 'contacts.fields.department'|trans | capitalize,
+                            properties: ['extranetUserProfile.department'],
+                        },
+                        jobTitle: {
+                            label: 'contacts.fields.job_title'|trans | capitalize,
+                            properties: ['extranetUserProfile.jobTitle'],
+                            filters: ['u.wordwrap'],
+                        },
+                        email: {label: 'contacts.fields.email'|trans | capitalize},
+                        language: {
+                            label: 'contacts.fields.language'|trans | capitalize,
+                            properties: ['extranetUserProfile.language'],
+                        },
+                        phones: {
+                            label: 'contacts.fields.phone'|trans | capitalize,
+                            template: 'sales/contacts/partial/cells/_phones.html.twig',
+                        },
+                        isGiftAccepted: {
+                            properties: ['extranetUserProfile.isGiftAccepted'],
+                            label: 'contacts.fields.is_gift_accepted'|trans | capitalize,
+                            boolean: {
+                                true: '<i class="fa fa-check text-info"><i/>',
+                                false: '<i class="fa fa-time text-danger"><i/>'
+                            }
+                        },
+                        giftRefusedReason: {
+                            label: 'contacts.fields.gift_refused_reason'|trans | capitalize,
+                            properties: ['extranetUserProfile.giftRefusedReason'],
+                        },
+                        address: {
+                            label: 'contacts.fields.address'|trans | capitalize,
+                            template: 'sales/contacts/partial/cells/_address.html.twig',
+                        },
+                        shippingAddress: {
+                            label: 'contacts.fields.shipping_address'|trans | capitalize,
+                            template: 'sales/contacts/partial/cells/_shipping_address.html.twig',
+                        },
+                        vcard: {
+                            label: '<div class="col-sm-3"><img src="/shared/icons/idcard-icon-sm.jpg"></div>',
+                            link: {
+                                route: 'sales_contact_vcard',
+                                params: {'id':'@id'},
+                                content: 'contacts.fields.download_vcard'|trans,
+                            },
+                        },
+                    },
+                    data: extranetUser
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-6">
+            {% if extranetUser.disabled is same as(false) %}
+                {{ include('helper/_association_table.html.twig', {
+                    associationData: {
+                        items: {
+                            username: { 'label':'contacts.fields.userid'|trans | upper },
+                            counter: {
+                                label: 'contacts.fields.counter'|trans | upper,
+                                properties: ['extranetUserProfile.counter']
+                            },
+                            lastLogin: {
+                                preserveNull: true,
+                                label: 'contacts.fields.last_login'|trans | upper,
+                                properties: ['lastLogin'],
+                                filters: 'date("Y-m-d")'
+                            },
+                            disabled: {
+                                label: 'contacts.fields.is_enable'|trans | upper,
+                                boolean: {
+                                    'true': '<span class="d-none">N</span><i class="fa fa-times text-danger"></i>',
+                                    'false': '<span class="d-none">Y</span><i class="fa fa-check text-info"></i>'
+                                }
+                            },
+                        },
+                        title: 'contacts.fields.connection'|trans([], 'contacts')|capitalize,
+                        data: extranetUser},
+                }, with_context = false) }}
+            {% endif %}
+
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        customer: {
+                            label:'contacts.fields.customer'|trans | upper,
+                            properties: ['extranetUserProfile.customer.name'],
+                            link: {
+                                route: 'sales_customers_show',
+                                params: {'id':'extranetUserProfile.customer.@id'}
+                            }
+                        },
+                        erpCompanyName: {
+                            label: 'contacts.fields.company'|trans | upper,
+                            properties: ['extranetUserProfile.companyName']
+                        },
+                        shippingAccountNumber: {
+                            label: 'contacts.fields.shipping_account'|trans | upper,
+                            properties: ['extranetUserProfile.shippingAccountNumber']
+                        },
+                        customerCarrierName: {
+                            label: 'contacts.fields.carrier_name'|trans | upper,
+                            properties: ['extranetUserProfile.customerCarrierName']
+                        },
+                        requestorNumber: {
+                            label: 'contacts.fields.requestor'|trans | upper,
+                            properties: ['extranetUserProfile.requestorNumber']
+                        },
+                        employeeNumber: {
+                            label: 'contacts.fields.employee'|trans | upper,
+                            properties: ['extranetUserProfile.employeeNumber']
+                        },
+                        note: {
+                            label: 'contacts.fields.note'|trans | upper,
+                            properties: ['extranetUserProfile.note'],
+                            filters: ['nl2br']
+                        },
+                        erpLocation: {
+                            label: 'contacts.fields.erp_location'|trans | upper,
+                            properties: ['extranetUserProfile.erpLocation.name'],
+                            link: {
+                                route: 'directory_locations_show',
+                                params: {'id':'extranetUserProfile.erpLocation.@id'}
+                            }
+                        },
+                    },
+                    title: 'contacts.fields.misc'|trans([], 'contacts')|capitalize,
+                    data: extranetUser},
+            }, with_context = false) }}
+        </div>
+    </div>
+
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            search: false,
+            pagination: false,
+            items: {
+                firstname: {
+                    label: 'contacts.fields.firstname'|trans|capitalize,
+                },
+                lastname: {
+                    label: 'contacts.fields.lastname'|trans|capitalize,
+                },
+                street1: {
+                    label: 'contacts.fields.address_street_1'|trans|capitalize,
+                    properties: ['address.street1']
+                },
+                street2: {
+                    label: 'contacts.fields.address_street_2'|trans|capitalize,
+                    properties: ['address.street2']
+                },
+                postalCode: {
+                    label: 'contacts.fields.address_postal_code'|trans|capitalize,
+                    properties: ['address.postalCode']
+                },
+                town: {
+                    label: 'contacts.fields.address_town'|trans|capitalize,
+                    properties: ['address.town']
+                },
+                city: {
+                    label: 'contacts.fields.address_city'|trans|capitalize,
+                    properties: ['address.city']
+                },
+                state: {
+                    label: 'contacts.fields.address_state'|trans|capitalize,
+                    properties: ['address.state']
+                },
+                country: {
+                    label: 'contacts.fields.country'|trans|capitalize,
+                    properties: ['address.country']
+                },
+                phone: {
+                    label: 'contacts.fields.phone'|trans,
+                },
+                airport: {
+                    properties: ['airport.code', 'airport.cityName'],
+                    glue : ', ',
+                    label: 'fields.airport'|trans({}, 'messages'),
+                },
+                archived: {
+                    label: 'contacts.fields.is_enable'|trans | upper,
+                    boolean: {
+                        'true': '<span class="d-none">1</span><i class="fa fa-times text-danger"></i>',
+                        'false': '<span class="d-none">0</span><i class="fa fa-check text-success"></i>'
+                    }
+                }
+            },
+            title: 'contacts.fields.delivery_addresses'|trans,
+            data: deliveryAddresses,
+            initialSorting: false
+        }
+    }, with_context = false) }}
+
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                view: {
+                    label: 'menu.view'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'meeting_show',
+                        params: {'id':'id'},
+                        content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+                createdAt: {
+                    label: 'fields.date'|trans({}, 'messages')|capitalize,
+                    filters: ["date('Y-m-d')"]
+                },
+                status: {
+                    label: 'demo.fields.status'|trans({}, 'demo'),
+                },
+                quick: {
+                    label: 'meeting.fields.quickMeeting'|trans({}, 'meeting'),
+                    boolean: {
+                        'true': '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                        'false': '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                    }
+                },
+                title: {
+                    label: 'contacts.mail.subject'|trans,
+                },
+            },
+            initialSorting: false,
+            searchTable: true,
+            search: false,
+            title: 'meeting.meetings' |trans({}, 'meeting'),
+            data: meetings,
+            pagination: 10
+        }
+    }, with_context = false) }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'menu.logs'|trans({}, 'messages') |capitalize }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="logs-block" data-resource="{{ extranetUser.iri }}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

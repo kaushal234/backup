@@ -1,0 +1,9 @@
+<td>
+    {% if item.module.frontEndRoute and item.referenceId is defined %}
+        <a href="{{ path(item.module.frontEndRoute, {id: item.referenceId}) }}">
+            {{ item.referenceId }}
+        </a>
+    {% else %}
+        {{ item.referenceId|default('') }}
+    {% endif %}
+</td>

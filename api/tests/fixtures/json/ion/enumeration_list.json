@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/ion/enumeration_lists/.+$"},
+    "@type": {"type": "string"},
+    "@context": {"type": "string"},
+    "package": {"type": "string"},
+    "domain": {"type": "string"},
+    "enumerations": {
+      "type": "array",
+      "enumerations": {
+        "$ref": "enumeration.json"
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "@context",
+    "enumerations"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,81 @@
+.toc_table_header {
+  border-width: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  th {
+    padding: 4px;
+    background-color: #1a3aa5;
+    color: #ffffff;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5em;
+  }
+}
+
+table.toc_duplicate_table {
+  thead, tbody {
+    tr {
+      display: grid;
+      grid-gap: 0;
+      padding: 0;
+      grid-template-columns: 2fr 3fr 3fr 2fr;
+      td {
+        border: none;
+      }
+    }
+  }
+  tbody {
+    tr {
+      border-bottom: 2px solid lightgrey;
+    }
+  }
+}
+
+table.with_csr_columns {
+  thead, tbody {
+    tr {
+      grid-template-columns: 2fr 3fr 3fr 2fr 1fr 4fr 3fr;
+      td {
+        div.rw-date-picker {
+          div.rw-calendar-popup {
+            transform: translateX(-50%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.technician_on_call__wrapper {
+  .form-check-input[type="checkbox"] {
+    border-radius: 4px;
+    height: 1rem;
+    width: 1rem;
+    transform: translateY(-25%);
+    margin-right: 0.5rem;
+  }
+  .form-check-label {
+    user-select: none;
+  }
+}
+
+.technician_on_call_clone_line__wrapper .generic_field__wrapper input {
+  min-height: 36px;
+}
+
+.technician_on_call_clone_line__wrapper .custom-switch.form-switch {
+  margin-top: -8px;
+  margin-left: -4px;
+}
+
+.technician_on_call_clone_line__wrapper .custom-switch .form-check-input {
+  width: 2rem !important;
+  height: 1rem !important;
+}
+
+.select-selectedEquipmentRecords [class$="-menu"] {
+  z-index: 2;
+}

@@ -1,0 +1,33 @@
+{%- block choice_widget_expanded -%}
+    {% if techs is not defined %}
+        {% set techs = form.vars.treeTechnicians %}
+    {% endif %}
+    {% if level is not defined %}
+        {% set level = 1 %}
+    {% else %}
+        {% set level = level + 1 %}
+    {% endif %}
+
+    {% if level is same as 1 %}
+        <div {{ block('widget_container_attributes') }}>
+    {% endif %}
+    {% for tech in techs %}
+        {% set child = form.children|filter(child => child.vars.value|iri_id == tech.id)|first %}
+        {% if child is not null %}
+            <div class="offset-md-{{ level-1 }}">
+                {{ form_widget(form|filter(child => child.vars.value|iri_id == tech.id)|first) }}
+            </div>
+            {% if tech.children is defined and tech.children is not null %}
+                {% set techs = tech.children %}
+                {{- block('choice_widget_expanded') -}}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if level is same as 1 %}
+        {% for child in form|filter(child => not child.rendered) %}
+            {{- form_widget(child) -}}
+        {% endfor %}
+        </div>
+    {% endif %}
+{%- endblock choice_widget_expanded -%}

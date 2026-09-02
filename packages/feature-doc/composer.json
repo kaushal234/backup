@@ -1,0 +1,37 @@
+{
+  "name": "alvest/feature-doc",
+  "description": "Package to help create and maintain technical documentation.",
+  "type": "library",
+  "version": "1.0",
+  "require": {
+    "php": ">=8.3",
+    "symfony/finder": "^6.4 || ^7.4",
+    "nikic/php-parser": "^5.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.94",
+    "phpunit/phpunit": "^12.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Alvest\\FeatureDoc\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Alvest\\FeatureDoc\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "bump-after-update": true
+  },
+  "bin": [
+    "bin/feature-doc-validate"
+  ],
+  "scripts": {
+    "cs": "php-cs-fixer fix --config=.php-cs-fixer.php",
+    "cs-check": "php-cs-fixer fix --dry-run --diff --config=.php-cs-fixer.php",
+    "phpunit": "vendor/bin/phpunit"
+  }
+}

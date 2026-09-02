@@ -1,0 +1,37 @@
+{% trans_default_domain 'surveys' %}
+{% if show_actions is not defined %}
+    {% set show_actions = true %}
+{% endif %}
+
+<div class="row">
+    <div class="col-lg-10 project-people">
+        <p class="small">
+            {{ surveyCustomer.target.displayName ~ ' - ' ~ surveyCustomer.target.email }}
+        </p>
+        <div class="clearfix"></div>
+        <p class="small text-start">
+            <span class="font-bold">{{ 'general_fields.publishedOn' | trans }}:</span>
+            {{ surveyCustomer.createdAt | format_datetime('medium', 'none') }}
+        </p>
+    </div>
+    {% if show_actions %}
+    <div class="col-xs-1">
+        {% if is_granted('FEATURE_SURVEY_VIEW') %}
+            <a class="btn btn-sm btn-primary  m-b-xxs" href="{{ path('survey_published_show', {id: survey_id, publishedId: surveyCustomer.token}) }}">
+                <i class="far fa-eye fa-fw"></i>
+            </a>
+        {% endif %}
+        <div class="clear-fix"></div>
+        {% if is_granted('FEATURE_SURVEY_WRITE') %}
+            <a class="btn btn-sm btn-warning  m-b-xxs" href="{{ path('survey_published_edit', {id: survey_id, publishedId: surveyCustomer.token}) }}">
+                <i class="fa fa-pencil-alt fa-fw"></i>
+            </a>
+        {% endif %}
+        {% if is_granted('FEATURE_SURVEY_DELETE') %}
+            <a class="btn btn-sm btn-danger  m-b-xxs" onclick="return confirm('{{ 'messages.grid_delete_confirmation' | trans }}')" href="{{ path('survey_published_delete', {id: survey_id, publishedId: surveyCustomer.token}) }}">
+                <i class="fa fa-trash fa-fw"></i>
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>

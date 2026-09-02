@@ -1,0 +1,89 @@
+{#
+  pages/parts_return_instructions.html.twig — STATIC
+  Route: page:parts_returns
+  Controller: App\Controller\StaticPageController::partsReturns
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.menu.parts_returns'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.parts_support'|trans,
+        hero_title: 'extranet.page.returns.title'|trans,
+        hero_sub: 'extranet.page.returns.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.menu.parts_support'|trans },
+            { label: 'extranet.page.returns.title'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="row g-5">
+                {# LEFT — image rail (replace placeholders with RMA photos) #}
+                <div class="col-lg-4">
+                    <div class="return-rail">
+                        <div class="fam-media" style="display:block;height:230px;min-height:230px;overflow:hidden"><img src="{{ asset('images/rma-1.png') }}" alt="" style="width:100%;height:100%;padding:0;object-fit:contain"></div>
+                        <div class="fam-media mt-3" style="display:block;height:230px;min-height:230px;overflow:hidden"><img src="{{ asset('images/rma-2.png') }}" alt="" style="width:100%;height:100%;padding:0;object-fit:contain"></div>
+                    </div>
+                </div>
+
+                {# RIGHT — content #}
+                <div class="col-lg-8">
+                    <div class="doc-prose">
+                        <p>{{ 'extranet.page.returns.intro1'|trans }}</p>
+                        <p>{{ 'extranet.page.returns.intro2'|trans }}</p>
+
+                        <h3 class="prose-h"><span class="ph-bar"></span>{{ 'extranet.page.returns.notes'|trans }}</h3>
+                        <ul class="note-list">
+                            {% for note in [
+                                'extranet.page.returns.n1'|trans,
+                                'extranet.page.returns.n2'|trans,
+                                'extranet.page.returns.n3'|trans,
+                                'extranet.page.returns.n4'|trans,
+                                'extranet.page.returns.n5'|trans,
+                                'extranet.page.returns.n6'|trans
+                            ] %}
+                                <li><span class="n-ico">✓</span><span>{{ note }}</span></li>
+                            {% endfor %}
+                        </ul>
+
+                        <div class="callout">
+                            <div class="callout-title">⚠ {{ 'extranet.page.returns.disclaimer_title'|trans }}</div>
+                            <p>{{ 'extranet.page.returns.disclaimer'|trans }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Parts contacts worldwide #}
+            <div class="section-head mt-5">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.page.returns.get_authorized'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.page.returns.contacts'|trans }}</h2>
+                </div>
+            </div>
+            <div class="region-grid">
+                {% for r in [
+                    { name: 'TLD Europe', flag: 'EU', phone: '+33 247 45 74 93', email: 'parts@tld-europe.com' },
+                    { name: 'TLD America', flag: 'AME', phone: '+1 800 526 5298', email: 'parts@tld-america.com' },
+                    { name: 'TLD China', flag: 'CN', phone: '+86 400-630-3308', email: 'parts.china@tld-asia.com' },
+                    { name: 'TLD Asia', flag: 'ASIA', phone: '+852 2692 2181', email: 'parts@tld-asia.com' },
+                    { name: 'Aero Specialties', flag: 'AS', phone: '', email: 'orders@aerospecialties.com' }
+                ] %}
+                    <div class="region-card">
+                        <div class="reg-name">{{ r.name }} <span class="reg-flag">{{ r.flag }}</span></div>
+                        {% if r.phone %}
+                            <a class="reg-line" href="tel:{{ r.phone|replace({' ': ''}) }}"><span class="ri">☎</span>{{ r.phone }}</a>
+                        {% endif %}
+                        <a class="reg-line" href="mailto:{{ r.email }}"><span class="ri">@</span>{{ r.email }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

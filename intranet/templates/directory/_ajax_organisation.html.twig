@@ -1,0 +1,15 @@
+{% trans_default_domain 'directory' %}
+
+{% if people|length > 0 %}
+    <div id="under-{{ peopleId }}" class="under-indent">
+        {% for entry in people %}
+            <div id="people-{{ iri_id(entry) }}">
+                {{ include('partial/_people_search.html.twig', {
+                    entriesClass: 'orgPeople',
+                    entry: entry
+                }, with_context=false) }}
+                <button type="button" class="btn btn-sm org-btn" data-people-id="{{ iri_id(entry) }}">+</button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

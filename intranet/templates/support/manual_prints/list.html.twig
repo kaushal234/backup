@@ -1,0 +1,85 @@
+{% extends 'support/manual_prints/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-4">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'support.manual.title'|trans,
+                    items: {
+                        id: {
+                            label: 'support.manuals.fields.id'|trans|capitalize,
+                        },
+                        status: {
+                            label: 'support.manual.fields.status'|trans|capitalize,
+                        },
+                        model: {
+                            properties: ['equipmentRecord.model'],
+                            label: 'support.manual.fields.model'|trans|capitalize,
+                        },
+                        description: {
+                            label: 'support.manuals.fields.description'|trans|capitalize,
+                        },
+                        features: {
+                            label: 'support.manuals.fields.features'|trans|capitalize,
+                        },
+                        language: {
+                            label: 'support.manual.fields.language'|trans|capitalize,
+                        }
+                    },
+                    data: manual
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-8">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        createdAt: {
+                            label: 'fields.created_at'|trans({}, 'messages'),
+                            filters: 'date("Y-m-d H:i")',
+                        },
+                        requestedDeliveryDate: {
+                            label: 'support.manual_print.fields.requestedDeliveryDate'|trans({}, 'support'),
+                            filters: 'date("Y-m-d")'
+                        },
+                        standard: {
+                            label: 'support.manual_print.fields.standard'|trans({}, 'support'),
+                        },
+                        full: {
+                            label: 'support.manual_print.fields.full'|trans({}, 'support'),
+                        },
+                        extra: {
+                            label: 'support.manual_print.fields.extra'|trans({}, 'support'),
+                        },
+                        chapter5: {
+                            label: 'support.manual_print.fields.chapter5'|trans({}, 'support'),
+                        },
+                        downloadedAt: {
+                            label: 'support.manual_print.fields.downloadedAt'|trans({}, 'support'),
+                            filters: 'date("Y-m-d H:i")',
+                            preserveNull: true
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'manual_print_show',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+                    },
+                    title: 'support.manual_print.collection'|trans(),
+                    data: manual.prints,
+                    initialSorting: 'createdAt',
+                    search: false,
+                }
+            }, with_context = false )}}
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,481 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:bo="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials" name="txCustomizedBillOfMaterials">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials">
+			<xsd:complexType name="txListRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txCustomizedBillOfMaterials" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="site" type="bo:tcsite" minOccurs="1"/>
+											<xsd:element name="project" type="bo:tccprj" minOccurs="1"/>
+											<xsd:element name="depth" type="bo:tcpono" minOccurs="0"/>
+											<xsd:element name="date" type="bo:tiutcs" minOccurs="0"/>
+											<xsd:element name="flatResult" type="bo:tcpono" minOccurs="0"/>
+											<xsd:element name="productSignalCodeFilter" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="productSignalCodeFilterMethod" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="productSignalCodeAttribute" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="itemsSignalCodeFilter" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="itemsSignalCodeFilterMethod" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="itemsSignalCodeAttribute" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="otherLanguage" type="bo:tcmcs.str5" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txListResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txCustomizedBillOfMaterials" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="site" type="bo:tcsite" minOccurs="1"/>
+											<xsd:element name="project" type="bo:tccprj" minOccurs="1"/>
+											<xsd:element name="depth" type="bo:tcpono" minOccurs="0"/>
+											<xsd:element name="date" type="bo:tiutcs" minOccurs="0"/>
+											<xsd:element name="flatResult" type="bo:tcpono" minOccurs="0"/>
+											<xsd:element name="productSignalCodeFilter" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="productSignalCodeFilterMethod" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="productSignalCodeAttribute" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="itemsSignalCodeFilter" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="itemsSignalCodeFilterMethod" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="itemsSignalCodeAttribute" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="otherLanguage" type="bo:tcmcs.str5" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txListExtendedRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txCustomizedBillOfMaterials" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="site" type="bo:tcsite" minOccurs="1"/>
+											<xsd:element name="project" type="bo:tccprj" minOccurs="1"/>
+											<xsd:element name="date" type="bo:tiutcs" minOccurs="0"/>
+											<xsd:element name="signalCodeFilter" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="signalCodeFilterMethod" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="signalCodeAttribute" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="otherLanguage" type="bo:tcmcs.str5" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txListExtendedResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txCustomizedBillOfMaterials" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="site" type="bo:tcsite" minOccurs="1"/>
+											<xsd:element name="project" type="bo:tccprj" minOccurs="1"/>
+											<xsd:element name="date" type="bo:tiutcs" minOccurs="0"/>
+											<xsd:element name="signalCodeFilter" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="signalCodeFilterMethod" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="signalCodeAttribute" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="otherLanguage" type="bo:tcmcs.str5" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txShowRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txCustomizedBillOfMaterials" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="site" type="bo:tcsite" minOccurs="1"/>
+											<xsd:element name="project" type="bo:tccprj" minOccurs="1"/>
+											<xsd:element name="product" type="bo:tcitem" minOccurs="1"/>
+											<xsd:element name="depth" type="bo:tcpono" minOccurs="0"/>
+											<xsd:element name="date" type="bo:tiutcs" minOccurs="0"/>
+											<xsd:element name="signalCodeFilter" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="signalCodeFilterMethod" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="signalCodeAttribute" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="otherLanguage" type="bo:tcmcs.str5" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="txShowResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="txCustomizedBillOfMaterials" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="site" type="bo:tcsite" minOccurs="1"/>
+											<xsd:element name="project" type="bo:tccprj" minOccurs="1"/>
+											<xsd:element name="product" type="bo:tcitem" minOccurs="1"/>
+											<xsd:element name="depth" type="bo:tcpono" minOccurs="0"/>
+											<xsd:element name="date" type="bo:tiutcs" minOccurs="0"/>
+											<xsd:element name="signalCodeFilter" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="signalCodeFilterMethod" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="signalCodeAttribute" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="otherLanguage" type="bo:tcmcs.str5" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ActivationType">
+				<xsd:sequence>
+					<xsd:element name="username" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="password" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="company" type="xsd:int" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="Activation" type="bo:ActivationType"/>
+			<xsd:element name="Result" type="bo:Message"/>
+			<xsd:complexType name="InformationArea">
+				<xsd:sequence>
+					<xsd:element name="Message" maxOccurs="unbounded" type="bo:InformationMessage"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Message">
+				<xsd:sequence>
+					<xsd:element name="messageIndex" type="xsd:integer" minOccurs="0"/>
+					<xsd:element name="messageCode" type="xsd:string"/>
+					<xsd:element name="messageType">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="Error"/>
+								<xsd:enumeration value="Warning"/>
+								<xsd:enumeration value="Information"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="messageText" type="xsd:string"/>
+					<xsd:element name="messageSource" type="xsd:string"/>
+					<xsd:element name="MessageDetails" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Message" maxOccurs="unbounded" type="bo:DetailMessage"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="messageCorrectiveAction" type="xsd:string" minOccurs="0"/>
+					<xsd:choice>
+						<xsd:element name="messageAdditionalHelpText" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="messageAdditionalHelpURI" type="xsd:anyURI" minOccurs="0"/>
+					</xsd:choice>
+					<xsd:element name="MessageReference" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="messageReferenceType" type="xsd:string"/>
+								<xsd:element name="messageReferenceInfo" type="xsd:anyType"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DetailMessage">
+				<xsd:complexContent>
+					<xsd:extension base="bo:Message">
+						<xsd:attribute name="ID" type="xsd:ID" use="optional"/>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="InformationMessage">
+				<xsd:complexContent>
+					<xsd:extension base="bo:Message">
+						<xsd:attribute name="ID" type="xsd:ID" use="required"/>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="FilterType">
+				<xsd:choice>
+					<xsd:element name="LogicalExpression" type="bo:LogicalExpressionType"/>
+					<xsd:element name="ComparisonExpression" type="bo:ComparisonExpressionType"/>
+				</xsd:choice>
+			</xsd:complexType>
+			<xsd:complexType name="LogicalExpressionType">
+				<xsd:sequence>
+					<xsd:element name="logicalOperator">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="or"/>
+								<xsd:enumeration value="and"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:choice minOccurs="2" maxOccurs="unbounded">
+						<xsd:element maxOccurs="unbounded" name="LogicalExpression" type="bo:LogicalExpressionType"/>
+						<xsd:element maxOccurs="unbounded" name="ComparisonExpression" type="bo:ComparisonExpressionType"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ComparisonExpressionType">
+				<xsd:sequence>
+					<xsd:element name="comparisonOperator">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="le"/>
+								<xsd:enumeration value="lt"/>
+								<xsd:enumeration value="ge"/>
+								<xsd:enumeration value="gt"/>
+								<xsd:enumeration value="ne"/>
+								<xsd:enumeration value="eq"/>
+								<xsd:enumeration value="like"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:choice minOccurs="2" maxOccurs="2">
+						<xsd:element name="attributeName" type="bo:filterAttributeListDT"/>
+						<xsd:element name="emptyValue" type="bo:EmptyValueType"/>
+						<xsd:element name="instanceValue" type="xsd:string"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="EmptyValueType"/>
+			<xsd:simpleType name="filterAttributeListDT">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="txCustomizedBillOfMaterials.site"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.project"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.product"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.depth"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.date"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.flatResult"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.productSignalCodeFilter"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.productSignalCodeFilterMethod"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.productSignalCodeAttribute"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.itemsSignalCodeFilter"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.itemsSignalCodeFilterMethod"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.itemsSignalCodeAttribute"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.signalCodeFilter"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.signalCodeFilterMethod"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.signalCodeAttribute"/>
+					<xsd:enumeration value="txCustomizedBillOfMaterials.otherLanguage"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="SelectionType">
+				<xsd:sequence>
+					<xsd:element name="selectionAttribute" maxOccurs="unbounded">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="*"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.*"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.site"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.project"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.product"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.depth"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.date"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.flatResult"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.productSignalCodeFilter"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.productSignalCodeFilterMethod"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.productSignalCodeAttribute"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.itemsSignalCodeFilter"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.itemsSignalCodeFilterMethod"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.itemsSignalCodeAttribute"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.signalCodeFilter"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.signalCodeFilterMethod"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.signalCodeAttribute"/>
+								<xsd:enumeration value="txCustomizedBillOfMaterials.otherLanguage"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="processingScope">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="not_applicable"/>
+					<xsd:enumeration value="request"/>
+					<xsd:enumeration value="business_entity"/>
+					<xsd:enumeration value="business_entity_component"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="actionType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="create"/>
+					<xsd:enumeration value="createOrChange"/>
+					<xsd:enumeration value="change"/>
+					<xsd:enumeration value="delete"/>
+					<xsd:enumeration value="unchanged"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcsite">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccprj">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcpono">
+				<xsd:restriction base="xsd:long">
+					<xsd:totalDigits value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tiutcs">
+				<xsd:restriction base="xsd:dateTime">
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcitem">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="47"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.str5">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="5"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="txListRequest">
+		<wsdl:part name="txListRequest" type="bo:txListRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="txListResponse">
+		<wsdl:part name="txListResponse" type="bo:txListResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="txListExtendedRequest">
+		<wsdl:part name="txListExtendedRequest" type="bo:txListExtendedRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="txListExtendedResponse">
+		<wsdl:part name="txListExtendedResponse" type="bo:txListExtendedResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="txShowRequest">
+		<wsdl:part name="txShowRequest" type="bo:txShowRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="txShowResponse">
+		<wsdl:part name="txShowResponse" type="bo:txShowResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="Result">
+		<wsdl:part name="Result" element="bo:Result"/>
+	</wsdl:message>
+	<wsdl:message name="Header">
+		<wsdl:part name="Activation" element="bo:Activation"/>
+	</wsdl:message>
+	<wsdl:portType name="txCustomizedBillOfMaterials">
+		<wsdl:operation name="txList">
+			<wsdl:input message="bo:txListRequest"/>
+			<wsdl:output message="bo:txListResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="txListExtended">
+			<wsdl:input message="bo:txListExtendedRequest"/>
+			<wsdl:output message="bo:txListExtendedResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="txShow">
+			<wsdl:input message="bo:txShowRequest"/>
+			<wsdl:output message="bo:txShowResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="txCustomizedBillOfMaterialsSoapBinding" type="bo:txCustomizedBillOfMaterials">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="txList">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="txListExtended">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="txShow">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/txCustomizedBillOfMaterials"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="txCustomizedBillOfMaterialsService">
+		<wsdl:port name="txCustomizedBillOfMaterialsSoapPort" binding="bo:txCustomizedBillOfMaterialsSoapBinding">
+			<soap:address location="https://mingle-ionapi.eu1.inforcloudsuite.com/TLD_TST/LN/c4ws/services/txCustomizedBillOfMaterials"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

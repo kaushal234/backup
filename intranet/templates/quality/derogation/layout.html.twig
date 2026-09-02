@@ -1,0 +1,20 @@
+{% extends 'quality/layout.html.twig' %}
+
+{% block title %}Quality\Crabs{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="crab.nav_link.dashboard" domain="crab" icon="mynaui:list"
+                      route="derogation_home"/>
+        {% if derogation is defined %}
+            <twig:NavItem:Details route="derogation_show" :routeParameters="{id: derogation.id}"/>
+            <twig:NavItem:Edit translationKey="crab.nav_link.edit_derogation" domain="crab" route="derogation_edit"
+                               :routeParameters="{id: derogation.id}"
+                               :security="derogation is not null and is_granted('FEATURE_DEROGATION_PARTIAL_UPDATE_VOTER', derogation['@id'])"/>
+            <twig:NavItem translationKey="crab.nav_link.archive" domain="crab" icon="mynaui:archive"
+                          route="derogation_update_status" :routeParameters="{ id: derogation.id, status: 'ARCHIVED'}"
+                          :security="is_granted('FEATURE_DEROGATION_STATUS_ARCHIVE')" class="action-danger"/>
+            <twig:NavItem:Delete route="derogation_delete" :routeParameters="{ id: derogation.id }" :security="is_granted('FEATURE_DEROGATION_DELETE') and derogation.status != 'ACCEPTED'"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

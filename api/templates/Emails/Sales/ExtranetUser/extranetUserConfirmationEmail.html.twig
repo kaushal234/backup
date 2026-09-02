@@ -1,0 +1,30 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                {{ 'extranet_user.confirmation.header' | trans({
+                    '%gender%': extranetUser.gender,
+                    '%firstname%': extranetUser.firstname | lower | capitalize,
+                    '%lastname%': extranetUser.lastname | upper,
+                    '%username%': extranetUser.username | lower,
+                    '%password%': password
+                }, 'emails') | nl2br }}
+            </p>
+            {% if message is defined %}
+                <p>{{ message | lower | capitalize }}</p>
+            {% endif %}
+            <p>
+                {{ 'extranet_user.confirmation.footer' | trans({
+                    '%extranet_url%': extranet_root_url,
+                    '%user_lastname%': user_lastname | upper,
+                    '%user_firstname%': user_firstname | lower | capitalize,
+                    '%user_email%': user_email | lower,
+                    '%user_location%': user_location | upper
+                }, 'emails') | nl2br }}
+            </p>
+        </columns>
+    </row>
+{% endblock %}

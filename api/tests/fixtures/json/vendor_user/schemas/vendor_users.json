@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/purchasing/vendor_users$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/purchasing/vendor_users/\\d+$"},
+          "@type": {"type": "string"},
+          "erpIdentifier": {"type": "string"},
+          "email": {"type": "string"},
+          "hidden": {"type": "boolean"},
+          "disabled": {"type": "boolean"},
+          "firstname": {"type": "string"},
+          "lastname": {"type": "string"},
+          "id": {"type": "integer"},
+          "createdAt": {"type": "string"},
+          "lastLogin": {"type": ["string", "null"]}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "erpIdentifier",
+          "email",
+          "hidden",
+          "disabled",
+          "firstname",
+          "lastname",
+          "id",
+          "createdAt"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

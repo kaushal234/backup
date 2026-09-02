@@ -1,0 +1,5 @@
+<td>
+    {% for childContract in childContracts %}
+        <a href="{{ path('contract_show', {id: iri_id(childContract)}) }}">{{ iri_id(childContract) }}</a><br>
+    {% endfor %}
+</td>

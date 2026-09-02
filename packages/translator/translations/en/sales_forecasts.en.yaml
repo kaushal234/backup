@@ -1,0 +1,146 @@
+sales_forecasts:
+    title: Sales Forecast Records
+    linked_sfr: Linked Sales Forecasts
+    dashboard_general: General Dashboard
+    dashboard_asm: ASM Dashboard
+    dashboard_sso: SSO Dashboard
+    new_sfr: Submit SFR
+    my_sfr: My SFR
+    my_area_sfr: My Area SFR
+    nav_link:
+        add_new_cpr_cfr: Add new CPR CFR
+        asm_dashboard: ASM dashboard
+        calendar: Calendar
+        cash_forecast: Cash forecast
+        close_sfr: Close SFR
+        cpr: CPR
+        dashboard: Dashboard
+        export: Export
+        fcr: FCR
+        general_dashboard: General dashboard
+        military: Military
+        my_area_sfr: My area SFR
+        my_sfr: My SFR
+        normal: Normal
+        quantity_of_sfr_per_sso_per_mounth: quantity of SFR per SSO per month
+        quantity_of_sfr_per_sso_per_week: Quantity of SFR per SSO per week
+        quick_edit: Quick edit
+        reports: Reports
+        sales_forecast_records_actions: Sales forecast records actions
+        sfr: SFR
+        sfr_actions: SFR actions
+        submit_sfr: Submit SFR
+        transfer: Transfer
+        valuation_per_customer: Valuation per customer
+        valuation_per_sso_per_week: Valuation per SSO per week
+    reports:
+        by_sso_factory: SFR Count by SSO, Factory
+        by_sso_factory_user: SFR Count by SSO, Factory for %lastname%, %firstname%
+        by_sso_customer: SFR Amount by SSO, Customer
+        by_sso_factory_deliquent: Deliquent SFR Count by SSO, Factory
+        by_sso_factory_recently_ordered: SFR Recently Ordered Count by SSO, Factory
+        by_sso_factory_recently_lost: SFR Recently Lost Count by SSO, Factory
+        by_sso_factory_hot_deals: Hot Deals SFR Count by SSO, Factory
+        by_sso_factory_deliquent_asm: Delinquent SFR Count by SSO, Factory for %lastname%, %firstname%
+        by_factory_customer_asm: SFR Count by Customer, Factory for %lastname%, %firstname%
+        by_sso_factory_hot_deals_asm: Hot Deals SFR Count by SSO, Factory for %lastname%, %firstname%
+        by_sso_factory_recently_ordered_asm: SFR Recently Ordered Count by SSO, Factory for %lastname%, %firstname%
+        by_sso_factory_recently_lost_asm: SFR Recently Lost Count by SSO, Factory for %lastname%, %firstname%
+        top_ten_customer: Top ten customers for next 3 months
+        ponderated: Weighted for % likelihood (SFR value adjusted for % customer purchase and % Alvest success)
+        estimated_sale_date_after: Estimated Sale Date after
+        estimated_sale_date_before: Estimated Sale Date before
+        estimated_sale_date_distance: Estimated Sale Date distance
+        valorization_per_customer: Valuation per customer
+        valorization_per_week: Valuation per SSO per week
+        quantity_per_week: "Quantity of SFR per SSO per week"
+        quantity_per_month: "Quantity of SFR per SSO per month"
+
+    messages:
+        delete_confirm: Are you sure you want to delete this SFR?
+        items_per_page: Only the first 500 SFR are displayed in the list below
+        transfer_confirm: Are you sure you want to transfer ALL matching SFR?
+        success:
+            delete: SFR has successfully been deleted
+            unlink: SFR has successfully been unlinked
+            link: SFRs have successfully been linked
+            create: SFR has successfully been created
+            multiple_create: "SFR #%sfrs% were successfully created"
+            edit: SFR has successfully been edited
+            transfer: The following SFR have successfully been transferred
+        errors:
+            delete_fail: Something went wrong and the SFR could not be deleted
+            not_allowed: You are not allowed to access this SFR
+            not_allowed_delete: You are not allowed to delete this SFR
+            unlink_fail: Something went wrong and the SFR could not be unlinked
+            link_fail: Something went wrong and the SFR could not be linked
+            create_fail: Something went wrong and one or more SFR could not be created, please have a look at the form
+            edit_fail: Something went wrong and the SFR could not be edited
+    fields:
+        id: '#'
+        product: Product
+        same_product_cpr: See all CPR on same product
+        asm: ASM
+        transfer_target: Transfer matching SFR to
+        estimated_date: Estimated Date
+        tier: Emission Rating
+        equote: eQuote#
+        third_party: Third Party
+        delinquent: Delinquent
+        non_delinquent: Non-delinquent
+        estimated_sale_date: Estimated Sale Date
+        success_percentage: Success Percentage (Customer Success % x Alvest Success %)
+        customer_purchase_percentage: Customer Purchase Percentage
+        customer_purchase_percentage_short: Pur%
+        alvest_success_percentage: Alvest Success Percentage
+        alvest_success_percentage_short: Alvest%
+        hot_deals: Hot Deals
+        recently_ordered: Recently Ordered
+        recently_closed: Recently Close
+        closed_after: Closed after
+        created_after: Created after
+        status_id: Status / ID
+        status: Status
+        factory_model: Factory / Model
+        sfr_linked_together: Do you want these SFR to be linked together?
+        cancel_linked_sfr: Do you want to cancel all linked SFR?
+        sfr_edit_linked: Update linked SFR ? (Will only update changed fields)
+        last_comment: Last Comment
+        customer: Customer
+        customer_country: Customer User / Country
+        notification_restricted: Notification restricted (Not for Sales update, does not count for Delinquent criteria)
+        notify_package: Will notify package distribution list ?
+        no_notify_package: Not notify SFR package
+        buyer_user: Buyer / End User / 3d Party
+        margin: Sales Margin
+        price: Unit Price
+        value: Value
+        open: Open
+        ln_quote: LN Quote
+    actions:
+        unlink: Unlink
+        link: Link
+        add_comment: Add a comment / Update estimated sales date
+        link_sfr: Link another SFR
+        change_sales_date: Change estimated sales date
+    calendar: Calendar
+    quick_edit: Quick Edit
+    normal: Normal
+    cash_forecast: Cash Forecast
+    not_active_customers: List of %lastname%, %firstname% customers without any active SFR's
+    choose_asm: Choose ASM
+    military: Military
+    close_sfr: Close SFR
+    close: Close
+    fcr_info: This step is for creating a Forecast Closure Record (FCR) describing the reason why the SFR is being closed.
+    partial_fcr: If the SFR was closed as PARTIAL, then there will be two FCR for PARTIAL-ORDERED and PARTIAL-LOST
+    new_task: New Task
+    charts:
+        valorization: Valuation dashboard for %target% (in %currency%)
+        valorization_ponderated: Weighed valuation dashboard for %target% (in %currency%)
+        valorization_by_factory: Valuation dashboard for %target% by factory (in %currency%)
+        valorization_ponderated_by_factory: Weighed valuation dashboard for %target% by factory (in %currency%)
+    error:
+        summary: Summary not available.
+    button:
+        generate_summary: Generate Summary

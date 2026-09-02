@@ -1,0 +1,48 @@
+App\Entity\Common\Notification\NotificationTemplate:
+  notification_template_tts:
+    id: 1
+    module: '@module_tts'
+    name: trouble_ticket_assigned
+    text: This TTS is assigned to you and required action on your side.
+
+  notification_template_csr:
+    id: 2
+    module: '@module_csr'
+    name: csr_survey_completed
+    text: This CSR survey has been completed
+
+  notification_template_derogation:
+    id: 3
+    module: '@module_crab'
+    name: derogation_decision_update
+    text: A derogation on this CRAB is assigned to you and requires action on your side
+
+  notification_trouble_ticket_closed:
+    id: 4
+    module: '@module_tts'
+    name: trouble_ticket_closed
+    text: This TTS has been closed as
+
+  notification_task_closed:
+    id: 5
+    module: '@module_task'
+    name: task_closed
+    text: This task has been closed
+
+  notification_task_rescheduled:
+    id: 6
+    module: '@module_task'
+    name: task_rescheduled
+    text: This task has been rescheduled to
+
+  notification_task_assigned:
+    id: 7
+    module: '@module_task'
+    name: task_assigned
+    text: This task has been assigned to you
+
+  notification_task_pause:
+    id: 8
+    module: '@module_task'
+    name: task_pause
+    text: This task has been paused

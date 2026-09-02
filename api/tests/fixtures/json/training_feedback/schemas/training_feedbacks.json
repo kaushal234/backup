@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"type": "string", "pattern": "^/training_feedbacks$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["@id", "@type", "attendee", "note", "contentNote", "trainerNote", "comment"],
+        "properties": {
+          "@id":  {"type": "string", "pattern": "^/training_feedbacks/\\d+$"},
+          "@type":  {"type": "string", "pattern": "^TrainingFeedback$"},
+          "attendee":  {"type":  "string"},
+          "note": {"type": "integer", "minimum": 0, "maximum": 5},
+          "contentNote": {"type": "integer", "minimum": 0, "maximum": 5},
+          "trainerNote": {"type": "integer", "minimum": 0, "maximum": 5},
+          "comment": {"type": "string"}
+        }
+      }
+    ,
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

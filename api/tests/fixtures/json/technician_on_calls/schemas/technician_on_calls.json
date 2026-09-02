@@ -1,0 +1,188 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/service/technician_on_calls$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "@id": {"pattern": "^/service/technician_on_calls/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "readOnly": true,
+            "type": "integer"
+          },
+          "confidential": {
+            "type": "boolean"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "originalTitle": {"type":  ["string", "null"]},
+          "originalDescription": {"type":  ["string", "null"]},
+          "status": {
+            "example": "PENDING",
+            "type": "string"
+          },
+          "equipmentRecord": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../equipment_record/schemas/equipment_record_collection.json" }
+            ]
+          },
+          "serialNumber": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "airport": {
+            "$ref": "../../iata_code/schemas/airport.json"
+          },
+          "indiceFactor": {
+            "type": "string"
+          },
+          "mainFile": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../shared/schemas/file_light.json"}
+            ]
+          },
+          "createdAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "createdBy": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "daysWithoutActivityStatus": {
+            "type": "string"
+          },
+          "factoryFlag": {"type": "boolean"},
+          "assignee": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../directory_people/schemas/directory_people_public.json" }
+            ]
+          },
+          "technician": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../directory_people/schemas/directory_people_public.json" }
+            ]
+          },
+          "unitOperationalStatus": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../unit_operational_status/schemas/unit_operational_status.json" }
+            ]
+          },
+          "technicianOnCallType": {
+            "$ref": "../../technician_on_calls/schemas/technician_on_call.json"
+          },
+          "serviceActivity": {
+            "$ref": "../../technician_on_calls/schemas/service_activity.json"
+          },
+          "salesOrganisationService": {
+            "$ref": "../../directory_location/schemas/directory_location_public.json"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "@id": { "pattern": "^/technician_on_call_tags/\\d+$" },
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "mainContact": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../sales/extranet_user/schemas/extranet_user_light_without_legacy.json" }
+            ]
+          },
+          "customer": {
+            "$ref": "../../sales/customer/schemas/customer_light.json"
+          },
+          "openDays": {
+            "type": "integer"
+          },
+          "daysWithoutActivity": {
+            "type": "integer"
+          },
+          "jiraTracteasyIssueKey": {
+            "oneOf": [
+              {"type": "string"},
+              {"type": "null"}
+            ]
+          },
+          "errorCodes": {
+            "type": ["string", "null"]
+          },
+          "thirdPartyRef": {
+            "type": ["string", "null"]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "confidential",
+          "title",
+          "description",
+          "originalTitle",
+          "originalDescription",
+          "status",
+          "equipmentRecord",
+          "serialNumber",
+          "airport",
+          "indiceFactor",
+          "mainFile",
+          "createdAt",
+          "createdBy",
+          "updatedAt",
+          "factoryFlag",
+          "daysWithoutActivityStatus",
+          "daysWithoutActivity",
+          "openDays",
+          "customer",
+          "jiraTracteasyIssueKey",
+          "errorCodes",
+          "assignee",
+          "technician",
+          "thirdPartyRef"
+        ]
+      },
+      "additionalProperties": false
+    }
+  }
+}

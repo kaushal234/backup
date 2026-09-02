@@ -1,0 +1,13 @@
+{% extends 'error_layout.html.twig' %}
+{% trans_default_domain 'errors' %}
+
+{% block content %}
+    <div class="middle-box text-center animated fadeInDown">
+        <h1>500</h1>
+        <h3 class="font-bold">{{ 'errors.500_title'|trans }}</h3>
+
+        <div class="error-desc">
+            {{ 'errors.500_content'|trans }}
+        </div>
+    </div>
+{% endblock %}

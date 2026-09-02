@@ -1,0 +1,45 @@
+{% extends 'sales/sales_forecasts/layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ ('sales_forecasts.reports.quantity_per_' ~ period) | trans() }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {% form_theme form 'form_theme_vertical.html.twig' %}
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-3">{{ form_row(form.saleDateDistance) }}</div>
+                        <div class="col-md-3">{{ form_row(form.startDate) }}</div>
+                        <div class="col-md-3">{{ form_row(form.endDate) }}</div>
+                        <div class="col-md-3">{{ form_row(form.product) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">{{ form_row(form.productTypes) }}</div>
+                        <div class="col-md-3">{{ form_row(form.sso) }}</div>
+                        <div class="col-md-3">{{ form_row(form.factory) }}</div>
+                        <div class="col-md-3 btn-height" style="padding-top: 34px; display: flex; justify-content: end">{{ form_widget(form.submit) }}</div>
+                    </div>
+
+                    {{ form_errors(form) }}
+                    {{ form_end(form) }}
+
+                    <hr>
+                    {% if chart.series is defined %}
+                        <div class="highcharts" data-options="{{ chart | json_encode }}" style="min-width: 400px; height: 700px;"></div>
+                    {% else %}
+                        <div class="alert alert-primary text-center" role="alert">{{ 'no_results' | trans({}, 'messages') }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

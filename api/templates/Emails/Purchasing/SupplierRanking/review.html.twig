@@ -1,0 +1,11 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        Hello,<br />
+        Please click <a href="{{ url('supplier_ranking', {id: supplierRanking.id}) }}">HERE</a> to review the supplier: <strong>{{ supplierRanking.supplierName }}</strong> (Supplier#<strong>{{ supplierRanking.supplierNumber }}</strong>)<br />
+        If nothing has changed since the last review, just click the submit button.<br />
+        Thanks.
+    </row>
+{% endblock %}

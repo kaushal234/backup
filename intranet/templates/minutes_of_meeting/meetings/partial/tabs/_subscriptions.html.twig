@@ -1,0 +1,17 @@
+<div class="ibox-content">
+    {% if meeting.confidential == true %}
+        <div class="alert alert-info">
+            {{ 'meeting.permision'|trans({}, 'meeting') }}
+        </div>
+    {% endif %}
+    <div
+            class="subscriptions"
+            data-resource="{{ item.iri }}"
+            data-show-create-people="{{ is_granted('MEETING_WRITE_VOTER', item.iri) }}"
+            data-show-delete="{{ is_granted('MEETING_WRITE_VOTER', item.iri) }}"
+            data-show-delete-myself="1"
+            data-show-subscribe="0"
+            data-show-subscribers="1"
+    >
+    </div>
+</div>

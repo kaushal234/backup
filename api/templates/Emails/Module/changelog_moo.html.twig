@@ -1,0 +1,25 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'changelog.introduction' | trans }}</p>
+            {% for moduleName, logs in changelogs %}
+                <h5><a href="{{ url('module', {id: modules[moduleName].id}) }}">{{ moduleName }}</a></h5>
+                <p>
+                    {% if modules[moduleName].dmsProcedureId is not null %}<b>Procedure DMS</b> <a href="{{ url('legacy_mis', {m: ['help', 'dms'], id: modules[moduleName].dmsProcedureId}) }}">#{{ modules[moduleName].dmsProcedureId }}</a><br>{% else %}<i>No Procedure DMS</i><br>{% endif %}
+                    {% if modules[moduleName].dmsHelpId is not null %}<b>Help DMS</b> <a href="{{ url('legacy_mis', {m: ['help', 'dms'], id: modules[moduleName].dmsHelpId}) }}">#{{ modules[moduleName].dmsHelpId }}</a>{% else %}<i>No Help DMS</i>{% endif %}
+                </p>
+                <ul>
+                {% for changelog in logs %}
+                    <li>"{{ changelog.message }}" - <a href="{{ url('people', {id: changelog.author.id}) }}">{{ changelog.author.lastname }} {{ changelog.author.firstname }}</a>{% if changelog.ticket is not null %}, TTS <a href="{{ url('trouble_ticket', { 'id': changelog.ticket }) }}">#{{ changelog.ticket }}</a>{% endif %}</li>
+                {% endfor %}
+                </ul>
+                {% if not(loop.last) %}<hr>{% endif %}
+            {% endfor %}
+        </columns>
+    </row>
+{% endblock %}

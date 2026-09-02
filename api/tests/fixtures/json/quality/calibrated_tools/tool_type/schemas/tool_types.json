@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/calibrated_tools/tool_types$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/quality/calibrated_tools/tool_types/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "toolsCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "description",
+          "toolsCount"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

@@ -1,0 +1,41 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        {{ 'toc.message.toc_created_by_customer.content'|trans({
+            '%eContact%': technicianOnCall.createdBy.lastname ~ ', ' ~ technicianOnCall.createdBy.firstname,
+            '%id%': technicianOnCall.id,
+            '%tocLink%': url('extranet_technician_on_call', { 'id': technicianOnCall.id })
+        })|raw|nl2br }}
+        <br>
+        {% set contactPhones = technicianOnCall.createdBy.phones
+            |map(phone => phone.number)
+            |join(', ')
+        %}
+
+        {{ 'toc.message.toc_created_by_customer.contact_check'|trans({
+            '%contactEmail%': technicianOnCall.createdBy.email,
+            '%contactPhones%': contactPhones,
+            '%url%': url('extranet_user_profile')
+        })|raw|nl2br }}
+        <br>
+        {{ 'toc.message.toc_created_by_customer.closing'|trans }}
+        <br>
+        <br>
+        <hr>
+        <p>
+            <a href="{{ url('extranet_technician_on_call', { 'id': technicianOnCall.id }) }}">
+                {{ 'toc.message.footer'|trans }}
+            </a>
+        </p>
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc.html.twig', {technicianOnCall: technicianOnCall}) }}
+        {% if technicianOnCall.equipmentRecord is not null %}
+            <hr>
+            {{ include('Emails/Service/TechnicianOnCall/_partials/_equipment_record.html.twig', {technicianOnCall: technicianOnCall}) }}
+        {% endif %}
+        <hr>
+        <p><em>{{ 'toc.message.toc_new_comment_external.warranty_disclaimer'|trans }}</em></p>
+    </div>
+{% endblock %}

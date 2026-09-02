@@ -1,0 +1,141 @@
+App\Entity\Common\Airport:
+    # airports/61
+    airport_teumanto:
+        id: 61
+        type: Airport
+        cityCode3: BDX
+        cityName: Bordeaux
+        code: BDX
+        source: IATA
+
+    # airports/62
+    airport_tesurlesysteme:
+        id: 62
+        type: Airport
+        cityCode3: PAR
+        cityName: Paris
+        code: CDG
+        source: IATA
+        country: '@country_1'
+
+    # airports/63..109
+    airport_{63..110}:
+        id: <current()>
+        type: Airport
+        cityName: <city()>
+        code: <regexify('[A-Z]{3}')>
+        cityCode3 : '@self->code'
+        source: <randomElement(['IATA', 'TLD'])>
+        country: 85%? @country_4
+        state: 20%? <regexify("[A-Z]{2}")>
+        name: 20%? <company()>
+
+    #airports/110
+    airport_110:
+        id: 110
+        type: Airport
+        cityName: Junon
+        code: JMA
+        cityCode3: JNN
+        source: TLD
+        country: '@country_7'
+        state: 20%? <regexify("[A-Z]{2}")>
+        name: Junon Military Airport
+
+    # airports/111
+    airport_favor:
+        id: 111
+        type: Airport
+        cityCode3: PLO
+        cityName: Perpète-les-oies
+        code: PLO
+        source: IATA
+        country: '@country_2'
+
+    # airports/112
+    airport_quetevas:
+        id: 112
+        type: Airport
+        cityCode3: MFL
+        cityName: Muflin
+        code: GRD
+        source: IATA
+        country: '@country_1'
+
+App\Entity\Common\RailwayStation:
+    # railway_stations/51..60
+    railway_station_{51..60}:
+        id: <current()>
+        type: Railway Station
+        cityName: <city()>
+        code: <regexify('[A-Z]{3}')>
+        cityCode3 : '@self->code'
+        source: <randomElement(['IATA', 'TLD'])>
+        country: 85%? @country_8
+        state: 20%? <regexify("[A-Z]{2}")>
+        name: 20%? <company()>
+
+App\Entity\Common\BusStation:
+    # bus_stations/41..50
+    bus_station_{41..50}:
+        id: <current()>
+        type: Bus Station
+        cityName: <city()>
+        code: <regexify('[A-Z]{3}')>
+        cityCode3 : '@self->code'
+        source: <randomElement(['IATA', 'TLD'])>
+        country: 85%? @country_8
+        state: 20%? <regexify("[A-Z]{2}")>
+        name: 20%? <company()>
+
+App\Entity\Common\OffLinePoint:
+    # offline_points/31.40
+    offline_point_{31..40}:
+        id: <current()>
+        type: Off-Line Point
+        cityName: <city()>
+        code: <regexify('[A-Z]{3}')>
+        cityCode3 : '@self->code'
+        source: <randomElement(['IATA', 'TLD'])>
+        country: 85%? @country_8
+        state: 20%? <regexify("[A-Z]{2}")>
+        name: 20%? <company()>
+
+App\Entity\Common\MetropolitanArea:
+    # metropolitan_areas/21..30
+    metropolitan_area_{21..30}:
+        id: <current()>
+        type: Metropolitan Area
+        cityName: <city()>
+        code: <regexify('[A-Z]{3}')>
+        cityCode3 : '@self->code'
+        source: <randomElement(['IATA', 'TLD'])>
+        country: 85%? @country_8
+        state: 20%? <regexify("[A-Z]{2}")>
+        name: 20%? <company()>
+
+App\Entity\Common\FerryPort:
+    # ferry_ports/11..20
+    ferry_port_{11..20}:
+        id: <current()>
+        type: Ferry Port
+        cityName: <city()>
+        code: <regexify('[A-Z]{3}')>
+        cityCode3 : '@self->code'
+        source: <randomElement(['IATA', 'TLD'])>
+        country: 85%? @country_8
+        state: 20%? <regexify("[A-Z]{2}")>
+        name: 20%? <company()>
+
+App\Entity\Common\Heliport:
+    # heliports/1..10
+    heliport_{1..10}:
+        id: <current()>
+        type: Heliport
+        cityName: <city()>
+        code: <regexify('[A-Z]{3}')>
+        cityCode3 : '@self->code'
+        source: <randomElement(['IATA', 'TLD'])>
+        country: 85%? @country_8
+        state: 20%? <regexify("[A-Z]{2}")>
+        name: 20%? <company()>

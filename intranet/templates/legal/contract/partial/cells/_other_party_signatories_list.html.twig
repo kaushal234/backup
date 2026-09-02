@@ -1,0 +1,9 @@
+<td>
+    {% if otherPartySignatories is not empty %}
+        {% for signatory in otherPartySignatories %}
+            {{ signatory }}<br>
+        {% endfor %}
+    {% else %}
+        <span class="text-muted">—</span>
+    {% endif %}
+</td>

@@ -1,0 +1,101 @@
+{% extends 'sales/areas/layout.html.twig' %}
+{% trans_default_domain 'sales' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+    {{ include('helper/_association_table.html.twig', {
+        associationData: {
+            items: {
+                '@id': {
+                    label:'Country#',
+                    filters: 'iri_id'
+                },
+                continent: {
+                    properties: ['continent.name'],
+                    label: 'sales.sales_areas.continent'|trans|capitalize
+                },
+                legacyId: {'label': 'Legacy Id'},
+            },
+            title: country.name,
+            data: country},
+    }, with_context = false) }}
+
+    {% if is_granted('FEATURE_COUNTRY_ASM_WRITE') %}
+        <div class="row">
+        {% for network, form in forms %}
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'sales.sales_areas.add_asm' | trans({'%network%': network}) }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {{ form_row(form.asm) }}
+                        {{ form_row(form.sso) }}
+                        {{ form_row(form.save) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% set customizedItems = {
+        asm: {
+            properties: ['asm.lastname', 'asm.firstname'],
+            label: 'sales.sales_areas.asm'|trans|capitalize
+        },
+        sso: {
+            properties: ['sso.name'],
+            label: 'directory.department.fields.sso'|trans({}, 'directory')|capitalize
+        },
+        view: {
+            label: 'menu.view'|trans([], 'messages')|capitalize,
+            link:{
+                route: 'directory_people_show',
+                params: {'id':'asm.@id'},
+                content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+            },
+            sortable: false,
+            class : 'text-end'
+        }
+    } %}
+
+    {% if is_granted('FEATURE_COUNTRY_ASM_WRITE') %}
+        {% set customizedItems = customizedItems | merge({
+            remove: {
+                label: 'menu.delete'|trans([], 'messages')|capitalize,
+                class: 'asm_delete',
+                link:{
+                    route: 'sales_areas_asm_delete',
+                    params: {'salesAreaId':'@id'},
+                    popup: {
+                        type: 'confirmation',
+                        title: 'Confirmation',
+                        message: 'Are you sure to delete ?',
+                    },
+                    content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                },
+                sortable: false,
+                class : 'text-end'
+            }
+        }) %}
+    {% endif %}
+
+    {{ include('helper/_report_table.html.twig', {
+        'reportTable': {
+            search: true,
+            pagination: false,
+            items: customizedItems,
+            title: 'sales.sales_areas.asm'|trans,
+            data: salesAreas,
+            initialSorting: 'continent'
+        }
+    }, with_context = true) }}
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends 'manufacturing/layout.html.twig' %}
+{% trans_default_domain 'product_manufacturing' %}
+
+{% block title %}{{ parent() }} \ {{ ('product_manufacturing.title'|trans) }}{% endblock %}
+
+{% block content %}
+    <div id="react" data-is-granted-create="{{ is_granted('FEATURE_PRODUCT_MANUFACTURING_WRITE') }}"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'product_manufacturing' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'catalogue' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'directory' }) }}"></script>
+{% endblock %}

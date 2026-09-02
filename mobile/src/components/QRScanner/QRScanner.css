@@ -1,0 +1,37 @@
+.cui .qr_scanner__wrapper {
+  border-radius: var(--cui-card-border-radius);
+  width: 100%;
+  position: relative;
+}
+
+.cui .qr_scanner__wrapper video {
+  width: 100%;
+  border-radius: var(--cui-card-border-radius);
+}
+
+.cui .qr_scanner__error_wrapper,
+.cui .qr_scanner__loading_wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  text-align: center;
+  padding: 16px;
+  border-radius: var(--cui-card-border-radius);
+  border: 1px solid var(--mui-palette-divider);
+}
+
+.cui .qr_scanner__loading_wrapper {
+  padding: 0;
+  overflow: hidden;
+}
+
+.cui .qr_scanner__loading_wrapper .MuiSkeleton-root {
+  transform: none;
+  width: 100%;
+  height: 100%;
+}

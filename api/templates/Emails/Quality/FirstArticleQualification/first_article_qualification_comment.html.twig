@@ -1,0 +1,15 @@
+{% extends 'Emails/Quality/FirstArticleQualification/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block customized %}
+    <p>
+        <b>{{ 'first_article_qualification.titles.comment' | trans({
+                '%faqId%': firstArticleQualification_normalized.id,
+                '%posterFirstname%': comment.user.firstname,
+                '%posterLastname%': comment.user.lastname,
+            }) | nl2br }}</b>
+    </p>
+    <p>
+        {{ comment.message }}
+    </p>
+{% endblock %}

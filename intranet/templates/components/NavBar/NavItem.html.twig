@@ -1,0 +1,11 @@
+{% if security is same as true %}
+    <li class="nav-item">
+        <a target="{{ target }}" class="nav-link m-0 d-flex align-items-center action-primary {{ class }}" id={{ translationKey }}"
+           href="{{ path(route, routeParameters) }}">
+            {% if icon is defined and icon is not null %}
+                {{ ux_icon(icon, {height: '16px', width: '16px'}) }}
+            {% endif %}
+            <span class="ms-1">{% block content %}{{ translationKey | trans([], domain | default(app.request.attributes.get('moduleDomain'))) }}{% endblock %}</span>
+        </a>
+    </li>
+{% endif %}

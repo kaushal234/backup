@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sub_divisions/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "division": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/divisions/\\d+$"},
+        "@type": {"type": "string"},
+        "id": {"type": "integer"},
+        "legacyId": {"type": "integer"},
+        "name": {"type": "string"}
+      },
+      "required": ["@id", "@type", "id", "legacyId", "name"],
+      "additionalProperties": false
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/regions/\\d+$"},
+          "@type": {"type": "string"},
+          "legacyId": {"type": "integer"},
+          "name": {"type": "string"}
+        },
+        "required": ["@id", "@type", "legacyId","name"],
+        "additionalProperties": false
+      }
+    },
+    "logo": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../shared/schemas/file.json" }
+      ]
+    }
+  },
+  "required": [
+    "@id",
+    "@context",
+    "@type",
+    "id",
+    "legacyId",
+    "name",
+    "division",
+    "regions",
+    "logo"
+  ],
+  "additionalProperties": false
+}

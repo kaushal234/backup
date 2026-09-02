@@ -1,0 +1,21 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_boiler_plate.html.twig', {
+        boilerPlates: {
+            50: "<p>Resonate MP4 specializes in telematics and asset management solutions for the aviation industry. The XOPS platform combines motorized and non-motorized equipment tracking, maintenance alerts, GSE task allocation, and more. XOPS can also integrates with flight information systems, and the scheduling of field agents enabling real-time data management for improved productivity and safety at airports.</p>",
+            150: "<p>Resonate MP4 offers advanced telematics and asset management solutions designed for the aviation industry. The XOPS platform delivers comprehensive coverage across all aspects of airport and airline operations, including motorized and non-motorized equipment tracking, maintenance monitoring, GSE task allocation, and real-time reporting. The platform combines telematics with operations management software to provide a unified solution for airport authorities, airlines, and ground handling teams.</p>
+                <p>XOPS features two core modules:</p>
+                <ul><li>FMS (Fleet Management System) provides real-time GPS tracking of GSE, along with comprehensive GSE data including battery levels, historical travel logs, maintenance alerts, overspeed notifications, and detailed fleet reports..</li>
+                <li>OMS (Operations Management System) integrates with airport flight information systems and staff scheduling, enabling task assignment based on flight arrivals.</li></ul>
+                <p>This integration improves operational efficiency, enhances safety, and supports data-driven decision-making across all airport activities.</p>",
+            300: "<p>Resonate MP4 specializes in providing cutting-edge telematics and asset management solutions tailored for the aviation industry. The XOPS platform was developed to optimize productivity, performance, and safety for airport authorities, airlines, and the ground handling community. It offers a comprehensive, unified solution that covers all critical operational activities, such as motorized and non-motorized equipment tracking, maintenance management, GSE task allocation, indoor-outdoor tracking, and CCTV surveillance.</p>
+                <p>XOPS uniquely integrates telematics with specialized operations management software, enabling a seamless experience for all airport stakeholders. It includes two powerful modules:</p>
+                <ul><li>FMS (Fleet Management System): This module provides real-time GPS tracking of ground support equipment (GSE), along with key operational data like battery levels, travel history, maintenance alerts, overspeed warnings, fleet performance reports... These insights ensure equipment is properly maintained and operations run smoothly.</li>
+                <li>OMS (Operations Management System): OMS integrates with an airport’s flight information system and workforce scheduling, allowing ground handlers to assign tasks based on real-time flight data. This helps streamline operations, reduce delays, and enhance resource allocation.</li>
+                <p>By integrating both telematics and operations management into a single platform, XOPS provides real-time insights and full operational visibility, leading to better decision-making and improved airport performance. Additionally, with ongoing health and safety initiatives, XOPS now integrates Cab Cam solutions, enhancing airfield security and operations. XOPS’ flexibility allows clients to deploy the solution according to their specific needs, delivering maximum value and efficiency.</p>"
+        },
+    }) }}
+{% endblock %}

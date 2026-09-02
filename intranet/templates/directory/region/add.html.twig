@@ -1,0 +1,15 @@
+{% extends 'directory/region/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.region.title.add'|trans|capitalize }}</h3>
+
+    {{ include('directory/region/_form.html.twig', {
+        form: form,
+        action: path('directory_regions_add'),
+        cancel_link: path('directory_regions_home')
+    }, with_context=false) }}
+
+{% endblock %}

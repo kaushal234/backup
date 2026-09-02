@@ -1,0 +1,27 @@
+{% extends 'parts/layout.html.twig' %}
+
+{% trans_default_domain 'parts' %}
+
+{% block content %}
+    {% embed 'helper/_report_table.html.twig' with {
+        reportTable: {
+            items: {
+                pn: {label: 'parts.sage_inventory.pn'|trans|upper ~ '#'},
+                sage_pn: {label: 'parts.sage_inventory.sage_pn'|trans|upper ~ '#'},
+                description: {label: 'parts.sage_inventory.description'|trans|upper},
+                sage_uid: {label: 'parts.sage_inventory.sage_uid'|trans|upper},
+                sage_location_name: {label: 'parts.sage_inventory.sage_location_name'|trans|upper},
+                price: {label: 'parts.sage_inventory.price'|trans|upper},
+                currency: {label: 'parts.sage_inventory.currency'|trans|upper},
+                on_hand: {label: 'parts.sage_inventory.on_hand'|trans|upper},
+                on_hand_unit: {label: 'parts.sage_inventory.on_hand_unit'|trans|upper},
+                on_order: {label: 'parts.sage_inventory.on_order'|trans|upper},
+                on_order_unit: {label: 'parts.sage_inventory.on_order_unit'|trans|upper}
+            },
+            title: 'parts.sage_inventory.title'|trans(),
+            data: sageInventoryByLocation,
+            pagination: false,
+        },
+    } %}
+    {% endembed %}
+{% endblock %}

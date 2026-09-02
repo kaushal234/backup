@@ -1,0 +1,38 @@
+App\Entity\Sales\EquipmentShippingRecord\PlanningDailyLimit:
+  planning_daily_limit_1:
+    id: 1
+    days: 7
+    factory: '@location_factory_2'
+    comment: 2 petites et 5 grosses
+
+  planning_daily_limit_2:
+    id: 2
+    days: 400
+    factory: '@location_factory_400'
+    comment: 1 à la fois s'il vous plait
+
+App\Entity\Sales\EquipmentShippingRecord\PlanningDailyException:
+
+  planning_daily_exception_1:
+    id: 1
+    factory: '@location_factory_2'
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    createdBy: '@user_psm'
+    date: <dateTimeBetween('+2 weeks', '+3 weeks')>
+    comment: Factory closure - no shipment allowed
+
+  planning_daily_exception_2:
+    id: 2
+    factory: '@location_factory_2'
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    createdBy: '@user_qam'
+    date: <dateTimeBetween('+1 weeks', '+2 weeks')>
+    comment: Crane partially unavailable
+
+  planning_daily_exception_3:
+    id: 3
+    factory: '@location_factory_400'
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    createdBy: '@user_psm'
+    date: <dateTimeBetween('+1 weeks', '+2 weeks')>
+    comment: Reduced capacity 50%

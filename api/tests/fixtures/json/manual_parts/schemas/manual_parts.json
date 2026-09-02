@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/support/manual_parts"},
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "properties": {
+            "@context": {
+              "type": "string"
+            },
+            "@id": {"pattern": "^/support/manual_parts/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "manualDocument": {
+              "oneOf": [
+                {"type":  "null"},
+                { "$ref": "../../manual_documents/schemas/manual_document.json" }
+              ]
+            },
+            "position": {
+              "type": "integer"
+            },
+            "partNumber": {
+              "type": ["string", "null"]
+            },
+            "quantity": {
+              "type": "number"
+            },
+            "unitOfMeasure": {
+              "type": ["string", "null"]
+            },
+            "description": {
+              "type": ["string", "null"]
+            },
+            "otherDescription": {
+              "type": ["string", "null"]
+            },
+            "preventive": {"type": "boolean"},
+            "maintenance": {"type": "boolean"},
+            "overhaul": {"type": "boolean"},
+            "critical": {"type": "boolean"},
+            "id": {
+              "type": "integer"
+            },
+            "legacyId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "position",
+            "partNumber",
+            "preventive",
+            "maintenance",
+            "overhaul",
+            "critical",
+            "legacyId"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

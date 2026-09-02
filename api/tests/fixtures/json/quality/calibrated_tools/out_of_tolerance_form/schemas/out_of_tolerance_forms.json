@@ -1,0 +1,52 @@
+{
+	"type": "object",
+	"properties": {
+		"@context": {
+			"type": "string"
+		},
+		"@id": {"pattern": "^/quality/calibrated_tools/out_of_tolerance_forms$"},
+		"@type": {
+			"type": "string"
+		},
+		"hydra:member": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"@id": {"pattern": "^/quality/calibrated_tools/out_of_tolerance_forms/\\d+$"},
+					"@type": {
+						"type": "string"
+					},
+					"id": {
+						"type": "integer"
+					},
+					"status": {
+						"type": "string"
+					},
+					"impactAnalysis": {
+						"type": "string"
+					},
+					"analysisBy": {
+						"type": "object"
+					}
+				},
+				"required": [
+					"@id",
+					"@type",
+					"id",
+					"status",
+					"impactAnalysis",
+					"correctiveMeasures",
+					"analysisBy"
+				]
+			},
+			"minItems": 1
+		}
+	},
+	"required": [
+		"@context",
+		"@id",
+		"@type",
+		"hydra:member"
+	]
+}

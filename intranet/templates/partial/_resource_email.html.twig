@@ -1,0 +1,33 @@
+{% trans_default_domain 'resource_email' %}
+
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_horizontal.html.twig' %}
+
+        {{ form_start(form, { action: action }) }}
+        {{ form_errors(form) }}
+
+        <div class="ibox float-e-margins news-list-element">
+            <div class="ibox-title">
+                <h4>{{ 'title' | trans({'%title%': title}) }}</h4>
+            </div>
+            <div class="ibox-content">
+                {{ form_row(form.to) }}
+                <hr>
+                {{ form_row(form.cc) }}
+                <hr>
+                {{ form_row(form.bcc) }}
+                {{ form_row(form.subject) }}
+                {{ form_row(form.locale) }}
+                {{ form_row(form.note) }}
+                <div>
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'quality/crab/layout.html.twig' %}
+{% trans_default_domain 'crab' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'crab.title.duplicate_crab'|trans({'%id%': crab.id}, 'crab')|capitalize }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

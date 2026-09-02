@@ -1,0 +1,553 @@
+- name: Ensure log directory for crons exists
+  become: true
+  ansible.builtin.file:
+    path: /var/log/cron
+    state: directory
+    owner: deployer
+    group: php_executor
+
+- name: Daily jobs
+  become: true
+  ansible.builtin.cron:
+    name: cron for daily jobs
+    job: /bin/bash /var/www/alvest-web-portals/current/admin/jobs/daily.sh >> /var/log/cron/daily.log
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Wordpress export
+  become: true
+  ansible.builtin.cron:
+    name: cron for Wordpress database export
+    job: /home/script/export_wordpress.bash >> /var/log/cron/export_wordpress.log
+    user: deployer
+    minute: "30"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Hourly jobs
+  become: true
+  ansible.builtin.cron:
+    name: cron for hourly jobs
+    job: /bin/bash /var/www/alvest-web-portals/current/admin/jobs/hourly.sh >> /var/log/cron/hourly.log
+    user: deployer
+    minute: "0"
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Newsletter
+  become: true
+  ansible.builtin.cron:
+    name: cron for newsletter
+    job: /usr/bin/php -d max_execution_time=0 /var/www/alvest-web-portals/current/admin/internal/newsletter_admin.php --batch >> /var/log/cron/newsletter.log
+    user: deployer
+    minute: "55"
+    hour: "23"
+    day: "*"
+    month: "*"
+    weekday: "0-5"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: TLD Group website feedback
+  become: true
+  ansible.builtin.cron:
+    name: cron for TLD Group website feedback
+    job: php /var/www/alvest-web-portals/current/admin/bin/console website:sync:feedback
+    user: deployer
+    minute: "0"
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Paused tasks
+  become: true
+  ansible.builtin.cron:
+    name: cron for paused tasks
+    job: php /var/www/alvest-web-portals/current/admin/bin/console calendar:task:paused
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Escalation tasks
+  become: true
+  ansible.builtin.cron:
+    name: cron for escalation tasks
+    job: php /var/www/alvest-web-portals/current/admin/bin/console calendar:task:escalation
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Scheduled tasks
+  become: true
+  ansible.builtin.cron:
+    name: cron for scheduled tasks
+    job: php /var/www/alvest-web-portals/current/admin/bin/console calendar:task:scheduled
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: DMS expiration
+  become: true
+  ansible.builtin.cron:
+    name: cron for DMS expiration
+    job: php /var/www/alvest-web-portals/current/admin/bin/console dms:expiration
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Service PDC
+  become: true
+  ansible.builtin.cron:
+    name: cron for service MDC
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:pdc
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Archive MEAP
+  become: true
+  ansible.builtin.cron:
+    name: cron for archive MEAP
+    job: php /var/www/alvest-web-portals/current/admin/bin/console engineering:meap:archive
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Equotes sync users
+  become: true
+  ansible.builtin.cron:
+    name: cron for equotes sync users
+    job: php /var/www/alvest-web-portals/current/admin/bin/console equotes:sync
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Finance forex
+  become: true
+  ansible.builtin.cron:
+    name: cron for update forex for finance
+    job: php /var/www/alvest-web-portals/current/admin/bin/console finance:forex
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Manufacturing green-tag due soon
+  become: true
+  ansible.builtin.cron:
+    name: cron for manufacturing green-tag due soon
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:green-tag:green_tag_due_soon
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Manufacturing yellow-tag
+  become: true
+  ansible.builtin.cron:
+    name: cron for manufacturing yellow-tag
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:yellow-tag
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Canada webcams
+  become: true
+  ansible.builtin.cron:
+    name: cron for Canada webcams
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:webcams:ca
+    user: deployer
+    minute: "45"
+    hour: "12"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: France webcams
+  become: true
+  ansible.builtin.cron:
+    name: cron for France webcams
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:webcams:france
+    user: deployer
+    minute: "0"
+    hour: "11"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: SOR3 webcams
+  become: true
+  ansible.builtin.cron:
+    name: cron for SOR3 webcams
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:webcams:sor3
+    user: deployer
+    minute: "0"
+    hour: "11"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: UK webcams
+  become: true
+  ansible.builtin.cron:
+    name: cron for UK webcams
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:webcams:uk
+    user: deployer
+    minute: "0"
+    hour: "12"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Belgium webcams
+  become: true
+  ansible.builtin.cron:
+    name: cron for Belgium webcams
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:webcams:belgium
+    user: deployer
+    minute: "15"
+    hour: "11"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: ZH webcams
+  become: true
+  ansible.builtin.cron:
+    name: cron for ZH webcams
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:webcams:zh
+    user: deployer
+    minute: "1"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: India webcams
+  become: true
+  ansible.builtin.cron:
+    name: cron for India webcams
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:webcams:india
+    user: deployer
+    minute: "0"
+    hour: "10"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Manufacturing critical components
+  become: true
+  ansible.builtin.cron:
+    name: cron for manufacturing critical components
+    job: php /var/www/alvest-web-portals/current/admin/bin/console manufacturing:critical-components
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: MIS inventory
+  become: true
+  ansible.builtin.cron:
+    name: cron for MIS inventory
+    job: php /var/www/alvest-web-portals/current/admin/bin/console mis:inventory
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Sage inventory
+  become: true
+  ansible.builtin.cron:
+    name: cron for Sage inventory
+    job: php /var/www/alvest-web-portals/current/admin/bin/console purchasing:sage:inventory
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Sales CMS
+  become: true
+  ansible.builtin.cron:
+    name: cron for Sales CMS
+    job: php /var/www/alvest-web-portals/current/admin/bin/console sales:cms
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: PDC notify late pending
+  become: true
+  ansible.builtin.cron:
+    name: cron for PDC notify late pending
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:pdc:notify-late-pending
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Packing Slips
+  become: true
+  ansible.builtin.cron:
+    name: cron for packing slips
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:packing_slip
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Service Bulletin
+  become: true
+  ansible.builtin.cron:
+    name: cron for service bulletins
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:sb
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: TOC
+  become: true
+  ansible.builtin.cron:
+    name: cron for TOC
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:toc
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: TOC daily report
+  become: true
+  ansible.builtin.cron:
+    name: cron for TOC daily report
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:toc:daily_report
+    user: deployer
+    minute: "0"
+    hour: "19"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: WC
+  become: true
+  ansible.builtin.cron:
+    name: cron for WC
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:wc
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Website sync data
+  become: true
+  ansible.builtin.cron:
+    name: cron to synchronize data for TLD group website
+    job: php /var/www/alvest-web-portals/current/admin/bin/console website:sync:data
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Backup reminder
+  become: true
+  ansible.builtin.cron:
+    name: cron for backup reminder
+    job: php /var/www/alvest-web-portals/current/admin/bin/console calendar:backup:reminder
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "5"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Task aging
+  become: true
+  ansible.builtin.cron:
+    name: cron for task aging
+    job: php /var/www/alvest-web-portals/current/admin/bin/console calendar:task:aging
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "1"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: KPI TOC insert
+  become: true
+  ansible.builtin.cron:
+    name: cron for KPI TOC insert
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:toc:kpi_insert
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: MIS database cleanup
+  become: true
+  ansible.builtin.cron:
+    name: cron for MIS databse cleanup
+    job: php /var/www/alvest-web-portals/current/admin/bin/console mis:database:cleanup
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "2"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: FMS contracts
+  become: true
+  ansible.builtin.cron:
+    name: cron for FMS contract
+    job: php /var/www/alvest-web-portals/current/admin/bin/console service:sequence:fms_contracts
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: absent
+  when: (inventory_hostname == "web-portals-02.tld-america.com")
+
+- name: Cleanup manuals temp files
+  become: true
+  ansible.builtin.cron:
+    name: cron for cleaning up manuals temp files
+    job: /bin/bash /var/www/alvest-web-portals/current/admin/jobs/daily/clean_tmp_cache.sh >> /var/log/cron/daily.log
+    user: deployer
+    minute: "0"
+    hour: "0,12"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+  when: (inventory_hostname == "web-portals-02.tld-america.com")

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.settings'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="card">
+        <div class="card-body">
+            <h2 class="h3 mb-4 page-title">{{ 'settings.caption'|trans }}</h2>
+            <div class="my-4">
+                <form>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <label for="firstname">{{ 'settings.profile.form.firstname.label'|trans }}</label>
+                            <input type="text" id="firstname" class="form-control" placeholder="Brown" value="{{ user.firstname }}" disabled readonly="readonly"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastname">{{ 'settings.profile.form.lastname.label'|trans }}</label>
+                            <input type="text" id="lastname" class="form-control" placeholder="Asher" value="{{ user.lastname }}" disabled readonly="readonly"/>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="email">{{ 'settings.profile.form.email.label'|trans }}</label>
+                        <input type="email" class="form-control" id="email" placeholder="brown@asher.me" value="{{ user.email }}" disabled readonly="readonly"/>
+                    </div>
+                </form>
+                <hr class="my-4"/>
+                {{ form_start(passwordForm) }}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-error">
+                            {{ form_errors(passwordForm) }}
+                            {{ form_errors(passwordForm.password) }}
+                        </div>
+                        <div>
+                            {{ form_label(passwordForm.password, null, {'label_attr': {'class': 'mb-1'}}) }}
+                            {{ form_widget(passwordForm.password) }}
+                        </div>
+                    </div>
+                    <div class="col ms-4">
+                        <p class="mb-2">{{ 'settings.change_password.form.new_password.requirements.title'|trans }}</p>
+                        <p class="small text-muted mb-2">{{ 'settings.change_password.form.new_password.requirements.description'|trans }}</p>
+                        <ul class="small text-muted pl-4 mb-0">
+                            <li>{{ 'settings.change_password.form.new_password.requirements.length'|trans }}</li>
+                            <li>{{ 'settings.change_password.form.new_password.requirements.no_starting_space'|trans }}</li>
+                            <li>{{ 'settings.change_password.form.new_password.requirements.at_least_one_letter'|trans }}</li>
+                            <li>{{ 'settings.change_password.form.new_password.requirements.require_2_of_3_constaints'|trans }}</li>
+                            <li>{{ 'settings.change_password.form.new_password.requirements.no_3_common_letters_with_name'|trans }}</li>
+                            <li>{{ 'settings.change_password.form.new_password.requirements.same_password'|trans }}</li>
+                            <li><a href="https://haveibeenpwned.com/Passwords" target="_blank">{{ 'settings.change_password.form.new_password.requirements.safe'|trans }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-outline-primary">{{ 'settings.change_password.form.submit.label'|trans }}</button>
+                </div>
+                {{ form_end(passwordForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

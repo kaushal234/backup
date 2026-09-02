@@ -1,0 +1,8 @@
+<td>
+    {% for itemText in item.textItemLangs %}
+        <div><u>{{ itemText.name }}</u>:</div>
+        {% for text in itemText.texts %}
+            <div>{{ text|nl2br }}</div>
+        {% endfor %}
+    {% endfor %}
+</td>

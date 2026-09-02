@@ -1,0 +1,42 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <hr>
+            <center><button href="{{ url('manual_show', {id: manual.id}) }}">{{ 'manual.manual_link' | trans }}</button></center>
+            <hr>
+            <p>{{ 'manual.message' | trans }}</p><br>
+
+            {% if errors is not empty %}
+                <p>{{ 'manual.error_message' | trans }} </p><br>
+                {% for error in errors %}
+                    <p>{{ error }}</p><br>
+                {% endfor %}
+            {% endif %}
+
+            {{ include('/Helpers/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'manual.id' | trans,
+                            link:{
+                                route: 'manual_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                    },
+                    data: duplicatedManuals,
+                    title: ''
+                },
+            }, with_context = false) }}
+            <br>
+            <hr>
+        </columns>
+    </row>
+{% endblock %}

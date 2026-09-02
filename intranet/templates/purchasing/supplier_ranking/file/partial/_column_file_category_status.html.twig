@@ -1,0 +1,20 @@
+{% set hasFile = false %}
+{% set hasExpiredFile = false %}
+
+{% for file in value|default([]) %}
+    {% if file.category.id == category_id %}
+        {% set hasFile = true %}
+
+        {% if file.expired %}
+            {% set hasExpiredFile = true %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+{% if hasExpiredFile %}
+    <i class="fa fa-circle text-danger"></i>
+{% elseif hasFile %}
+    <i class="fa fa-circle text-success"></i>
+{% else %}
+    <i style="color: #d0d9e1;" class="fa fa-circle"></i>
+{% endif %}

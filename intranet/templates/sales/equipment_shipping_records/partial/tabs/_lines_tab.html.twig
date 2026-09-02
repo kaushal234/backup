@@ -1,0 +1,88 @@
+{% trans_default_domain 'equipment_shipping_record' %}
+<div class="row">
+    <div class="col-lg-12">
+        {% embed 'helper/_report_table.html.twig' with {
+            reportTable: {
+                items: {
+                    serialNumber: {
+                        properties: ['equipmentRecord.serialNumber'],
+                        label: 'demo.fields.serial_number'|trans({}, 'demo')|capitalize,
+                        link:{
+                            route: 'legacy_product_support',
+                            params: {'id':'equipmentRecord.legacyId'},
+                            fixedParams: {'m':['equipment', 'view']},
+                        }
+                    },
+                    model: {
+                        properties: ['equipmentRecord.model'],
+                        label: 'catalogue.products.product'|trans({}, 'catalogue'),
+                    },
+                    estimatedPickUpDate: {
+                        label: 'equipment_shipping_record.fields.line.estimated_pick_up_date'|trans(),
+                        filters: ["date('Y-m-d')"],
+                        preserveNull: true,
+                    },
+                    dateShipped: {
+                        properties: ['equipmentRecord.dateShipped'],
+                        filters: ["date('Y-m-d')"],
+                        label: 'catalogue.products.date_shipped'|trans({}, 'catalogue'),
+                        preserveNull: true,
+                    },
+                    vesselLoadingDate: {
+                        label: 'equipment_shipping_record.fields.line.vessel_loading_date'|trans(),
+                        filters: ["date('Y-m-d')"],
+                        preserveNull: true,
+                    },
+                    estimatedArrivalDate: {
+                        label: 'equipment_shipping_record.fields.line.estimated_arrival_date'|trans(),
+                        filters: ["date('Y-m-d')"],
+                        preserveNull: true,
+                    },
+                    actualArrivalDate: {
+                        label: 'equipment_shipping_record.fields.line.actual_arrival_date'|trans(),
+                        filters: ["date('Y-m-d')"],
+                        preserveNull: true,
+                    },
+                    truckType: {
+                        label: 'equipment_shipping_record.fields.line.truck_type'|trans(),
+                    },
+                    comment: {
+                        label: 'demo.fields.comment'|trans({}, 'demo')|capitalize,
+                    },
+                    delete: {
+                        label: 'button.delete'|trans({}, 'messages')|capitalize,
+                        link:{
+                            route: 'equipment_shipping_record_lines_delete',
+                            params: {id: 'esrId', lineId: 'id'},
+                            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                            fixedParams: {'_token': csrf_token('delete_contract_type')},
+                            popup: {
+                                type: 'confirmation',
+                                title: 'Confirmation',
+                                message: 'Are you sure you want to delete ?',
+                            },
+                        },
+                        class: "text-end",
+                    },
+                },
+                title: false,
+                data: lines,
+                search: false,
+                pagination: false,
+                initialSorting: false
+            }
+        } %}
+            {% block card_header %}
+                <div class="ibox-title" style="display: flex; justify-content: space-between">
+                    <h5>{{ 'equipment_shipping_record.fields.lines'|trans({}, 'equipment_shipping_record') }}</h5>
+                    {% if item.status != 'CLOSED' and is_granted('FEATURE_ESR_WRITE') %}
+                    <div>
+                        <a class="btn btn-warning"
+                           href="{{ path('equipment_shipping_record_edit', {id: item.id}) }}">Edit</a>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endblock %}
+        {% endembed %}
+    </div>
+</div>

@@ -1,0 +1,74 @@
+{% extends 'directory/division/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        '@id': {
+                            label: 'directory.division.name'|trans|upper ~ '#',
+                            filters: 'iri_id',
+                        },
+                        name: {'label': 'fields.name'|trans({}, 'messages')|capitalize}
+                    },
+                    title: 'directory.division.title.view'|trans|capitalize,
+                    data: division
+                },
+            }, with_context = false) }}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'menu.logs'|trans({}, 'messages') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="logs-block" data-resource="{{ division.iri }}" data-show-comment-form="true"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        name: {
+                            label: 'directory.sub_division.name'|trans|capitalize,
+                            link:{ route: 'directory_sub_divisions_show', params: {'id':'@id'}},
+                        },
+                    },
+                    title: 'directory.sub_division.title.list'|trans|capitalize,
+                    data: division.subDivisions,'initialSorting': 'name'
+                }
+            }, with_context = false) }}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        name: {
+                            'label': 'fields.fullname'|trans({}, 'messages')|capitalize,
+                            'properties': ['lastname', 'firstname'],
+                            'link': {
+                                'route': 'directory_people_show',
+                                'params': {'id':'@id'}
+                            }
+                        },
+                    },
+                    title: 'directory.division.fields.representatives'|trans|capitalize,
+                    initialSorting: 'name',
+                    data: division.representatives,
+                }
+            }, with_context = false) }}
+            {{ include('directory/partial/members.html.twig', {members: members}, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

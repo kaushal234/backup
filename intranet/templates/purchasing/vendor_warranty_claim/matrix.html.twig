@@ -1,0 +1,76 @@
+{% extends 'purchasing/layout.html.twig' %}
+{% trans_default_domain 'vendor_warranty_claim' %}
+
+{% block content %}
+    <div class="row">
+        {% if byStatusByAssignee is not null %}
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ ('vendor_warranty_claim.report.by_status_' ~ translationKey) |trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        {% set additionalParams = { 'filter_vendor_warranty_claims[location][value]': userLocation } %}
+                        {% if 'filter_vendor_warranty_claims[department][value][]' == xParam %}
+                            {% set additionalParams = additionalParams | merge({ 'byDepartment': true }) %}
+                        {% endif %}
+                        {{ include('helper/_matrix_table.html.twig', {
+                            data: byStatusByAssignee,
+                            link: {
+                                route: 'vendor_warranty_claim_home',
+                                xParam: xParam,
+                                yParam: 'filter_vendor_warranty_claims[status][value][]',
+                                additionalParams: additionalParams
+                            },
+                        }, with_context=false) }}
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <a href="{{ path('vendor_warranty_claim_home', { byDepartment: true }) }}"
+                                       class="btn btn-info text-capitalize">
+                                        <i class="fa fa-list"></i>&nbsp;{{ 'vendor_warranty_claim.title.by_department' | trans }}
+                                    </a>
+                                    <a href="{{ path('vendor_warranty_claim_home') }}"
+                                       class="btn btn-info text-capitalize">
+                                        <i class="fa fa-list"></i>&nbsp;{{ 'vendor_warranty_claim.title.by_assignee' | trans }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'vendor_warranty_claim.report.by_status_by_location'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: byStatusByLocation,
+                        link: {
+                            route: 'vendor_warranty_claim_home',
+                            xParam: 'filter_vendor_warranty_claims[location][value]',
+                            yParam: 'filter_vendor_warranty_claims[status][value][]',
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

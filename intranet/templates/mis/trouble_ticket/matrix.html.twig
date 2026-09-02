@@ -1,0 +1,57 @@
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ ('trouble_ticket.reports.by_status_' ~ translationKey) |trans }}</h5>
+
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {% set xParam = xParamMatrix is same as ('location') ? 'location[]' : xParamMatrix %}
+                    {% set routeParams = {
+                        route: 'trouble_ticket_home',
+                        yParam: 'status[]',
+                        xParam: xParam,
+                    } %}
+                    {% set routeParams = xParamMatrix is same as ('location') ? routeParams : routeParams | merge({
+                        additionalParams: { byMisAssignee: true }
+                    }) %}
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: report,
+                        showZero: false,
+                        link: routeParams,
+                    }, with_context=false) }}
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <a href="{{ path('mis_matrix', { byMisAssignee: true }) }}"
+                                   class="btn btn-info text-capitalize">
+                                    <i class="fa fa-list"></i>&nbsp;{{ 'trouble_ticket.reports.by_mis_assignee' | trans }}
+                                </a>
+                                <a href="{{ path('mis_matrix') }}"
+                                   class="btn btn-info text-capitalize">
+                                    <i class="fa fa-list"></i>&nbsp;{{ 'trouble_ticket.reports.by_factory' | trans }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

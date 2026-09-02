@@ -1,0 +1,44 @@
+{% trans_default_domain "emails" %}
+
+<a target="_blank" href="{{ url('spare_parts_request', {sparePartsRequestId: sparePartsRequest.id}) }}">SPR#{{ sparePartsRequest.id }}</a> {{ 'spr.subject.creation_from'|trans({'%id%': sparePartsRequest.id}) }}
+{% if sparePartsRequest['@type'] == 'TocSparePartsRequest' %}
+    <a target="_blank" href="{{ url('legacy_sales_service_service', {m: ['toc', 'view', 'parts'], id: sparePartsRequest.tocId}) }}">TOC#{{ sparePartsRequest.tocId }}</a>
+{% endif %}
+{% if sparePartsRequest['@type'] == 'SbSparePartsRequest' %}
+    <a target="_blank" href="{{ url('legacy_product_support', {m: ['sb', 'view'], id: sparePartsRequest.sbId}) }}">SB#{{ sparePartsRequest.sbId }}</a>
+{% endif %}
+
+<hr>
+
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: {
+            status: { label:'sfr.fields.status' | trans},
+            createdAt: { label:'spr.fields.created_at' | trans, filters: ["date('Y-m-d H:i:s')"]},
+            sso: { label:'demo.fields.sso' | trans, properties: ['sso.name'] },
+            createdBy: { label:'mom.meeting.createdBy' | trans, properties: ['poster.lastname', 'poster.firstname'] },
+            sph: { label:'spr.fields.sph' | trans, properties: ['sph.name'] },
+            customer: { label:'demo.fields.customer' | trans, properties: ['customer.name'] },
+            deliveryAddress: { label:'address.delivery_address' | trans, properties: ['deliveryAddress.firstname', 'deliveryAddress.lastname', 'deliveryAddress.address.street1', 'deliveryAddress.address.street2', 'deliveryAddress.address.postalCode', 'deliveryAddress.address.city', 'deliveryAddress.address.country', 'deliveryAddress.phone'] },
+            deliveryNotes: { label:'spr.fields.delivery_notes' | trans },
+            notes: { label:'spr.fields.notes' | trans },
+        },
+        data: sparePartsRequest,
+        title: 'SPR #'~sparePartsRequest.id
+    },
+}, with_context = false) }}
+
+<hr>
+
+{{ include('Helpers/_report_table.html.twig', {
+    reportTable: {
+        items: {
+            partNumber: { label: 'spr.fields.part_number'|trans },
+            description: { label: 'spr.fields.description'|trans },
+            unitOfMeasure: { label: 'spr.fields.unit_of_measure'|trans },
+            quantity: { label: 'spr.fields.quantity'|trans },
+        },
+        data: sparePartsRequest.parts,
+        title: 'spr.title.lines'|trans
+    },
+}, with_context = false) }}

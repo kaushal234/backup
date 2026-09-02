@@ -1,0 +1,13 @@
+{% extends 'news/layout.html.twig' %}
+{% trans_default_domain 'news' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('news/partial/_form.html.twig', {
+        title: 'news.title.add'|trans,
+        form: form,
+        action: path('news_add'),
+        cancel_link: path('news_index')
+    }, with_context=false) }}
+{% endblock %}

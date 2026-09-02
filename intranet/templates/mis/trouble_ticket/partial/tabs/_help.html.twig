@@ -1,0 +1,48 @@
+{% trans_default_domain 'trouble_ticket' %}
+<div class="row row-cols-xl-5 row-cols-md-3 row-cols-1">
+    <twig:WidgetPeople translationKey="trouble_ticket.fields.operationalOwner" :user="troubleTicket.module.operationalOwner" link="directory_people_show" :linkParameters="{id: iri_id(troubleTicket.module.operationalOwner)}">
+    {{ troubleTicket.module.operationalOwner.firstname }} {{ troubleTicket.module.operationalOwner.lastname }}
+    </twig:WidgetPeople>
+    <twig:WidgetPeople translationKey="trouble_ticket.fields.key_user" :user="troubleTicket.module.keyUser" link="directory_people_show" :linkParameters="{id: iri_id(troubleTicket.module.keyUser)}">
+    {{ troubleTicket.module.keyUser.firstname }} {{ troubleTicket.module.keyUser.lastname }}
+    </twig:WidgetPeople>
+    <twig:WidgetPeople translationKey="trouble_ticket.fields.local_key_user" :user="troubleTicket.module.localKeyUser" link="directory_people_show" :linkParameters="{id: iri_id(troubleTicket.module.localKeyUser)}">
+    {{ troubleTicket.module.localKeyUser.firstname }} {{ troubleTicket.module.localKeyUser.lastname }}
+    </twig:WidgetPeople>
+    {% if null != troubleTicket.module.dmsProcedureId %}
+    <twig:WidgetLink translationKey="trouble_ticket.fields.dms_help" linkName="mis.modules.fields.dms_procedure" icon="material-symbols:info-outline-rounded" :link="dms(troubleTicket.module.dmsProcedureId)" />
+    {% else %}
+    <twig:Widget translationKey="No DMS Procedure" icon="material-symbols:info-outline-rounded" />
+    {% endif %}
+    {% if null != troubleTicket.module.dmsHelpId %}
+    <twig:WidgetLink translationKey="trouble_ticket.fields.dms_help" linkName="mis.modules.fields.dms_help"  icon="material-symbols:info-outline-rounded" :link="dms(troubleTicket.module.dmsHelpId)" />
+    {% else %}
+        <twig:Widget translationKey="No DMS Help" icon="material-symbols:info-outline-rounded"/>
+    {% endif %}
+</div>
+
+{% if troubleTicket.status not in ['NOT AN ISSUE', 'SOLVED', 'NOT APPROVED', 'ALREADY RAISED'] %}
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            <div class="ibox float-e-margins collapsable">
+                <div class="ibox-title">
+                    <h5>
+                        <i class="fa fa-circle-info"></i>
+                        {{ 'trouble_ticket.message.next_actions' | trans({}, 'trouble_ticket') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content ">
+                    <ul>
+                        {% for status, action in nextActions %}
+                            <li>{{ action }}: {{ status }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

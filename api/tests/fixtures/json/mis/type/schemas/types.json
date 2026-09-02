@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/mis/types$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/mis/types/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type":  "integer"},
+          "indiceFactor": {"type": ["string", "null"]},
+          "type": {"type": "string"},
+          "description": {"type": "string"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "indiceFactor",
+          "description",
+          "type"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

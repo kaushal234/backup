@@ -1,0 +1,29 @@
+<h3>{{ 'evendors_news.title'|trans({}, 'news') }}</h3>
+{% for news in evendorsNews %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <p>
+                <small class="text-muted">{{ news.publishedAt }}</small>
+            </p>
+            <hr>
+            <p class="card-text">
+                {{ news.content|raw }}
+            </p>
+            <div class="row">
+                {% if news.files is defined and news.files|length > 0 %}
+                    <div class="d-flex justify-content-end">
+                        {% for file in news.files %}
+                            <div title="{{ file.filePath | split('/') | last }}" class="ps-1">
+                                <a href="{{ path('evendors_news_show_file', {'id': news.id,'fileId': file.id}) }}"
+                                   target="_blank">
+                                    <i class="fa-regular fa-file fa-xl"></i>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endfor %}

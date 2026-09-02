@@ -1,0 +1,8 @@
+<div id="ticket-helper" style="position: fixed; bottom: 144px; right: -47px; z-index: 1000; height: 36px; width: 130px; transform: rotate(-90deg)">
+    <form name="ticket-metadata" action="{{ app_path('trouble_ticket_add') }}" method="post" target="_blank">
+        {% for key, data in ticket_metadata() %}
+            <input type="hidden" name="metadata[{{ key }}]" value="{{ data }}">
+        {% endfor %}
+        <input type="submit" value="{{ 'mis.open_ticket'|trans({}, 'mis') }}" style="background: #004F9E; color: white;border: none; padding: 7px 14px; font-size: 14px; cursor: pointer;">
+    </form>
+</div>

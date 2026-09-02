@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "customer": {"type": "string"},
+        "sso": {"type": "string"},
+        "factory": {"type": "string"},
+        "erpLocation": {"type": "string"},
+        "sph": {"type": "string"},
+        "equipmentRecords": {"type": "array"},
+        "customers": {"type": "array"},
+        "airport": {"type": ["string", "null"]},
+        "sparePartsRequest": {
+            "oneOf": [
+                {"type": "null"},
+                {"$ref": "spare_parts_request.json"}
+            ]
+        }
+    },
+    "required": ["sph", "factory", "erpLocation", "airport", "equipmentRecords", "sso", "customers", "customer", "sparePartsRequest"],
+    "additionalProperties": false
+}

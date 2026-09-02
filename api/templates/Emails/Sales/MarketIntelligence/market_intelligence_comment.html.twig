@@ -1,0 +1,19 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'market_intelligence.comment.message' | trans({'%id%': marketIntelligence.id, '%user%': user}) }}</p>
+
+            <center>
+                <button href="{{ url('market_intelligence', {'id': marketIntelligence.id }) }}">{{ 'market_intelligence.link' | trans({'%id%': marketIntelligence.id}) }}</button>
+            </center>
+
+            <p>{{ comment }}</p>
+        </columns>
+    </row>
+{% endblock %}

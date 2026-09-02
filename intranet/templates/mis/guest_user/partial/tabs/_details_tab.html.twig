@@ -1,0 +1,63 @@
+{{ include('helper/_association_table.html.twig', {
+    associationData: {
+        items: {
+            lastname: { label: 'directory.people.fields.lastname' | trans({}, 'directory')},
+            firstname: { label: 'directory.people.fields.firstname' | trans({}, 'directory') | capitalize},
+            supervisor: {
+                label: 'directory.people.fields.supervisor'|trans({}, 'directory'),
+                properties: ['supervisor.lastname', 'supervisor.firstname'],
+                link: {
+                    route: 'directory_people_show',
+                    params: {'id':'supervisor.@id'}
+                }
+            },
+            businessUnit: {
+                label: 'menu.business_unit.title'|trans({}, 'messages'),
+                properties: ['businessUnit.name'],
+                link: {
+                    route: 'directory_business_units_show',
+                    params: {'id':'businessUnit.@id'}
+                }
+            },
+            disabled: {
+                label: 'directory.people.fields.disabled' | trans({}, 'directory') | capitalize,
+                boolean: {
+                    'true': 'Yes',
+                    'false': 'No'
+                }
+            },
+            hidden: {
+                label: 'directory.people.fields.hidden' | trans({}, 'directory') | capitalize,
+                boolean: {
+                    'true': 'Yes',
+                    'false': 'No'
+                }
+            },
+            enableAt: {
+                label: 'directory.people.fields.enable_at' | trans({}, 'directory') | capitalize,
+                filters: ['date("Y-m-d")'],
+                preserveNull: true
+            },
+            plannedDisableAt: {
+                label: 'directory.people.fields.planned_disable_at' | trans({}, 'directory') | capitalize,
+                filters: ['date("Y-m-d")'],
+                preserveNull: true
+            },
+            email: {
+                label: 'directory.people.fields.email'|trans({}, 'directory')|capitalize,
+            },
+            needsCollaborationAccess: {
+                label: 'directory.people.fields.needs_collaboration_access'|trans({}, 'directory')|capitalize,
+                boolean: {
+                    'true': 'Yes',
+                    'false': 'No'
+                }
+            },
+            modules: {
+                label: 'directory.people.fields.module'|trans({}, 'directory')|capitalize,
+                template: '/mis/guest_user/partial/tabs/_modules_list.html.twig',
+                templateParams: {modules: item.modules}
+            }
+        },
+        data: item},
+}, with_context = false) }}

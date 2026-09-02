@@ -1,0 +1,83 @@
+App\Entity\Purchasing\SupplierRanking\SupplierRanking:
+  supplier_ranking_540_ocm_suppressed:
+    id: 1
+    legacyId: 1
+    supplier: '@supplier_2'
+    classification: '@classification_suppressed'
+    expertiseLevel: '@level_ocm'
+    lastReviewAt: <dateTimeBetween('-1 day', 'now')>
+
+  supplier_ranking_540_fabricator_locked:
+    id: 2
+    legacyId: 2
+    supplier: '@supplier_3'
+    classification: '@classification_locked'
+    expertiseLevel: '@level_fabricator'
+    lastReviewAt: <dateTimeBetween('-2 days', 'now')>
+
+  supplier_ranking_540_ocm_restricted:
+    id: 3
+    legacyId: 3
+    supplier: '@supplier_4'
+    classification: '@classification_restricted'
+    expertiseLevel: '@level_ocm'
+    lastReviewAt: <dateTimeBetween('-3 days', 'now')>
+
+  supplier_ranking_540_specialist_monitored:
+    id: 4
+    legacyId: 4
+    supplier: '@supplier_5'
+    classification: '@classification_monitored'
+    expertiseLevel: '@level_specialist'
+    lastReviewAt: <dateTimeBetween('-4 days', 'now')>
+
+  supplier_ranking_540_ocm_unrestricted:
+    id: 5
+    legacyId: 5
+    supplier: '@supplier_6'
+    classification: '@classification_unrestricted'
+    expertiseLevel: '@level_ocm'
+    lastReviewAt: <dateTimeBetween('-5 days', 'now')>
+
+  supplier_ranking_400_ocm_suppressed:
+    id: 6
+    legacyId: 6
+    supplier: '@supplier_7'
+    classification: '@classification_suppressed'
+    expertiseLevel: '@level_ocm'
+    revenue: 444.5
+    lastReviewAt: <dateTimeBetween('-6 days', 'now')>
+
+  supplier_ranking_400_fabricator_locked:
+    id: 7
+    legacyId: 7
+    supplier: '@supplier_8'
+    classification: '@classification_locked'
+    expertiseLevel: '@level_fabricator'
+    lastReviewAt: <dateTimeBetween('-7 days', 'now')>
+
+  supplier_ranking_400_ocm_restricted:
+    id: 8
+    legacyId: 8
+    supplier: '@supplier_9'
+    classification: '@classification_restricted'
+    expertiseLevel: '@level_ocm'
+    revenue: 157416
+    lastReviewAt: <dateTimeBetween('-8 days', 'now')>
+
+  supplier_ranking_400_specialist_monitored:
+    id: 9
+    legacyId: 9
+    supplier: '@supplier_10'
+    classification: '@classification_monitored'
+    expertiseLevel: '@level_specialist'
+    lastReviewAt: <dateTimeBetween('-9 days', '-5 days')>
+
+  supplier_ranking_400_ocm_unrestricted:
+    id: 10
+    legacyId: 10
+    supplier: '@supplier_11'
+    classification: '@classification_unrestricted'
+    expertiseLevel: '@level_ocm'
+    revenue: 227861.25
+    lastReviewAt: <dateTimeBetween('-10 days', 'now')>

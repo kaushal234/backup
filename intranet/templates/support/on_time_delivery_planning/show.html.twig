@@ -1,0 +1,272 @@
+{% extends '/support/on_time_delivery_planning/layout.html.twig' %}
+{% form_theme formFilter 'form_theme_vertical.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="ibox float-e-margins {% if filtered == true %}collapsed{% endif %}">
+        <div class="ibox-title">
+            <h5>{{ 'button.filter'|trans([], 'messages')|capitalize }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            {{ form_start(formFilter) }}
+            {{ form_errors(formFilter) }}
+            <div class="row">
+                <div class="col-md-2">
+                    {{ form_row(formFilter.serialNumber) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(formFilter.orderLineNumber) }}
+                </div>
+                <div class="col-md-2" style="margin-top: 45px">
+                    {{ form_widget(formFilter.light) }}
+                </div>
+                <div class="col-md-2" style="margin-top: 45px">
+                    {{ form_widget(formFilter.isShipped) }}
+                </div>
+                <div class="col-md-2" style="margin-top: 45px">
+                    {{ form_widget(formFilter.inspection) }}
+                </div>
+                <div class="col-md-2" style="margin-top: 45px">
+                    {{ form_widget(formFilter.excludeLight) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    {{ form_row(formFilter.salesOrganisation) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(formFilter.manufacturerLocation) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(formFilter.product) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(formFilter.productType) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(formFilter.emissionRating) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(formFilter.combinationMode) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{ form_row(formFilter.estimatedGreenTagDateBefore) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(formFilter.estimatedGreenTagDateAfter) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(formFilter.greenTagDateAfter) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(formFilter.greenTagDateBefore) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{ form_row(formFilter.firstGreenTagDateAfter) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(formFilter.firstGreenTagDateBefore) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{ form_row(formFilter.buyer) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(formFilter.endUser) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(formFilter.asm) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr class="hr-line-dashed">
+                    <div class="form-group text-end">
+                        <label class="control-label">&nbsp;</label>
+                        <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans({}, 'messages') | upper }}</button>
+                        {{ form_widget(formFilter.downloadXls, {'attr': {'title': 'Recommended CSV format for more than 2000 lines'}}) }}
+                        {{ form_widget(formFilter.downloadCsv) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_end(formFilter) }}
+        </div>
+    </div>
+
+    {% if equipmentRecords is defined %}
+        {% set items = {
+            legacyId: {
+                label: 'demo.fields.equipment_record'|trans([], 'demo')|capitalize,
+                link:{
+                    route: 'legacy_product_support',
+                    params: {'id':'legacyId'},
+                    fixedParams: {'m':['equipment', 'view']},
+                }
+            },
+            serialNumber: {
+                label: 'support.equipment_record.fields.serial_number'|trans|capitalize,
+            },
+            model: {
+                label: 'catalogue.products.product'|trans([], 'catalogue'),
+            },
+            type: {
+                label: 'support.equipment_record.fields.type'|trans,
+            },
+            endUser: {
+                label: 'support.equipment_record.fields.end_user'|trans|capitalize,
+                properties: ['endUser.name']
+            },
+            buyer: {
+                label: 'support.equipment_record.fields.buyer'|trans|capitalize,
+                properties: ['buyer.name']
+            },
+            salesOrganisation: {
+                label: 'support.equipment_record.fields.sales_organisation'|trans|capitalize,
+                properties: ['salesOrganisation.name']
+            },
+            manufacturerLocation: {
+                label: 'support.equipment_record.fields.manufacturer_location'|trans|capitalize,
+                properties: ['manufacturerLocation.name']
+            },
+            customerSerialNumber: {
+                label: 'support.equipment_record.fields.customer'|trans|capitalize,
+            },
+            firstGreenTagDate: {
+                label: 'support.equipment_record.fields.first_green_tag_date'|trans|capitalize,
+                filters: 'date("Y-m-d")',
+                preserveNull: true,
+            },
+            firstEstimatedGreenTagDate: {
+                label: 'support.equipment_record.fields.first_estimated_green_tag_date'|trans|capitalize,
+                filters: 'date("Y-m-d")',
+                preserveNull: true,
+            },
+            estimatedGreenTagDate: {
+                label: 'support.equipment_record.fields.estimated_green_tag_date'|trans|capitalize,
+                template: 'support/on_time_delivery_planning/partial/cell/_effective_estimated_green_tag_date.html.twig',
+            },
+            greenTagDate: {
+                label: 'support.equipment_record.fields.green_tag_date'|trans|capitalize,
+                filters: 'date("Y-m-d")',
+                preserveNull: true,
+            },
+            yellowTagDate: {
+                label: 'support.equipment_record.fields.yellow_tag_date'|trans|capitalize,
+                filters: 'date("Y-m-d")',
+                preserveNull: true,
+            },
+            dateShipped: {
+                label: 'support.equipment_record.fields.date_shipped'|trans|capitalize,
+                filters: 'date("Y-m-d")',
+                preserveNull: true,
+            },
+            odpComment: {
+                label: 'support.equipment_record.fields.odp_comment'|trans|capitalize,
+            },
+            workOrder: {
+                label: 'support.equipment_record.fields.work_order'|trans|capitalize,
+            },
+            emissionRating: {
+                label: 'support.equipment_record.fields.emission_rating'|trans|capitalize,
+                properties: ['emissionRating.name']
+            },
+            requestedDeliveryDate: {
+                label: 'sales_order.factory_order.requested_delivery_date'|trans({}, 'sales_orders')|capitalize,
+                filters: 'date("Y-m-d")',
+                properties: ['orderFactory.requestedDeliveryDate'],
+                preserveNull: true,
+            },
+            factoryPromisedDeliveryDate: {
+                label: 'sales_order.factory_order.factory_promised_delivery_date'|trans({}, 'sales_orders')|capitalize,
+                filters: 'date("Y-m-d")',
+                properties: ['orderFactory.factoryPromisedDeliveryDate'],
+                preserveNull: true,
+            },
+            deliveredEarly: {
+                label: 'sales_order.factory_order.early_delivery' | trans({}, 'sales_orders')|capitalize,
+                properties: ['orderFactory.orderLine.deliveredEarly'],
+                boolean: {
+                    true: '<i class="fa fa-check text-info"></i>',
+                    false: '<i class="fa fa-times text-danger"></i>'
+                }
+            },
+            solLegacyId: {
+                label: 'manufacturing_margin.fields.sol'|trans([], 'emails')|capitalize,
+                link:{
+                    route: 'legacy_sales',
+                    params: {'id':'orderFactory.orderLine.legacyId'},
+                    fixedParams: {'m':['sol', 'view']},
+                },
+                properties: ['orderFactory.orderLine.legacyId']
+            },
+            purchaseOrderAcceptedDate: {
+                label: 'sales_order.line.purchase_order_accepted_date'|trans({}, 'sales_orders')|capitalize,
+                filters: 'date("Y-m-d")',
+                properties: ['orderFactory.orderLine.purchaseOrderAcceptedDate'],
+                preserveNull: true,
+            },
+            inspection: {
+                label: 'sales_order.line.inspection'|trans({}, 'sales_orders')|capitalize,
+                properties: ['orderFactory.orderLine.inspection']
+            },
+            inspectionStatus: {
+                label: 'Inspection Status',
+                properties: ['lastPreDeliveryInspection.status']
+            },
+            inspectionDate: {
+                label: 'Inspection Date',
+                properties: ['lastPreDeliveryInspection.plannedAt'],
+                filters: 'date("Y-m-d")',
+                preserveNull: true,
+            },
+            shipWithParts: {
+                label: 'sales_order.line.ship_with_parts'|trans({}, 'sales_orders')|capitalize,
+                properties: ['orderFactory.orderLine.shipWithParts'],
+                boolean: {
+                    true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                    false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                }
+            },
+            incoterm: {
+                label: 'equipment_shipping_record.fields.incoterm'|trans({}, 'equipment_shipping_record')|capitalize,
+                properties: ['orderFactory.orderLine.incoterm.code']
+            },
+            incotermLocation: {
+                label: 'sales_order.line.incoterm_location'|trans({}, 'sales_orders')|capitalize,
+                properties: ['orderFactory.orderLine.incotermLocation']
+            },
+            invoice: {
+                label: 'sales_order.transaction.invoice'|trans({}, 'sales_orders')|capitalize,
+                properties: ['orderTransaction.invoice']
+            },
+            commissioning: {
+                label: 'sales_order.factory_order.commissioning'|trans({}, 'sales_orders')|capitalize,
+                properties: ['orderFactory.commissioning']
+            },
+            light: {
+                label: 'support.equipment_record.fields.light'|trans|capitalize,
+            }
+        } %}
+
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: items,
+                data: equipmentRecords,
+                title: 'ODP',
+                pagination: false
+            },
+        }, with_context = false) }}
+    {% endif %}
+{% endblock %}

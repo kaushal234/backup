@@ -1,0 +1,641 @@
+%{
+# =============================================================================
+# File    : ParserRules.yp (generated files is Parser.pm)
+# Author  : Bernd Loske & Kevin Brock / Fullscope
+# Date    : June 2002
+# Comments:
+#    Parser grammer rules for WiseB2B configruator constraint parser.
+#
+# =============================================================================
+# $Id: ParserRules.yp,v 2.1 2003/03/04 03:07:44 kbrock Exp $
+# =============================================================================
+# - Copyright (C) 2000-2002 Fullscope.  All Rights Reserved.                  -
+# -     								      -
+# - This software program contains proprietary technology and trade           -
+# - secrets developed by Fullscope through substantial creative effort.       -
+# - No part of this software may be duplicated, reused, or disclosed          -
+# - without a duly authorized license agreement and/or written permission     -
+# - from Fullscope.                                                           -
+# =============================================================================
+ 
+use util::constraintparser::Constraint;
+use util::constraintparser::Expression;
+use util::constraintparser::Condition;
+use util::constraintparser::Basic;
+use util::constraintparser::Symbol;
+%}
+
+%left OR
+%left AND
+%right NOT
+%left '=' '>' '<' '>=' '<=' '<>' TOK_IS
+%right ','
+%left '-' '+' '&'
+%left '*' '/' '\\'
+%right NEG
+
+%%
+grammar:	vardecls grammarstatements
+			{
+			    new util::constraintparser::Constraint(
+				$_[0]->YYData->{symtable}, $_[2]);
+			}
+			;
+
+grammarstatements:	  #empty
+			{
+			    [];
+			}
+			| statement grammarstatements
+			{
+			    unshift @{$_[2]},@{$_[1]};
+			    $_[2];
+			}
+			;
+
+vardecls:	  #empty
+			{
+			    undef;
+			}
+			| vardecl vardecls
+			{
+			    undef;
+			}
+			;
+
+vardecl:	  datatype NAME globaldecl
+			{
+			    my $sym = new util::constraintparser::Symbol(
+				SYM_VARIABLE,
+				$_[2],
+				$_[1],
+				$_[3]);
+			    $sym->markReferenced;
+
+			    unless ($_[0]->YYData->{symtable}->add($sym)) {
+			        $_[0]->YYData->{errmsg} = 
+				    "Variable '$_[2]' already declared";
+				$_[0]->YYError;
+			    }
+
+			    undef;
+			}
+			;
+
+datatype:	  TOK_LONG
+			{
+				DATATYPE_LONG;
+			}
+			| TOK_DOUBLE
+			{
+				DATATYPE_DOUBLE;
+			}
+			| TOK_STRING
+			{
+				DATATYPE_STRING;
+			}
+			;
+
+globaldecl:	  #empty
+			{
+			    undef;
+			}
+			| TOK_GLOBAL
+			{
+			    SYM_GLOBAL;
+			}
+			;
+
+shortform:	CONSTRMARKER expression
+			{
+			    my $table = $_[0]->YYData->{symtable};
+			    my $sym = $table->findSymbol(SYM_VARIABLE,
+			        "validate");
+			    unless ($sym) {
+			        $_[0]->YYData->{errmsg} = 
+				    "Internal error; missing global " .
+				    "variable 'validate'";
+				$_[0]->YYError;
+				return undef;
+			    }
+			    $sym->markAssigned;
+
+			    new util::constraintparser::Condition(
+				new util::constraintparser::Expression(
+				    $_[2],
+				    OPERATOR_NOT,
+				    undef),
+				[ new util::constraintparser::Expression(
+				    new util::constraintparser::Expression(
+					new util::constraintparser::Basic(
+					      BASICTYPE_VARREF,
+					      $sym),
+					OPERATOR_BASICREF,
+					undef),
+				    OPERATOR_ASSIGN,
+				    new util::constraintparser::Expression(
+					new util::constraintparser::Basic(
+					    BASICTYPE_STATIC,
+					    DATATYPE_LONG,
+					    0),
+					OPERATOR_BASICREF,
+					undef)
+				    ) ],
+				[]);
+			}
+			;
+
+expression:	  expression '+' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_ADD,
+				$_[3]);
+			}
+			| expression '-' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_SUB,
+				$_[3]);
+			}
+			| '-' expression %prec NEG
+			{
+			    new util::constraintparser::Expression(
+				$_[2],
+				OPERATOR_NEG);
+			}
+			| '+' expression %prec NEG
+			{
+				$_[2];
+			}
+			| expression '\\' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_REMAINDER,
+				$_[3]);
+			}
+			| expression '/' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_DIV,
+				$_[3]);
+			}
+			| expression '*' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_MULT,
+				$_[3]);
+			}
+			| expression '&' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_CONCAT,
+				$_[3]);
+			}
+			| expression '=' simpleexprlist
+			{
+			    if( @{$_[3]} > 1 ) {
+				my $tmpexpr = undef;
+				for my $expr ( @{$_[3]} ) {
+				    my $tmp2 = new util::constraintparser::Expression(
+					$_[1],
+					util::constraintparser::Expression::OPERATOR_EQ,
+					$expr);
+				    if( $tmpexpr ) {
+					$tmpexpr = new util::constraintparser::Expression(
+					    $tmpexpr,
+					    util::constraintparser::Expression::OPERATOR_OR,
+					    $tmp2);
+				    }
+				    else {
+					$tmpexpr = $tmp2;
+				    }
+				}
+				$tmpexpr;
+			    }
+			    else {
+				new util::constraintparser::Expression(
+				    $_[1],
+				    util::constraintparser::Expression::OPERATOR_EQ,
+				    $_[3]->[0]);
+			    }
+			}
+			| expression '<>' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_NE,
+				$_[3]);
+			}
+			| expression '>' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_GT,
+				$_[3]);
+			}
+			| expression '>=' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_GE,
+				$_[3]);
+			}
+			| expression '<' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_LT,
+				$_[3]);
+			}
+			| expression '<=' expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_LE,
+				$_[3]);
+			}
+			| expression AND expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_AND,
+				$_[3]);
+			}
+			| expression OR expression
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_OR,
+				$_[3]);
+			}
+			| NOT expression
+			{
+			    new util::constraintparser::Expression(
+				$_[2],
+				OPERATOR_NOT,
+				undef);
+			}
+			| '(' expression ')'
+			{
+			    $_[2];
+			}
+			| expression TOK_IS NOT '{' rangeexprlist '}'
+			{
+			    new util::constraintparser::Expression(
+				is_expression($_[0], $_[1], $_[5]),
+				OPERATOR_NOT,
+				undef);
+			}
+			| expression TOK_IS '{' rangeexprlist '}'
+			{
+			    is_expression($_[0], $_[1], $_[4]);
+			}
+			| FUNCNAME '(' condexprlist ')'
+			{
+			    my $table = $_[0]->YYData->{symtable};
+			    my $sym = $table->findSymbol(SYM_FUNCTION, $_[1]);
+			    unless ($sym) {
+				$_[0]->YYData->{errmsg} = 
+				    "Undefined function '$_[1]'";
+				$_[0]->YYError;
+				return undef;
+			    }
+			    $sym->markReferenced;
+
+			    new util::constraintparser::Expression(
+				new util::constraintparser::Basic(
+					BASICTYPE_FUNCTION,
+					$sym,
+					$_[3]),
+				OPERATOR_BASICREF,
+				undef);
+			}
+			| simpleexpr
+			{
+			    $_[1];
+			}
+			;
+
+simpleexpr: 	variable
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_BASICREF,
+				undef);
+			}
+			| constant
+			{
+			    new util::constraintparser::Expression(
+				$_[1],
+				OPERATOR_BASICREF,
+				undef);
+			}
+			;
+
+condexprlist:  #empty
+			{
+			    [];
+			}
+			| exprlist
+			{
+			    $_[1];
+			}
+			;
+
+exprlist:	  expression
+			{
+			    [ $_[1] ];
+			}
+			| expression ',' exprlist
+			{
+			    unshift @{$_[3]}, $_[1];
+			    $_[3];
+			}
+			;
+
+simpleexprlist:	  simpleexpr
+			{
+			    [ $_[1] ];
+			}
+			| simpleexpr ',' simpleexprlist
+			{
+			    unshift @{$_[3]}, $_[1];
+			    $_[3];
+			}
+			;
+
+rangeexprlist:	  simpleexpr
+			{
+			    [ { top => $_[1] } ];
+			}
+			| simpleexpr '-' simpleexpr
+			{
+			    [ { bottom => $_[1], top => $_[3] } ];
+			}
+			| rangeexprlist ',' rangeexprlist
+			{
+			    unshift @{$_[3]}, $_[1]->[0];
+			    $_[3];
+			}
+			;
+
+variable:	stdvar
+			{
+			    $_[1];
+			}
+			| feature
+			{
+			    $_[1];
+			}
+			;
+
+stdvar:		NAME subscript
+			{
+			    my $table = $_[0]->YYData->{symtable};
+			    my $sym = $table->findSymbol(SYM_VARIABLE, $_[1]);
+			    unless ($sym) {
+			        $_[0]->YYData->{errmsg} = 
+				    "Undefined variable '$_[1]'";
+			        $_[0]->YYError;
+				return undef;
+			    }
+			    $sym->markReferenced;
+
+			    if ($_[2]->[0] &&
+				    $sym->datatype != DATATYPE_STRING) {
+			        $_[0]->YYData->{errmsg} = 
+				    "Variable '$_[1]' not a string";
+			        $_[0]->YYError;
+				return undef;
+			    }
+
+			    new util::constraintparser::Basic(
+				    BASICTYPE_VARREF,
+				    $sym,
+				    $_[2]->[0],$_[2]->[1]),
+			}
+			;
+
+feature:	'[' NAME ']' subscript
+			{
+			    my $table = $_[0]->YYData->{symtable};
+			    my $sym = $table->findSymbol(SYM_FEATURE, $_[2]);
+			    unless ($sym) {
+			        # Lookup the feature type
+				my $erp = $_[0]->YYData->{erp};
+
+				my $res = $erp->request("FEATURE_GENERAL_DATA",
+				    { feature => $_[2] } );
+				unless ($res) {
+				    $_[0]->YYData->{errmsg} =
+				        "Error with ERP Adapter request";
+				    $_[0]->YYError;
+				    return undef;
+				}
+				unless ($res->[0]{featureid}) {
+				    $_[0]->YYData->{errmsg} =
+				        "Invalid feature '$_[2]'";
+				    $_[0]->YYError;
+				    return undef;
+				}
+
+				my $datatype;
+				if ($res->[0]{valuedomain} == 1) { 
+				    $datatype = DATATYPE_STRING;
+				}
+				elsif ($res->[0]{valuedomain} == 2) { 
+				    $datatype = DATATYPE_LONG;
+				}
+				elsif ($res->[0]{valuedomain} == 3) {
+				    $datatype = DATATYPE_DOUBLE;
+				}
+				else {
+				    $_[0]->YYData->{errmsg} =
+				        "Feature '$_[2]' has unknown type";
+				    $_[0]->YYError;
+				    return undef;
+				}
+
+			        $sym = new util::constraintparser::Symbol(
+				    SYM_FEATURE,
+				    $_[2],
+				    $datatype);
+				$sym->markReferenced;
+				$table->add($sym);
+			    }
+
+			    if ($_[4]->[0] &&
+				    $sym->datatype != DATATYPE_STRING) {
+			        $_[0]->YYData->{errmsg} = 
+				    "Feature '$_[2]' not a string";
+			        $_[0]->YYError;
+				return undef;
+			    }
+
+			    new util::constraintparser::Basic(
+				BASICTYPE_VARREF, $sym,
+				$_[4]->[0], $_[4]->[1]);
+			}
+			;
+
+subscript:	  #empty
+			{
+			    [ undef, undef ];
+			}
+			| '(' expression subscriptleng ')'
+			{
+			    [ $_[2], $_[3] ];
+			}
+			;
+
+subscriptleng:	#empty
+			{
+			    undef;
+			}
+			| ';' expression
+			{
+			    $_[2];
+			}
+			;
+
+constant:	CONST_STRING
+			{
+			    new util::constraintparser::Basic(
+				    BASICTYPE_STATIC,
+				    DATATYPE_STRING,
+				    $_[1]);
+			}
+			| CONST_LONG
+			{
+			    new util::constraintparser::Basic(
+				    BASICTYPE_STATIC,
+				    DATATYPE_LONG,
+				    $_[1]);
+			}
+			| CONST_DOUBLE
+			{
+			    new util::constraintparser::Basic(
+				    BASICTYPE_STATIC,
+				    DATATYPE_DOUBLE,
+				    $_[1]);
+			}
+			| CONST_TRUE
+			{
+			    new util::constraintparser::Basic(
+				    BASICTYPE_STATIC,
+				    DATATYPE_LONG,
+				    1);
+			}
+			| CONST_FALSE
+			{
+			    new util::constraintparser::Basic(
+				    BASICTYPE_STATIC,
+				    DATATYPE_LONG,
+				    0);
+			}
+			| CONST_PI
+			{
+			    new util::constraintparser::Basic(
+				    BASICTYPE_STATIC,
+				    DATATYPE_DOUBLE,
+				    3.14159265358979323846);
+			}
+			;
+
+condition:	TOK_IF expression TOK_THEN statements elsepart TOK_ENDIF
+			{
+			    new util::constraintparser::Condition(
+				$_[2],$_[4],$_[5]);
+			}
+			;
+
+elsepart:	  #empty
+			{
+			    [];
+			}
+			| TOK_ELSE statements
+			{
+			    $_[2];
+			}
+			;
+
+statements:	  statement
+			{
+			    $_[1];
+			}
+			| statement statements
+			{
+			    push @{$_[1]}, @{$_[2]};
+			    $_[1];
+			}
+			;
+statement:	  assignment
+			{
+			    [ $_[1] ];
+			}
+			| shortform
+			{
+			    [ $_[1] ];
+			}
+			| condition
+			{
+			    [ $_[1] ];
+			}
+			;
+
+assignment:	  variable '=' expression
+			{
+			    $_[1]->{symbol}->markAssigned;
+
+			    new util::constraintparser::Expression(
+				new util::constraintparser::Expression(
+				    $_[1],
+				    OPERATOR_BASICREF,
+				    undef),
+				OPERATOR_ASSIGN,
+				$_[3]);
+			}
+			;
+%%
+
+sub is_expression {
+    my ($yyparser, $leftexpr, $exprlist) = @_;
+    my $tmpexpr = undef;
+    my $tmp2;
+    for my $expr ( @{$exprlist} ) {
+	if( $expr->{bottom} ) {
+	    $tmp2 = new util::constraintparser::Expression(
+		new util::constraintparser::Expression(
+		    $leftexpr,
+		    util::constraintparser::Expression::OPERATOR_GE,
+		    $expr->{bottom}),
+		util::constraintparser::Expression::OPERATOR_AND,
+		new util::constraintparser::Expression(
+		    $leftexpr,
+		    util::constraintparser::Expression::OPERATOR_LE,
+		    $expr->{top}) );
+	}
+	else {
+	    $tmp2 = new util::constraintparser::Expression(
+		$leftexpr,
+		util::constraintparser::Expression::OPERATOR_EQ,
+		$expr->{top});
+	}
+	if( $tmpexpr ) {
+	    $tmpexpr = new util::constraintparser::Expression(
+		$tmpexpr,
+		util::constraintparser::Expression::OPERATOR_OR,
+		$tmp2);
+	}
+	else {
+	    $tmpexpr = $tmp2;
+	}
+    }
+    $tmpexpr;
+}

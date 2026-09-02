@@ -1,0 +1,15 @@
+{% extends 'sales/aircraft_compatibility/layout.html.twig' %}
+{% trans_default_domain 'aircraft_compatibility' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'catalogue' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'aircraft_compatibility' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'mis_project' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/support/equipment_record/hour_meter_transactions"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/support/equipment_record/(technician_on_call_|warranty_claim_|customer_service_record_|equipment_record_|service_contract_maintenance_|)hour_meter_transactions/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type":  "integer"},
+          "hourMeter": {"type":  "integer"},
+          "module": {"type": "string"},
+          "createdAt": {"type": "string"},
+          "customerServiceRecordLegacyId": {"type": "integer"},
+          "tocLegacyId": {"type": "integer"},
+          "warrantyClaimLegacyId": {"type": "integer"},
+          "equipmentRecord": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/equipment_records/\\d+$"},
+              "@type": {"type": "string"},
+              "type": {"type": ["string", "null"]},
+              "model": {"type":  ["string", "null"]},
+              "serialNumber": {"type":  "string"}
+            },
+            "required": ["@id", "@type", "type", "model", "serialNumber"],
+            "additionalProperties": false
+          },
+          "customerServiceRecord": {
+            "oneOf": [
+              {"type": "null"},
+              {"pattern": "^/service/(technician_on_call_|default_|commissioning_|service_bulletin_|)customer_service_records/\\d+$"}
+            ]
+          },
+          "technicianOnCall": {
+            "oneOf": [
+              {"type": "null"},
+              {"pattern": "^/service/technician_on_calls/\\d+$"}
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "hourMeter",
+          "module",
+          "equipmentRecord",
+          "createdAt"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

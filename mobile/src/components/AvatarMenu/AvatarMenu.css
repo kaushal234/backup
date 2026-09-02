@@ -1,0 +1,32 @@
+.cui .avatar_menu__avatar {
+  border-radius: 13px;
+}
+
+.cui.light .avatar_menu__avatar {
+  background-color: transparent;
+  border: 1px solid rgb(223, 226, 231);
+  color: var(--cui-alvest-logo-light);
+}
+
+.cui.dark .avatar_menu__avatar {
+  color: var(--mui-palette-text-secondary);
+  background-color: transparent;
+  border: 1px solid var(--mui-palette-text-secondary);
+}
+
+.cui .avatar_menu__context_menu .avatar_menu__selected {
+  min-width: 0px;
+  flex: 1;
+  justify-content: flex-end;
+  padding-left: 24px;
+}
+
+.cui .avatar_menu__category_title {
+  padding-left: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15008px;
+}
+
+.cui .avatar_menu__context_menu .MuiMenu-list {
+  min-width: 200px;
+}

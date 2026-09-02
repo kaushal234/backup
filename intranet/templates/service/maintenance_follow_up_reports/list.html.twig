@@ -1,0 +1,72 @@
+{% extends 'service/maintenance_follow_up_reports/layout.html.twig' %}
+{% trans_default_domain 'service' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {% set front_reports = {} %}
+    {% for report in reports %}
+        {% if not(loop.last) %}
+            {% set difference = date(report.hourmeterDate).diff(date(reports[loop.index0 + 1].hourmeterDate)) %}
+            {% set deltaDate = difference.days %}
+            {% set deltaHourmeter = report.hourmeterTotalizer - reports[loop.index0 + 1].hourmeterTotalizer %}
+        {% else %}
+            {% set deltaHourmeter = 0 %}
+            {% set deltaDate = 0 %}
+        {% endif %}
+        {% set front_reports = front_reports|merge([report|merge({
+            'accident': (report.accident is defined and report.accident is not same as(null)),
+            'maintenance': (report.maintenance is defined and report.maintenance is not same as(null)),
+            'hourmeterDate': report.hourmeterDate|date('Y-m-d')  ~ '&nbsp;&nbsp;<span class="label label-default right" style="vertical-align: middle; fw:normal">' ~ "datetime.days"|trans({'%count%': deltaDate},'messages') ~ '</span>',
+            'hourmeterTotalizer': report.hourmeterTotalizer  ~ '&nbsp;&nbsp;<span class="label label-default" style="vertical-align: middle; fw:normal">'~ "datetime.hours"|trans({'%count%': deltaHourmeter},'messages')~'</span>',
+        })]) %}
+    {% endfor %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        createdBy: {
+                            properties: ['createdBy.lastname', 'createdBy.firstname'],
+                            label: 'service.follow_up_report.fields.created_by'|trans|capitalize,
+                            link:{
+                                route: 'sales_contact_show',
+                                params: {'id':'createdBy.@id'},
+                            }
+                        },
+                        hourmeterTotalizer: { label: 'service.follow_up_report.fields.hourmeter_totalizer'|trans|capitalize },
+                        hourmeterDate: { label: 'fields.date'|trans([], 'messages')|capitalize },
+                        operationalStatus: {
+                            label: 'service.operational_status.fields.operational_status'|trans|capitalize,
+                            properties: ['operationalStatus.description'],
+                        },
+                        accident: {
+                            label: 'service.follow_up_report.fields.accident'|trans|capitalize,
+                            boolean: { true: '<span class="d-none">1</span><i class="fa fa-certificate text-danger"></i>', false: ''},
+                            class:'text-center'
+                        },
+                        maintenance: {
+                            label: 'service.follow_up_report.fields.maintenance'|trans|capitalize,
+                            boolean: { true: '<span class="d-none">1</span><i class="fa fa-cogs text-default"></i>', false:'' },
+                            class:'text-center'
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'service_maintenance_follow_up_reports_show',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+                    },
+                    title: 'service.follow_up_report.title'|trans,
+                    data: front_reports,
+                    intialSorting: false,
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.juridical_location.title'|trans([], 'messages') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="directory_juridical_locations_add"/>
+        {% if juridical_location_id is defined %}
+            <twig:NavItem:Edit route="directory_juridical_locations_edit"
+                               :routeParameters="{ id: juridical_location_id }"/>
+            <twig:NavItem:Delete route="directory_juridical_locations_delete"
+                                 :routeParameters="{ id: juridical_location_id }"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

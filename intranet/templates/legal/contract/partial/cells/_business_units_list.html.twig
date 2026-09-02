@@ -1,0 +1,5 @@
+<td>
+    {% for businessUnit in businessUnits %}
+        <a href="{{ path('directory_business_units_show', {id: iri_id(businessUnit)}) }}">{{ businessUnit.name }}</a><br>
+    {% endfor %}
+</td>

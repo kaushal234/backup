@@ -1,0 +1,135 @@
+{% extends 'chat/layout.html.twig' %}
+{% trans_default_domain 'ai' %}
+
+{% block chat_main %}
+    <section
+            data-controller="chat"
+            data-chat-send-url-value="{{ path('chat_send_message', { id: currentLog.id }) }}"
+            data-chat-rate-url-value="{{ path('chat_rate_conversation', { id: currentLog.id }) }}"
+            data-chat-log-iri-value="{{ currentLog['@id'] }}"
+            data-chat-log-token-value="{{ currentLog['mercure']['token'] }}"
+            data-chat-mercure-url-value="{{ mercure_url }}"
+            class="chat-thread d-flex flex-column flex-grow-1"
+    >
+        <div data-chat-target="messages" class="chat-messages flex-grow-1 overflow-auto px-4 py-4">
+            <div class="chat-container mx-auto">
+                {% for request in currentLog.requests ?? [] %}
+                    <div class="d-flex justify-content-end mb-3">
+                        <div class="chat-bubble chat-bubble-user">
+                            {% if request.file %}
+                                <div class="chat-user-file">
+                                    <a href="{{ path('download_ai_file', { id: request.file.id }) }}"
+                                       target="_blank" rel="noopener noreferrer"
+                                       class="d-flex align-items-center gap-2 link-light text-decoration-none">
+                                        <i class="fa fa-file"></i>
+                                        <span class="chat-user-file-name">{{ request.file.filePath|split('/')|last }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% if request.content %}
+                                <div class="chat-user-text">{{ request.content }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if request.response is defined and request.response and request.response.content is not empty %}
+                        <div class="d-flex justify-content-start mb-3">
+                            <div
+                                    class="chat-bubble chat-bubble-assistant"
+                                    data-markdown-content="{{ request.response.content|e('html_attr') }}"
+                            >
+                                {{ request.response.content }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if currentLog.rating is not defined or not currentLog.rating %}
+            <div class="d-flex justify-content-center pb-2">
+                <button
+                        type="button"
+                        data-chat-target="rateButton"
+                        class="btn btn-sm btn-outline-primary d-none"
+                        data-bs-toggle="modal"
+                        data-bs-target="#ratingModal"
+                >
+                    <i class="fa fa-star me-1"></i>{{ 'ai.rating.button' | trans }}
+                </button>
+            </div>
+        {% endif %}
+
+        <form data-action="submit->chat#send" class="border-top bg-white px-4 py-3 chat-composer-sticky">
+            <div class="chat-composer-wrapper mx-auto">
+                <div class="chat-composer-input-outer">
+                    <div data-chat-target="filePreview" class="chat-file-preview d-none">
+                        <i class="fa fa-file"></i>
+                        <span data-chat-target="fileName" class="chat-file-name"></span>
+                        <button type="button" class="chat-file-remove" data-action="chat#removeFile">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="chat-composer-input-wrapper">
+                        <label class="chat-attach-btn" title="Attach file">
+                            <i class="fa fa-plus"></i>
+                            <input type="file" name="file" data-chat-target="file" data-action="change->chat#fileChanged" class="d-none">
+                        </label>
+
+                        <textarea
+                                data-chat-target="input"
+                                data-action="keydown->chat#handleKeydown"
+                                class="form-control chat-composer-input"
+                                rows="1"
+                                placeholder="{{ 'ai.fields.placeholder' | trans }}"
+                        ></textarea>
+
+                        <button type="submit" class="chat-send-btn">
+                            <i class="fa fa-arrow-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <twig:Modal id="ratingModal" title="{{ 'ai.rating.modal_title' | trans }}">
+            <twig:block name="content">
+                <div
+                        data-chat-target="ratingError"
+                        class="alert alert-danger d-none"
+                        role="alert"
+                ></div>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    {% for level in 1..4 %}
+                        <input
+                                type="radio"
+                                class="btn-check"
+                                name="rating"
+                                id="rating-{{ level }}"
+                                value="{{ level }}"
+                                autocomplete="off"
+                        >
+                        <label class="btn btn-outline-primary flex-fill" for="rating-{{ level }}">
+                            {{ ('ai.rating.level.' ~ level) | trans({}, 'ai') }}
+                        </label>
+                    {% endfor %}
+                </div>
+                <textarea
+                        data-chat-target="ratingComment"
+                        class="form-control"
+                        rows="3"
+                        placeholder="{{ 'ai.rating.comment_label' | trans({}, 'ai') }}"
+                ></textarea>
+            </twig:block>
+            <twig:block name="footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {{ 'ai.rating.cancel' | trans({}, 'ai') }}
+                </button>
+                <a class="btn btn-primary" data-action="chat#submitRating">
+                    {{ 'ai.rating.submit' | trans({}, 'ai') }}
+                </a>
+            </twig:block>
+        </twig:Modal>
+    </section>
+{% endblock %}

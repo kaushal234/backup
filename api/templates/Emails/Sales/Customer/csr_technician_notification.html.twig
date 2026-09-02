@@ -1,0 +1,13 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <p>{{ 'csr.message' | trans({'%newDate%': newDate}) | nl2br }}</p>
+        <a href="{{ url('legacy_sales_service_service', { 'm': ['csr', 'view'], 'id': id }) }}">{{ 'csr.csr' | trans({'%id%': id}, 'emails') }}</a>
+    </row>
+{% endblock %}

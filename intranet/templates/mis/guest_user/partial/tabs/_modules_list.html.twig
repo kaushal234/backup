@@ -1,0 +1,7 @@
+<td>
+        {% for module in modules %}
+                <a href="{{ path('mis_modules_show', {id: iri_id(module)}) }}">
+                        {{ module.name }}
+                </a><br>
+        {% endfor %}
+</td>

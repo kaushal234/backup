@@ -1,0 +1,28 @@
+{% extends 'sales/market_intelligence/layout.html.twig' %}
+{% trans_default_domain 'market_intelligence' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'display.table.document.headers.id'|trans({}, 'messages'),
+                        },
+                        name: {
+                            label: 'fields.name'|trans({}, 'messages') | capitalize,
+                        },
+                    },
+                    initialSorting: false,
+                    search: false,
+                    title: 'market_intelligence.types.title'|trans,
+                    data: marketIntelligenceTypes,
+                }
+            }, with_context = false) }}
+        </div>
+
+    </div>
+{% endblock %}

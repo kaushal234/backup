@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/countries/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "alternateNames": {
+      "type": "string"
+    },
+    "isoCode2": {
+      "type": "string"
+    },
+    "isoCode3": {
+      "type": "string"
+    },
+    "nbCode": {
+      "type": "integer"
+    },
+    "fipsCode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fipsName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "region": {
+      "type": "string"
+    },
+    "subRegion": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "longitude": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "continent": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../continent/schemas/continent.json" }
+      ]
+    },
+    "public": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "@id",
+    "@context",
+    "@type",
+    "id",
+    "legacyId",
+    "name",
+    "alternateNames",
+    "isoCode2",
+    "isoCode3",
+    "nbCode",
+    "fipsCode",
+    "fipsName",
+    "region",
+    "subRegion",
+    "latitude",
+    "longitude",
+    "continent",
+    "public"
+  ]
+}

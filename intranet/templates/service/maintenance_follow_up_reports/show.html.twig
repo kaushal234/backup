@@ -1,0 +1,191 @@
+{% extends 'service/maintenance_follow_up_reports/layout.html.twig' %}
+{% trans_default_domain 'service' %}
+
+{% set id = iri_id(followUpReport) %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+        {{ include('helper/_association_table.html.twig', {
+            'associationData': {
+                'items': {
+                    '@id': {label: 'FUR#', filters: 'iri_id'},
+                    createdBy: {
+                        properties: ['createdBy.lastname', 'createdBy.firstname'],
+                        label: 'service.follow_up_report.fields.created_by'|trans|capitalize,
+                        link:{
+                            route: 'sales_contact_show',
+                            params: {'id':'createdBy.@id'},
+                        }
+                    },
+                    equipmentRecord: {
+                        properties: ['equipmentRecord.type', 'equipmentRecord.model'],
+                        glue: ' / ',
+                        label: ('service.equipment_record.fields.type'|trans ~ ' / '~'service.equipment_record.fields.model'|trans)|capitalize,
+                    },
+                    serialNumber: {
+                        properties: ['equipmentRecord.serialNumber'],
+                        label: 'service.equipment_record.title'|trans|capitalize,
+                        link: {
+                            route: 'legacy_product_support',
+                            fixedParams: {m: ['equipment', 'view']},
+                            params: {id: 'equipmentRecord.legacyId'},
+                        },
+                    },
+                    customerBuyer: {
+                        label: 'service.equipment_record.fields.buyer'|trans|capitalize,
+                        properties: ['equipmentRecord.buyer.name'],
+                        link:{
+                            route: 'sales_customers_show',
+                            params: {'id':'equipmentRecord.buyer.@id'},
+                        },
+                    },
+                    customerEndUser: {
+                        label: 'service.equipment_record.fields.end_user'|trans|capitalize,
+                        properties: ['equipmentRecord.endUser.name'],
+                        link:{
+                            route: 'sales_customers_show',
+                            params: {'id':'equipmentRecord.endUser.@id'},
+                        },
+                    },
+                    comment: { label: 'fields.comment'|trans([], 'messages')|capitalize },
+                    hourmeter: {
+                        label: 'service.follow_up_report.fields.hourmeter'|trans|capitalize,
+                        template: 'service/maintenance_follow_up_reports/partial/_hourmeter.html.twig'
+                    },
+                    hourmeterTotalizer: { label: 'service.follow_up_report.fields.hourmeter_totalizer'|trans|capitalize },
+                    operationalStatus: {
+                        label: 'service.operational_status.fields.operational_status'|trans|capitalize,
+                        properties: ['operationalStatus.description'],
+                    },
+                    odometer: {
+                        label: 'service.follow_up_report.fields.odometer'|trans|capitalize,
+                        hideNull: true,
+                    },
+                },
+                'title': 'service.follow_up_report.title'|trans,
+                'data': followUpReport},
+        }, with_context = false) }}
+        </div>
+        <div class="col-lg-6">
+            {%  if followUpReport.accident is defined and followUpReport.accident is not same as(null)%}
+                {{ include('helper/_association_table.html.twig', {
+                    'associationData': {
+                        'items': {
+                            date: {
+                                label: 'fields.date'|trans([], 'messages')|capitalize,
+                                filters: 'date("Y-m-d")',
+                                preserveNull: true,
+                            },
+                            comment: {
+                                label: 'fields.comment'|trans([], 'messages')|capitalize,
+                            },
+                            accident: {
+                                label: 'service.follow_up_report.fields.injuries'|trans|capitalize,
+                                template: 'service/maintenance_follow_up_reports/partial/_accident_flags.html.twig'
+                            },
+                        },
+                        'title': 'service.follow_up_report.fields.accident'|trans,
+                        'data': followUpReport.accident},
+                }, with_context = false) }}
+                {% if followUpReport.accident.accidentFiles|length > 0 %}
+                    {{ include('helper/_report_table.html.twig', {
+                        'reportTable': {
+                            'items': {
+                                'filePath': {
+                                    'label': 'menu.files'|trans({}, 'messages')|capitalize,
+                                    'filters' : 'split("-")|last',
+                                    'link':{
+                                        'route': 'service_maintenance_follow_up_reports_files_show',
+                                        'params': {
+                                            'id': 'id'
+                                        },
+                                        'fixedParams': {
+                                            'parent': followUpReport.accident.id,
+                                            'type': 'accidents'
+                                        }
+                                    },
+                                },
+                                'size': {
+                                    'label': 'size'|trans({}, 'messages')|trans|capitalize,
+                                    'filters' : 'readable_filesize'
+                                },
+                                'createdAt': {
+                                    'label': 'fields.date'|trans([], 'messages')|capitalize,
+                                    'filters': 'date("Y-m-d")'
+                                },
+                            },
+                            'title': 'service.follow_up_report.fields.accident_files'|trans,
+                            'data': followUpReport.accident.accidentFiles,
+                            'search': false,
+                            'pagination': false,
+                            initialSorting: 'createdAt'
+                        }
+                    }, with_context = false) }}
+                {% endif %}
+            {% endif %}
+            {%  if followUpReport.maintenance is defined and followUpReport.maintenance is not same as(null)%}
+                {{ include('helper/_association_table.html.twig', {
+                    'associationData': {
+                        'items': {
+                            date: {
+                                label: 'fields.date'|trans([], 'messages')|capitalize,
+                                filters: 'date("Y-m-d")',
+                                preserveNull: true,
+                            },
+                            comment: {
+                                label: 'fields.comment'|trans([], 'messages')|capitalize,
+                            },
+                            type: {
+                                label: 'service.follow_up_report.fields.maitenance_type'|trans|capitalize,
+                            },
+                        },
+                        'title': 'service.follow_up_report.fields.maintenance'|trans,
+                        'data': followUpReport.maintenance},
+                }, with_context = false) }}
+                {% if followUpReport.maintenance.maintenanceFiles|length > 0  %}
+                    {{ include('helper/_report_table.html.twig', {
+                        'reportTable': {
+                            'items': {
+                                'filePath': {
+                                    'label': 'menu.files'|trans({}, 'messages')|capitalize,
+                                    'filters' : 'split("-")|last',
+                                    'link':{
+                                        'route': 'service_maintenance_follow_up_reports_files_show',
+                                        'params': {
+                                            'id': 'id'
+                                        },
+                                        'fixedParams': {
+                                            'parent': followUpReport.maintenance.id,
+                                            'type': 'maintenances'
+                                        }
+                                    },
+                                },
+                                'size': {
+                                    'label': 'size'|trans({}, 'messages')|trans|capitalize,
+                                    'filters' : 'readable_filesize'
+                                },
+                                'createdAt': {
+                                    'label': 'fields.date'|trans([], 'messages')|capitalize,
+                                    'filters': 'date("Y-m-d")'
+                                },
+                            },
+                            'title': 'service.follow_up_report.fields.maintenance_files'|trans,
+                            'data': followUpReport.maintenance.maintenanceFiles,
+                            'search': false,
+                            'pagination': false,
+                            initialSorting: 'createdAt'
+                        }
+                    }, with_context = false) }}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="ibox-content">
+        <div class="logs-block" data-resource="{{ followUpReport['@id'] }}" data-show-comment-form="true"></div>
+    </div>
+{% endblock %}
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

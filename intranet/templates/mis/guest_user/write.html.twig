@@ -1,0 +1,78 @@
+{% extends 'mis/guest_user/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+
+{% block content %}
+    <div class="row">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="col-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    {{ title | trans }}
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_row(form.lastname) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.firstname) }}
+                        </div>
+                        {% if form.supervisor is defined %}
+                            <div class="col-md-4">
+                                {{ form_row(form.supervisor) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.email) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.username) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_row(form.businessUnit) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.premise) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% if form.enableAt is defined %}
+                        <div class="col-md-6">
+                            {{ form_row(form.enableAt) }}
+                        </div>
+                        {% endif %}
+                        <div class="col-md-6">
+                            {{ form_row(form.plannedDisableAt) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.needsCollaborationAccess) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.modules) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+

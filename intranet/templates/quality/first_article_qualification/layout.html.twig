@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}First Article Qualification{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Search route="first_article_qualifications_search"/>
+        <twig:NavItem:Add route="first_article_qualifications_add" :security="is_granted('FEATURE_FAQ_CREATE')"/>
+        <twig:NavItem:Add translationKey="first_article_qualification.nav_link.add_crab"
+                          domain="first_article_qualification" route="crab_add"/>
+        {% if firstArticleQualification.id is defined %}
+            <twig:NavItem:Edit route="first_article_qualifications_edit"
+                               :routeParameters="{id: firstArticleQualification.id}"
+                               :security=" (firstArticleQualification.status == 'QUALIFIED' and is_granted('FEATURE_FIRST_ARTICLE_QUALIFICATION_EDIT_QUALIFIED')) or (firstArticleQualification.status not in ['REJECTED', 'CONDITIONAL'] and is_granted('FEATURE_FAQ_PLAN_WRITE',firstArticleQualification['@id']))"/>
+            <twig:NavItem translationKey="first_article_qualification.nav_link.plan"
+                          domain="first_article_qualification" icon="material-symbols:edit-outline-rounded"
+                          route="first_article_qualifications_plan"
+                          :routeParameters="{id: firstArticleQualification.id}"
+                          :security="firstArticleQualification.status not in ['QUALIFIED', 'REJECTED'] and is_granted('FEATURE_FAQ_PLAN_WRITE',firstArticleQualification['@id'])"/>
+            <twig:NavItem:Files route="first_article_qualification_files"
+                          :routeParameters="{id: firstArticleQualification.id}"/>
+            <twig:NavItem:NewTask route="legacy_calendar"
+                                  :routeParameters="{m: ['tasks', 'form', 'newTask'], module: 'FAQ', parent_id: firstArticleQualification.id}"
+                                  :security="firstArticleQualification.status not in ['QUALIFIED', 'REJECTED']"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{m: ['links', 'form', 'newLink'], module: 'FAQ', parent_id: firstArticleQualification.id}"/>
+            <twig:NavItem translationKey="crab.nav_link.transfer_eap" domain="crab" icon="solar:arrow-up-outline"
+                          route="legacy_manufacturing_eng"
+                          :routeParameters="{ m: ['eap', 'forms', 'newEAP'], from: { mod: 'FAQ', id: firstArticleQualification.id } }"/>
+            <twig:Separator show="true"/>
+            <twig:NavItem translationKey="crab.nav_link.transfer_ncr" domain="crab" icon="solar:arrow-up-outline"
+                          route="non_conformity_add" :routeParameters="{ faq : firstArticleQualification.id }"/>
+            <twig:NavItem:Delete route="first_article_qualification_delete"
+                                :routeParameters="{id: firstArticleQualification.id, '_token': csrf_token('delete_faq')}"
+                                security="is_granted('FEATURE_FAQ_DELETE')"/>
+            <twig:NavItem translationKey="first_article_qualification.nav_link.logs"
+                          domain="first_article_qualification" icon="mynaui:list"
+                          route="first_article_qualification_logs" :routeParameters="{id: firstArticleQualification.id}"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

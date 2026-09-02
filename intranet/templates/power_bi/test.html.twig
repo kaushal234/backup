@@ -1,0 +1,17 @@
+{% extends 'power_bi/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <section data-report-id="9d1f38bb-d163-454d-bb17-7e8387356856" class="report-container embed-container col m-3 p-0">
+        </section>
+    </div>
+    <div class="row">
+        <section data-report-id="9d1f38bb-d163-454d-bb17-7e8387356856" data-page="7871bf39307283c62707" class="report-container embed-container col m-3 p-0">
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('powerbiClient') }}
+{% endblock javascripts %}

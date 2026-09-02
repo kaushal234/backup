@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"type": "string", "pattern": "^/materials/outbound_requests$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"type": "string", "pattern": "^/materials/outbound_requests/\\d+$"},
+          "@type": {"type": "string", "pattern": "^OutboundRequest$"},
+          "id": { "type": "integer"},
+          "productionOrder": {"type": "integer"},
+          "operation": {"type": "integer"},
+          "project": {"type": "string", "minLength": 6, "maxLength": 6},
+          "slot": {"type": "string", "maxLength": 8},
+          "taskDescription": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string"}
+            ]
+          },
+          "createdAt": {"type": "string", "format": "date-time"},
+          "closedAt": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string", "format": "date-time"}
+            ]
+          },
+          "baanOperationStartingDate": {"type": "string", "format": "date-time"},
+          "requestCreatedAt": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string", "format": "date-time"}
+            ]
+          },
+          "requestedToBeDeliveredAt": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string", "format": "date-time"}
+            ]
+          },
+          "location": {
+            "$ref": "../../directory_location/schemas/directory_location_public.json"
+          },
+          "status": {"type": "string", "pattern": "^(CREATED FROM BAAN)|(CLOSED)$"},
+          "totalNumberOfLines": {"type": "integer"},
+          "numberOfLinesToBeDelivered": {"type": "integer"},
+          "customerName": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string"}
+            ]
+          },
+          "model": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string"}
+            ]
+          },
+          "serialNumber": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string"}
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "productionOrder",
+          "operation",
+          "project",
+          "slot",
+          "createdAt",
+          "closedAt",
+          "baanOperationStartingDate",
+          "requestCreatedAt",
+          "requestedToBeDeliveredAt",
+          "location",
+          "status",
+          "totalNumberOfLines",
+          "numberOfLinesToBeDelivered",
+          "customerName",
+          "model",
+          "serialNumber"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

@@ -1,0 +1,16 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        intranet_root_url: "%intranet.root_url%"
+        extranet_root_url: "%extranet.root_url%"
+        evendor_root_url: "%evendor.root_url%"
+        legacy_upload_uri: '%legacy.upload_dir%/'
+    paths:
+        '%kernel.project_dir%/public/build/css': css
+        '%kernel.project_dir%/assets/fonts': fonts
+
+when@test:
+    twig:
+        strict_variables: true

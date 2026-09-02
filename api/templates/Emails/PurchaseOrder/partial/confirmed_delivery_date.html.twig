@@ -1,0 +1,5 @@
+<td>
+    <div {% if value > item.plannedReceiptDate|date_modify('+3 days')|date('Y-m-d') or value > item.rescheduledDate|date_modify('+3 days')|date('Y-m-d') %} class="warningDate" {% endif %}>
+        {{ value }}
+    </div>
+</td>

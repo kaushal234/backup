@@ -1,0 +1,64 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/containers$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/containers/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "loadingAtFactory": {
+            "type": "boolean"
+          },
+          "containerType": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/container_types/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "quantity",
+          "containerType",
+          "loadingAtFactory"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

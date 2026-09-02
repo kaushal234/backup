@@ -1,0 +1,139 @@
+{% extends 'directory/premise/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>
+                {{ ('directory.premise.title'|trans|capitalize) ~ ' ' ~ premise.name }}
+            </h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-lg-6">
+                    {{ include('helper/_association_table_raw.html.twig', {
+                        associationData: {
+                            items: {
+                                id: {
+                                    label: 'demo.fields.id'|trans({}, 'demo')|capitalize
+                                },
+                                name: {
+                                    label: 'directory.business_unit.fields.name'|trans|capitalize
+                                },
+                                description: {
+                                    label: 'directory.position.fields.description'|trans|capitalize
+                                },
+                                archived: {
+                                    label: 'contacts.fields.archived'|trans({}, 'contacts')|capitalize,
+                                    boolean: {
+                                        'true': '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                        'false': '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                                    }
+                                },
+                                archivedAt: {
+                                    label: 'directory.premise.fields.archived_at'|trans|capitalize,
+                                    filters: 'date("Y-m-d")',
+                                    hideNull: true
+                                },
+                                country: {
+                                    properties: ['address.country'],
+                                    label: 'demo.fields.country'|trans({}, 'demo')|capitalize
+                                },
+                                street1: {
+                                    properties: ['address.street1'],
+                                    label: 'address.fields.street1'|trans({}, 'messages')|capitalize
+                                },
+                                street2: {
+                                    properties: ['address.street2'],
+                                    label: 'address.fields.street2'|trans({}, 'messages')|capitalize
+                                },
+                                postalCode: {
+                                    properties: ['address.postalCode'],
+                                    label: 'address.fields.postal_code'|trans({}, 'messages')|capitalize
+                                },
+                                city: {
+                                    properties: ['address.city'],
+                                    label: 'address.fields.city'|trans({}, 'messages')|capitalize
+                                },
+                                latitude: {
+                                    label: 'directory.premise.fields.latitude'|trans|capitalize,
+                                },
+                                longitude: {
+                                    label: 'directory.premise.fields.longitude'|trans|capitalize,
+                                },
+                                airport: {
+                                    properties: ['airport.code', 'airport.cityName'],
+                                    glue: " - ",
+                                    label: 'fields.airport'|trans({}, 'messages')|capitalize
+                                },
+                                supportTeam: {
+                                    properties: ['supportTeam.name'],
+                                    label: 'directory.premise.fields.support_team'|trans({}, 'directory')
+                                },
+                                state: {
+                                    properties: ['address.state'],
+                                    label: 'address.fields.state'|trans({}, 'messages')|capitalize
+                                },
+                                tags: {
+                                    template: 'generic/_cell_tags.html.twig',
+                                    label: 'directory.region.fields.type'|trans|capitalize,
+                                },
+                                count: {
+                                    label: 'directory.premise.fields.number_people'|trans|capitalize,
+                                    link: {
+                                        route: 'directory_people_home',
+                                        params: {'filter_people_list[premise][value]': '@id'},
+                                        forceIri: true
+                                    }
+                                },
+                            },
+                            data: premise,
+                        },
+                    }, with_context = false) }}
+                </div>
+                <div class="col-lg-6">
+                    <div class="logs-block" data-resource="{{ premise.iri }}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                {% for businessUnit, users in businessUnits  %}
+                    <div class="col-md-4">
+                        {{ include('helper/_report_table.html.twig', {
+                            'reportTable': {
+                                items: {
+                                    firstname: {
+                                        label: 'directory.people.fields.firstname' | trans | capitalize,
+                                    },
+                                    lastname: {
+                                        label: 'directory.people.fields.lastname' | trans | capitalize,
+                                    },
+                                    view: {
+                                        label: 'menu.view'|trans([], 'messages')|capitalize,
+                                        link:{
+                                            'route': 'directory_people_show',
+                                            'params': {'id':'@id'},
+                                            'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                                        },
+                                        sortable: false,
+                                        class : 'text-end'
+                                    },
+                                },
+                                title: businessUnit,
+                                data: users,
+                                pagination: 20,
+                                search: false
+                            }
+                        }, with_context = false) }}
+                    </div>
+                {% if (loop.index % 3) == 0 %} </div><div class="row">{% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

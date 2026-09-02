@@ -1,0 +1,43 @@
+# geerlingguy.nodejs
+nodejs_version: "24.x"
+nodejs_npm_global_packages:
+  - name: yarn
+    version: 1.22.22
+
+# geerlingguy.nginx
+nginx_remove_default_vhost: true
+nginx_listen_ipv6: false
+nginx_server_tokens: "off"
+nginx_vhosts:
+  - listen: "80"
+    server_name: "{{ mobile_url }}"
+    root: "{{ monorepo_path }}/current/mobile/build"
+    access_log: "/var/log/nginx/{{ mobile_url }}.access.log"
+    error_log: "/var/log/nginx/{{ mobile_url }}.error.log"
+    state: "present"
+    filename: "{{ mobile_url }}.conf"
+    extra_parameters: |
+      server_tokens off;    
+      client_max_body_size 32M;
+
+      index index.html;
+      location / {
+        allow {{ haproxy_dmz_subnet }};
+        deny all;
+        try_files $uri /index.html;
+      }
+    
+      location ~ \.php$ {
+        return 404;
+      }
+      
+      location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow 127.0.0.1;
+        allow {{ prtg_ip }};
+        deny all;
+      }
+
+mobile:
+  api_url: https://api.alvest.fr

@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/quotes/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "quoteNumber": {
+          "type": "string"
+        },
+        "xml": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "id",
+        "quoteNumber",
+        "xml"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{% extends 'sales/layout.html.twig' %}
+{% trans_default_domain 'freight_forwarder' %}
+
+{% block title %}{{ parent() }} \ {{ ('freight_forwarder.title'|trans) }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="freight_forwarders_add" :security="is_granted('FEATURE_FREIGHT_FORWARDER_ADMIN')"/>
+        <twig:NavItem translationKey="freight_forwarder.nav_link.freight_forwarder" domain="freight_forwarder"
+                      icon="mdi-light:truck" route="freight_forwarders_home"/>
+        {% if freightForwarder is defined %}
+            <twig:NavItem:Edit route="freight_forwarders_edit" :routeParameters="{id: iri_id(freightForwarder['@id'])}"
+                               :security="is_granted('FEATURE_FREIGHT_FORWARDER_ADMIN')"/>
+            <twig:NavItem:Delete route="freight_forwarders_delete"
+                                 :routeParameters="{id: iri_id(freightForwarder['@id'])}"
+                                 :security="is_granted('FEATURE_FREIGHT_FORWARDER_ADMIN')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,311 @@
+{%  extends "layout.html.twig" %}
+
+{%  block meta %}
+    {{ parent() }}
+    <meta name="include_mode" content="async" />
+{% endblock %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    {% if is_granted("ROLE_PASSWORD_NOT_EXPIRED") %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    {% endif %}
+    <style>
+        .resizable-img img {
+            display:inline-block;
+            max-width:100%;
+            height:auto;
+            margin: 0 auto;
+        }
+    </style>
+
+    <div class="row">
+        <!-- center block -->
+        <div class="col-md-9">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'home.title.internal_news'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ render_hinclude(controller('AppBundle\\Controller\\News\\NewsController::lastNews')) }}
+                    <a class="btn btn-primary btn-sm" href="{{ path('news_index') }}"><i class="fa fa-arrow-right"></i> {{ 'news.show_more_news'|trans({}, 'news') }}</a>
+                </div>
+            </div>
+            {% if is_granted('INTRANET_ACCESS') %}
+                <div class="ibox float-e-margins collapsed">
+                    <div class="ibox-title">
+                        <h5>{{ 'home.title.tasks_management'|trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-6">
+                                <hx:include src="calendar/tasks/block_tasks.inc.php" id="block_tasks">
+                                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                                </hx:include>
+                            </div>
+                            <div class="col-6">
+                                {{ render(path('my_tasks')) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>{{ 'home.title.holidays_events'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <hx:include src="inc_sf/block_events.inc.php" id="block_tasks">
+                        <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                    </hx:include>
+                </div>
+            </div>
+            {% if is_granted('INTRANET_ACCESS') %}
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>{{ 'home.title.package_tracking'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <p>{{ 'home.text.enter_AWB'|trans }}</p>
+                    {% include('layout/partial/_tracking_forms.html.twig') %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="row">
+            {% if is_granted('INTRANET_ACCESS') %}
+                <div class="col-md-6">
+                    <div class="ibox float-e-margins" id="modules-quick-search">
+                        <div class="ibox-title">
+                            <h5>{{ 'home.quick_search.modules'|trans }}</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            {% form_theme moduleForm 'form_theme_vertical.html.twig' %}
+                            {{ form_start(moduleForm) }}
+                            {{ form_errors(moduleForm) }}
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="col-6">{{ form_widget(moduleForm.module) }}</div>
+                                <div class="col-6">{{ form_widget(moduleForm.id) }}</div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary text-capitalize">{{ 'button.submit'|trans([], 'messages') }}</button>
+                            </div>
+                            {{ form_rest(moduleForm) }}
+                            {{ form_end(moduleForm) }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+                <div class="col-md-{{ is_granted('INTRANET_ACCESS') ? '6' : '12' }}">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>{{ 'home.quick_search.people'|trans }}</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            {{ form_widget(peopleQuickSearchForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="ibox float-e-margins collapsed">
+                        <div class="ibox-title" data-toggle="tooltip" data-placement="top" title="{{ 'directory.location.hours'|trans({}, 'directory') }}">
+                            <h5>
+                                {{ 'directory.location.fields.hotline'|trans({}, 'directory') }}&nbsp;
+                                <i class="fa fa-info-circle" ></i>
+
+                            </h5>
+
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content report-table-with-filter">
+                            <div class="">
+                                <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'directory.location.fields.name'|trans({}, 'directory')|capitalize }}</th>
+                                            <th>{{ 'directory.location.fields.hotline_number'|trans({}, 'directory') }}
+                                            <th>{{ 'directory.location.fields.psms'|trans({}, 'directory') }}
+                                            <th>{{ 'directory.location.fields.pses'|trans({}, 'directory') }}
+                                                <h2>
+                                                </h2>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for location in locations %}
+                                            <tr>
+                                                <td>{{ location.name }}</td>
+                                                <td>{{ location.contact.serviceHubTelephone }}</td>
+                                                <td>
+                                                    {% for psm in psms %}
+                                                        {% if psm.businessUnit is not null and psm.businessUnit.name == location.name %}
+                                                            {{ psm.lastname }}, {{ psm.firstname }}
+                                                            <br>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    {% for pse in pses %}
+                                                        {% if pse.businessUnit is not null and pse.businessUnit.name == location.name %}
+                                                            {{ pse.lastname }}, {{ pse.firstname }}
+                                                            <br>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- right side block -->
+        <div class="col-md-3">
+            {% for cookie in constant('AppBundle\\Controller\\CookieController::COOKIES') %}
+                {% if is_granted('FEATURE_COOKIE_' ~ cookie) %}
+                    <div class="ibox float-e-margins hidden-xs hidden-sm">
+                        <div class="ibox-title">
+                            <h5>{{ ('cookies.' ~ cookie ~ '.environment')|trans }}</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content resizable-img">
+                            <div class="text-center">
+                                <a href="{{ path('cookie_switcher', {cookie: cookie}) }}" class="btn btn-primary" style="white-space: normal">
+                                    {{ app.request.cookies.has(cookie) ? (('cookies.' ~ cookie ~ '.back')|trans) : ('cookies.' ~ cookie ~ '.to')|trans }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% if is_granted('INTRANET_ACCESS') %}
+                <div class="ibox float-e-margins hidden-xs hidden-sm">
+                    <div class="ibox-title">
+                        <h5>{{ 'home.title.people_of_alvest'|trans | capitalize }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {{ render(controller('AppBundle\\Controller\\Directory\\RandomPeopleController')) }}
+                </div>
+            {% endif %}
+
+            {% if is_granted('INTRANET_ACCESS') %}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'menu.help'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <p class="text-center"><a class="btn btn-primary" href="{{ path('trouble_ticket_add') }}">{{ 'home.button.submit_tts'|trans }}</a></p>
+                    <h3 class="text-center text-capitalize"><span class="far fa-envelope"></span>&nbsp;{{ 'home.title.webmail'|trans }}</h3>
+                    <p class="text-center">
+                        <a href="https://outlook.office365.com/mail" rel="noreferrer" target="_blank" title="new outlook for TLD">Office 365 ALVEST webmail</a><br>
+                    </p>
+                    <h3 class="text-center text-capitalize"><span class="far fa-envelope"></span>&nbsp;{{ 'home.title.auto_reply'|trans }}</h3>
+                    <p class="text-center">
+                        <a href="{{ dms(2129) }}" target="_blank">Autoreply Configuration Procedure</a><br>
+                    </p>
+                    <h3 class="text-center text-capitalize"><span class="far fa-envelope"></span>&nbsp;{{ 'home.title.quarantine_access'|trans }}</h3>
+                    <p class="text-center">
+                        <a href="https://security.microsoft.com/quarantine\" target="_blank">{{ 'home.title.quarantine_access_link_name'|trans }}</a><br>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            <div class="ibox float-e-margins hidden-xs hidden-sm">
+                <div class="ibox-title">
+                    <h5>{{ 'home.title.factory_of_alvest'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content resizable-img">
+                    <div class="text-center">
+                        <hx:include src="inc_sf/block_factory.inc.php">
+                            <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                        </hx:include>
+                    </div>
+                </div>
+            </div>
+            {% if is_granted('INTRANET_ACCESS') %}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'home.title.exchange_rates'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ render(controller('AppBundle\\Controller\\Finance\\ForexController::latestRates')) }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

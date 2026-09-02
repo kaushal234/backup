@@ -1,0 +1,265 @@
+@import "~foundation-emails/scss/foundation-emails";
+@import "partials/var";
+
+body {
+  padding-top: 15px;
+}
+
+body, p, table.body, td, th {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+p, h3, th, td {
+  color: #596477;
+}
+
+#email-header {
+  border-top: 5px solid $alvestBlue;
+}
+
+#email-footer {
+  background-color: $alvestBlue;
+  border: 15px solid white;
+}
+
+.banner {
+  border-top: 5px solid $tldGrey;
+  border-bottom: 5px solid $tldGrey;
+}
+
+.baseline {
+  background: $tldGrey;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: -1px;
+  padding: 2px 5px;
+  margin-top: 54px;
+
+  span {
+    color: $tldYellow;
+  }
+}
+
+.text-introduction {
+  font-size: 14px;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid $alvestBlue;
+  margin: 1em 0;
+  padding: 0;
+}
+
+table.button table td {
+  background: $alvestBlue;
+  border: 2px solid $alvestBlue;
+}
+
+table.button table td a {
+  border: none;
+}
+
+.logo {
+  margin: 15px 0 0 0;
+}
+
+.logo-2 {
+  text-align: right;
+  margin: 15px 0 0 0;
+}
+
+.resource-property {
+  color: $alvestBlue;
+}
+
+.table-manager > tr > td, .table-manager > tr > th {
+  border: 1px solid #d3d3d3;
+  padding: 10px;
+}
+
+.table-manager > tr > th, .title{
+  color: white;
+  background-color: $alvestBlue;
+}
+
+.table-summary {
+  tbody td,
+  thead th {
+    border: 1px solid #d3d3d3;
+    padding: 10px;
+  }
+  thead th {
+    color: white;
+    background-color: $alvestBlue;
+  }
+}
+
+table.association-table {
+  tr td, tr th {
+    padding: 5px 7px;
+    border: 2px #FFF solid;
+  }
+
+  tr {
+    th {
+      background-color: $alvestBlue;
+      color: #FFF;
+      font-weight: bold;
+    }
+    td {
+      background-color: #f9f9f9;
+    }
+  }
+  tr:nth-child(even) td {
+    background-color: #e8e8e8;
+  }
+}
+
+// Emails condensed
+#email-condensed {
+  table.body, td, th {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  table.association-table {
+    tr td, tr th {
+      padding: 4px 5px;
+      border: 1px #FFF solid;
+    }
+  }
+}
+
+// Emails enlarged
+#email-enlarged {
+
+  body {
+    max-width: 1000px;
+  }
+
+  table.container {
+    width: 100%;
+  }
+}
+
+#tld {
+  #email-header {
+    @extend #email-header;
+    border-color: $tldBlue;
+  }
+
+  #email-footer {
+    @extend #email-footer;
+    background-color: $tldBlue;
+  }
+
+  hr {
+    @extend hr;
+    border-color: $tldBlue;
+  }
+
+  .resource-property {
+    color: $tldBlue;
+  }
+
+  .table-manager > tr > th, .title {
+    background-color: $tldBlue;
+  }
+
+  .table-summary thead th {
+    background-color: $tldBlue;
+  }
+
+  table.association-table tr th {
+    background-color: $tldBlue;
+  }
+}
+
+#aerospecialties {
+  hr {
+    @extend hr;
+    border-color: $aeroOrange;
+  }
+
+  .resource-property {
+    @extend .resource-property;
+    color: $aeroBlue;
+  }
+
+  table.button table td {
+    background: $aeroOrange;
+  }
+
+  table.button table td a {
+    border: 0 solid $aeroBlue;
+  }
+
+  .table-manager > tr > th, .title {
+    background-color: $aeroOrange;
+  }
+
+  #email-header {
+    @extend #email-header;
+    border-color: $aeroBlue;
+  }
+
+  #email-footer {
+    @extend #email-footer;
+    background-color: $aeroOrange;
+  }
+}
+
+
+//Report table
+.report-table {
+  margin-bottom: 0;
+
+  td.nowrap {
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: 4px 6px 3px!important;
+    vertical-align: middle !important;
+  }
+
+  th {
+    background: $alvestBlue;
+    color: white;
+  }
+
+  td > a {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .footable-row-detail-cell {
+    width: 92.25%;
+  }
+
+  .footable-row-detail-name {
+    font-weight: bold;
+  }
+
+  .footable-row-detail-value {
+    width: 1000px;
+    text-align: justify;
+    padding-left: 20px;
+  }
+
+  .btn {
+    margin-bottom: 2px;
+  }
+}
+
+.report-table-bordered {
+  table td, table th {
+    border: 1px solid #ddd;
+  }
+}

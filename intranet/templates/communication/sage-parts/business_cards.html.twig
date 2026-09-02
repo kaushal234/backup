@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_business_cards.html.twig', {
+        businessCards: {
+            'Sage parts business card': {
+                'pdf': 'sage_parts/business_cards/SPP-1038-Corporate Identity-Business Cards.pdf'
+            },
+        },
+    }) }}
+{% endblock %}

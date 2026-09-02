@@ -1,0 +1,27 @@
+App\Entity\Survey\RatingType:
+  first_rating_type:
+    id: 1
+    min: 0
+    max: 5
+    description: "Non neque et fugiat distinctio officia facilis. Aperiam amet alias enim. At quidem unde reiciendis sit enim magni consectetur. Magni quod et qui quibusdam et voluptatem."
+    minLabel: Faible
+    maxLabel: Haute
+    survey: "@first_survey"
+
+  second_rating_type:
+    id: 2
+    min: 0
+    max: 5
+    description: <text()>
+    minLabel: Le minimum
+    maxLabel: Le maximum
+    survey: "@first_survey"
+
+  rating_type_to_be_deleted:
+    id: 3
+    min: 0
+    max: 5
+    description: <text()>
+    minLabel: Le minimum
+    maxLabel: Le maximum
+    survey: "@second_survey"

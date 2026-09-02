@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/extranet_user_profiles/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "type": {
+      "type": ["string", "null"]
+    },
+    "division": {
+      "type": ["string", "null"]
+    },
+    "department": {
+      "type": ["string", "null"]
+    },
+    "jobTitle": {
+      "type": ["string", "null"]
+    },
+    "language": {
+      "type": ["string", "null"]
+    },
+    "legacyAddress": {
+      "type": ["string", "null"]
+    },
+    "legacyShippingAddress": {
+      "type": "string"
+    },
+    "sequenceIds": {
+      "type": ["array", "null"]
+    },
+    "shippingAddress": {
+      "type": "object",
+      "items": {
+        "type": "object",
+        "properties": {
+          "street1": {
+            "type": ["string", "null"]
+          },
+          "street2": {
+            "type": ["string", "null"]
+          },
+          "postalCode": {
+            "type": ["string", "null"]
+          },
+          "city": {
+            "type": ["string", "null"]
+          },
+          "town": {
+            "type": ["string", "null"]
+          },
+          "state": {
+            "type": ["string", "null"]
+          },
+          "country": {
+            "type": ["string", "null"]
+          }
+        }
+      }
+    },
+    "counter": {
+      "type": "integer"
+    },
+    "customer": {
+      "type": ["object", "null"]
+    },
+    "customerCarrierName": {
+      "type": ["string", "null"]
+    },
+    "companyName": {
+      "type": ["string", "null"]
+    },
+    "note": {
+      "type": ["string", "null"]
+    },
+    "shippingAccountNumber": {
+      "type": ["string", "null"]
+    },
+    "requestorNumber": {
+      "type": ["string", "null"]
+    },
+    "employeeNumber": {
+      "type": ["string", "null"]
+    },
+    "erpLocation": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../../directory_location/schemas/directory_location_public.json" }
+      ]
+    },
+    "archived": {
+      "type": "boolean"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "country": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/countries/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {"type": "integer"},
+            "name": {"type": "string"},
+            "isoCode2": {"type": "string"},
+            "legacyId": {"type": "integer"}
+          },
+          "required": ["@id", "@type", "id", "name", "isoCode2", "legacyId"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "airport": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "@context": {
+              "type": "string"
+            },
+            "@id": {"pattern": "^/airports/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "cityName": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": ["number", "null"]
+            },
+            "longitude": {
+              "type": ["number", "null"]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "cityName",
+            "code",
+            "latitude",
+            "longitude"
+          ]
+        }
+      ]
+    },
+    "isVerified": {
+      "type": "boolean"
+    },
+    "isGiftAccepted": {
+      "type": "boolean"
+    },
+    "giftRefusedReason": {
+      "type": ["string", "null"]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "type",
+    "division",
+    "department",
+    "jobTitle",
+    "language",
+    "shippingAddress",
+    "counter",
+    "customer",
+    "customerCarrierName",
+    "companyName",
+    "note",
+    "shippingAccountNumber",
+    "requestorNumber",
+    "employeeNumber",
+    "erpLocation",
+    "archived",
+    "legacyId",
+    "country",
+    "legacyAddress",
+    "legacyShippingAddress",
+    "airport",
+    "isVerified",
+    "isGiftAccepted",
+    "giftRefusedReason"
+  ],
+  "additionalProperties": false
+}

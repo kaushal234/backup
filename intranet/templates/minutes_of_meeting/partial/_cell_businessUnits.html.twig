@@ -1,0 +1,5 @@
+<td>
+    {% for businessUnit in item.businessUnits %}
+        {{ businessUnit.name }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</td>

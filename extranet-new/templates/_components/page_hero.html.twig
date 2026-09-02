@@ -1,0 +1,35 @@
+{#
+  _components/page_hero.html.twig — reusable dark page hero with breadcrumb.
+
+  Usage:
+    hero_include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.parts_services'|trans,
+        hero_title:   'extranet.page.rspl.title'|trans,
+        hero_sub:     'extranet.page.rspl.sub'|trans,   (optional)
+        hero_crumbs:  [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.page.rspl.title'|trans }   (last item = current, no href)
+        ]
+    }
+#}
+<section class="page-hero">
+    <div class="page-hero-pattern"></div>
+    <div class="container-fluid px-4 position-relative" style="z-index:2">
+        {% if hero_crumbs is defined and hero_crumbs %}
+            <nav class="page-crumbs" aria-label="breadcrumb">
+                {% for c in hero_crumbs %}
+                    {% if not loop.first %}<span class="sep">/</span>{% endif %}
+                    {% if c.href is defined and c.href %}
+                        <a href="{{ c.href }}">{{ c.label }}</a>
+                    {% else %}
+                        <span class="current">{{ c.label }}</span>
+                    {% endif %}
+                {% endfor %}
+            </nav>
+        {% endif %}
+        <h1 class="page-hero-title">{{ hero_title }}</h1>
+        {% if hero_sub is defined and hero_sub %}
+            <p class="page-hero-sub">{{ hero_sub }}</p>
+        {% endif %}
+    </div>
+</section>

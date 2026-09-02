@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'notifications' %}
+
+
+{% block content %}
+    <div class="row mb-3">
+        <div class="col d-flex justify-content-end">
+            <a href="{{ path('read_all_notifications') }}" class="btn btn-info me-1">
+                {{ 'notifications.fields.read_all' | trans }}
+            </a>
+            <a href="{{ path('delete_all_notifications') }}" class="btn btn-info">
+                {{ 'notifications.fields.delete_all' | trans }}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            {{ data_table(notificationDatatable) }}
+        </div>
+    </div>
+{% endblock %}

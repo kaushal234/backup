@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/MaterialsCsv.jsonld",
+  "definitions": {
+    "MaterialsCsv.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "site": {
+          "type": "integer"
+        },
+        "project": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MaterialsCsvItem.jsonld"
+          }
+        }
+      }
+    },
+    "MaterialsCsvItem.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "partNumber": {
+          "type": "string"
+        },
+        "engineeringSignalCode": {
+          "type": "string"
+        },
+        "itemDescription": {
+          "type": "string"
+        },
+        "itemOtherDescription": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "unitOfMeasure": {
+          "type": "string"
+        },
+        "engineeringRevision": {
+          "type": "string"
+        },
+        "pmoc": {
+          "type": "string"
+        },
+        "preventive": {
+          "type": "boolean"
+        },
+        "maintenance": {
+          "type": "boolean"
+        },
+        "overhaul": {
+          "type": "boolean"
+        },
+        "critical": {
+          "type": "boolean"
+        },
+        "itemType": {
+          "type": "string"
+        },
+        "purchaseStatisticsGroup": {
+          "type": "string"
+        },
+        "orderQuantityIncrement": {
+          "type": "number"
+        },
+        "minimumOrderQuantity": {
+          "type": "number"
+        },
+        "safetyStock": {
+          "type": "number"
+        },
+        "supplyTime": {
+          "type": "number"
+        },
+        "buyFromBusinessPartner": {
+          "type": "string"
+        },
+        "buyer": {
+          "type": "string"
+        },
+        "estimatedStandardCost": {
+          "type": "number"
+        },
+        "salesPriceGroup": {
+          "type": "string"
+        },
+        "itemGroup": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

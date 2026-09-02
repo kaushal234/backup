@@ -1,0 +1,81 @@
+{% extends 'sales/sales_forecasts/list_layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block sales_forecast_list %}
+    {% set items = {
+        id: {
+            label: 'sales_forecasts.fields.status_id' | trans,
+            template: 'sales/sales_forecasts/partial/cells/_id_status.html.twig'
+        },
+        asm: {
+            label: 'sales_forecasts.fields.asm' | trans,
+            template: 'sales/sales_forecasts/partial/cells/_asm.html.twig'
+        },
+        customer: {
+            label: 'sales_forecasts.fields.buyer_user' | trans,
+            template: 'sales/sales_forecasts/partial/cells/_customers.html.twig'
+        },
+        factory: {
+            label: 'sales_forecasts.fields.factory_model' | trans,
+            template: 'sales/sales_forecasts/partial/cells/_factory_model.html.twig'
+        },
+        emissionRating: {
+            label: 'sfr.fields.emission_rating' | trans({}, 'emails'),
+            properties: ['tier.name']
+        },
+        quantity: {
+            label: 'fields.quantity'|trans({}, 'messages'),
+            sortable: 'numeric',
+        },
+        customerSuccessPercentage: {
+            label: 'sales_forecasts.fields.customer_purchase_percentage_short'|trans,
+            sortable: 'numeric',
+        },
+        successPercentage: {
+            label: 'sales_forecasts.fields.alvest_success_percentage_short'|trans,
+            sortable: 'numeric',
+        },
+    } %}
+
+    {% set items = items|merge({
+        '<<': {
+            label: '<<',
+            template: 'sales/sales_forecasts/partial/cells/_date.html.twig',
+            templateParams: {
+                datePeriod: datePeriod
+            }
+        }
+    }) %}
+
+    {% for month in datePeriod %}
+        {% set items = items|merge({
+            (month.format('Y-m')): {
+                label: month.format('Y-m'),
+                template: 'sales/sales_forecasts/partial/cells/_date.html.twig',
+                templateParams: {
+                    datePeriod: datePeriod
+                }
+            }
+        }) %}
+    {% endfor %}
+
+    {% set items = items|merge({
+        '>>': {
+            label: '>>',
+            template: 'sales/sales_forecasts/partial/cells/_date.html.twig',
+            templateParams: {
+                datePeriod: datePeriod
+            }
+        }
+    }) %}
+
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: items,
+            title: 'sales_forecasts.title'|trans,
+            initialSorting: false,
+            data: salesForecasts,
+            pagination: false,
+        }
+    }, with_context = false) }}
+{% endblock %}

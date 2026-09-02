@@ -1,0 +1,102 @@
+{% extends 'quality/calibrated_tools/layout.html.twig' %}
+{% trans_default_domain 'calibration_tool' %}
+{% block title %} {{ 'calibration_tools.titles.tools' | trans([], 'messages') }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('quality/calibrated_tools/tools/partial/_form_filters.html.twig', {
+                        form: formFilters,
+                        resetPath: path('quality_calibrated_tools_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include ('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'data': tools,
+                    'title': 'calibration_tools.titles.tools' | trans([], 'messages') | upper,
+                    'search': false,
+                    'pagination': {
+                        'currentPage': currentPage is defined ? currentPage : 1,
+                        'paginationUrl': paginationUrl,
+                        'attr' : {'class' : 'test'}
+                    },
+                    'items': {
+                        'serialNumber': {
+                            'label': 'calibration_tool.fields.serialNumber'| trans|capitalize,
+                            'filters': ['u.truncate(100)'],
+                            'sortable': true
+                        },
+                        'status': {
+                            'label': 'calibration_tool.fields.status'| trans|capitalize,
+                            'filters': ['trans([], "calibration_tool")'],
+                            'sortable': true
+                        },
+                        'toolType': {
+                            'label': 'calibration_tool.fields.tool_type' | trans([], 'calibration_tool') | capitalize,
+                            'properties': ['toolType.description'],
+                            'class': 'text-center',
+                            'filters': ['u.truncate(16)'],
+                            'link': {
+                                'route': 'quality_calibrated_tool_types_show',
+                                'params': { 'id': 'toolType.@id' }
+                            }
+                        },
+                        'description': {
+                            'label': 'calibration_tool.fields.description'|trans|capitalize,
+                            'filters': ['u.truncate(100)'],
+                            'sortable': true
+                        },
+                        'locationArea': {
+                            'label': 'calibration_tool.fields.location_area' | trans([], 'calibration_tool') | capitalize,
+                            'properties': ['locationArea.name'],
+                            'link': {
+                                'route': 'quality_location_areas_show',
+                                'params': { 'id': 'locationArea.@id' }
+                            }
+                        },
+                        'supervisor': {
+                            'label': 'calibration_tool.fields.supervisor'|trans([], 'calibration_tool')|capitalize,
+                            'properties': ['locationArea.supervisor.lastname', 'locationArea.supervisor.firstname'],
+                            'link': {
+                                'route': 'directory_people_show',
+                                'params': { 'id': 'locationArea.supervisor.@id' }
+                            },
+                        },
+                        "remainingDaysBeforeExpiration": {
+                            'label': 'calibration_tool.fields.expiresIn' | trans([], 'calibration_tool') | capitalize,
+                            'class': 'text-center',
+                            'sortable': 'numeric',
+                            'filters': ['expires_in_days'],
+                        },
+                        'view': {
+                            'label': 'menu.view'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'quality_calibrated_tools_show',
+                                'params': {'id':'@id'},
+                                'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        }
+                    }
+                }
+            }) }}
+
+        </div>
+    </div>
+{% endblock %}

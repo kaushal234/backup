@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/parts/trackings/\\d+$"},
+    "@type": { "type": "string" },
+    "id":  {"type": "integer"},
+    "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+    "createdAt": {"type": "string"},
+    "trackingNumber":  {"type": "string"},
+    "salesOrder":  {"type": ["string", "null"]},
+    "packingSlip":  {"type": "integer"},
+    "location":   { "$ref": "../../directory_location/schemas/directory_location_public.json" },
+    "documentType":  {"type": ["string", "null"]},
+    "document": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../shared/schemas/file.json" }
+      ]
+    },
+    "courier": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/parts/couriers/\\d+$"},
+            "@type": { "type": "string" },
+            "id":  {"type": "integer"},
+            "name":  {"type": "string"},
+            "url":  {"type": ["string", "null"]},
+            "parameterName": {"type": ["string", "null"]}
+          },
+          "required": ["@id", "id", "@type", "name", "url", "parameterName"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "deliveryDate": {"type" : ["string", "null"]},
+    "description": {"type": ["string", "null"]},
+    "link":  {"type": ["string", "null"]}
+  },
+  "required": ["@context", "@id", "@type", "id", "createdAt", "createdBy", "trackingNumber", "packingSlip", "courier", "documentType", "description", "document", "link"],
+  "additionalProperties": false
+}

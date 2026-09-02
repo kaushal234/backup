@@ -1,0 +1,10 @@
+{% extends 'support/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }} \ {{ 'support.manuals.menu.prints' | trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="manual_print_add" :routeParameters="{id: manual.id}" :security="is_granted('FEATURE_PRINTER_WRITE')"/>
+    </twig:NavBar:Container>
+{% endblock %}

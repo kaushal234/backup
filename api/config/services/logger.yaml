@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Monolog\Formatter\LogstashFormatter:
+    arguments:
+      - 'api'
+
+  Symfony\Bridge\Monolog\Processor\WebProcessor:
+    tags:
+      - { name: monolog.processor }
+
+  Symfony\Bridge\Monolog\Processor\TokenProcessor:
+    tags:
+      - { name: monolog.processor }
+
+  Symfony\Bridge\Monolog\Processor\RouteProcessor:
+    tags:
+      - { name: monolog.processor }  
+        
+  Symfony\Bridge\Monolog\Processor\ConsoleCommandProcessor:
+    tags:
+      - { name: monolog.processor }

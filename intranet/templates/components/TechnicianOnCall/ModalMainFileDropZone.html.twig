@@ -1,0 +1,15 @@
+{% props technicianOnCall, elementDataSet = {} %}
+
+<div class="modal fade" id="main-file-drop-zone" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>{{ (technicianOnCall.mainFile is empty ? 'toc.files.add_main_file' : 'toc.files.change_main_file')|trans }}</h4>
+                <button type="button" class="btn-close pull-right" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="toc-files-dropZone" data-main-file="true" data-data="{{ elementDataSet | json_encode }}"></div>
+            </div>
+        </div>
+    </div>
+</div>

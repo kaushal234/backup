@@ -1,0 +1,15 @@
+{% extends 'directory/department/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.department.title.add'|trans }}</h3>
+
+    {{ include('directory/department/_form.html.twig', {
+        form: form,
+        action: path('directory_departments_add'),
+        cancel_link: path('directory_departments_home')
+    }, with_context=false) }}
+
+{% endblock %}

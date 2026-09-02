@@ -1,0 +1,111 @@
+@use "variables" as tldvars;
+
+.navbar-static-top {
+
+  background-color: tldvars.$top-nav-bg-color;
+  color: tldvars.$top-nav-text-color;
+
+  .navbar-collapse {
+    padding-bottom: 4px;
+
+    .navbar-top-links {
+
+      .dropdown {
+        .dropdown-menu {
+
+          /* DASHBOARD */
+          .icon {
+            width: 96px;
+            height: 50px;
+            text-align: center;
+            float: left;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            &:hover {
+              background-color: #f5f5f5;
+              color: #262626;
+            }
+
+            a {
+              padding: 0;
+              color: #888888;
+              &:hover {
+                color: #262626;
+              }
+            }
+
+            img {
+              max-height: 30px;
+            }
+
+            i {
+              width: 100%;
+              font-size: 30px;
+            }
+
+            a, span {
+              width: 100% !important;
+              display: block !important;
+            }
+          }
+
+          .dropdown-divider {
+            clear: both;
+          }
+        }
+
+        /* ICONS TOOLS */
+        .dropdown-toggle {
+            i {
+                color: tldvars.$top-nav-text-color;
+                font-size: 24px;
+
+                &:hover {
+                    color: tldvars.$top-nav-link-hover-color;
+                }
+            }
+        }
+      }
+    }
+
+    /* ACCOUNT POPUP */
+    .navbar-right {
+      li {
+        a {
+          font-size: 13px;
+        }
+      }
+
+      .sage-container {
+        a {
+          padding-bottom: 0;
+          padding-top: 0;
+
+          img {
+            width: 50px;
+          }
+        }
+      }
+
+      .account-container {
+
+        // USER THUMBNAIL
+        .user-thumbnail {
+          padding-bottom: 0;
+          padding-top: 0;
+
+          img {
+            width: 50px;
+          }
+        }
+
+        // POPUP
+        .dropdown-menu {
+          width: 170px;
+          top: 107%;
+        }
+      }
+    }
+  }
+}

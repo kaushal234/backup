@@ -1,0 +1,36 @@
+export interface IGetAllTechnicalOnCallsFilters {
+  equipmentRecord?: string;
+  status?: Array<string>;
+  assignee?: Array<string>;
+  unitOperationalStatus?: Array<string>;
+  technicianOnCallType?: Array<string>;
+  serviceActivity?: Array<string>;
+  indiceFactor?: Array<string>;
+  tags?: Array<string>;
+  createdBy?: Array<string>;
+  "createdAt[after]"?: string;
+  "createdAt[before]"?: string;
+  "solvedAt[after]"?: string;
+  "solvedAt[before]"?: string;
+  "equipmentRecord.salesOrganisation"?: Array<string>;
+  salesOrganisationService?: Array<string>;
+  "equipmentRecord.manufacturerLocation"?: Array<string>;
+  "equipmentRecord.product.family.productType"?: Array<string>;
+  "equipmentRecord.product"?: Array<string>;
+  airport?: Array<string>;
+  late?: string;
+  factoryFlag?: string;
+  factoryFlagRecentlyClosed?: string;
+  surveyAnswerThisMonth?: string;
+  "equipmentRecord.buyer"?: Array<string>;
+  "airport.country"?: Array<string>;
+  "parts.partNumber"?: string;
+  "equipmentRecord.endUser"?: Array<string>;
+  "sparePartsRequests.parts.partNumber"?: string;
+  "equipmentRecord.maintainer"?: Array<string>;
+  confidential?: string;
+  title?: string;
+  technician?: Array<string>;
+  errorCodes?: string;
+  actor?: Array<string>;
+}

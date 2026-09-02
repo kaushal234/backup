@@ -1,0 +1,17 @@
+App\Entity\AI\AILog:
+
+  #/ai_logs/1
+  ai_log_1:
+    id: 1
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    people: '@user_basic'
+    requests:
+      - '@ai_request_1'
+
+  #/ai_logs/2
+  ai_log_2:
+    id: 2
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    people: '@user_superuser'
+    requests:
+      - '@ai_request_2'

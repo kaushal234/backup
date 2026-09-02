@@ -1,0 +1,28 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="text-center article-title">
+                        {% set entity = entity | replace({'-': ' '}) %}
+                        <h1>{{ entity | upper }} Social Media</h1>
+                    </div>
+                    <p>LinkedIn</p>
+                    <p><u><a href="https://www.linkedin.com/company/sage-parts/">https://www.linkedin.com/company/sage-parts/</a></u></p>
+                    <p>Facebook</p>
+                    <p><u><a href="https://www.facebook.com/SageParts/">https://www.facebook.com/SageParts/</a></u></p>
+                    <p>Instagram</p>
+                    <p><u><a href="https://www.instagram.com/sagepartsgse/">https://www.instagram.com/sagepartsgse/</a></u></p>
+                    <p>Twitter / X</p>
+                    <p><u><a href="https://x.com/sagepartsplus">https://x.com/sagepartsplus</a></u></p>
+                    <p>Youtube</p>
+                    <p><u><a href="https://www.youtube.com/@SageParts">https://www.youtube.com/@SageParts</a></u></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+.generic_form_component__no_label .form-label,
+.generic_form_component__no_label .col-form-label {
+  display: none;
+}
+
+.generic_form_component__wrapper .invalid-feedback {
+  display: block;
+}
+
+.generic_form_component__wrapper {
+  flex: 1;
+}
+
+.custom_label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.custom_label .MuiButtonBase-root {
+  padding: 0;
+}
+
+.custom_label svg {
+  width: 20px;
+  height: 20px;
+}
+
+.custom_option__wrapper {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom_option__tooltip_wrapper .MuiButtonBase-root {
+  margin-bottom: 0 !important;
+  padding: 0;
+}
+
+.MuiPopper-root.MuiTooltip-popper {
+  z-index: 2001 !important;
+}
+
+.MuiTooltip-popper .MuiTooltip-tooltip {
+  margin: 8px !important;
+}
+
+.generic_form_component__wrapper *::placeholder {
+  color: #aaa !important;
+}
+
+.generic_form_component__hidden {
+  display: none;
+}
+
+.generic_form_component__wrapper div[id^="react-select-"][id$="-placeholder"] {
+  color: rgba(0, 0, 0, 0.4);
+}

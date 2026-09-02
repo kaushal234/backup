@@ -1,0 +1,25 @@
+{% trans_default_domain 'non_conformity' %}
+<div class="row">
+    <div class="col-md-6">
+        {{ include('helper/_association_table.html.twig', {
+            associationData: {
+                items: {
+                    hours: { label: 'non_conformity.fields.hours'|trans },
+                    currency: {
+                        label: 'spq.quotations.fields.currency'|trans({}, 'spq') | capitalize,
+                        properties: ['currency.name'],
+                    },
+                    cost: { label:'non_conformity.fields.costs' | trans },
+                    costBreakdown: { label:'non_conformity.fields.cost_breakdown' | trans },
+                    nonQualityCost: { label:'non_conformity.fields.non_quality_cost' | trans },
+                    workOrderReference: { label:'non_conformity.fields.work_order_reference' | trans },
+                    invoiceNumber: { label:'account_receivable.invoice_record.fields.invoice_number' | trans({}, 'account_receivable') },
+                },
+                data: item,
+                title: 'non_conformity.title.costs' | trans,
+                pagination: false,
+                search: false
+            }
+        }, with_context = false )}}
+    </div>
+</div>

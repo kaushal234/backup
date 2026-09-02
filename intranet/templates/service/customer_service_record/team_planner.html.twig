@@ -1,0 +1,168 @@
+{% extends 'service/customer_service_record/layout.html.twig' %}
+{% trans_default_domain 'customer_service_record' %}
+
+{% form_theme techniciansForm 'form_theme_vertical.html.twig' %}
+{% form_theme techniciansForm.technicians 'service/customer_service_record/form/technicians_choices_widget.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+{% endblock %}
+
+{% block content %}
+    <div class="row p-0 m-0 mb-3">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title collapse-link">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <i class="fa fa-chevron-up"></i>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-3">
+                            <div class="row">
+                                {{ form_start(techniciansForm) }}
+                                {{ form_errors(techniciansForm) }}
+                                <div class="rounded-0 col-md-12">
+                                    {{ form_row(techniciansForm.technicians.technicians, {'attr': {'id': 'technician_choice', 'class': 'scroll-container p-3', 'style': 'max-height: 150px; border: 1px solid #ced4da;'}}) }}
+                                </div>
+                                <div class="rounded-0 border-0 col-md-12">
+                                    <div>
+                                        {{ form_row(techniciansForm.technicians.additional) }}
+                                    </div>
+                                    <div>
+                                        {{ form_row(techniciansForm.airport) }}
+                                    </div>
+                                    <div>
+                                        {{ form_row(techniciansForm.discriminator) }}
+                                    </div>
+                                    <div>
+                                        {{ form_row(techniciansForm.equipmentRecord) }}
+                                    </div>
+                                    <div>
+                                        {{ form_row(techniciansForm.deliveredCountry) }}
+                                    </div>
+                                    <div>
+                                        {{ form_row(techniciansForm.salesOrganisation) }}
+                                    </div>
+                                    <div>
+                                        {{ form_row(techniciansForm.salesOrganisationService) }}
+                                    </div>
+                                </div>
+                                <div class="form-group text-end mt-3 col-md-12">
+                                    <label class="control-label">&nbsp;</label>
+                                    <a href="{{ path('customer_service_record_planner_home') }}" class="btn btn-secondary">{{ 'button.reset'| trans({}, 'messages') | upper }}</a>
+                                    <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans({}, 'messages') | upper }}</button>
+                                </div>
+                                {{ form_end(techniciansForm) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-9">
+                            <div id="map" class="h-100 "></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="planner" class="row p-0 m-0">
+        <div class="col-md-4 m-0">
+            {{ include('service/customer_service_record/partial_planner/_pool.html.twig') }}
+        </div>
+        <div class="col-md-1 m-0 p-0">
+            <div class="d-flex align-items-start w-100">
+                <ul class="nav flex-column nav-pills w-100" id="planner-subordinates" role="tablist" aria-orientation="vertical">
+                    <li class="nav-item">
+                        <button
+                                class="nav-link active rounded-0 w-100"
+                                id="subordinate-0-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#subordinate-0-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="subordinate-0-tab-pane"
+                                aria-selected="true">
+                            UNASSIGNED
+                        </button>
+                    </li>
+                {% for technicianForm in techniciansForm.children.technicians.children.technicians.children %}
+                    {% if technicianForm.vars.checked %}
+                    <li class="nav-item">
+                        <button
+                                class="nav-link rounded-0 w-100"
+                                id="subordinate-{{ technicianForm.vars.value|iri_id }}-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#subordinate-{{ technicianForm.vars.value|iri_id }}-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="subordinate-{{ technicianForm.vars.value|iri_id }}-tab-pane"
+                                aria-selected="true">
+                            {{ technicianForm.vars.label }}
+                        </button>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                {% for technician in techniciansForm.children.technicians.children.additional.vars.value %}
+                    <li class="nav-item">
+                        <button
+                                class="nav-link rounded-0 w-100"
+                                id="subordinate-{{ {'@id': technician}|iri_id }}-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#subordinate-{{ {'@id': technician}|iri_id }}-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="subordinate-{{ {'@id': technician}|iri_id }}-tab-pane"
+                                aria-selected="true">
+                            {{ technicianLabels[technician] ?? '' }}
+                        </button>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-7 m-0">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="subordinate-0-tab-pane" role="tabpanel" aria-labelledby="subordinate-0-tab" tabindex="0">
+                    {% include 'service/customer_service_record/partial_planner/_user_planner.html.twig' with {'subordinate': 'unassigned'} %}
+                </div>
+                {% for child in techniciansForm.children.technicians.children.technicians.children %}
+                    {% if child.vars.checked %}
+                    <div data-user-iri="{{ child.vars.value }}" class="tab-pane fade" id="subordinate-{{ child.vars.value|iri_id }}-tab-pane" role="tabpanel" aria-labelledby="subordinate-{{ child.vars.value|iri_id }}-tab" tabindex="0">
+                        <h2>
+                            {{ child.vars.label }}
+                        </h2>
+                        <div>
+                            {% include 'service/customer_service_record/partial_planner/_user_planner.html.twig' with {'subordinate': child.vars.value} %}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                {% for technician in techniciansForm.children.technicians.children.additional.vars.value %}
+                    <div data-user-iri="{{ technician }}" class="tab-pane fade" id="subordinate-{{ {'@id': technician}|iri_id }}-tab-pane" role="tabpanel" aria-labelledby="subordinate-{{ {'@id': technician}|iri_id }}-tab" tabindex="0">
+                        <h2>
+                            {{ technicianLabels[technician] ?? '' }}
+                        </h2>
+                        <div>
+                            {% include 'service/customer_service_record/partial_planner/_user_planner.html.twig' with {'subordinate': technician} %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var globalCsrs = {{ pool|raw }}
+    </script>
+
+    {{ encore_entry_script_tags('planner') }}
+{% endblock %}

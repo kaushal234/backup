@@ -1,0 +1,20 @@
+<td data-name="initial-date-value" class="confirm-delivery-date" data-value="{{ value ? value|date('Y-m-d') : '' }}">
+
+    <div {% if item.isConfirmable %} hidden="" {% endif %} data-name={{ key }}>
+        {{ value?value|date("Y-m-d"):"N/A" }}
+    </div>
+    {% set allLinesform = get_purchase_order_line_edit_form(linesForm, item, property) %}
+    <div class="tooltipInfo">
+
+        <div class="mb-3" style="width: 200px" {% if not item.isConfirmable %} hidden="" {% endif %}>
+            {% if allLinesform != null %}
+            {{ form_widget(allLinesform.confirmedSupplierDate) }}
+            {{ form_errors(allLinesform.confirmedSupplierDate) }}
+            {% endif %}
+        </div>
+
+        {% include 'purchase-order/components/tooltip/legal_message.html.twig' %}
+
+    </div>
+
+</td>

@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "equipmentRecord",
+    "exportedAt",
+    "currency",
+    "optionConfigurationParameterHours",
+    "actualHours",
+    "standardHours",
+    "standardLabourCost",
+    "actualLabourCost",
+    "standardMaterialCost",
+    "actualMaterialCost",
+    "standardOtherMaterialCost",
+    "actualOtherMaterialCost",
+    "standardOtherDirectCost",
+    "actualOtherDirectCost",
+    "factoryRevenue",
+    "legacyId"
+  ],
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/finance/manufacturing_margins/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "equipmentRecord": {
+      "type": "object",
+      "$ref": "../../equipment_record/schemas/equipment_record_list.json"
+    },
+    "exportedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "currency": {
+      "type": "object",
+      "properties": {
+        "@id": {"type": "string"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "legacyId": {"type":  "integer"},
+        "id": {"type":  "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "id",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "optionConfigurationParameterHours": {
+      "type": "number"
+    },
+    "actualHours": {
+      "type": "number"
+    },
+    "standardHours": {
+      "type": "number"
+    },
+    "standardLabourCost": {
+      "type": "number"
+    },
+    "actualLabourCost": {
+      "type": "number"
+    },
+    "standardMaterialCost": {
+      "type": "number"
+    },
+    "actualMaterialCost": {
+      "type": "number"
+    },
+    "standardOtherMaterialCost": {
+      "type": "number"
+    },
+    "actualOtherMaterialCost": {
+      "type": "number"
+    },
+    "standardOtherDirectCost": {
+      "type": "number"
+    },
+    "actualOtherDirectCost": {
+      "type": "number"
+    },
+    "factoryRevenue": {
+      "type": "number"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  }
+}

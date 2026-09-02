@@ -1,0 +1,350 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/minutes_of_meeting/meetings/\\d+(/status|)$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "confidential": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "quick": {
+      "type": "boolean"
+    },
+    "createdBy": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "createdAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "closedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "competitors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/sales/competitors/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "customers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/sales/customers/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "customerContacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/sales/extranet_users/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "username",
+          "email",
+          "firstname",
+          "lastname"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "contacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/minutes_of_meeting/contacts/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "mail": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "firstName",
+          "lastName",
+          "phone",
+          "mail",
+          "company",
+          "createdAt"
+        ]
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/minutes_of_meeting/actions/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "assignee": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "createdBy": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "initialDueDate": {
+            "type": "string"
+          },
+          "internal": {
+            "type": "boolean"
+          },
+          "closedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "task": {
+            "type": "integer"
+          },
+          "closingComment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "customer": {
+            "type": ["object", "null"],
+            "properties": {
+              "@context": {
+                "type": "string"
+              },
+              "@id": {
+                "pattern": "^/sales/customers/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "@id",
+          "@type",
+          "description",
+          "completed",
+          "assignee",
+          "createdBy",
+          "initialDueDate",
+          "internal",
+          "createdAt",
+          "task",
+          "customer"
+        ]
+        }
+      },
+      "productTypes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/sales/product_types/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "englishName": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "englishName"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "attendees": {
+        "type": "array",
+        "items": {
+          "$ref": "../../directory_people/schemas/directory_people_public.json"
+        },
+        "uniqueItems": true
+      },
+      "businessUnits": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "@id",
+            "@type",
+            "name"
+          ]
+        },
+        "uniqueItems": true
+      },
+      "files": {
+        "type": "array",
+        "items": {
+          "$ref": "../../shared/schemas/file.json"
+        },
+        "uniqueItems": true
+      },
+      "fullDescription": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "meetingDate": {
+        "type": "string"
+      }
+    },
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "confidential",
+    "status",
+    "title",
+    "description",
+    "location",
+    "quick",
+    "createdBy",
+    "createdAt",
+    "competitors",
+    "customers",
+    "customerContacts",
+    "contacts",
+    "productTypes",
+    "files",
+    "businessUnits",
+    "attendees",
+    "fullDescription",
+    "meetingDate"
+  ]
+}
+

@@ -1,0 +1,25 @@
+framework:
+  workflows:
+    inspection:
+      type: 'state_machine'
+      marking_store:
+        type: 'method'
+        property: 'status'
+      supports:
+        - App\Entity\AbstractInspection
+      initial_marking: !php/const App\Entity\AbstractInspection::REQUESTED
+      places:
+        - !php/const App\Entity\AbstractInspection::REQUESTED
+        - !php/const App\Entity\AbstractInspection::SCHEDULED
+        - !php/const App\Entity\AbstractInspection::FAILED
+        - !php/const App\Entity\AbstractInspection::SUCCESSFUL
+      transitions:
+        schedule:
+          from: !php/const App\Entity\AbstractInspection::REQUESTED
+          to: !php/const App\Entity\AbstractInspection::SCHEDULED
+        fail:
+          from: !php/const App\Entity\AbstractInspection::SCHEDULED
+          to: !php/const App\Entity\AbstractInspection::FAILED
+        succeed:
+          from: !php/const App\Entity\AbstractInspection::SCHEDULED
+          to: !php/const App\Entity\AbstractInspection::SUCCESSFUL

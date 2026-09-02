@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/lead_times/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "weeks": {
+      "type": "integer"
+    },
+    "previousValue": {
+      "type": ["null", "integer"]
+    },
+    "description": {
+      "type": "string"
+    },
+    "updatedBy": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/people/\\d+$"},
+        "@type"    : {"type": "string"},
+        "firstname": {"type": "string"},
+        "lastname" : {"type": "string"},
+        "email"    : {"type": "string"},
+        "username" : {"type": "string"}
+      },
+      "required": ["@id", "@type", "firstname", "lastname", "email", "username"],
+      "additionalProperties": false
+    },
+    "updatedAt": {
+      "type": ["null", "string"]
+    },
+    "productFamily": {
+      "type": "object",
+      "items": {
+        "type": "array",
+        "properties": {
+          "@id": {
+            "pattern": "^/sales/product_families/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "productType": {
+            "type": ["null", "object"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "productType"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "factory": {
+      "type": "object",
+      "items": {
+        "type": "array",
+        "properties": {
+          "@id": {
+            "pattern": "^/location/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "erp": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name",
+          "erp"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "@id",
+    "@type",
+    "weeks",
+    "previousValue",
+    "description",
+    "productFamily",
+    "factory",
+    "updatedAt",
+    "updatedBy"
+  ]
+}

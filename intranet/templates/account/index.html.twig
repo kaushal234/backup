@@ -1,0 +1,11 @@
+{% extends 'account/layout.html.twig' %}
+
+{% block content %}
+    <h3>Home</h3>
+    {% set user_id = iri_id(app.user.id) %}
+    {{ include('partial/_people.html.twig', {
+        entry: account,
+        id: user_id
+    }, with_context=false) }}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecordLine:
+  #/equipment_shipping_record_lines/1
+  equipment_shipping_record_line_1:
+    id: 1
+    equipmentRecord: '@equipment_record_parent'
+    vesselLoadingDate: <dateTimeBetween('-2 months', 'now')>
+    estimatedArrivalDate: <dateTimeBetween('-2 months', 'now')>
+    actualArrivalDate: <dateTimeBetween('-2 months', 'now')>
+    estimatedPickUpDate: <(new \DateTime('+1 days'))>
+    truckType: IVECO 200t
+    equipmentShippingRecord: '@equipment_shipping_record_4'
+    comment: Commented by moi
+
+  #/equipment_shipping_record_lines/2
+  equipment_shipping_record_line_2:
+    id: 2
+    equipmentRecord: '@equipment_record_commissioned'
+    vesselLoadingDate: <dateTimeBetween('-2 months', 'now')>
+    estimatedArrivalDate: <dateTimeBetween('-2 months', 'now')>
+    actualArrivalDate: <dateTimeBetween('-2 months', 'now')>
+    estimatedPickUpDate: <(new \DateTime('+3 days'))>
+    equipmentShippingRecord: '@equipment_shipping_record_1'
+    truckType: CyberTruck

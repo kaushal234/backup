@@ -1,0 +1,11 @@
+- name: Restart redis
+  become: true
+  ansible.builtin.service:
+    name: redis
+    state: restarted
+
+- name: Restart redis-sentinel
+  become: true
+  ansible.builtin.service:
+    name: redis-sentinel
+    state: restarted

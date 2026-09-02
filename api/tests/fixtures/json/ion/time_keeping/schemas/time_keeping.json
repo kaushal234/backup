@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "definitions": {
+    "TimeKeepingPostTransactionOutput.jsonld": {
+      "type": "object",
+      "description": "",
+      "properties": {
+        "@id": {"pattern": "^/ion/tasks/.+$"},
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@context": {
+          "readOnly": true,
+          "type": "array"
+        },
+        "lines": {"$ref": "#/definitions/TimeKeepingPostTransactionOutputLine.jsonld"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "@context",
+        "lines"
+      ],
+      "additionalProperties": false
+    },
+    "TimeKeepingPostTransactionOutputLine.jsonld": {
+      "type": "object",
+      "description": "",
+      "properties": {
+        "@id": {"pattern": "^/ion/tasks/.+$"},
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@context": {
+          "readOnly": true,
+          "type": "array"
+        },
+        "employeeNumber": {"type": "string"},
+        "transactionType": {"type": "string"},
+        "year": {"type": "integer"},
+        "period": {"type": "integer"},
+        "sequenceNumber": {"type": "integer"},
+        "startTime": {"type": "string"},
+        "endTime": {"type": "string"},
+        "status": {"type": "string"},
+        "productionOrder": {"type": "string"},
+        "operationNumber": {"type": "string"},
+        "task": {"type": "string"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "@context",
+        "employeeNumber",
+        "transactionType",
+        "year",
+        "period",
+        "sequenceNumber",
+        "startTime",
+        "endTime",
+        "status",
+        "productionOrder",
+        "operationNumber",
+        "task"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

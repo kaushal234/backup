@@ -1,0 +1,19 @@
+{% trans_default_domain 'mis_project' %}
+<div class="row">
+    {% for people in item.misMembers %}
+        <div class="col-md-4">
+            {% if people.photo is not null %}
+                <img class="m-t-xs img-fluid rounded-circle"
+                     src="{{ asset(upload_uri ~ '/' ~ people.photo.filePath) }}?width=128">
+            {% else %}
+                <img class="m-t-xs img-fluid rounded-circle" width="128" src="/shared/no_photo.jpg">
+            {% endif %}
+            <h3 class="text-center">
+                <a href="{{ path('directory_people_show', {'id': iri_id(people)}) }}">
+                    {{ people.lastname | upper }} {{ people.firstname }}
+                </a>
+            </h3>
+        </div>
+    {% endfor %}
+
+</div>

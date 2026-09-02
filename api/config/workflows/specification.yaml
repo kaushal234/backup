@@ -1,0 +1,20 @@
+framework:
+  workflows:
+    specification:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\Module\Specification\Specification
+      initial_marking: !php/const App\Entity\Module\Specification\Specification::DEVELOPMENT
+      places:
+        - !php/const App\Entity\Module\Specification\Specification::DEVELOPMENT
+        - !php/const App\Entity\Module\Specification\Specification::PRODUCTION
+      transitions:
+        to_production:
+          from: !php/const App\Entity\Module\Specification\Specification::DEVELOPMENT
+          to: !php/const App\Entity\Module\Specification\Specification::PRODUCTION
+        to_development_from_production:
+          from: !php/const App\Entity\Module\Specification\Specification::PRODUCTION
+          to: !php/const App\Entity\Module\Specification\Specification::DEVELOPMENT

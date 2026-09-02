@@ -1,0 +1,8 @@
+<td>
+    {% if invoiceRecord is defined and invoiceRecord is not null %}
+        <p>{{ invoiceRecord.revisedDueDate | date("Y-m-d") }}</p>
+        {% if invoiceRecord.revisedDueDate is not same as (null) and interval < 0 %}
+            <h3 style="color: red; font-weight: bold">{{ 'account_receivable.fields.past_due_days' | trans({'%interval%':interval | abs}, 'account_receivable') }}</h3>
+        {% endif %}
+    {% endif %}
+</td>

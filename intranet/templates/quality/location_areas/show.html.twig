@@ -1,0 +1,89 @@
+{% extends '/quality/location_areas/layout.html.twig' %}
+{% trans_default_domain 'location_areas' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ locationArea.name | title }}</h5>&nbsp;
+                    <small>
+                        {{ "calibration_tools.location_area.part_of" | trans({ company_name: locationArea.factory.name }, 'messages')}}
+                    </small>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                                <tr>
+                                    <th>{{ 'location_areas.fields.index' | trans | upper }}</th>
+                                    <td>{{ iri_id(locationArea) }}</td>
+                                    <th>{{ 'location_areas.fields.name' | trans | upper }}</th>
+                                    <td>{{ locationArea.name }}</td>
+                                </tr>
+                                </tr>
+                                    <th>{{ 'location_areas.fields.factory_name' | trans | upper }}</th>
+                                    <td>
+                                        <a href="{{ path('directory_locations_show', {id: iri_id(locationArea.factory)}) }}">
+                                            {{ locationArea.factory.name }}</td>
+                                        </a>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'location_areas.fields.supervisor' | trans | upper }}</th>
+                                    <td>
+                                        <a href="{{ path('directory_people_show', {id: iri_id(locationArea.supervisor)}) }}" target="_blank">
+                                            {{ locationArea.supervisor.lastname }} {{ locationArea.supervisor.firstname }}
+                                        </a>
+                                    </td>
+                                    <th>{{ 'location_areas.fields.factory_company' | trans | upper }}</th>
+                                    <td>
+                                        <a href="{{ path('directory_locations_show', {id: iri_id(locationArea.factory) }) }}">
+                                            {{ locationArea.factory.company | u.wordwrap }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include ('helper/_report_table.html.twig', {
+                    'reportTable': {
+                        'data': tools,
+                        'title': 'calibration_tool.title.index' | trans([], 'calibration_tool') | title,
+                        'items': {
+                            'serialNumber': {
+                                'label': 'calibration_tool.fields.serialNumber'| trans([], 'calibration_tool')|capitalize,
+                                'filters': ['u.truncate(50)'],
+                            },
+                            'description': {
+                                'label': 'calibration_tool.fields.description'|trans([], 'calibration_tool')|capitalize,
+                                'filters': ['u.truncate(50)', 'u.wordwrap']
+                            },
+                            "remainingDaysBeforeExpiration": {
+                                'label': 'calibration_tool.fields.expiresIn' | trans([], 'calibration_tool') | capitalize,
+                                'filters': ['expires_in']
+                            },
+                            'view': {
+                                'label': 'menu.view'|trans([], 'messages')|capitalize,
+                                'link':{
+                                    'route': 'quality_calibrated_tools_show',
+                                    'params': {'id':'@id'},
+                                    'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                                },
+                                'sortable': false,
+                                'class' : 'text-end'
+                            }
+                        }
+                    }
+                })
+            }}
+        </div>
+    </div>
+
+{% endblock %}

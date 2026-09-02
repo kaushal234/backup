@@ -1,0 +1,66 @@
+.cui .manual_document__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 28px;
+  height: fit-content;
+}
+
+.cui .manual_document__row {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+}
+
+.cui .manual_document__row > div {
+  flex: 1;
+}
+
+.cui .manual_document__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+}
+
+.cui .manual_document__files_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cui .manual_document__info_row_wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: var(--cui-card-border-radius);
+  border: 1px solid var(--mui-palette-divider);
+  cursor: pointer;
+}
+
+.cui .manual_document__info_row {
+  display: flex;
+}
+
+.cui .manual_document__info_cell {
+  flex: 1;
+}
+
+.cui .manual_document__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.cui .manual_document__actions button {
+  min-width: 150px;
+  margin: 16px 0;
+}
+
+.cui.dark .manual_document__actions button {
+  color: var(--mui-palette-primary-contrastText);
+  background-color: var(--mui-palette-primary-main);
+}

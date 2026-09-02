@@ -1,0 +1,32 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        <h5>
+            {{ 'toc.message.airport'|trans({
+                    '%apc%': technicianOnCall.airport.code,
+                    '%country%': technicianOnCall.airport.country?.name
+            }) }}
+        </h5>
+        <hr>
+        <h5>{{ 'toc.message.toc_new_comment_by_customer'|trans({'%eContact%': comment.user.lastname ~ ", " ~ comment.user.firstname}) }}</h5>
+        <br>
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_comment_message.html.twig', {
+            message: comment.message,
+            translation: comment.metadata['translation']|default(null)
+        }) }}
+        <hr>
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_internal.html.twig') }}
+        <hr>
+    </div>
+    <div style="display: flex;">
+        <div style="width: 20%">
+            {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_light.html.twig') }}
+        </div>
+        <div style="width: 80%">
+            {{ include('Emails/Service/TechnicianOnCall/_partials/_previous_comments.html.twig', {previousComments: previousComments}) }}
+        </div>
+    </div>
+{% endblock %}

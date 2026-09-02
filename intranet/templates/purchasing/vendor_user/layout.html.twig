@@ -1,0 +1,8 @@
+{% extends '/purchasing/layout.html.twig' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Edit route="vendor_users_edit" :routeParameters="{'id': vendorUser.id}" :security="is_granted('FEATURE_VENDOR_USER_WRITE')"/>
+        <twig:NavItem translationKey="nav_link.shadow" domain="vendor_user" icon="mdi:user-outline" route="home" :routeParameters="{'_impersonate': vendorUser.getIri(), '_userIdentifier': vendorUser.email}" :security="is_granted('FEATURE_VENDOR_USER_IMPERSONATE')"/>
+    </twig:NavBar:Container>
+{% endblock %}

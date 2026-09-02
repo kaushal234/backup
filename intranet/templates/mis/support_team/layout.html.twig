@@ -1,0 +1,9 @@
+{% extends 'mis/layout.html.twig' %}
+{% trans_default_domain 'support_team' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="support_team_add" :security="is_granted('FEATURE_CREATE_SUPPORT_TEAM')"/>
+        <twig:NavItem translationKey="support_team.nav_link.tts" domain="support_team" icon="mynaui:list" route="trouble_ticket_home"/>
+    </twig:NavBar:Container>
+{% endblock %}

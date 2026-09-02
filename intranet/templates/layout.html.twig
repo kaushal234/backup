@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|split('_')[0] }}">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% block meta %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {% endblock %}
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        <script>window.user = {{ app.user | serialize |  raw }}</script>
+        <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+        {% block translations %}
+        {% endblock %}
+        {{ encore_entry_script_tags('app') }}
+        {% if is_granted('IS_AUTHENTICATED') %}
+            <!-- FOSJsRouting -->
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        {% endif %}
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body class="{% block bodyClass %}{% endblock %}" data-turbo="false">
+{% block body %}
+    <div id="wrapper">
+        {{ include('layout/top_message.html.twig') }}
+        {% block sidebar %}
+            {% if is_granted('INTRANET_ACCESS') %}
+                {% embed('layout/sidebar.html.twig') %}{% endembed %}
+            {% else %}
+                {% embed('layout/sidebar_light.html.twig') %}{% endembed %}
+            {% endif %}
+        {% endblock %}
+        <div id="page-wrapper" class="gray-bg">
+            {% block topbar %}
+                {% embed('layout/topbar.html.twig') %}{% endembed %}
+            {% endblock %}
+            <!-- ######################################### CONTENT PAGES ######################################### -->
+            <div class="wrapper wrapper-content animated fadeIn">
+                {% block breadcrumb %}
+                    <nav class="wrapper border-bottom white-bg page-heading breadcrumbs-container d-flex justify-content-between align-items-center">
+                        <div class="col-lg-6" style="padding: inherit">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/en/private">Home</a>
+                                </li>
+                                {% block breadcrumb_links %}
+                                    {% set domain = app.request.attributes.get('_route_params')['moduleDomain'] | default(null) %}
+                                    {% if domain is not null %}
+                                        {{ include('helper/_breadcrumbs.html.twig', { domain: domain }) }}
+                                    {% endif %}
+                                {% endblock %}
+                            </ol>
+                        </div>
+                        <div class="col-lg-6 text-end">
+                            {% set alvestModule = app.request.attributes.get('_route_params')['alvest_module'] | default(null) is not null ? module(app.request.attributes.get('_route_params')['alvest_module']) : null %}
+                            {% if alvestModule is not null %}
+                                {% if alvestModule.dmsHelpId is not null %}
+                                    <a href="{{ dms(alvestModule.dmsHelpId) }}" class="btn btn-sm btn-primary text-capitalize">&nbsp;{{ 'mis.modules.fields.dms_help' | trans([], 'mis') }}</a>
+                                {% endif %}
+                                <a href="{{ path('directory_people_show', {id: iri_id(alvestModule.operationalOwner)}) }}" class="btn btn-sm btn-primary text-capitalize"></i>&nbsp;{{ 'mis.modules.fields.moo' | trans([], 'mis') }}</a>
+                            {% endif %}
+                        </div>
+                    </nav>
+                {% endblock %}
+                <div class="p-w-md m-t-sm m-b-xl">
+                    <div id="menu">
+                        {% block top_navigation_bar %}{% endblock %}
+                        {% block quick_action_bar %}{% endblock %}
+                    </div>
+                    {% block notifications %}
+                        {% embed 'layout/partial/_notifications.html.twig' %}
+                        {% endembed %}
+                    {% endblock %}
+                    {#<div class="clearfix"></div>#}
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <!-- ######################################### END CONTENT PAGES ######################################### -->
+
+
+            <!-- ######################################### FOOTER ######################################### -->
+            <div class="footer">
+                <div class="float-end">
+                    <strong>Date</strong> {{ "now"|date("Y-m-d") }}
+                    | <strong>Paris</strong> {{ "now"|date("H:i:s", "Europe/Paris") }}
+                    | <strong>New York</strong> {{ "now"|date("H:i:s", "America/New_York") }}
+                    | <strong>Shanghai</strong> {{ "now"|date("H:i:s", "Asia/Shanghai") }}
+                    | <strong>Dubai</strong> {{ "now"|date("H:i:s", "Asia/Dubai") }}
+                </div>
+                <div>
+                    <strong>Copyright</strong> TLD &copy; {{ "now"|date("Y") }}
+                </div>
+            </div>
+            <!-- ######################################### END FOOTER ######################################### -->
+        </div>
+    </div>
+    {% if is_granted('INTRANET_ACCESS') %}
+        {{ include('partial/_ticket.html.twig') }}
+
+        <div id="global-chat"></div>
+        <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'global_chat' }) }}"></script>
+        <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'common' }) }}"></script>
+        <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'document_translation' }) }}"></script>
+        <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'ai' }) }}"></script>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

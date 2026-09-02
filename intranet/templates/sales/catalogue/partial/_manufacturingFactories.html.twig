@@ -1,0 +1,7 @@
+{% trans_default_domain 'catalogue' %}
+
+<td>
+    {% for factory in item.manufacturingFactories %}
+        <span class="badge text-bg-success">{{ factory.name }}</span>
+    {% endfor %}
+</td>

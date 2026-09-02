@@ -1,0 +1,25 @@
+{% if globalTaskRows is not empty or otherRows is not empty %}
+    <div class="row">
+        <div class="">
+
+            {% if globalTaskRows is not empty %}
+                {% include 'task/partial/_my_task_table.html.twig' with {
+                    title: 'task_management.migrated_tasks' | trans({}, 'task'),
+                    rows: globalTaskRows,
+                    showFooter: true,
+                    columnsTotals: columnsTotals,
+                    footerUrls: footerUrls
+                } %}
+            {% endif %}
+
+            {% if otherRows is not empty %}
+                {% include 'task/partial/_my_task_table.html.twig' with {
+                    title: 'task_management.other_modules' | trans({}, 'task'),
+                    rows: otherRows,
+                    showFooter: false
+                } %}
+            {% endif %}
+
+        </div>
+    </div>
+{% endif %}

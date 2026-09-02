@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    window.onload = function() {
+        if ('{{ form }}' === 'edit') {
+            var environmental = document.getElementById('non_conformity_edit_environmentalIssue')
+            if (environmental.checked) {
+                $('.field-to-disable').prop('disabled', true).trigger("chosen:updated")
+            }
+        }
+
+        Array.from(document.getElementsByClassName('disable-field')).forEach((checkbox) => {
+            checkbox.addEventListener('change', function (event) {
+                $('.field-to-disable').prop('disabled', event.target.checked).trigger("chosen:updated")
+            }, false)
+        })
+
+        if (null !== document.getElementById('non_conformity_add_importCrabPhoto')) {
+            $('#non_conformity_add_mainFile').attr('disabled', true)
+            let toggleInputRequired = (checkbox, input) => {
+                checkbox.addEventListener('change', e => {
+                    if (!e.currentTarget.checked) {
+                        input.setAttribute('required', 'required')
+                        input.removeAttribute('disabled');
+                    } else {
+                        input.removeAttribute('required');
+                        input.setAttribute('disabled', true)
+                    }
+                });
+
+                checkbox.onchange();
+            }
+
+            toggleInputRequired(document.getElementById('non_conformity_add_importCrabPhoto'), document.getElementById('non_conformity_add_mainFile'));
+        }
+    }
+</script>

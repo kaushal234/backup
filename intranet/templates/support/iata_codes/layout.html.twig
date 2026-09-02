@@ -1,0 +1,14 @@
+{% extends 'support/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="support_iata_code_add"
+                          :security="is_granted('FEATURE_IATA_CODE_WRITE') or is_granted('MOO_ER')"/>
+        <twig:NavItem translationKey="support.nav_link.home" domain="support"
+                      icon="material-symbols:home-outline-rounded" route="support_iata_code_list"/>
+        {% if iataCode is defined %}
+            <twig:NavItem:Edit route="support_iata_code_edit" :routeParameters="{id: iri_id(iataCode)}" :security="is_granted('FEATURE_IATA_CODE_WRITE') or is_granted('MOO_ER')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% trans_default_domain "emails" %}
+
+<table class="table-manager">
+    <tr>
+        <th>SN#</th>
+        <th>{{ 'sor.pending_summary.header.buyer'|trans }}</th>
+        <th>{{ 'sor.pending_summary.header.end_user'|trans }}</th>
+        <th>{{ 'print.model'|trans }}</th>
+        <th>{{ 'demo.fields.factory'|trans }}</th>
+        <th>ESR {{ 'demo.fields.sso'|trans }}</th>
+        <th>{{ 'manufacturing_margin.fields.sol'|trans([], 'emails')|capitalize }}</th>
+        <th>{{ 'sales_order.factory_order.requested_delivery_date'|trans({}, 'sales_orders')|capitalize }}</th>
+        <th>{{ 'sales_order.factory_order.factory_promised_delivery_date'|trans({}, 'sales_orders')|capitalize }}</th>
+        <th>{{ 'manufacturing.equipment_record.estimated_green_tag'|trans|capitalize }}</th>
+        <th>{{ 'equipment_shipping_record.fields.incoterm'|trans({}, 'equipment_shipping_record')|capitalize }}</th>
+        <th>{{ 'support.equipment_record.fields.inspection'|trans([], 'support')|capitalize }}</th>
+        <th>{{ 'equipment_shipping_record.fields.line.estimated_pick_up_date'|trans({}, 'equipment_shipping_record') }}</th>
+    </tr>
+
+    {% for equipmentShippingRecordLine in equipmentShippingRecord.equipmentShippingRecordLines %}
+        {% set equipmentRecord = equipmentShippingRecordLine.equipmentRecord %}
+        {% set esr = equipmentShippingRecordLine.equipmentShippingRecord %}
+        {% set orderFactory = equipmentRecord.orderFactory %}
+
+        <tr>
+            <td>
+                {% if equipmentRecord.legacyId is defined %}
+                    <a href="{{ path('legacy_product_support', {id: equipmentRecord.legacyId,m: ['equipment', 'view']}) }}">{{ equipmentRecord.serialNumber|default('') }}</a>
+                {% else %}
+                    {{ equipmentRecord.serialNumber|default('') }}
+                {% endif %}
+            </td>
+            <td>{{ (equipmentRecord.buyer?.name)|default('') }}</td>
+            <td>{{ (equipmentRecord.endUser?.name)|default('') }}</td>
+            <td>{{ equipmentRecord.model|default('') }}</td>
+            <td>{{ (orderFactory?.orderLine?.factory?.name)|default('') }}</td>
+            <td>{{ esr.sso.name|default('') }}</td>
+            <td>
+                {% if orderFactory?.orderLine is not null and orderFactory.orderLine.legacyId is defined %}
+                    <a href="{{ path('legacy_sales', {id: orderFactory.orderLine.legacyId,m: ['sol', 'view']}) }}">{{ orderFactory.orderLine.legacyId }}</a>
+                {% endif %}
+            </td>
+            <td>{{ orderFactory?.requestedDeliveryDate? orderFactory.requestedDeliveryDate|date('Y-m-d'): '' }}</td>
+            <td>{{ orderFactory?.factoryPromisedDeliveryDate? orderFactory.factoryPromisedDeliveryDate|date('Y-m-d'): '' }}</td>
+            <td>{{ equipmentRecord.estimatedGreenTagDate? equipmentRecord.estimatedGreenTagDate|date('Y-m-d'): '' }}</td>
+            <td>{{ esr.incoterm ? esr.incoterm.code : '' }}</td>
+            <td>
+                {{ orderFactory?.orderLine?.inspection ? 'Yes' : 'No' }}
+            </td>
+            <td>
+                {{ equipmentRecord.lastEquipmentShippingRecordsLine?.estimatedPickUpDate? equipmentRecord.lastEquipmentShippingRecordsLine.estimatedPickUpDate|date('Y-m-d'): '' }}
+            </td>
+        </tr>
+    {% endfor %}
+</table>

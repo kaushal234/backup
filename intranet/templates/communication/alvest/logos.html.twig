@@ -1,0 +1,164 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'ALVEST_GroupSymbol_BLUE': {
+                'eps': 'alvest/logos/ALVEST_GroupSymbol_BLUE_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_GroupSymbol_BLUE_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_GroupSymbol_BLUE_RGB.png',
+            },
+            'ALVEST_GroupSymbol_WHITE_TRANSP background': {
+                'eps': 'alvest/logos/ALVEST_GroupSymbol_WHITE_TRANSP background.eps',
+                'png': 'alvest/logos/ALVEST_GroupSymbol_WHITE_TRANSP background.png',
+            },
+            'ALVEST_Group Symbol URL_BLACK': {
+                'eps': 'alvest/logos/ALVEST_GroupSymbolURL_BLACK_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_GroupSymbolURL_BLACK_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_GroupSymbolURL_BLACK_RGB.png',
+            },
+            'ALVEST_Group Symbol URL_BLUE': {
+                'eps': 'alvest/logos/ALVEST_GroupSymbolURL_BLUE_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_GroupSymbolURL_BLUE_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_GroupSymbolURL_BLUE_RGB.png',
+            },
+            'ALVEST_GroupSymbolURL_LIVE TEXT': {
+                'eps': 'alvest/logos/ALVEST_GroupSymbolURL_LIVE TEXT_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_GroupSymbolURL_LIVE TEXT_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_GroupSymbolURL_LIVE TEXT_RGB.png',
+            },
+            'ALVEST_Group Symbol URL_WHITE_BLACK background': {
+                'eps': 'alvest/logos/ALVEST_GroupSymbolURL_WHITE_BLACK background_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_GroupSymbolURL_WHITE_BLACK background_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_GroupSymbolURL_WHITE_BLACK background_RGB.png',
+            },
+            'ALVEST_Group Symbol URL_WHITE_BLUE background': {
+                'eps': 'alvest/logos/ALVEST_GroupSymbolURL_WHITE_BLUE background_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_GroupSymbolURL_WHITE_BLUE background_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_GroupSymbolURL_WHITE_BLUE background_RGB.png',
+            },
+            'ALVEST Black': {
+                'eps': 'alvest/logos/ALVEST_BLACK_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_BLACK_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_BLACK_RGB.png',
+            },
+            'ALVEST Blue': {
+                'eps': 'alvest/logos/ALVEST_BLUE_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_BLUE_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_BLUE_RGB.png',
+            },
+            'ALVEST Dark Grey': {
+                'eps': 'alvest/logos/ALVEST_DRK_GREY_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_DRK_GREY_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_DRK_GREY_RGB.png',
+            },
+            'ALVEST Med Grey': {
+                'eps': 'alvest/logos/ALVEST_MED_GREY_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_MED_GREY_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_MED_GREY_RGB.png',
+            },
+            'ALVEST Outline Dark Grey': {
+                'eps': 'alvest/logos/ALVEST_OUTLINE_DRK_GREY_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_OUTLINE_DRK_GREY_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_OUTLINE_DRK_GREY_RGB.png',
+            },
+            'ALVEST Outline Med Grey': {
+                'eps': 'alvest/logos/ALVEST_OUTLINE_MED_GREY_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_OUTLINE_MED_GREY_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_OUTLINE_MED_GREY_RGB.png',
+            },
+            'ALVEST_WHITE_BLACK Background': {
+                'eps': 'alvest/logos/ALVEST_WHITE_BLACK Background_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_WHITE_BLACK Background_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_WHITE_BLACK Background_RGB.png',
+            },
+            'ALVEST_WHITE_BLUE Background': {
+                'eps': 'alvest/logos/ALVEST_WHITE_BLUE Background_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_WHITE_BLUE Background_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_WHITE_BLUE Background_RGB.png',
+            },
+            'ALVEST_WHITE_TRANSP Background': {
+                'eps': 'alvest/logos/ALVEST_WHITE_TRANSP Background.eps',
+                'png': 'alvest/logos/ALVEST_WHITE_TRANSP Background.png',
+            },
+            'Alvest Tagline Rules': {
+                'pdf': 'alvest/logos/an_alvest_group_company.pdf',
+            },
+            'Alvest Tagline Black': {
+                'eps': 'alvest/logos/ALVEST_Tagline_BLACK_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_Tagline_BLACK_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_Tagline_BLACK_RGB.png',
+            },
+            'Alvest Tagline Blue': {
+                'eps': 'alvest/logos/ALVEST_Tagline_BLUE_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_Tagline_BLUE_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_Tagline_BLUE_RGB.png',
+            },
+            'Alvest Tagline Blue LT GREY': {
+                'eps': 'alvest/logos/ALVEST_Tagline_BLUE_LT GREY_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_Tagline_BLUE_LT GREY_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_Tagline_BLUE_LT GREY_RGB.png',
+            },
+            'Alvest Tagline Blue Med Grey LT Grey': {
+                'eps': 'alvest/logos/ALVEST_Tagline_BLUE_MED GREY_LT GREY_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_Tagline_BLUE_MED GREY_LT_GREY_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_Tagline_BLUE_MED GREY_LT_GREY_RGB.png',
+            },
+            'Alvest Tagline Med Grey': {
+                'eps': 'alvest/logos/ALVEST_Tagline_MED GREY_CMYK.eps',
+                'jpg': 'alvest/logos/ALVEST_Tagline_MED GREY_CMYK.jpg',
+                'png': 'alvest/logos/ALVEST_Tagline_MED GREY_RGB.png',
+            },
+            'Factory Lebrun Black': {
+                'eps': 'alvest/logos/FACTORY_LEBRUN_BLACK_CMYK.eps',
+                'jpg': 'alvest/logos/FACTORY_LEBRUN_BLACK_CMYK.jpg',
+                'png': 'alvest/logos/FACTORY_LEBRUN_BLACK_RGB.png',
+            },
+            'Factory Lebrun Blue': {
+                'eps': 'alvest/logos/FACTORY_LEBRUN_BLUE_CMYK.eps',
+                'jpg': 'alvest/logos/FACTORY_LEBRUN_BLUE_CMYK.jpg',
+                'png': 'alvest/logos/FACTORY_LEBRUN_BLUE_RGB.png',
+            },
+            'Factory Lebrun Black White Background': {
+                'eps': 'alvest/logos/FACTORY_LEBRUN_WHITE_BLACK background_CMYK.eps',
+                'jpg': 'alvest/logos/FACTORY_LEBRUN_WHITE_BLACK background_CMYK.jpg',
+                'png': 'alvest/logos/FACTORY_LEBRUN_WHITE_BLACK background_RGB.png',
+            },
+            'Factory Lebrun Black Blue Background': {
+                'eps': 'alvest/logos/FACTORY_LEBRUN_WHITE_BLUE background_CMYK.eps',
+                'jpg': 'alvest/logos/FACTORY_LEBRUN_WHITE_BLUE background_CMYK.jpg',
+                'png': 'alvest/logos/FACTORY_LEBRUN_WHITE_BLUE background_RGB.png',
+            },
+            'Factory Lebrun Black Transp Background': {
+                'eps': 'alvest/logos/FACTORY_LEBRUN_WHITE_TRANSP background_CMYK.eps',
+                'png': 'alvest/logos/FACTORY_LEBRUN_WHITE_TRANSP background_RGB.png',
+            },
+            'Factory Powerwamp Black': {
+                'eps': 'alvest/logos/FACTORY_POWERVAMP_BLACK_CMYK.eps',
+                'jpg': 'alvest/logos/FACTORY_POWERVAMP_BLACK_CMYK.jpg',
+                'png': 'alvest/logos/FACTORY_POWERVAMP_BLACK_RGB.png',
+            },
+            'Factory Powerwamp Blue': {
+                'eps': 'alvest/logos/FACTORY_POWERVAMP_BLUE_CMYK.eps',
+                'jpg': 'alvest/logos/FACTORY_POWERVAMP_BLUE_CMYK.jpg',
+                'png': 'alvest/logos/FACTORY_POWERVAMP_BLUE_RGB.png',
+            },
+            'Factory Powerwamp Black White Background': {
+                'eps': 'alvest/logos/FACTORY_POWERVAMP_WHITE_BLACK background_CMYK.eps',
+                'jpg': 'alvest/logos/FACTORY_POWERVAMP_WHITE_BLACK background_CMYK.jpg',
+                'png': 'alvest/logos/FACTORY_POWERVAMP_WHITE_BLACK background_RGB.png',
+            },
+            'Factory Powerwamp Black Blue Background': {
+                'eps': 'alvest/logos/FACTORY_POWERVAMP_WHITE_BLUE background_CMYK.eps',
+                'jpg': 'alvest/logos/FACTORY_POWERVAMP_WHITE_BLUE background_CMYK.jpg',
+                'png': 'alvest/logos/FACTORY_POWERVAMP_WHITE_BLUE background_RGB.png',
+            },
+            'Factory Powerwamp Black Transp Background': {
+                'eps': 'alvest/logos/FACTORY_POWERVAMP_WHITE_TRANSP background_CMYK.eps',
+                'png': 'alvest/logos/FACTORY_POWERVAMP_WHITE_TRANSP background_RGB.png',
+            },
+        },
+    }) }}
+{% endblock %}

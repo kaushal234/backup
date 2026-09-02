@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+
+    TheNetworg\OAuth2\Client\Provider\Azure $alvestAuthenticator: '@alvest.authenticator'
+    alvest.authenticator:
+        class: TheNetworg\OAuth2\Client\Provider\Azure
+        arguments:
+            - {
+                clientId: '%env(ALVEST_CLIENT_ID)%',
+                clientSecret: '%env(ALVEST_CLIENT_SECRET)%',
+                redirectUri: '%env(ALVEST_REDIRECT_URI)%',
+                scope: ['openid', 'profile', 'email', 'offline_access'],
+                defaultEndPointVersion: '2.0',
+                tenant: '%env(ALVEST_TENANT_ID)%'
+            }

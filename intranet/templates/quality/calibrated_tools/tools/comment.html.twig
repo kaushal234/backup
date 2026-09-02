@@ -1,0 +1,29 @@
+{% extends 'quality/layout.html.twig' %}
+{% trans_default_domain 'calibration_tool' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{ formTitle | trans }}
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.message) }}
+                        {{ form_row(form.submit) }}
+                        {{ form_rest(form) }}
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    </div>
+{% endblock %}
+

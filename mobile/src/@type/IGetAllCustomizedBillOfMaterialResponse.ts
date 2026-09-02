@@ -1,0 +1,113 @@
+export type IGetAllCustomizedBillOfMaterialResponse =
+  ICustomizedBillOfMaterials;
+
+export interface ICustomizedBillOfMaterials {
+  "@context": string;
+  "@id": string;
+  "@type": string;
+  site: number;
+  project: string;
+  product: string;
+  billOfMaterials: IBillOfMaterial | null;
+  items: Array<ICustomizedBillOfMaterialsItem>;
+  unitOfMeasure: string | null;
+  itemSignalCode: string | null;
+  itemDescription: string | null;
+  itemOtherDescription: string | null;
+  itemSelectionCode: string | null;
+  itemType: string | null;
+  itemGroup: string | null;
+  customized: boolean;
+  extraInformation: string | null;
+  purchaseStatisticsGroup: string | null;
+  buyFromBusinessPartner: string | null;
+  buyFromBusinessPartnerName: string | null;
+  buyer: string | null;
+  supplyTime: number | null;
+  engineeringRevision: string | null;
+  engineeringSignalCode: string | null;
+  engineeringDescription: string | null;
+  engineeringOtherDescription: string | null;
+  engineeringSelectionCode: string | null;
+  orderQuantityIncrement: number | null;
+  minimumOrderQuantity: number | null;
+  safetyStock: number | null;
+  warehouse: string | null;
+  salesPriceGroup: string | null;
+  estimatedStandardCost: number | null;
+  backflushIfMaterial: boolean;
+  phantom: boolean;
+  signalCodeDescription: string | null;
+  preventive: boolean;
+  maintenance: boolean;
+  overhaul: boolean;
+  critical: boolean;
+  engineeringRevisionEffectiveDate: string | null;
+  engineeringRevisionExpiryDate: string | null;
+  engineeringRevisionDescription: string | null;
+  engineeringRevisionDrawing: string | null;
+  expired: boolean;
+}
+
+interface IBillOfMaterial {
+  "@type": string;
+  "@id": string;
+  code: string;
+  revision: string;
+  effectiveDate: string;
+  expiryDate: string;
+}
+
+export interface ICustomizedBillOfMaterialsItem {
+  "@type": string;
+  "@id": string;
+  standardItemProject: string | null;
+  standardItem: string;
+  position: number;
+  partNumberProject: string | null;
+  partNumber: string;
+  quantity: number;
+  productQuantity: number;
+  level: number;
+  operation: string;
+  customOperation: string;
+  conflictItemTexts: Array<unknown>;
+  children: Array<ICustomizedBillOfMaterialsItem>;
+  unitOfMeasure: string | null;
+  itemSignalCode: string | null;
+  itemDescription: string | null;
+  itemOtherDescription: string | null;
+  itemSelectionCode: string | null;
+  itemType: string | null;
+  itemGroup: string | null;
+  customized: boolean;
+  extraInformation: string | null;
+  purchaseStatisticsGroup: string | null;
+  buyFromBusinessPartner: string | null;
+  buyFromBusinessPartnerName: string | null;
+  buyer: string | null;
+  supplyTime: number | null;
+  engineeringRevision: string | null;
+  engineeringSignalCode: string | null;
+  engineeringDescription: string | null;
+  engineeringOtherDescription: string | null;
+  engineeringSelectionCode: string | null;
+  orderQuantityIncrement: number | null;
+  minimumOrderQuantity: number | null;
+  safetyStock: number | null;
+  warehouse: string | null;
+  salesPriceGroup: string | null;
+  estimatedStandardCost: number | null;
+  backflushIfMaterial: boolean;
+  phantom: boolean;
+  signalCodeDescription: string | null;
+  preventive: boolean;
+  maintenance: boolean;
+  overhaul: boolean;
+  critical: boolean;
+  engineeringRevisionEffectiveDate: string | null;
+  engineeringRevisionExpiryDate: string | null;
+  engineeringRevisionDescription: string | null;
+  engineeringRevisionDrawing: string | null;
+  expired: boolean;
+}

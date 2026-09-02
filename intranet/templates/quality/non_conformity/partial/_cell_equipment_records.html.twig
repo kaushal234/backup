@@ -1,0 +1,5 @@
+<td>
+    {% for equipmentRecord in item.equipmentRecords %}
+        <a href="{{ path('equipment_serials_show', {'id': iri_id(equipmentRecord)}) }}">{{ equipmentRecord.serialNumber }}</a>{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</td>

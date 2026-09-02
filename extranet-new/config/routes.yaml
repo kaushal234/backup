@@ -1,0 +1,19 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+dms_photo:
+    path: /en/private/public/dms.php
+    host: www.tld-gse.com
+    schemes: https
+
+dms_document:
+    path: /index.php
+    host: dms.tld-group.com
+    schemes: https
+
+impersonate_user:
+    path: '/impersonate'
+    methods: ['GET']

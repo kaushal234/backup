@@ -1,0 +1,267 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/demos$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/demos/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "factory": {
+            "type": "object",
+            "$ref": "../../../directory_location/schemas/directory_location_public.json"
+          },
+          "sso": {
+            "type": "object",
+            "$ref": "../../../directory_location/schemas/directory_location_public.json"
+          },
+          "asm": {
+            "oneOf": [
+              {"type": "null"},
+              { "$ref": "../../../directory_people/schemas/directory_people_public.json" }
+            ]
+          },
+          "product": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/products/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "equipmentRecord": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {"pattern": "^/equipment_records/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "serialNumber": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": ["string", "null"]
+                  },
+                  "model": {
+                    "type": ["string", "null"]
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "serialNumber",
+                  "type",
+                  "model",
+                  "legacyId"
+                ]
+              }
+            ]
+          },
+          "airport": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "@context": {
+                    "type": "string"
+                  },
+                  "@id": {"pattern": "^/airports/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "cityName": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": ["number", "null"]
+                  },
+                  "longitude": {
+                    "type": ["number", "null"]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "type",
+                  "legacyId",
+                  "cityName",
+                  "code",
+                  "latitude",
+                  "longitude"
+                ]
+              }
+            ]
+          },
+          "country": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/countries/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "isoCode2": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "legacyId",
+              "name",
+              "isoCode2"
+            ]
+          },
+          "customer": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "status": {
+            "type": "string"
+          },
+          "expectedStartDate": {
+            "type": ["string", "null"]
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "expectedEndDate": {
+            "type": ["string", "null"]
+          },
+          "approvalDate": {
+            "type": ["string", "null"]
+          },
+          "revisedEndDate": {
+            "type": ["string", "null"]
+          },
+          "actualStartDate": {
+            "type": ["string", "null"]
+          },
+          "lastCommentedAt": {
+            "type": ["string", "null"]
+          },
+          "statusUpdatedAt": {
+            "type": ["string", "null"]
+          },
+          "closingDate": {
+            "type": ["string", "null"]
+          },
+          "comment": {
+            "type": ["string", "null"]
+          },
+          "delinquent": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "factory",
+          "sso",
+          "asm",
+          "product",
+          "equipmentRecord",
+          "airport",
+          "country",
+          "customer",
+          "status",
+          "expectedStartDate",
+          "lastCommentedAt",
+          "createdAt",
+          "closingDate",
+          "actualStartDate",
+          "revisedEndDate",
+          "statusUpdatedAt",
+          "expectedEndDate",
+          "comment",
+          "delinquent"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

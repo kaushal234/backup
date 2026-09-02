@@ -1,0 +1,11 @@
+{% set row = column.parent.data %}
+{% set hasRank = false %}
+{% for criteriaNotation in row['notations'] %}
+    {% if criteriaNotation['criteria']['id'] == criteria_id and criteriaNotation['notation'] is not empty %}
+        <span style="font-weight: bold;">{{ criteriaNotation['notation'] }}</span>
+        {% set hasRank = true %}
+    {% endif %}
+{% endfor %}
+{% if not hasRank %}
+    <span style="color: #b1c0ce;">N/A</span>
+{% endif %}

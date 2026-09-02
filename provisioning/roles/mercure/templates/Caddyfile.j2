@@ -1,0 +1,27 @@
+{
+    auto_https off
+    admin off
+}
+
+:80 {
+    log {
+        output stdout
+        format console
+    }
+
+    route {
+        mercure {
+            publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} HS256
+            subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} HS256
+
+            transport_url local:///data/mercure.db
+
+            cors_origins {{ mercure_front_origin }}
+            publish_origins https://{{ mercure_domain_public }}
+
+            subscriptions
+        }
+
+        respond /healthz 200
+    }
+}

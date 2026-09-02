@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/mis/email_accesses/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "group": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "pattern": "^/groups/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "features": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "id",
+        "name",
+        "description",
+        "features"
+      ]
+    },
+    "locationProperty": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "group",
+    "locationProperty",
+    "id"
+  ],
+  "additionalProperties": false
+}

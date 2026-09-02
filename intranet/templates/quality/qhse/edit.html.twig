@@ -1,0 +1,13 @@
+{% extends 'quality/qhse/layout.html.twig' %}
+{% trans_default_domain 'qhse' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('quality/cleanliness/partial/_form.html.twig', {
+        title: 'qhse.edit.title'|trans,
+        form: form,
+        action: path('qhse_edit', {id: iri_id(qhse_progress)}),
+        cancel_link: path('qhse_home')
+    }, with_context=false) }}
+{% endblock %}

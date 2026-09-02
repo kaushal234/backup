@@ -1,0 +1,58 @@
+{#Override form_row to delete label#}
+{% block form_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ((not compound or force_error|default(false)) and not valid ? ' has-error'))|trim})} %}{{ block('attributes') }}{% endwith %}>
+        <div class="col-sm-12">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+        {##}</div>
+{%- endblock form_row %}
+
+{% block _equipment_record_serials_serials_entry_component_row %}
+    {{ block('serial_element_row') }}
+{%- endblock %}
+
+{% block _equipment_record_serials_serials_entry_model_row %}
+    {{ block('serial_element_row') }}
+{%- endblock %}
+
+{% block _equipment_record_serials_serials_entry_serial_row %}
+    {{ block('serial_element_row') }}
+{%- endblock  %}
+
+{% block _equipment_record_serials_serials_entry_brand_row %}
+    {{ block('serial_element_row') }}
+{%- endblock  %}
+
+{#Add div for delete button#}
+{% block _equipment_record_serials_serials_entry_brand_widget -%}
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-8">{{ form_widget(form) }}</div>
+        <div class="col-md-2">
+            <div class="delete-button-block"></div>
+        </div>
+        <br>
+    </div>
+{%- endblock %}
+
+
+{% block serial_element_row %}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' col-md-3' ~ ((not compound or force_error|default(false)) and not valid ? ' has-error'))|trim})} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        <div class="col-sm-12">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{% endblock %}

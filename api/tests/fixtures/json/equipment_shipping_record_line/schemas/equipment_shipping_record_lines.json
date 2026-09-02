@@ -1,0 +1,561 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "definitions": {
+        "EquipmentShippingRecordLine.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy": {
+            "type": "object",
+            "description": "",
+            "deprecated": false,
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_record_lines/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "equipmentRecord": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EquipmentRecord.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "vesselLoadingDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+              "estimatedPickUpDateConfirmation": {"type": "boolean"},
+              "estimatedArrivalDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "actualArrivalDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "estimatedPickUpDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "truckType": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "comment": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "equipmentShippingRecord": {
+                    "type": "object",
+                    "properties": {
+                        "@id": {
+                            "type": "string",
+                            "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                        },
+                        "@type": {"type": "string"},
+                        "sso": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/Location.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        },
+                        "id": {"type": "integer"},
+                        "legacyId": {"type": "integer"},
+                        "modality": {"type": "string"}
+                    },
+                    "required": [
+                        "@id",
+                        "@type",
+                        "sso",
+                        "id",
+                        "legacyId",
+                        "modality"
+                    ],
+                    "additionalProperties": false
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "equipmentRecord",
+                "vesselLoadingDate",
+                "estimatedArrivalDate",
+                "actualArrivalDate",
+                "estimatedPickUpDate",
+                "truckType",
+                "equipmentShippingRecord",
+                "id",
+                "legacyId",
+                "comment",
+                "estimatedPickUpDateConfirmation"
+            ],
+            "additionalProperties": false
+        },
+        "EquipmentRecord.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy": {
+            "type": "object",
+            "description": "",
+            "deprecated": false,
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/equipment_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "serialNumber": {
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "type": "string"
+                },
+                "buyer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Customer.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "endUser": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Customer.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "maintainer": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Customer.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "customerSerialNumber": {
+                    "oneOf": [
+                        {
+                            "minLength": 1,
+                            "maxLength": 30
+                        }
+                    ]
+                },
+                "model": {
+                    "oneOf": [
+                        {
+                            "minLength": 1,
+                            "maxLength": 30
+                        }
+                    ]
+                },
+                "type": {
+                    "oneOf": [
+                        {
+                            "minLength": 1,
+                            "maxLength": 30
+                        }
+                    ]
+                },
+                "product": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Product.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "location": {
+                    "oneOf": [
+                        {
+                            "minLength": 1,
+                            "maxLength": 20
+                        }
+                    ]
+                },
+                "dateShipped": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "dateCommissioned": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "manufacturerLocation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Location.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "salesOrganisation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Location.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "salesOrganisationService": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Location.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "hourMeter": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "greenTagDate": {
+                  "type": ["string", "null"]
+                },
+                "yellowTagDate": {
+                  "type": ["string", "null"]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "id",
+                "serialNumber",
+                "buyer",
+                "endUser",
+                "maintainer",
+                "customerSerialNumber",
+                "model",
+                "type",
+                "product",
+                "location",
+                "dateShipped",
+                "dateCommissioned",
+                "manufacturerLocation",
+                "salesOrganisation",
+                "salesOrganisationService",
+                "hourMeter",
+                "legacyId",
+                "greenTagDate",
+                "yellowTagDate"
+            ],
+            "additionalProperties": false
+        },
+        "Customer.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy": {
+            "type": "object",
+            "description": "",
+            "deprecated": false,
+            "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId"
+            ],
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/customers/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "maxLength": 255,
+                    "type": "string"
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false
+        },
+        "Product.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy": {
+            "type": "object",
+            "description": "",
+            "deprecated": false,
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/products/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "family": {
+                    "$ref": "#/definitions/ProductFamily.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "family",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "ProductFamily.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy": {
+            "type": "object",
+            "description": "",
+            "deprecated": false,
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/product_families/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "productType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ProductType.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "productType",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "ProductType.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy": {
+            "type": "object",
+            "description": "",
+            "deprecated": false,
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/product_types/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "englishName": {
+                    "maxLength": 255,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "englishName",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "Location.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy": {
+            "type": "object",
+            "description": "",
+            "deprecated": false,
+            "required": [
+                "@id",
+                "@type",
+                "name",
+                "erp",
+                "legacyId"
+            ],
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/locations/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "maxLength": 50,
+                    "type": "string"
+                },
+                "erp": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/EquipmentShippingRecordLine.jsonld-equipment_shipping_record_line.detail_equipment_record_location_public_expose_legacy"
+            }
+        },
+        "hydra:totalItems": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "hydra:view": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "@type": {
+                    "type": "string"
+                },
+                "hydra:first": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:last": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:previous": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:next": {
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            },
+            "example": {
+                "@id": "string",
+                "type": "string",
+                "hydra:first": "string",
+                "hydra:last": "string",
+                "hydra:previous": "string",
+                "hydra:next": "string"
+            }
+        },
+        "hydra:search": {
+            "type": "object",
+            "properties": {
+                "@type": {
+                    "type": "string"
+                },
+                "hydra:template": {
+                    "type": "string"
+                },
+                "hydra:variableRepresentation": {
+                    "type": "string"
+                },
+                "hydra:mapping": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "@type": {
+                                "type": "string"
+                            },
+                            "variable": {
+                                "type": "string"
+                            },
+                            "property": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "required": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "hydra:member"
+    ]
+}

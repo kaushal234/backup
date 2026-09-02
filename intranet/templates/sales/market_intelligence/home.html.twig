@@ -1,0 +1,70 @@
+{% extends 'sales/market_intelligence/layout.html.twig' %}
+{% trans_default_domain 'market_intelligence' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+{% form_theme search_form 'form_theme_vertical.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <h3>{{ 'customer_relationship_team.fields.quick_access'|trans([], 'customer_relationship_team')|capitalize }}</h3>
+            {{ form_start(idSearchForm, { action: path('market_intelligence_home') }) }}
+            <div class="col-sm-10">
+                {{ form_widget(idSearchForm) }}
+            </div>
+
+            <div class="col-sm-2">
+                <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+            </div>
+            {{ form_end(idSearchForm) }}
+        </div>
+        <div class="col-md-4">
+            <h3>{{ 'contacts.search'|trans({}, 'contacts')|capitalize }}</h3>
+            {{ form_start(search_form, { action: path('market_intelligence_home') }) }}
+            <div class="col-sm-10">
+                {{ form_widget(search_form) }}
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+            </div>
+            {{ form_end(search_form) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filters' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('sales/market_intelligence/partial/form_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('market_intelligence_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('sales/market_intelligence/partial/_table.html.twig', {
+        reportTitle: reportTitle|trans,
+        marketIntelligences: marketIntelligences,
+        searchTable: searchTable,
+    }, with_context=false) }}
+
+    <div id="mim_by_bu_container" class="col-md-12 highcharts" data-options="{{ chart|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+{% endblock %}
+
+{% block form_label %}
+    {{ include('sales/partial/input_with_no_label.html.twig') }}
+{%- endblock form_label %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'market_intelligence' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,17 @@
+<span>
+    {% if data.extranetUserProfile.isVerified is defined and not null and data.taskStatus is defined and not null %}
+        {% if data.extranetUserProfile.isVerified and data.taskStatus == 'CLOSED' %}
+            <i class="text-info">
+                {{ ux_icon('fa7-solid:check', {height: '16px', width: '16px'}) }}
+            </i>
+        {% elseif data.extranetUserProfile.isVerified and data.taskStatus != 'CLOSED' or data.extranetUserProfile.isVerified == false and data.taskStatus != 'CLOSED'  %}
+            <i>
+                {{ ux_icon('hugeicons:status', {height: '16px', width: '16px'}) }}
+            </i>
+        {% endif %}
+    {% else %}
+        <i class="text-danger">
+            {{ ux_icon('fa7-solid:close', {height: '16px', width: '16px'}) }}
+        </i>
+    {% endif %}
+</span>

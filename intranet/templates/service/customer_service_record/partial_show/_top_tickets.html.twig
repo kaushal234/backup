@@ -1,0 +1,142 @@
+<div class="row mb-1 d-none d-xxl-flex pb-2">
+    <div class="col d-flex align-items-stretch">
+        <div class="widget bg-body rounded-0 w-100 d-flex align-items-center">
+            <div class="row d-flex align-items-center w-100">
+                <div class="col-2">
+                    <i class="fa fa-cogs fa-3x"></i>
+                </div>
+                <div class="col-10 text-end">
+                    {% if customerServiceRecord.title | length > 40 %}
+                        <span class="m-0">{{ customerServiceRecord.title | slice(0,40) }}...</span>
+                    {% else %}
+                        <span class="m-0">{{ customerServiceRecord.title }}</span><br>
+                    {% endif %}
+                    <span class="m-0"><a href="/en/private/product_support/index.ps.php?id={{ customerServiceRecord.equipmentRecord.legacyId }}&m[0]=equipment&m[1]=view">{{ customerServiceRecord.equipmentRecord.serialNumber }}</a>
+                        / {{ customerServiceRecord.equipmentRecord.model }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex align-items-stretch">
+        <div class="widget bg-body rounded-0 w-100 d-flex align-items-center">
+            <div class="row d-flex align-items-center">
+                <div class="col-2">
+                    <i class="fa fa-calendar fa-3x"></i>
+                </div>
+                <div class="col-10 text-end">
+                    <span>
+                        {{ 'er.fields.shipped_at' | trans({}, 'customer_service_record') }} :
+                        {{ customerServiceRecord.equipmentRecord.dateShipped is empty ? '' : customerServiceRecord.equipmentRecord.dateShipped|date('Y/m/d') }}
+                    </span>
+                    <span>
+                        {{ 'er.fields.commissioned_at' | trans({}, 'customer_service_record') }} :
+                        {{ customerServiceRecord.equipmentRecord.dateCommissioned is empty ? '' : customerServiceRecord.equipmentRecord.dateCommissioned|date('Y/m/d') }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex align-items-stretch">
+        <div class="widget bg-body rounded-0 w-100 d-flex align-items-center">
+            <div class="row d-flex align-items-center">
+                <div class="col-2 ">
+                    <i class="fa fa-plane fa-3x"></i>
+                </div>
+                <div class="col-10 text-end">
+                    {% if customerServiceRecord.airport %}
+                        <span><strong style="font-size: 20px;">{{ customerServiceRecord.airport.code|upper }}</strong> - {{ customerServiceRecord.airport.name }} - {{ customerServiceRecord.airport.cityName }}</span>
+                    {% else %}
+                        <span>{{ 'generic.not_available'|trans({}, 'messages') }} - </span>
+                    {% endif %}
+                    <span>{{ customerServiceRecord.equipmentRecord.endUser.name ?? '' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex align-items-stretch">
+        {% set spr = customerServiceRecord|csr_spr %}
+        {% set openSprs = spr|sprs_open %}
+        {% set valuableSpr = openSprs|last ? openSprs|last : spr is iterable ? spr|last : null %}
+
+        {% if valuableSpr %}
+        <a href="{{ path('spare_parts_request_show', {id: valuableSpr['id']}) }}" class="w-100">
+        {% endif %}
+        <div class="widget alert
+            {% if openSprs is same as false %}alert-success
+            {% elseif openSprs is same as null %}alert-dark
+            {% elseif openSprs|are_recorded %}alert-warning
+            {% else %}alert-danger
+            {% endif %}
+             rounded-0 w-100 d-flex align-items-center justify-content-between">
+            <div class="row d-flex align-items-center w-100">
+                <div class="col-2">
+                    <i class="fa fa-cart-arrow-down fa-3x"></i>
+                </div>
+                <div class="col-10 text-end">
+                    {% if valuableSpr %}
+                        <p class="font-bold m-0">SPR {{ valuableSpr.status }}</p>
+                        <p class="m-0">SO #{{ valuableSpr['salesOrder'] is defined ? valuableSpr['salesOrder'] : 'NONE' }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if valuableSpr %}
+        </a>
+        {% endif %}
+    </div>
+    {% if customerServiceRecord['@type'] == 'TechnicianOnCallCustomerServiceRecord' %}
+        <div class="col d-flex align-items-stretch">
+            <div class="widget rounded-0 w-100 d-flex align-items-center alert
+            {% if customerServiceRecord.technicianOnCall.factoryFlag %}
+                alert-danger
+            {% else %}
+                alert-dark
+            {% endif %}
+            ">
+                <div class="row d-flex align-items-center w-100">
+                    <div class="col-2">
+                        <i class="fa fa-flag fa-3x"></i>
+                    </div>
+                    <div class="col-10 text-end">
+                        <div class="col-12">
+                            <h3>{{ 'toc.card.factory_flag'|trans({}, 'technician_on_call') }}</h3>
+                            <span id="factory-flag-card-status">
+                                {% if customerServiceRecord.technicianOnCall.factoryFlag %}
+                                    {{ 'toc.card.factory_flag_on'|trans({}, 'technician_on_call') }}
+                                {% else %}
+                                    {{ 'toc.card.factory_flag_off'|trans({}, 'technician_on_call') }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% if factoryFlagForm %}
+                        <div class="col-12">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_factory_flag">{{ 'csr.button.request_factory_flag'|trans({}, 'customer_service_record') }}</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if factoryFlagForm %}
+            <!-- Modal -->
+            <div class="modal fade" id="modal_factory_flag" tabindex="-1" aria-labelledby="modal_factory_flag" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>{{ 'csr.title.request_factory_support'|trans({}, 'customer_service_record') }}</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% form_theme factoryFlagForm 'form_theme_vertical.html.twig' %}
+                            {{ form_start(factoryFlagForm) }}
+                                {{ form_row(factoryFlagForm.comment) }}
+                                <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans() }}</button>
+                            {{ form_end(factoryFlagForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

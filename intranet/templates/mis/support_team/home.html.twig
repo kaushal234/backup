@@ -1,0 +1,12 @@
+{% extends 'mis/support_team/layout.html.twig' %}
+{% trans_default_domain 'support_team' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            {{ data_table(supportTeamDataTable) }}
+        </div>
+    </div>
+{% endblock %}
+
+

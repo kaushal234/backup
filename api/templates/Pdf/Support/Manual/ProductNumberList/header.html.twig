@@ -1,0 +1,66 @@
+{% trans_default_domain "pdfs" %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style type="text/css">
+            {{ include('Pdf/fonts/opensans.css.twig') }}
+            {{ source('@css/pdf.css') }}
+        </style>
+        {% include 'Pdf/jsWkhtmltopdf.html.twig' %}
+    </head>
+
+    <body onload="subst()">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img id="logo" src="https://www.tld-gse.com/shared/logos/ALVEST_logo_small.png">
+                </div>
+                <div class="col-md-6 text-center">
+                    <h3 class="title">{{ 'manual.parts_list.header.title' | trans }}</h3>
+                    <h4>{{ 'manual.parts_list.header.subtitle' | trans }}</h4>
+                    <div>
+                        <span>{{ 'manual.layout.part number' | trans }} . . . . . . . . </span>
+                        <span style="background-color: lightgrey">{{ 'manual.layout.document' | trans }}-{{ 'manual.layout.position' | trans }}</span>
+                    </div>
+                </div>
+                <div class="col-md-3 text-right">
+                    <h4 style="white-space: nowrap ;">
+                        {{ 'manual.general.model' | trans }} :
+                        {% if manual.equipmentRecord is not null and manual.equipmentRecord.model is defined %}
+                            {{ manual.equipmentRecord.model }}
+                        {% else %}
+                            {{ 'manual.general.unknown' | trans }}
+                        {% endif %}
+                    </h4>
+                    <h5>
+                        {{ 'manual.general.equipmentRecord' | trans }} :
+                        {% if manual.equipmentRecord is not null and manual.equipmentRecord.serialNumber is defined %}
+                            {{ manual.equipmentRecord.serialNumber|default('manual.general.unknown'|trans)|raw }}
+                        {% else %}
+                            {{ 'manual.general.unknown' | trans }}
+                        {% endif %}
+                    </h5>
+                    <h5>
+                        {{ 'manual.general.publicationDate' | trans }} :
+                        {% if manual.createdAt is not null %}
+                            {{ manual.createdAt|date('Y-m-d') }}
+                        {% else %}
+                            {{ 'manual.general.unknown' | trans }}
+                        {% endif %}
+                    </h5>
+                </div>
+            </div>
+            <div id="header">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        {{ 'manual.header.infos.page' | trans }}
+                        <span class="page"></span>/<span class="topage"></span>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+    <button href="#" class="rounded alert">Errors ! ( {{ errors | length }} )</button>
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <row>
+        <columns>
+
+            <p><strong>Dear {{ people.lastname }} {{ people.firstname }},</strong></p>
+
+            {% if introduction is defined %}
+                <p>{{ introduction }}</p>
+            {% endif %}
+
+            <ol>
+                {% for error in errors %}
+
+                    <li>
+                        {{ error.message }}
+                        {% if error.link is not null %}
+                            &nbsp;(<a href="{{ error.link }}">click here</a>)
+                        {% endif %}
+                    </li>
+
+                {% endfor %}
+            </ol>
+        </columns>
+    </row>
+{% endblock %}

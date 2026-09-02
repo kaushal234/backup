@@ -1,0 +1,18 @@
+{% extends 'directory/position/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {% embed 'helper/_ibox.html.twig' with {
+        title: 'directory.position.title.add'|trans|capitalize,
+    } %}
+        {% block card_content %}
+            {{ include('directory/position/_form.html.twig', {
+                form: form,
+                action: path('directory_positions_add'),
+                cancel_link: path('directory_positions_home')
+            }, with_context=false) }}
+        {% endblock card_content %}
+    {% endembed %}
+{% endblock %}

@@ -1,0 +1,18 @@
+test_route_simple:
+  path: /meow
+
+test_route_one_param:
+  path: /kittens/{id}
+  requirements:
+    id: '\d+'
+
+test_route_two_params:
+  path: /boxes/{boxRef}/kittens/{id}
+
+quality_calibrated_tools_index:
+  path: /quality/calibrated-tools
+
+#test_exception:
+#  prefix: public
+#  resource: Tests\ApiBundle\Controller\ClientExceptionController
+#  type: annotation

@@ -1,0 +1,113 @@
+App\Entity\Purchasing\VendorWarrantyClaimStatus:
+  #/purchasing/vendor_warranty_claim_statuses/1
+  vwc_status_1:
+    id: 1
+    name: QA ANALYSIS
+    description: Default status for a VWC created without a vendor ID or a validated charge back amount
+    position: 1
+    group: '@group_ROLE_QAM'
+
+  #/purchasing/vendor_warranty_claim_statuses/2
+  vwc_status_2:
+    id: 2
+    name: PENDING
+    description: PURCHASING to review VWC. Not visible to vendor yet.
+    position: 2
+    group: '@group_SEQ_VWC_PUR'
+
+  #/purchasing/vendor_warranty_claim_statuses/3
+  vwc_status_3:
+    id: 3
+    name: VENDOR_TO_RESPOND
+    description: VENDOR to respond. VWC is visible to vendor. Waiting for agreement and Return Merchandise Authorization Number as confirmation from vendor
+    position: 3
+    group: '@group_SEQ_VWC_PUR'
+
+  #/purchasing/vendor_warranty_claim_statuses/4
+  vwc_status_4:
+    id: 4
+    name: REVIEW_VENDOR_RESPONSE
+    description: PURCHASING to review vendor response before proceeding with VWC
+    position: 4
+    group: '@group_SEQ_VWC_PUR'
+
+  #/purchasing/vendor_warranty_claim_statuses/5
+  vwc_status_5:
+    id: 5
+    name: CREATE_PO
+    description: PURCHASING to create PO for inventory transaction
+    position: 5
+    group: '@group_SEQ_VWC_PUR'
+
+  #/purchasing/vendor_warranty_claim_statuses/6
+  vwc_status_6:
+    id: 6
+    name: SHIP_TO_VENDOR
+    description: WAREHOUSE to ship item back to vendor
+    position: 6
+    group: '@group_SEQ_VWC_LOG'
+
+  #/purchasing/vendor_warranty_claim_statuses/7
+  vwc_status_7:
+    id: 7
+    name: ISSUE_CREDIT_NOTE
+    description: ACCOUNTING to create negative Non Invoiced Accounts Payable (APN) transaction
+    position: 7
+    group: '@group_SEQ_VWC_AP'
+
+  #/purchasing/vendor_warranty_claim_statuses/8
+  vwc_status_8:
+    id: 8
+    name: REC_FROM_VENDOR
+    description: WAREHOUSE to receive part back from vendor
+    position: 8
+    group: '@group_SEQ_VWC_WHSE'
+
+  #/purchasing/vendor_warranty_claim_statuses/9
+  vwc_status_9:
+    id: 9
+    name: ISSUE_DEBIT_NOTE
+    description: ACCOUNTING to create positive Non Invoiced Accounts Payable (APN) transaction
+    position: 9
+    group: '@group_SEQ_VWC_AP'
+
+  #/purchasing/vendor_warranty_claim_statuses/10
+  vwc_status_10:
+    id: 10
+    name: VALIDATE_SCAR
+    description: QUALITY to validate and/or accept Supplier Corrective Action Report (SCAR) from vendor
+    position: 10
+    group: '@group_SEQ_VWC_QA'
+
+  #/purchasing/vendor_warranty_claim_statuses/11
+  vwc_status_11:
+    id: 11
+    name: CLOSED_RESOLVED
+    description: 'VWC Closed: Vendor actions done as per TLD request'
+    position: 11
+    group: '@group_ROLE_MLM'
+
+  #/purchasing/vendor_warranty_claim_statuses/12
+  vwc_status_12:
+    id: 12
+    name: CLOSED_LOW_VALUE
+    description: 'VWC Closed: Low value part, no action taken'
+    position: 12
+    group: '@group_ROLE_MLM'
+
+  #/purchasing/vendor_warranty_claim_statuses/13
+  vwc_status_13:
+    id: 13
+    name: CLOSED_VENDOR_REJECTED
+    description: 'VWC Closed: Vendor refused to honor the VWC'
+    position: 13
+    group: '@group_ROLE_MLM'
+
+  #/purchasing/vendor_warranty_claim_statuses/14
+  vwc_status_14:
+    id: 14
+    name: CLOSED_NOT_VENDOR_ISSUE
+    description: 'VWC Closed: Vendor not responsible for VWC'
+    position: 14
+    group: '@group_ROLE_MLM'
+

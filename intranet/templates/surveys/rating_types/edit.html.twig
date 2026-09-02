@@ -1,0 +1,22 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% block title %}{{ parent() }} \ {{ ratingType.description | u.truncate(100) }} \ {{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% set survey_id = iri_id(survey) %}
+
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            {{ include('surveys/rating_types/partial/_form.html.twig', {
+                title: 'rating_type.page_titles.edit' | trans({'%name%': ratingType.description}),
+                form: form,
+                action: path('survey_rating_types_edit', { id: survey_id, ratingId: iri_id(ratingType) }),
+                cancel_link: path('survey_rating_types_index', { id: survey_id })
+            }, with_context=false) }}
+        </div>
+    </div>
+
+{% endblock %}

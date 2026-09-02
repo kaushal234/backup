@@ -1,0 +1,32 @@
+{% form_theme quickAccess 'form_theme_vertical.html.twig' %}
+{% form_theme quickSearch 'form_theme_vertical.html.twig' %}
+
+<div class="ibox float-e-margins collapsed">
+    <div class="ibox-title">
+        <h5>SPQ {{ 'titles.quick_access'|trans|capitalize }}</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content text-start">
+        {{ form_start(quickAccess) }}
+        {{ form_errors(quickAccess) }}
+        {{ form_row(quickAccess.id) }}
+        {{ form_rest(quickAccess) }}
+        <div class="text-end">
+            <button type="submit" id="quick-access-submit" class="btn btn-primary">{{ 'button.submit'|trans|capitalize }}</button>
+        </div>
+        {{ form_end(quickAccess) }}
+
+        {{ form_start(quickSearch) }}
+        {{ form_errors(quickSearch) }}
+        {{ form_row(quickSearch.quotationLines_partNumber) }}
+        {{ form_rest(quickSearch) }}
+        <div class="text-end">
+            <button type="submit" id="quick-search-submit" class="btn btn-primary">{{ 'button.submit'|trans|capitalize }}</button>
+        </div>
+        {{ form_end(quickSearch) }}
+    </div>
+</div>

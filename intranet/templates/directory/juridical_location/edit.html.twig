@@ -1,0 +1,17 @@
+{% extends 'directory/juridical_location/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set juridical_location_id = iri_id(juridical_location) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.juridical_location.title.edit'|trans([], 'directory')|capitalize }}</h3>
+
+    {{ include('directory/juridical_location/_form.html.twig', {
+        form: form,
+        action: path('directory_juridical_locations_edit', { id: juridical_location_id }),
+        cancel_link: path('directory_juridical_locations_show', { id: juridical_location_id }),
+        id: juridical_location_id
+    }, with_context=false) }}
+{% endblock %}

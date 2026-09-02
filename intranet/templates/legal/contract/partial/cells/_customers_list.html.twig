@@ -1,0 +1,5 @@
+<td>
+    {% for customer in customers %}
+        <a href="{{ path('sales_customers_show', {id: iri_id(customer)}) }}">{{ customer.name }}</a><br>
+    {% endfor %}
+</td>

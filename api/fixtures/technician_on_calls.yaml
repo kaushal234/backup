@@ -1,0 +1,1113 @@
+App\Entity\Service\TechnicianOnCall:
+  toc_1:
+    id: 1
+    legacyId: 37025
+    title: First TOC
+    originalTitle: Premier appel technicien
+    description: Dolorem culpa amet occaecati quibusdam vel sunt. Tempora libero nihil sit quae reiciendis. Rerum excepturi rerum quis molestiae ipsum officia omnis dicta. Eum quas explicabo deserunt doloremque.
+    originalDescription: Problème détecté sur le système hydraulique. Intervention requise d'urgence sur le matériel au sol.
+    equipmentRecord: '@equipment_record_1'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_payable_service'
+    serviceActivity: '@service_activity_troubleshooting'
+    tags: [ '@technician_on_call_tag_link' ]
+    indiceFactor: IF 1
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_2:
+    id: 2
+    legacyId: 37026
+    title: Editable TOC
+    originalTitle: Chiamata tecnica modificabile
+    description: Fixture use to scenario edit on behat
+    originalDescription: Guasto rilevato sull'impianto frenante. Intervento necessario prima del prossimo volo.
+    equipmentRecord: '@equipment_record_2'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_sso'
+    serviceActivity: '@service_activity_training'
+    tags: [ '@technician_on_call_tag_ihs' ]
+    indiceFactor: IF 1
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    warrantyLegacyId: 64
+  toc_3:
+    id: 3
+    legacyId: 37027
+    title: Deletable TOC
+    originalTitle: Antso ara-teknika azo fafana
+    description: Fixture use to scenario delete on behat
+    originalDescription: Olana hita tamin'ny rafitra hydraulique. Ilaina ny fanarenana haingana.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    tags: [ '@technician_on_call_tag_ibs' ]
+    indiceFactor: IF 100
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_in_progress:
+    id: 4
+    legacyId: 37028
+    title: TOC with status IN_PROGRESS
+    originalTitle: Appel technicien en cours
+    description: This TOC has status IN_PROGRESS and should be change to SUSPENDED
+    originalDescription: Cet appel technicien est en cours de traitement et doit passer en SUSPENSION.
+    equipmentRecord: '@equipment_record_cat'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    tags: [ '@technician_on_call_tag_link', '@technician_on_call_tag_ibs', '@technician_on_call_tag_ihs' ]
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_in_progress_2:
+    id: 5
+    legacyId: 37029
+    title: TOC with status
+    originalTitle: Chiamata con stato in corso
+    description: This TOC has status IN_PROGRESS and should be change to SOLVED
+    originalDescription: Questa chiamata ha lo stato IN CORSO e deve essere portata a RISOLTA.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_closed:
+    id: 6
+    legacyId: 37030
+    title: TOC with status
+    originalTitle: Antso amin'ny sata voarindrina
+    description: This TOC has status CLOSED
+    originalDescription: Ity antso ity dia manana sata VOARINDRINA. Vita ny fanarenana.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: CLOSED
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    token: token
+  toc_commented:
+    id: 7
+    legacyId: 37031
+    jiraTracteasyIssueKey: 'AIRB-777'
+    title: TOC Commented
+    originalTitle: Appel technicien commenté
+    description: This TOC has comments
+    originalDescription: Cet appel technicien contient des commentaires de suivi.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_csr:
+    id: 8
+    legacyId: 37032
+    title: TOC CSR
+    originalTitle: Chiamata con rapporto di servizio
+    description: This TOC has a CSR
+    originalDescription: Questa chiamata tecnica ha un rapporto di servizio clienti associato.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_without_csr:
+    id: 9
+    legacyId: 37033
+    title: TOC without CSR
+    originalTitle: Antso tsy misy tatitra
+    description: This TOC not have a CSR, but want to have one
+    originalDescription: Ity antso ity tsy manana tatitra serivisy fa ilaina ny mamorona iray.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_without_csr_closed:
+    id: 10
+    legacyId: 37034
+    title: TOC want a CSR
+    originalTitle: TOC sans CSR à clôturer
+    description: This TOC not have a CSR, but want to have one
+    originalDescription: Ce TOC n'a pas de CSR mais souhaite en avoir un.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: SOLVED
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_open_for_factory_flag:
+    id: 11
+    legacyId: 37035
+    title: TOC want a Factory Flag
+    originalTitle: Chiamata aperta per flag fabbrica
+    description: This TOC not have a factory flag, but want to have one
+    originalDescription: Questa chiamata non ha ancora un flag fabbrica ma ne necessita uno.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_open_for_remove_factory_flag:
+    id: 12
+    legacyId: 37036
+    title: TOC with fatory flag to remove
+    originalTitle: Antso misy saina factory azo esorina
+    description: This TOC have a factory flag, but want it will be removed
+    originalDescription: Ity antso ity manana saina factory flag fa te-hamafa azy.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_open_with_factory_flag:
+    id: 13
+    legacyId: 37037
+    title: TOC with fatory
+    originalTitle: Appel ouvert avec drapeau usine
+    description: This TOC have a factory flag, we will try to solved but it should no be possible
+    originalDescription: Cet appel possède un drapeau usine. Tentative de résolution mais non autorisée.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    factoryFlag: true
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_to_remove_edit_part:
+    id: 14
+    legacyId: 37038
+    title: TOC to remove and edit part
+    originalTitle: Chiamata per modifica pezzi
+    description: TOC to remove and edit part
+    originalDescription: Chiamata per rimuovere e modificare una parte dell'equipaggiamento.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_with_spr:
+    id: 15
+    legacyId: 37039
+    title: TOC with SPR
+    originalTitle: Antso misy fangatahana fitaovana
+    description: TOC with SPR
+    originalDescription: Antso ara-teknika misy fangatahana fitaovana spare parts.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_payable_service'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_to_create_spr:
+    id: 16
+    legacyId: 37040
+    title: TOC to create SPR
+    originalTitle: Appel pour créer une demande pièces
+    description: TOC to create SPR
+    originalDescription: Appel pour créer une demande de pièces de rechange détachées.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_payable_service'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_with_contacts:
+    id: 17
+    legacyId: 37041
+    title: TOC with Contacts
+    originalTitle: Chiamata con contatti associati
+    description: Toc with some contacts on it
+    originalDescription: Chiamata tecnica con alcuni contatti aggiuntivi associati.
+    equipmentRecord: '@equipment_record_4'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 10
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso_2"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    mainContact: '@extranet_user_fix'
+    contacts: [ '@extranet_user_207' ]
+    customer: '@customer_for_fur'
+  toc_to_solved:
+    id: 18
+    legacyId: 37037
+    title: TOC to solved
+    originalTitle: Antso ho hamahana
+    description: This TOC will be solved by basic user. But bot working
+    originalDescription: Ity antso ity hovonoina amin'ny alàlan'ny mpampiasa fototra.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_solved:
+    id: 19
+    legacyId: 37026
+    title: TOC Solved
+    originalTitle: Appel technicien résolu
+    description: Fixture use to scenario security on SOLVED TOC
+    originalDescription: Cet appel technicien a été résolu avec succès par l'équipe de maintenance.
+    equipmentRecord: '@equipment_record_2'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_sso'
+    serviceActivity: '@service_activity_training'
+    tags: [ '@technician_on_call_tag_ihs' ]
+    indiceFactor: IF 1
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    status: SOLVED
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    mainContact: '@extranet_user_209'
+  toc_suspend:
+    id: 20
+    legacyId: 37026
+    title: TOC Suspended
+    originalTitle: Chiamata sospesa
+    description: Fixture use to scenario security on SUSPENDED TOC
+    originalDescription: Chiamata tecnica attualmente in stato SOSPESO in attesa di pezzi di ricambio.
+    equipmentRecord: '@equipment_record_2'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_sso'
+    serviceActivity: '@service_activity_training'
+    tags: [ '@technician_on_call_tag_ihs' ]
+    indiceFactor: IF 1
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    status: SUSPENDED
+    mainContact: '@extranet_user_209'
+  toc_external_serial:
+    id: 21
+    legacyId: 37041
+    title: TOC with Contacts
+    originalTitle: Antso misy serial number ivelany
+    description: Toc with some contacts on it
+    originalDescription: Antso ara-teknika misy serial number ivelany tsy voasoratra ao anaty rafitra.
+    serialNumber: 'EX007'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 10
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso_2"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    mainContact: '@extranet_user_fix'
+    contacts: [ '@extranet_user_207' ]
+    customer: '@customer_for_fur'
+  toc_confidential:
+    id: 22
+    legacyId: 37038
+    title: TOC confidential
+    originalTitle: Appel technicien confidentiel
+    description: |
+      This TOC is confidential.
+      It will be used in tests to control notifications are nots sent to customers and only to People with access to confidential TOCs.
+      It should not be displayed on the extranet as well.
+    originalDescription: Cet appel est confidentiel. Il est utilisé pour vérifier que les notifications ne sont pas envoyées aux clients.
+    equipmentRecord: '@equipment_record_7'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_NMC'
+    technicianOnCallType: '@toc_type_sso'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 1000
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    confidential: true
+  toc_links:
+    id: 23
+    legacyId: 37047
+    title: With link
+    originalTitle: Chiamata con collegamenti
+    description: With link
+    originalDescription: Chiamata tecnica con documentazione e collegamenti allegati.
+    equipmentRecord: '@equipment_record_remi'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_payable_service'
+    serviceActivity: '@service_activity_troubleshooting'
+    tags: [ '@technician_on_call_tag_link' ]
+    indiceFactor: IF 1
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_sb:
+    id: 24
+    legacyId: 37047
+    title: TOC with SB
+    originalTitle: Antso misy Service Bulletin
+    description: Dolorem culpa amet occaecati quibusdam vel sunt. Tempora libero nihil sit quae reiciendis. Rerum excepturi rerum quis molestiae ipsum officia omnis dicta. Eum quas explicabo deserunt doloremque.
+    originalDescription: Olana mifandray amin'ny service bulletin. Ilaina ny fanarahan'ny torolalana teknika.
+    equipmentRecord: '@equipment_record_1'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_payable_service'
+    serviceActivity: '@service_activity_troubleshooting'
+    tags: [ '@technician_on_call_tag_link' ]
+    indiceFactor: IF 1
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_multiple_csr:
+    id: 25
+    legacyId: 37042
+    title: TOC Multiple CSR
+    originalTitle: Appel avec plusieurs rapports
+    description: This TOC has multiple CSR
+    originalDescription: Cet appel technicien est associé à plusieurs rapports de service client.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    warrantyLegacyId: 62
+  toc_multiple_closed_csr:
+    id: 26
+    legacyId: 37043
+    title: TOC Multiple closed CSR
+    originalTitle: Chiamata con più CSR chiusi
+    description: This TOC has multiple closed CSR
+    originalDescription: Questa chiamata ha più rapporti di servizio clienti in stato chiuso.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+  toc_multiple_random_csr:
+    id: 27
+    legacyId: 37044
+    title: TOC Multiple random CSR
+    originalTitle: Antso misy CSR maro samy hafa
+    description: This TOC has multiple random CSR
+    originalDescription: Ity antso ity manana tatitra serivisy maro amin'ny sata samy hafa.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+  toc_pending_status_for_csr:
+    id: 28
+    legacyId: 37045
+    title: TOC Pending to test auto status change
+    originalTitle: Appel en attente pour affectation CSR
+    description: This Toc has pending status to test auto status change when a CSR is assigned
+    originalDescription: Cet appel est en attente pour tester le changement automatique de statut lors de l'affectation d'un CSR.
+    equipmentRecord: '@equipment_record_5'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_NMC'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 1000
+    status: PENDING
+    airport: '@airport_teumanto'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_pending_status_for_edit:
+    id: 29
+    legacyId: 37046
+    title: TOC Pending to to be edited for auto status change testing
+    originalTitle: Chiamata in attesa per modifica
+    description: This Toc has pending status to test auto status change when a PUT request is sent on it
+    originalDescription: Questa chiamata è in attesa per testare il cambio automatico di stato alla modifica.
+    equipmentRecord: '@equipment_record_7'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: PENDING
+    airport: '@airport_teumanto'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_suspended_status_for_csr:
+    id: 30
+    legacyId: 37047
+    title: TOC Suspended to test auto status change
+    originalTitle: Antso voahazona ho an'ny CSR
+    description: This Toc has Suspended status to test auto status change when a CSR is requested
+    originalDescription: Ity antso ity manana sata voahazona mba hitsapana ny fiovaovana sata otomatika.
+    equipmentRecord: '@equipment_record_8'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: SUSPENDED
+    airport: '@airport_teumanto'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_suspended_status_for_edit:
+    id: 31
+    legacyId: 37048
+    title: TOC Suspended to to be edited for auto status change testing
+    originalTitle: Appel suspendu à modifier
+    description: This Toc has Suspended status to test auto status change when a PUT request is sent on it
+    originalDescription: Cet appel est suspendu pour tester le changement automatique de statut lors d'une modification.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: SUSPENDED
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_for_wc:
+    id: 32
+    legacyId: 37049
+    title: TOC for WC
+    originalTitle: Chiamata per garanzia
+    description: Will create a legacy warranty
+    originalDescription: Questa chiamata creerà una garanzia nel sistema legacy al cambio del tipo di pagamento.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_late_ast_1:
+    id: 33
+    legacyId: 37050
+    title: TOC Late with a very long title to test the truncate on the front part table.
+    originalTitle: Antso tara misy lohahevitra lava indrindra mba hitsapana ny fanapahana eo amin'ny latabatra
+    description: TOC Late
+    originalDescription: Antso tara.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    createdAt: <( new \DateTime('-6 days'))>
+    updatedAt: <( new \DateTime('-6 days'))>
+  toc_late_ast_2:
+    id: 34
+    legacyId: 37051
+    title: TOC Late
+    originalTitle: Appel technicien en retard
+    description: TOC Late
+    originalDescription: Appel technicien en retard sur le délai de résolution.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    createdAt: <( new \DateTime('-5 days'))>
+    updatedAt: <( new \DateTime('-5 days'))>
+  toc_late_ast_3:
+    id: 35
+    legacyId: 37052
+    title: TOC Late
+    originalTitle: Chiamata tecnica in ritardo
+    description: TOC Late
+    originalDescription: Chiamata tecnica in ritardo rispetto ai tempi di risoluzione previsti.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    createdAt: <( new \DateTime('-5 days'))>
+    updatedAt: <( new \DateTime('-5 days'))>
+  toc_late_ast_4:
+    id: 36
+    legacyId: 37053
+    title: TOC Late
+    originalTitle: Antso tara amin'ny fotoana
+    description: TOC Late
+    originalDescription: Antso tara.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    createdAt: <( new \DateTime('-5 days'))>
+    updatedAt: <( new \DateTime('-5 days'))>
+  toc_late_ast_5:
+    id: 37
+    legacyId: 37054
+    title: TOC Late
+    originalTitle: Appel en dépassement de délai
+    description: TOC Late
+    originalDescription: Appel technicien dépassant le délai de traitement standard.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    createdAt: <( new \DateTime('-5 days'))>
+    updatedAt: <( new \DateTime('-5 days'))>
+  toc_late_comment_internal_ast:
+    id: 38
+    legacyId: 37055
+    title: TOC Late
+    originalTitle: Chiamata in ritardo con commento
+    description: TOC Late
+    originalDescription: Chiamata in ritardo con commento interno dell'assistenza tecnica.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    createdAt: <( new \DateTime('-5 days'))>
+    updatedAt: <( new \DateTime('-5 days'))>
+  toc_ff_recently_closed:
+    id: 39
+    legacyId: 37056
+    title: TOC Late
+    originalTitle: Antso vao voarindrina
+    description: TOC Late
+    originalDescription: Antso vao voarindrina farany teo.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    createdAt: <( new \DateTime('-5 days'))>
+    updatedAt: <( new \DateTime('-5 days'))>
+  toc_ff_formerly_closed:
+    id: 40
+    legacyId: 37057
+    title: TOC ff formerly closed
+    originalTitle: Appel précédemment clôturé
+    description: TOC ff formerly closed
+    originalDescription: Appel technicien précédemment clôturé avec drapeau usine actif.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    createdAt: <( new \DateTime('-5 days'))>
+    updatedAt: <( new \DateTime('-5 days'))>
+  toc_recently_created:
+    id: 41
+    legacyId: 37058
+    title: TOC ff formerly closed
+    originalTitle: Chiamata creata di recente
+    description: TOC ff formerly closed
+    originalDescription: Chiamata tecnica appena creata nel sistema.
+    equipmentRecord: '@equipment_record_9'
+    createdBy: '@user_csm'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_110'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_with_spr_closed:
+    id: 42
+    legacyId: 37039
+    title: TOC with SPR Closed
+    originalTitle: Antso misy SPR voarindrina
+    description: TOC with SPR Closed
+    originalDescription: Antso misy fangatahana fitaovana ary voarindrina.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: SOLVED
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    solvedAt: <( new \DateTime())>
+    token: token
+  toc_factory_flag_sso2:
+    id: 43
+    legacyId: 37039
+    title: TOC factory flag sso2
+    originalTitle: Appel avec drapeau usine SSO2
+    description: TOC factory flag sso2
+    originalDescription: Appel technicien avec drapeau usine actif pour l'organisation de service SSO2.
+    equipmentRecord: '@equipment_record_commissioned'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: SOLVED
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso_2"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    solvedAt: <( new \DateTime())>
+    factoryFlag: true
+    token: token
+  toc_for_extranet:
+    id: 44
+    legacyId: 37031
+    title: TOC For Extranet
+    originalTitle: Chiamata per l'extranet
+    description: This TOC has comments for extranet
+    originalDescription: Chiamata tecnica con commenti visibili anche dall'extranet clienti.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_close_for_survey:
+    id: 45
+    legacyId: 37039
+    title: TOC factory flag sso2
+    originalTitle: Antso voarindrina ho an'ny survey
+    description: TOC factory flag sso2
+    originalDescription: Antso voarindrina misy saina factory flag ho an'ny fanontaniana fanamarinana.
+    equipmentRecord: '@equipment_record_commissioned'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: SOLVED
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso_2"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    solvedAt: <( new \DateTime())>
+    factoryFlag: true
+    token: token
+  toc_with_third_party:
+    id: 46
+    legacyId: 37031
+    title: TOC With a thirdPartyName to test required field on status set to SOLVED
+    originalTitle: Appel avec prestataire externe
+    description: This TOC has a thirdPartyName. It should be required to fill the fields "thirdPartyHours" and "thirdPartyJobDescription" when it is set to SOLVED
+    originalDescription: Cet appel implique un prestataire externe. Les champs heures et description d'intervention sont obligatoires à la résolution.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_payable_service'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: IN_PROGRESS
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(1)>
+    rootCause: <paragraph(1)>
+    originalSolution: <paragraph(3)>
+    solution: <paragraph(3)>
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    thirdPartyName: "Shannon's Chop Shop"
+  toc_created_by_extranet_user:
+    id: 47
+    legacyId: 37033
+    title: TOC created by Julien Lepers
+    originalTitle: TOC créé par Julien Lepers
+    description: Ah, I say YES ! Yes yes yes yes ! It's a 4 in a row !!!
+    originalDescription: Ah, je dis oui ! Oui oui oui oui ! C'est un 4 à la suite !!!'
+    equipmentRecord: '@equipment_record_7'
+    createdBy: '@extranet_user_fix'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCP'
+    technicianOnCallType: '@toc_type_payable_service'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: SOLVED
+    solvedAt: <( new \DateTime())>
+    token: fixtureTokenForSurveyPublicLink
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(1)>
+    rootCause: <paragraph(1)>
+    originalSolution: <paragraph(3)>
+    solution: <paragraph(3)>
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+  toc_solved_with_defective_part:
+    id: 48
+    legacyId: 37040
+    title: TOC Solved with defective parts
+    originalTitle: Antso misy SPR voarindrina
+    description: TOC Solved with defective parts
+    originalDescription: Antso misy fangatahana fitaovana ary voarindrina.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_troubleshooting'
+    indiceFactor: IF 100
+    status: SOLVED
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    originalSymptoms: <paragraph(2)>
+    symptoms: <paragraph(2)>
+    originalRootCause: <paragraph(2)>
+    rootCause: <paragraph(2)>
+    originalSolution: <paragraph(2)>
+    solution: <paragraph(2)>
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'
+    solvedAt: <( new \DateTime())>
+    token: token
+  toc_closed_reopen:
+    id: 49
+    legacyId: 37030
+    title: TOC with status
+    originalTitle: Antso amin'ny sata voarindrina
+    description: This TOC has status CLOSED
+    originalDescription: Ity antso ity dia manana sata VOARINDRINA. Vita ny fanarenana.
+    equipmentRecord: '@equipment_record_3'
+    createdBy: '@user_service'
+    assignee: '@user_ast_bu2'
+    technician: '@user_service'
+    unitOperationalStatus: '@unit_op_status_MCF'
+    technicianOnCallType: '@toc_type_not_defined'
+    serviceActivity: '@service_activity_maintenance'
+    indiceFactor: IF 100
+    status: CLOSED
+    airport: '@airport_tesurlesysteme'
+    salesOrganisationService: "@location_sso"
+    customer: '@customer_for_fur'
+    mainContact: '@extranet_user_209'

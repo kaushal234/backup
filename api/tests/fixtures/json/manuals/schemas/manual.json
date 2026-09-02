@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/support/manuals/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "equipmentRecord": {
+      "oneOf": [
+        {"type":  "null"},
+        {"type":  "string"},
+        {"$ref": "../../equipment_record/schemas/equipment_record_manuals.json"}
+      ]
+    },
+    "equipmentSerial": {
+      "oneOf": [
+        {"type":  "null"},
+        {"$ref": "../../equipment_serial/schemas/equipment_serial.json"}
+      ]
+    },
+    "description": {
+      "type": ["string", "null"]
+    },
+    "features": {
+      "type": ["string", "null"]
+    },
+    "language": {
+      "type": ["string", "null"]
+    },
+    "status": {
+      "type": ["string", "null"]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "createdBy": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "$ref": "../../manual_documents/schemas/manual_document.json"
+      }
+    },
+    "prints": {
+      "type": "array",
+      "items": {
+        "$ref": "../../manual_prints/schemas/manual_print.json"
+      }
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "documents",
+    "prints",
+    "legacyId"
+  ]
+}

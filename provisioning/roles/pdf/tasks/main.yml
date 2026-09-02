@@ -1,0 +1,58 @@
+- name: Check if wkhtmltopdf is installed
+  ansible.builtin.command: wkhtmltopdf --version
+  changed_when: false
+  register: version_check_result
+  ignore_errors: true
+
+- name: Download wkhtmltopdf deb file
+  become: true
+  ansible.builtin.get_url:
+    url: https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+    dest: /var/cache/apt/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+    mode: '0755'
+  when: version_check_result.stdout != 'wkhtmltopdf 0.12.6.1 (with patched qt)'
+
+- name: Install wkhtmltopdf
+  become: true
+  ansible.builtin.command: dpkg -i /var/cache/apt/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+  failed_when: false
+  when: version_check_result.stdout != 'wkhtmltopdf 0.12.6.1 (with patched qt)'
+
+- name: Install missing dependencies and configure package wkhtmltopdf
+  become: true
+  ansible.builtin.command: apt -f -y install
+  when: version_check_result.stdout != 'wkhtmltopdf 0.12.6.1 (with patched qt)'
+
+- name: Install japanese fonts required by TOC PDF customer notification
+  become: true
+  ansible.builtin.apt:
+    name:
+      - fonts-takao-gothic
+    state: present
+  when: inventory_hostname in groups['portals']
+
+- name: Install chinese fonts required by P&I Reports PDF
+  become: true
+  ansible.builtin.apt:
+    name:
+      - fontconfig
+      - fonts-wqy-microhei
+      - fonts-wqy-zenhei
+    state: present
+
+- name: Ensure ghostscript, pdftk and zip are installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - ghostscript
+      - pdftk
+      - zip
+    state: present
+
+- name: Ensure cache folder for manuals zip exists
+  become: true
+  ansible.builtin.file:
+    path: /var/www/cache/manuals
+    state: directory
+    owner: deployer
+    group: php_executor

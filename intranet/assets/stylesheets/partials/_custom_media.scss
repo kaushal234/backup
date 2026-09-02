@@ -1,0 +1,166 @@
+/* ***** TABLETS ******* */
+@media (max-width: 767px) {
+  .navbar-static-top {
+
+    .navbar-collapse {
+      float: right;
+      width: 87%;
+
+      .nav.navbar-nav {
+        float: left;
+
+        .welcome-message {
+          padding-top: 11px;
+        }
+      }
+    }
+
+    .nav.navbar-top-links {
+      &.navbar-right {
+        float: right;
+
+        // DASHBOARD POPUP
+        .applications-container {
+          margin-left: -270px;
+        }
+
+        // NOTIFICATIONS POPUP
+        .notifications-container {
+          margin-left: -270px;
+        }
+      }
+    }
+  }
+}
+
+/* ***** SMALL DEVICES ******* */
+@media (max-width: 570px) {
+  .navbar-static-top {
+
+    .navbar-collapse {
+      width: 70%;
+
+      .nav.navbar-nav {
+
+        .welcome-message {
+          display: none;
+        }
+      }
+    }
+
+    .nav.navbar-top-links {
+      &.navbar-right {
+
+        // DASHBOARD POPUP
+        .applications-container {
+          width: 215px;
+          margin-left: -180px;
+        }
+      }
+    }
+  }
+  .wrapper .middle-box {
+    margin-top: 0;
+    margin-bottom: 100px;
+  }
+}
+
+/* ***** SMALL DEVICES ******* */
+@media (max-width: 495px) {
+  .navbar-static-top {
+
+    .nav.navbar-top-links {
+      &.navbar-right {
+
+        // NOTIFICATIONS POPUP
+        .notifications-container {
+          margin-left: -190px;
+        }
+      }
+    }
+  }
+}
+
+/* ***** SMALL DEVICES ******* */
+@media (max-width: 445px) {
+  .navbar-static-top {
+
+    .nav.navbar-top-links {
+      &.navbar-right {
+
+        // DASHBOARD POPUP
+        .applications-container {
+          margin-left: -130px;
+        }
+
+        // NOTIFICATIONS POPUP
+        .notifications-container {
+          margin-left: -190px;
+        }
+      }
+    }
+  }
+
+  // REMOVE PADDING FROM CONTENT PAGES
+  .p-w-md {
+    padding: 0;
+  }
+}
+
+/* ***** PHONES ******* */
+@media (max-width: 410px) {
+  .navbar-static-top {
+
+    .nav.navbar-top-links {
+      &.navbar-right {
+
+        // NOTIFICATIONS POPUP
+        .notifications-container {
+          padding-left: 0;
+          padding-right: 0;
+          width: 280px;
+          margin-left: -155px;
+        }
+      }
+    }
+  }
+}
+
+
+/* ***** PHONES ******* */
+@media (max-width: 350px) {
+  .navbar-static-top {
+
+    .navbar-collapse {
+      width: 70%;
+      padding: 0;
+
+      .nav.navbar-top-links {
+        &.navbar-right {
+
+          // DASHBOARD POPUP
+          .applications-container {
+            margin-left: -70px;
+          }
+
+          // NOTIFICATIONS POPUP
+          .notifications-container {
+            width: 238px;
+            margin-left: -130px;
+
+            li {
+              a {
+                padding-left: 5px;
+                padding-right: 5px;
+              }
+            }
+          }
+        }
+
+        li.dropdown {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

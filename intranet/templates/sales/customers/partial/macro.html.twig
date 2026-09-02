@@ -1,0 +1,15 @@
+{% macro childrenCustomers(customerTopParent, id) %}
+    {% for cust in customerTopParent.childrenCustomers %}
+        {% if customerTopParent.childrenCustomers | length > 0 %}
+            <li >
+                <a href="{{ path('sales_customers_show', { 'id': iri_id(cust) })  }}"
+                        {% if cust.id == id %} class="customer-active"{% endif %}>{{ cust.name }} </a>
+                {% if cust.childrenCustomers|length > 0 %}
+                    <ul>
+                        {{ _self.childrenCustomers(cust, id) }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

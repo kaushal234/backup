@@ -1,0 +1,101 @@
+{% use 'form_theme_vertical.html.twig' %}
+
+{%- block form_widget_simple -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block textarea_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block choice_widget_collapsed -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block radio_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block checkbox_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block date_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block time_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block datetime_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block integer_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block number_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block money_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block url_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block search_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block percent_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block password_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block hidden_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block email_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block range_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block color_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block file_widget -%}
+    {% if attr['data-model'] is not defined %}{% set attr = attr|merge({'data-model': 'norender|' ~ full_name}) %}{% endif %}
+    {{ parent() }}
+{%- endblock -%}

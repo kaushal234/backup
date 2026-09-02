@@ -1,0 +1,167 @@
+{% extends 'quality/calibrated_tools/layout.html.twig' %}
+{% trans_default_domain 'out_of_tolerance_form' %}
+
+{% block title %}{{ parent() }} \ {{ 'menu.view' | trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'out_of_tolerance_form.title.show'| trans([], "out_of_tolerance_form") }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                                <tr>
+                                    <th>{{ 'out_of_tolerance_form.fields.index' | trans | upper }}</th>
+                                    <td>{{ iri_id(otf) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'out_of_tolerance_form.fields.status' | trans | upper }}</th>
+                                    <td>
+                                        <span class="label {{ otf.status | status_label }}">
+                                            {{ otf.status | trans | upper }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'out_of_tolerance_form.fields.analysisBy' | trans | upper  }}</th>
+                                    <td>
+                                        <a href="{{ path('directory_people_show', {id: iri_id(otf.analysisBy)}) }}" target="_blank">
+                                            {{ otf.analysisBy.lastname }} {{ otf.analysisBy.firstname }}
+
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'out_of_tolerance_form.links.tool' | trans | upper  }}</th>
+                                    {% if tool is same as (null) %}
+                                        <td>
+                                            {{ 'out_of_tolerance_form.links.no_tool' | trans | upper  }}
+                                        </td>
+                                    {% else %}
+                                        <td>
+                                            <a href="{{ path('quality_calibrated_tools_show', {id: iri_id(tool)}) }}" target="_blank">
+                                                {{ iri_id(tool) }}
+                                            </a>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                                {% if otf.files is defined %}
+                                    <tr>
+                                        <th>{{ 'out_of_tolerance_form.fields.files' | trans | upper }}</th>
+                                        <td>
+                                            <table class='table table-striped' border='0' cellpadding="0" cellspacing="0" valign="top">
+                                            <tbody>
+                                                {% for file in otf.files %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ path('quality_calibrated_otf_show_file', {
+                                                            'id': iri_id(otf),
+                                                            'fileId': file.id
+                                                        }) }}" target="_blank">
+                                                            {{ file.filePath | split('/') | last }}
+                                                        </a>
+                                                    </td>
+                                                    {% if is_granted('FEATURE_TOOL_WRITE') %}
+                                                        <td>
+                                                            <div class="col-lg-1 float-end">
+                                                                <a href="{{ path('quality_calibrated_otf_delete_file', {
+                                                                    'id': iri_id(otf),
+                                                                    'fileId': file.id
+                                                                }) }}" class="btn btn-sm btn-danger">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    {% endif %}
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if otf.calibrationLog is defined and otf.calibrationLog.tool is defined %}
+                                    <tr>
+                                        {% set tool = otf.calibrationLog.tool %}
+                                        <th>{{ 'calibration_tool.fields.serialNumber' | trans([], 'calibration_tool') | upper }}</th>
+                                        <td> {{ tool.serialNumber }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_tool.fields.description' | trans([], 'calibration_tool') | upper }}</th>
+                                        <td>{{ tool.description | u.wordwrap | nl2br }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_log.fields.startDate' | trans([], 'calibration_log') }}</th>
+                                        <td>{{ otf.calibrationLog.startDate | format_datetime }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>{{ 'calibration_log.fields.endDate' | trans([], 'calibration_log') }}</th>
+                                        <td>
+                                            {% if otf.calibrationLog.endDate is defined %}
+                                                {{ otf.calibrationLog.endDate | format_datetime }}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="col-lg-1">
+                                                <a href="{{ path('quality_calibrated_tools_show', { id: iri_id(otf.calibrationLog.tool) }) }}" class="btn btn-primary btn-sm float-sart" target="blank">
+                                                    <i class="fa fa-wrench"></i>
+                                                    {{ 'out_of_tolerance_form.links.view_tool' | trans }}
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="tool-extra-info" class="tabs-container">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#impact-analysis" data-bs-toggle="tab">
+                            {{ 'out_of_tolerance_form.fields.impactAnalysis' | trans | title }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#corrective-measures" data-bs-toggle="tab">
+                            {{ 'out_of_tolerance_form.fields.correctiveMeasures' | trans | title }}
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="impact-analysis">
+                        <div class="card-body">
+                            <p class="">
+                                {% autoescape false %}
+                                    {{ otf.impactAnalysis }}
+                                {% endautoescape %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="corrective-measures">
+                        <div class="card-body">
+                            <p class="">
+                                {% autoescape false %}
+                                    {{ otf.correctiveMeasures }}
+                                {% endautoescape %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

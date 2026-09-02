@@ -1,0 +1,53 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+{% form_theme filterForm 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    {{ form_start(filterForm) }}
+    <div class="row mb-3">
+        <div class="col-3">
+            {{ form_row(filterForm.salesServiceOrganisation) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(filterForm.from) }}
+        </div>
+        <div class="col-3 d-flex align-items-center">
+            <button class="btn btn-primary">
+                {{ 'button.filter'|trans({}, 'messages')|upper }}
+            </button>
+        </div>
+    </div>
+    {{ form_end(filterForm) }}
+    <div class="row justify-content-md-center mt-3">
+        <div class="ibox-content col-md-6">
+            {{ include('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'items': {
+                        'delay': {
+                            'label': 'toc.report.closure_time.delay'|trans({}, 'technician_on_call'),
+                            'template': 'service/technician_on_call/partial/cell/_solved_in.html.twig',
+                            'sortable': false,
+                        },
+                        'numberOfTechnicianOnCalls': {
+                            'label': 'toc.report.closure_time.numberOfTechnicianOnCalls'|trans({}, 'technician_on_call')|trans|capitalize,
+                            'sortable': false,
+                        },
+                        'percentRemoteSolved': {
+                            'label': 'toc.report.closure_time.percentRemoteSolved'|trans([], 'technician_on_call')|capitalize,
+                            'sortable': false,
+                        },
+                        'deltaWithYear': {
+                            'label': 'toc.report.closure_time.deltaWithYear'|trans([], 'technician_on_call')|capitalize,
+                            'sortable': false,
+                        },
+                    },
+                    'title': 'toc.report.closure_time.title'|trans,
+                    'data': closureTimeReport,
+                    'search': false,
+                    'pagination': false,
+                    'totalNumber': false,
+                }
+            }, with_context=false) }}
+        </div>
+    </div>
+{% endblock %}

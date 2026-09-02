@@ -1,0 +1,7 @@
+<td>
+    {% if isGrantedAdmin %}
+        {{ form_widget(form['couriers'][item['@id']|iri_id][key]) }}
+    {% else %}
+        {{ item[key] }}
+    {% endif %}
+</td>

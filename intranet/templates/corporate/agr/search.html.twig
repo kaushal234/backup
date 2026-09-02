@@ -1,0 +1,51 @@
+{% extends 'corporate/agr/layout.html.twig' %}
+{% trans_default_domain 'corporate' %}
+
+{% block title %}{{ parent() }}\Search{% endblock %}
+
+{% block content %}
+    <h3>AGR Homepage</h3>
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            {{ form_start(simple_search, { action: path('acronyms_search') }) }}
+            {{ form_widget(simple_search) }}
+            <div class="row">
+                <div class="col-sm-2 "></div>
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                </div>
+            </div>
+            {{ form_end(simple_search) }}
+
+            {{ form_start(advanced_search, { action: path('acronyms_search') }) }}
+            {{ form_widget(advanced_search) }}
+            <div class="row">
+                <div class="col-sm-2 "></div>
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                </div>
+            </div>
+            {{ form_end(advanced_search) }}
+        </div>
+    </div>
+    {{ include('helper/_report_table.html.twig', {
+        'reportTable': {
+            'items': {
+                '@id': {
+                    'label':'AGR#',
+                    'link':{
+                        'route': 'acronyms_show',
+                        'params': {'id':'@id'}
+                    },
+                    'filters': 'iri_id'
+                },
+                'acronym': {'label': 'corporate.acronyms.acronym'|trans|capitalize},
+                'shortDescription': {'label': 'fields.short-description'|trans([], 'messages')|capitalize},
+            },
+            'search': false,
+            'pagination': false,
+            'title': 'AGR ' ~ 'titles.search_result'|trans([], 'messages')|capitalize,
+            'data': acronyms
+        }
+    }, with_context = false) }}
+{% endblock %}

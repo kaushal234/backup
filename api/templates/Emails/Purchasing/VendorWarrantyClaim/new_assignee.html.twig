@@ -1,0 +1,12 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>{{ ('vwc.assignee.message') | trans({'%id%': id, '%lastname%': vendorWarrantyClaim.assignee.lastname, '%firstname%': vendorWarrantyClaim.assignee.firstname}) | nl2br }}</p>
+            <hr>
+            <a target="_blank" href="{{ url('vendor_warranty_claim', {id: vendorWarrantyClaim.id}) }}">Click here to view VWC#{{ vendorWarrantyClaim.id }}</a>
+        </columns>
+    </row>
+{% endblock %}

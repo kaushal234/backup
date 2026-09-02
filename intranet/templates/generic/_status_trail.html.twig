@@ -1,0 +1,27 @@
+<div class="ibox-content">
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                createdAt: {
+                    label: 'fields.created_at'|trans|capitalize,
+                    filters: ['date("Y-m-d")']
+                },
+                createdBy: {
+                    label: 'fields.created_by'|trans|capitalize,
+                    properties: ['createdBy.lastname', 'createdBy.firstname']
+                },
+                value: {
+                    label: 'fields.status'|trans({}, 'messages'),
+                },
+                time: {
+                    label: 'fields.solved_time'|trans,
+                    template: 'generic/partials/_time.html.twig'
+                },
+            },
+            title: 'status_trail'|trans|upper,
+            data: statusTrail,
+            initialSorting: false,
+            search: false
+        }
+    }, with_context = false )}}
+</div>

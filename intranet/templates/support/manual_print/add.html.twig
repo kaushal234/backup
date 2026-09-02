@@ -1,0 +1,30 @@
+{% extends 'support/manual_print/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    {{ 'support.manual_print.add.title'|trans|capitalize }}
+                </div>
+                <div class="ibox-content">
+                    {{ form_row(form.manualPrinter) }}
+                    {{ form_row(form.requestedDeliveryDate) }}
+                    {{ form_row(form.standard) }}
+                    {{ form_row(form.full) }}
+                    {{ form_row(form.extra) }}
+                    {{ form_row(form.chapter5) }}
+                    {{ form_row(form.comment) }}
+                    <div class="col-md-12">
+                        {{ form_row(form.submit) }}
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

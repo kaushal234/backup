@@ -1,0 +1,17 @@
+{% extends 'directory/region/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set region_id = iri_id(region) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.region.title.edit'|trans([], 'directory')|capitalize }}</h3>
+
+    {{ include('directory/region/_form.html.twig', {
+        form: form,
+        action: path('directory_regions_edit', { id: region_id }),
+        cancel_link: path('directory_regions_show', { id: region_id }),
+        id: region_id
+    }, with_context=false) }}
+{% endblock %}

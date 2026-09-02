@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/juridical_locations/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "required": [
+      "@id",
+      "@type",
+      "name",
+      "legacyId"
+    ],
+    "additionalProperties": false
+  }
+}

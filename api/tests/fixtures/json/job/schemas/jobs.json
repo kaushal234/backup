@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/jobs/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {"type": "integer"},
+          "businessUnit": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "location":{"type": ["object", "null"] },
+              "name": {"type": "string"},
+              "domain": {"type": ["string", "null"]},
+              "id": {"type": "integer"},
+              "legacyId": {"type": "integer"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "domain",
+              "id",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "createdBy": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "synchronized": {
+            "type": "boolean"
+          },
+          "legacyId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "businessUnit",
+          "createdBy",
+          "createdAt",
+          "title",
+          "enabled",
+          "synchronized",
+          "legacyId"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

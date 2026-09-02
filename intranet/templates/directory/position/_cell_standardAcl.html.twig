@@ -1,0 +1,14 @@
+<td>
+    {% for divisionGroup in item.divisionGroups %}
+        <table>
+            <tbody>
+                <tr>
+                    <th>{{ divisionGroup.division.name }}</th>
+                    <td>{% for group in divisionGroup.groups %}
+                            {{ group.name }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+</td>

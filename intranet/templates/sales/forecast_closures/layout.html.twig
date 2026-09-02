@@ -1,0 +1,27 @@
+{% extends 'sales/layout.html.twig' %}
+
+{% block title %}{{ parent() }} \ {{ 'forecast_closures.title' | trans({}, 'forecast_closures') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.sfr" domain="sales_forecasts"
+                      icon="solar:copy-outline"
+                      route="sales_forecasts_home"/>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.fcr" domain="sales_forecasts"
+                      icon="solar:copy-outline"
+                      route="forecast_closures_home"/>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.cpr" domain="sales_forecasts"
+                      icon="solar:copy-outline"
+                      route="competitor_pricings_home"/>
+        {% if forecastClosure is defined %}
+            <twig:NavItem:Edit route="forecast_closures_edit" :routeParameters="{id: iri_id(forecastClosure['@id'])}"
+                               :security="is_granted('FORECAST_CLOSURE_WRITE_VOTER', forecastClosure['@id'])"/>
+            <twig:NavItem:Add translationKey="sales_forecasts.nav_link.add_new_cpr_cfr" domain="sales_forecasts"
+                              route="sales_forecasts_add_cpr"
+                              :routeParameters="{id: iri_id(forecastClosure.salesForecast['@id']), forecast_closure: forecastClosure['id']}"
+                              :security="is_granted('FORECAST_CLOSURE_WRITE_VOTER', forecastClosure['@id'])"/>
+            <twig:NavItem:Delete route="forecast_closure_delete" :routeParameters="{id: iri_id(forecastClosure['@id'])}"
+                                 :security="is_granted('FEATURE_SALES_FORECAST_ADMIN_EDIT', forecastClosure.salesForecast['@id']) or is_granted('MOO_FCR', forecastClosure.salesForecast['@id'])"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'Emails/Quality/FirstArticleQualification/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block customized %}
+    <p>
+        <b>
+            {{ 'first_article_qualification.titles.status'| trans({ '%faqId%': firstArticleQualification_normalized.id, '%faqStatus%': newStatus }) }}
+        </b>
+    </p>
+    {% if previousStatus is not null %}
+        <p>{{ 'first_article_qualification.titles.status_override_transition'| trans({ '%previous%': previousStatus, '%new%': newStatus }) }}</p>
+        {% if actorName is not null %}
+            <p>{{ 'first_article_qualification.titles.status_override_actor'| trans({ '%actor%': actorName }) }}</p>
+        {% endif %}
+        <p>{{ 'first_article_qualification.titles.status_override_changed_at'| trans({ '%datetime%': changedAt|date('Y-m-d H:i') }) }}</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "@id": {"pattern": "^/ion/sites/.+$"},
+    "@type": {"type": "string"},
+    "siteID": {"type": "string"},
+    "siteDescription": {"type": "string"}
+  },
+  "required": [
+    "@id",
+    "@type",
+    "siteID",
+    "siteDescription"
+  ],
+  "additionalProperties": false
+}

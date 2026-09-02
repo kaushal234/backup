@@ -1,0 +1,45 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="text-center article-title">
+                        {% set entity = entity | replace({'-': ' '}) %}
+                        <h1>{{ entity | upper }} Data Sheets</h1>
+                    </div>
+
+                    <div class="">
+                        <table class="table table-striped table-responsive">
+                            <tbody>
+                            {% set dataSheets = {
+                                'DMS#1441': {
+                                    'pptx': 'DMS#1441_PDS Product Datasheet template (2) 2023.pptx',
+                                },
+                                'Product Datasheet': {
+                                    'docx': 'Product Datasheets.docx'
+                                },
+                                'TLD Datasheet example': {
+                                    'pdf': 'TLD DATA Sheet EXAMPLE.pdf'
+                                }
+                            } %}
+                            {% for key, dataSheet in dataSheets %}
+                                <tr>
+                                    <td>{{ key }}</td>
+                                    <td align="right">
+                                        {% for extension, path in dataSheet %}
+                                            {% set filepath = asset(upload_uri ~ '/corporate/tld/data_sheets/' ~ path) %}
+                                            <a class="btn btn-primary" target="_blank" href="{{ filepath }}"><i class="fa fa-file-{{ extension is same as 'pptx' ? 'powerpoint' : extension is same as 'docx' ? 'word' : extension }}"></i>&nbsp;{{ extension | upper }}</a>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

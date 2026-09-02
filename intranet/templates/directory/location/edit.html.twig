@@ -1,0 +1,17 @@
+{% extends 'directory/location/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set location_id = iri_id(location) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages')|capitalize }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.location.title.edit'|trans([], 'directory')|capitalize  }}</h3>
+
+    {{ include('directory/location/_form.html.twig', {
+        form: form,
+        action: path('directory_locations_edit', { id: location_id }),
+        cancel_link: path('directory_locations_show', { id: location_id }),
+        id: location_id
+    }, with_context=false) }}
+{% endblock %}

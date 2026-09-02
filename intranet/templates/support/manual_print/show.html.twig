@@ -1,0 +1,84 @@
+{% extends 'support/manual_print/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        {{ ('support.manual_print.title'|trans|capitalize) }}
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        {{ include('helper/_association_table_raw.html.twig', {
+                            associationData: {
+                                search: false,
+                                title: 'support.manual_print.title'|trans,
+                                items: {
+                                    id: {
+                                        label: 'support.manuals.fields.id'|trans({}, 'support')
+                                    },
+                                    manual: {
+                                        label: 'support.manual_print.fields.manual'|trans({}, 'support')|capitalize,
+                                        properties: ['manual.id'],
+                                        link:{
+                                            route: 'manuals_show',
+                                            params: {'id':'manual.id'},
+                                        }
+                                    },
+                                    printer: {
+                                        label: 'support.printer.printer'|trans({}, 'support')|capitalize,
+                                        properties: ['manualPrinter.companyName'],
+                                        link:{
+                                            route: 'printer_show',
+                                            params: {'id':'manualPrinter.@id'},
+                                        }
+                                    },
+                                    requestedDeliveryDate: {
+                                        label: 'support.manual_print.fields.requestedDeliveryDate'|trans({}, 'support'),
+                                        filters: 'date("Y-m-d")',
+                                    },
+                                    standard: {
+                                        label: 'support.manual_print.fields.standard'|trans({}, 'support'),
+                                    },
+                                    full: {
+                                        label: 'support.manual_print.fields.full'|trans({}, 'support'),
+                                    },
+                                    extra: {
+                                        label: 'support.manual_print.fields.extra'|trans({}, 'support'),
+                                    },
+                                    chapter5: {
+                                        label: 'support.manual_print.fields.chapter5'|trans({}, 'support'),
+                                    },
+                                    comment: {
+                                        label: 'support.manual_print.fields.comment'|trans({}, 'support'),
+                                    },
+                                    createdAt: {
+                                        label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                                        filters: 'date("Y-m-d H:i")'
+                                    },
+                                    createdBy: {
+                                        label: 'fields.created_by'|trans({}, 'messages'),
+                                        properties: ['createdBy.lastname', 'createdBy.firstname'],
+                                        link: {
+                                            route: 'directory_people_show',
+                                            params: {'id':'createdBy.@id'}
+                                        }
+                                    },
+                                    downloadedAt: {
+                                        label: 'support.manual_print.fields.downloadedAt'|trans({}, 'support')|capitalize,
+                                        filters: 'date("Y-m-d H:i")',
+                                        preserveNull: true,
+                                    },
+                                },
+                                data: print
+                            }
+                        }, with_context = false) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}

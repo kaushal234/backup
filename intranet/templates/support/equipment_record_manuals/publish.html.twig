@@ -1,0 +1,23 @@
+{% extends 'support/equipment_record_manuals/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() ~ '/' ~ 'support.manuals.menu.publish'|trans }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-4">
+            {{ include('support/equipment_record_manuals/partial/_equipment_record_info.html.twig', {
+                title: 'support.equipment_record.information'|trans,
+                equipmentRecord: equipmentRecord
+            }, with_context=false) }}
+        </div>
+        <div class="col-md-8">
+            {{ include('support/equipment_record_manuals/partial/_form.html.twig', {
+                title: 'support.equipment_record.publish.title'|trans,
+                equipmentRecord: equipmentRecord,
+                form: newManualForm
+            }, with_context=false) }}
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% if is_granted('ROLE_IMPERSONATED') %}
+        <tr>
+            <td>
+                <div style="color: red; border: 1px solid red; padding: 5px; margin: 5px; text-align:center">
+                    You are using the website as {{ app.user.username }}
+                    <a style="display:block" href="?_switch_exit">Log back to your account</a>
+                </div>
+            </td>
+        </tr>
+{% endif %}

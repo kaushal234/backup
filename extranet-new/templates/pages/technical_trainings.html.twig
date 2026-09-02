@@ -1,0 +1,77 @@
+{#
+  pages/technical_trainings.html.twig — STATIC
+  Route: page:trainings
+  Controller: App\Controller\StaticPageController::trainings
+  All three "Technical Trainings" menu links point here.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.menu.technical_trainings'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.technical_services'|trans,
+        hero_title: 'extranet.page.trainings.title'|trans,
+        hero_sub: 'extranet.page.trainings.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.page.trainings.title'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="row g-5 align-items-start">
+                <div class="col-lg-7">
+                    <div class="section-head">
+                        <div class="titles">
+                            <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.page.trainings.programs'|trans }}</div>
+                            <h2 class="section-title mt-2">{{ 'extranet.page.trainings.support'|trans }}</h2>
+                        </div>
+                    </div>
+
+                    <div class="train-list">
+                        {% set trainings = [
+                            { name: 'extranet.page.trainings.operator'|trans, sub: 'extranet.page.trainings.operator_sub'|trans, level: 'extranet.page.trainings.operator_level'|trans },
+                            { name: 'extranet.page.trainings.maintenance'|trans, sub: 'extranet.page.trainings.maintenance_sub'|trans, level: 'extranet.page.trainings.maintenance_level'|trans },
+                            { name: 'extranet.page.trainings.expert'|trans, sub: 'extranet.page.trainings.expert_sub'|trans, level: 'extranet.page.trainings.expert_level'|trans }
+                        ] %}
+                        {% for tr in trainings %}
+                            <div class="train-row">
+                                <div class="train-ico">
+                                    <svg width="24" height="24" viewBox="0 0 16 16" fill="none"><path d="M8 2 1 5l7 3 7-3-7-3ZM3 7v4c0 1 2.2 2 5 2s5-1 5-2V7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                                </div>
+                                <div class="train-body">
+                                    <h3 class="train-name">{{ tr.name }}</h3>
+                                    <p class="train-sub">{{ tr.sub }}</p>
+                                </div>
+                                <span class="train-level">{{ tr.level }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="train-rail">
+                        <div class="fam-media" style="height:300px"><img src="{{ asset('images/training2.jpg') }}" alt=""></div>
+                        <div class="fam-media" style="height:300px"><img src="{{ asset('images/training.png') }}" alt=""></div>
+                    </div>
+                </div>
+            </div>
+
+            {# CTA #}
+            <div class="repairs-cta mt-5">
+                <div class="cta-text">
+                    <h3>{{ 'extranet.page.trainings.cta_title'|trans }}</h3>
+                    <p>{{ 'extranet.page.trainings.cta_sub'|trans }}</p>
+                </div>
+                <a class="btn-cta" href="{{ path('contact:index') }}?dept=sales">
+                    {{ 'extranet.page.trainings.cta_btn'|trans }}
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

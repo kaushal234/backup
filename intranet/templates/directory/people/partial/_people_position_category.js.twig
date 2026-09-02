@@ -1,0 +1,19 @@
+window.onload = function() {
+    const classifications = {{ classifications|json_encode|raw }}
+    const businessUnitSelectElement = document.querySelector('#people_businessUnit')
+    const positionSelectElement = document.querySelector('#people_position')
+    const categoryElement = document.querySelector('#people_positionCategory')
+
+    const action = function () {
+        const businessUnitClassifications = classifications.filter(classification => classification.businessUnit['@id'] === businessUnitSelectElement.value)
+        const classification = businessUnitClassifications.find(function (classification) {
+            return classification.positions.filter(position => position['@id'] === positionSelectElement.value).length > 0
+        })
+        categoryElement.value = !classification ? '' : classification.positionCategory.name
+    }
+
+    businessUnitSelectElement.onchange = action
+    positionSelectElement.onchange = action
+
+    action()
+}

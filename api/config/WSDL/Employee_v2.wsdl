@@ -1,0 +1,1575 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:bo="http://www.infor.com/businessinterface/Employee_v2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.infor.com/businessinterface/Employee_v2" name="Employee_v2">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.infor.com/businessinterface/Employee_v2">
+			<xsd:complexType name="ChangeRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="additionalTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="addressCode" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="birthDate" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="department" type="bo:tccwoc" minOccurs="0"/>
+											<xsd:element name="emailAddress" type="bo:bpmdm.info" minOccurs="0"/>
+											<xsd:element name="employeeCalendar" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+											<xsd:element name="employeeText" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="employeeType" type="bo:bpmdm.emtp" minOccurs="0"/>
+											<xsd:element name="familyName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fax" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="firstDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="fiscalIdentification" type="bo:bpmdm.finr" minOccurs="0"/>
+											<xsd:element name="foreman" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="fullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="gender" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="givenName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="hoursPerWeek" type="bo:tcwccu" minOccurs="0"/>
+											<xsd:element name="job" type="bo:tppdm.ctrg" minOccurs="0"/>
+											<xsd:element name="language" type="bo:tcclan" minOccurs="0"/>
+											<xsd:element name="lastDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="loginCode" type="bo:tclogn" minOccurs="0"/>
+											<xsd:element name="maritalStatus" type="bo:bpmdm.cist" minOccurs="0"/>
+											<xsd:element name="maxOvertimeHoursPerDay" type="bo:tsmdm.tmdu" minOccurs="0"/>
+											<xsd:element name="middleName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="mobileTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="searchKey" type="bo:tcseak" minOccurs="0"/>
+											<xsd:element name="serviceArea" type="bo:tsmdm.csar" minOccurs="0"/>
+											<xsd:element name="serviceCar" type="bo:tsmdm.ccar" minOccurs="0"/>
+											<xsd:element name="telephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="useInPlanningIndicator" type="bo:tppdm.yeno" minOccurs="0"/>
+											<xsd:element name="wageGroup" type="bo:tcppl.clrt" minOccurs="0"/>
+											<xsd:element name="workingTimeSchedule" type="bo:tcppl.wtsc" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="Skill" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="skill" type="bo:tcskll" minOccurs="1"/>
+														<xsd:element name="SkillBySerializedItem" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="serializedItemGroup" type="bo:tscfg.sigr" minOccurs="0"/>
+			<xsd:element name="skillFactor" type="bo:tsmdm.afct" minOccurs="0"/>
+	</xsd:sequence>
+	<xsd:attribute name="actionType" type="bo:actionType" use="optional" default="change"/>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+													<xsd:attribute name="actionType" type="bo:actionType" use="optional" default="change"/>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ChangeResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="additionalTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="addressCode" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="birthDate" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="department" type="bo:tccwoc" minOccurs="0"/>
+											<xsd:element name="emailAddress" type="bo:bpmdm.info" minOccurs="0"/>
+											<xsd:element name="employeeCalendar" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+											<xsd:element name="employeeText" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="employeeType" type="bo:bpmdm.emtp" minOccurs="0"/>
+											<xsd:element name="familyName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fax" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="firstDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="fiscalIdentification" type="bo:bpmdm.finr" minOccurs="0"/>
+											<xsd:element name="foreman" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="foremanFullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="gender" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="givenName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="hoursPerWeek" type="bo:tcwccu" minOccurs="0"/>
+											<xsd:element name="job" type="bo:tppdm.ctrg" minOccurs="0"/>
+											<xsd:element name="language" type="bo:tcclan" minOccurs="0"/>
+											<xsd:element name="lastDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="loginCode" type="bo:tclogn" minOccurs="0"/>
+											<xsd:element name="maritalStatus" type="bo:bpmdm.cist" minOccurs="0"/>
+											<xsd:element name="maxOvertimeHoursPerDay" type="bo:tsmdm.tmdu" minOccurs="0"/>
+											<xsd:element name="middleName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="mobileTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="searchKey" type="bo:tcseak" minOccurs="0"/>
+											<xsd:element name="serviceArea" type="bo:tsmdm.csar" minOccurs="0"/>
+											<xsd:element name="serviceCar" type="bo:tsmdm.ccar" minOccurs="0"/>
+											<xsd:element name="telephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="useInPlanningIndicator" type="bo:tppdm.yeno" minOccurs="0"/>
+											<xsd:element name="wageGroup" type="bo:tcppl.clrt" minOccurs="0"/>
+											<xsd:element name="workingTimeSchedule" type="bo:tcppl.wtsc" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="Skill" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="skill" type="bo:tcskll" minOccurs="1"/>
+														<xsd:element name="SkillBySerializedItem" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="serializedItemGroup" type="bo:tscfg.sigr" minOccurs="0"/>
+			<xsd:element name="skillFactor" type="bo:tsmdm.afct" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CreateRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="additionalTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="addressCode" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="birthDate" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="department" type="bo:tccwoc" minOccurs="0"/>
+											<xsd:element name="emailAddress" type="bo:bpmdm.info" minOccurs="0"/>
+											<xsd:element name="employeeCalendar" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+											<xsd:element name="employeeText" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="employeeType" type="bo:bpmdm.emtp" minOccurs="0"/>
+											<xsd:element name="familyName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fax" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="firstDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="fiscalIdentification" type="bo:bpmdm.finr" minOccurs="0"/>
+											<xsd:element name="foreman" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="fullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="gender" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="givenName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="hoursPerWeek" type="bo:tcwccu" minOccurs="0"/>
+											<xsd:element name="job" type="bo:tppdm.ctrg" minOccurs="0"/>
+											<xsd:element name="language" type="bo:tcclan" minOccurs="0"/>
+											<xsd:element name="lastDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="loginCode" type="bo:tclogn" minOccurs="0"/>
+											<xsd:element name="maritalStatus" type="bo:bpmdm.cist" minOccurs="0"/>
+											<xsd:element name="maxOvertimeHoursPerDay" type="bo:tsmdm.tmdu" minOccurs="0"/>
+											<xsd:element name="middleName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="mobileTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="searchKey" type="bo:tcseak" minOccurs="0"/>
+											<xsd:element name="serviceArea" type="bo:tsmdm.csar" minOccurs="0"/>
+											<xsd:element name="serviceCar" type="bo:tsmdm.ccar" minOccurs="0"/>
+											<xsd:element name="telephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="useInPlanningIndicator" type="bo:tppdm.yeno" minOccurs="0"/>
+											<xsd:element name="wageGroup" type="bo:tcppl.clrt" minOccurs="0"/>
+											<xsd:element name="workingTimeSchedule" type="bo:tcppl.wtsc" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="Skill" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="skill" type="bo:tcskll" minOccurs="1"/>
+														<xsd:element name="SkillBySerializedItem" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="serializedItemGroup" type="bo:tscfg.sigr" minOccurs="0"/>
+			<xsd:element name="skillFactor" type="bo:tsmdm.afct" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CreateResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="additionalTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="addressCode" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="birthDate" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="department" type="bo:tccwoc" minOccurs="0"/>
+											<xsd:element name="emailAddress" type="bo:bpmdm.info" minOccurs="0"/>
+											<xsd:element name="employeeCalendar" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+											<xsd:element name="employeeText" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="employeeType" type="bo:bpmdm.emtp" minOccurs="0"/>
+											<xsd:element name="familyName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fax" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="firstDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="fiscalIdentification" type="bo:bpmdm.finr" minOccurs="0"/>
+											<xsd:element name="foreman" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="foremanFullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="gender" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="givenName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="hoursPerWeek" type="bo:tcwccu" minOccurs="0"/>
+											<xsd:element name="job" type="bo:tppdm.ctrg" minOccurs="0"/>
+											<xsd:element name="language" type="bo:tcclan" minOccurs="0"/>
+											<xsd:element name="lastDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="loginCode" type="bo:tclogn" minOccurs="0"/>
+											<xsd:element name="maritalStatus" type="bo:bpmdm.cist" minOccurs="0"/>
+											<xsd:element name="maxOvertimeHoursPerDay" type="bo:tsmdm.tmdu" minOccurs="0"/>
+											<xsd:element name="middleName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="mobileTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="searchKey" type="bo:tcseak" minOccurs="0"/>
+											<xsd:element name="serviceArea" type="bo:tsmdm.csar" minOccurs="0"/>
+											<xsd:element name="serviceCar" type="bo:tsmdm.ccar" minOccurs="0"/>
+											<xsd:element name="telephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="useInPlanningIndicator" type="bo:tppdm.yeno" minOccurs="0"/>
+											<xsd:element name="wageGroup" type="bo:tcppl.clrt" minOccurs="0"/>
+											<xsd:element name="workingTimeSchedule" type="bo:tcppl.wtsc" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="Skill" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="skill" type="bo:tcskll" minOccurs="1"/>
+														<xsd:element name="SkillBySerializedItem" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="serializedItemGroup" type="bo:tscfg.sigr" minOccurs="0"/>
+			<xsd:element name="skillFactor" type="bo:tsmdm.afct" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CreateRefRequestType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CreateRefResponseType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="referenceID" type="xsd:string"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeleteRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeleteResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeleteRefRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="referenceID" type="xsd:string"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeleteRefResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ListRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="suppressDefaultLanguageBehavior" type="xsd:boolean" minOccurs="0"/>
+								<xsd:element name="maxNumberOfObjects" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorID" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorFetchSize" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="paging" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ListResponseType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="iteratorID" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorFetchSize" type="xsd:long" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="additionalTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="address" type="bo:tcnamc" minOccurs="0"/>
+											<xsd:element name="addressCode" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="addressName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="addressGpsLatitude" type="bo:tcglat" minOccurs="0"/>
+											<xsd:element name="addressGpsLongitude" type="bo:tcglon" minOccurs="0"/>
+											<xsd:element name="birthDate" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="cityDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="country" type="bo:tcccty" minOccurs="0"/>
+											<xsd:element name="department" type="bo:tccwoc" minOccurs="0"/>
+											<xsd:element name="departmentDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="emailAddress" type="bo:bpmdm.info" minOccurs="0"/>
+											<xsd:element name="employeeCalendar" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="employeeCalendarDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="employeeText" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="employeeType" type="bo:bpmdm.emtp" minOccurs="0"/>
+											<xsd:element name="familyName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fax" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="firstDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="fiscalIdentification" type="bo:bpmdm.finr" minOccurs="0"/>
+											<xsd:element name="foreman" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="foremanFullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="gender" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="givenName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="hoursPerWeek" type="bo:tcwccu" minOccurs="0"/>
+											<xsd:element name="houseNumber" type="bo:tccom.str10" minOccurs="0"/>
+											<xsd:element name="job" type="bo:tppdm.ctrg" minOccurs="0"/>
+											<xsd:element name="jobDescription" type="bo:tppdm.desc" minOccurs="0"/>
+											<xsd:element name="language" type="bo:tcclan" minOccurs="0"/>
+											<xsd:element name="languageDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="lastDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="loginCode" type="bo:tclogn" minOccurs="0"/>
+											<xsd:element name="maritalStatus" type="bo:bpmdm.cist" minOccurs="0"/>
+											<xsd:element name="maxOvertimeHoursPerDay" type="bo:tsmdm.tmdu" minOccurs="0"/>
+											<xsd:element name="middleName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="mobileTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="picture" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="UUID" type="xsd:string" minOccurs="0"/>
+														<xsd:element name="StandardUUID" type="xsd:string" minOccurs="0"/>
+														<xsd:element name="LastModificationDate" type="xsd:string" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="postalCode" type="bo:tcpstc" minOccurs="0"/>
+											<xsd:element name="searchKey" type="bo:tcseak" minOccurs="0"/>
+											<xsd:element name="serviceArea" type="bo:tsmdm.csar" minOccurs="0"/>
+											<xsd:element name="serviceAreaDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="serviceCar" type="bo:tsmdm.ccar" minOccurs="0"/>
+											<xsd:element name="serviceCarDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="serviceEmployeeCode" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="stateOrProvince" type="bo:tcmcs.cste" minOccurs="0"/>
+											<xsd:element name="streetName" type="bo:tcnamc" minOccurs="0"/>
+											<xsd:element name="telephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="useInPlanningIndicator" type="bo:tppdm.yeno" minOccurs="0"/>
+											<xsd:element name="wageGroup" type="bo:tcppl.clrt" minOccurs="0"/>
+											<xsd:element name="wageGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="workingTimeSchedule" type="bo:tcppl.wtsc" minOccurs="0"/>
+											<xsd:element name="workingTimeScheduleDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="manager" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="managerName" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="Skill" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="skill" type="bo:tcskll" minOccurs="0"/>
+														<xsd:element name="skillDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SkillBySerializedItem" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="serializedItemGroup" type="bo:tscfg.sigr" minOccurs="0"/>
+			<xsd:element name="serializedItemGroupDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+			<xsd:element name="skillFactor" type="bo:tsmdm.afct" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PublishChangesRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PublishChangesResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PublishListRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PublishListResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ShowRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="suppressDefaultLanguageBehavior" type="xsd:boolean" minOccurs="0"/>
+								<xsd:element name="createRef" type="xsd:boolean" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="1">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="1" maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ShowResponseType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="referenceID" type="xsd:string"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Employee_v2" minOccurs="0" maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="additionalTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="address" type="bo:tcnamc" minOccurs="0"/>
+											<xsd:element name="addressCode" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="addressName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="addressGpsLatitude" type="bo:tcglat" minOccurs="0"/>
+											<xsd:element name="addressGpsLongitude" type="bo:tcglon" minOccurs="0"/>
+											<xsd:element name="birthDate" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="cityDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="country" type="bo:tcccty" minOccurs="0"/>
+											<xsd:element name="department" type="bo:tccwoc" minOccurs="0"/>
+											<xsd:element name="departmentDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="emailAddress" type="bo:bpmdm.info" minOccurs="0"/>
+											<xsd:element name="employeeCalendar" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="employeeCalendarDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="employeeCode" type="bo:tcemno" minOccurs="1"/>
+											<xsd:element name="employeeText" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="employeeType" type="bo:bpmdm.emtp" minOccurs="0"/>
+											<xsd:element name="familyName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fax" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="firstDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="fiscalIdentification" type="bo:bpmdm.finr" minOccurs="0"/>
+											<xsd:element name="foreman" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="foremanFullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="fullName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="gender" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="givenName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="hoursPerWeek" type="bo:tcwccu" minOccurs="0"/>
+											<xsd:element name="houseNumber" type="bo:tccom.str10" minOccurs="0"/>
+											<xsd:element name="job" type="bo:tppdm.ctrg" minOccurs="0"/>
+											<xsd:element name="jobDescription" type="bo:tppdm.desc" minOccurs="0"/>
+											<xsd:element name="language" type="bo:tcclan" minOccurs="0"/>
+											<xsd:element name="languageDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="lastDateOfEmployment" type="xsd:date" nillable="true" minOccurs="0"/>
+											<xsd:element name="loginCode" type="bo:tclogn" minOccurs="0"/>
+											<xsd:element name="maritalStatus" type="bo:bpmdm.cist" minOccurs="0"/>
+											<xsd:element name="maxOvertimeHoursPerDay" type="bo:tsmdm.tmdu" minOccurs="0"/>
+											<xsd:element name="middleName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="mobileTelephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="picture" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="UUID" type="xsd:string" minOccurs="0"/>
+														<xsd:element name="StandardUUID" type="xsd:string" minOccurs="0"/>
+														<xsd:element name="LastModificationDate" type="xsd:string" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="postalCode" type="bo:tcpstc" minOccurs="0"/>
+											<xsd:element name="searchKey" type="bo:tcseak" minOccurs="0"/>
+											<xsd:element name="serviceArea" type="bo:tsmdm.csar" minOccurs="0"/>
+											<xsd:element name="serviceAreaDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="serviceCar" type="bo:tsmdm.ccar" minOccurs="0"/>
+											<xsd:element name="serviceCarDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="serviceEmployeeCode" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="stateOrProvince" type="bo:tcmcs.cste" minOccurs="0"/>
+											<xsd:element name="streetName" type="bo:tcnamc" minOccurs="0"/>
+											<xsd:element name="telephoneNumber" type="bo:bpmdm.telp" minOccurs="0"/>
+											<xsd:element name="useInPlanningIndicator" type="bo:tppdm.yeno" minOccurs="0"/>
+											<xsd:element name="wageGroup" type="bo:tcppl.clrt" minOccurs="0"/>
+											<xsd:element name="wageGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="workingTimeSchedule" type="bo:tcppl.wtsc" minOccurs="0"/>
+											<xsd:element name="workingTimeScheduleDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="manager" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="managerName" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tcmcs.st15" minOccurs="0"/>
+											<xsd:element name="Skill" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="skill" type="bo:tcskll" minOccurs="0"/>
+														<xsd:element name="SkillBySerializedItem" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="serializedItemGroup" type="bo:tscfg.sigr" minOccurs="0"/>
+			<xsd:element name="skillFactor" type="bo:tsmdm.afct" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="UnpublishChangesRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="UnpublishChangesResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="SubscribeEventRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="eventAction" minOccurs="0" maxOccurs="unbounded">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="50"/>
+											<xsd:pattern value="[a-zA-Z][\w_\.]*"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="eventConsumer" minOccurs="1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="50"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="destination" minOccurs="0" maxOccurs="1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="256"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="SubscribeEventResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="UnSubscribeEventRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="UnSubscribeEventResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="SubscribeListRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="maxNumberOfObjects" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="eventBatchSize" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="eventConsumer" minOccurs="1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="50"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="destination" minOccurs="0" maxOccurs="1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="256"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="SubscribeListResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ActivationType">
+				<xsd:sequence>
+					<xsd:element name="username" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="password" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="company" type="xsd:int" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="Activation" type="bo:ActivationType"/>
+			<xsd:element name="Result" type="bo:Message"/>
+			<xsd:complexType name="InformationArea">
+				<xsd:sequence>
+					<xsd:element name="Message" maxOccurs="unbounded" type="bo:InformationMessage"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Message">
+				<xsd:sequence>
+					<xsd:element name="messageIndex" type="xsd:integer" minOccurs="0"/>
+					<xsd:element name="messageCode" type="xsd:string"/>
+					<xsd:element name="messageType">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="Error"/>
+								<xsd:enumeration value="Warning"/>
+								<xsd:enumeration value="Information"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="messageText" type="xsd:string"/>
+					<xsd:element name="messageSource" type="xsd:string"/>
+					<xsd:element name="MessageDetails" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Message" maxOccurs="unbounded" type="bo:DetailMessage"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="messageCorrectiveAction" type="xsd:string" minOccurs="0"/>
+					<xsd:choice>
+						<xsd:element name="messageAdditionalHelpText" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="messageAdditionalHelpURI" type="xsd:anyURI" minOccurs="0"/>
+					</xsd:choice>
+					<xsd:element name="MessageReference" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="messageReferenceType" type="xsd:string"/>
+								<xsd:element name="messageReferenceInfo" type="xsd:anyType"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DetailMessage">
+				<xsd:complexContent>
+					<xsd:extension base="bo:Message">
+						<xsd:attribute name="ID" type="xsd:ID" use="optional"/>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="InformationMessage">
+				<xsd:complexContent>
+					<xsd:extension base="bo:Message">
+						<xsd:attribute name="ID" type="xsd:ID" use="required"/>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="FilterType">
+				<xsd:choice>
+					<xsd:element name="LogicalExpression" type="bo:LogicalExpressionType"/>
+					<xsd:element name="ComparisonExpression" type="bo:ComparisonExpressionType"/>
+				</xsd:choice>
+			</xsd:complexType>
+			<xsd:complexType name="LogicalExpressionType">
+				<xsd:sequence>
+					<xsd:element name="logicalOperator">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="or"/>
+								<xsd:enumeration value="and"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:choice minOccurs="2" maxOccurs="unbounded">
+						<xsd:element maxOccurs="unbounded" name="LogicalExpression" type="bo:LogicalExpressionType"/>
+						<xsd:element maxOccurs="unbounded" name="ComparisonExpression" type="bo:ComparisonExpressionType"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ComparisonExpressionType">
+				<xsd:sequence>
+					<xsd:element name="comparisonOperator">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="le"/>
+								<xsd:enumeration value="lt"/>
+								<xsd:enumeration value="ge"/>
+								<xsd:enumeration value="gt"/>
+								<xsd:enumeration value="ne"/>
+								<xsd:enumeration value="eq"/>
+								<xsd:enumeration value="like"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:choice minOccurs="2" maxOccurs="2">
+						<xsd:element name="attributeName" type="bo:filterAttributeListDT"/>
+						<xsd:element name="emptyValue" type="bo:EmptyValueType"/>
+						<xsd:element name="instanceValue" type="xsd:string"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="EmptyValueType"/>
+			<xsd:simpleType name="filterAttributeListDT">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Employee_v2.additionalTelephoneNumber"/>
+					<xsd:enumeration value="Employee_v2.address"/>
+					<xsd:enumeration value="Employee_v2.addressCode"/>
+					<xsd:enumeration value="Employee_v2.addressName"/>
+					<xsd:enumeration value="Employee_v2.addressGpsLatitude"/>
+					<xsd:enumeration value="Employee_v2.addressGpsLongitude"/>
+					<xsd:enumeration value="Employee_v2.birthDate"/>
+					<xsd:enumeration value="Employee_v2.cityDescription"/>
+					<xsd:enumeration value="Employee_v2.country"/>
+					<xsd:enumeration value="Employee_v2.department"/>
+					<xsd:enumeration value="Employee_v2.departmentDescription"/>
+					<xsd:enumeration value="Employee_v2.emailAddress"/>
+					<xsd:enumeration value="Employee_v2.employeeCalendar"/>
+					<xsd:enumeration value="Employee_v2.employeeCalendarDescription"/>
+					<xsd:enumeration value="Employee_v2.employeeCode"/>
+					<xsd:enumeration value="Employee_v2.employeeText"/>
+					<xsd:enumeration value="Employee_v2.employeeType"/>
+					<xsd:enumeration value="Employee_v2.familyName"/>
+					<xsd:enumeration value="Employee_v2.fax"/>
+					<xsd:enumeration value="Employee_v2.firstDateOfEmployment"/>
+					<xsd:enumeration value="Employee_v2.fiscalIdentification"/>
+					<xsd:enumeration value="Employee_v2.foreman"/>
+					<xsd:enumeration value="Employee_v2.foremanFullName"/>
+					<xsd:enumeration value="Employee_v2.fullName"/>
+					<xsd:enumeration value="Employee_v2.gender"/>
+					<xsd:enumeration value="Employee_v2.givenName"/>
+					<xsd:enumeration value="Employee_v2.hoursPerWeek"/>
+					<xsd:enumeration value="Employee_v2.houseNumber"/>
+					<xsd:enumeration value="Employee_v2.job"/>
+					<xsd:enumeration value="Employee_v2.jobDescription"/>
+					<xsd:enumeration value="Employee_v2.language"/>
+					<xsd:enumeration value="Employee_v2.languageDescription"/>
+					<xsd:enumeration value="Employee_v2.lastDateOfEmployment"/>
+					<xsd:enumeration value="Employee_v2.loginCode"/>
+					<xsd:enumeration value="Employee_v2.maritalStatus"/>
+					<xsd:enumeration value="Employee_v2.maxOvertimeHoursPerDay"/>
+					<xsd:enumeration value="Employee_v2.middleName"/>
+					<xsd:enumeration value="Employee_v2.mobileTelephoneNumber"/>
+					<xsd:enumeration value="Employee_v2.picture.UUID"/>
+					<xsd:enumeration value="Employee_v2.picture.StandardUUID"/>
+					<xsd:enumeration value="Employee_v2.picture.LastModificationDate"/>
+					<xsd:enumeration value="Employee_v2.postalCode"/>
+					<xsd:enumeration value="Employee_v2.searchKey"/>
+					<xsd:enumeration value="Employee_v2.serviceArea"/>
+					<xsd:enumeration value="Employee_v2.serviceAreaDescription"/>
+					<xsd:enumeration value="Employee_v2.serviceCar"/>
+					<xsd:enumeration value="Employee_v2.serviceCarDescription"/>
+					<xsd:enumeration value="Employee_v2.serviceEmployeeCode"/>
+					<xsd:enumeration value="Employee_v2.stateOrProvince"/>
+					<xsd:enumeration value="Employee_v2.streetName"/>
+					<xsd:enumeration value="Employee_v2.telephoneNumber"/>
+					<xsd:enumeration value="Employee_v2.useInPlanningIndicator"/>
+					<xsd:enumeration value="Employee_v2.wageGroup"/>
+					<xsd:enumeration value="Employee_v2.wageGroupDescription"/>
+					<xsd:enumeration value="Employee_v2.workingTimeSchedule"/>
+					<xsd:enumeration value="Employee_v2.workingTimeScheduleDescription"/>
+					<xsd:enumeration value="Employee_v2.manager"/>
+					<xsd:enumeration value="Employee_v2.managerName"/>
+					<xsd:enumeration value="Employee_v2.UserArea"/>
+					<xsd:enumeration value="Employee_v2.costComponent"/>
+					<xsd:enumeration value="Employee_v2.Skill.skill"/>
+					<xsd:enumeration value="Employee_v2.Skill.skillDescription"/>
+					<xsd:enumeration value="Employee_v2.Skill.UserArea"/>
+					<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.serializedItemGroup"/>
+					<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.serializedItemGroupDescription"/>
+					<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.skillFactor"/>
+					<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.UserArea"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="SelectionType">
+				<xsd:sequence>
+					<xsd:element name="selectionAttribute" maxOccurs="unbounded">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="*"/>
+								<xsd:enumeration value="Employee_v2.*"/>
+								<xsd:enumeration value="Employee_v2.additionalTelephoneNumber"/>
+								<xsd:enumeration value="Employee_v2.address"/>
+								<xsd:enumeration value="Employee_v2.addressCode"/>
+								<xsd:enumeration value="Employee_v2.addressName"/>
+								<xsd:enumeration value="Employee_v2.addressGpsLatitude"/>
+								<xsd:enumeration value="Employee_v2.addressGpsLongitude"/>
+								<xsd:enumeration value="Employee_v2.birthDate"/>
+								<xsd:enumeration value="Employee_v2.cityDescription"/>
+								<xsd:enumeration value="Employee_v2.country"/>
+								<xsd:enumeration value="Employee_v2.department"/>
+								<xsd:enumeration value="Employee_v2.departmentDescription"/>
+								<xsd:enumeration value="Employee_v2.emailAddress"/>
+								<xsd:enumeration value="Employee_v2.employeeCalendar"/>
+								<xsd:enumeration value="Employee_v2.employeeCalendarDescription"/>
+								<xsd:enumeration value="Employee_v2.employeeCode"/>
+								<xsd:enumeration value="Employee_v2.employeeText"/>
+								<xsd:enumeration value="Employee_v2.employeeType"/>
+								<xsd:enumeration value="Employee_v2.familyName"/>
+								<xsd:enumeration value="Employee_v2.fax"/>
+								<xsd:enumeration value="Employee_v2.firstDateOfEmployment"/>
+								<xsd:enumeration value="Employee_v2.fiscalIdentification"/>
+								<xsd:enumeration value="Employee_v2.foreman"/>
+								<xsd:enumeration value="Employee_v2.foremanFullName"/>
+								<xsd:enumeration value="Employee_v2.fullName"/>
+								<xsd:enumeration value="Employee_v2.gender"/>
+								<xsd:enumeration value="Employee_v2.givenName"/>
+								<xsd:enumeration value="Employee_v2.hoursPerWeek"/>
+								<xsd:enumeration value="Employee_v2.houseNumber"/>
+								<xsd:enumeration value="Employee_v2.job"/>
+								<xsd:enumeration value="Employee_v2.jobDescription"/>
+								<xsd:enumeration value="Employee_v2.language"/>
+								<xsd:enumeration value="Employee_v2.languageDescription"/>
+								<xsd:enumeration value="Employee_v2.lastDateOfEmployment"/>
+								<xsd:enumeration value="Employee_v2.loginCode"/>
+								<xsd:enumeration value="Employee_v2.maritalStatus"/>
+								<xsd:enumeration value="Employee_v2.maxOvertimeHoursPerDay"/>
+								<xsd:enumeration value="Employee_v2.middleName"/>
+								<xsd:enumeration value="Employee_v2.mobileTelephoneNumber"/>
+								<xsd:enumeration value="Employee_v2.picture.*"/>
+								<xsd:enumeration value="Employee_v2.picture.UUID"/>
+								<xsd:enumeration value="Employee_v2.picture.StandardUUID"/>
+								<xsd:enumeration value="Employee_v2.picture.LastModificationDate"/>
+								<xsd:enumeration value="Employee_v2.postalCode"/>
+								<xsd:enumeration value="Employee_v2.searchKey"/>
+								<xsd:enumeration value="Employee_v2.serviceArea"/>
+								<xsd:enumeration value="Employee_v2.serviceAreaDescription"/>
+								<xsd:enumeration value="Employee_v2.serviceCar"/>
+								<xsd:enumeration value="Employee_v2.serviceCarDescription"/>
+								<xsd:enumeration value="Employee_v2.serviceEmployeeCode"/>
+								<xsd:enumeration value="Employee_v2.stateOrProvince"/>
+								<xsd:enumeration value="Employee_v2.streetName"/>
+								<xsd:enumeration value="Employee_v2.telephoneNumber"/>
+								<xsd:enumeration value="Employee_v2.useInPlanningIndicator"/>
+								<xsd:enumeration value="Employee_v2.wageGroup"/>
+								<xsd:enumeration value="Employee_v2.wageGroupDescription"/>
+								<xsd:enumeration value="Employee_v2.workingTimeSchedule"/>
+								<xsd:enumeration value="Employee_v2.workingTimeScheduleDescription"/>
+								<xsd:enumeration value="Employee_v2.manager"/>
+								<xsd:enumeration value="Employee_v2.managerName"/>
+								<xsd:enumeration value="Employee_v2.UserArea"/>
+								<xsd:enumeration value="Employee_v2.costComponent"/>
+								<xsd:enumeration value="Employee_v2.Skill.*"/>
+								<xsd:enumeration value="Employee_v2.Skill.skill"/>
+								<xsd:enumeration value="Employee_v2.Skill.skillDescription"/>
+								<xsd:enumeration value="Employee_v2.Skill.UserArea"/>
+								<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.*"/>
+								<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.serializedItemGroup"/>
+								<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.serializedItemGroupDescription"/>
+								<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.skillFactor"/>
+								<xsd:enumeration value="Employee_v2.Skill.SkillBySerializedItem.UserArea"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="processingScope">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="not_applicable"/>
+					<xsd:enumeration value="request"/>
+					<xsd:enumeration value="business_entity"/>
+					<xsd:enumeration value="business_entity_component"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="actionType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="create"/>
+					<xsd:enumeration value="createOrChange"/>
+					<xsd:enumeration value="change"/>
+					<xsd:enumeration value="delete"/>
+					<xsd:enumeration value="unchanged"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="bpmdm.telp">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="15"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccom.cadr">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccwoc">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="bpmdm.info">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.st15">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="15"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcemno">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:minLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="bpmdm.emtp">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="external"/>
+					<xsd:enumeration value="internal"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcnama">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="140"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="bpmdm.finr">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="16"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcwccu">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="5"/>
+					<xsd:fractionDigits value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tppdm.ctrg">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcclan">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:minLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tclogn">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="16"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="bpmdm.cist">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="15"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.tmdu">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="8"/>
+					<xsd:fractionDigits value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcseak">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="64"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.csar">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.ccar">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tppdm.yeno">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="no"/>
+					<xsd:enumeration value="yes"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcppl.clrt">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcppl.wtsc">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcskll">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="4"/>
+					<xsd:minLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tscfg.sigr">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.afct">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="3"/>
+					<xsd:fractionDigits value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcnamc">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcglat">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="8"/>
+					<xsd:fractionDigits value="6"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcglon">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="9"/>
+					<xsd:fractionDigits value="6"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcdsca">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcccty">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccom.str10">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tppdm.desc">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcpstc">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.dsca">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.cste">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ChangeRequest">
+		<wsdl:part name="ChangeRequest" type="bo:ChangeRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="ChangeResponse">
+		<wsdl:part name="ChangeResponse" type="bo:ChangeResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRequest">
+		<wsdl:part name="CreateRequest" type="bo:CreateRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="CreateResponse">
+		<wsdl:part name="CreateResponse" type="bo:CreateResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRefRequest">
+		<wsdl:part name="CreateRefRequest" type="bo:CreateRefRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRefResponse">
+		<wsdl:part name="CreateRefResponse" type="bo:CreateRefResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRequest">
+		<wsdl:part name="DeleteRequest" type="bo:DeleteRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteResponse">
+		<wsdl:part name="DeleteResponse" type="bo:DeleteResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRefRequest">
+		<wsdl:part name="DeleteRefRequest" type="bo:DeleteRefRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRefResponse">
+		<wsdl:part name="DeleteRefResponse" type="bo:DeleteRefResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="ListRequest">
+		<wsdl:part name="ListRequest" type="bo:ListRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="ListResponse">
+		<wsdl:part name="ListResponse" type="bo:ListResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="PublishChangesRequest">
+		<wsdl:part name="PublishChangesRequest" type="bo:PublishChangesRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="PublishChangesResponse">
+		<wsdl:part name="PublishChangesResponse" type="bo:PublishChangesResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="PublishListRequest">
+		<wsdl:part name="PublishListRequest" type="bo:PublishListRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="PublishListResponse">
+		<wsdl:part name="PublishListResponse" type="bo:PublishListResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="ShowRequest">
+		<wsdl:part name="ShowRequest" type="bo:ShowRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="ShowResponse">
+		<wsdl:part name="ShowResponse" type="bo:ShowResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="UnpublishChangesRequest">
+		<wsdl:part name="UnpublishChangesRequest" type="bo:UnpublishChangesRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="UnpublishChangesResponse">
+		<wsdl:part name="UnpublishChangesResponse" type="bo:UnpublishChangesResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="SubscribeEventRequest">
+		<wsdl:part name="SubscribeEventRequest" type="bo:SubscribeEventRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="SubscribeEventResponse">
+		<wsdl:part name="SubscribeEventResponse" type="bo:SubscribeEventResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="UnSubscribeEventRequest">
+		<wsdl:part name="UnSubscribeEventRequest" type="bo:UnSubscribeEventRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="UnSubscribeEventResponse">
+		<wsdl:part name="UnSubscribeEventResponse" type="bo:UnSubscribeEventResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="SubscribeListRequest">
+		<wsdl:part name="SubscribeListRequest" type="bo:SubscribeListRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="SubscribeListResponse">
+		<wsdl:part name="SubscribeListResponse" type="bo:SubscribeListResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="Result">
+		<wsdl:part name="Result" element="bo:Result"/>
+	</wsdl:message>
+	<wsdl:message name="Header">
+		<wsdl:part name="Activation" element="bo:Activation"/>
+	</wsdl:message>
+	<wsdl:portType name="Employee_v2">
+		<wsdl:operation name="Change">
+			<wsdl:input message="bo:ChangeRequest"/>
+			<wsdl:output message="bo:ChangeResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="Create">
+			<wsdl:input message="bo:CreateRequest"/>
+			<wsdl:output message="bo:CreateResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="CreateRef">
+			<wsdl:input message="bo:CreateRefRequest"/>
+			<wsdl:output message="bo:CreateRefResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="Delete">
+			<wsdl:input message="bo:DeleteRequest"/>
+			<wsdl:output message="bo:DeleteResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteRef">
+			<wsdl:input message="bo:DeleteRefRequest"/>
+			<wsdl:output message="bo:DeleteRefResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="List">
+			<wsdl:input message="bo:ListRequest"/>
+			<wsdl:output message="bo:ListResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="PublishChanges">
+			<wsdl:input message="bo:PublishChangesRequest"/>
+			<wsdl:output message="bo:PublishChangesResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="PublishList">
+			<wsdl:input message="bo:PublishListRequest"/>
+			<wsdl:output message="bo:PublishListResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="Show">
+			<wsdl:input message="bo:ShowRequest"/>
+			<wsdl:output message="bo:ShowResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="UnpublishChanges">
+			<wsdl:input message="bo:UnpublishChangesRequest"/>
+			<wsdl:output message="bo:UnpublishChangesResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="SubscribeEvent">
+			<wsdl:input message="bo:SubscribeEventRequest"/>
+			<wsdl:output message="bo:SubscribeEventResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="UnSubscribeEvent">
+			<wsdl:input message="bo:UnSubscribeEventRequest"/>
+			<wsdl:output message="bo:UnSubscribeEventResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="SubscribeList">
+			<wsdl:input message="bo:SubscribeListRequest"/>
+			<wsdl:output message="bo:SubscribeListResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Employee_v2SoapBinding" type="bo:Employee_v2">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="Change">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="Create">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="CreateRef">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="Delete">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteRef">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="List">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="PublishChanges">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="PublishList">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="Show">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="UnpublishChanges">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="SubscribeEvent">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="UnSubscribeEvent">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="SubscribeList">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Employee_v2"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Employee_v2Service">
+		<wsdl:port name="Employee_v2SoapPort" binding="bo:Employee_v2SoapBinding">
+			<soap:address location="https://mingle-ionapi.eu1.inforcloudsuite.com/TLD_TST/LN/c4ws/services/Employee_v2/%7BContext%7D"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

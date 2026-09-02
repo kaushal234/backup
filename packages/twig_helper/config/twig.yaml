@@ -1,0 +1,37 @@
+services:
+  alvest.twig_helper.twig.extension.external_url:
+    class: Alvest\TwigHelper\Twig\Extension\ExternalUrlExtension
+    public: false
+    tags:
+      - { name: 'twig.extension' }
+    arguments:
+      - '@router'
+      - '@router.request_context'
+
+  alvest.twig_helper.twig.extension.filters:
+    class: Alvest\TwigHelper\Twig\Extension\FiltersExtension
+    public: false
+    tags:
+      - { name: 'twig.extension' }
+    arguments:
+      - '@filesystem'
+
+  alvest.twig_helper.twig.extension.nested_properties:
+    class: Alvest\TwigHelper\Twig\Extension\NestedPropertiesExtension
+    public: false
+    tags:
+      - { name: 'twig.extension' }
+    arguments:
+      - '@property_accessor'
+
+  alvest.twig_helper.twig.extension.matrix:
+    class: Alvest\TwigHelper\Twig\Extension\MatrixExtension
+    public: false
+    tags:
+      - { name: 'twig.extension' }
+
+  alvest.twig_helper.twig.extension.concat:
+    class: Alvest\TwigHelper\Twig\Extension\ConcatExtension
+    public: false
+    tags:
+      - { name: 'twig.extension' }

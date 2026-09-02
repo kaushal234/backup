@@ -1,0 +1,101 @@
+App\Entity\Quality\CalibratedTools\CalibrationLog:
+  # /quality/calibrated_tools/calibration_logs/1
+  log_first:
+    id: 1
+    tool: "@first_tool"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <dateTimeBetween('+30 days', '+60 days')>
+    calibrationDate: <(new DateTime("30 days ago"))>
+    outOfToleranceForm: "@otf_first"
+   # /quality/calibrated_tools/calibration_logs/2
+  log_second:
+    id: 2
+    tool: "@second_tool"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <dateTimeBetween('+30 days', '+60 days')>
+    calibrationDate: <(new DateTime("30 days ago"))>
+    outOfToleranceForm: "@otf_second"
+
+   # /quality/calibrated_tools/calibration_logs/3..13
+  log_{0..10}:
+    id: <($current + 3)>
+    tool: "@tool_<current()>"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <dateTimeBetween('+30 days', '+60 days')>
+    calibrationDate: <(new DateTime("30 days ago"))>
+    outOfToleranceForm: "@otf_<current()>"
+
+   # /quality/calibrated_tools/calibration_logs/14
+  log_fixed:
+    id: 14
+    tool: "@fixed_tool"
+    startDate: <(new DateTime("31 days ago"))>
+    endDate: <(new DateTime("29 days ago"))>
+    calibrationDate: <(new DateTime("30 days ago"))>
+    outOfToleranceForm: "@otf_fixed"
+
+   # /quality/calibrated_tools/calibration_logs/15
+  log_tool_command_test_1:
+    id: 15
+    tool: "@active_tool_for_command"
+    startDate: <(new DateTime("31 days ago"))>
+    endDate: <(new DateTime("29 days ago"))>
+    calibrationDate: <(new DateTime("30 days ago"))>
+
+   # /quality/calibrated_tools/calibration_logs/16
+  log_tool_command_test_2:
+    id: 16
+    tool: "@calibration_due_soon_tool_for_command"
+    startDate: <(new DateTime("31 days ago"))>
+    endDate: <(new DateTime("29 days ago"))>
+    calibrationDate: <(new DateTime("30 days ago"))>
+
+   # /quality/calibrated_tools/calibration_logs/17..19
+  log_expired_{1..3}:
+    id: <($current + 16)>
+    tool: "@expired_tool_<current()>"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <dateTimeBetween('+30 days', '+60 days')>
+    calibrationDate: <(new DateTime("30 days ago"))>
+    outOfToleranceForm: "@otf_expired_<current()>"
+
+ # /quality/calibrated_tools/calibration_logs/20
+  log_tool_calibration_due_soon:
+    id: 20
+    tool: "@calibration_due_soon_to_under_calibration"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <dateTimeBetween('+30 days', '+60 days')>
+    calibrationDate: <(new DateTime("30 days ago"))>
+
+   # /quality/calibrated_tools/calibration_logs/21
+  log_tool_active:
+    id: 21
+    tool: "@active_tool_to_under_calibration"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <dateTimeBetween('+30 days', '+60 days')>
+    calibrationDate: <(new DateTime("30 days ago"))>
+
+ # /quality/calibrated_tools/calibration_logs/22
+  log_tool_out_of_tolerance:
+    id: 22
+    tool: "@out_of_service_tool_to_under_calibration"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <dateTimeBetween('+30 days', '+60 days')>
+    calibrationDate: <(new DateTime("30 days ago"))>
+    outOfToleranceForm: "@otf_out_of_tolerance"
+
+   # /quality/calibrated_tools/calibration_logs/23
+  log_1_post_out_tolerance_form:
+    id: 23
+    tool: "@tool_post_out_tolerance_form"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <dateTimeBetween('+30 days', '+60 days')>
+    calibrationDate: <(new DateTime("30 days ago"))>
+
+   # /quality/calibrated_tools/calibration_logs/24
+  log_2_post_out_tolerance_form:
+    id: 24
+    tool: "@tool_post_out_tolerance_form"
+    startDate: <dateTimeBetween('-30 days', '+30 days')>
+    endDate: <(new DateTime())>
+    calibrationDate: <(new DateTime("30 days ago"))>

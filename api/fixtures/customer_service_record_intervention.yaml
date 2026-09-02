@@ -1,0 +1,81 @@
+App\Entity\Service\CustomerServiceRecord\Intervention:
+    # /service/interventions/1
+    intervention_1:
+        id: 1
+        customerServiceRecord: "@csr_2"
+        leader: '@user_ast'
+        operators: ['@user_superuser']
+        plannedAt: <(new \DateTime('yesterday'))>
+        startedAt: <(new \DateTime('yesterday'))>
+    # /service/interventions/2
+    intervention_2:
+        id: 2
+        customerServiceRecord: "@csr_5"
+        leader: '@user_ast'
+        plannedAt: <(new \DateTime('2025-07-01'))>
+        startedAt: <(new \DateTime('2025-07-01'))>
+    # /service/interventions/3
+    intervention_3:
+        id: 3
+        customerServiceRecord: "@csr_7"
+        leader: '@user_ast'
+        plannedAt: <(new \DateTime('yesterday'))>
+        startedAt: <(new \DateTime('yesterday'))>
+        endedAt: <(new \DateTime('yesterday'))>
+        status: SOLVED
+    # /service/interventions/4
+    intervention_4:
+        id: 4
+        customerServiceRecord: "@csr_9"
+        leader: '@user_ast'
+        plannedAt: <(new \DateTime('yesterday'))>
+        status: PENDING
+    # /service/interventions/5
+    intervention_5:
+        id: 5
+        customerServiceRecord: "@csr_10"
+        leader: '@user_ast'
+        plannedAt: <(new \DateTime('yesterday'))>
+        startedAt: <(new \DateTime('yesterday'))>
+        endedAt: <(new \DateTime('yesterday'))>
+        status: SOLVED
+    # /service/interventions/6
+    intervention_6:
+        id: 6
+        customerServiceRecord: "@csr_11"
+        leader: '@user_ast'
+        plannedAt: <(new \DateTime('yesterday'))>
+        status: PENDING
+    # /service/interventions/7
+    intervention_7:
+        id: 7
+        customerServiceRecord: "@csr_12"
+        leader: '@user_ast'
+        plannedAt: <(new \DateTime('yesterday'))>
+        startedAt: <(new \DateTime('yesterday'))>
+        endedAt: <(new \DateTime('yesterday'))>
+        status: SOLVED
+    # /service/interventions/8
+    intervention_8:
+        id: 8
+        customerServiceRecord: "@csr_13"
+        leader: '@user_ast'
+        plannedAt: <(new \DateTime('yesterday'))>
+        status: PENDING
+    # /service/interventions/9
+    intervention_9:
+        id: 9
+        customerServiceRecord: "@csr_15"
+        leader: '@user_ast'
+        plannedAt: <( new \DateTime('2025-07-04'))>
+        startedAt: <( new \DateTime('2025-07-04'))>
+        endedAt: <( new \DateTime('2025-07-04'))>
+        status: SOLVED
+    # /service/interventions/10
+    intervention_10:
+        id: 10
+        customerServiceRecord: "@csr_16"
+        leader: '@user_ast'
+        plannedAt: <( new \DateTime('2025-07-04'))>
+        startedAt: <( new \DateTime('2025-07-04'))>
+        status: STARTED

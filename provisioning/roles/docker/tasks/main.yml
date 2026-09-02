@@ -1,0 +1,99 @@
+- name: Remove conflicting Docker packages
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - docker-compose
+      - docker-compose-v2
+      - docker-doc
+      - podman-docker
+      - containerd
+      - runc
+    state: absent
+    purge: true
+    autoremove: true
+  ignore_errors: true
+
+- name: Install Docker prerequisites
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - python3
+    state: present
+    update_cache: true
+
+- name: Create apt keyrings directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Download Docker GPG key
+  ansible.builtin.get_url:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+    force: true
+
+- name: Add Docker apt repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [arch={{ docker.arch }} signed-by=/etc/apt/keyrings/docker.asc]
+      https://download.docker.com/linux/ubuntu
+      {{ ansible_distribution_release }} stable
+    filename: docker
+    state: present
+
+
+- name: Install Docker Engine and Compose plugin
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+
+- name: Install Docker SDK for Python
+  ansible.builtin.apt:
+    name: python3-docker
+    state: present
+  when: docker.install_python_sdk | bool
+
+- name: Ensure docker group exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Add deployer user to docker group
+  ansible.builtin.user:
+    name: deployer
+    groups: docker
+    append: true
+
+- name: Enable and start docker
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Enable and start containerd
+  ansible.builtin.service:
+    name: containerd
+    state: started
+    enabled: true
+
+- name: Check docker version
+  ansible.builtin.command: docker --version
+  register: docker_version
+  changed_when: false
+
+- name: Check docker compose version
+  ansible.builtin.command: docker compose version
+  register: docker_compose_version
+  changed_when: false

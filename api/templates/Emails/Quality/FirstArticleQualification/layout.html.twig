@@ -1,0 +1,26 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            {% block customized %}
+            {% endblock customized %}
+            <center>
+                <button class="tld-link-button"
+                        href="{{ url('first_article_qualification_show', {'id': firstArticleQualification_normalized.id}) }}">
+                    {{ 'first_article_qualification.link' | trans({'%faqId%': firstArticleQualification_normalized.id, })  }}
+                </button>
+            </center>
+        </columns>
+    </row>
+
+    {{ include('Emails/Quality/FirstArticleQualification/Partial/_faq_information.html.twig', {
+        firstArticleQualification_normalized: firstArticleQualification_normalized,
+    }) }}
+
+{% endblock %}

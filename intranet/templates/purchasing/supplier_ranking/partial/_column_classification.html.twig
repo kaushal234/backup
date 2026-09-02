@@ -1,0 +1,9 @@
+{% if value %}
+        {% if value.color %}
+                <small class="label" style="background-color: #{{ value.color }}; color: #FFF;">{{ value.name }}</small>
+        {% else %}
+                <small class="label label-default">{{ value.name }}</small>
+        {% endif %}
+{% else %}
+        <span style="color: #b1c0ce;">N/A</span>
+{% endif %}

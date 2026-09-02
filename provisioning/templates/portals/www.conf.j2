@@ -1,0 +1,52 @@
+{{ ansible_managed | comment(decoration='; ') }}
+
+[{{ item.pool_name | mandatory }}]
+listen = {{ item.pool_listen | mandatory }}
+listen.allowed_clients = {{ item.pool_listen_allowed_clients | default('127.0.0.1', true) }}
+user = {{ php_fpm_pool_user }}
+group = {{ php_fpm_pool_group }}
+
+php_value[memory_limit] = 2048M
+
+listen.owner = {{ php_fpm_pool_user }}
+listen.group = {{ php_fpm_pool_group }}
+
+pm = {{ item.pool_pm | default('dynamic', true) }}
+pm.max_children = {{ item.pool_pm_max_children | default(50, true) }}
+pm.start_servers = {{ item.pool_pm_start_servers | default(5, true) }}
+pm.min_spare_servers = {{ item.pool_pm_min_spare_servers | default(5, true) }}
+pm.max_spare_servers = {{ item.pool_pm_max_spare_servers | default(5, true) }}
+pm.max_requests = {{ item.pool_pm_max_requests | default(500, true) }}
+pm.status_path = /fpm-status
+
+env["APP_ENV"]=prod
+env["APP_SECRET"]={{ app.secret }}
+env["API_URL"]=https://{{ alvest_api_url }}
+env["API_URI"]=https://{{ alvest_api_url }}
+env["API_AUTHORIZED_APP_TOKEN"]={{ authorized_application.pio }}
+env["WEBPACK_API_URI"]=https://{{ alvest_api_url }}
+env["POWERBI_URL"]=https://{{ powerbi_url }}
+env["TRUSTED_PROXIES"]={{ haproxy_dmz_subnet }}
+env["JWT_PUBLIC_KEY"]=%kernel.project_dir%/config/jwt/public.pem
+env["JIRA_URL"]=https://alvestgroup.atlassian.net
+env["JIRA_REST_CLIENT_HOST"]=https://easymile-service-desk.atlassian.net
+env["JIRA_REST_CLIENT_USERNAME"]=tld.serviceaccount@easymile.com
+env["JIRA_REST_CLIENT_TOKEN"]="{{ easymile_jira.token }}"
+env["LEGACY_TOC_JIRA_SYNC_PROJECT_KEY"]=TEZ
+env["TOKEN_LIFETIME"]="{{ token.lifetime }}"
+env["SAGEPARTS_CLIENT_ID"]="{{ sageparts.client_id }}"
+env["SAGEPARTS_CLIENT_SECRET"]="{{ sageparts.client_secret }}"
+env["SAGEPARTS_TENANT_ID"]="{{ sageparts.tenant_id }}"
+env["SAGEPARTS_REDIRECT_URI"]="{{ sageparts.redirect_uri }}"
+env["ALVEST_CLIENT_ID"]="{{ alvest.client_id }}"
+env["ALVEST_CLIENT_SECRET"]="{{ alvest.client_secret }}"
+env["ALVEST_TENANT_ID"]="{{ alvest.tenant_id }}"
+env["ALVEST_REDIRECT_URI"]="{{ alvest.redirect_uri }}"
+env["MERCURE_PUBLIC_URL"]="https://{{ alvest_api_url }}/.well-known/mercure"
+
+php_value[session.save_handler] = redis
+php_value[session.save_path] = "tcp://{{ haproxy_ip }}:6379?auth={{ redis_password_url_encoded }}"
+php_value[include_path] = "{{ monorepo_path }}/current/shared/lib/src:{{ monorepo_path }}/current/shared/inc:{{ monorepo_path }}/current/shared/inc/smarty:."
+php_value[error_reporting] =  E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT
+
+catch_workers_output = yes

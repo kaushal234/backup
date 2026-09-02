@@ -1,0 +1,7 @@
+{% trans_default_domain 'catalogue' %}
+
+<td>
+    {% for tag in item.tags %}
+        <span class="badge text-bg-primary">{{ tag.name }}</span>
+    {% endfor %}
+</td>

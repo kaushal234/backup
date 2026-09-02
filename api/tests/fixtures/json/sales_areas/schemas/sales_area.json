@@ -1,0 +1,111 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales_areas/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "asm": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "country": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/countries/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "alternateNames": {
+          "type": "string"
+        },
+        "isoCode2": {
+          "type": "string"
+        },
+        "isoCode3": {
+          "type": "string"
+        },
+        "nbCode": {
+          "type": "integer"
+        },
+        "fipsCode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fipsName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "region": {
+          "type": "string"
+        },
+        "subRegion": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "longitude": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "continent": {
+          "oneOf": [
+            {"type": "null"},
+            { "$ref": "../../continent/schemas/continent.json" }
+          ]
+        },
+        "public": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "@id",
+        "@type",
+        "id",
+        "name",
+        "alternateNames",
+        "isoCode2",
+        "isoCode3",
+        "nbCode",
+        "fipsCode",
+        "fipsName",
+        "region",
+        "subRegion",
+        "latitude",
+        "longitude",
+        "continent",
+        "public"
+      ]
+    },
+    "sso": {
+      "$ref": "../../directory_location/schemas/directory_location_public_with_network.json"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "asm",
+    "country",
+    "sso"
+  ],
+  "additionalProperties": false
+}

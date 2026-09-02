@@ -1,0 +1,13 @@
+{% trans_default_domain 'non_conformity' %}
+<td>
+    {% if item.environmentalIssue or item.safety %}
+        {% if item.environmentalIssue %}
+            {{ 'non_conformity.fields.environmental_issue' | trans }}<br>
+        {% endif %}
+        {% if item.safety %}
+            {{ 'non_conformity.fields.safety' | trans }}
+        {% endif %}
+    {% elseif item.products is empty %}
+        {{ 'non_conformity.fields.other_issue' | trans }}
+    {% endif %}
+</td>

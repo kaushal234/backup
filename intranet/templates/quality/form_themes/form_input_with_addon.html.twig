@@ -1,0 +1,15 @@
+{% use 'bootstrap_3_layout.html.twig' with form_label, form_widget_simple as base_form_widget_simple %}
+
+{% block form_widget_simple %}
+    {% set inputGroupAddonText = attr['input-group-text'] | default(null) %}
+    {% if inputGroupAddonText is not empty %}
+    <div class="input-group">
+        {{- block('base_form_widget_simple') -}}
+        {#<span class="input-group-text>{{ inputGroupAddonText | trans }}</span>#}
+        <span class="input-group-text">{{ inputGroupAddonText | trans }}</span>
+    </div>
+    {% else %}
+        {{- block('base_form_widget_simple') -}}
+    {% endif %}
+{% endblock %}
+

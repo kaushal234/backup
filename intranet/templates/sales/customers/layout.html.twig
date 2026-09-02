@@ -1,0 +1,122 @@
+{% extends 'sales/layout.html.twig' %}
+
+{% block title %}{{ parent() }} \ {{ 'customers.title' | trans({}, 'sales_customers') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="sales_customers_add" :security="is_granted('FEATURE_CUSTOMER_CREATE')"/>
+        <twig:Dropdown translationKey="customers.nav_link.customer_infos" domain="sales_customers">
+            <twig:LegacyNavItem translationKey="customers.nav_link.last_sequences_opened" domain="sales_customers"
+                                icon="mdi-light:calendar"
+                                url="/en/private/sales_service/sales.php?m[0]=customers&m[1]=last_seq"/>
+            <twig:NavItem translationKey="customers.nav_link.customers" domain="sales_customers"
+                          icon="material-symbols:group-outline-rounded"
+                          route="sales_customers_home"/>
+            <twig:NavItem translationKey="customers.nav_link.credit_risk_watch_list" domain="sales_customers"
+                          icon="material-symbols:edit-outline-rounded"
+                          route="sales_customers_watch_list_quick_edit"
+                          :security="is_granted('FEATURE_CUSTOMER_WATCH_LIST')"/>
+            <twig:NavItem translationKey="customers.nav_link.customer_types" domain="sales_customers"
+                          icon="solar:book-linear" route="customer_type_home"/>
+            <twig:NavItem:Add translationKey="customers.nav_link.add_customer_type" domain="sales_customers"
+                              route="customer_type_add" :security="is_granted('FEATURE_CUSTOMER_TYPE_WRITE')"/>
+        </twig:Dropdown>
+        {% if customer is defined %}
+            <twig:Dropdown translationKey="customers.nav_link.customer_actions" domain="sales_customers">
+                <twig:NavItem:Edit route="sales_customers_edit" :routeParameters="{'id': customer.iriId}"
+                                   :security="is_granted('FEATURE_CUSTOMER_EDIT')"/>
+                <twig:NavItem translationKey="customers.nav_link.credit_limits_admin" domain="sales_customers"
+                              icon="material-symbols:edit-outline-rounded"
+                              route="sales_customers_admin_finance" :routeParameters="{'id': customer.iriId}"
+                              :security="is_granted('FEATURE_CUSTOMER_FINANCE_ADMIN')"/>
+                <twig:NavItem:Delete route="sales_customers_delete" :routeParameters="{'id': customer.iriId}"
+                                     :security="is_granted('FEATURE_CUSTOMER_DELETE')"/>
+                <twig:NavItem translationKey="customers.nav_link.transfer" domain="sales_customers"
+                              icon="tabler:arrow-back"
+                              route="sales_customers_transfer" :routeParameters="{'id': customer.iriId}"
+                              :security="is_granted('FEATURE_CUSTOMER_EDIT')"/>
+                {% if customer.status is not same as('NOT ACTIVE') %}
+                    <twig:NavItem translationKey="customers.nav_link.deactivate" domain="sales_customers"
+                                  icon="mdi:ban"
+                                  route="sales_customers_deactivate" :routeParameters="{'id': customer.iriId}"
+                                  :security="is_granted('FEATURE_CUSTOMER_EDIT')"/>
+                {% endif %}
+                <twig:NavItem:Files route="sales_customers_files" :routeParameters="{'id': customer.iriId}"/>
+                <twig:NavItem translationKey="customers.nav_link.hierarchy" domain="sales_customers"
+                              icon="prime:sitemap"
+                              route="sales_customers_hierarchy" :routeParameters="{'id': customer.iriId}"/>
+                <twig:NavItem translationKey="customers.nav_link.contacts" domain="sales_customers" icon="prime:sitemap"
+                              route="sales_xu_for_customer" :routeParameters="{'id': customer.iriId}"/>
+                <twig:NavItem translationKey="customers.nav_link.create_new_crt_for_this_customer"
+                              domain="sales_customers" icon="bitcoin-icons:plus-filled"
+                              route="customer_relationship_team_add" :routeParameters="{'customer': customer['@id']}"
+                              :security="customer.status is same as('APPROVED')"/>
+            </twig:Dropdown>
+            <twig:Dropdown translationKey="customers.nav_link.module" domain="sales_customers">
+                <twig:LegacyNavItem translationKey="customers.nav_link.ccr" domain="sales_customers"
+                                    url="/en/private/sales_service/sales.php?m[0]=ccr&m[1]=listing&m[2]=byCustomer&id={{ customer.legacyId }}"/>
+                <twig:LegacyNavItem translationKey="customers.nav_link.er" domain="sales_customers"
+                                    url="/en/private/product_support/index.ps.php?m[0]=equipment&m[1]=listing&m[2]=byAllCustomerID&x={{ customer.legacyId }}"/>
+                <twig:NavItem translationKey="customers.nav_link.fcr" domain="sales_customers"
+                              route="forecast_closures_home"
+                              :routeParameters="{ buyer: '/sales/customers/' ~ customer.iriId }"/>
+                <twig:NavItem translationKey="customers.nav_link.mim" domain="sales_customers"
+                              route="market_intelligence_home"
+                              :routeParameters="{ customers: customer['@id'] }"/>
+                <twig:NavItem translationKey="customers.nav_link.sfr" domain="sales_customers"
+                              route="sales_forecasts_list"
+                              :routeParameters="{customer: customer.iri, open: false}"/>
+                <twig:LegacyNavItem translationKey="customers.nav_link.sol" domain="sales_customers"
+                                    url="/en/private/sales_service/sales.php?m[0]=sol&m[1]=listing&m[2]=byAllCustomerID&x={{ customer.legacyId }}"/>
+                <twig:LegacyNavItem translationKey="customers.nav_link.toc" domain="sales_customers"
+                                    url="/en/private/sales_service/service.php?m[0]=toc&m[1]=listing&m[2]=byCustomerID&x={{ customer.legacyId }}"/>
+                <twig:LegacyNavItem translationKey="customers.nav_link.wc" domain="sales_customers"
+                                    url="/en/private/product_support/index.ps.php?m[0]=wc&m[1]=listing&m[2]=byCustomerID&id={{ customer.legacyId }}"/>
+                <twig:NavItem translationKey="customers.nav_link.mom" domain="sales_customers"
+                              route="meeting_search" :routeParameters="{'customers' : [customer.iri]}"/>
+            </twig:Dropdown>
+            <twig:NavItem translationKey="customers.nav_link.download_all" domain="sales_customers"
+                          icon="material-symbols:download-rounded"
+                          route="sales_customers_files_show_all" :routeParameters="{'customerId': customer.id}"
+                          :security="is_granted('CUSTOMER_FILES_READ_VOTER', customer['@id'])"/>
+        {% endif %}
+        {% if user is defined and user.erp is same as(900) %}
+            <twig:NavItem translationKey="customers.nav_link.export" domain="sales_customers"
+                          icon="material-symbols:download-rounded"
+                          route="sales_customer_export"/>
+        {% endif %}
+        {% if extranetUsers is defined %}
+            <twig:NavItem:Add translationKey="customers.nav_link.new_econtact" domain="sales_customers"
+                              route="sales_contact_add" :security="is_granted('FEATURE_EXTRANET_USER_CREATE')"/>
+        {% endif %}
+        {% if customer.crt|default([])|length > 1 %}
+            <twig:NavItem translationKey="customers.nav_link.sales_orders" domain="sales_customers"
+                          icon="pepicons-pencil:file" route="sales_customers_crt_linked"
+                          :routeParameters="{'id': customer.id, 'link': 'sales_orders'}"/>
+            <twig:NavItem translationKey="customers.nav_link.invoices" domain="sales_customers"
+                          icon="pepicons-pencil:file" route="sales_customers_crt_linked"
+                          :routeParameters="{'id': customer.id, 'link': 'invoices'}"/>
+            <twig:NavItem translationKey="customers.nav_link.packing_slips" domain="sales_customers"
+                          icon="pepicons-pencil:file" route="sales_customers_crt_linked"
+                          :routeParameters="{'id': customer.id, 'link': 'invoices'}"/>
+            <twig:NavItem translationKey="customers.nav_link.email" domain="sales_customers"
+                          icon="material-symbols:send-outline-rounded" route="sales_customers_crt_linked"
+                          :routeParameters="{'id': customer.id, 'link': 'email'}"/>
+            <twig:NavItem translationKey="customers.nav_link.zip" domain="sales_customers" icon="bi:filetype-zip"
+                          route="sales_customers_crt_linked" :routeParameters="{'id': customer.id, 'link': 'zip'}"/>
+        {% elseif customer.crt|default([])|length == 1 %}
+            {% set customerBusinessPartnerCode = customer.crt.0.customerBusinessPartnerCode is defined ? '&id=' ~ customer.crt.0.customerBusinessPartnerCode : '' %}
+            {% set erp = customer.crt.0.erpLocation.erp is defined ? customer.crt.0.erpLocation.erp : '' %}
+            <twig:LegacyNavItem translationKey="customers.nav_link.sales_orders" domain="sales_customers"
+                          icon="pepicons-pencil:file" url="/en/private/finance/finance.php?m[0]=so&m[1]=list&m[2]=byCustomerERP{{ customerBusinessPartnerCode }}&erp={{ erp }}"/>
+            <twig:LegacyNavItem translationKey="customers.nav_link.invoices" domain="sales_customers"
+                          icon="pepicons-pencil:file" url="/en/private/finance/finance.php?m[0]=inv&m[1]=list&m[2]=byCustomerERP{{ customerBusinessPartnerCode }}&erp={{ erp }}"/>
+            <twig:LegacyNavItem translationKey="customers.nav_link.packing_slips" domain="sales_customers"
+                          icon="pepicons-pencil:file" url="/en/private/finance/finance.php?m[0]=ps&m[1]=list&m[2]=byCustomerERP{{ customerBusinessPartnerCode }}&erp={{ erp }}"/>
+            <twig:LegacyNavItem translationKey="customers.nav_link.email" domain="sales_customers"
+                          icon="material-symbols:send-outline-rounded" url="/en/private/sales_service/sales.php?m[0]=customers&m[1]=view&m[2]=email&m[3]=compose&id={{ customer.legacyId }}&cuno={{ customer.crt.0.customerBusinessPartnerCode }}&erp={{ erp }}"/>
+            <twig:LegacyNavItem translationKey="customers.nav_link.zip" domain="sales_customers" icon="bi:filetype-zip"
+                          url="/en/private/sales_service/sales.php?m[0]=customers&m[1]=view&m[2]=zip&m[3]=download&id={{ customer.legacyId }}&cuno={{ customer.crt.0.customerBusinessPartnerCode }}&erp={{ erp }}"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

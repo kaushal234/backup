@@ -1,0 +1,62 @@
+{% if user is defined and user.firstname is defined and user.lastname is defined %}
+
+    {% set tooltipTemplate %}
+        <div class="d-flex align-items-center">
+            <span class="people-card">
+                {% if (app.user is not null)
+                    and (app.user.photo is not empty)
+                    and app.environment is not same as 'dev' %}
+                    <img
+                            class="rounded-circle"
+                            src="{{ asset(upload_uri ~ '/' ~ user.photo.filePath) }}?width=64"
+                            alt="image"
+                    >
+                {% else %}
+                    <img class="rounded-circle" src="/shared/no_photo.jpg" alt="image">
+                {% endif %}
+            </span>
+
+            <div class="d-flex flex-column">
+                <span class="d-block mt-1 fw-semibold fs-14 ff-secondary">
+                    {{ user.lastname }} {{ user.firstname }}
+                </span>
+                {% if user.jobTitle is defined %}<span class="text-muted">{{ user.jobTitle }}</span>{% endif %}
+            </div>
+        </div>
+        {% if user.email is defined or user.businessUnit is defined or user.position is defined %}
+            <div class="hr-line-dashed mt-2 mb-2"></div>
+            {% if user.email is defined %}
+                <div class="d-flex">
+                    <div class="d-flex flex-column me-2"><i class="fa-regular fa-envelope my-1"></i></div>
+                    <div class="d-flex flex-column flex-grow-1 text-muted">{{ user.email }}</div>
+                </div>
+            {% endif %}
+            {% if user.businessUnit is defined or user.position is defined %}
+                <div class="d-flex">
+                    <div class="d-flex flex-column me-2"><i class="fa-solid fa-industry my-1"></i></div>
+                    {% if user.businessUnit is defined and user.businessUnit.name is defined %}
+                        <span class="label label-primary">{{ user.businessUnit.name }}</span>
+                    {% endif %}
+                    {% if user.position is defined and user.position.description is defined %}
+                        <span class="label label-default ms-1">{{ user.position.description }}</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endset %}
+
+    <a href="{{ path('directory_people_show', {id: iri_id(user)}) }}"
+        {% if attribute(_context, 'data-turbo') is defined %}
+            data-turbo="{{ attribute(_context, 'data-turbo') }}"
+        {% endif %}
+        data-bs-toggle="popover"
+        data-bs-placement="{{ placement }}"
+        data-bs-html="true"
+        data-bs-trigger="hover"
+        data-bs-custom-class="people-popover"
+        data-bs-delay="{{ delay }}"
+        data-bs-content="{{ tooltipTemplate|escape('html') }}">
+        {{ user.lastname }} {{ user.firstname }}
+    </a>
+
+{% endif %}

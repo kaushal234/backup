@@ -1,0 +1,64 @@
+{% extends 'finance/manufacturing-margin/layout.html.twig' %}
+{% trans_default_domain 'manufacturing_margin' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+{% form_theme legacyIdSearchForm 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row" style="gap: 5rem">
+        <div class="col-md-4">
+            <h3 class="text-capitalize">{{ 'titles.quick_access' | trans([], 'messages') }}</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_start(idSearchForm, { action: path('manufacturing_margin_home') }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(idSearchForm) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(idSearchForm) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h3 class="text-capitalize">{{ 'titles.quick_access' | trans([], 'messages') }}</h3>
+                {{ form_start(legacyIdSearchForm, { action: path('manufacturing_margin_home') }) }}
+                <div class="row">
+                    <div class="col-sm-10">
+                        {{ form_widget(legacyIdSearchForm) }}
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                    </div>
+                </div>
+                {{ form_end(legacyIdSearchForm) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>{{ 'manufacturing_margin.last'|trans({'%number%':10}) }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <hx:include src="/en/private/finance/mfg_margins/mfg_margins_hinclude.php" id="block_mfg">
+                <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+            </hx:include>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('partial/_footable.html.twig', {'selectors': ['#block_mfg']}) }}
+{% endblock %}

@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/activities$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:search": {
+      "type": "object"
+    },
+    "hydra:view": {
+      "type": "object"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/(comments|logs)/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "legacyId": {"type": "integer"},
+          "resource": {"type": "string"},
+          "action": {"type": ["string", "null"]},
+          "discriminator": {"type": ["string", "null"]},
+          "changeSet": {"type": ["object", "array", "null"]},
+          "message": {"type": ["string", "null"]},
+          "user": {"type": ["object", "null"]},
+          "createdAt": {"type": "string"},
+          "updatedAt": {"type": "string"},
+          "public": {"type": "boolean"},
+          "from": {"type": ["string", "null"]},
+          "metadata": { "type": ["object", "array"] },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "user",
+          "createdAt",
+          "updatedAt",
+          "public",
+          "resource",
+          "metadata"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:totalItems",
+    "hydra:search",
+    "hydra:member"
+  ],
+  "additionalProperties": false
+}

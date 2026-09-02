@@ -1,0 +1,300 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "definitions": {
+        "BusinessPartnerContact.jsonld-contact_business_partner_address": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/business_partner_contacts/\\w+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "contactCode": {
+                    "type": "string"
+                },
+                "emailAddress": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                },
+                "fullName": {
+                    "type": "string"
+                },
+                "middleName": {
+                    "type": "string"
+                },
+                "telephone": {
+                    "type": "string"
+                },
+                "grantedQualityCategory": {
+                    "type": "boolean"
+                },
+                "categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BusinessPartnerContactCategory.jsonld-contact_business_partner_address"
+                    }
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "contactCode",
+                "emailAddress",
+                "firstName",
+                "familyName",
+                "fullName",
+                "middleName",
+                "categories"
+            ],
+            "additionalProperties": false
+        },
+        "BusinessPartner.jsonld-contact_business_partner_address": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/business_partners/\\w+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "buyer": {
+                    "$ref": "#/definitions/BusinessPartnerBuyer.jsonld-contact_business_partner_address"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "code",
+                "name",
+                "role",
+                "status"
+            ],
+            "additionalProperties": false
+        },
+        "BusinessPartnerBuyer.jsonld-contact_business_partner_address": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "employee": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "givenName": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "middleName": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "lastName": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "department": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "jobTitle": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "telephone": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "telephone2": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "mobilePhone": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "email": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "employee",
+                "name",
+                "givenName",
+                "middleName",
+                "lastName",
+                "department",
+                "jobTitle",
+                "telephone",
+                "telephone2",
+                "mobilePhone",
+                "email"
+            ],
+            "additionalProperties": false
+        },
+        "BusinessPartnerContactCategory.jsonld-contact_business_partner_address": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "code",
+                "description"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/BusinessPartnerContact.jsonld-contact_business_partner_address"
+            }
+        },
+        "hydra:totalItems": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "hydra:view": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "@type": {
+                    "type": "string"
+                },
+                "hydra:first": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:last": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:previous": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:next": {
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            }
+        },
+        "hydra:search": {
+            "type": "object",
+            "properties": {
+                "@type": {
+                    "type": "string"
+                },
+                "hydra:template": {
+                    "type": "string"
+                },
+                "hydra:variableRepresentation": {
+                    "type": "string"
+                },
+                "hydra:mapping": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "@type": {
+                                "type": "string"
+                            },
+                            "variable": {
+                                "type": "string"
+                            },
+                            "property": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "required": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "hydra:member"
+    ]
+}

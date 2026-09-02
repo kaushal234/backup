@@ -1,0 +1,12 @@
+turbo-frame {
+  .frame-loading-show .panel-body {
+    // Keep the old content dimmed during the short gap between `aria-busy`
+    // removal and the actual content swap, matching the spinner fade-out.
+    transition: opacity .2s linear .7s;
+  }
+
+  &[aria-busy] .frame-loading-show .panel-body {
+    opacity: .5;
+    transition: none;
+  }
+}

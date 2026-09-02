@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "@context": {
+            "type": "string"
+        },
+        "@id": {
+            "pattern": "^/security_levels$"
+        },
+        "@type": {
+            "type": "string"
+        },
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "@context": {"type": "string"},
+                    "@id": {"pattern": "^/security_levels/\\d+$"},
+                    "@type": {"type": "string"},
+                    "id": {"type": "integer"},
+                    "name": {"type": "string"},
+                    "description": {"type": ["string", "null"]}
+                },
+                "required": [
+                    "@id",
+                    "@type",
+                    "id",
+                    "name",
+                    "description"
+                ],
+                "additionalProperties": false
+            }
+        }
+    }
+}

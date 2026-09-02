@@ -1,0 +1,260 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "news" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .newsletter-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin: 30px 0 20px 0;
+            border-bottom: 2px solid #dddddd;
+            padding-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #2a2a2a;
+        }
+
+        .list-item {
+            margin-bottom: 8px;
+        }
+
+        .list-item.last {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px dashed #cccccc;
+            background-color: #f1f1f1;
+        }
+
+        .list-end-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .list-end-link a {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .list-end-link a:hover {
+            background-color: #155ab6;
+        }
+
+        .divider {
+            border-top: 1px solid #cccccc;
+            margin: 30px 0;
+        }
+
+        .holiday-block {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .holiday-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .holiday-item:last-child {
+            border-bottom: none;
+        }
+
+        .holiday-label {
+            font-weight: normal;
+        }
+
+        .holiday-value {
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        .holiday-flag {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #cccccc;
+            text-align: center;
+            font-size: 13px;
+            color: #555555;
+        }
+
+        .footer a {
+            display: inline-block;
+            margin: 5px 10px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer img,
+        .footer i {
+            vertical-align: middle;
+            height: 20px;
+            margin-right: 6px;
+        }
+
+        .footer span {
+            vertical-align: middle;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+    </style>
+
+    <p class="newsletter-title">{{ 'news.title.newsletter' | trans }}</p>
+
+    <p class="section-title">{{ 'news.title.last_news' | trans }}</p>
+    {% for news in lastNews %}
+        {% set newsLink = url('news_show', {id: news.id}) %}
+        <p class="list-item"><a href="{{ newsLink }}">{{ news.title }}</a></p>
+    {% endfor %}
+
+    <div class="list-end-link">
+        <a href="{{ path('news_list') }}">{{ 'news.title.list' | trans }}</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="section-title">{{ 'news.title.talent' | trans }}</p>
+
+    <p>{{ 'news.title.last_jobs' | trans }}</p>
+    {% for job in lastJobs %}
+        {% set jobLink = url('jobs_show', {id: job.id}) %}
+        <p class="list-item"><a href="{{ jobLink }}">{{ job.title }}</a> – {{ job.businessUnit.name }}</p>
+    {% endfor %}
+    <div class="list-end-link">
+        <a href="{{ path('jobs_list') }}">{{ 'news.title.list_job' | trans }}</a>
+    </div>
+
+    <p>{{ 'news.title.new_comer' | trans }}</p>
+    {% for comer in newPeople %}
+        {% set peopleLink = url('people', {id: comer.id}) %}
+        <p class="list-item"><a href="{{ peopleLink }}">{{ comer.firstname }} {{ comer.lastname }}</a></p>
+    {% endfor %}
+    <div class="list-end-link">
+        <a href="{{ path('new_comers') }}">{{ 'news.title.new_comer' | trans }}</a>
+    </div>
+
+    {% if lastTalentNews is not empty %}
+        <p>{{ 'news.title.last_talents' | trans }}</p>
+        {% for news in lastTalentNews %}
+            {% set newsTalentLink = url('news_show', {id: news.id}) %}
+            <p class="list-item"><a href="{{ newsTalentLink }}">{{ news.title }}</a></p>
+        {% endfor %}
+        <div class="list-end-link">
+            <a href="{{ path('news_list') }}">{{ 'news.title.list' | trans }}</a>
+        </div>
+    {% endif %}
+
+
+    <div class="divider"></div>
+
+    <p class="section-title">{{ 'news.title.holidays' | trans }}</p>
+
+    <div class="holiday-block">
+        {% for event in events %}
+            <div class="holiday-item">
+                <div>
+                    <div>
+                        <span class="holiday-label">{{ 'events.fields.name' | trans({}, 'events') }}:</span>
+                        <span class="holiday-value">{{ event.name }}</span>
+                    </div>
+                    <div>
+                        <span class="holiday-label">{{ 'news.title.date' | trans }}:</span>
+                        <span class="holiday-value">
+                        {% if event.startedAt|date('Y-m-d') == event.endedAt|date('Y-m-d') %}
+                            {{ event.startedAt|format_datetime('medium', 'none') }}
+                        {% else %}
+                            {{ event.startedAt|format_datetime('medium', 'none') }}
+                            &rarr;
+                            {{ event.endedAt|format_datetime('medium', 'none') }}
+                        {% endif %}
+                        </span>
+                    </div>
+                    <div>
+                        <span class="holiday-label">{{ 'events.fields.country' | trans({}, 'events') }}:</span>
+                        <span class="holiday-value">{{ event.country.name }}</span>
+                    </div>
+                    {% if event.state is not empty %}
+                        <div>
+                            <span class="holiday-label">{{ 'events.fields.state' | trans({}, 'events') }}:</span>
+                            <span class="holiday-value">{{ event.state }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="holiday-flag">
+                    {{ country_to_flag(event.country.isoCode2) }}
+                </div>
+            </div>
+        {% else %}
+            <p>{{ 'news.title.no_holidays' | trans }}</p>
+        {% endfor %}
+        <div class="list-end-link">
+            <a href="{{ path('holidays') }}">{{ 'news.title.list_events' | trans }}</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-text">
+            {{ 'news.title.learn' | trans }}
+        </div>
+        <a href="https://www.tld-gse.com/en/private/bounce/bounce.php?portal=dms">
+            <span>DMS</span>
+        </a>
+        |
+        <a href="https://alvest.learn.link/login">
+            <span>{{ 'home.title.agile'|trans({}, 'messages') }}</span>
+        </a>
+    </div>
+
+{% endblock %}

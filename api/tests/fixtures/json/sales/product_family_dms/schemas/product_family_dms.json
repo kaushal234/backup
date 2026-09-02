@@ -1,0 +1,194 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/product_family_dms$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/product_family_dms/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "family": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/product_families/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "productType": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/product_types/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "publicForTLD": {
+                    "type": "boolean"
+                  },
+                  "publicForAerospecialties": {
+                    "type": "boolean"
+                  },
+                  "publicForSAS": {
+                    "type": "boolean"
+                  },
+                  "frenchName": {
+                    "type": ["string", "null"]
+                  },
+                  "englishName": {
+                    "type": ["string", "null"]
+                  },
+                  "spanishName": {
+                    "type": ["string", "null"]
+                  },
+                  "portugueseName": {
+                    "type": ["string", "null"]
+                  },
+                  "chineseName": {
+                    "type": ["string", "null"]
+                  },
+                  "japaneseName": {
+                    "type": ["string", "null"]
+                  },
+                  "germanName": {
+                    "type": ["string", "null"]
+                  },
+                  "russianName": {
+                    "type": ["string", "null"]
+                  },
+                  "dms": {
+                    "type": ["object", "null"]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "legacyId",
+                  "frenchName",
+                  "englishName",
+                  "spanishName",
+                  "portugueseName",
+                  "chineseName",
+                  "japaneseName",
+                  "germanName",
+                  "russianName",
+                  "publicForTLD",
+                  "publicForAerospecialties",
+                  "publicForSAS"
+
+                ],
+                "additionalProperties": false
+              },
+              "name": {
+                "type": "string"
+              },
+              "frenchDescription": {
+                "type": ["string", "null"]
+              },
+              "englishDescription": {
+                "type": ["string", "null"]
+              },
+              "spanishDescription": {
+                "type": ["string", "null"]
+              },
+              "portugueseDescription": {
+                "type": ["string", "null"]
+              },
+              "chineseDescription": {
+                "type": ["string", "null"]
+              },
+              "japaneseDescription": {
+                "type": ["string", "null"]
+              },
+              "germanDescription": {
+                "type": ["string", "null"]
+              },
+              "russianDescription": {
+                "type": ["string", "null"]
+              },
+              "hidden": {
+                "type": "boolean"
+              },
+              "publicForTLD": {
+                "type": "boolean"
+              },
+              "publicForAerospecialties": {
+                "type": "boolean"
+              },
+              "publicForSAS": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "legacyId",
+              "productType",
+              "name",
+              "frenchDescription",
+              "englishDescription",
+              "spanishDescription",
+              "portugueseDescription",
+              "chineseDescription",
+              "japaneseDescription",
+              "germanDescription",
+              "russianDescription",
+              "hidden",
+              "publicForTLD",
+              "publicForAerospecialties",
+              "publicForSAS"
+
+            ],
+            "additionalProperties": false
+          },
+          "dms": {
+            "type": "object",
+            "$ref": "../../../dms/schemas/dms.json"
+          },
+          "dmsType": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "family",
+          "dms",
+          "dmsType"
+        ],
+        "additionalProperties": false,
+        "minItems": 1
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

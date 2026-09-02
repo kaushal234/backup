@@ -1,0 +1,28 @@
+{% extends 'base_public.html.twig' %}
+
+{% block title %}{{ 'extranet.fields.equipments'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {# Hero #}
+    <section class="page-hero">
+        <div class="page-hero-pattern"></div>
+        <div class="container-fluid px-4 position-relative" style="z-index:2">
+            <p class="hero-eyebrow mt-2">
+                <span class="dot"></span> {{ 'extranet.title.customer_portal'|trans }}
+            </p>
+            <h1 class="page-hero-title">{{ 'extranet.fields.equipments'|trans }}</h1>
+            <p class="page-hero-sub">{{ 'extranet.equipment.public_intro'|trans }}</p>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            {# Kreyu datatable — unchanged data plumbing #}
+            <div class="dt-wrap">
+                {{ data_table(datatable) }}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

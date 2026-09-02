@@ -1,0 +1,7 @@
+{% set id = legacy ?? true ? item.legacyId : item.id %}
+<div class="ibox-content">
+    {% set id = legacy ?? true ? item.legacyId : item.id %}
+    <hx:include src="/en/private/common/links/links_hinclude.php?module={{ module }}&parent_id={{ id }}">
+        <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+    </hx:include>
+</div>

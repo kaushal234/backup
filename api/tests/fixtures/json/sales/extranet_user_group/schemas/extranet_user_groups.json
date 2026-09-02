@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/extranet_user_groups$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/extranet_user_groups/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "public": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "description",
+          "public"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "minItems": 1
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

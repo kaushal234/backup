@@ -1,0 +1,67 @@
+{{ include('directory/premise/partial/_request_new_premise.html.twig') }}
+
+{{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+        {% if form.username is defined %}
+            {{ form_row(form.username) }}
+        {% endif %}
+        {% if form.hidden is defined %}
+            {{ form_row(form.hidden) }}
+        {% endif %}
+        {% if form.disabled is defined %}
+            {{ form_row(form.disabled) }}
+        {% endif %}
+        {% if form.lastname is defined %}
+            {{ form_row(form.lastname) }}
+        {% endif %}
+        {% if form.firstname is defined %}
+            {{ form_row(form.firstname) }}
+        {% endif %}
+        {% if form.gender is defined %}
+            {{ form_row(form.gender) }}
+        {% endif %}
+        {% if form.nickname is defined %}
+            {{ form_row(form.nickname) }}
+        {% endif %}
+        {% if form.email is defined %}
+            {{ form_row(form.email) }}
+        {% endif %}
+        {% if form.premise is defined %}
+            {{ form_row(form.premise) }}
+        {% endif %}
+<div class="d-flex justify-content-end mb-2"><a class="btn btn-info" onClick="document.getElementById('ticket-helper-form').submit()">
+        {{ 'directory.premise.new' | trans({}, 'directory') }}
+    </a></div>
+{{ form_rest(form) }}
+<button type="submit" class="btn btn-primary float-end">{{ 'button.submit'|trans }}</button>
+{{ form_end(form) }}
+
+
+{% block javascripts %}
+    <script>
+        window.onload = function() {
+            document.addEventListener('DOMContentLoaded', function () {
+
+                const hiddenInput = document.querySelector('input[name="people[closestAirport]"]');
+                const AirportSelectComponent = hiddenInput.nextElementSibling;
+                const premiseSelect = document.getElementById('people_premise');
+                let isOffSiteLocationPremise = premiseSelect.value === '';
+
+                if (!isOffSiteLocationPremise) {
+                    AirportSelectComponent.classList.add('hidden');
+                }
+
+                premiseSelect.addEventListener('change', function () {
+                    let isOffSiteLocationPremise = premiseSelect.value === '';
+                    if (isOffSiteLocationPremise) {
+                        AirportSelectComponent.classList.remove('hidden');
+                    } else {
+                        AirportSelectComponent.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'Pdf/base.html.twig' %}
+
+{% trans_default_domain "pdfs" %}
+
+{% block stylesheets %}
+    <style type="text/css">
+        {{ include('Pdf/fonts/opensans.css.twig') }}
+        {{ source('@css/chapter4.css') }}
+    </style>
+{% endblock %}
+
+{% macro documentHeader(manual, document) %}
+    {{ document.factoryNumber }}{% if document.revision is not null %}_{{ document.revision }}{% endif %}<br>
+    {% if manual.language is same as('ENGLISH') %}
+        {{ document.description | raw}}
+    {% else %}
+        {{ document.otherDescription | raw }}
+    {% endif %}
+{% endmacro %}
+
+{% macro itemList(document, manual, manual_locale, first, start, limit, maxNumberOfPartsPerPage) %}
+    <div class="container" style="page-break-after: always">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p style="font-size: 24px; font-weight: bold; text-align: left">
+                    {{ _self.documentHeader(manual, document) }}
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="row text-center">
+            <div class="manual-document-frame">
+                {% if document.getDocument is not null %}
+                    {% set filePath = manual.id is null ? document.getDocument.filePath : legacy_upload_uri~document.getDocument %}
+                    {% if jpeg_exists(filePath) %}
+                        <img src="{{ rotate(filePath) }}" alt="image of file {{ document.getDocument }}" class="h-100">
+                        <br>
+                    {% else %}
+                        <div>
+                            {{ 'manual.chapter4.layout.no image' | trans(locale=manual_locale) }}
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div>
+                        {{ 'manual.chapter4.layout.no image' | trans(locale=manual_locale) }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="page-break-after: always">
+        <div class="row">
+            <br>
+            <div class="col-md-12 text-center">
+                {% if first and document.category is not null %}
+                    <h1 style="font-size: 24px; font-weight: bold; text-align: left">{{ ('manual.chapter4.layout.categories.'~document.category.name) | trans(locale=manual_locale) }}</h1><br>
+                {% endif %}
+                <h2 style="font-size: 24px; font-weight: bold; text-align: left">
+                    {{ _self.documentHeader(manual, document) }}
+                </h2>
+                <br><hr>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'manual.layout.item' | trans(locale=manual_locale)}}</th>
+                <th style="max-width: 30px;">{{ 'manual.layout.part number' | trans(locale=manual_locale)}}</th>
+                <th style="max-width: 30px;">{{ 'manual.layout.quantity' | trans(locale=manual_locale)}}</th>
+                <th>{{ 'manual.general.description' | trans(locale=manual_locale)}}</th>
+                <th>{{ 'manual.part.p' | trans(locale=manual_locale)}}</th>
+                <th>{{ 'manual.part.m' | trans(locale=manual_locale)}}</th>
+                <th>{{ 'manual.part.o' | trans(locale=manual_locale)}}</th>
+                <th>{{ 'manual.part.c' | trans(locale=manual_locale)}}</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% set break = false %}
+            {% for part in document.parts|sort|slice(start, limit) %}
+                {% if not break %}
+                <tr>
+                    <td>{{ part.position }}</td>
+                    <td>{{ part.partNumber }}</td>
+                    <td>{{ part.quantity }}</td>
+                    <td>
+                        {% if manual.language is same as('ENGLISH') %}
+                            {{ part.description | raw }}
+                        {% else %}
+                            {{ part.otherDescription | raw }}
+                        {% endif %}
+                    </td>
+                    <td>{% if part.preventive %}&#10004;{% endif %}</td>
+                    <td>{% if part.maintenance %}&#10004;{% endif %}</td>
+                    <td>{% if part.overhaul %}&#10004;{% endif %}</td>
+                    <td>{% if part.critical %}&#10004;{% endif %}</td>
+                </tr>
+                {% endif %}
+
+                {% if loop.index is divisible by(maxNumberOfPartsPerPage) %}
+                    {% set break = true %}
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}
+
+{% block content %}
+    {#
+        Adding a blank page when table of contents size has odd number of pages. So opposite of even.
+        This condition allow to display picture on the left/odd page and the linked datatable on the right/even page.
+        When last line of table of content is on the last position of the page, it automatically creates a blank page.
+        So we have no choice to add another blank page. This problem occurs when we have 105 documents.
+        Last point, TOC first page contains 50 lines and next each TOC pages contains 55 lines.
+        PDF generation is different beetween local env and prod env.
+        So for testing in local env, replace 52 by 49 and 55 by 53
+    #}
+    {% set additionalTOCPages = ((numberOfDocuments - 52) // 55) %}
+    {% if numberOfDocuments < 52 or (additionalTOCPages > 0 and additionalTOCPages is even) %}
+        <div class="container" style="page-break-after: always;"><br></div>
+    {% endif %}
+
+    {% set category = '' %}
+    {% set first = true %}
+    {% for documents in documentsData  %}
+        {% for document in documents  %}
+            {% if document.category is not same as category %}
+                {% set category = document.category %}
+                {% set first = true %}
+            {% else %}
+                {% set first = false %}
+            {% endif %}
+
+            {#
+            maxNumberOfPartsPerPage
+            This is the max number of parts you can display on a Document (right page),
+            so the number of rows <tr> of the parts table <table>.
+            This number is reduced when the variable "first" is true.
+            Meaning when we display the name of the Document category for the first time.
+            Exemple : "User Interfaces and Cab"
+            #}
+            {% if first %}
+                {% set maxNumberOfPartsPerPage = 41 %}
+            {% else %}
+                {% set maxNumberOfPartsPerPage = 43 %}
+            {% endif %}
+
+            {% set numberOfParts = document.parts|length %}
+            {% set numberOfPages = (numberOfParts // maxNumberOfPartsPerPage) + 1 %}
+            {% for key in 1..numberOfPages %}
+                {{ _self.itemList(document, manual, manual_locale, first, loop.index0 * maxNumberOfPartsPerPage, loop.index * maxNumberOfPartsPerPage, maxNumberOfPartsPerPage) }}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

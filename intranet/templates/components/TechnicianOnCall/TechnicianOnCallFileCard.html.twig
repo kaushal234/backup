@@ -1,0 +1,12 @@
+{% props technicianOnCall, file, index %}
+
+<twig:Gallery:FileCard :file="file" :index="index">
+    <twig:block name="actions">
+        <a class="mx-1" href="{{ path('technician_on_call_file_download', {technicianOnCallId: technicianOnCall.id, id: file.id}) }}">
+            <i class="card-img mx-auto fa-solid fa-file-arrow-down fa-2x"></i>
+        </a>
+        <a class="mx-1" href="{{ path('technician_on_call_file_delete', {technicianOnCallId: technicianOnCall.id, id: file.id}) }}" title="delete">
+            <i class="card-img mx-auto fa-solid fa-cross fa-file-circle-minus fa-2x text-danger"></i>
+        </a>
+    </twig:block>
+</twig:Gallery:FileCard>

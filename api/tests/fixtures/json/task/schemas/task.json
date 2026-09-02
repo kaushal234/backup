@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/(tasks|part_number_tasks)/\\d+$"
+    },
+    "module": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "pattern": "^/modules/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "frontEndRoute": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "operationalOwner": {
+          "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+        },
+        "shortDescription": {
+          "type": "string"
+        },
+        "migrated": {
+          "type": "boolean"
+        },
+        "disabledForTroubleTicket": {
+          "type": "boolean"
+        },
+        "keyUser": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "frontEndRoute",
+        "name",
+        "operationalOwner",
+        "shortDescription",
+        "migrated",
+        "disabledForTroubleTicket",
+        "keyUser"
+      ],
+      "additionalProperties": false
+    },
+    "referenceId": {
+      "type": "integer"
+    },
+    "partNumber": {
+      "type": "string"
+    },
+    "indiceFactor": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "dueDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "rescheduleDate": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "closedAt": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "escalationTrigger": {
+      "type": "integer"
+    },
+    "escalationTriggerUnit": {
+      "type": "string"
+    },
+    "createdBy": {
+      "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+    },
+    "assignee": {
+      "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "location": {
+      "$ref": "../../directory_location/schemas/directory_location_public.json"
+    },
+    "lastComment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "closeComment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "id": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "confidential": {
+      "type": "boolean"
+    },
+    "recipients": {
+      "type": [
+        "null",
+        "array"
+      ]
+    },
+    "files": {
+      "type": "array"
+    },
+    "escalationDate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "module",
+    "referenceId",
+    "indiceFactor",
+    "createdAt",
+    "startedAt",
+    "dueDate",
+    "rescheduleDate",
+    "closedAt",
+    "escalationTrigger",
+    "createdBy",
+    "assignee",
+    "shortDescription",
+    "description",
+    "location",
+    "lastComment",
+    "closeComment",
+    "id",
+    "recipients",
+    "files",
+    "confidential"
+  ],
+  "additionalProperties": false
+}

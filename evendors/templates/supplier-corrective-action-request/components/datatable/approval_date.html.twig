@@ -1,0 +1,5 @@
+{% if item.approvedAt is not null %}
+        <td>{{ item.approvedAt|format_date }}</td>
+{% else %}
+        <td>{{ 'generic.not_available'|trans }}</td>
+{% endif %}

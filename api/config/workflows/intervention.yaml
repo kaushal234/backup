@@ -1,0 +1,37 @@
+framework:
+  workflows:
+    intervention:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\Service\CustomerServiceRecord\Intervention
+      initial_marking: !php/const App\Entity\Service\CustomerServiceRecord\Intervention::PENDING
+      places:
+        - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::PENDING
+        - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::FAILED_ASSIGNEE
+        - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::STARTED
+        - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::SOLVED
+        - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::TO_CONTINUE
+      transitions:
+        to_started:
+          from:
+          - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::PENDING
+          - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::FAILED_ASSIGNEE
+          to: !php/const App\Entity\Service\CustomerServiceRecord\Intervention::STARTED
+        to_unschedule:
+          from: !php/const App\Entity\Service\CustomerServiceRecord\Intervention::PENDING
+          to: !php/const App\Entity\Service\CustomerServiceRecord\Intervention::FAILED_ASSIGNEE
+        to_solved:
+          from:
+            - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::PENDING
+            - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::STARTED
+            - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::FAILED_ASSIGNEE
+          to: !php/const App\Entity\Service\CustomerServiceRecord\Intervention::SOLVED
+        to_to_continue:
+          from:
+            - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::PENDING
+            - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::STARTED
+            - !php/const App\Entity\Service\CustomerServiceRecord\Intervention::FAILED_ASSIGNEE
+          to: !php/const App\Entity\Service\CustomerServiceRecord\Intervention::TO_CONTINUE

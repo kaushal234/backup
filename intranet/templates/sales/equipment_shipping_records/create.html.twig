@@ -1,0 +1,10 @@
+{% extends 'sales/equipment_shipping_records/layout.html.twig' %}
+{% trans_default_domain 'equipment_shipping_record' %}
+
+{% block title %}
+    {{ parent() }} {{ 'equipment_shipping_record.new' | trans }}
+{% endblock %}
+
+{% block content %}
+    {% include 'sales/equipment_shipping_records/partial/_form.html.twig' with { esrForm: esrForm } %}
+{% endblock %}

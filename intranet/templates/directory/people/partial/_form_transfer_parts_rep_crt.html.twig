@@ -1,0 +1,22 @@
+{% block content %}
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+
+        {{ form_start(form, { action: action }) }}
+        {{ form_errors(form) }}
+
+        <div class="mail-box-header">
+            <div class="clearfix">
+                <h4 class="float-sart">
+                    {{ 'directory.people.messages.success.transfer_parts_rep' | trans({'%name': people.firstname~' '~people.lastname}, 'directory') }}
+                </h4>
+                <div class="mail-body">
+                    {{ form_row(form.representative) }}
+                </div>
+            </div>
+            <div class="form-control text-end">
+                <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+            </div>
+        </div>
+        {{  form_rest(form) }}
+        {{ form_end(form) }}
+{% endblock %}

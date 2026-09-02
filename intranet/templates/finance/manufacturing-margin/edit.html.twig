@@ -1,0 +1,17 @@
+{% extends 'finance/manufacturing-margin/layout.html.twig' %}
+{% trans_default_domain 'manufacturing_margin' %}
+
+{% block content %}
+    {{ include('finance/manufacturing-margin/partial/_form.html.twig', {
+        title: 'manufacturing_margin.edit.title'|trans,
+        form: form,
+        action: path('manufacturing_margin_edit', {'id': manufacturingMargin.iriId}),
+    }, with_context=false) }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'demo' }) }}"></script>
+{% endblock %}
+
+
+

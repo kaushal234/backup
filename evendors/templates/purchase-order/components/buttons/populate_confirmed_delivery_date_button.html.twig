@@ -1,0 +1,7 @@
+{% set populateSelect = get_populate_column_select() %}
+
+{{ form_start(populateSelect) }}
+
+    {{ form_widget( populateSelect.populateColumn, { 'attr': {'class': 'mb-1 ms-0 me-5 btn-outline-primary btn-sm', style : "width: 200px"}}) }}
+
+{{ form_end(populateSelect) }}

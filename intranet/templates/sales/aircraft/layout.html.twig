@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ 'menu.aircraft.title' | trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="aircraft_add" :security="is_granted('FEATURE_CREATE_AIRCRAFT') or is_granted('MOO_AC')"/>
+        <twig:NavItem translationKey="aircraft_compatibility.nav_link.aircraft_compatibilities" domain="aircraft_compatibility" icon="tabler:plane" route="aircraft_compatibility_home"/>
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,33 @@
+App\Entity\Service\TechnicianOnCallPart:
+    toc_part:
+        id: 1
+        partNumber: "PN"
+        vendorPartNumber: "VPN"
+        description: "Part"
+        quantity: 2.1
+        defective: true
+        replacement: CUSTOMER
+        comment: "Comment"
+        technicianOnCall: '@toc_1'
+        createdBy: '@user_basic'
+    toc_part_to_remove:
+        id: 2
+        partNumber: "PN"
+        vendorPartNumber: "VPN"
+        description: "Part to remove"
+        quantity: 2.1
+        defective: true
+        replacement: CUSTOMER
+        comment: "Comment"
+        technicianOnCall: '@toc_to_remove_edit_part'
+        createdBy: '@user_basic'
+    toc_part_to_edit:
+        id: 3
+        partNumber: "PN"
+        vendorPartNumber: "VPN"
+        description: "to be edited"
+        quantity: 2.1
+        defective: false
+        comment: "Comment"
+        technicianOnCall: '@toc_to_remove_edit_part'
+        createdBy: '@user_basic'

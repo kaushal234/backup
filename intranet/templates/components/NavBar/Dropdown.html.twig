@@ -1,0 +1,12 @@
+{% if security is same as true %}
+    <li class="nav-item dropdown">
+        <a class="nav-link d-flex align-items-center dropdown-toggle action-primary {{ class }}" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            {{ ux_icon('solar:arrow-down-outline', {height: '16px', width: '16px'}) }}
+            <span class="ms-1">{{ translationKey | trans([], domain | default(app.request.attributes.get('moduleDomain'))) }}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-top_navigation_bar">
+            {% block content %}{% endblock %}
+        </ul>
+    </li>
+{% endif %}

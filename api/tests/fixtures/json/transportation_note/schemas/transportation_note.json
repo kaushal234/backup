@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "updatedAt",
+    "country",
+    "note",
+    "files"
+  ],
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/parts/transportation_notes/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "country": {
+      "type": "object",
+      "required": [
+        "@id",
+        "@type",
+        "id",
+        "name",
+        "isoCode2"
+      ],
+      "properties": {
+        "@id": {"pattern": "^/countries/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "isoCode2": { "type":  "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

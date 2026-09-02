@@ -1,0 +1,12 @@
+App\Entity\AI\AIFile:
+
+  ai_file_1:
+    filePath: '../../../tests/fixtures/file.pdf'
+    mimeType: 'application/pdf'
+    extension: 'pdf'
+    size: 1024
+    sha: 'abc123def456abc123def456abc123def456abc123def456abc123def456abc1'
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    public: false
+    request: '@ai_request_1'
+    poster: '@user_basic'

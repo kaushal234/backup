@@ -1,0 +1,214 @@
+{% trans_default_domain 'non_conformity' %}
+<div class="row">
+    <div class="col-md-8">
+        {{ include('helper/_association_table.html.twig', {
+            associationData: {
+                items: {
+                    id: { label: '#' },
+                    location: {
+                        label:'fields.location' | trans({}, 'messages'),
+                        properties: ['location.name'],
+                    },
+                    status: {
+                        label:'fields.status' | trans({}, 'messages'),
+                    },
+                    iFactor: { label: 'fields.ifactor' | trans({}, 'messages') },
+                    createdAt: {
+                        label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                        filters: 'date("Y-m-d")',
+                    },
+                    reportedBy: {
+                        properties: ['reportedBy.lastname', 'reportedBy.firstname'],
+                        label: 'non_conformity.fields.reported_by' | trans,
+                        link: {
+                            route: 'directory_people_show',
+                            params: {'id':'reportedBy.@id'}
+                        }
+                    },
+                    shortDescription: {
+                        label: 'supplier_corrective_action_request.fields.short_description' | trans({}, 'supplier_corrective_action_request'),
+                    },
+                    problem: {
+                        label: 'non_conformity.fields.problem' | trans,
+                    },
+                    failureType: {
+                        label: 'non_conformity.fields.failure_type' | trans,
+                    },
+                    processes: {
+                        label: 'non_conformity.fields.process' | trans,
+                        template: 'quality/non_conformity/partial/_cell_process.html.twig',
+                    },
+                    processCode: {
+                        label: 'non_conformity.fields.process_code' | trans,
+                        template: 'quality/non_conformity/partial/_cell_process_code.html.twig',
+                    },
+                    investigation: {
+                        label: 'non_conformity.fields.investigation' | trans,
+                    },
+                    responsibles: {
+                        label: 'non_conformity.fields.responsible' | trans,
+                        template: 'quality/non_conformity/partial/_cell_responsible.html.twig',
+                    },
+                    supplierNumber: { label: 'vendor_warranty_claim.fields.supplier_number' | trans({}, 'vendor_warranty_claim') },
+                    supplierName: { label: 'finance.approver.supplier_name'|trans({}, 'finance') },
+                    purchaseOrderNumber: { label: 'spq.quotations.fields.customer.purchase_order'|trans({}, 'spq') },
+                    equipmentRecords: {
+                        label: 'demo.fields.er_serial_number' | trans({}, 'demo'),
+                        template: 'quality/non_conformity/partial/_cell_equipment_records.html.twig',
+                    },
+                    rush: {
+                        label:'non_conformity.fields.rush' | trans,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                        }
+                    },
+                },
+                title: 'NCR#' ~ item.id,
+                data: item
+            },
+        }, with_context = false) }}
+
+        {% set partItems = {
+            view: {
+                label: 'menu.view'|trans([], 'messages')|capitalize,
+                link:{
+                    route: 'legacy_manufacturing_whse',
+                    params: {id: 'partNumber'},
+                    fixedParams: { m: ['inv', 'byPNPlanned'], erp: item.location.erp },
+                    content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                },
+                sortable: false,
+            },
+            partNumber: { label: 'spare_parts_request.fields.part_number'|trans({}, 'spare_parts_request')|capitalize },
+            description: { label: 'fields.description'|trans([], 'messages')|capitalize },
+            quantity: { label: 'fields.quantity'|trans([], 'messages') },
+            reference: { label: 'non_conformity.fields.reference_type'|trans },
+            referenceNumber: { label: 'non_conformity.fields.reference_number'|trans },
+            serialNumber: { label: 'demo.fields.serial_number'|trans([], 'demo') },
+            standardCost: { label: 'vendor_warranty_claim.part.fields.standard_cost'|trans({}, 'vendor_warranty_claim') },
+        } %}
+        {% if item.status is not same as('CLOSED') %}
+            {% set partItems = partItems | merge({
+                delete: {
+                    label: 'button.delete'|trans([], 'messages')|capitalize,
+                    link: {
+                        route: 'non_conformity_part_delete',
+                        params: {partId: '@id'},
+                        content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                        fixedParams: {id: item.id},
+                    },
+                    sortable: false,
+                    class : 'text-end',
+                }
+            }) %}
+        {% endif %}
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: partItems,
+                data: item.parts,
+                title: 'spare_parts_request.fields.parts' | trans({}, 'spare_parts_request'),
+                pagination: false,
+                search: false
+            }
+        }, with_context = false )}}
+        {% if item.products is not empty %}
+            {% set productItems = {
+                type: {
+                    label: 'catalogue.type.product_type'|trans({}, 'catalogue')|capitalize,
+                    template: 'quality/non_conformity/partial/_cell_type.html.twig',
+                },
+                name: { label: 'catalogue.products.product'|trans([], 'catalogue')|capitalize },
+            } %}
+            {% if item.status is not same as('CLOSED') %}
+                {% set productItems = productItems | merge({
+                    delete: {
+                        label: 'button.delete'|trans([], 'messages')|capitalize,
+                        link: {
+                            route: 'non_conformity_model_delete',
+                            params: {modelId: '@id'},
+                            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                            fixedParams: {id: item.id},
+                        },
+                        sortable: false,
+                        class : 'text-end',
+                    }
+                }) %}
+            {% endif %}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: productItems,
+                    data: item.products,
+                    title: 'catalogue.family.products'|trans([], 'catalogue'),
+                    pagination: false,
+                    search: false
+                }
+            }, with_context = false )}}
+        {% endif %}
+        {% if item.products is empty or item.environmentalIssue or item.safety%}
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        otherIssue: {
+                            label: 'calibration_tool.fields.tool_type'|trans({}, 'calibration_tool')|capitalize,
+                            template: 'quality/non_conformity/partial/_cell_other_issue.html.twig',
+                        },
+                    },
+                    data: item,
+                    title: 'non_conformity.title.other_model_affected'|trans,
+                }
+            }, with_context = false )}}
+        {% endif %}
+    </div>
+
+    <div class="col-md-4">
+        <div style="margin-bottom: 5px">
+            {% set firstCrabWithMainFile = item.crabs | filter(crab => crab.mainFile is not null) | first %}
+            {% if firstCrabWithMainFile %}
+                <a href="{{ path('crab_download_main_file', {id: firstCrabWithMainFile.id, fileId: firstCrabWithMainFile.mainFile.id}) }}">
+                    {% if firstCrabWithMainFile.mainFile.extension not in ['png', 'jpg', 'jpeg'] %}
+                        <img src="/shared/bluesphere/96x96/mimetypes/document.png">
+                    {% else %}
+                        <img class="m-t-xs img-fluid" width="400" src="{{ asset(upload_uri ~ '/' ~ firstCrabWithMainFile.mainFile.filePath) }}">
+                    {% endif %}
+                </a>
+            {% else %}
+                {% if item.mainFile is defined and item.mainFile is not null %}
+                    <a href="{{ path('non_conformity_download_main_file', {id: item.iriId, fileId: item.mainFile.id}) }}">
+                        {% if item.mainFile.extension not in ['png', 'jpg', 'jpeg'] %}
+                            <img src="/shared/bluesphere/96x96/mimetypes/document.png">
+                        {% else %}
+                            <img class="m-t-xs img-fluid" width="400" src="{{ asset(upload_uri ~ '/' ~ item.mainFile.filePath) }}">
+                        {% endif %}
+                    </a>
+                {% else %}
+                    <img class="m-t-xs img-fluid" width="400" src="/shared/no_photo_catalogue.png">
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    {% if is_granted('NON_CONFORMITY_EDIT_VOTER', item['@id']) %}
+        <div class="col-md-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'non_conformity.title.add_er'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% form_theme form_er 'form_theme_vertical.html.twig' %}
+
+                            {{ form_start(form_er, { action: path('non_conformity_show', {'id': item.id}) }) }}
+                            {{ form_errors(form_er) }}
+                            {{ form_row(form_er.equipmentRecords) }}
+                            {{ form_row(form_er.submit) }}
+                            {{ form_rest(form_er) }}
+                            {{ form_end(form_er) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

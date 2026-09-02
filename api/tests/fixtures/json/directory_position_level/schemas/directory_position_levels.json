@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/position_levels$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/position_levels/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "label": {"type": "string"}
+        },
+        "required": ["@id", "@type", "id", "label"],
+        "additionalProperties": false
+      },
+      "minItems": 5
+    }
+  },
+  "required": ["hydra:member", "@id"]
+}

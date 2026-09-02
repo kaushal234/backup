@@ -1,0 +1,119 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%env(APP_SECRET)%'
+    #csrf_protection: true
+    http_method_override: false
+    handle_all_throwables: true
+    uid:
+        default_uuid_version: 7
+        time_based_uuid_version: 7
+    annotations:
+        enabled: false
+
+    property_info:
+        with_constructor_extractor: true
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
+    session:
+        handler_id: null
+        cookie_secure: auto
+        cookie_samesite: lax
+        storage_factory_id: session.storage.factory.native
+
+    #esi: true
+    #fragments: true
+    php_errors:
+        log: true
+
+    http_client:
+        scoped_clients:
+            gitlab.graphql.client:
+                base_uri: '%env(GITLAB_GRAPHQL_URL)%'
+                headers:
+                    PRIVATE-TOKEN: '%env(GITLAB_PRIVATE_TOKEN)%'
+                    Content-Type: 'application/json'
+            gitlab.client:
+                base_uri: '%env(GITLAB_URL)%'
+                headers:
+                    PRIVATE-TOKEN: '%env(GITLAB_PRIVATE_TOKEN)%'
+            agile.get.client:
+                base_uri: '%env(AGILE_API_GET_URL)%'
+                auth_basic: '%env(AGILE_API_TENANT_ID)%:%env(AGILE_API_KEY)%'
+                headers:
+                    Content-Type: 'application/json'
+            agile.post.client:
+                base_uri: '%env(AGILE_API_POST_URL)%'
+                auth_basic: '%env(AGILE_API_TENANT_ID)%:%env(AGILE_API_KEY)%'
+                headers:
+                    Content-Type: 'application/json'
+            javelo.client:
+                base_uri: '%env(JAVELO_API_URL)%'
+                headers:
+                    Authorization: '%env(JAVELO_API_TOKEN)%'
+                    Content-Type: 'application/scim+json'
+            deepl.client:
+                base_uri: '%env(DEEPL_PRO_URL)%'
+                headers:
+                    Authorization: '%env(DEEPL_PRO_AUTH_HEADER)% %env(DEEPL_TOKEN)%'
+                    Content-Type: 'application/x-www-form-urlencoded'
+            jira.client:
+                base_uri: '%env(JIRA_URL)%'
+                headers:
+                    Authorization: 'Basic %env(JIRA_CLIENT_TOKEN)%'
+                    Content-Type: 'application/json'
+            jiraTracteasy.client:
+                base_uri: '%env(JIRA_TRACTEASY_URL)%'
+                headers:
+                    Authorization: 'Basic %env(JIRA_CLIENT_TOKEN)%'
+                    Content-Type: 'application/json'
+            modulo.client:
+                base_uri: '%env(MODULO_API_BASE_URI)%'
+                auth_basic: '%env(MODULO_API_USERNAME)%:%env(MODULO_API_PASSWORD)%'
+                headers:
+                    Content-Type: 'application/json'
+            sageparts.client:
+                base_uri: '%env(SAGEPARTS_P21_BASE_URI)%'
+                headers:
+                    Content-Type: 'application/json'
+            link.client:
+                base_uri: '%env(LINK_API_URL)%'
+                headers:
+                    Authorization: 'Basic %env(LINK_API_KEY)%'
+                    Content-Type: 'application/json'
+#            link.chinese.client:
+#                base_uri: '%env(LINK_CHINESE_API_URL)%'
+#                headers:
+#                    Authorization: 'Basic %env(LINK_CHINESE_API_KEY)%'
+#                    Content-Type: 'application/json'
+            ai.client:
+                base_uri: '%env(AI_BASE_URI)%'
+                headers:
+                    Content-Type: 'application/json'
+                    Accept: 'application/json'
+            azure.document.intelligence.client:
+                base_uri: '%env(AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT)%'
+                headers:
+                    Ocp-Apim-Subscription-Key: '%env(AZURE_DOCUMENT_INTELLIGENCE_KEY)%'
+                    Content-Type: 'application/pdf'
+            ln.client:
+                base_uri: '%env(LN_API_URL)%'
+                headers:
+                    Content-Type: 'application/json'
+            snowflake.client:
+                base_uri: '%env(SNOWFLAKE_API_BASE_URL)%'
+                headers:
+                    Content-Type: 'application/json'
+                    Accept: 'application/json'
+                    Authorization: 'Bearer %env(SNOWFLAKE_TOKEN)%'
+                    X-Snowflake-Authorization-Token-Type: 'PROGRAMMATIC_ACCESS_TOKEN'
+
+    set_locale_from_accept_language: true
+    set_content_language_from_locale: true
+    enabled_locales: [ 'en', 'fr', 'zh-CN' ]
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file

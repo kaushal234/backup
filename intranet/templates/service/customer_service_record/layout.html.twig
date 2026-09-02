@@ -1,0 +1,74 @@
+{% extends 'service/layout.html.twig' %}
+{% block title %}Service\CSR{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if customerServiceRecord is not defined %}
+            <twig:NavItem:Add route="customer_service_record_add"/>
+            <twig:NavItem:Search translationKey="csr.nav_link.search_csr" domain="customer_service_record"
+                                 route="customer_service_record_search"/>
+        {% endif %}
+        <twig:NavItem translationKey="csr.nav_link.csr" domain="customer_service_record"
+                      route="customer_service_record_home" icon="tabler:report"/>
+        <twig:NavItem:Reports route="customer_service_record_report"/>
+        <twig:NavItem translationKey="csr.nav_link.csr_planner" domain="customer_service_record"
+                      route="customer_service_record_planner_home" icon="mdi-light:calendar"/>
+        <twig:NavItem translationKey="csr.nav_link.switch_to_ast_dashboard" domain="customer_service_record"
+                      route="customer_service_record_dashboard_ast" icon="bi:arrow-left-right"
+                      :security="app.request.pathInfo is same as '/service/customer-service-records/dashboard-csm' and is_granted('CSR_DASHBOARD')"/>
+        <twig:NavItem translationKey="csr.nav_link.my_team_dashboard" domain="customer_service_record"
+                      route="customer_service_record_dashboard_csm" icon="bi:arrow-left-right"
+                      :security="app.request.pathInfo is same as '/service/customer-service-records/dashboard-ast' and is_granted('CSR_DASHBOARD')"/>
+        <twig:NavItem translationKey="csr.nav_link.csr_completed_list" domain="customer_service_record"
+                      route="customer_service_record_multiple_closure"
+                      :security="app.request.pathInfo is same as '/service/customer-service-records/dashboard-csm' and is_granted('FEATURE_CUSTOMER_SERVICE_RECORD_CLOSE')"/>
+        {% if customerServiceRecord is defined %}
+            <twig:Dropdown translationKey="csr.nav_link.csr_actions" domain="customer_service_record">
+                <twig:NavItem:Edit route="customer_service_record_edit"
+                                   :routeParameters="{id: customerServiceRecord.id}"
+                                   :security="is_granted('FEATURE_CUSTOMER_SERVICE_RECORD_EDIT')"/>
+                <twig:NavItem translationKey="csr.nav_link.costs" domain="customer_service_record"
+                              route="legacy_service"
+                              :routeParameters="{ m: ['csr', 'view', 'costs'], id: customerServiceRecord.legacyId }"
+                              icon="clarity:coin-bag-line"/>
+                <twig:NavItem:NewTask route="legacy_calendar"
+                                      :routeParameters="{m: ['tasks', 'form', 'newTask'], module: 'CSR', parent_id: iri_id(customerServiceRecord['@id'])}"/>
+                <twig:NavItem:AddLink route="legacy_common"
+                                      :routeParameters="{m: ['links', 'form', 'newLink'], module: 'CSR', parent_id: iri_id(customerServiceRecord['@id'])}"/>
+                <twig:NavItem:Delete route="customer_service_record_delete"
+                                     :routeParameters="{ id: customerServiceRecord.id, '_token': csrf_token('customer_service_record_delete')}"
+                                     :security="is_granted('FEATURE_CUSTOMER_SERVICE_RECORD_DELETE')"/>
+            </twig:Dropdown>
+        {% endif %}
+        {% if bySSOServiceByStatus is defined and surveyCommissioningReport is defined %}
+            <twig:LegacyNavItem translationKey="csr.nav_link.advanced_cost_report_by_criteria"
+                                domain="customer_service_record" icon="tabler:report"
+                                url="/en/private/sales_service/service.php?m[0]=csr&m[1]=reports&m[2]=costByCriteria"/>
+            <twig:LegacyNavItem translationKey="csr.nav_link.advanced_sb_cost_report_by_criteria"
+                                domain="customer_service_record" icon="tabler:report"
+                                url="/en/private/sales_service/service.php?m[0]=csr&m[1]=reports&m[2]=SBCostByCriteria"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if customerServiceRecord is defined %}
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Add route="customer_service_record_add"/>
+            <twig:NavItem:Edit route="customer_service_record_edit"
+                               :routeParameters="{id: customerServiceRecord.id}"
+                               :security="is_granted('FEATURE_CUSTOMER_SERVICE_RECORD_EDIT')"/>
+            <twig:NavItem:Search translationKey="csr.nav_link.search_csr" domain="customer_service_record"
+                                 route="customer_service_record_search"/>
+            <twig:NavItem route="csm_dashboard" translationKey="csr.title.dashboard_csm"
+                          domain="customer_service_record"
+                          icon="ant-design:team-outlined"
+                          :security="app.request.pathInfo is same as '/service/customer-service-records/dashboard-ast' and is_granted('CSM_DASHBOARD')"/>
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

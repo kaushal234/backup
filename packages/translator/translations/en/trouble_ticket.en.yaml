@@ -1,0 +1,208 @@
+trouble_ticket:
+  title: TTS
+  details: TTS Details
+  new: New TTS
+  attachments: Attachments
+  message:
+    help: Add as much detail as you can, and attach a screenshot after creating.
+    warning: Never include passwords.
+    transfer: If you want to transfer TTS to MIS Team, please use the "Send to MIS" button on top menu.
+    comment: By commenting this TTS, you let it with its current assignee. If you would like to transfer the TTS, use Send to MIS.
+    purchase_lead: Need to buy something?
+    it_purchase_request: Open an IT purchase request
+    reason: Reason for editing
+    reason_close: Reason for closing
+    information_header: Information
+    information: Choosing this options will notify %cios%
+    understand: I understand
+    open_on_behalf: Opening this on behalf of someone else?
+    next_actions: 'Next possible actions and STATUS:'
+    request: It’s a request for a change or a suggestion for a new feature, not a bug. It should be validated by the MOO of the module or a functional responsible of the impacted application.
+    incident: Something that is blocking me from using the application or not working as intended. Should be handled by MIS
+    additional_comment_placeholder : Help us improve our TTS management. Any feedback is appreciated, even if you were satisfied. What could we have done better ?
+  mis_information: MIS Information
+  nav_link:
+    answer_and_send_to_mis: Answer and send to MIS
+    assign_to: Assign to
+    assign_to_me: Assign to me
+    back_to_pending: Back to pending
+    close: Close
+    comment: Comment
+    send_back_to_mis: Send back to MIS
+    it_purchase_request: IT purchase request
+    kpi: KPI
+    legacy_tts: Legacy TTS
+    mis_application: Application
+    mis_audit: MIS audit
+    mis_matrix: MIS matrix
+    module: Module
+    modules: Modules
+    propose_solution: Propose solution to user
+    reopen: Reopen
+    reports: Reports
+    comment_or_transfer: Comment or transfer
+    approve_and_send_to_mis: Approve and send to MIS
+    send_to_jira: Send to jira
+    send_to_mis: Send to MIS
+    send_to_moo: Send to MOO/GKU
+    subscriptions: My subscription
+    support_teams: Support teams
+    tts_action: TTS action
+  button:
+    status_update_success: TTS status updated successfully.
+    status_update_error: Error while updating TTS status.
+    same_issue: Same Issue
+    no_more_same_issue: I don't have this issue anymore
+    request_send_to_mis: Approve and send to MIS
+    send_to_mis: Send to MIS
+    answer_send_to_moo: Answer and send to MOO/GKU
+    add_file: Add TTS File
+    no_lku: Local Key User not defined
+    no_gku: Global Key User not defined
+    no_moo: Operational Owner not defined
+    reopen: Reopen
+    audit: Audit
+    matrix: Matrix
+    request_information_next: Request information and next
+    send_to_moo_next: Send to MOO and next
+    send_to_mis_next: Send to MIS and next
+    propose_solution_next: Propose solution and next
+    comment_next: Comment and next
+    close: Close
+    subscriptions: Subscriptions
+
+  fields:
+    auto_escalated: Auto Escalated
+    additional_comment : Additional Comment
+    additional_owners: Additional Owners
+    application: Application
+    assignee: Assignee
+    category: Category
+    close: Close
+    closed_at: Closed at
+    comment: Comment
+    created_at: Created at
+    created_by: Assignor
+    classification: Classification
+    details: Details
+    dms_help: DMS help
+    due_date: Due date
+    due_date_after: Due Date After
+    due_date_before: Due Date Before
+    has_assignee: Has assignee
+    has_jira_ticket: Has jira ticket
+    has_mis_assignee: Has MIS assignee
+    help: Help
+    hostname: Hostname
+    importance_factor: Importance Factor
+    interested: I'm interested
+    jira_issue_not_exists: Not in Jira
+    jira_number: Jira Number
+    jira_sprint_end_date: Jira Sprint End Date
+    jira_sprint_start_date: Jira Sprint Start Date
+    key_user: Key User
+    last_commented_at: Last commented at
+    local_key_user: Local Key User
+    location: Location
+    mis_assignee: MIS Contact
+    mis_pool: MIS Pool
+    mis_status: MIS Status
+    module: Module
+    not_assigned_yet: Not Assigned Yet
+    operationalOwner: Operational Owner
+    option: Option
+    priority: Priority
+    propose_solution: Propose Solution
+    rating: Satisfaction survey
+    referer: Referer
+    relative_tts: Relative TTS opened last 2 days
+    request_information: Request Information
+    same_issue: I have the same issue
+    send_to_mis: Send To MIS
+    send_to_moo: Send To MOO
+    short_description: Subject
+    solution_proposed_at: Solution proposed at
+    status: Status
+    support: Support
+    support_level: Support level
+    transfer_comment: Transfer / Comment
+    type: Type
+    type_description: Type description
+    unassigned: Unassigned
+    url: URL
+    after: Created After
+    before: Created Before
+    indice_factor: iFactor
+    reason_for_editing: Reason for editing
+  errors:
+    user_not_found: User not found, action not possible.
+    update: Something went wrong and the Trouble Ticket could not be updated.
+    application: Application is mandatory.
+    module: Module is mandatory.
+    type: Type is mandatory.
+    option: Option is mandatory.
+    description: Description is mandatory.
+    short_description: Subject is mandatory.
+    follow: Something went wrong.
+    not_exist: "Trouble ticket #%id% does not exists."
+    comment: Comment is mandatory.
+    status: Status is mandatory.
+    satisfaction: Satisfaction survey is mandatory.
+    assignee: Assignee is mandatory.
+    it_purchase_request: Please use the link on the top menu to open an IT purchase request.
+    filter_missing: At least one date is mandatory in the filters.
+    type_not_found: Type not found.
+    reason_for_editing_required: Please add the reason for editing this trouble ticket
+  success:
+    add: Trouble Ticket created successfully.
+    assignee: MIS Contact updated successfully.
+    update: Trouble Ticket updated successfully.
+    follow: You are now following this Trouble Ticket.
+    reopen: Trouble Ticket reopen successfully.
+    close: Trouble Ticket closed successfully.
+  reports:
+    by_status_by_business_unit: TTS by Status, By Business Unit
+    by_status_by_mis_assignee: TTS by Status, By MIS Contact
+    by_factory: By Factory
+    by_mis_assignee: By MIS Contact
+    by_latest_comment: TTS sorted by latest comment
+  form:
+    title: Open a trouble ticket
+    edit_title: Edit ticket
+    edit_subtitle: Update the details and explain the change below.
+    subtitle: Tell us what's wrong and we'll get it to the right team.
+    option_value:
+      i_cannot_proceed: I cannot proceed
+      security_high_attention: Security - Critical Attention
+      security_not_urgent: Security - Not Urgent
+      annoying_but_i_can_proceed: Annoying but I can proceed
+      multiple_users_cannot_proceed: Multiple users cannot proceed
+      more_permission_needed: More permission needed
+      more_training_needed: More training needed
+      new_feature_proposal: New feature proposal
+      other: Other
+      it_purchase_request: IT Purchase request
+      major_impact_on_business_activity: Major impact on business activity
+      all_applications: All Applications
+  audit:
+    title: Audit by filter (in days)
+    pending: Time to handle
+    implementation: Time to implement
+    awaiting_user: Time awaiting user answer
+    solution_proposed: Time for user to check solution proposed
+    validate: Time to approve
+    total: Total time to solve
+    kpi: All TTS, any status, sorted by month of creation
+    by_month: TTS closed and still opened, sorted by month of creation
+    closed: TTS sorted by month of closure
+
+  relative:
+    title: Similar tickets
+    subtitle: Opened in the last 2 days for this module
+    empty_title: All clear!
+    empty_text: Nobody's reported anything for this module in the last 2 days — you're good to go ahead and open yours.
+    you_reported: You reported this ticket
+    others_responded: Here's how others have responded so far
+    opened_by_you: Opened by you
+    tally_same_issue: Have the same issue
+    tally_interested: Interested

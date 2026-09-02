@@ -1,0 +1,31 @@
+{%  extends 'mis/project/layout.html.twig' %}
+
+{% block title %}
+    {{ 'mis_project.chart.page_title'|trans({}, 'mis_project') }}
+{% endblock %}
+
+{% block content %}
+    <div id="react" />
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'mis_project' }) }}"></script>
+{% endblock %}
+
+{% block breadcrumb_links %}
+    {{ parent() }}
+    <li class="breadcrumb-item">
+        <a
+            href="{{ path('mis_project_home') }}"
+            {% if app.request.attributes.get('_route') == 'mis_project_home' %} style="font-weight: bold;"{% endif %}
+        >{{ 'mis_project.chart.breadcrumbs.mis_project'|trans({}, 'mis_project') }}</a>
+    </li>
+     <li class="breadcrumb-item">
+        <a
+            href="{{ path('project_chart_home') }}"
+            {% if app.request.attributes.get('_route') == 'project_chart_home' %} style="font-weight: bold;"{% endif %}
+        >{{ 'mis_project.chart.breadcrumbs.chart'|trans({}, 'mis_project') }}</a>
+    </li>
+{% endblock %}
+

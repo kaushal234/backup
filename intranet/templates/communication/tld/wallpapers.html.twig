@@ -1,0 +1,17 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_wallpapers.html.twig', {
+        wallpapers: [
+            'tld/wallpapers/TLD Wallpaper 1.jpg',
+            'tld/wallpapers/TLD Wallpaper 2.jpg',
+            'tld/wallpapers/TLD Wallpaper 3.jpg',
+            'tld/wallpapers/TLD MIL Teams-Wallpaper 1.jpg',
+            'tld/wallpapers/TLD MIL Teams-Wallpaper 2.jpg',
+            'tld/wallpapers/TLD MIL Teams-Wallpaper 3.jpg',
+            'tld/wallpapers/TLD MIL Teams-Wallpaper 4.jpg',
+        ],
+    }) }}
+{% endblock %}

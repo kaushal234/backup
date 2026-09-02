@@ -1,0 +1,23 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+        window.TOC_APP_PROPS = {{ props|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'common' }) }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'technician_on_call' }) }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'service' }) }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'customer_service_record' }) }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'directory' }) }}"></script>
+{% endblock %}

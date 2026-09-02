@@ -1,0 +1,24 @@
+App\Entity\Service\TechnicianOnCallFile:
+    technician_on_call_file_extranet_public:
+        technician_on_call: '@toc_for_extranet'
+        poster: "@user_service"
+        filePath: "fake/path/public_file.pdf"
+        created_at: <dateTimeBetween('-30 days','-1 days')>
+        description: "Public TOC file"
+        sha: "miaouid6"
+        mimeType: "Mr Mime"
+        extension: "flexion"
+        size: 22
+        public: true
+
+    technician_on_call_file_extranet_private:
+        technician_on_call: '@toc_for_extranet'
+        poster: "@user_service"
+        filePath: "fake/path/private_file.pdf"
+        created_at: <dateTimeBetween('-30 days','-1 days')>
+        description: "Private TOC file"
+        sha: "miaouid7"
+        mimeType: "toy"
+        extension: "flexion"
+        size: 22
+        public: false

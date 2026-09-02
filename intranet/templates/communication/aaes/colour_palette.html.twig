@@ -1,0 +1,28 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_colour_palette.html.twig', {
+        colors: [
+            {
+                pantone: '300 C',
+                cmyk: '100 / 70 / 0 / 0',
+                rgb: '0 / 91 / 170',
+                hex: '#005BAA'
+            },
+            {
+                pantone: '7734 C',
+                cmyk: '87 / 34 / 97 / 26',
+                rgb: '52 / 104 / 61',
+                hex: '#34683D'
+            },
+            {
+                pantone: '7540 C',
+                cmyk: '68 / 59 / 54 / 55',
+                rgb: '74 / 77 / 81',
+                hex: '#4A4D51'
+            }
+        ],
+    }) }}
+{% endblock %}

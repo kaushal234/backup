@@ -1,0 +1,284 @@
+App\Entity\Service\CustomerServiceRecord\CustomerServiceRecord:
+    # /service/customer_service_record/1
+    csr_1:
+        id: 1
+        createdAt: "<dateTimeThisYear()>"
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_green_tag'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 1
+    # /service/customer_service_record/2
+    csr_2:
+        id: 2
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        plannedAt: "<dateTimeThisMonth()>"
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_1'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "ASSIGNED"
+        leader: '@user_ast'
+    # /service/customer_service_record/3
+    csr_3:
+        id: 3
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_cat'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "ASSIGNED"
+        leader: '@user_ast'
+    # /service/customer_service_record/4
+    csr_4:
+        id: 4
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "ASSIGNED"
+        leader: '@user_ast'
+
+App\Entity\Service\CustomerServiceRecord\CommissioningCustomerServiceRecord:
+    # /service/commissioning_customer_service_record/5
+    csr_5:
+        id: 5
+        createdAt: <(new \DateTime('2025-07-01'))>
+        updatedAt: <(new \DateTime('2025-07-01'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "IN-PROGRESS"
+    # /service/commissioning_customer_service_record/6
+    csr_6:
+        id: 6
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        completedAt: <( new \DateTime('2024-09-23'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "COMPLETED"
+    # /service/commissioning_customer_service_record/7
+    csr_7:
+        id: 7
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        completedAt: <( new \DateTime('2024-09-23'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "CLOSED"
+    # /service/commissioning_customer_service_record/9
+    csr_9:
+        id: 9
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "ASSIGNED"
+        leader: '@user_ast'
+        plannedAt: "<dateTimeThisMonth()>"
+    # /service/commissioning_customer_service_record/21
+    csr_21:
+        id: 21
+        createdAt: <( new \DateTime('2024-06-25'))>
+        updatedAt: <( new \DateTime('2024-06-25'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "PENDING"
+
+App\Entity\Service\CustomerServiceRecord\ServiceBulletinCustomerServiceRecord:
+    # /service/service_bulletin_customer_service_record/8
+    csr_8:
+        id: 8
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "PENDING"
+        serviceBulletinLegacyId: 58
+        serviceBulletinLinesLegacyId: 101151
+    # /service/service_bulletin_customer_service_record/19
+    csr_19:
+        id: 19
+        createdAt: <( new \DateTime('2024-06-25'))>
+        updatedAt: <( new \DateTime('2024-06-25'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "PENDING"
+        serviceBulletinLegacyId: 58
+        serviceBulletinLinesLegacyId: 101151
+
+App\Entity\Service\CustomerServiceRecord\TechnicianOnCallCustomerServiceRecord:
+    # /service/technician_on_call_customer_service_record/20
+    csr_20:
+        id: 20
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        completedAt: <( new \DateTime('2024-09-23'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        technicianOnCall: '@toc_csr'
+    # /service/technician_on_call_customer_service_record/10
+    csr_10:
+        id: 10
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        completedAt: <( new \DateTime('2024-09-23'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "CLOSED"
+        technicianOnCall: '@toc_multiple_csr'
+    # /service/technician_on_call_customer_service_record/11
+    csr_11:
+        id: 11
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        completedAt: <( new \DateTime('2024-09-23'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "PENDING"
+        technicianOnCall: '@toc_multiple_csr'
+    # /service/technician_on_call_customer_service_record/12
+    csr_12:
+        id: 12
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        completedAt: <( new \DateTime('2024-09-23'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "CLOSED"
+        technicianOnCall: '@toc_multiple_closed_csr'
+    # /service/technician_on_call_customer_service_record/13
+    csr_13:
+        id: 13
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        completedAt: <( new \DateTime('2024-09-23'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "CLOSED"
+        technicianOnCall: '@toc_multiple_closed_csr'
+    # /service/technician_on_call_customer_service_record/14
+    csr_14:
+        id: 14
+        createdAt: <( new \DateTime('2025-06-04'))>
+        updatedAt: <( new \DateTime('2025-06-04'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "PENDING"
+        technicianOnCall: '@toc_multiple_random_csr'
+    # /service/technician_on_call_customer_service_record/15
+    csr_15:
+        id: 15
+        createdAt: <( new \DateTime('2025-07-04'))>
+        updatedAt: <( new \DateTime('2025-07-04'))>
+        completedAt: <( new \DateTime('2025-07-04'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "CLOSED"
+        technicianOnCall: '@toc_multiple_random_csr'
+    # /service/technician_on_call_customer_service_record/16
+    csr_16:
+        id: 16
+        createdAt: <( new \DateTime('2025-06-25'))>
+        updatedAt: <( new \DateTime('2025-06-25'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "IN-PROGRESS"
+        technicianOnCall: '@toc_multiple_random_csr'
+    # /service/technician_on_call_customer_service_record/17
+    csr_17:
+        id: 17
+        createdAt: <( new \DateTime('2024-06-25'))>
+        updatedAt: <( new \DateTime('2024-06-25'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "IN-PROGRESS"
+        technicianOnCall: '@toc_multiple_random_csr'
+    # /service/technician_on_call_customer_service_record/18
+    csr_18:
+        id: 18
+        createdAt: <( new \DateTime('2024-06-25'))>
+        updatedAt: <( new \DateTime('2024-06-25'))>
+        title: <sentence()>
+        description: <paragraph(2)>
+        equipmentRecord: '@equipment_record_pol'
+        airport: '@airport_tesurlesysteme'
+        createdBy: '@user_superuser'
+        legacyId: 2
+        status: "IN-PROGRESS"
+        technicianOnCall: '@toc_multiple_random_csr'

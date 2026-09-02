@@ -1,0 +1,107 @@
+App\Entity\Directory\BusinessUnit:
+    #/business_units/1
+    tld_america:
+        id: 1
+        name: SAY_MY_NAME
+        representative: '@user_representative_3'
+        domain: \@tld-america.com
+        location: '@location_fixedToFalse'
+        region: '@region_ALVEST'
+
+    business_unit_2:
+        id: 2
+        name (unique): business_unit_2
+        representative: '@user_representative_2'
+        domain: \@tld-europe.com
+        location: '@location_parts'
+        region: '@region_0'
+        legacyId: 72
+
+    business_unit_{3..15}:
+        id: <current()>
+        name (unique): <company()>
+        representative: '@user_representative_2'
+        domain: \@tld-europe.com
+        location: '@location_<current()>'
+        region: '@region_1'
+
+    business_unit_by_zero:
+        id: 16
+        name (unique): "Ritchie Group"
+        representative: '@user_representative_2'
+        domain: \@tld-europe.com
+        location: '@location_16'
+        region: '@region_by_zero'
+
+    #/business_units/17
+    business_unit_with_transferred_rep:
+        id: 17
+        name (unique): <company()>
+        representative: '@user_transferred'
+        domain: \@tld-europe.com
+        location: '@location_with_transferred_representative'
+        region: '@region_2'
+
+    #/business_units/18
+    business_unit_group:
+        id: 18
+        name (unique): <company()>
+        representative: '@user_transferred'
+        domain: \@tld-group.com
+        location: '@location_group'
+        region: '@region_2'
+
+    #/business_units/19
+    business_unit_sso:
+        id: 19
+        name: FACTORY
+        representative: '@user_representative_3'
+        domain: \@tld-america.com
+        location: '@location_sso'
+        region: '@region_ALVEST_OEM'
+
+    #/business_units/20
+    business_unit_factory:
+        id: 20
+        name: SSO
+        representative: '@user_representative_3'
+        domain: \@tld-america.com
+        location: '@location_factory'
+        region: '@region_3'
+
+    #/business_units/21
+    business_unit_sso_2:
+        id: 21
+        name: FACTORY_2
+        representative: '@user_representative_3'
+        domain: \@tld-america.com
+        location: '@location_sso_2'
+        region: '@region_4'
+
+    #/business_units/22
+    business_unit_factory_2:
+        id: 22
+        name: SSO_2
+        representative: '@user_representative_3'
+        domain: \@tld-america.com
+        location: '@location_factory_2'
+        region: '@region_4'
+
+    #/business_units/23
+    business_unit_sso_3:
+        id: 23
+        name: SSO_3
+        representative: '@user_representative_3'
+        domain: \@tld-america.com
+        location: '@location_sso_3'
+        region: '@region_3'
+
+    #/business_units/24
+    business_unit_sage:
+        id: 24
+        name: SSO_SAGE
+        representative: '@user_representative_3'
+        domain: \@tld-sage.com
+        location: '@location_sage'
+        region: '@region_SAGE'
+

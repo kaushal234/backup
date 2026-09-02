@@ -1,0 +1,7 @@
+<td>
+    {% if item.assignee is not null %}
+        {{ item.assignee.firstname }} {{ item.assignee.lastname }}
+    {% else %}
+        MIS
+    {% endif %}
+</td>

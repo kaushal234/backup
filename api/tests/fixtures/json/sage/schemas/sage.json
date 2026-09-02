@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/SagePart.jsonld",
+  "definitions": {
+    "SagePart.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "alvestId": {
+          "type": "string"
+        },
+        "sageId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sageUID": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Location.jsonld"
+          }
+        }
+      }
+    },
+    "Location.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "onHand": {
+          "$ref": "#/definitions/Quantity.jsonld"
+        },
+        "onOrder": {
+          "$ref": "#/definitions/Quantity.jsonld"
+        },
+        "unitPrice": {
+          "$ref": "#/definitions/Price.jsonld"
+        }
+      }
+    },
+    "Quantity.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        }
+      }
+    },
+    "Price.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

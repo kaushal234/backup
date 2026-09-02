@@ -1,0 +1,36 @@
+{% extends 'directory/people/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.search'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3 class="text-uppercase">{{ 'directory.people.title.searchbyid'|trans([], 'directory') }}</h3>
+<div class="row">
+    <div class="col-md-8 col-lg-6 m-b-xl">
+        {% form_theme formId 'form_theme_vertical.html.twig' %}
+    {{ form_start(formId) }}
+    {{ form_errors(formId) }}
+        {{ form_rest(formId) }}
+        <div>
+            <button type="submit" id="submit-legacy-id" class="btn btn-primary">{{ 'button.submit'|trans([], 'messages') }}</button>
+        </div>
+        {{ form_end(formId) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 col-lg-6 m-b-xl">
+        {% form_theme formErpEmployeeId 'form_theme_vertical.html.twig' %}
+    {{ form_start(formErpEmployeeId) }}
+    {{ form_errors(formErpEmployeeId) }}
+        {{ form_rest(formErpEmployeeId) }}
+        <div>
+            <button type="submit" id="submit-erp-id" class="btn btn-primary">{{ 'button.submit'|trans([], 'messages') }}</button>
+        </div>
+        {{ form_end(formErpEmployeeId) }}
+    </div>
+</div>
+    {% if searchDone %}
+        <p>{{ 'directory.people.search.no_result'|trans }}</p>
+    {% endif %}
+
+{% endblock %}

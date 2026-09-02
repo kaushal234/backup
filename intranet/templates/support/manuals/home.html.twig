@@ -1,0 +1,44 @@
+{% extends 'support/manuals/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js" xmlns:hx="http://www.w3.org/1999/XSL/Transform"></script>
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="text-capitalize">{{ 'support.manuals.fields.quick_access'|trans([], 'support') }}</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_start(idSearchForm, { action: path('manuals_home') }) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(idSearchForm) }}
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="submit" id="id-quick-access-submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                    </div>
+                    {{ form_end(idSearchForm) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_start(legacyIdSearchForm, { action: path('manuals_home') }) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(legacyIdSearchForm) }}
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="submit" id="legacy-id-quick-access-submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                    </div>
+                    {{ form_end(legacyIdSearchForm) }}
+                </div>
+                <div class="col-md-4">
+                    <div class="col-sm-12">
+                        <a style="margin-left: 3rem" href="{{ path('legacy_product_support') }}?m[0]=publications&m[1]=manuals&m[2]=search&m[3]=byBrandModel" class="btn btn-primary text-capitalize">
+                            <i class="fa fa-search"></i>&nbsp;{{ 'support.manuals.menu.search'|trans }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ data_table(datatable) }}
+{% endblock content %}

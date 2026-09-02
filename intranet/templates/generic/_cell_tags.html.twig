@@ -1,0 +1,17 @@
+<td>
+    {% if separator is not defined or separator is empty %}
+        {% set separator = ', ' %}
+    {% endif %}
+
+    {% if domain is not defined or domain is empty %}
+        {% set domain = 'messages' %}
+    {% endif %}
+
+    {% trans_default_domain domain %}
+
+    {% for tag in item.tags %}
+        {{ tag.name|trans }}
+
+        {% if not loop.last %}{{ separator|raw }} {% endif %}
+    {% endfor %}
+</td>

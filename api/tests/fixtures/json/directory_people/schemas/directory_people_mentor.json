@@ -1,0 +1,415 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {
+      "pattern": "^/people/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "alternateEmail": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "enableAt": {
+      "type": ["string", "null"]
+    },
+    "nickname": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "jobTitle": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "@id": {
+            "pattern": "^/phones/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "type",
+          "number"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "photo": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "address": {
+      "type": "object",
+      "$ref": "../../shared/schemas/address_with_country.json"
+    },
+    "erpLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "erpIdentifier": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "windowsLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "businessUnit": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {
+          "pattern": "^/business_units/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "location": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "domain": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "location",
+        "domain",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "legalEntity": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {
+          "pattern": "^/business_units/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "location": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "domain": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "location",
+        "domain",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "position": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {
+          "pattern": "^/positions/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "level": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "code",
+        "description",
+        "level",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "department": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "locale": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "username": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "passwordUpdatedAt": {
+      "type": "string"
+    },
+    "lastLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "updatedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "disabledAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plannedDisableAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "passwordExpirationDate": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "contractType": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/contract_types/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "name",
+            "description"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "coefficient": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "gender": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "premise": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "closestAirport": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "enableAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mentees": {
+      "type": "array",
+      "items": {
+        "oneOf": [{"$ref": "directory_people_mentor.json"}, { "type": "string" }]
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "firstname",
+    "lastname",
+    "email",
+    "alternateEmail",
+    "nickname",
+    "jobTitle",
+    "phones",
+    "photo",
+    "address",
+    "erpLogin",
+    "erpIdentifier",
+    "windowsLogin",
+    "businessUnit",
+    "position",
+    "department",
+    "locale",
+    "legacyId",
+    "username",
+    "hidden",
+    "disabled",
+    "passwordUpdatedAt",
+    "lastLogin",
+    "createdAt",
+    "updatedAt",
+    "disabledAt",
+    "plannedDisableAt",
+    "passwordExpirationDate",
+    "gender",
+    "premise",
+    "enableAt",
+    "closestAirport"
+  ],
+  "additionalProperties": false
+}

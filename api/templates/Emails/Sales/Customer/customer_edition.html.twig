@@ -1,0 +1,47 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'customer.edition.description' | trans({'%id%': id, '%customer_name%': customer_name, '%lastname%': user.lastname, '%firstname%': user.firstname}) }}</p>
+
+            <ul>
+                {% for field, values in changeSet %}
+                    <li>{{ 'sfr.change' | trans({
+                            '%field%': field,
+                            '%before%': '<b>' ~ values[0] ~ '</b>',
+                            '%after%': '<b>' ~ values[1] ~ '</b>'
+                        }) | raw }}</li>
+                {% endfor %}
+            </ul>
+            <ul>
+                {% for value in secondarySalesRepresentativeChangeSet %}
+                    <li>{{ value }}</li>
+                {% endfor %}
+            </ul>
+
+            {{ include('Helpers/_association_table_raw.html.twig', {
+                associationData: {
+                    items: {
+                        id: {
+                            label: 'customer.edition.view_details' | trans({'%id%': id}),
+                            link: {
+                                'route': 'customer',
+                                'fixedParams': {'id': id}
+                            }
+                        },
+                        name: { label:'extranet_user.fields.name' | trans },
+                        status: { label:'sfr.fields.status' | trans},
+                    },
+                    data: customer_normalized,
+                },
+            }, with_context = false) }}
+
+        </columns>
+    </row>
+{% endblock %}

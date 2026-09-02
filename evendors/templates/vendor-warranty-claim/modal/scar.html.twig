@@ -1,0 +1,53 @@
+{% set form = create_scar_from_vwc_form(claim) %}
+<button type="button" class="btn btn-outline-primary float-end" data-bs-toggle="modal" data-bs-target="#new_scar_modal">
+    <span class="mx-4">{{ 'display.table.vwc.form.new.show'|trans }}</span>
+</button>
+
+<div class="modal carousel-fade" id="new_scar_modal" tabindex="-1" aria-labelledby="#new_scar_modal_label" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content display-style">
+            {{ form_start(form) }}
+            <div class="modal-header border-dark border-1">
+                <h5 class="modal-title text-black" id="new_scar_modal_label">{{ 'display.table.vwc.form.new.show'|trans }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="mb-2">
+                        {{ form_label(form.issueOrigin, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.issueOrigin) }}
+                    </div>
+                    <div class="mb-2">
+                        {{ form_label(form.correctiveAction, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.correctiveAction) }}
+                    </div>
+                    <div class="mb-2">
+                        {{ form_label(form.description, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.description) }}
+                    </div>
+                    <div class="mb-2">
+                        {{ form_label(form.shortDescription, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.shortDescription) }}
+                    </div>
+                    <div class="mb-2">
+                        {{ form_label(form.comment, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.comment) }}
+                    </div>
+                    <div class="mb-2">
+                        {{ form_label(form.file, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.file) }}
+                    </div>
+                    <div class="mb-2">
+                        {{ form_label(form.fileDescription, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(form.fileDescription) }}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer border-dark">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ 'display.table.vwc.form.new.hide'|trans }}</button>
+                <button type="submit" class="btn btn-primary" id="{{ form.vars.id }}_new_submit" >{{ 'display.table.vwc.form.new.submit'|trans }}</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

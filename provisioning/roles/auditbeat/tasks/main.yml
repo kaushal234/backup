@@ -1,0 +1,64 @@
+- name: Ensure Prerequisites
+  become: true
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - gnupg
+    state: present
+
+- name: Ensure keyrings directory exists
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Download Elastic GPG key (ASCII)
+  become: true
+  ansible.builtin.get_url:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    dest: /etc/apt/keyrings/elastic.asc
+    mode: '0644'
+
+- name: Convert Elastic key to gpg format
+  become: true
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o /etc/apt/keyrings/elastic.gpg /etc/apt/keyrings/elastic.asc
+  args:
+    creates: /etc/apt/keyrings/elastic.gpg
+
+- name: Add Elastic 8.x APT Repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/elastic.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main"
+    filename: elastic-8x
+    state: present
+    update_cache: false
+
+- name: Update APT Cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install Or Upgrade Auditbeat (Stick To 8.x)
+  become: true
+  ansible.builtin.apt:
+    name: auditbeat
+    state: latest
+
+- name: Deploy Auditbeat Configuration
+  become: true
+  ansible.builtin.template:
+    src: templates/auditbeat.yml
+    dest: /etc/auditbeat/auditbeat.yml
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart auditbeat
+
+- name: Ensure Auditbeat Service is Enabled And Started
+  become: true
+  ansible.builtin.service:
+    name: auditbeat
+    enabled: true
+    state: started

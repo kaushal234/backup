@@ -1,0 +1,39 @@
+<div class="modal-dialog {% if modal.size is defined %}modal-{{ modal.size }}{% endif %}">
+    <div class="modal-content">
+        <div class="modal-header">
+            {% block header %}
+                {% block title %}
+                    <h1 class="modal-title fs-5" id="{{ id }}Label">{{ modal.title|raw }}</h1>
+                {% endblock %}
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            {% endblock %}
+        </div>
+        <div class="modal-body">
+            {% block body %}
+                {{ body|raw }}
+            {% endblock %}
+        </div>
+        <div class="modal-footer">
+            {% block footer %}
+                {% if modal.closeButton is defined %}
+                    <button type="button" class="btn btn-{{ modal.closeButton.color|default('white') }}" data-bs-dismiss="modal">
+                        {% if modal.closeButton.icon is defined %}
+                            <i class="fa {{ modal.closeButton.icon }}"></i>
+                        {% endif %}
+                        {{ modal.closeButton.name }}
+                    </button>
+                {% else %}
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                {% endif  %}
+                {% if modal.targetButton is defined %}
+                    <a type="button" href="{{ modal.targetButton.link }}" id="button_{{ id }}" data-turbo="false" class="btn btn-{{ modal.targetButton.color|default('secondary') }}">
+                        {% if modal.targetButton.icon is defined %}
+                            <i class="fa {{ modal.targetButton.icon }}"></i>
+                        {% endif %}
+                        {{ modal.targetButton.name }}
+                    </a>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+</div>

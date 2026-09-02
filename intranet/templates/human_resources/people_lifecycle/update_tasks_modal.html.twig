@@ -1,0 +1,58 @@
+{% set newData = [] %}
+{% set userInformation = [] %}
+
+{% for task in data.updateTasks %}
+    {% set userInformation = data %}
+    {% set newTask = task|merge({'user': userInformation}) %}
+    {% set newData = newData|merge([newTask]) %}
+{% endfor %}
+
+{% if newData is not empty %}
+    <button type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#updateTasksModal-{{ userInformation.id }}">
+        {% set pendingCount = newData|filter(task => not task.done)|length %}
+
+        {% if pendingCount > 0 %}
+            {{ 'mis.update_task.buttons.pending'|trans({}, 'mis') }} ({{ pendingCount }})
+        {% else %}
+            {{ 'mis.update_task.buttons.completed'|trans({}, 'mis') }}
+        {% endif %}
+    </button>
+    <div class="modal fade"
+         id="updateTasksModal-{{ userInformation.id }}"
+         tabindex="-1"
+         aria-labelledby="updateTasksModalLabel-{{ userInformation.id }}"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="updateTasksModalLabel-{{ userInformation.id }}">
+                        {{ 'mis.update_task.title'|trans({}, 'mis') }}
+                    </h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="{{ 'Close'|trans({}, 'mis') }}">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ include('human_resources/people_lifecycle/partial/update_tasks_list.html.twig', {
+                        updateTasks: newData,
+                        people: userInformation,
+                        fromNewComersPage: true
+                    }) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        {{ 'Close'|trans({}, 'mis') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

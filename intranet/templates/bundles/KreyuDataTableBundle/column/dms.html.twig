@@ -1,0 +1,5 @@
+{% if data is not null %}
+    <a href="{{ path(route, {(key): data}|merge(extra_params)) }}" target="_blank" class="btn btn-xs btn-block btn-social btn-primary btn-outline">
+        <span class="fa fa-file-pdf"></span> <strong>DMS</strong> {{ data }}
+    </a>
+{% endif %}

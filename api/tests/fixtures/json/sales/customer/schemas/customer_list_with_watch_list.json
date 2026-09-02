@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/customers$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/customers/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "mainSalesRepresentative": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "properties": {
+                  "asm": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/people/\\d+$"},
+                      "@type": {"type": "string"},
+                      "firstname": {"type": "string"},
+                      "lastname": {"type": "string"},
+                      "email": {"type": "string"},
+                      "username": {"type": "string"},
+                      "legacyId": {"type": "integer"}
+                    },
+                    "required": ["@id", "@type", "firstname", "lastname", "email", "username", "legacyId"],
+                    "additionalProperties": false
+                  },
+                  "subDivision": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/sub_divisions/\\d+$"},
+                      "@type": {"type": "string"},
+                      "name": {"type": "string"},
+                      "legacyId": {"type": "integer"}
+                    },
+                    "required": ["@id", "@type", "name", "legacyId"],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            ]
+          },
+          "address": {
+            "type": "object",
+            "$ref": "../../../shared/schemas/address_without_country.json"
+          },
+          "country": {
+            "type": ["object", "null"]
+          },
+          "customerTypes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/sales/customer_types/\\d+$"},
+                "@type": {"type": "string"},
+                "name": {"type": "string"},
+                "id": {"type": "integer"},
+                "legacyId": {"type": "integer"}
+              },
+              "required": [
+                "@id",
+                "@type",
+                "id",
+                "name",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "status": {
+            "type": "string"
+          },
+          "watchList": {
+            "type" : "boolean"
+          },
+          "watchListReason": {
+            "type": ["string", "null"]
+          },
+          "inforLnBusinessPartnerCodes": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "name",
+          "mainSalesRepresentative",
+          "address",
+          "country",
+          "customerTypes",
+          "status",
+          "watchList",
+          "watchListReason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

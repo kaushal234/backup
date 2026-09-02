@@ -1,0 +1,85 @@
+{% extends 'sales/freight_forwarders/layout.html.twig' %}
+{% trans_default_domain 'freight_forwarder' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filters' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('sales/freight_forwarders/partials/_form_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('freight_forwarders_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {% set items = {
+                id: {
+                    label: 'demo.fields.id'|trans({}, 'demo'),
+                },
+                name: { label: 'fields.name'|trans({}, 'messages') | capitalize },
+                location: {
+                    label: 'fields.factory'|trans({}, 'messages'),
+                    properties: ['location.name'],
+                    link:{
+                        route: 'directory_locations_show',
+                        params: {'id':'location.@id'},
+                    },
+                },
+                supplierNumber: { label: 'fields.supplier.number'|trans({}, 'messages') },
+                language: { label: 'fields.language'|trans({}, 'messages') | capitalize, filters: ['upper'] },
+                emails: {
+                    label: 'freight_forwarder.felds.emails'|trans|capitalize,
+                    template: 'sales/freight_forwarders/partials/cells/_emails.html.twig',
+                },
+                view: {
+                    label: 'menu.view'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'freight_forwarders_show',
+                        params: {'id':'@id'},
+                        content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+            } %}
+            {% if is_granted('FEATURE_FREIGHT_FORWARDER_ADMIN') %}
+                {% set items = items | merge({
+                    edit: {
+                        label: 'menu.edit' | trans([], 'messages') | capitalize,
+                        link:{
+                            route: 'freight_forwarders_edit',
+                            params: { 'id':'@id' },
+                            content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                        },
+                        sortable: false,
+                        class : 'text-end'
+                    },
+                }) %}
+            {% endif %}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: items,
+                    initialSorting: false,
+                    searchTable: searchTable,
+                    title: reportTitle|trans,
+                    data: freightForwarders,
+                }
+            }, with_context = false) }}
+        </div>
+
+    </div>
+{% endblock %}

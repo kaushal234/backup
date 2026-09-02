@@ -1,0 +1,8 @@
+{% trans_default_domain('service') %}
+
+<td>
+    <span class="btn btn-{{ item.humanInjuries ? 'danger' : 'default' }}" title="{{ 'service.follow_up_report.fields.human_injuries'|trans|capitalize }}"><i class="fa fa-2x fa-fw fa-medkit"></i></span>
+    <span class="btn btn-{{ item.planeDamages ? 'danger' : 'default' }}" title="{{ 'service.follow_up_report.fields.plane_damages'|trans|capitalize }}"><i class="fa fa-2x fa-fw fa-plane"></i></span>
+    <span class="btn btn-{{ item.equipmentDamages ? 'danger' : 'default' }}" title="{{ 'service.follow_up_report.fields.equipment_damages'|trans|capitalize }}"><i class="fa fa-2x fa-fw fa-wrench"></i></span>
+    <span class="btn btn-{{ item.environmentDamages ? 'danger' : 'default' }}" title="{{ 'service.follow_up_report.fields.environment_damages'|trans|capitalize }}"><i class="fa fa-2x fa-fw fa-leaf"></i></span>
+</td>

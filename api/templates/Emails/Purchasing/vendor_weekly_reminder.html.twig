@@ -1,0 +1,24 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <p>{{ 'vendor.weekly_reminder.intro'|trans({'%supplierName%': supplierName}) }}</p>
+    <br>
+    <h5><strong>{{ 'vendor.weekly_reminder.orders'|trans|capitalize }}</strong></h5>
+    <p><strong>{{ 'vendor.weekly_reminder.late_orders'|trans }}</strong>: <a href={{ url('evendors') }}purchase-order/edit_all_delivery_date?state=Late>{{ lateCount }}</a></p>
+    <p><strong>{{ 'vendor.weekly_reminder.unconfirmed_orders'|trans }}</strong>: <a href={{ url('evendors') }}purchase-order/edit_all_delivery_date?state=Unconfirmed>{{ unconfirmedCount }}</a></p>
+    <p>{{ 'vendor.weekly_reminder.acknowledge_orders'|trans() }} <a href={{ url('evendors') }}>{{ url('evendors') }}</a> </p>
+    <p>{{ 'vendor.weekly_reminder.acknowledge_access'|trans() }} :
+        {% for contact in orderStatistic.internalContacts %}
+            {{ contact.emailAddress }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    <br>
+    <h5><strong>{{ 'vendor.weekly_reminder.quality'|trans|capitalize }}</strong></h5>
+    <p><strong>{{ 'vendor.weekly_reminder.vwc'|trans }}</strong> {{ 'vendor.weekly_reminder.waiting_review'|trans }}: <a href={{ url('evendors') }}vendor-warranty-claim>{{ vwc }}</a></p>
+    <p><strong>{{ 'vendor.weekly_reminder.scar'|trans }}</strong> {{ 'vendor.weekly_reminder.waiting_review'|trans }}: <a href={{ url('evendors') }}supplier-corrective-action-request>{{ scar }}</a></p>
+    <p>{{ 'vendor.weekly_reminder.acknowledge_quality'|trans() }} <a href={{ url('evendors') }}>{{ url('evendors') }}</a> </p>
+    <br>
+    <br>
+    {{ 'vendor.weekly_reminder.regards'|trans() }}
+{% endblock %}

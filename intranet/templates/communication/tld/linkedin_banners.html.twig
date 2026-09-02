@@ -1,0 +1,15 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_linkedin_banners.html.twig', {
+        banners: [
+            'tld/banners/banner-1-tpx-close-up-shot.png',
+            'tld/banners/banner-2-belt-loader-baggage-tractor.png',
+            'tld/banners/banner-3-tpx-wide-shot.png',
+            'tld/banners/banner-4-white-with-logo.png',
+            'tld/banners/banner-5-blue-with-logo.png',
+        ],
+    }) }}
+{% endblock %}

@@ -1,0 +1,68 @@
+{% trans_default_domain 'equipment_shipping_record' %}
+<div class="row">
+    <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ include('helper/_report_table.html.twig', {
+                            reportTable: {
+                                items: {
+                                    createdBy: {
+                                        label: 'fields.created_by'|trans({}, 'messages'),
+                                        properties: ['createdBy.lastname', 'createdBy.firstname'],
+                                        link: {
+                                            route: 'directory_people_show',
+                                            params: {'id':'createdBy.@id'}
+                                        }
+                                    },
+                                    costDate: {
+                                        label: 'demo.fields.created_at'|trans({}, 'demo'),
+                                        filters: ["date('Y-m-d')"]
+                                    },
+                                    type: {
+                                        label: 'equipment_shipping_record.fields.type'|trans()|capitalize,
+                                    },
+                                    description: {
+                                        label: 'jobs.fields.description'|trans({}, 'job')|capitalize,
+                                        filters: 'nl2br'
+                                    },
+                                    currency: {
+                                        properties: ['currency.name'],
+                                        label: 'forex.currency'|trans({}, 'forex')|capitalize,
+                                    },
+                                    price: {
+                                        label: 'equipment_shipping_record.fields.price'|trans()|capitalize,
+                                    },
+                                    edit: {
+                                        label: 'menu.edit'|trans([], 'messages')|capitalize,
+                                        link:{
+                                            route: 'equipment_shipping_record_costs_edit',
+                                            params: {id: 'esrId', costId: 'id'},
+                                            content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></span>',
+                                        },
+                                        class: "text-end",
+                                    },
+                                    delete: {
+                                        label: 'button.delete'|trans({}, 'messages')|capitalize,
+                                        link:{
+                                            route: 'equipment_shipping_record_costs_delete',
+                                            params: {id: 'esrId', costId: 'id'},
+                                            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                                            fixedParams: {'_token': csrf_token('delete_contract_type')},
+                                            popup: {
+                                                type: 'confirmation',
+                                                title: 'Confirmation',
+                                                message: 'Are you sure you want to delete ?',
+                                            },
+                                        },
+                                        class: "text-end",
+                                    },
+                                },
+                                title: 'equipment_shipping_record.fields.costs'|trans ,
+                                data: costs,
+                                pagination: false,
+                            }
+                        }, with_context = false) }}
+                    </div>
+                </div>
+    </div>
+</div>

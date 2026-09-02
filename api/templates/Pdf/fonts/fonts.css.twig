@@ -1,0 +1,20 @@
+{% block content %}
+
+{% for font in fonts %}
+    {% for variant in font.variants %}
+    @font-face {
+        font-family: {{ font.name }};
+        src: url('{{ absolute_path(variant.path) }}') format('truetype');
+        font-weight: {{ variant.weight }};
+        font-style: {{ variant.style }};
+    }
+    {% endfor %}
+{% endfor %}
+
+body {
+{% for font in fonts %}
+    font-family: {{ font.name }}, {{ font.alt }};
+{% endfor %}
+}
+
+{% endblock %}

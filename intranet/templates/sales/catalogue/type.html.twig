@@ -1,0 +1,124 @@
+{% extends 'sales/catalogue/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h1>{{ productType.englishName | upper }}</h1>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        {% for family in productType.productFamilies %}
+                            <div class="col-md-3 col-lg-2 col-sm-6">
+                                <div class="card">
+                                    {% set publicForTLD = family.publicForTLD ? 'success' : 'danger' %}
+                                    {% set publicForAero = family.publicForAerospecialties ? 'success' : 'danger' %}
+                                    {% set publicForSAS = family.publicForSAS ? 'success' : 'danger' %}
+                                    <div class="card-header">
+                                        <span class="badge text-bg-{{ publicForTLD }} ">{{ 'catalogue.type.public_tld' | trans }}</span>
+                                        <span class="badge text-bg-{{ publicForAero }} ">{{ 'catalogue.type.public_aero' | trans }}</span>
+                                        <span class="badge text-bg-{{ publicForSAS }} ">{{ 'catalogue.type.public_sas' | trans }}</span>
+                                    </div>
+
+
+
+                                    {% if family.hidden %}
+                                        <button type="button" class="btn btn-danger btn-sm">{{ 'catalogue.type.hidden' | trans }}</button>
+                                    {% endif %}
+                                    <div class="ratio-box">
+                                        <div class="ratio-content">
+                                            <a href="{{ path('sales_catalogue_family_show', { 'id' : family.id }) }}">
+                                            {% if family.dmsPhoto is not same as(null) %}
+                                                    <img class="m-t-xs img-fluid" src="{{ absolute_url(path('legacy_mis', {m:['help', 'dms'], id: family.dmsPhoto})) }}">
+                                            {% else %}
+                                                    <img class="m-t-xs img-fluid" src="/shared/no_photo_catalogue.png">
+                                            {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="caption">
+                                        <h3 class="text-center">
+                                            <a href="{{ path('sales_catalogue_family_show', { 'id' : family.id }) }}">
+                                                {{ family.name }}</a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>{{ 'catalogue.type.information' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ include('helper/_association_table_raw.html.twig', {
+                                associationData: {
+                                    items: {
+                                        frenchName: { label:'catalogue.type.french'|trans | capitalize },
+                                        spanishName: { label:'catalogue.type.spanish'|trans | capitalize },
+                                        russianName: { label:'catalogue.type.russian'|trans | capitalize },
+                                        japaneseName: { label:'catalogue.type.japanese'|trans | capitalize },
+                                    },
+                                    'data': productType},
+                            }, with_context = false) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ include('helper/_association_table_raw.html.twig', {
+                                associationData: {
+                                    items: {
+                                        chineseName: { label:'catalogue.type.chinese'|trans | capitalize },
+                                        germanName: { label:'catalogue.type.german'|trans | capitalize },
+                                        portugueseName: { label:'catalogue.type.portuguese'|trans | capitalize },
+                                        dms: {
+                                            properties: ['dms.legacyId'],
+                                            label:'catalogue.type.dmsId'|trans | capitalize
+                                        },
+                                    },
+                                    data: productType},
+                            }, with_context = false) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'menu.logs'|trans({}, 'messages') }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="logs-block" data-resource="{{ productType.iri }}" data-show-comment-form="true"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

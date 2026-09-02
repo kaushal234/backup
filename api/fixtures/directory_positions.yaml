@@ -1,0 +1,148 @@
+App\Entity\Directory\PositionLevel:
+    level_EMPLOYEE:
+        id: 1
+        label: OTHER EMPLOYEES WITHOUT DIRECT REPORT
+    level_MANAGER:
+        id: 2
+        label: MANAGERS
+    level_SUPERVISOR:
+        id: 3
+        label: SUPERVISORS
+    level_EXECUTIVE:
+        id: 4
+        label: EXECUTIVES
+    level_STEERING:
+        id: 5
+        label: ALVEST STEERING COMMITTEE
+
+App\Entity\Directory\Position:
+    # /positions/1
+    position_fixed:
+        id: 1
+        code : GCEO
+        description: <text()>
+        level: '@level_EMPLOYEE'
+
+    # /positions/2
+    position_with_groups_1:
+        id: 2
+        code : LMFAO
+        description: <text()>
+        level: '@level_EMPLOYEE'
+        divisionGroups:
+            - '@division_group_1'
+
+    # /positions/3
+    position_with_groups_2:
+        id: 3
+        code : PTSD
+        description: <text()>
+        level: '@level_EMPLOYEE'
+        divisionGroups:
+            - '@division_group_2'
+
+    # /positions/4
+    position_updated:
+        id: 4
+        code : VIH
+        description: <text()>
+        level: '@level_EMPLOYEE'
+
+    # /positions/5..10
+    position_{5..10}:
+        id: <current()>
+        code (unique): code_<current()>
+        description: description_<current()>
+        level: '@level_EMPLOYEE'
+
+    # /positions/11
+    position_deleted:
+        id: 11
+        code: DEL
+        description: <text()>
+        level: '@level_STEERING'
+
+    # /positions/12
+    position_csm:
+        id: 12
+        code: CSM
+        description: <text()>
+        level: '@level_EMPLOYEE'
+
+    # /positions/13
+    position_ast:
+        id: 13
+        code: AST
+        description: <text()>
+        level: '@level_EMPLOYEE'
+
+    # /positions/14
+    position_dss:
+        id: 14
+        code: DSS
+        description: DSS position description
+        level: '@level_EXECUTIVE'
+
+    # /positions/15
+    position_sfe:
+        id: 15
+        code: SFE
+        description: 'Shop floor employee'
+        level: '@level_EXECUTIVE'
+
+    # /positions/16
+    position_mis:
+        id: 16
+        code: MIS
+        description: 'MIS'
+        level: '@level_STEERING'
+
+    # /positions/17
+    position_gtd:
+        id: 17
+        code: GTD
+        description: 'GTD'
+        level: '@level_EXECUTIVE'
+        mentorMandatory: true
+
+    # /positions/18
+    position_gtm:
+        id: 18
+        code: GTM
+        description: 'GTM'
+        level: '@level_EXECUTIVE'
+
+    # /positions/19
+    position_lgs:
+        id: 19
+        code: LGS
+        description: 'LGS'
+        level: '@level_EXECUTIVE'
+
+    # /positions/20
+    position_lgm:
+        id: 20
+        code: LGM
+        description: 'LGM'
+        level: '@level_EXECUTIVE'
+
+    # /positions/21
+    position_lcm:
+        id: 21
+        code: LCM
+        description: 'LCM'
+        level: '@level_EXECUTIVE'
+
+    # /positions/22
+    position_guest:
+        id: 22
+        code: !php/const App\Entity\Directory\Position::GUEST
+        description: !php/const App\Entity\Directory\Position::GUEST
+        level: '@level_EMPLOYEE'
+
+  # /positions/24
+    position_dpm:
+      id: 24
+      code: DPM
+      description: 'PROJECT MANAGER'
+      level: '@level_SUPERVISOR'

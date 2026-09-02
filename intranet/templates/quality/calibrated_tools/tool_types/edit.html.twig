@@ -1,0 +1,13 @@
+{% extends 'quality/calibrated_tools/layout.html.twig' %}
+{% trans_default_domain 'tool_types' %}
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('quality/calibrated_tools/tool_types/partial/_form.html.twig', {
+        title: 'tool_types.title.edit'|trans,
+        form: form,
+        action: path('quality_calibrated_tool_types_edit', { id: iri_id(toolType)}),
+        cancel_link: path('quality_calibrated_tool_types_home'),
+        id: toolType
+    }, with_context=false) }}
+{% endblock %}

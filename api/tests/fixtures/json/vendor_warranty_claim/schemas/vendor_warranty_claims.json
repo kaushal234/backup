@@ -1,0 +1,262 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/purchasing/(ncr_|wc_|)vendor_warranty_claims"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/purchasing/(ncr_|wc_|)vendor_warranty_claims/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "statusUpdatedAt": {"type": ["string", "null"]},
+          "supplierNumber": {"type": "string"},
+          "supplierName": {"type": "string"},
+          "supplierErp": {"type": ["integer", "null"]},
+          "createdAt": {"type": "string"},
+          "closedAt": {"type": ["string", "null"]},
+          "vendorToRespondAt": {"type": ["string", "null"]},
+          "currency": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../finance_currency/schemas/currency.json"}
+            ]
+          },
+          "status": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/purchasing/vendor_warranty_claim_statuses/\\d+$"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "position": {"type": "integer"}
+            },
+            "required": ["@id", "@type", "name", "description", "position"],
+            "additionalProperties": false
+          },
+          "location":{
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/locations/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "erp": {
+                "type": ["integer", "null"]
+              },
+              "currency": {
+                "oneOf": [
+                  {"type": "null"},
+                  {"$ref": "../../finance_currency/schemas/currency.json"}
+                ]
+              }
+            },
+            "required": ["@id", "@type", "name", "erp", "currency"],
+            "additionalProperties": false
+          },
+          "supplierCorrectiveActionRequest": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/quality/supplier_corrective_action_requests/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "createdAt": {"type": "string"},
+                  "iFactor": {"type": "string"},
+                  "status": {"type": "string"},
+                  "shortDescription": {"type": ["string", "null"]},
+                  "supplierName": {"type": "string"},
+                  "supplierNumber": {"type": "string"},
+                  "factory":{
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/locations/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "erp": {
+                        "type": ["integer", "null"]
+                      },
+                      "currency": {
+                        "oneOf": [
+                          {"type": "null"},
+                          {"$ref": "../../finance_currency/schemas/currency.json"}
+                        ]
+                      }
+                    },
+                    "required": ["@id", "@type", "name", "erp", "currency"],
+                    "additionalProperties": false
+                  },
+                  "poster":{
+                    "oneOf": [
+                      {"type": "null"},
+                      {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                    ]
+                  },
+                  "leader": {
+                    "oneOf": [
+                      {"type": "null"},
+                      {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                    ]
+                  }
+                },
+                "required": ["@id", "@type", "id", "createdAt", "iFactor", "status", "shortDescription", "factory", "leader", "poster", "supplierName", "supplierNumber"],
+                "additionalItems": false
+              }
+            ]
+          },
+          "requestedSupplierAction": {"type": "string"},
+          "requestedCreditAmount": {"type": "number"},
+          "scarRequested": {"type": "boolean"},
+          "supplierCreditAmount": {"type": ["number", "null"]},
+          "actualCreditAmount": {"type": ["number", "null"]},
+          "supplierStockVerified": {"type": ["string", "null"]},
+          "tldStockVerified": {"type": ["string", "null"]},
+          "issueOrigin": {"type": ["string", "null"]},
+          "correctiveAction": {"type": ["string", "null"]},
+          "assignee": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+          "parts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/parts/vendor_warranty_claim_parts/\\d+$"},
+                "@type": {"type": "string"},
+                "id": {"type": "integer"},
+                "createdAt": {"type": "string"},
+                "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                "deletedAt": {"type": ["null", "string"]},
+                "deletedBy": {"oneOf": [
+                  {"type": "null"},
+                  {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                ]},
+                "partNumber": {"type": "string"},
+                "description": {"type": "string"},
+                "unitOfMeasure": {"type": "string"},
+                "quantity": {"type": "integer"},
+                "standardCost": {"type": "null"},
+                "serialNumber": {"type": ["string", "null"]},
+                "vendorPartNumber": {"type": ["string", "null"]},
+                "vendorSerialNumber": {"type": ["string", "null"]},
+                "failureType": {"type": ["string", "null"]},
+                "failureSystem": {"type": ["string", "null"]},
+                "receivedQuantity": {"type": ["integer", "null"]},
+                "ship": {"type": "boolean"}
+              },
+              "required": [
+                "@id",
+                "@type",
+                "id",
+                "createdAt",
+                "createdBy",
+                "deletedAt",
+                "deletedBy",
+                "partNumber",
+                "description",
+                "unitOfMeasure",
+                "quantity",
+                "serialNumber",
+                "failureType",
+                "failureSystem",
+                "receivedQuantity",
+                "vendorPartNumber",
+                "vendorSerialNumber",
+                "ship",
+                "standardCost"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "nonConformity": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/quality/non_conformities/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "status": {"type": "string"},
+                  "createdAt": {"type": "string"},
+                  "reportedBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                  "location": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/locations/\\d+$"},
+                      "@type": {"type": "string"},
+                      "name": {"type": "string"},
+                      "erp": {"type": ["integer", "null"]},
+                      "currency": {
+                        "oneOf": [
+                          {"type": "null"},
+                          {"$ref": "../../finance_currency/schemas/currency.json"}
+                        ]
+                      }
+                    },
+                    "required": ["@id", "@type", "name", "erp", "currency"],
+                    "additionalProperties": false
+                  },
+                  "shortDescription": {"type": "string"},
+                  "problem": {"type": "string"}
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "status",
+                  "createdAt",
+                  "reportedBy",
+                  "location",
+                  "shortDescription",
+                  "problem"
+                ],
+                "additionalItems": false
+              }
+            ]
+          },
+          "warrantyClaimId": {"type":  ["integer", "null"]}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "supplierErp",
+          "location",
+          "createdAt",
+          "closedAt",
+          "supplierNumber",
+          "supplierName",
+          "actualCreditAmount",
+          "assignee",
+          "requestedCreditAmount",
+          "requestedSupplierAction",
+          "supplierCreditAmount",
+          "status",
+          "statusUpdatedAt",
+          "parts",
+          "scarRequested",
+          "supplierCorrectiveActionRequest",
+          "currency",
+          "vendorToRespondAt"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

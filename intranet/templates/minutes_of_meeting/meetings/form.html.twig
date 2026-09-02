@@ -1,0 +1,153 @@
+{% extends 'minutes_of_meeting/layout.html.twig' %}
+{% trans_default_domain 'meeting' %}
+
+{% block title %}{{ parent() }}\{{ (meeting is not empty ? 'menu.edit' : 'menu.add')|trans([], 'messages') | capitalize }}{% endblock %}
+
+{# contact card form view #}
+{% macro contact_item(form, index) %}
+    <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <strong>{{ 'mom.meeting.contacts'|trans([], 'emails') }} #{{ index }}</strong>
+
+            {{ block('collection_widget_delete', 'bootstrap_base_layout.html.twig') }}
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.lastName) }}
+                </div>
+            </div>
+
+            {{ form_row(form.mail) }}
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.company) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.phone) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% import _self as forms %}
+
+{% form_theme form 'form_theme_vertical.html.twig' %}
+{% form_theme form.contacts _self %}
+
+{% block collection_prototype %}
+    {% if prototype is defined and not prototype.rendered %}
+        <div class="form-collection-item">
+            {{ forms.contact_item(prototype, '__name__') }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block collection_widget_item %}
+    {% if child is defined %}
+        <div class="form-collection-item">
+            {{ forms.contact_item(child, loop.index) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{# Rename the Add button #}
+{% block collection_widget_add %}
+    <button type="button" class="btn btn-info" {{ stimulus_action('form-collection', 'addCollectionElement') }}>
+        <i class="fa fa-plus"></i> {{ 'meeting.fields.contacts'|trans }}
+    </button>
+{% endblock collection_widget_add %}
+
+{% block content %}
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        {% if meeting is not empty %}
+                            {{ 'meeting.edit.title'|trans }}
+                        {% else %}
+                            {{ 'meeting.add.title'|trans }}
+                        {% endif %}
+                    </h5>
+                </div>
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row">
+                                {{ form_row(form.title) }}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.description) }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.location) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(form.meetingDate) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.attendees) }}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.businessUnits) }}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.contacts) }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="row">
+                                {{ form_row(form.customers) }}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.competitors) }}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.productTypes) }}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form.customerContacts) }}
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                {{ form_row(form.confidential) }}
+                                </div>
+                            </div>
+
+                            {% if form.quick is defined %}
+                                <div class="row">
+                                    <div class="col-md-3 mt-3">
+                                        {{ form_row(form.quick) }}
+                                    </div>
+                                    <div class="col-md-6 alert alert-danger">
+                                        {{ 'meeting.fields.warning'|trans }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{ form_row(form.fullDescription) }}
+                    </div>
+
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

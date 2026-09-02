@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'security' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/app/css/fullpage.css') }}" rel="stylesheet" type="text/css" media="all">
+{% endblock %}
+
+{# overide to not show some block like header, menus etc. #}
+{% block main_menu %}{% endblock %}
+{% block content_header %}{% endblock %}
+{% block sf_flag %}{% endblock %}
+{% block topbar %}{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block breadcrumb %}{% endblock %}

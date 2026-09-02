@@ -1,0 +1,31 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="row">
+    <div class="col-4">
+        {{ form_row(form.products) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.family) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.productType) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        {{ form_row(form.aircrafts) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.manufacturer) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <hr class="hr-line-dashed">
+        <div class="float-end">
+            {{ form_widget(form.submit) }}
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

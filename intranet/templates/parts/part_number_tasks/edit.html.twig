@@ -1,0 +1,19 @@
+{% extends 'parts/layout.html.twig' %}
+
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'task.edit_form_title'|trans({}, 'task') }} #{{ task.id }}</h5>
+                </div>
+
+                <div class="ibox-content">
+                    {% include 'parts/part_number_tasks/partial/_form.html.twig' with { form: form } %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

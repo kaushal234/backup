@@ -1,0 +1,16 @@
+{% extends 'sales/orders/layout.html.twig' %}
+{% trans_default_domain "sales_orders" %}
+
+{% block title %}{{ parent() }}\{{ 'menu.files'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+ <div class="row">
+  <div class="col-md-9" id="files">
+   {{ form_start(form) }}
+   {{ form_rest(form) }}
+   {{ form_end(form) }}
+  </div>
+ </div>
+
+{% endblock %}
+

@@ -1,0 +1,35 @@
+{% extends 'sales/competitor_pricings/layout.html.twig' %}
+{% trans_default_domain 'competitor_pricings' %}
+
+{% block title %}
+    {{ parent() }} \ {{ 'competitor_pricings.title' | trans() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins" collapsed>
+                <div class="ibox-title">
+                    <h5>{{ 'button.filters' | trans({}, 'messages') | capitalize }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-down"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('sales/competitor_pricings/partial/_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('competitor_pricings_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ include('sales/competitor_pricings/partial/_table.html.twig', {competitorPricings: competitorPricings}) }}
+        </div>
+    </div>
+{% endblock %}
+

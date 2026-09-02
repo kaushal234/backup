@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/countries$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/countries/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "phoneCode": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": ["@id", "@type", "name", "phoneCode"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

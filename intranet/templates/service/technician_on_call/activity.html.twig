@@ -1,0 +1,10 @@
+{% extends 'service/technician_on_call/show.html.twig' %}
+
+{% block content %}
+    {{ include('generic/_logs.html.twig', {
+        item: technicianOnCall,
+        addComment: false,
+        hideComments: false
+    }) }}
+
+{% endblock %}

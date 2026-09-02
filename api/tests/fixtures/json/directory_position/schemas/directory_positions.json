@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/positions$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/positions/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "code": {"type": "string"},
+          "description": {"type": "string"}
+        },
+        "required": ["@id", "@type", "id", "code",  "description"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:member"
+  ]
+}

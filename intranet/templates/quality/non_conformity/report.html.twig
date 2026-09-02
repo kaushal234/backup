@@ -1,0 +1,112 @@
+{% extends 'quality/non_conformity/layout.html.twig' %}
+{% trans_default_domain 'non_conformity' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }} {{ 'non_conformity.title.supplier_most_ncr' | trans() | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {{ form_row(form.location) }}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_row(form.createdAfter) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {{ form_row(form.createdBefore) }}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ form_row(form.processes) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <hr class="hr-line-dashed">
+                            <div class="float-end">
+                                <label class="col-form-label">&nbsp;</label>
+                                <button class="btn btn-primary" type="submit">{{ 'button.filter' | trans({}, 'messages') | upper }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form, {'render_rest': false}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            {% if location %}
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <a href="{{ path('legacy_manufacturing_index', {m: ['kpi', 'buid', 'quality'], buid: location.legacyId }) }}">{{ 'non_conformity.report.kpi_link'|trans({'%locationName%': location.name}, 'non_conformity') }}</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            {% if topTenSupplier[0] is defined %}
+                {% set fixedParams = {
+                    'filter_non_conformity[location][value]': location['@id'],
+                    'filter_non_conformity[responsibles][value]': '/quality/responsibles/2',
+                    'filter_non_conformity[processes][value]': processes
+                } %}
+
+                {% if from is not null %}
+                    {% set fixedParams = fixedParams | merge({
+                        'filter_non_conformity[createdAt][value][from]': from|format_date(pattern='intl_format.date_technical'|trans({}, 'messages'))
+                    }) %}
+                {% endif %}
+
+                {% if to is not null %}
+                    {% set fixedParams = fixedParams | merge({
+                        'filter_non_conformity[createdAt][value][to]': to|format_date(pattern='intl_format.date_technical'|trans({}, 'messages'))
+                    }) %}
+                {% endif %}
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        data: topTenSupplier,
+                        pagination: false,
+                        search: false,
+                        initialSorting: false,
+                        title: 'titles.search_result' | trans({}, 'messages') | capitalize,
+                        items : {
+                            supplierName: { 
+                                label: 'finance.approver.supplier_name'|trans({}, 'finance') ,
+                                template: '/quality/non_conformity/partial/_cell_supplier_name_link.html.twig',
+                            },
+                            supplierNumber: { 
+                                label: 'vendor_warranty_claim.fields.supplier_number' | trans({}, 'vendor_warranty_claim'), 
+                                template: '/quality/non_conformity/partial/_cell_supplier_code_link.html.twig',
+                            },
+                            value: {
+                                label: 'non_conformity.title.ncr'|trans,
+                                link: {
+                                    route: 'non_conformity_home',
+                                    fixedParams: fixedParams,
+                                    params: {'filter_non_conformity[supplierNumber][value]': 'supplierNumber'}
+                                },
+                            },
+                        }
+                    }
+                }, with_context=false) }}
+            {% else %}
+                <div class="alert alert-info alert-dismissable">
+                    {{ 'no_results' | trans({}, 'messages') }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

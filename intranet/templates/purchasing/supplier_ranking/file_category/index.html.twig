@@ -1,0 +1,40 @@
+{% extends 'purchasing/supplier_ranking/layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        name: {
+                            label: 'catalogue.products.name'|trans({}, 'catalogue')|capitalize,
+                        },
+                        edit: {
+                            label: 'menu.edit' | trans([], 'messages') | capitalize,
+                            link:{
+                                route: 'file_category_rankings_edit',
+                                params: { id:'@id' },
+                                content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></span>',
+                            },
+                            sortable: false,
+                        },
+                        transfer: {
+                            label: 'menu.delete'|trans([], 'messages')|capitalize,
+                            class: 'text-end',
+                            link:{
+                                route: 'file_category_rankings_transfer',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-danger btn-sm text-capitalize"><i class="fa fa-trash-alt"></i></span>',
+                            },
+                        }
+                    },
+                    title: 'file_category.title'|trans|capitalize,
+                    data: fileCategories,
+                    pagination: false,
+                    search: false
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

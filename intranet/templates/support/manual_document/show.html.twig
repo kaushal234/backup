@@ -1,0 +1,211 @@
+{% extends 'support/manual_document/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-8">
+            {% set items = {
+                position: {
+                    label: 'support.manual_documents.fields.position'|trans|capitalize,
+                },
+                factoryNumber: {
+                    label: 'support.manual_documents.fields.id'|trans|capitalize,
+                },
+                revision: {
+                    label: 'support.manual_documents.fields.revision'|trans|capitalize,
+                },
+                category: {
+                    properties: ['category.name'],
+                    label: 'support.manual_documents.fields.category'|trans,
+                },
+                type: {
+                    label: 'support.manual_documents.fields.type'|trans,
+                },
+                description: {
+                    label: 'support.manual_documents.fields.description'|trans|capitalize,
+                },
+                otherDescription: {
+                    label: 'support.manual_documents.fields.other_description'|trans|capitalize,
+                }
+            } %}
+            {% if manualDocument.manual.language == 'ENGLISH' %}
+                {# Removing element #}
+                {% set items = items | filter((v, k) => k != 'otherDescription') %}
+            {% endif %}
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'support.manual_document.title'|trans,
+                    items: items,
+                    data: manualDocument
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        filePath: {
+                            label: 'menu.file'|trans({}, 'messages')|capitalize,
+                            filters : 'slice(19)',
+                            link:{
+                                route: 'manual_document_file_show',
+                                params: {
+                                    'id': 'id'
+                                },
+                                fixedParams: {
+                                    'manualDocumentId': manualDocument.id
+                                }
+                            },
+                        },
+                        description: {
+                            label: 'support.manual_document_files.fields.description'|trans|capitalize,
+                        },
+                        size: {
+                            label: 'size'|trans({}, 'messages')|trans|capitalize,
+                            filters : 'readable_filesize'
+                        },
+                        createdAt: {
+                            label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                            filters: 'date("Y-m-d H:i:s")'
+                        },
+                        poster: {
+                            label: 'fields.created_by'|trans({}, 'messages'),
+                            properties: ['poster.lastname', 'poster.firstname'],
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'poster.@id'}
+                            }
+                        },
+                        delete: {
+                            label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                            sortable: false,
+                            class: 'text-start',
+                            link: {
+                                route: 'manual_document_file_delete',
+                                params: {'id': 'id'},
+                                fixedParams: {'manualDocumentId': manualDocument.id, '_token': csrf_token('manual_document_file_delete')},
+                                content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                                popup: {
+                                    type: 'confirmation',
+                                    title: 'Confirmation',
+                                    message: 'Are you sure to delete ?',
+                                },
+                            },
+                        },
+                    },
+                    title: 'support.manual_document_files.title'|trans,
+                    data: manualDocument.document,
+                    search: false,
+                    pagination: false
+                }
+            }, with_context = false) }}
+        </div>
+        {% if is_granted('FEATURE_MANUAL_ADMIN')%}
+            <div class="col-md-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'support.manual_documents.fields.add_file'|trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% form_theme form_files 'form_theme_vertical.html.twig' %}
+
+                                {{ form_start(form_files, { action: path('manual_documents_show', {'id': manualDocument.id}) }) }}
+                                {{ form_errors(form_files) }}
+
+                                {{ form_row(form_files.file) }}
+                                {{ form_row(form_files.description) }}
+
+                                {{ form_rest(form_files) }}
+
+                                {{ form_end(form_files) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {% set items = {
+                position: {
+                    label: 'support.manual_document_parts.fields.position'|trans,
+                },
+                partNumber: {
+                    label: 'support.manual_document_parts.fields.part_number'|trans,
+                    link: {
+                        route: 'legacy_manufacturing_eng',
+                        params: {'erp': 'erp', 'pn': 'partNumber', 'date': 'date'},
+                        fixedParams: {m: ['bom', 'view'], btnSubmit: 'Submit'}
+                    }
+                },
+                quantity: {
+                    label: 'support.manual_document_parts.fields.quantity'|trans,
+                },
+                unitOfMeasure: {
+                    label: 'support.manual_document_parts.fields.unit_of_measure'|trans,
+                },
+                description: {
+                    label: 'support.manual_documents.fields.description'|trans|capitalize,
+                },
+                otherDescription: {
+                    label: 'support.manual_documents.fields.other_description'|trans|capitalize,
+                },
+                preventive: {
+                    label: 'support.manual_document_parts.fields.preventive'|trans|capitalize,
+                    boolean: {
+                        true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                        false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                    }
+                },
+                maintenance: {
+                    label: 'support.manual_document_parts.fields.maintenance'|trans|capitalize,
+                    boolean: {
+                        true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                        false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                    }
+                },
+                overhaul: {
+                    label: 'support.manual_document_parts.fields.overhaul'|trans|capitalize,
+                    boolean: {
+                        true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                        false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                    }
+                },
+                critical: {
+                    label: 'support.manual_document_parts.fields.critical'|trans|capitalize,
+                    boolean: {
+                        true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                        false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                    }
+                }
+            } %}
+            {% if manualDocument.manual.language == 'ENGLISH' %}
+                {# Removing element #}
+                {% set items = items | filter((v, k) => k != 'otherDescription') %}
+            {% endif %}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: items,
+                    title: 'support.manual_document_parts.title'|trans(),
+                    data: parts,
+                    initialSorting: 'id',
+                    pagination: false
+                }
+            }, with_context = false )}}
+        </div>
+    </div>
+{% endblock content %}

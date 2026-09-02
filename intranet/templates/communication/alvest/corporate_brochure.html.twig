@@ -1,0 +1,19 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="text-center article-title">
+                        {% set entity = entity | replace({'-': ' '}) %}
+                        <h1>{{ entity | upper }} Corporate Brochure</h1>
+                    </div>
+                    <p><a href="{{ dms(7203) }}">{{ entity | upper }} ESG brochure </a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

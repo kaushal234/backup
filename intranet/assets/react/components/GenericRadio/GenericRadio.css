@@ -1,0 +1,30 @@
+.generic_radio__wrapper {
+  margin-bottom: 0.5rem;
+}
+
+.generic_radio__wrapper .form-check {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.generic_radio__horizontal .form-check {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 32px;
+}
+
+.generic_form_component__no_label .form-check {
+  padding-left: 0;
+}
+
+@media (max-width: 768px) {
+  .generic_radio__wrapper .form-check-inline {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

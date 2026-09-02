@@ -1,0 +1,22 @@
+<div class="ibox-content resizable-img">
+    <div class="text-center">
+        {% if people is not null %}
+            <p>
+                <a href="{{ path('directory_people_show', {id: people.id}) }}">
+                    {% if people.photo is not null %}
+                        <img class="m-t-xs img-responsive-center" src="{{ asset(upload_uri ~ '/' ~ people.photo.filePath) }}" width="128">
+                    {% else %}
+                        <img src="/shared/no_photo.jpg" width="128">
+                    {% endif %}
+                    <br />
+                    <b>{{ people.lastname }}, {{ people.firstname }}</b><br />
+                    <b>{{ people.jobTitle }}</b><br />
+                    <b>{{ people.department?.name }}</b><br />
+                    <b>{{ people.businessUnit?.name }}</b><br />
+                </a>
+            </p>
+        {% else %}
+            {{ 'no_results' | trans({}, 'messages') }}
+        {% endif %}
+    </div>
+</div>

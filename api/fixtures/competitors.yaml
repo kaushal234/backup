@@ -1,0 +1,25 @@
+App\Entity\Sales\Competitor:
+    # /sales/competitors/1
+    competitor_1:
+        id: 1
+        name: 'loser'
+        shortDescription: 'this short is blue and fitted'
+        description: <text()>
+        url: 'http://www.loser.com'
+        productTypes: ['@catalog_product_type_1', '@catalog_product_type_2']
+
+    # /sales/competitors/2
+    competitor_2:
+        id: 2
+        name: 'winner'
+        shortDescription: 'this short is red and large'
+        description: <text()>
+        productTypes: ['@catalog_product_type_1']
+
+    # /sales/competitors/3
+    competitor_3:
+        id: 3
+        name: 'new'
+        shortDescription: 'pantacourt'
+        description: <text()>
+        productTypes: ['@catalog_product_type_1']

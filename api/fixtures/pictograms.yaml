@@ -1,0 +1,95 @@
+App\Entity\Engineering\Pictogram\Category:
+  picto_cat_1:
+    id: 1
+    name: Lights
+
+  picto_cat_2:
+    id: 2
+    name: Braking
+    color: '#FF0000'
+
+  picto_cat_3:
+    id: 3
+    name: Engine
+
+  picto_cat_4:
+    id: 4
+    name: Generator
+
+  picto_cat_5:
+    id: 5
+    name: Battery
+
+  picto_cat_6:
+    id: 6
+    name: Transmission
+
+  picto_cat_7:
+    id: 7
+    name: Axles & Wheels
+
+  picto_cat_8:
+    id: 8
+    name: Hydraulic
+
+  picto_cat_9:
+    id: 9
+    name: Cabin
+
+  picto_cat_10:
+    id: 10
+    name: Maintenance
+
+  picto_cat_11:
+    id: 11
+    name: General
+
+  picto_cat_12:
+    id: 12
+    name: Boom
+
+  picto_cat_13:
+    id: 13
+    name: A/C loading & unloading
+
+  picto_cat_14:
+    id: 14
+    name: Flight/platform
+
+  picto_cat_15:
+    id: 15
+    name: ASD
+
+  picto_cat_to_be_updated:
+    id: 16
+    name: Cat to be updated
+
+  picto_cat_to_be_deleted:
+    id: 17
+    name: Cat to be deleted
+
+App\Entity\Engineering\Pictogram\Pictogram:
+  # 1
+  picto_1:
+    category: '@picto_cat_1'
+    description: Indicates main beam light ON
+
+  # 2
+  picto_2:
+    category: '@picto_cat_3'
+    description: Indicates parking brake removal request
+
+  # 3
+  picto_3:
+    category: '@picto_cat_1'
+    description: Indicates engine is OFF
+
+  # 4
+  picto_to_update:
+    category: '@picto_cat_1'
+    description: Picto to update
+
+  # 5
+  picto_to_delete:
+    category: '@picto_cat_1'
+    description: Picto to delete

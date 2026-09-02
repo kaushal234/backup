@@ -1,0 +1,14 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_business_cards.html.twig', {
+        businessCards: {
+            'Alvest business cards template': {
+                'pdf': 'alvest/business_cards/ALVEST Business Card Template PDF.pdf',
+                'docx': 'alvest/business_cards/ALVEST Business Card Template DOC.docx'
+            },
+        },
+    }) }}
+{% endblock %}

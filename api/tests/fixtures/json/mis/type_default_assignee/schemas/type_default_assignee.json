@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/mis/type_default_assignees/\\d+$"},
+    "@type": {"type": "string"},
+    "id": {"type":  "integer"},
+    "defaultAssignee": {"type": "string"},
+    "type": {"type": "string"}
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "defaultAssignee",
+    "type"
+  ],
+  "additionalProperties": false
+}

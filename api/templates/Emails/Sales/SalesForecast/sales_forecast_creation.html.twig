@@ -1,0 +1,60 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+
+            <p>{{ 'sfr.created_message' | trans }}. <a href="{{ url('sales_forecast', {'id': sales_forecast_normalized.id}) }}">{{ 'sfr.view_details' | trans({'%id%': sales_forecast_normalized.id}) }}</a></p>
+
+            <p>{{ sales_forecast_normalized.comment | nl2br }}</p>
+
+            {% set items = {
+                id: {
+                    label: 'sfr.view_details' | trans({'%id%': sales_forecast_normalized.id}),
+                    link: {
+                        'route': 'sales_forecast',
+                        'fixedParams': {'id': sales_forecast_normalized.id}
+                    }
+                },
+                createdAt: { label:'sfr.fields.date' | trans, filters: ["date('Y-m-d')"] },
+                status: { label:'sfr.fields.status' | trans},
+                estimatedSaleDate: { label:'sfr.fields.estimated_sale_date' | trans, filters: ["date('Y-m')"] },
+                buyer: { label:'sfr.fields.customer_buyer' | trans, template: 'Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', templateParams: {customerPath: 'buyer'} },
+                endUser: { label:'sfr.fields.customer_user' | trans, template: 'Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', templateParams: {customerPath: 'endUser'} },
+                thirdParty: { label:'sfr.fields.third_party' | trans, template: 'Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', templateParams: {customerPath: 'thirdParty'} },
+                country: { label:'sfr.fields.customer_country' | trans, properties: ['country.name'] },
+                airport: { label:'sfr.fields.airport_code' | trans, properties: ['airport.code'] },
+                model: { label:'sfr.fields.model' | trans, properties: ['product.name'] },
+                tier: { label:'sfr.fields.emission_rating' | trans, properties: ['tier.name'] },
+                quantity: { label:'sfr.fields.quantity' | trans },
+                customerSuccessPercentage: { label:'sfr.fields.customer_purchase_percentage' | trans },
+                successPercentage: { label:'sfr.fields.alvest_success_percentage' | trans },
+                factory: { label:'sfr.fields.factory' | trans, properties: ['factory.name'] },
+                sso: { label:'sfr.fields.sso' | trans, properties: ['sso.name'] },
+                asm: { label:'sfr.fields.asm' | trans, properties: ['asm.lastname', 'asm.firstname'] },
+                poster: { label:'sfr.fields.poster' | trans, properties: ['poster.lastname', 'poster.firstname'] },
+                buyerOnWatchList: { label:'sfr.fields.watch_list' | trans, properties: ['buyer.watchList'], boolean: { true: 'sfr.fields.watch_list_on'|trans, false: 'sfr.fields.watch_list_not_on'|trans } },
+                equoteId: { label: 'sfr.fields.e_quote' | trans }
+            } %}
+
+            {% if sales_forecast_normalized.buyer.watchList is same as(true) %}
+                {% set items = items|merge({
+                    watchListReason: { label:'sfr.fields.watch_list_reason' | trans, properties: ['buyer.watchListReason'] },
+                }) %}
+            {% endif %}
+
+            {{ include('Helpers/_association_table_raw.html.twig', {
+                associationData: {
+                    items: items,
+                    data: sales_forecast_normalized,
+                },
+            }, with_context = false) }}
+
+        </columns>
+    </row>
+{% endblock %}

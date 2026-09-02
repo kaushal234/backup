@@ -1,0 +1,52 @@
+materials:
+  purchase_order_lines:
+    order_type: order type
+    order_number: order number
+    position: position
+    quantity: quantity
+    relation: relation
+    name: name
+    order_date: order date
+    transaction_date: trans date
+    planned_delivery_date: planned delivery date
+    confirmed_dplannelivery_date: confirmed delivery date
+
+  nav_link:
+    home: Home
+    inventory_sequences: Inventory sequences
+    reports: Reports
+    tasks_mappings: Tasks mappings
+
+  inventory_lines:
+    title: 'Planned inventory transactions for part number %partNumber% in ERP %erp%'
+
+  monthly_activities:
+    titles:
+      default: monthly activity KPI
+      activity: warehouse activity
+      productivity: warehouse productivity
+      full_time_equivalent: full time equivalent
+    fields:
+      inbound_average_rate: inbound average rate (lines/hours)
+      outbound_average_rate: outbound average rate (lines/hours)
+      productive_average_ratio: productive average ratio
+      lines: Lines
+      rates_line_per_hour: Rates (Lines / Hours)
+      ratio_productive_hours_per_hours: Ratios (Productive Hours / Hours)
+
+  tasks_mappings:
+    titles:
+      default: tasks mappings
+      add: add a tasks mapping
+      edit: edit a tasks mapping
+    fields:
+      inbound_tasks: inbound tasks
+      outbound_tasks: outbound tasks
+      administrative_tasks: administrative tasks
+      excluded_tasks: excluded tasks
+      placeholder: number between 0 and 9999
+    messages:
+      success:
+        add: the tasks mapping has been created.
+        edit: the tasks mapping has been updated.
+

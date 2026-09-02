@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+{{ form_row(form.description) }}
+
+{{ form_row(form.category) }}
+
+{% if form.file is defined %}
+    {{ form_row(form.file) }}
+{% endif %}
+
+<div class="row">
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-primary float-end">{{ 'button.submit'|trans([], 'messages') }}</button>
+    </div>
+</div>
+
+{{ form_rest(form) }}
+
+{{ form_end(form) }}

@@ -1,0 +1,230 @@
+{% extends 'purchasing/supplier_ranking/layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="widget bg-body">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-suitcase fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ supplierRanking.supplier.name }}</span>
+                        <h3 class="font-bold">{{ supplierRanking.supplier.code }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget bg-body">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-euro fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'fields.revenue'|trans }}</span>
+                        <h3 class="font-bold">
+                            {% if supplierRanking.revenue %}
+                                {{ supplierRanking.revenue|number_format(0, '.', ',') }}
+                                {% if supplierRanking.supplier.currency %}
+                                    {{ supplierRanking.supplier.currency.name }}
+                                {% endif %}
+                            {% endif %}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget bg-body">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-cogs fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'fields.expertise_level'|trans }}</span>
+                        <h3 class="font-bold">{{ supplierRanking.expertiseLevel.name }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            {% if supplierRanking.classification.color %}
+                <div class="widget" style="background-color: #{{ supplierRanking.classification.color }}; color: #FFF;">
+            {% else %}
+                <div class="widget bg-body">
+            {% endif %}
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-check-square fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'fields.classification'|trans }}</span>
+                        <h3 class="font-bold">{{ supplierRanking.classification.name }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-xxl-8">
+            {% embed 'helper/_ibox.html.twig' with {
+                title: 'Supplier Ranking'
+            } %}
+                {% trans_default_domain 'supplier_ranking' %}
+                {% block card_content %}
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            {{ include('helper/_association_table.html.twig', {
+                                associationData: {
+                                    search: false,
+                                    title: 'title' | trans,
+                                    items: {
+                                        id: {label: 'fields.id'|trans},
+                                        supplierCode: {
+                                            label: 'fields.supplier_number'|trans,
+                                            properties: ['supplier.code']
+                                        },
+                                        supplierName: {
+                                            label: 'fields.supplier_name'|trans,
+                                            properties: ['supplier.name']
+                                        },
+                                        location: {
+                                            label: 'fields.location'|trans,
+                                            properties: ['supplier.location.name']
+                                        },
+                                        buyer: {
+                                            properties: ['supplier.masterBuyer.lastname', 'supplier.masterBuyer.firstname'],
+                                            label: 'fields.buyer'|trans,
+                                            link: {
+                                                'route': 'directory_people_show',
+                                                'params': {'id':'supplier.masterBuyer.@id'}
+                                            }
+                                        },
+                                        expertiseLevel: {
+                                            label: 'fields.expertise_level'|trans,
+                                            properties: ['expertiseLevel.name']
+                                        },
+                                        classification: {
+                                            label: 'fields.classification'|trans,
+                                            template: 'purchasing/supplier_ranking/partial/_column_classification.html.twig',
+                                            templateParams: {
+                                                value: supplierRanking.classification
+                                            }
+                                        },
+                                        revenue: {
+                                            label: 'fields.revenue'|trans,
+                                            filters: "number_format(0, '.', ',')",
+                                            preserveNull: true
+                                        },
+                                        supplierApproved: {
+                                            label: 'fields.supplier_approved'|trans,
+                                            template: 'purchasing/supplier_ranking/partial/_column_supplier_approved.html.twig',
+                                            templateParams: {
+                                                value: supplierRanking.supplierApproved
+                                            }
+                                        },
+                                        lastReviewAt: {
+                                            label: 'fields.last_review_at'|trans,
+                                            filters: 'date("Y-m-d")',
+                                            preserveNull: true,
+                                        },
+                                        lastReviewBy: {
+                                            properties: ['lastReviewBy.lastname', 'lastReviewBy.firstname'],
+                                            label: 'fields.last_review_by'|trans,
+                                            link: {
+                                                'route': 'directory_people_show',
+                                                'params': {'id':'lastReviewBy.@id'}
+                                            }
+                                        },
+                                        nextReviewAt: {
+                                            label: 'fields.next_review_at'|trans,
+                                            filters: 'date("Y-m-d")',
+                                            preserveNull: true,
+                                        },
+                                        lastScreeningAt: {
+                                            label: 'fields.last_screening_at'|trans,
+                                            filters: 'date("Y-m-d")',
+                                            preserveNull: true,
+                                        },
+                                        lastScreeningBy: {
+                                            properties: ['lastScreeningBy.lastname', 'lastScreeningBy.firstname'],
+                                            label: 'fields.last_screening_by'|trans,
+                                            link: {
+                                                'route': 'directory_people_show',
+                                                'params': {'id':'lastScreeningBy.@id'}
+                                            }
+                                        },
+                                    },
+                                    data: supplierRanking,
+                                    options: {card: false},
+                                }
+                            }, with_context = false) }}
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <dl class="row m-t-md small">
+                                {% for criteria in criterias %}
+                                    {% set criteriaHasNotation = false %}
+                                    <dt class="col-6 text-end" style="min-height: 40px;">{{ criteria.name }}</dt>
+                                    {% for notation in supplierRanking.notations %}
+                                        {% if notation.criteria.id == criteria.id and notation.enabled and notation.notation is not null %}
+                                            {% set criteriaHasNotation = true %}
+                                            <dd class="col-4">
+                                                <div class="progress">
+                                                    <div
+                                                            class="progress-bar progress-bar-success"
+                                                            style="background-color: #{{ notation.rankingColor }};width: {{ (notation.notation*100)/5 }}%"
+                                                            role="progressbar"
+                                                            aria-valuenow="{{ notation.notation }}"
+                                                            aria-valuemin="0"
+                                                            aria-valuemax="5">
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                            <dd class="col-2">
+                                                <span style="color: #{{ notation.rankingColor }}; font-weight: bold;">{{ notation.notation }}</span>
+                                            </dd>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if not criteriaHasNotation %}
+                                        <dd class="col-2">N/A</dd>
+                                    {% endif %}
+                                {% endfor %}
+                            </dl>
+
+                        </div>
+                    </div>
+                {% endblock card_content %}
+            {% endembed %}
+        </div>
+        <div class="col-12 col-xxl-4">
+            <div data-options="{{ chart|json_encode }}" class="ibox float-e-margins highcharts" ></div>
+        </div>
+    </div>
+        <div class="row">
+            {% embed 'helper/_ibox.html.twig' with {
+                title: 'activity.log.name'|trans({}, 'messages'),
+                options: {
+                    collapsable: true
+                }
+            } %}
+                {% block card_content %}
+                    {{ form_start(commentForm, { action: path('comment_add', { resourceIriId: supplierRanking['@id'], backUrl: path('supplier_rankings_show', {id: supplierRanking.id}) }) }) }}
+                    {{ form_errors(commentForm) }}
+                    {{ form_widget(commentForm.message) }}
+                    <br>
+                    {{ form_rest(commentForm) }}
+                    {{ form_end(commentForm) }}
+                    {{ include('generic/_logs.html.twig', {
+                        item: supplierRanking
+                    }) }}
+                {% endblock card_content %}
+            {% endembed %}
+        </div>
+{% endblock content %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

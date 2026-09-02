@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/support/manual_parts/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "position": {
+      "type": "integer"
+    },
+    "partNumber": {
+      "type": ["string", "null"]
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "unitOfMeasure": {
+      "type": ["string", "null"]
+    },
+    "description": {
+      "type": ["string", "null"]
+    },
+    "otherDescription": {
+      "type": ["string", "null"]
+    },
+    "preventive": {"type": "boolean"},
+    "maintenance": {"type": "boolean"},
+    "overhaul": {"type": "boolean"},
+    "critical": {"type": "boolean"},
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "position",
+    "partNumber",
+    "preventive",
+    "maintenance",
+    "overhaul",
+    "critical",
+    "legacyId"
+  ]
+}

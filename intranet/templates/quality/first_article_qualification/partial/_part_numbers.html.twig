@@ -1,0 +1,13 @@
+<td>
+    {% if item[key] is not empty %}
+        <div style ="height: 60px; overflow-y: auto">
+                {% for item in item[key] %}
+                    <div>
+                        <div class="col-lg-4">{{ item.number }}</div>
+                        <div class="col-lg-2">{{ item.revision }}</div>
+                        <div class="col-lg-6">{{ item.description }} </div>
+                    </div>
+                {% endfor %}
+        </div>
+    {% endif %}
+</td>

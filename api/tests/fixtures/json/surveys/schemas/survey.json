@@ -1,0 +1,403 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/surveys/models/\\d+$"},
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "expirationDate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/surveys/items/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "photo": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "../../shared/schemas/file_light.json" }
+                ]
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "email",
+              "username",
+              "photo"
+            ],
+            "additionalProperties": false
+          },
+          "updatedBy": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "photo": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "../../shared/schemas/file_light.json" }
+                ]
+              },
+              "email": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "photo",
+              "email",
+              "username"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "description",
+          "createdAt",
+          "updatedAt",
+          "createdBy",
+          "updatedBy"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/surveys/groups/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "photo": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "../../shared/schemas/file_light.json" }
+                ]
+              },
+              "email": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "photo",
+              "email",
+              "username"
+            ],
+            "additionalProperties": false
+          },
+          "updatedBy": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "photo": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "../../shared/schemas/file_light.json" }
+                ]
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "photo",
+              "email",
+              "username"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "description",
+          "createdAt",
+          "updatedAt",
+          "createdBy",
+          "updatedBy"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "ratingTypes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/surveys/rating_types/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "min": {
+            "type": "integer"
+          },
+          "max": {
+            "type": "integer"
+          },
+          "minLabel": {
+            "type": "string"
+          },
+          "maxLabel": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "min",
+          "max",
+          "minLabel",
+          "maxLabel",
+          "description"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/people/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "photo": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../shared/schemas/file_light.json" }
+          ]
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "firstname",
+        "lastname",
+        "photo",
+        "email",
+        "username"
+      ],
+      "additionalProperties": false
+    },
+    "updatedBy": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {"pattern": "^/people/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "photo": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../shared/schemas/file_light.json" }
+          ]
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "firstname",
+        "lastname",
+        "photo",
+        "email",
+        "username"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@type",
+    "@id",
+    "id",
+    "name",
+    "description",
+    "expirationDate",
+    "items",
+    "groups",
+    "ratingTypes",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy"
+  ],
+  "additionalProperties": false
+}

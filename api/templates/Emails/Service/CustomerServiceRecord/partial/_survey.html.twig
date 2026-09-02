@@ -1,0 +1,30 @@
+{% trans_default_domain "customer_service_record" %}
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: {
+            createdAt : { label: 'intervention.fields.completion_date' | trans , properties: ['0.createdAt'], filters: 'date("Y-m-d")'} ,
+            aspect : { label: 'intervention.fields.aspect' | trans , properties: ['0.answer']} ,
+            aspectComment : { label: 'intervention.fields.comments' | trans , properties: ['0.comment']} ,
+            conformity : { label: 'intervention.fields.conformity' | trans , properties: ['1.answer']} ,
+            conformityComment : { label: 'intervention.fields.comments' | trans , properties: ['1.comment']} ,
+            operational : { label: 'intervention.fields.operational' | trans , properties: ['2.answer']} ,
+            operationalComment : { label: 'intervention.fields.comments' | trans , properties: ['2.comment']} ,
+            shipping : {
+                label: 'intervention.fields.shipping' | trans , properties: ['3.answer'],
+                template: 'Emails/Service/CustomerServiceRecord/partial/_shipping_damages.html.twig',
+            } ,
+            shippingComment : { label: 'intervention.fields.comments' | trans , properties: ['3.comment']} ,
+            link_fms : {
+                label: 'intervention.fields.link_fms' | trans ,
+                properties: ['4.answer'],
+                boolean: {
+                    true: 'YES',
+                    false: 'NO',
+                },
+            },
+            link_fms_comment : { label: 'intervention.fields.comments' | trans , properties: ['4.comment']},
+        },
+        data: commissioningCustomerServiceRecord.answerSurveyCustomerServiceRecords,
+        title: 'Survey'
+    },
+}, with_context = false) }}

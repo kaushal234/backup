@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if expertiseLevels is defined %}
+            <twig:NavItem:Add translationKey="nav_link.add_expertise_levels" domain="supplier_ranking"
+                              route="expertise_level_rankings_add"/>
+        {% endif %}
+        {% if classifications is defined %}
+            <twig:NavItem:Add translationKey="nav_link.add_classifications" domain="supplier_ranking"
+                              route="classification_rankings_add"/>
+        {% endif %}
+        {% if periodicities is defined %}
+            <twig:NavItem:Add translationKey="nav_link.add_periodicities" domain="supplier_ranking"
+                              route="periodicity_rankings_add"/>
+        {% endif %}
+        {% if fileCategories is defined %}
+            <twig:NavItem:Add translationKey="nav_link.add_file_categories" domain="supplier_ranking"
+                              route="file_category_rankings_add"/>
+        {% endif %}
+        {% if is_granted('FEATURE_SUPPLIER_RANKING_ADMIN') %}
+        <twig:NavItem translationKey="nav_link.supplier_rankings" domain="supplier_ranking"
+                      icon="material-symbols:home-outline-rounded" route="supplier_rankings_home"/>
+            <twig:NavItem translationKey="nav_link.expertise_level" domain="supplier_ranking" icon="mdi-light:star-half"
+                          route="expertise_level_rankings_home"/>
+            <twig:NavItem translationKey="nav_link.classification" domain="supplier_ranking"
+                          icon="fluent:organization-16-regular" route="classification_rankings_home"/>
+            <twig:NavItem translationKey="nav_link.periodicities" domain="supplier_ranking" icon="mdi-light:clock"
+                          route="periodicity_rankings_home"/>
+            <twig:NavItem translationKey="criterias.title" domain="supplier_ranking" icon="bi:check-circle-fill"
+                          route="supplier_rankings_criteria"/>
+            <twig:NavItem:Files route="supplier_rankings_files_home"/>
+        {% endif %}
+        {% if supplierRanking is defined %}
+            <twig:Dropdown translationKey="nav_link.supplier_rankings_actions" domain="supplier_ranking">
+                <twig:NavItem:Edit route="supplier_rankings_edit" :routeParameters="{id: supplierRanking.id}"/>
+                <twig:NavItem:Files route="supplier_rankings_files_show" :routeParameters="{id: supplierRanking.id}"/>
+                <twig:NavItem:Add translationKey="nav_link.add_files" domain="supplier_ranking"
+                                  route="supplier_rankings_files_add" :routeParameters="{id: supplierRanking.id}"/>
+                <twig:NavItem translationKey="nav_link.supplier_ranking" domain="supplier_ranking"
+                              icon="mdi-light:chart-line" route="supplier_rankings_show"
+                              :routeParameters="{id: supplierRanking.id}"/>
+            </twig:Dropdown>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

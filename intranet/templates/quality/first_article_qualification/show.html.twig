@@ -1,0 +1,409 @@
+{% extends 'quality/first_article_qualification/layout.html.twig' %}
+    {% trans_default_domain 'first_article_qualification' %}
+
+{% set id = iri_id(firstArticleQualification) %}
+
+{% set statusIcons = {
+    'send_to_rejected': 'times',
+    'send_to_conditional': 'recycle',
+    'send_to_qualified': 'bolt',
+    'send_to_in_progress': 'arrow-left',
+} %}
+{% set statusColor = {
+    'send_to_rejected': 'danger',
+    'send_to_conditional': 'warning',
+    'send_to_qualified': 'info',
+    'send_to_in_progress': 'success',
+    'APPROVED' : 'badge bg-info',
+    'UNAPPROVED' : 'badge bg-danger',
+    'NOT_APPROVED_YET' : 'badge'
+} %}
+{% set manualStatus = ['PENDING', 'IN PROGRESS / PLAN 100% COMPLETED'] %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    {% if (is_granted('FEATURE_FAQ_PLAN_APPROVAL') or is_granted('FEATURE_FIRST_ARTICLE_QUALIFICATION_STATUS_OVERRIDE') or is_granted('MOO_FAQ')) and firstArticleQualification.status not in ['REJECTED'] %}
+        <div class="m-b-sm">
+            {% for status in allStatus %}
+                {% if status not in manualStatus and firstArticleQualification.status != status %}
+                    {% set statusAction = 'send_to_' ~ (status|lower) %}
+                    <a href="{{ path('first_article_qualifications_status', { 'id': firstArticleQualification.id, 'status': status }) }}"
+                       class="btn btn-{{ statusColor[statusAction] }} text-capitalize">
+                        <i class="fa fa-{{ statusIcons[statusAction] }}"></i>&nbsp;{{ ('first_article_qualification.status.' ~ statusAction) | trans }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% set dueDateClass = (date(firstArticleQualification.completedAt) > date(firstArticleQualification.dueDate)) ? 'text-bg-danger' : 'text-bg-primary' %}
+    {% set planDueDateClass = (date(firstArticleQualification.planDefinitionCompletedAt) > date(firstArticleQualification.planDefinitionDueDate)) ? 'text-bg-danger' : 'text-bg-primary' %}
+    {% set deliverablesDueDateClass = firstArticleQualification.deliverablesDueDate is empty
+        ? ''
+        : ((date(firstArticleQualification.deliverablesDueDate) < date()) ? 'text-bg-danger' : 'text-bg-primary') %}    {% set localizeddateFilter = user.timeZone is defined ? "format_datetime('medium', 'medium', timezone='"~user.timeZone~"')" : "format_datetime" %}
+    {% set localizeddateDueDatesFilter = user.timeZone is defined ? "format_datetime('medium', 'none', timezone='"~user.timeZone~"')" : "format_datetime" %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div style="background-color: white">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        type: {
+                            label: 'fields.type'|trans([], 'messages')|capitalize,
+                            properties: ['type.description'],
+                        },
+                        description: {
+                            label: 'fields.description'|trans([], 'messages')|capitalize,
+                        },
+                        requestedPriorDelivery: {
+                            label: 'first_article_qualification.fields.requested_prior_delivery'|trans|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                false: '<span class="d-none">1</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        },
+                        requestedAtPurchaseOrder: {
+                            label: 'first_article_qualification.fields.requested_at_purchase_order'|trans|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                false: '<span class="d-none">1</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        },
+                        validatedBy: {
+                            label: 'first_article_qualification.fields.validated_by'|trans |capitalize,
+                            properties: ['validatedBy.lastname', 'validatedBy.firstname'],
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'validatedBy.@id'},
+                            }
+                        },
+                        validatedAt: {
+                            label: 'first_article_qualification.fields.validated_at'|trans|capitalize,
+                            filters: localizeddateFilter,
+                            preserveNull: true,
+                        },
+                        completionRate: {
+                            label: 'first_article_qualification.fields.progress'|trans|capitalize,
+                            filters: "format('%d%%')",
+                        },
+                        comment: {
+                            label: 'first_article_qualification.report.comment'|trans|capitalize,
+                            template: '/quality/first_article_qualification/partial/_show_comment.html.twig',
+                        }
+                    },
+                    title: 'first_article_qualification.fields.plan_definition' | trans,
+                    data: firstArticleQualification.plan,
+                    pagination: false,
+                    searchTable: false,
+                }
+            }, with_context = false) }}
+            <div class="ibox float-e-margins">
+                <div class="ibox-footer">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <b>{{ 'first_article_qualification.titles.plan_status' | trans | capitalize }}:</b><br>
+                            <b class="{{ statusColor[firstArticleQualification.planApprovalStatus] }}">
+                                {{ ('first_article_qualification.status.' ~ firstArticleQualification.planApprovalStatus) |lower |trans |upper }}
+                            </b>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            {% if percentageOfProgress != 0.0 %}
+                                <b>{{ 'first_article_qualification.fields.progress' | trans | capitalize }}:</b>
+                                <div class="progress" style="height: 25px;">
+                                    <div class="progress-bar {{ percentageOfProgress == 100 ? "progress-bar-primary":  "progress-bar-warning" }}"
+                                         role="progressbar"
+                                         aria-valuenow="{{ percentageOfProgress }}" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width: {{ percentageOfProgress }}%"><b>{{ percentageOfProgress }}%</b>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        '@id': {label: 'FAQ#', filters: 'iri_id'},
+                        location: {
+                            label: 'directory.location_capability.fields.factory'|trans([], 'directory')|capitalize,
+                            properties: ['location.name'],
+                            link: {
+                                route: 'directory_locations_show',
+                                params: {'id':'location.@id'},
+                            }
+                        },
+                        iFactor: {
+                            label: 'fields.ifactor'|trans([], 'messages')
+                        },
+                        status: {
+                            class: (firstArticleQualification.status not in manualStatus)? "col-1 text-bg-"~statusColor['send_to_' ~ firstArticleQualification.status|lower] :'col-1',
+                            label: 'fields.status'|trans([], 'messages')|capitalize
+                        },
+                        poster: {
+                            label: 'fields.poster'|trans([], 'messages')|capitalize,
+                            properties: ['poster.lastname', 'poster.firstname'],
+                            link: {
+                                route: 'directory_people_show',
+                                params: { id: 'poster.@id' }
+                            },
+                        },
+                        buyer: {
+                            label: 'fields.buyer'|trans([], 'messages')|capitalize,
+                            properties: ['buyer.lastname', 'buyer.firstname'],
+                            link: {
+                                route: 'directory_people_show',
+                                params: { id: 'buyer.@id' }
+                            },
+                        },
+                        owner: {
+                            label: 'fields.owner'|trans([], 'messages')|capitalize,
+                            properties: ['owner.lastname', 'owner.firstname'],
+                            link: {
+                                route: 'directory_people_show',
+                                params: { id: 'owner.@id' }
+                            },
+                        },
+                        productFamily: {
+                            label: 'catalogue.family.product_family'|trans([], 'catalogue')|capitalize,
+                            properties: ['productFamily.name'],
+                            link: {
+                                route: 'sales_catalogue_family_show',
+                                params: { id: 'productFamily.@id' }
+                            },
+                        },
+                        createdAt: {
+                            label: 'fields.created_at'|trans([], 'messages')|capitalize,
+                            filters:localizeddateFilter,
+                            preserveNull: true
+                        },
+                        supplier: {
+                            label: 'fields.supplier.name'|trans([], 'messages')|capitalize,
+                            properties: ['supplierName', 'supplierNumber'],
+                            glue: ' - '
+                        },
+                        meap: {
+                            label: 'sidebar.engineering.meap'|trans([], 'sidebar')|capitalize,
+                            link: {
+                                route: 'legacy_manufacturing_eng',
+                                params: {id: 'meap'},
+                                fixedParams: {
+                                    m:['meap', 'view','dasboard'],
+                                },
+                            }
+                        },
+                        eap: {
+                            label: 'sidebar.engineering.eap'|trans([], 'sidebar')|capitalize,
+                            link: {
+                                route: 'legacy_manufacturing_eng',
+                                params: {id: 'eap'},
+                                fixedParams: {
+                                    m:['eap', 'view'],
+                                },
+                            }
+                        },
+                        dueDate: {
+                            class: dueDateClass,
+                            label: 'fields.due_date'|trans([], 'messages')|capitalize,
+                            filters: localizeddateDueDatesFilter,
+                            preserveNull: true,
+                        },
+                        completedAt: {
+                            label: 'fields.completed_at'|trans([], 'messages')|capitalize,
+                            filters: localizeddateFilter,
+                            preserveNull: true,
+                        },
+                        planDefinitionCompletedAt: {
+                            label: 'first_article_qualification.fields.plan_definition_completed_at'|trans|capitalize,
+                            filters: localizeddateFilter,
+                            preserveNull: true,
+                        },
+                        planDefinitionDueDate: {
+                            class: planDueDateClass,
+                            label: 'first_article_qualification.fields.plan_definition_due_date.date'|trans|capitalize,
+                            filters: localizeddateDueDatesFilter,
+                            preserveNull: true,
+                        },
+                        deliverablesDueDate: {
+                            class: deliverablesDueDateClass,
+                            label: 'first_article_qualification.fields.deliverables_due_date.date'|trans|capitalize,
+                            filters: localizeddateDueDatesFilter,
+                            preserveNull: true,
+                        },
+                        crabs: {
+                            label: 'crab.title.crabs_linked' | trans({}, 'crab')|capitalize,
+                            template: '/quality/derogation/partial/cells/_crabs_list.html.twig',
+                            templateParams: {crabs: firstArticleQualification.crabs}
+                        },
+                    },
+                    title: 'first_article_qualification.titles.first_article_qualification'|trans,
+                    data: firstArticleQualification},
+            }, with_context = false) }}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        number: {
+                            label: 'spq.quotations.fields.part_number'|trans([], 'spq')|capitalize,
+                            link: {
+                                route: 'legacy_manufacturing_eng',
+                                params: {pn: 'number'},
+                                fixedParams: {
+                                    m: ['bom', 'view'],
+                                    erp: firstArticleQualification.location.erp,
+                                },
+                            }
+                        },
+                        revision: {label: 'first_article_qualification.fields.revision'|trans|capitalize},
+                        description: {label: 'fields.description'|trans([], 'messages')|capitalize},
+                    },
+                    title: 'spq.quotations.fields.part_number'|trans([], 'spq'),
+                    data: firstArticleQualification.partNumbers,
+                    pagination: false,
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-lg-6">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        serialNumber: {
+                            label: 'service.equipment_record.fields.serial_number'|trans([], 'service')|capitalize,
+                            link: {
+                                route: 'legacy_product_support',
+                                params: {id: 'legacyId'},
+                                fixedParams: {
+                                    m:['equipment', 'view'],
+                                },
+                            }
+                        },
+                        model: {label: 'service.equipment_record.fields.model'|trans([], 'service')|capitalize,},
+                        buyer: {
+                            label: 'service.equipment_record.fields.buyer'|trans([], 'service')|capitalize,
+                            properties: ['buyer.name'],
+
+                        },
+                        endUser: {
+                            label: 'service.equipment_record.fields.end_user'|trans([], 'service')|capitalize,
+                            properties: ['endUser.name'],
+                        }
+                    },
+                    title: 'service.equipment_record.title'|trans([], 'service'),
+                    data: firstArticleQualification.equipmentRecords,
+                    pagination: false,
+                }
+            }, with_context = false) }}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        name: {
+                            label: 'fields.fullname'|trans([], 'messages')|capitalize,
+                            properties: ['lastname', 'firstname'],
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        email: {label: 'directory.people.fields.email'|trans([], 'directory')|capitalize},
+                    },
+                    title: 'fields.members'|trans([], 'messages'),
+                    data: firstArticleQualification.members,
+                    pagination: false,
+                }
+            }, with_context = false) }}
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'fields.tags'|trans({}, 'messages') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {% for item in firstArticleQualification.tags %}
+                        <span class="label label-primary" style="font-size:100%;fw:normal">{{ item.name }}</span>
+                    {% else %}
+                        {{ 'no_results'|trans({}, 'messages') }}
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title"><h5>{{ 'menu.links' | trans({}, 'messages') }}</h5>
+                    <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+                </div>
+                <div class="ibox-content">
+                    <hx:include src="/en/private/common/links/links_hinclude.php?module=FAQ&parent_id={{ firstArticleQualification.id }}">
+                        <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                    </hx:include>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" id="files">
+        {{ include('quality/first_article_qualification/files_ajax.html.twig', {firstArticleQualification: firstArticleQualification} )}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title"><h5>{{ 'menu.people.tasks' | trans({}, 'messages') }}</h5>
+                    <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+                </div>
+                <div class="ibox-content">
+                    <hx:include src="/en/private/calendar/tasks/tasks_hinclude.php?module=FAQ&parent_id={{ firstArticleQualification.id }}">
+                        <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                    </hx:include>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'titles.conversation'|trans({}, 'messages') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(commentForm, { action: path('comment_add', { resourceIriId: firstArticleQualification['@id'], backUrl: path('first_article_qualifications_show', {id: id}) }) }) }}
+                    {{ form_errors(commentForm) }}
+                    {{ form_widget(commentForm.message) }}
+                    <br>
+                    {{ form_rest(commentForm) }}
+                    {{ form_end(commentForm) }}
+                    <hr>
+                    <div class="chat-activity-list">
+                        {% for comment in comments %}
+                            <div class="row m-b-md">
+                                <div class="col-sm-6 col-md-4 col-lg-3">
+                                    <b>{{ comment.user.lastname }} {{ comment.user.firstname }}</b><br>
+                                    {{ comment.createdAt | format_datetime('full', 'medium') }}<br>
+                                </div>
+                                <div class="col-sm-6 col-md-8 col-lg-9">
+                                    <p>{{ comment.message | raw | nl2br }}<br></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'sidebar.materials.title' | trans({}, 'sidebar') }}{% endblock %}
+
+{% trans_default_domain 'materials' %}
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if id == '6.6' %}
+            <twig:NavItem:Add
+                    route="part_number_task_home"
+                    translationKey="mis_project.nav_link.add_task"
+                    domain="mis_project"
+            />
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block content %}
+    {% for report in reports %}
+        {% if report.uuid is defined and report.uuid is not null %}
+            <div class="row">
+                {% if report.title is not null %}
+                    <h2 class="mt-3">{{ report.title | trans([], 'quality_smw') }}</h2>
+                {% endif %}    
+                <section data-report-id="{{report.uuid}}" data-location-table="{{report.table ?? ""}}" data-location-column="{{report.column ?? ""}}" data-page="{{report.page ?? ""}}" class="report-container embed-container col m-3 p-0 mt-0">
+                </section>
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% if reports|length == 0 %}
+        <div class="row">
+            <h2>{{ 'quality_smw.report_title.not_found'| trans([], 'quality_smw') }}</h2>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('powerbiClient') }}
+{% endblock javascripts %}

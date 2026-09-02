@@ -1,0 +1,12 @@
+{% extends 'mis/guest_user/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ data_table(datatable) }}
+        </div>
+    </div>
+{% endblock %}
+
+

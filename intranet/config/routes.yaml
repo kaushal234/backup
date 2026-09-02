@@ -1,0 +1,20 @@
+
+legacy_controller:
+  resource: '@LegacyBundle/Controller/'
+  type: attribute
+
+activity:
+  resource: '@ActivityBundle/Controller/'
+  type: attribute
+
+app:
+  resource: '@AppBundle/Controller/'
+  type: attribute
+
+logout:
+  path: /logout
+
+survey_public:
+  path: '/{token}'
+  host: 'survey.tld-gse.com'
+  schemes: ['http']

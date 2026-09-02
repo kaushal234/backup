@@ -1,0 +1,126 @@
+{% extends 'directory/people/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins {% if filtered == false or resetPath is defined and resetPath == path('people_premise_map') %}collapsed{% endif %}">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('directory/people/partial/_form_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('people_premise_map')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title collapse-link">
+                    <h5>{{ 'directory.premise.map'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a href="#" data-bs-toggle="tooltip-text" data-tooltip-text="{{ 'directory.premise.tooltip' | trans([], 'directory') }}">
+                            <i class="fa fa-circle-info"></i>
+                        </a>
+                        <i class="fa fa-chevron-up"></i>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12" style="height: 650px;">
+                            <div id="peopleMap" class="h-100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins {% if filtered == false or resetPath is defined and resetPath == path('people_premise_map') %}collapsed{% endif %}">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: '#',
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        people: {
+                            properties: ['firstname', 'lastname'],
+                            label: 'contacts.fields.name' | trans({}, 'contacts'),
+                        },
+                        position: {
+                            properties: ['position.code', 'position.description'],
+                            glue: ' - ',
+                            label: 'purchase_order.confirmation.fields.position' | trans({}, 'emails'),
+                        },
+                        businessUnit: {
+                            properties: ['businessUnit.name'],
+                            label: 'directory.location.fields.businessUnit' | trans({}, 'directory'),
+                        },
+                        department: {
+                            properties: ['department.name'],
+                            label: 'contacts.fields.department' | trans({}, 'contacts'),
+                        },
+                        region: {
+                            properties: ['businessUnit.region.name'],
+                            label: 'directory.region.name' | trans({}, 'directory'),
+                        },
+                        division: {
+                            properties: ['businessUnit.region.subDivision.division.name'],
+                            label: 'directory.division.name' | trans({}, 'directory'),
+                        },
+                        airport: {
+                            properties: ['closestAirport.code'],
+                            label: 'directory.closest_airport.label' | trans({}, 'directory'),
+                        },
+                    },
+                    title: mapReportTitle | trans,
+                    data: peoples,
+                    initialSorting: false,
+                    pagination : 100,
+                    additionalClass: 'table-striped'
+                },
+            }, with_context = false )}}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var globalPeoples = {{ peoples.getSimpleArrayCopy|json_encode|raw }}
+    </script>
+
+    {{ encore_entry_script_tags('peopleMap') }}
+    {{ encore_entry_script_tags('tooltip') }}
+
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'directory' }) }}"></script>
+{% endblock %}

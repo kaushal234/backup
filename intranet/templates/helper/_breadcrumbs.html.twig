@@ -1,0 +1,61 @@
+{% set homeRoute = domain ~ '_home' %}
+{% set id = app.request.attributes.get('_route_params')['id'] | default(null) %}
+{% set moduleId = app.request.attributes.get('_route_params')['moduleId'] | default(null) %}
+{% set alvestModule = app.request.attributes.get('_route_params')['alvest_module'] | default(null) %}
+{% set breadcrumbLabel = app.request.attributes.get('_route_params')['breadcrumb_label'] | default(null) %}
+{% set hasHome = app.request.attributes.get('_route_params')['has_home'] | default(true) %}
+{% set detailRoute = id is not null ? domain ~ '_show' : null %}
+{% set actualRoute = app.request.attributes.get('_route') %}
+
+<li class="breadcrumb-item" style="{% if homeRoute == actualRoute %}font-weight: bold{% endif %}">
+    {% if hasHome %}<a href="{{ path(homeRoute) }}">{% endif %}
+        {% if breadcrumbLabel %}
+            {{ breadcrumbLabel|trans({}, 'messages') }}
+        {% else %}
+            {{ alvestModule }}
+        {% endif %}
+        {% if hasHome %}</a>{% endif %}
+</li>
+
+{% if detailRoute is null and actualRoute != homeRoute %}
+    {% set params = app.request.attributes.get('_route_params') | filter((value, key) => key not in ['alvest_module', 'moduleDomain', 'label', 'domain']) %}
+    {% set label = actualRoute == domain ~ '_add' ? 'menu.add' : app.request.attributes.get('_route_params')['label'] | default(null) %}
+    {% set translationDomain = actualRoute == domain ~ '_add' ? 'messages' : app.request.attributes.get('_route_params')['domain'] | default(domain) %}
+    <li class="breadcrumb-item" style="font-weight: bold">
+        <a href="{{ path(actualRoute, params) }}">{{ label | trans({}, translationDomain) | capitalize }}</a>
+    </li>
+{% endif %}
+
+{% block detail_route %}
+    {% if detailRoute is not null and route_exists(detailRoute)%}
+        <li class="breadcrumb-item" style="{% if detailRoute == actualRoute %}font-weight: bold{% endif %}">
+            {% if moduleId is not null %}
+            <a href="{{ path(detailRoute, {id: moduleId}) }}">
+                {% if not breadcrumbLabel %}
+                    {{ alvestModule }}
+                {% endif %}
+                {{ ' #' ~ moduleId }}
+            </a>
+            {% else %}
+            <a href="{{ path(detailRoute, {id: id}) }}">
+
+                {{ ' #' ~ id }}
+                {% endif %}
+            </a>
+        </li>
+
+        {% if actualRoute != detailRoute %}
+            {% set label = actualRoute == domain ~ '_edit' ? 'menu.edit' : app.request.attributes.get('_route_params')['label'] | default(null) %}
+            {% set params = app.request.attributes.get('_route_params') | filter((value, key) => key not in ['alvest_module', 'moduleDomain', 'label', 'domain']) %}
+            {% set translationDomain = actualRoute == domain ~ '_edit' ? 'messages' : app.request.attributes.get('_route_params')['domain'] | default(domain) %}
+            {% if moduleId is not null %}
+                <li class="breadcrumb-item" style="font-weight: bold">
+                    <a href="{{ path(actualRoute, params) }}">{{ label | trans({}, translationDomain) | capitalize }}
+                        {{ '/ #' ~ id }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endif %}
+
+    {% endif %}
+{% endblock %}

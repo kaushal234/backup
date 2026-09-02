@@ -1,0 +1,6 @@
+{% set route = item.module is same as 'NCR' ? 'vendor-warranty-claim:show-ncr' : 'vendor-warranty-claim:show-wc' %}
+<td>
+    <a href="{{ path(route, { id: claim.id , moduleDisplay: true }) }}">
+        {{ claim.module }} {{ 'display.table.vwc.headers.module_id'|trans }}{{ claim.module is same as 'NCR' ? claim.nonConformity.id : claim.warrantyClaimId }}
+    </a>
+</td>

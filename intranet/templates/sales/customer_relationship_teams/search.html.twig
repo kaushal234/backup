@@ -1,0 +1,100 @@
+{% extends 'sales/customer_relationship_teams/layout.html.twig' %}
+{% trans_default_domain 'customer_relationship_team' %}
+
+{% use 'partial/_paginated_list.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.search'|trans([], 'messages') }}{% endblock %}
+
+{% block list_header %}
+<div class="paginatedList">
+    {% endblock %}
+
+    {% block list_footer %}
+</div>
+{% endblock %}
+
+{% block list_entry %}
+    <div class="ibox float-e-margins crt-list-element crt-search-result">
+        <div class="ibox-title">
+            <h3>
+                <a href="{{ path('customer_relationship_team_show', {'id': iri_id(entry)}) }}">{{ entry.customer.name | raw }}</a>
+            </h3>
+            <div>
+                <small class="font-normal">
+                    {% if entry.salesRepresentative %}
+                        {{ 'customer_relationship_team.fields.sales_representative' | trans }} <a
+                            href="{{ path('directory_people_show', {'id': iri_id(entry.salesRepresentative)}) }}">
+                         : {{ entry.salesRepresentative.lastname ~ ' ' ~ entry.salesRepresentative.firstname }}
+                    </a>
+                    {% endif %}
+                </small>
+            </div>
+            <div>
+                <small>
+                    {% if entry.partsRepresentative %}
+                        {{ 'customer_relationship_team.fields.parts_representative' | trans }} <a
+                            href="{{ path('directory_people_show', {'id': iri_id(entry.partsRepresentative)}) }}">
+                        : {{ entry.partsRepresentative.lastname ~ ' ' ~ entry.partsRepresentative.firstname }}
+                    </a>
+                    {% endif %}
+                </small>
+            </div>
+            <div>
+                <small>
+                    {% if entry.serviceRepresentative %}
+                        {{ 'customer_relationship_team.fields.service_representative' | trans }} <a
+                            href="{{ path('directory_people_show', {'id': iri_id(entry.serviceRepresentative)}) }}">
+                        : {{ entry.serviceRepresentative.lastname ~ ' ' ~ entry.serviceRepresentative.firstname }}
+                    </a>
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div>
+                {% if entry.cuno %}
+                    {{ 'customer_relationship_team.fields.cuno' | trans }} <a
+                        href="{{ path('customer_relationship_team_show', {'id': iri_id(entry.cuno)}) }}">
+                    : {{ entry.cuno }}
+                </a>
+                {% endif %}
+            </div>
+            <div class="float-end">
+                <a href="{{ path('customer_relationship_team_show', {'id': iri_id(entry)}) }}" class="btn btn-primary">{{ 'customer_relationship_team.messages.more' | trans }}
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h3 class="text-capitalize">{{ 'customer_relationship_team.search'|trans }}</h3>
+    <div class="row">
+        <div class="col-md-8 col-lg-6 m-b-xl">
+            {{ form_start(form, { action: path('sales_crt_search') }) }}
+            {{ form_widget(form) }}
+            <div>
+                <div class="col-sm-2 "></div>
+                <div class="col-sm-10">
+                    <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {% if customer_relationship_team is not null and customer_relationship_team|length > 0 %}
+        {# Search results #}
+        <div class="row">
+            <div class="col-md-6">
+                {% set entries = customer_relationship_team %}
+                {% set noEntriesMessage = '' %}
+                {{ block('list') }}
+            </div>
+        </div>
+    {% else %}
+    {% endif %}
+
+{% endblock %}

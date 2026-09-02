@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="quality_location_areas_add" :security="is_granted('FEATURE_TOOL_WRITE')"/>
+        {% if locationArea is defined %}
+            <twig:NavItem:Edit route="quality_location_areas_edit" :routeParameters="{ id: iri_id(locationArea) }"
+                               :security="is_granted('FEATURE_TOOL_WRITE')"/>
+            <twig:NavItem:Delete route="quality_location_areas_delete" :routeParameters="{ id: iri_id(locationArea) }"
+                                 :security="is_granted('FEATURE_TOOL_WRITE') and locationArea.toolsCount == 0"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

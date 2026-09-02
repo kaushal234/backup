@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/(comments|logs)/\\d+$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "legacyId": {"type": "integer"},
+    "action": {"type": ["string", "null"]},
+    "discriminator": {"type": ["string", "null"]},
+    "changeSet": {"type": ["object", "array", "null"]},
+    "message": {"type": ["string", "null"]},
+    "resource": {"type": "string"},
+    "user": {"type": ["object", "null"]},
+    "createdAt": {"type": "string"},
+    "updatedAt": {"type": "string"},
+    "public": {"type": "boolean"},
+    "from": {"type": ["string", "null"]},
+    "metadata": { "type": ["object", "array"] },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@id",
+    "@context",
+    "@type",
+    "id",
+    "legacyId",
+    "user",
+    "createdAt",
+    "updatedAt",
+    "public",
+    "resource",
+    "metadata"
+  ],
+  "additionalProperties": false
+}

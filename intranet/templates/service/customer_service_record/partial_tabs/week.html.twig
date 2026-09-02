@@ -1,0 +1,23 @@
+{% if item[week].customerServiceRecord is defined %}
+    <div class="row m-0 mt-xl-3 d-flex  justify-content-between gap-3">
+        {% for airport ,csrs in item[week].customerServiceRecord %}
+            <div class="col-12 col-xl">
+                <div class="row row-cols-md-1 pb-3 bg-white d-flex gap-2 border"
+                     data-week="current">
+                    {% for csr in csrs %}
+                        {% if loop.first %}
+                            <h3 class=" ps-4 pt-3">
+                                {% if airport is not empty %}
+                                    {{ csr.airport.code }} - {{ csr.airport.name }}
+                                {% else %}
+                                    {{ 'generic.not_available'|trans({}, 'messages') }}
+                                {% endif %}
+                            </h3>
+                        {% endif %}
+                        {% include 'service/customer_service_record/partial_planner/_csr_card.html.twig' with {'customerServiceRecord': csr} %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

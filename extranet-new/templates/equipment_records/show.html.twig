@@ -1,0 +1,185 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ equipment.serialNumber }} — {{ 'extranet.fields.equipments'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.customer_portal'|trans,
+        hero_title: equipment.serialNumber,
+        hero_sub: equipment.productType ~ (equipment.productType and equipment.product ? ' — ' : '') ~ equipment.product,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.fields.equipments'|trans, href: path('equipment:index') },
+            { label: equipment.serialNumber }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            <div class="row g-4 mb-4 et-tables">
+                <div class="col-12 col-lg-4 col-xl-3">
+                    <h2 class="section-title mb-3">{{ 'extranet.fields.equipment'|trans }}</h2>
+                    {% embed '_components/association_table.html.twig' with {
+                        associationData: {
+                            items: {
+                                serialNumber: {
+                                    label: 'calibration_tools.tools.fields.serialNumber' | trans
+                                },
+                                customerSerialNumber: {
+                                    label: 'extranet.fields.customer_asset_number'|trans,
+                                    template: 'equipment_records/partial/_value_with_edit.html.twig',
+                                },
+                                productType: {
+                                    label: 'display.table.vwc.headers.type'|trans,
+                                },
+                                product: {
+                                    label: 'display.table.vwc_wc.header.model'|trans,
+                                },
+                                airport: {
+                                    label: 'fields.airport'|trans,
+                                    properties: ['airport.code', 'airport.name', 'airport.city', 'airport.country.name'],
+                                    glue: ' - ',
+                                    template: 'equipment_records/partial/_value_with_edit.html.twig',
+                                },
+                                dateShipped: {
+                                    label: 'extranet.fields.date_shipped'|trans({}, 'messages'),
+                                    filters: 'date("Y-m-d")',
+                                    preserveNull: true,
+                                },
+                                dateCommissioned: {
+                                    label: 'extranet.fields.date_commissioned'|trans,
+                                    filters: 'date("Y-m-d")',
+                                    preserveNull: true,
+                                },
+                                emissionRating: {
+                                    label: 'extranet.fields.emission_rating'|trans,
+                                    properties: ['emissionRating.name']
+                                },
+                                warrantyEndDate: {
+                                    label: 'extranet.fields.warranty_end_date'|trans,
+                                    filters: 'date("Y-m-d")',
+                                    preserveNull: true,
+                                },
+                                warrantyStatus: {
+                                    label: 'extranet.fields.warranty_status'|trans,
+                                    preserveNull: true,
+                                },
+                                warrantyConditions: {
+                                    label: 'extranet.fields.warranty_conditions'|trans,
+                                    preserveNull: true,
+                                },
+                                optionsDescription: {
+                                    label: 'extranet.fields.options_description'|trans,
+                                    template: 'generic/_expandable_cell.html.twig',
+                                },
+                            },
+                            title: 'extranet.fields.equipment' | trans,
+                            data: equipment
+                        }
+                    } %}
+                    {% endembed %}
+                </div>
+
+                <div class="col-12 col-lg-8 col-xl-9 d-flex flex-column gap-4">
+                    <div>
+                        <h2 class="section-title mb-3">{{ 'extranet.title.manuals'|trans }}</h2>
+                        {{ include('_components/report_table.html.twig', {
+                            reportTable: {
+                                items: {
+                                    id: { label: 'display.table.scar.headers.id'|trans },
+                                    description: { label: 'display.table.scar.headers.description'|trans },
+                                    language: { label: 'fields.language'|trans },
+                                    createdAt: {
+                                        label: 'fields.date'|trans|capitalize,
+                                        preserveNull: true,
+                                        filters: 'date("Y-m-d")',
+                                    },
+                                    view: {
+                                        label: 'menu.view'|trans({}, 'messages')|capitalize,
+                                        link:{
+                                            route: 'manual:show',
+                                            params: { id: 'id'},
+                                            content: '<button class="btn btn-sm btn-outline btn-primary">' ~ ux_icon('tabler:eye', {height: '16px', width: '16px', 'aria-hidden': true}) ~'</button>',
+                                        },
+                                    }
+                                },
+                                title: '',
+                                data: equipment.manuals,
+                            }
+                        }, with_context = false) }}
+                    </div>
+
+                    <div>
+                        <h2 class="section-title mb-3">{{ 'extranet.title.customer_files'|trans }}</h2>
+                        {{ include('_components/report_table.html.twig', {
+                            reportTable: {
+                                items: {
+                                    displayFilename: { label: 'extranet.fields.file_name'|trans },
+                                    description: { label: 'display.table.scar.headers.description'|trans },
+                                    date: {
+                                        label: 'fields.date'|trans|capitalize,
+                                        preserveNull: true,
+                                        filters: 'date("Y-m-d")',
+                                    },
+                                    download: {
+                                        label: 'display.table.document.headers.download'|trans,
+                                        template: 'equipment_records/partial/_download_customer_file.html.twig',
+                                    },
+                                },
+                                title: '',
+                                data: customerFiles,
+                            }
+                        }, with_context = true) }}
+                    </div>
+
+                    <div>
+                        <h2 class="section-title mb-3">{{ 'support.serials.fields.schematics'|trans([], 'support') }}</h2>
+                        {{ include('_components/report_table.html.twig', {
+                            reportTable: {
+                                items: {
+                                    component: {
+                                        label: 'support.serials.fields.component' | trans([], 'support'),
+                                        properties: ['component.name']
+                                    },
+                                    model: {
+                                        label: 'support.manual.fields.model' | trans([], 'support'),
+                                    },
+                                    serial: {
+                                        label: 'display.table.mrp.headers.part_number' | trans([], 'messages'),
+                                    },
+                                    download: {
+                                        label: 'display.table.document.headers.download'|trans,
+                                        template: 'equipment_records/partial/_download_schematics.html.twig'
+                                    },
+                                },
+                                title: '',
+                                data: equipmentSerialsSchematics,
+                            }
+                        }, with_context = true) }}
+                    </div>
+
+                    <div>
+                        <h2 class="section-title mb-3">{{ 'extranet.title.major_components_serials'|trans }}</h2>
+                        <p class="text-muted mb-0">{{ 'extranet.fields.major_component_access'|trans({'%link_start%': '<a href="' ~ path('equipment:serials', {id: equipment.id}) ~ '">', '%link_end%': '</a>'})|raw }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {# Service bulletins datatable — full width #}
+            <h2 class="section-title mt-4 mb-3">{{ 'extranet.title.service_bulletins_of_this_equipment'|trans }}</h2>
+            <div class="dt-wrap">
+                {{ data_table(datatable) }}
+            </div>
+
+            {# Warranty claims datatable — full width #}
+            <h2 class="section-title mt-4 mb-3">{{ 'extranet.title.warranty_claims_of_this_equipment'|trans }}</h2>
+            <div class="dt-wrap">
+                {{ data_table(warrantyClaimDatatable) }}
+            </div>
+
+        </div>
+    </section>
+</div>
+{% endblock %}

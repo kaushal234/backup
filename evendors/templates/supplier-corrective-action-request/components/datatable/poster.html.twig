@@ -1,0 +1,5 @@
+<td>
+    {% if item.poster is not null %}
+        <a href="mailto:{{ item.poster.email }}" target="_blank">{{ 'display.table.scar.rows.poster.template'|trans({firstname: item.poster.firstname, lastname: item.poster.lastname}) }}</a>
+    {% endif %}
+</td>

@@ -1,0 +1,13 @@
+{% set year = cell.y %}
+{% set startDate = ('first day of January ' ~ year)|date('m/d/Y') %}
+{% set endDate = ('first day of January ' ~ (year + 1))|date('m/d/Y') %}
+
+<td>
+    <a href="{{ path('supplier_corrective_action_request_home', {
+        'filter_supplier_corrective_action_request[status][value]': cell.x,
+        'filter_supplier_corrective_action_request[createdAt][value][from]': startDate,
+        'filter_supplier_corrective_action_request[createdAt][value][to]': endDate,
+        'filter_supplier_corrective_action_request[factory][value]': extraParameters.factory,
+        'filter_supplier_corrective_action_request[supplierNumber][value]': extraParameters.supplierNumber,
+    }) }}">{{ cell.value }}</a>
+</td>

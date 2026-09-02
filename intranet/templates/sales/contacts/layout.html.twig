@@ -1,0 +1,65 @@
+{% extends 'sales/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }} \ {{ 'contacts.title' | trans({}, 'contacts') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if extranetUser is not defined %}
+            <twig:NavItem:Add route="sales_contact_add" :security="is_granted('FEATURE_EXTRANET_USER_CREATE')"/>
+        {% endif %}
+        <twig:NavItem translationKey="contacts.nav_link.unused_accounts" domain="contacts"
+                      icon="material-symbols:hourglass-outline-rounded" route="sales_contact_unused_accounts"/>
+        {% if extranetUser is defined %}
+                <twig:NavItem translationKey="contacts.nav_link.confirmation_email" domain="contacts"
+                              icon="mynaui:envelope"
+                              route="sales_contact_email" :routeParameters="{'id': extranetUser.iriId}"
+                              :security="is_granted('FEATURE_EXTRANET_USER_CREATE') and extranetUser.disabled == false"/>
+                <twig:NavItem translationKey="contacts.nav_link.shadow" domain="contacts" icon="mdi:user-outline"
+                              route="home" :routeParameters="{'_impersonate': extranetUser['@id']}"
+                              class="action-danger"/>
+                <twig:NavItem translationKey="contacts.nav_link.submit_extranet_request" domain="contacts"
+                              icon="bitcoin-icons:plus-filled"
+                              route="sales_contact_extranet_request" :routeParameters="{'id': extranetUser.iriId}"
+                              :security="is_granted('FEATURE_EXTRANET_USER_EDIT') and extranetUser.disabled is same as(true)"/>
+                <twig:NavItem translationKey="contacts.nav_link.disable_extranet_access" domain="contacts"
+                              icon="material-symbols:close-rounded"
+                              route="sales_contact_extranet_request" :routeParameters="{'id': extranetUser.iriId}"
+                              :security="is_granted('FEATURE_EXTRANET_USER_EDIT') and extranetUser.disabled is same as(true)"/>
+                <twig:NavItem translationKey="contacts.nav_link.archive_account" domain="contacts"
+                              icon="material-symbols:close-rounded"
+                              route="sales_contact_disable_account"
+                              :routeParameters="{id: extranetUser.iriId, action: 'archive-account'}"
+                              :security="is_granted('FEATURE_EXTRANET_USER_EDIT') and extranetUser.extranetUserProfile.archived is same as(false)"/>
+                <twig:NavItem translationKey="contacts.nav_link.disable_account" domain="contacts" icon="mdi:ban"
+                              route="sales_contact_disable_account"
+                              :routeParameters="{id: extranetUser.iriId, action: 'disable-account'}"
+                              class="action-danger"
+                              :security="is_granted('FEATURE_EXTRANET_USER_EDIT') and extranetUser.disabled is same as(false)"/>
+                <twig:NavItem:Delete route="sales_contact_delete" :routeParameters="{'id': extranetUser.iriId}"
+                                     :security="is_granted('FEATURE_EXTRANET_USER_DELETE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if extranetUser is defined %}
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Add route="sales_contact_add" :security="is_granted('FEATURE_EXTRANET_USER_CREATE')"/>
+            <twig:NavItem translationKey="contacts.nav_link.e_contact_roles" domain="contacts"
+                          icon="material-symbols:group-outline-rounded" route="sales_contact_roles"/>
+            <twig:NavItem translationKey="contacts.nav_link.crt_and_roles" domain="contacts"
+                          route="sales_contact_show_crt_roles" :routeParameters="{'id': extranetUser.iriId}"/>
+            <twig:NavItem:Edit route="sales_contact_edit" :routeParameters="{'id': extranetUser.iriId}"
+                               :security="is_granted('FEATURE_EXTRANET_USER_EDIT')"/>
+            <twig:NavItem:Add translationKey="contacts.nav_link.add_role" domain="contacts"
+                              route="sales_contact_add_crt_roles" :routeParameters="{'id': extranetUser.iriId}"
+                              :security="is_granted('FEATURE_EXTRANET_USER_EDIT') and extranetUser.extranetUserProfile.archived == false"/>
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

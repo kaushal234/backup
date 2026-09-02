@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "@context": {"type": "string"},
+        "@id": {"pattern": "^/surveys/comments/\\d+$"},
+        "@type"   : {"type": "string"},
+        "content"   : {"type": "string"},
+        "createdAt": {"type": "string"},
+        "updatedAt": {"type": "string"}
+    },
+    "required": [ "@context", "@id", "@type", "content", "createdAt", "updatedAt"],
+    "additionalProperties": false
+}

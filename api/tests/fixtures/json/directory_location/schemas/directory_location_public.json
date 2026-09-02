@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/locations/\\d+$"},
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "legacyId": {"type": "integer"},
+    "name": {
+      "type": "string"
+    },
+    "erp": {
+      "type": ["integer", "null"]
+    },
+    "currency": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"type": "string"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "legacyId": {"type":  "integer"},
+        "id": {"type":  "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "id",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "name",
+    "erp"
+  ],
+  "additionalProperties": false
+}

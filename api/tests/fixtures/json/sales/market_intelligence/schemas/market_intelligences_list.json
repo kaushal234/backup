@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type":"object",
+  "properties":{
+    "hydra:member":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "@id": {"pattern": "^/sales/market_intelligences/\\d+$"},
+          "@type":{
+            "type":"string"
+          },
+          "id":{
+            "type":"integer"
+          },
+          "shortDescription":{
+            "type":"string"
+          }
+        },
+        "required":[
+          "@id",
+          "@type",
+          "id",
+          "shortDescription"
+        ],
+        "additionalProperties":false
+      },
+      "minItems":1
+    }
+  },
+  "required":[
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

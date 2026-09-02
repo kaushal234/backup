@@ -1,0 +1,63 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>{{ comment.message | nl2br }}</p>
+            <a target="_blank" href="{{ url('vendor_warranty_claim', {id: vendorWarrantyClaim.id}) }}">Click here to view VWC#{{ vendorWarrantyClaim.id }}</a>
+            <a target="_blank" href="{{ url('vendor_warranty_claim_email_vendor', {id: vendorWarrantyClaim.id, poster: poster}) }}">Click here to answer directly to eVendor contact.{{ vendorWarrantyClaim.id }}</a>
+
+            <div class="row">
+                <div class="col-md-8">
+                    {{ include('Helpers/_association_table.html.twig', {
+                        associationData: {
+                            items: {
+                                status: { label: 'sfr.fields.status' | trans, properties: ['status.name'] },
+                                type: { label: 'training.references.type' | trans | capitalize, template: 'Emails/Purchasing/VendorWarrantyClaim/partial/_cell_type.html.twig', },
+                                module: { label: 'vwc.fields.module' | trans | capitalize, template: 'Emails/Purchasing/VendorWarrantyClaim/partial/_cell_module.html.twig', },
+                                createdAt: { label:'spr.fields.created_at' | trans, filters: ["date('Y-m-d H:i:s')"]},
+                                poster: { label:'sfr.fields.poster' | trans, properties: ['poster.lastname', 'poster.firstname'] },
+                                assignee: { label:'vwc.fields.assignee' | trans, properties: ['assignee.lastname', 'assignee.firstname'] },
+                                erp: { label:'account_receivable.fields.erp' | trans | upper, properties: ['location.name'], filters: ['concat(" - ' ~ vendorWarrantyClaim.location.erp ~ '")'] },
+                                supplierErp: { label: 'vwc.fields.supplier_erp' | trans | capitalize },
+                                supplierNumber: { label: 'first_article_qualification.fields.supplier_number' | trans | capitalize },
+                                supplierName: { label: 'first_article_qualification.fields.supplier_name' | trans | capitalize },
+                                requestedSupplierAction: { label:'vwc.fields.requested_supplier_action' | trans },
+                                scarRequested: {label:'vwc.fields.scar_requested' | trans,boolean: { true: 'Yes', false: 'No' }},
+                                supplierReturnMerchandiseAuthorization: { label:'vwc.fields.rma' | trans },
+                                shipBackDefectivePart: {label:'scar.fields.corrective_actions' | trans,boolean: { true: 'Yes', false: 'No' }},
+                                supplierShippingInstruction: { label:'scar.fields.preventive_actions' | trans },
+                                requestedCreditAmount: { label:'vwc.fields.request_credit_amount' | trans },
+                                supplierCreditAmount: { label:'vwc.fields.supplier_credit_amount' | trans },
+                            },
+                            data: vendorWarrantyClaim,
+                            title: 'VWC#'~id
+                        },
+                    }, with_context = false) }}
+
+                    {{ include('Helpers/_report_table.html.twig', {
+                        reportTable: {
+                            items: {
+                                partNumber: { label: 'spr.fields.part_number'|trans },
+                                description: { label: 'spr.fields.description'|trans },
+                                serialNumber: { label: 'ncr.fields.serial_number' | trans },
+                                vendorPartNumber: { label: 'vwc.fields.vendor_part_number' | trans },
+                                vendorSerialNumber: { label: 'vwc.fields.vendor_serial_number' | trans },
+                                quantity: { label: 'spr.fields.quantity'|trans },
+                                receivedQuantity: { label: 'vwc.fields.received_quantity'|trans },
+                                unitOfMeasure: { label: 'spr.fields.unit_of_measure'|trans },
+                                failureType: { label: 'vwc.fields.failure_type'|trans },
+                                failureSystem: { label: 'vwc.fields.failure_system'|trans },
+                            },
+                            data: vendorWarrantyClaim.parts,
+                            title: 'ncr.fields.parts'|trans
+                        },
+                    }, with_context = false) }}
+                </div>
+            </div>
+
+            <p>{{ poster }}</p>
+        </columns>
+    </row>
+{% endblock %}

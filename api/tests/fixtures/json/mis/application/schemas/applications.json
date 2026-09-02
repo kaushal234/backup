@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/mis/applications$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/mis/applications/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type":  "integer"},
+          "name": {"type":  "string"},
+          "jiraProjectId": {"type":  ["integer", "null"]}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "jiraProjectId"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

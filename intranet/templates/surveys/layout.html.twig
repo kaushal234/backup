@@ -1,0 +1,98 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Surveys{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add translationKey="survey.nav_link.new_survey" domain="surveys" route="surveys_add"
+                          :security="is_granted('FEATURE_SURVEY_WRITE')"/>
+        <twig:NavItem translationKey="survey.nav_link.home" domain="surveys"
+                      icon="material-symbols:home-outline-rounded" route="surveys_index"/>
+        {% if survey is defined %}
+            {% set survey_id = iri_id(survey) %}
+            <twig:NavItem translationKey="survey.nav_link.surveys" domain="surveys"
+                          icon="material-symbols:home-outline-rounded" route="surveys_show"
+                          :routeParameters="{id: survey_id}"/>
+            <twig:NavItem translationKey="survey.nav_link.items" domain="surveys"
+                          icon="prime:sitemap" route="surveys_show"
+                          :routeParameters="{id: survey_id}"/>
+            <twig:NavItem translationKey="survey.nav_link.groups" domain="surveys"
+                          icon="uit:object-group" route="survey_groups_index"
+                          :routeParameters="{id: survey_id}"/>
+            <twig:NavItem translationKey="survey.nav_link.rating_type" domain="surveys"
+                          icon="mdi-light:star-half" route="survey_rating_types_index"
+                          :routeParameters="{id: survey_id}"/>
+            <twig:NavItem translationKey="survey.nav_link.campaigns" domain="surveys"
+                          icon="fa7-regular:address-card" route="survey_campaigns_index"
+                          :routeParameters="{id: survey_id}"/>
+            <twig:NavItem translationKey="survey.nav_link.new_campaign" domain="surveys"
+                          icon="material-symbols:send-outline-rounded" route="survey_published_add"
+                          :routeParameters="{id: survey_id}"/>
+            {% if group is defined %}
+                {% set group_id = iri_id(group) %}
+                <twig:Dropdown translationKey="survey.nav_link.group_actions" domain="surveys">
+                    <twig:NavItem:Add route="survey_groups_add" :routeParameters="{id: survey_id}"
+                                      :security="is_granted('FEATURE_SURVEY_WRITE')"/>
+                    <twig:NavItem:Edit route="survey_groups_edit" :routeParameters="{id: survey_id, groupId: group_id}"
+                                       :security="is_granted('FEATURE_SURVEY_WRITE')"/>
+                    <twig:NavItem:Delete route="survey_groups_delete"
+                                         :routeParameters="{id: survey_id, groupId: group_id}"
+                                         :security="is_granted('FEATURE_SURVEY_DELETE')"/>
+                </twig:Dropdown>
+            {% endif %}
+            {% if item is defined %}
+                <twig:Dropdown translationKey="survey.nav_link.item_actions" domain="surveys">
+                    <twig:NavItem:Add route="survey_items_add" :routeParameters="{id: survey_id}"
+                                      :security="is_granted('FEATURE_SURVEY_WRITE')"/>
+                    <twig:NavItem:Delete route="survey_items_delete"
+                                         :routeParameters="{id: survey_id, itemId: iri_id(item)}"
+                                         :security="is_granted('FEATURE_SURVEY_DELETE')"/>
+                </twig:Dropdown>
+            {% endif %}
+            {% if campaign is defined %}
+                {% set campaign_id = iri_id(campaign) %}
+                <twig:Dropdown translationKey="survey.nav_link.campaign_actions" domain="surveys">
+                    <twig:NavItem:Delete route="survey_published_delete"
+                                         :routeParameters="{id: survey_id, campaignId: campaign_id, publishedId: publishedSurvey.token}"
+                                         :security="is_granted('FEATURE_SURVEY_DELETE')"/>
+                </twig:Dropdown>
+            {% endif %}
+            {% if ratingType is defined %}
+                {% set rating_type_id = iri_id(ratingType) %}
+                <twig:Dropdown translationKey="survey.nav_link.rating_type_actions" domain="surveys">
+                    <twig:NavItem:Add route="survey_rating_types_add" :routeParameters="{id: survey_id}"
+                                      :security="is_granted('FEATURE_SURVEY_WRITE')"/>
+                    <twig:NavItem:Edit route="survey_rating_types_edit" :routeParameters="{id: survey_id, ratingId: rating_type_id }"
+                                       :security="is_granted('FEATURE_SURVEY_WRITE')"/>
+                    <twig:NavItem:Delete route="survey_rating_types_delete"
+                                         :routeParameters="{id: survey_id, ratingId: rating_type_id }"
+                                         :security="is_granted('FEATURE_SURVEY_DELETE')"/>
+                </twig:Dropdown>
+            {% endif %}
+            {% if survey is defined %}
+                {% set survey_id = iri_id(survey) %}
+                <twig:Dropdown translationKey="survey.nav_link.survey_actions" domain="surveys">
+                    <twig:NavItem:Add route="survey_items_add" :routeParameters="{id: survey_id}"
+                                      :security="is_granted('FEATURE_SURVEY_WRITE')"/>
+                    <twig:NavItem:Edit route="surveys_edit" :routeParameters="{id: survey_id}"
+                                       :security="is_granted('FEATURE_SURVEY_WRITE')"/>
+                    <twig:NavItem:Delete route="surveys_delete"
+                                         :routeParameters="{id: survey_id}"
+                                         :security="is_granted('FEATURE_SURVEY_DELETE')"/>
+                </twig:Dropdown>
+            {% endif %}
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-title">
+        Survey Home
+    </h1>
+    <div class="tooltip"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/surveys.js') }}"></script>
+{% endblock %}

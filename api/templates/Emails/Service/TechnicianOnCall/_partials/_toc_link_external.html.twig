@@ -1,0 +1,6 @@
+{% trans_default_domain "emails" %}
+<p>
+    <a href="{{ url('extranet_technician_on_call', { 'id': technicianOnCall.id }) }}">
+        {{ 'toc.message.link'|trans({'%id%': technicianOnCall.id}) }}
+    </a>
+</p>

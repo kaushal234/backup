@@ -1,0 +1,9 @@
+<td>
+    {% if item[key] is same as (0) %}
+        <small class="label label-success">{{ 'mis.modules.fields.criticity.low'|trans({}, 'mis') }}</small>
+    {% elseif item[key] is same as (1) %}
+        <small class="label label-warning">{{ 'mis.modules.fields.criticity.high'|trans({}, 'mis') }}</small>
+    {% elseif item[key] is same as (2) %}
+        <small class="label label-danger">{{ 'mis.modules.fields.criticity.critical'|trans({}, 'mis') }}</small>
+    {% endif %}
+</td>

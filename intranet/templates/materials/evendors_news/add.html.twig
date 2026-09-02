@@ -1,0 +1,14 @@
+{% extends 'materials/evendors_news/layout.html.twig' %}
+{% trans_default_domain 'news' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('materials/evendors_news/partials/_form.html.twig', {
+        title: 'evendors_news.add.title'|trans,
+        fileInfo: 'evendors_news.add.fileInfo'|trans,
+        form: form,
+        action: path('evendors_news_add'),
+        cancel_link: path('evendors_news_home')
+    }, with_context=false) }}
+{% endblock %}

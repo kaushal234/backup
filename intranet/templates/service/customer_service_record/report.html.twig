@@ -1,0 +1,31 @@
+{% extends 'service/customer_service_record/layout.html.twig' %}
+{% trans_default_domain 'customer_service_record' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'csr.title.count_by_status_by_sso'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: bySSOServiceByStatus,
+                        link: {
+                            route: 'customer_service_record_search',
+                            xParam: 'salesOrganisationService',
+                            yParam: 'status[]',
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        {{ surveyCommissioningReport|raw }}
+        <div class="col-md-6 highcharts" data-options="{{ chart|json_encode }}"></div>
+    </div>
+{% endblock %}

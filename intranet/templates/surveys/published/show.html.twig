@@ -1,0 +1,153 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% block title %}{{ parent() }} \ {{ 'published.page_titles.list' | trans }}{% endblock %}
+
+{% block content %}
+    {% trans_default_domain 'surveys' %}
+
+
+    <div class="row">
+        <div class="col-lg-10">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    title: survey.name,
+                    items: {
+                        displayName: {
+                            label: 'published.fields.target'|trans|capitalize,
+                            properties: ['target.displayName']
+                        },
+                        customer: {
+                            label: 'contacts.fields.customer'|trans({}, 'contacts')|capitalize,
+                            properties: ['target.extranetUserProfile.customer.name']
+                        },
+                        email: {
+                            label: 'directory.people.fields.email'|trans({}, 'directory')|capitalize,
+                            properties: ['target.email']
+                        },
+                        isOpened: {
+                            label: 'published.fields.isOpened'|trans|capitalize,
+                            boolean: {
+                                true: '<span class="label label-primary">' ~ 'yes' | trans({}, 'messages') | upper ~ '</span>',
+                                false: '<span class="label label-warning">' ~ 'no' | trans({}, 'messages') | upper ~ '</span>'
+                            }
+                        },
+                        state: {
+                            label: 'published.fields.totalItemsAnswered'|trans|capitalize,
+                            properties: ['totalItemsAnswered', 'totalItems'],
+                            glue : ' / ',
+                        },
+                        createdAt: {
+                            label: 'general_fields.updatedAt'|trans|capitalize,
+                            filters: "date('Y-m-d')",
+                            preserveNull: true
+                        }
+                    },
+                    data: publishedSurvey
+                },
+            }, with_context = false) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'answers' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {% for answer in publishedSurvey.answers %}
+                        {% if answer.ratingType is defined and answer.ratingType is not same as(null) %}
+                            {% set item = answer.item %}
+                            {% set ratingType = answer.ratingType %}
+
+                            <div class="ibox-content m-b-sm">
+                                <div class="row">
+                                    <div class="col-lg-8 col-lg-offset-2">
+                                        <h3>{{ item.description }} - <b>{{ ratingType.description }}</b></h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2 text-center">
+                                        <span class="font-bold">{{ ratingType.min }}</span>
+                                        <p class="small">{{ ratingType.minLabel }}</p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="progress small">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ answer.value }}"
+                                                 aria-valuemin="{{ ratingType.min }}" aria-valuemax="{{ ratingType.max }}" style="width: {{ (answer.value/ratingType.max)*100 }}%">
+                                                <b>{{ answer.value }}</b>
+                                            </div>
+                                        </div>
+
+                                        {% set results = campaign.results[item.id][ratingType.id] %}
+
+                                        <div class="progress progress-mini">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ results.average }}"
+                                                 aria-valuemin="{{ ratingType.min }}" aria-valuemax="{{ ratingType.max }}" style="width: {{ (results.average/ratingType.max)*100 }}%">
+
+                                            </div>
+                                        </div>
+                                        <p>{{ 'general_fields.average' | trans }}: <b>{{ results.average }}</b> (<b>{{ results.nbAnswers }}</b> {{ 'answers' | trans }})</p>
+                                    </div>
+                                    <div class="col-lg-2 text-center ">
+                                        <span class="font-bold">{{ ratingType.max }}</span>
+                                        <p class="small">{{ ratingType.maxLabel }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-offset-2 col-lg-8 small">
+                                        <p class="small">{{ 'general_fields.createdAt' | trans }}: {{ answer.createdAt | format_datetime('full', 'medium') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'comments' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {% for comment in publishedSurvey.comments %}
+                        {% set item = comment.item %}
+                        {% if item is not empty %}
+                            <div class="ibox-content m-b-sm">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3 class="text-center">{{ item.description }}</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-10 col-lg-offset-2 small">
+                                        <p>
+                                            {{ comment.content }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

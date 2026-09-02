@@ -1,0 +1,38 @@
+{% trans_default_domain 'technician_on_call' %}
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: {
+            type: {
+                properties: ['equipmentRecord.type'],
+                label: 'service.equipment_record.fields.type' | trans({}, 'service'),
+                preserveNull: true,
+            },
+            model: {
+                properties: ['equipmentRecord.model'],
+                label: 'crab.fields.model_er' | trans({}, 'crab'),
+                preserveNull: true,
+            },
+            serialNumber: {
+                properties: ['equipmentRecord.serialNumber'],
+                label: 'crab.fields.equipment_record' | trans({}, 'crab'),
+                preserveNull: true,
+            },
+            customerSerialNumber: {
+                properties: ['equipmentRecord.customerSerialNumber'],
+                label: 'service.equipment_record.fields.customer_asset' | trans({}, 'service') | capitalize,
+                preserveNull: true,
+            },
+            airport: {
+                properties: ['equipmentRecord.airport.code', 'equipmentRecord.airport.country?.name'],
+                label: 'toc.fields.airport' | trans | capitalize,
+                preserveNull: true,
+            },
+            hourMeter: {
+                label: 'csr.fields.hourmeter' | trans({}, 'customer_service_record'),
+            }
+        },
+        title: 'csr.title.er' | trans({}, 'customer_service_record'),
+        data: technicianOnCall,
+        card: false,
+    }
+}, with_context = false) }}

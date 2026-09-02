@@ -1,0 +1,20 @@
+{% extends 'support/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:LegacyNavItem icon="material-symbols:home-outline-rounded"
+                            url="/en/private/product_support/index.ps.php?m[0]=equipment&m[1]=view&id={{ equipmentRecord.legacyId }}">
+            {{ 'support.nav_link.equipment_record'|trans({'%id%': equipmentRecord.legacyId}, 'support') }}
+        </twig:LegacyNavItem>
+        <twig:NavItem:Add translationKey="support.nav_link.publish_new_manual" domain="support"
+                          route="equipment_record_manuals_publish" :routeParameters="{id: equipmentRecord.id}"/>
+        <twig:NavItem translationKey="support.nav_link.name_plate" domain="support" icon="mdi:ticket-outline"
+                      route="equipment_record_qr_code_plate" :routeParameters="{id: equipmentRecord.id}"/>
+        {% if newManualForm is defined %}
+            <twig:NavItem translationKey="support.nav_link.cancel" domain="support" icon="mdi:ban"
+                          route="equipment_record_manuals_list" :routeParameters="{id: equipmentRecord.id}"
+                          class="action-danger"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,277 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/guest_users$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/guest_users/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "enableAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "plannedDisableAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "email": {
+            "type": "string"
+          },
+          "position": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/positions/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "code": {
+                "type": "string"
+              },
+              "description": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "code",
+              "description"
+            ],
+            "additionalProperties": false
+          },
+          "supervisor": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/people/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "updateTasks": {
+                "type": "array"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "hidden": {
+                "type": "boolean"
+              },
+              "disabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "updateTasks",
+              "id",
+              "firstname",
+              "lastname",
+              "email",
+              "username",
+              "hidden",
+              "disabled"
+            ],
+            "additionalProperties": false
+          },
+          "username": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "needsCollaborationAccess": {
+            "type": "boolean"
+          },
+          "modules": {
+            "type": "array"
+          },
+          "updateTasks": {
+            "type": "array"
+          },
+          "businessUnit": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/business_units/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ],
+            "additionalProperties": false
+          },
+          "premise": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "pattern": "^/premises/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "longitude": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "address": {
+                    "type": "array"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "supportTeam": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "name",
+                  "description",
+                  "address",
+                  "tags",
+                  "count",
+                  "latitude",
+                  "longitude",
+                  "supportTeam"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "firstname",
+          "lastname",
+          "fullName",
+          "email",
+          "position",
+          "supervisor",
+          "username",
+          "premise",
+          "hidden",
+          "disabled",
+          "plannedDisableAt",
+          "businessUnit",
+          "enableAt",
+          "needsCollaborationAccess",
+          "modules",
+          "updateTasks"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "hydra:search": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ],
+  "additionalProperties": false
+}

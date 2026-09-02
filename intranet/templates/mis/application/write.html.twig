@@ -1,0 +1,43 @@
+{% extends 'mis/application/layout.html.twig' %}
+{% trans_default_domain 'mis_application' %}
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{% if application is defined %}
+                            {{ 'mis_application.title.edit' | trans({'%id%': application.id}) }}
+                        {% else %}
+                            {{ 'mis_application.title.add' | trans }}
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.name) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_row(form.jiraProjectId) }}
+                        </div>
+                        <div class="text-right">
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'mis_application' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'mis/modules/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block content %}
+        {{ form_start(form, { action: path('mis_modules_admin_default_assignees') }) }}
+        {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-12">
+            {% set items = {
+                name: {
+                    label: 'fields.name'|trans({}, 'messages')|capitalize,
+                    properties: ['name', 'application.name'],
+                    glue: ' / ',
+                },
+            } %}
+
+            {% for type in type %}
+                {% set translation = ('trouble_ticket.form.option_value.' ~ type.description) | trans({}, 'trouble_ticket') %}
+                {% set label = type.type ~ ' - ' ~ translation %}
+                {% set items = items|merge({
+                    ('type_'~type.id): {
+                        label: label ,
+                        template: 'mis/modules/partial/cells/_form_type.html.twig',
+                        templateParams: {
+                            form: form,
+                            type: type,
+                        },
+                    }
+                }) %}
+            {% endfor %}
+
+            {% embed 'helper/_report_table.html.twig' with {
+                reportTable: {
+                    items: items,
+                    initialSorting: false,
+                    title: 'mis.modules.admin' | trans,
+                    data: modules,
+                    pagination: false,
+                    search: false,
+                }
+            } only %}
+                {% block table %}
+                    {% if (reportTable.search is not defined or reportTable.search != false) and sluggifiedTitle is defined %}
+                        {% set table_attr = table_attr|merge({'data-filter': '#filter-' ~ sluggifiedTitle}) %}
+                    {% endif %}
+                    {% if (reportTable.pagination is defined and reportTable.pagination is same as(false)) or reportTable.pagination.paginationUrl is defined %}
+                        {% set table_attr = table_attr|merge({'data-do-not-paginate': 'true'}) %}
+                    {% endif %}
+                    {% if reportTable.pagination is not defined or (reportTable.pagination is not same as(false) and reportTable.pagination is not iterable) %}
+                        {% set table_attr = table_attr|merge({'data-page-size': reportTable.pagination|default(20)}) %}
+                    {% elseif reportTable.pagination == false %}
+                        {% set table_attr = table_attr|merge({'data-page-size': '9999999'}) %}
+                    {% endif %}
+                    <div class ="table-responsive tld-table-wrapper-sticky" >
+                        {{ parent()|replace({'<div class="table-responsive">': '', '</div>': ''})|raw }}
+                    </div>
+                {% endblock table %}
+
+                {% block table_header %}
+                    <thead class="tld-header-sticky">
+                    <tr>
+                        {% for key, item in table.items %}
+                            {{ block('table_column') }}
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                {% endblock table_header %}
+            {% endembed %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-end">
+            {{ form_row(form.submit) }}
+        </div>
+        {{ form_rest(form) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

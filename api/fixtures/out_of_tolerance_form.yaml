@@ -1,0 +1,43 @@
+App\Entity\Quality\CalibratedTools\OutOfToleranceForm:
+
+  otf_first:
+    id: 1
+    status: IN_PROGRESS
+    impactAnalysis: Major
+    correctiveMeasures: swapping with a new one
+    analysisBy: "@user_superuser"
+
+  otf_second:
+    id: 2
+    status: CLOSED
+    impactAnalysis: minor
+    correctiveMeasures: removing this tool should be a priority
+    analysisBy: "@user_superuser"
+
+  otf_{0..10}:
+    id: <($current + 3)>
+    status: IN_PROGRESS
+    impactAnalysis: <text()>
+    correctiveMeasures: <text()>
+    analysisBy: "@user_superuser"
+
+  otf_fixed:
+    id: 14
+    status: IN_PROGRESS
+    impactAnalysis: fixed_analysis
+    correctiveMeasures: <text()>
+    analysisBy: "@user_superuser"
+
+  otf_expired_{1..3}:
+    id: <($current + 14)>
+    status: IN_PROGRESS
+    impactAnalysis: fixed_analysis
+    correctiveMeasures: <text()>
+    analysisBy: "@user_superuser"
+
+  otf_out_of_tolerance:
+    id: 18
+    status: CLOSED
+    impactAnalysis: fixed_analysis
+    correctiveMeasures: <text()>
+    analysisBy: "@user_superuser"

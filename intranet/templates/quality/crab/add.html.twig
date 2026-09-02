@@ -1,0 +1,84 @@
+{% extends 'quality/crab/layout.html.twig' %}
+{% trans_default_domain 'crab' %}
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    {% if form.equipmentRecord is defined %}
+                        <h5>{{ 'crab.title.add' | trans }}</h5>
+                    {% endif %}
+                    {% if form.orderLine is defined %}
+                        <h5>{{ 'crab.title.add_from_sol' | trans }}</h5>
+                    {% endif %}
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                {% if form.equipmentRecord is defined %}
+                                    <div class="col-md-6">
+                                        {{ form_row(form.equipmentRecord) }}
+                                    </div>
+                                {% endif %}
+                                {% if form.orderLine is defined %}
+                                    <div class="col-md-6">
+                                        {{ form_row(form.orderLine) }}
+                                    </div>
+                                {% endif %}
+                                <div class="col-md-6">
+                                    {{ form_row(form.code) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.department) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(form.category) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ form_row(form.part) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                {% if form.nonConformity is defined %}
+                                    <div class="col-md-4">
+                                        {{ form_row(form.nonConformity) }}
+                                    </div>
+                                {% endif %}
+                                <div class="col-md-4">
+                                    {{ form_row(form.eapId) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_row(form.firstArticleQualification) }}
+                                </div>
+                            </div>
+                            {{ form_row(form.description) }}
+                            {{ form_row(form.mainFile) }}
+                        </div>
+                        <div class="text-end">
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'crab' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% trans_default_domain 'task' %}
+{% set tasks = app.session.get('tasks') | default([]) %}
+
+{% set taskRoutes = {
+    'Task': 'task_show',
+    'TroubleTicket': 'trouble_ticket_show',
+} %}
+
+{% if tasks|length > 1 %}
+    {% if task is defined %}
+        {% set id = task.id %}
+    {% elseif troubleTicket is defined %}
+        {% set id = troubleTicket.id %}
+    {% elseif warehouseTask is defined %}
+        {% set id = warehouseTask.id %}
+    {% endif %}
+    {% set keys = tasks|keys %}
+
+    {% for index in 0..(tasks|length - 1) %}
+        {% set task = tasks[keys[index]] %}
+
+        {% if id is defined and id is not null and task['id'] is same as(id) %}
+
+            {% set previous_index = index == 0 ? (tasks|length - 1) : index - 1 %}
+            {% set previous_task = tasks[keys[previous_index]] %}
+            {% set route_prev = taskRoutes[previous_task['type']]|default('task_show') %}
+
+            {% set next_index = index == (tasks|length - 1) ? 0 : index + 1 %}
+            {% set next_task = tasks[keys[next_index]] %}
+            {% set route_next = taskRoutes[next_task['type']]|default('task_show') %}
+            <div class="btn-group shadow-none border rounded-2 overflow-hidden" style="height: 30px; width: fit-content;">
+
+                <a href="{{ path(route_prev, {id: previous_task['id']}) }}"
+                   class="btn btn-white btn-sm py-0 px-2 fw-bold text-secondary border-0 border-end d-flex align-items-center justify-content-center"
+                   id="prev-btn"
+                   style="font-size: 0.65rem; min-width: 80px; border-radius: 0;">
+                    {{ 'task.fields.previous'|trans }}
+                </a>
+
+                <div class="d-flex align-items-center px-2 text-muted fw-bold justify-content-center"
+                     style="font-size: 0.65rem; min-width: 80px; background-color: #f8f9fa;">
+                    {{ index + 1 }} / {{ tasks|length }}
+                </div>
+
+                <a href="{{ path(route_next, {id: next_task['id']}) }}"
+                   class="btn btn-white btn-sm py-0 px-2 fw-bold text-secondary border-0 border-start d-flex align-items-center justify-content-center"
+                   id="next-btn"
+                   style="font-size: 0.65rem; min-width: 80px; border-radius: 0;">
+                    {{ 'task.fields.next'|trans }}
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}

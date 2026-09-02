@@ -1,0 +1,9 @@
+- name: Ensure landscape certificate is installed
+  become: true
+  ansible.builtin.template:
+    src: templates/landscape.crt
+    dest: /usr/local/share/ca-certificates
+
+- name: Ensure certificate is added to the local store
+  become: true
+  ansible.builtin.command: update-ca-certificates -v

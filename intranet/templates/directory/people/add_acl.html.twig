@@ -1,0 +1,17 @@
+{% extends 'directory/people/layout_acls.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8 col-lg-6 m-b-xl">
+            {% form_theme form 'form_theme_vertical.html.twig' %}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div>
+                <button type="submit" class="btn btn-primary float-end">{{ 'button.submit'|trans|capitalize }}</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {{ include('directory/people/_acls_list.html.twig') }}
+{% endblock %}

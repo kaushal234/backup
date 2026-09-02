@@ -1,0 +1,21 @@
+- name: Check logrotate is installed
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - logrotate
+    state: present
+
+- name: Ensure php and apps logs are rotated on api
+  become: true
+  ansible.builtin.template:
+    src: templates/api
+    dest: /etc/logrotate.d/api
+  when: inventory_hostname in groups['api']
+
+- name: Ensure php and apps logs are rotated on portals
+  become: true
+  ansible.builtin.template:
+    src: templates/portals
+    dest: /etc/logrotate.d/portals
+  when: inventory_hostname in groups['portals']

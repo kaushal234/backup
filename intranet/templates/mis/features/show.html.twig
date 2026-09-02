@@ -1,0 +1,65 @@
+{% extends 'mis/features/layout.html.twig' %}
+{% set id = iri_id(feature) %}
+
+{% block breadcrumb_links %}
+    {{ parent() }}
+    <li class="breadcrumb-item">
+        <a href="{{ path('mis_features_show', {id: id}) }}"><strong>{{ feature.name }}</strong></a>
+    </li>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-6">
+    {{ include('helper/_association_table.html.twig', {
+        'associationData': {
+            'items': {
+                '@id': {
+                    'label':'Feature#',
+                    'filters': 'iri_id'
+                },
+                'name': {'label': 'fields.name'|trans|capitalize},
+            },
+            'title': 'mis.features.feature-detail'|trans([], 'mis')|capitalize,
+            'data': feature
+        },
+    }, with_context = false) }}
+    </div>
+    <div class="col-lg-6">
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                name: {
+                    label: 'fields.name'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'mis_groups_show',
+                        params: {'id':'@id'},
+                    },
+                },
+                members: {
+                    label: 'mis.menu.members'|trans([], 'mis')|capitalize,
+                    link:{
+                        route: 'mis_groups_people',
+                        params: {'id':'@id'},
+                        content: '<span class="btn btn-primary btn-sm"><i class="fa fa-users fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+            },
+            title: 'mis.groups.groups-title'|trans([], 'mis')|capitalize,
+            search: false,
+            data: feature.groups
+        },
+    }, with_context = false) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        {{ data_table(featureDatatable) }}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% trans_default_domain 'sales_customers' %}
+{% if item.address %}
+<td>
+    <table>
+        <tbody>
+        <tr>
+            <th>{{ 'customers.fields.address_street_1'|trans|capitalize }}</th>
+            <td>{{ item.address.street1 }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'customers.fields.address_street_2'|trans|capitalize }}</th>
+            <td>{{ item.address.street2 }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'customers.fields.address_town'|trans|capitalize }}</th>
+            <td>{{ item.address.town }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'customers.fields.address_postal_code'|trans|capitalize }}</th>
+            <td>{{ item.address.postalCode }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'customers.fields.address_city'|trans|capitalize }}</th>
+            <td>{{ item.address.city }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'customers.fields.address_state'|trans|capitalize }}</th>
+            <td>{{ item.address.state }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'customers.fields.address_country'|trans|capitalize }}</th>
+            {% if item.country is not null %}
+                <td>{{ item.country.name }}</td>
+            {% endif %}
+        </tr>
+        </tbody>
+    </table>
+</td>
+{% endif %}

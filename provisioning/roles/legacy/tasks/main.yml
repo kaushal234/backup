@@ -1,0 +1,23 @@
+- name: Make sure destination dir exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ monorepo_path }}/shared/shared/inc/ }}"
+    state: directory
+    owner: deployer
+    group: php_executor
+
+- name: Insert legacy config file
+  become: true
+  ansible.builtin.template:
+    src: templates/config.credentials.inc.php.j2
+    dest: "{{ monorepo_path }}/shared/shared/inc/config.credentials.inc.php"
+    owner: deployer
+    group: php_executor
+
+- name: Insert legacy include path config file for php cli
+  become: true
+  ansible.builtin.template:
+    src: templates/legacy_include.ini
+    dest: "/etc/php/{{ php_version }}/cli/conf.d/legacy_include.ini"
+    owner: root
+    group: root

@@ -1,0 +1,165 @@
+mis_project:
+  add_form_title: Add Project
+  edit_form_title: Edit Project
+  team_members: Team members
+  title: Project
+  nav_link:
+    add_task: Add task
+    gantt: Gantt
+    close: Close
+    comment: Comment
+    update_status: Update Status
+  fields:
+    tags: Tags
+    region: Region
+    ccs: Ccs
+    close: Close
+    close_tasks: Close tasks
+    comment: Comment
+    completion_date: Completion date
+    conclusion: Conclusion
+    confidential: Confidential
+    created_at: Created at
+    current_phase: Current phase
+    description: Description
+    due_date: Due date
+    due_date_revised: Revised due date
+    estimated: Estimated
+    estimated_hours: Estimated hours
+    firstname: Firstname
+    hours: Hours
+    id: ID
+    indices_factor: Importance factor
+    lastname: Lastname
+    last_comment: Last Comment
+    mis_members: MIS members
+    mis_owner: MIS owner
+    module: Module
+    module_key_users: Module key users
+    name: Name
+    next_phase_completion_date: Due date phase
+    next_phase_revised_date: Due date revised phase
+    open_tasks: Open tasks
+    phase: Phase
+    phase_description_0: Scope and business spec definition
+    phase_description_1: Development/setting definition and guideline
+    phase_description_2: Test before release/Beta deployment or POC
+    phase_description_3: Go-Live and optimization/Rollout
+    phase_description_4: Stabilization and Documentation
+    phase_due_date: Phase due date
+    phases: Phases
+    project_manager: Project Manager
+    revised: Revised
+    revised_date: Revised date
+    revised_estimated_hours: Revised estimated hours
+    revised_phase_due_date: Revised Phase due date
+    started_at: Started at
+    status: Status
+    task_link: Task link
+    teams_link: Teams link
+    update_status: Update status
+    upload_file: Upload file
+  tab:
+    details: Details
+    files: Files
+    logs: Logs
+    tasks: Tasks
+    team_members: Team members
+  message:
+    success:
+      add: Project has been added
+      edit: Project has been edited
+  errors:
+    business_unit: Business unit is mandatory.
+    description: Description is mandatory.
+    estimated_hours: Estimated hours is mandatory.
+    indices_factor: Importance factor is mandatory.
+    mis_owner: Mis owner is mandatory.
+    module: Module is mandatory.
+    project_manager: Project Manager is mandatory.
+    name: Name is mandatory.
+    estimated_closure: Estimated closure date is mandatory.
+    estimated_closure_before: Estimated closure date should be posterior than previous phase estimated closure.
+    revised_closure_before: Revised closure date should be posterior than previous revised closure date.
+    started_at: Started at is mandatory
+    date_in_past: This date cannot be in the past.
+    phase_order_invalid: This date must be after the previous date.
+    tags: At least one tag should be set.
+    revised_closure_at: Revised date should not be before estimated date.
+
+  task:
+    phase_0:
+      short_description: Gate_0 task (as per current wording)
+      description: "Gate-0 Task-DMS 6222
+
+      Dear MOO
+      
+      The MIS Project %project_id%, %project_name% was just set to Phase 0, and you are the concerned Business Operational Owner.
+      
+      As per DMS 6222, this phase will consist in preparing the Gate-0 and defining:
+        - Project goal, scope and content
+        - Project team
+        - Project Timeline
+        - Budget, expected savings and benefits
+        - Information security analysis and risk treatment plan
+        
+      Please refer to DMS6222 to know the Gate-0 process
+      Please organize the meeting in coordination with the MSPO, before Project Status is changed to Phase 1 and development engaged
+        
+      Please also ensure that the risk analysis is :
+        - Uploaded in this task for IF10000 & IF1000 (using https://dms.tld-group.com/index.php?m[0]=view&id=6731)
+        - Uploaded or documented in this task for IF100 & IF10 
+        
+      In both cases typical risks are documented in: https://dms.tld-group.com/index.php?m[0]=view&id=7547
+
+      Thanks"
+    phase_1:
+      short_description: Phase 1 Task
+      description: "MIS Project %project_id%, %project_name%
+
+      Please conduct Phase 1 works as per DMS6222 :
+        - Dev project : Technical specification definition, coding/settings, partial release and tests with MOO/GKU.
+        - Infra project : High Level Design, deployment specification and guidelines definition"
+    phase_2:
+      short_description: Phase 2 Task
+      description: "MIS Project %project_id%, %project_name%
+
+      Please conduct works as per DMS6222 :
+        - Dev project : Test of the final release before Go-Live. Record tests results in the task
+        - Infra project : Beta deployment or POC. Record results in the task
+        - Information Security : secure risk analysis treatment plan is under control prior to go-live
+        - Training of users"
+    phase_3:
+      short_description: Phase 3 Task
+      description: "MIS Project %project_id%, %project_name%
+
+      Please conduct works as per DMS6222 :
+        - Dev project : Go-Live and ramp up monitoring (Hypercare). Record main elements in the task
+        - Infra project : Solution roll out. Record main elements in the task."
+    phase_4:
+      short_description: Phase 4 Task
+      description: "MIS Project %project_id%, %project_name%
+
+      Please conduct works as per DMS6222 :
+        - Technical Documentation Finalization
+        - User Documentation Finalization and communication
+        - Information Security : secure risk analysis treatment plan is completed.
+        - Run Mode processes definition and documentation (Monitoring means, KPI, …)"
+    privacy_design:
+      short_description: Privacy per design task
+      description: "MIS Project %project_id%, %project_name%
+  
+      This task is opened for Project Manager and DPO to check Privacy by Design involved in the current project.
+      Please refer to DMS7809 and fill in the form and attached it to this task before completion.
+      
+      Closing this task means Privacy by designed has been considered and there is no concern about personal data.
+      If any current or new process has an impact on the Processing REGISTER of the company, this one must be updated accordingly.
+      
+      Thanks"
+  chart:
+    page_title: MIS Project Gantt Chart
+    title: MIS Projects
+    breadcrumbs:
+      mis_project: MIS Project
+      chart: Gantt Chart
+    filter: Filter

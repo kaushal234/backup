@@ -1,0 +1,138 @@
+equipment_shipping_record:
+  title: ESR
+  legacyId: Legacy ID
+  new: Create ESR
+  edit: Edit ESR
+  filter: Filter Equipment Shipping Records
+  last_esr_table: Latest Equipment Shipping Records
+  filtered_esr: Filtered Equipment Shipping Records
+  esr_count_by_sales_org_table: ESR Count by Sales Org, Status
+  messages:
+    customer_sync_warning: Some Equipment Record data may be subject to synchronization delays of up to 6 hours. This may impact the suggested customer and SSO values.
+    auto_added_er_warning: All Equipment Records from SOL without an open ESR have been automatically added to the list below. Please remove any that should not be included in this ESR.
+  nav_link:
+    add_cost: Add cost
+    add_planning_daily_limits: Add planning daily limits
+    booked: Booked
+    closed: Closed
+    dashboard: Dashboard
+    equipment_shipping_record_actions: Equipment shipping record actions
+    freight_forwarders: Freight forwarders
+    planning: Planning
+    planning_daily_limit: Planning daily limit
+    shipped: Shipped
+  add:
+    success: ESR has been successfully saved
+    error: ESR has been not saved
+  add_from_sol:
+    error_no_customer: End User and Buyer are not found
+    warning_no_line: Warning no row selected
+    error_no_esr: ESR not found
+
+  delete:
+    success: Equipment shipping record deleted
+    error: Something went wrong and the ESR could not be deleted
+  fields:
+    customer_name: Customer name
+    customer_id: Customer ID
+    incoterm: Incoterm
+    incoterm_placeholder: Select an Incoterm
+    actual_gt_date: Actual GT date
+    arrival: Arrival place
+    departure: Departure place
+    loading: Loading place
+    forwarder: Forwarder
+    ship_authorization: Ship authorization
+    ship_authorization_granted: Ship authorization granted ?
+    modality: Modality
+    costs: Costs
+    type: Type
+    price: Price
+    lines: Lines
+    notes: Notes
+    line:
+      id: 'line#'
+      vessel_loading_date: Vessel loading date
+      estimated_arrival_date: Estimated arrival date
+      actual_arrival_date: Actual arrival date
+      estimated_pick_up_date: Estimated pick up date
+      equipment_record_sn: 'ER #SN'
+      equipment_record_sn_help_message: (ER already selected are deactivated)
+      change_column_date: set column date
+      truck_type: Truck type
+      estimated_pick_up_date_confirmation: Pick up date confirmation
+    cost:
+      cost_date: Cost date
+      concerned_user: Concerned User
+      select_user: Select concerned user...
+      cost_type: Cost type
+      description: description
+      currency: Currency
+      price: Price
+  file: ESR Files
+  line:
+    title: ESRL
+    long_title: Equipment Shipping Record Lines
+    new: Create new
+    add: Add ESRL
+    edit: Edit line
+    cant_add_line: 'You can not add line on this ESR cause all ER are selected'
+    delete:
+      success: Line deleted
+      error: Something went wrong and the line could not be deleted
+    create:
+      forbidden_status: You can not add lines to a CLOSED ESR!
+      success: Line has been successfully saved
+      error: Something went wrong and the line could not be saved
+    fill_column_with: Fill column with
+  cost:
+    title: COST
+    new: Create new
+    add: Add cost
+    edit: Edit cost
+    delete:
+      success: Cost deleted
+      error: Something went wrong and the cost could not be deleted
+    create:
+      success: Cost has been successfully saved
+      error: Something went wrong and the cost could not be saved
+  status:
+    booked: Booked
+    shipped: Shipped
+  dashboard:
+    title: Shipment planning report
+    esr_number: ESR#
+    esrl_number: ESR Line#
+    yt_one_month: YT 1 month
+    yt_three_month: YT 3 month
+    yt_with_open_crab: YT with open CRAB
+  report:
+    title:
+      esr_by_sso_by_status: ESR by SSO by Status
+      esr_by_factory_by_status: ESR by Manufacturer Factory by Status
+
+planning_daily_limit:
+  title: Planning daily limit
+  limit : Limit (max shipment slots per day)
+  add: Add planning daily limit
+  factory_limit: 'Daily limit of factory %factoryName% : %days% / %comment%'
+  edit:
+    title: Planning daily limit edition
+    success: Planning daily limit has been successfully saved
+    error: Something went wrong and the Planning daily limit could not be saved
+  delete:
+    success: Planning daily limit deleted
+    error: Something went wrong and the Planning daily limit could not be deleted
+
+planning_daily_exception:
+  form:
+    title: Planning Daily Exception
+  edit:
+    success: Planning daily exception has been successfully saved
+    error: Something went wrong and the daily exception could not be saved
+  delete:
+    success: Planning daily exception deleted
+    error: Something went wrong and the daily exception could not be deleted
+
+planning_daily:
+  warning: Pickup planned more than 30 days after Green Tag. Unit will automatically switch to Yellow Tag before shipment.

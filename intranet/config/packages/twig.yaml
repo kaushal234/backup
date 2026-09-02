@@ -1,0 +1,18 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes:
+        - form_div_layout.html.twig
+        - form_theme.html.twig
+        - bootstrap_3_layout.html.twig
+        - form_theme_vertical.html.twig
+        - bootstrap_3_horizontal_layout.html.twig
+        - form_theme_horizontal.html.twig
+    globals:
+        upload_uri: '%upload.uri%'
+        languages: '%languages%'
+        jira_url: '%jira.url%'
+        extranet_root_url: '%extranet.root_url%'
+    paths:
+        '%kernel.project_dir%/src/ActivityBundle/Resources/views': ActivityBundle

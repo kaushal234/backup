@@ -1,0 +1,25 @@
+
+<a href="{{ path('legacy_mis') }}">Home</a>
+&nbsp;|&nbsp;<a href="{{ path('mis_modules_home') }}">Module</a>
+&nbsp;|&nbsp;<a href="{{ path('mis_groups_home') }}">Group and role description</a>
+&nbsp;|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=tts&m[1]=gantt2">Maintain Projects</a>
+
+{% if is_granted('ACL_GG_MIS') %}
+    &nbsp;|&nbsp;<a href="/en/private/manufacturing/eng/dev.php?m[0]=timekeeping&m[1]=form&m[2]=addmis">Submit MIS Timesheet</a>
+{% endif %}
+&nbsp;|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=tts">TTS</a>
+&nbsp;|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=inv">Inventory [old]</a>
+&nbsp;|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=inventory">Inventory [new]</a>
+&nbsp;|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=dev">Development</a>
+&nbsp;|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=reports">Reports</a>
+{% set mis = module('MIS') %}
+{% if mis is not null %}
+    &nbsp;|&nbsp;<a href="{{ path('directory_people_show', {id: iri_id(mis.operationalOwner)}) }}" class="btn btn-primary text-capitalize"><i class="fa fa-user"></i>&nbsp;{{ 'mis.modules.fields.moo' | trans([], 'mis') }}</a>
+{% endif %}
+&nbsp;|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=help">Help</a>
+|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=baan_licences">Baan Licences Usage</a>
+{% if is_granted('ACL_SUPERUSER') %}
+    &nbsp;|&nbsp;<a href="{{ path('legacy_mis') }}?m[0]=pdm">PDM</a>
+    &nbsp;|&nbsp;<a href="/admin/index.html" target="_parent">Admin</a>
+{% endif %}
+

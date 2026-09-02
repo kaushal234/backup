@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/engineering/pictograms$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/engineering/pictograms/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {"$ref": "./category.json"},
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "../../shared/schemas/file_light.json"
+            }
+          },
+          "picture": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../shared/schemas/file_light.json" }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "description",
+          "category",
+          "files",
+          "picture"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

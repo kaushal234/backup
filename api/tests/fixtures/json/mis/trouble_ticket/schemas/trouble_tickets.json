@@ -1,0 +1,711 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/mis/trouble_tickets$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/mis/trouble_tickets/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type":  "integer"},
+          "createdBy": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/(users|people)/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "businessUnit": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "@id": {
+                    "pattern": "^/business_units/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": ["object", "null"],
+                    "properties": {
+                      "@id": {"pattern": "^/locations/\\d+$"},
+                      "@type": {"type": "string"},
+                      "name": {"type": "string"},
+                      "erp": {"type": ["integer", "null"]}
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "region": {
+                    "type": ["object", "null"],
+                    "properties": {
+                      "@id": {"pattern": "^/regions/\\d+$"},
+                      "@type": {"type": "string"},
+                      "name": {"type": "string"}
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "location",
+                  "region"
+                ],
+                "additionalProperties": false
+              },
+              "photo": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "../../../shared/schemas/file_light.json"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "email",
+              "username",
+              "photo"
+            ],
+            "additionalProperties": false
+          },
+          "assignee": {
+            "oneOf": [
+              { "type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/(users|people)/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "businessUnit": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "@id": {
+                        "pattern": "^/business_units/\\d+$"
+                      },
+                      "@type": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "type": ["object", "null"],
+                        "properties": {
+                          "@id": {"pattern": "^/locations/\\d+$"},
+                          "@type": {"type": "string"},
+                          "name": {"type": "string"},
+                          "erp": {"type": ["integer", "null"]}
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "region": {
+                        "type": ["object", "null"],
+                        "properties": {
+                          "@id": {"pattern": "^/regions/\\d+$"},
+                          "@type": {"type": "string"},
+                          "name": {"type": "string"}
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "location",
+                      "region"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "photo": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "../../../shared/schemas/file_light.json"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "username",
+                  "photo"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "misAssignee": {
+            "oneOf": [
+              { "type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/(users|people)/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "businessUnit": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "@id": {
+                        "pattern": "^/business_units/\\d+$"
+                      },
+                      "@type": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "type": ["object", "null"],
+                        "properties": {
+                          "@id": {"pattern": "^/locations/\\d+$"},
+                          "@type": {"type": "string"},
+                          "name": {"type": "string"},
+                          "erp": {"type": ["integer", "null"]}
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "region": {
+                        "type": ["object", "null"],
+                        "properties": {
+                          "@id": {"pattern": "^/regions/\\d+$"},
+                          "@type": {"type": "string"},
+                          "name": {"type": "string"}
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "location",
+                      "region"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "photo": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "../../../shared/schemas/file_light.json"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "username",
+                  "photo"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "type": { "$ref": "../../type/schemas/type.json" },
+          "module": {
+            "type": "object",
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "id": {"type": "integer"},
+              "name": {"type": "string"},
+              "notificationColor": {"type": ["string", "null"]},
+              "notifyOperationalOwner": {
+                "type": "boolean"
+              },
+              "notifyKeyUser": {
+                "type": "boolean"
+              },
+              "status": {
+                "type": "string"
+              },
+              "misRelative": {"type":  "boolean"},
+              "specification": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "@id": {
+                    "pattern": "^/mis/specifications/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "operationalOwner": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/(users|people)/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "businessUnit": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "@id": {
+                        "pattern": "^/business_units/\\d+$"
+                      },
+                      "@type": {
+                        "type": "string"
+                      },
+                      "location": {
+                        "type": ["object", "null"],
+                        "properties": {
+                          "@id": {"pattern": "^/locations/\\d+$"},
+                          "@type": {"type": "string"},
+                          "name": {"type": "string"},
+                          "erp": {"type": ["integer", "null"]}
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "region": {
+                        "type": ["object", "null"],
+                        "properties": {
+                          "@id": {"pattern": "^/regions/\\d+$"},
+                          "@type": {"type": "string"},
+                          "name": {"type": "string"}
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "location",
+                      "region"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "photo": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "../../../shared/schemas/file_light.json"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "username",
+                  "photo"
+                ],
+                "additionalProperties": false
+              },
+              "shortDescription": {"type": "string"},
+              "fullDescription": {"type": "string"},
+              "dmsProcedureId": {"type": ["integer", "null"]},
+              "dmsHelpId": {"type": ["integer", "null"]},
+              "legacyLoc": {"type": "integer"},
+              "migrationCurrentStep": {"type": ["null", "object"]},
+              "migrationEstimatedHours": {"type": "integer"},
+              "migrated": {"type": "boolean"},
+              "disabledForTroubleTicket": {"type": "boolean"},
+              "department": {"type": ["object", "null"]},
+              "keyUser": {
+                "oneOf": [
+                  { "type": "null"},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/(users|people)/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "businessUnit": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "@id": {
+                            "pattern": "^/business_units/\\d+$"
+                          },
+                          "@type": {
+                            "type": "string"
+                          },
+                          "location": {
+                            "type": ["object", "null"],
+                            "properties": {
+                              "@id": {"pattern": "^/locations/\\d+$"},
+                              "@type": {"type": "string"},
+                              "name": {"type": "string"},
+                              "erp": {"type": ["integer", "null"]}
+                            },
+                            "required": [
+                              "@id",
+                              "@type",
+                              "name"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "region": {
+                            "type": ["object", "null"],
+                            "properties": {
+                              "@id": {"pattern": "^/regions/\\d+$"},
+                              "@type": {"type": "string"},
+                              "name": {"type": "string"}
+                            },
+                            "required": [
+                              "@id",
+                              "@type",
+                              "name"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "location",
+                          "region"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "photo": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "$ref": "../../../shared/schemas/file_light.json"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "firstname",
+                      "lastname",
+                      "email",
+                      "username",
+                      "photo"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "typeDefaultAssignees": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "application": {
+                "type": "object",
+                "properties": {
+                  "@id": {"type": "string"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "jiraProjectId": {"type":  ["integer", "null"]}
+                },
+                "required": ["@id", "@type", "name", "id", "jiraProjectId"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["@id", "@type", "id", "department", "legacyLoc", "migrated", "migrationCurrentStep", "migrationEstimatedHours", "status", "name", "operationalOwner", "typeDefaultAssignees", "shortDescription", "dmsHelpId", "dmsProcedureId", "fullDescription", "keyUser", "application", "misRelative", "notifyKeyUser", "notifyOperationalOwner", "notificationColor", "specification", "disabledForTroubleTicket"],
+            "additionalProperties": false
+          },
+          "indiceFactor": {"type": ["string", "null"]},
+          "shortDescription": {"type": "string"},
+          "description": {"type": "string"},
+          "createdAt": {"type": "string"},
+          "dueDate": {"type": "string"},
+          "status": {"type": "string"},
+          "additionalOwners": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/(users|people)/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "firstname": {
+                  "type": "string"
+                },
+                "lastname": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "businessUnit": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/business_units/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "type": ["object", "null"],
+                      "properties": {
+                        "@id": {"pattern": "^/locations/\\d+$"},
+                        "@type": {"type": "string"},
+                        "name": {"type": "string"},
+                        "erp": {"type": ["integer", "null"]}
+                      },
+                      "required": [
+                        "@id",
+                        "@type",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "region": {
+                      "type": ["object", "null"],
+                      "properties": {
+                        "@id": {"pattern": "^/regions/\\d+$"},
+                        "@type": {"type": "string"},
+                        "name": {"type": "string"}
+                      },
+                      "required": [
+                        "@id",
+                        "@type",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "location",
+                    "region"
+                  ],
+                  "additionalProperties": false
+                },
+                "photo": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "$ref": "../../../shared/schemas/file_light.json"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "firstname",
+                "lastname",
+                "email",
+                "username",
+                "photo"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "isAddToUserStories": {
+            "type": "boolean"
+          },
+          "jiraIssueNumber": {"type": ["string", "null"]},
+          "supportLevel": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "properties": {
+                  "@context": {"type": "string"},
+                  "@id": {"pattern": "^/mis/support_levels/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "level": {"type": "integer"},
+                  "name": {"type": "string"}
+                },
+                "required": ["@id", "@type", "id", "level", "name"],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "lastCommentedAt": {"type": ["string", "null"]}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "type",
+          "module",
+          "description",
+          "indiceFactor",
+          "assignee",
+          "createdAt",
+          "createdBy",
+          "misAssignee",
+          "shortDescription",
+          "status",
+          "additionalOwners",
+          "dueDate",
+          "isAddToUserStories",
+          "dueDate"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

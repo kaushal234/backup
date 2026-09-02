@@ -1,0 +1,78 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/jobs/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {"type": "integer"},
+    "businessUnit": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"type": "string"},
+        "@type": {"type": "string"},
+        "location":{"type": ["object", "null"] },
+        "name": {"type": "string"},
+        "domain": {"type": ["string", "null"]},
+        "id": {"type": "integer"},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "domain",
+        "id",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "createdBy": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "experience": {
+      "type": ["string", "null"]
+    },
+    "diploma": {
+      "type": ["string", "null"]
+    },
+    "description": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "synchronized": {
+      "type": "boolean"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "businessUnit",
+    "createdBy",
+    "createdAt",
+    "title",
+    "experience",
+    "diploma",
+    "description",
+    "enabled",
+    "synchronized",
+    "legacyId"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,188 @@
+@use "variables" as tldvars;
+
+label {
+  text-transform: capitalize;
+}
+
+.rw-widget {
+  border-radius: 0;
+  border: 1px solid tldvars.$input-border;
+  font-size: 14px;
+}
+
+.rw-widget-container {
+  border: none;
+  border-radius: 0;
+}
+
+.has-error .rw-widget {
+  border-color: #ed5565;
+}
+
+.rw-filter-input,
+.rw-widget-input {
+  box-shadow: none!important;
+}
+
+.rw-widget .rw-input {
+  border-radius: 0;
+}
+
+.rw-combobox input.rw-input,
+.rw-datetimepicker input.rw-input,
+.rw-multiselect,
+.rw-numberpicker input.rw-input {
+  box-shadow: none;
+}
+
+.rw-state-focus,
+.rw-state-focus:hover,
+.rw-widget-container,
+.rw-widget-container:hover {
+  border-color: tldvars.$tldBlue !important;
+  box-shadow: none !important;
+}
+
+.rw-combobox:hover,
+.rw-datetimepicker:hover,
+.rw-dropdownlist:hover,
+.rw-numberpicker:hover {
+  border: 1px solid #e5e6e7;
+}
+
+input[type='number'].no-spin::-webkit-inner-spin-button,
+input[type='number'].no-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+input[type='number'].no-spin {
+  -moz-appearance:textfield !important;
+}
+
+.form-control, .single-line {
+  border: 1px solid tldvars.$input-border;
+}
+
+.chosen-container {
+  border-color: tldvars.$tldBlue !important;
+  box-shadow: none !important;
+}
+
+.chosen-container-active .chosen-choices {
+  box-shadow: none !important;
+  border-color: tldvars.$tldBlue !important;
+}
+
+.chosen-container-multi .chosen-choices {
+  padding: 4px 6px;
+  background: #fff;
+  border: 1px solid tldvars.$input-border;
+}
+
+.chosen-search-input.default{
+  padding-left: 12px;
+}
+
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+  font-size: 14px;
+  line-height: 1.4;
+  color: inherit;
+  font-family: inherit;
+  padding: 6px 12px;
+}
+
+.chosen-container-single .chosen-single {
+  border: 1px solid #cbd5dd;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+// Remove the outline around radio/checkbox of awesome-bootstrap-checkbox
+label::before {
+  outline: none!important;
+  border: 1px solid #939ca4 !important;
+}
+
+.form-condensed .form-control {
+  padding: 0 3px;
+  line-height: normal;
+  font-size: 12px;
+}
+
+.checkbox input[type="checkbox"]:checked + label::after,
+.checkbox input[type="radio"]:checked + label::after {
+  font-family: "Font Awesome 5 Free", sans-serif !important;
+  font-weight: 900 !important;
+}
+
+// Override awesome-bootstrap-checkbox style
+
+.checkbox label::before {
+  border: 1px solid tldvars.$input-border !important;
+}
+
+.radio-primary input[type="radio"] + label::after {
+  background-color: tldvars.$tldBlue !important;
+}
+.radio-primary input[type="radio"]:checked + label::before {
+  border-color: tldvars.$input-border !important;
+}
+.radio-primary input[type="radio"]:checked + label::after {
+  background-color: tldvars.$tldBlue !important;
+}
+
+.checkbox-primary input[type="checkbox"]:checked + label::before,
+.checkbox-primary input[type="radio"]:checked + label::before {
+  background-color: tldvars.$tldBlue !important;
+  border-color: tldvars.$tldBlue !important;
+}
+
+input[type="date"].form-control,
+input[type="time"].form-control,
+input[type="datetime-local"].form-control,
+input[type="month"].form-control {
+  line-height: inherit!important;
+}
+
+/* FIREFOX FIX OF UGLY SELECT BOXES */
+@-moz-document url-prefix() {
+  select.form-control {
+    padding-right: 25px;
+    background-image: url("data:image/svg+xml,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' viewBox='0 0 1200 1000' fill='rgb(51,51,51)'><path d='M1100 411l-198 -199l-353 353l-353 -353l-197 199l551 551z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) 50%;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+// Override datepicker style
+.datepicker td span.active:hover, .datepicker td span.active:focus,
+.datepicker td span.active:active, .datepicker td span.active.active,
+.datepicker td span.active.disabled, .datepicker td span.active[disabled],
+.bootstrap-datetimepicker-widget table td.active
+{
+  background-color: tldvars.$tldBlue !important;
+  border-color: tldvars.$tldBlue !important;
+}
+
+.datepicker td span.active:hover,
+.bootstrap-datetimepicker-widget table td.active:hover {
+  background-color:  darken(tldvars.$tldBlue, 3%) !important;
+  border-color:  darken(tldvars.$tldBlue, 3%) !important;
+}
+
+.ck-editor__editable {
+  min-height: 200px;
+}
+
+.form-select {
+  .item, .ts-dropdown-content {
+    font-size: 1rem;
+    color: #727576;
+  }
+
+  .ts-dropdown [data-selectable] .highlight {
+    background-color: rgba(0, 79, 158, 0.2);
+  }
+}

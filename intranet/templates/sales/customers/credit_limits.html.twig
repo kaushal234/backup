@@ -1,0 +1,28 @@
+{% extends 'sales/customers/layout.html.twig' %}
+{% trans_default_domain 'sales_customers' %}
+
+{% block title %}{{ parent() }} \ {{ 'customers.menu.edit_credit_limits'|trans }}{% endblock %}
+
+{% block content %}
+    {% form_theme form 'form_theme_horizontal.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-md-6 animated fadeInLeft">
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart" id="customer-title">
+                    {{ 'customers.menu.edit_credit_limits'|trans }}
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.creditLimits) }}
+                </div>
+            </div>
+            {{ form_row(form.submit) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+

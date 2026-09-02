@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+
+    AppBundle\Manager\:
+        resource: '../../src/AppBundle/Manager/*'
+
+    AppBundle\Manager\FileManager:
+        public: true
+
+    ActivityBundle\Manager\ActivityManager:
+
+    AppBundle\Manager\AuditLogManager:
+        public: true

@@ -1,0 +1,30 @@
+{% trans_default_domain 'mis' %}
+<div class="row">
+    <div class="col-md-12">
+        {% if is_granted('FEATURE_MODULE_WRITE') or is_granted('FEATURE_THIRD_PARTY_APP_ADMIN_VOTER', '/modules/' ~ module.id) %}
+            {{ form_start(businessUnitPositionForm, {'action': path('mis_third_party_app_business_unit_position_add', {id: module.id})}) }}
+            <div class="d-flex gap-2 mb-2">
+                <div class="flex-grow-1">
+                    <div class="d-flex gap-2">
+                        <div class="w-100">
+                            {{ form_widget(businessUnitPositionForm.position) }}
+                        </div>
+                        <div class="w-100">
+                            {{ form_widget(businessUnitPositionForm.businessUnit) }}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-info float-end">
+                        <i class="fa fa-fa fa-plus"></i>
+                        {{ 'button.add'|trans([], 'messages')|capitalize }}
+                    </button>
+                </div>
+            </div>
+            {{ form_end(businessUnitPositionForm) }}
+            <div class="hr-line-dashed mt-2 mb-2"></div>
+        {% endif %}
+
+        {{ data_table(businessUnitPositionsDataTable) }}
+    </div>
+</div>

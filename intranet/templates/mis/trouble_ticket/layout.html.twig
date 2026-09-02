@@ -1,0 +1,188 @@
+{% extends 'mis/layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+{% set route = app.request.attributes.get('_route') %}
+
+{% block breadcrumb_links %}
+    {{ parent() }}
+    {% if form is defined and form is not null %}
+        {% set labels = {
+            'trouble_ticket_comment': 'trouble_ticket.nav_link.comment',
+            'trouble_ticket_request_information': 'trouble_ticket.nav_link.comment_or_transfer',
+            'trouble_ticket_close': 'trouble_ticket.nav_link.close',
+            'trouble_ticket_transfer_jira': 'trouble_ticket.nav_link.send_to_jira',
+            'trouble_ticket_propose_solution': 'trouble_ticket.nav_link.propose_solution',
+            'trouble_ticket_send_to_mis': 'trouble_ticket.nav_link.approve_and_send_to_mis',
+            'trouble_ticket_reopen': 'trouble_ticket.nav_link.reopen',
+        } %}
+        {% if labels[route] is defined %}
+            <li class="breadcrumb-item">
+                <strong>
+                    {{ labels[route] | trans }}
+                </strong>
+            </li>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="trouble_ticket_add"/>
+        <twig:Dropdown translationKey="trouble_ticket.nav_link.reports">
+            <twig:NavItem translationKey="trouble_ticket.nav_link.kpi" icon="carbon:summary-kpi" route="mis_reports"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.mis_audit" icon="icon-park-outline:audit"
+                          route="mis_audit"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.mis_matrix" icon="tabler:matrix" route="mis_matrix"/>
+        </twig:Dropdown>
+        <twig:NavItem translationKey="trouble_ticket.nav_link.legacy_tts" icon="fluent-emoji-high-contrast:t-rex"
+                      route="legacy_mis"
+                      :routeParameters="{m: ['tts/en/private/mis/mis.php?m[0]=tts']}"/>
+        <twig:NavItem translationKey="trouble_ticket.nav_link.mis_application" icon="mynaui:list"
+                      route="mis_application_home"/>
+        <twig:NavItem translationKey="trouble_ticket.nav_link.modules" icon="streamline-plump:module"
+                      route="mis_modules_home"/>
+        <twig:NavItem translationKey="trouble_ticket.nav_link.subscriptions" icon="bi:sliders"
+                      route="trouble_ticket_subscriptions"
+                      :security="is_granted('ACL_GG_MIS')"/>
+        <twig:NavItem translationKey="trouble_ticket.nav_link.support_teams" icon="mdi:ticket-outline"
+                      route="support_team_home"/>
+        <twig:NavItem translationKey="trouble_ticket.nav_link.it_purchase_request" icon="teenyicons:basket-plus-outline"
+                      route="legacy_calendar"
+                      :routeParameters="{ m: ['seq', 'new', 'it.purchase_request'] }"/>
+        {% if troubleTicket is defined and troubleTicket is not null %}
+            {% set menuVariables = trouble_ticket_menu_context(troubleTicket) %}
+            <twig:Dropdown translationKey="trouble_ticket.nav_link.tts_action">
+                <twig:NavItem:Edit route="trouble_ticket_edit"
+                                   :routeParameters="{id: troubleTicket.id}"
+                                   :security="is_granted('FEATURE_TROUBLE_TICKET_EDIT')"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.reopen"
+                              icon="material-symbols:folder-open-outline-rounded"
+                              route="trouble_ticket_reopen"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="is_granted('FEATURE_TROUBLE_TICKET_REOPEN_VOTER', troubleTicket['@id'])"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.comment"
+                              icon="material-symbols:comment-outline-rounded"
+                              route="trouble_ticket_comment"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="is_granted('FEATURE_TROUBLE_TICKET_COMMENT_VOTER', troubleTicket['@id']) and not menuVariables.troubleTicketIsOnUserSide"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.comment_or_transfer" icon="tabler:arrow-back"
+                              route="trouble_ticket_request_information"
+                              :routeParameters="{id: troubleTicket.id}" :security="menuVariables.canTransfer and (menuVariables.isMIS or not menuVariables.troubleTicketIsOnMisSide)"/>
+                <twig:Separator :show="troubleTicket.jiraIssueNumber is null and menuVariables.troubleTicketIsOpen and menuVariables.isMIS
+                or menuVariables.isRequest and menuVariables.troubleTicketIsOpen and menuVariables.assigneeIsNotTheMOO and menuVariables.assigneeIsNotKeyUser and menuVariables.assigneeIsNotLocalKeyUser and troubleTicket.status not in ['PENDING', 'IN PROGRESS', 'AWAITING USER', 'SOLUTION PROPOSED']
+                or (menuVariables.isIncident and (troubleTicket.assignee is not null and (troubleTicket.status not in ['SOLVED', 'NOT AN ISSUE', 'ALREADY RAISED', 'NOT APPROVED', 'SOLUTION PROPOSED', 'MOO/GKU SOLUTION PROPOSED', 'MOO/GKU AWAITING USER'])) or (troubleTicket.status == 'SOLUTION PROPOSED' and (menuVariables.isAssignee or menuVariables.isAssignor))) or (menuVariables.isRequest and 'AWAITING USER' == troubleTicket.status and (menuVariables.isAssignor or menuVariables.isAssignee or menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser))
+                or menuVariables.isRequest and ('PENDING MOO/GKU' == troubleTicket.status and (menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser or menuVariables.isMIS))"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.send_to_jira"
+                              icon="material-symbols:send-outline-rounded"
+                              route="trouble_ticket_transfer_jira" class="action-send"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="troubleTicket.jiraIssueNumber is null and menuVariables.troubleTicketIsOpen and menuVariables.isMIS"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.send_to_moo"
+                              icon="material-symbols:send-outline-rounded"
+                              route="trouble_ticket_send_to_moo" class="action-send"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="menuVariables.isRequest and menuVariables.troubleTicketIsOpen and menuVariables.assigneeIsNotTheMOO and menuVariables.assigneeIsNotKeyUser and menuVariables.assigneeIsNotLocalKeyUser and troubleTicket.status not in ['PENDING', 'IN PROGRESS', 'AWAITING USER', 'SOLUTION PROPOSED']"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.send_back_to_mis"
+                              icon="material-symbols:send-outline-rounded"
+                              route="trouble_ticket_send_to_mis"
+                              class="action-send"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="(menuVariables.isIncident and (troubleTicket.assignee is not null and (troubleTicket.status not in ['SOLVED', 'NOT AN ISSUE', 'ALREADY RAISED', 'NOT APPROVED', 'SOLUTION PROPOSED', 'MOO/GKU SOLUTION PROPOSED', 'MOO/GKU AWAITING USER'])) or (troubleTicket.status == 'SOLUTION PROPOSED' and (menuVariables.isAssignee or menuVariables.isAssignor))) or (menuVariables.isRequest and 'AWAITING USER' == troubleTicket.status and (menuVariables.isAssignor or menuVariables.isAssignee or menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser))"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.send_to_mis"
+                              icon="material-symbols:send-outline-rounded"
+                              route="trouble_ticket_send_to_mis"
+                              class="action-send"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="menuVariables.isRequest and ('PENDING MOO/GKU' == troubleTicket.status and (menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser or menuVariables.isMIS))"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.propose_solution" icon="bi:check-circle-fill"
+                              route="trouble_ticket_propose_solution"
+                              class="action-success"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="(troubleTicket.status == 'PENDING MOO/GKU' and (menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser)) or (troubleTicket.status in ['IN PROGRESS', 'PENDING MOO/GKU', 'AWAITING USER', 'MOO/GKU AWAITING USER'] and (menuVariables.isMIS))"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.assign_to_me" icon="solar:arrow-right-outline"
+                              route="trouble_ticket_assign"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="menuVariables.isMIS and troubleTicket.status in ['PENDING', 'IN PROGRESS', 'AWAITING USER', 'PENDING MOO/GKU']"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.back_to_pending" icon="tabler:arrow-back"
+                              route="trouble_ticket_change_status"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="menuVariables.isMIS and troubleTicket.status in ['IN PROGRESS']"/>
+                <twig:NavItem translationKey="trouble_ticket.nav_link.close" icon="material-symbols:close-rounded"
+                              route="trouble_ticket_close"
+                              class="action-danger"
+                              :routeParameters="{id: troubleTicket.id}"
+                              :security="menuVariables.troubleTicketIsOpen and (menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser or menuVariables.isAssignor or menuVariables.isAssignee or menuVariables.isMIS)"/>
+            </twig:Dropdown>
+            {% if assigneeForm is defined %}
+                <twig:Dropdown translationKey="trouble_ticket.nav_link.assign_to"
+                               :security="is_granted('ACL_GG_MIS') and troubleTicket.status in ['PENDING', 'IN PROGRESS', 'AWAITING USER', 'PENDING MOO/GKU']">
+                        {{ form_widget(assigneeForm) }}
+                </twig:Dropdown>
+            {% endif %}
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+{% block quick_action_bar %}
+    <twig:NavBar:Container>
+        {% if troubleTicket is defined and troubleTicket is not null %}
+            {% set menuVariables = trouble_ticket_menu_context(troubleTicket) %}
+            <li>
+                <span class="nav-link m-0 d-flex align-items-center bg-white">
+                    <span class="ms-1">Quick Action :</span>
+                </span>
+            </li>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.reopen"
+                          icon="material-symbols:folder-open-outline-rounded"
+                          route="trouble_ticket_reopen"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="is_granted('FEATURE_TROUBLE_TICKET_REOPEN_VOTER', troubleTicket['@id'])"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.comment"
+                          icon="material-symbols:comment-outline-rounded"
+                          route="trouble_ticket_comment"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="is_granted('FEATURE_TROUBLE_TICKET_COMMENT_VOTER', troubleTicket['@id']) and not menuVariables.troubleTicketIsOnUserSide"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.comment_or_transfer" icon="tabler:arrow-back"
+                          route="trouble_ticket_request_information"
+                          :routeParameters="{id: troubleTicket.id}" :security="menuVariables.canTransfer and (menuVariables.isMIS or not menuVariables.troubleTicketIsOnMisSide)"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.send_to_moo"
+                          icon="material-symbols:send-outline-rounded"
+                          route="trouble_ticket_send_to_moo" class="action-send"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="menuVariables.isRequest and menuVariables.troubleTicketIsOpen and menuVariables.assigneeIsNotTheMOO and menuVariables.assigneeIsNotKeyUser and menuVariables.assigneeIsNotLocalKeyUser and troubleTicket.status not in ['PENDING', 'IN PROGRESS', 'AWAITING USER', 'SOLUTION PROPOSED']"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.send_back_to_mis"
+                          icon="material-symbols:send-outline-rounded"
+                          route="trouble_ticket_send_to_mis"
+                          class="action-send"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="(menuVariables.isIncident and (troubleTicket.assignee is not null and (troubleTicket.status not in ['SOLVED', 'NOT AN ISSUE', 'ALREADY RAISED', 'NOT APPROVED', 'SOLUTION PROPOSED', 'MOO/GKU SOLUTION PROPOSED', 'MOO/GKU AWAITING USER'])) or (troubleTicket.status == 'SOLUTION PROPOSED' and (menuVariables.isAssignee or menuVariables.isAssignor))) or (menuVariables.isRequest and 'AWAITING USER' == troubleTicket.status and (menuVariables.isAssignor or menuVariables.isAssignee or menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser))"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.approve_and_send_to_mis"
+                          icon="material-symbols:send-outline-rounded"
+                          route="trouble_ticket_send_to_mis"
+                          class="action-send"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="menuVariables.isRequest and ('PENDING MOO/GKU' == troubleTicket.status and (menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser or menuVariables.isMIS))"/>
+            <twig:Separator/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.propose_solution"
+                          icon="material-symbols:check-rounded"
+                          route="trouble_ticket_propose_solution"
+                          class="action-success"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="(troubleTicket.status == 'PENDING MOO/GKU' and (menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser)) or (troubleTicket.status in ['IN PROGRESS', 'PENDING MOO/GKU', 'AWAITING USER', 'MOO/GKU AWAITING USER'] and (menuVariables.isMIS))"/>
+            <twig:NavItem:Edit route="trouble_ticket_edit"
+                               :routeParameters="{id: troubleTicket.id}"
+                               :security="is_granted('FEATURE_TROUBLE_TICKET_EDIT')"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.back_to_pending" icon="tabler:arrow-back"
+                          route="trouble_ticket_change_status"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="menuVariables.isMIS and troubleTicket.status in ['IN PROGRESS']"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.assign_to_me" icon="solar:arrow-right-outline"
+                          route="trouble_ticket_assign"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="menuVariables.isMIS and troubleTicket.status in ['PENDING', 'IN PROGRESS', 'AWAITING USER', 'PENDING MOO/GKU']"/>
+            <twig:NavItem translationKey="trouble_ticket.nav_link.close" icon="material-symbols:close-rounded"
+                          route="trouble_ticket_close"
+                          class="action-danger"
+                          :routeParameters="{id: troubleTicket.id}"
+                          :security="menuVariables.troubleTicketIsOpen and (menuVariables.isMoo or menuVariables.isKeyUser or menuVariables.isLocalKeyUser or menuVariables.isAssignor or menuVariables.isAssignee or menuVariables.isMIS)"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% block date_time_picker_widget %}
+    <div class="input-group">
+        {{ block('date_picker_widget') }}
+        <span class="input-group-text rounded-0"><i class="far fa-calendar-alt"></i></span>
+    </div>
+{% endblock date_time_picker_widget %}
+
+{% block month_picker_widget %}
+    <div class="input-group">
+        {{ block('date_picker_widget') }}
+        <span class="input-group-text rounded-0"><i class="far fa-calendar-alt"></i></span>
+    </div>
+{% endblock month_picker_widget %}
+
+{% block date_range_picker_widget %}
+    <div class="input-group">
+        <span class="input-group-text rounded-0">From</span>
+        {{ form_widget(form.from) }}
+        <span class="input-group-text rounded-0">To</span>
+        {{ form_widget(form.to) }}
+    </div>
+{% endblock %}
+
+{# Overrides form_label_content to append a help popover icon next to the label when a help message is defined.
+   The popover displays the full form_help block content, preserving all Symfony help options
+   (help, help_attr, help_html, help_translation_parameters). #}
+{%- block form_label_content -%}
+    {%- if not label -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- elseif 'button' not in block_prefixes or label is not same as(false) -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+    {%- if translation_domain is same as(false) -%}
+        {%- if label_html is same as(false) -%}
+            {{- label -}}
+        {%- else -%}
+            {{- label|raw -}}
+        {%- endif -%}
+    {%- else -%}
+        {%- if label_html is same as(false) -%}
+            {{- label|trans(label_translation_parameters, translation_domain) -}}
+        {%- else -%}
+            {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
+        {%- endif -%}
+    {%- endif -%}
+
+    {%- if help is defined and help is not empty -%}
+        {%- set help_attr = help_attr|merge({
+            'data-bs-toggle': 'popover',
+            'data-bs-placement': help_attr['data-bs-placement']|default('top'),
+            'data-bs-trigger': 'hover focus',
+            'data-bs-content': block('form_help')|nl2br,
+            'tabindex': '0',
+        }) -%}
+        <span data-controller="popover" {% with {attr: help_attr} %}{{ block('attributes') }}{% endwith %}>
+            {{ ux_icon('tabler:help-circle-filled', {width: '1.2em', height: '1.2em'}) }}
+        </span>
+    {%- endif -%}
+{%- endblock form_label_content -%}
+
+{# Overrides form_row_render to exclude the form_help block from the field row.
+   Help is now rendered inside a popover on the label icon instead. #}
+{%- block form_row_render -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+    </div>
+{%- endblock form_row_render -%}

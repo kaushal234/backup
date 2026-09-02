@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/ai_logs/history"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/ai_logs"},
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "createdAt": { "type": "string" },
+          "title": { "type": ["string", "null"] },
+          "pinned": { "type": "boolean" },
+          "rating": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": { "pattern": "^/ai/ratings/\\d+$" },
+                  "@type": { "type": "string" },
+                  "rating": { "type": "integer" },
+                  "comment": { "type": "string" }
+                },
+                "required": ["@id", "@type", "rating", "comment"],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "requests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"type": "string"},
+                "@type": { "type": "string" },
+                "createdAt": { "type": "string" },
+                "url": { "type": "string" },
+                "options": { "type": "array" },
+                "content": { "type": ["string", "null"] },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {"type": "string"},
+                    "@type": { "type": "string" },
+                    "createdAt": { "type": "string" },
+                    "content": { "type": "string" }
+                  },
+                  "required": ["@id", "@type", "createdAt", "content"],
+                  "additionalProperties": false
+                },
+                "file": {
+                  "oneOf": [
+                    {"type": "null"},
+                    {"$ref": "../../../shared/schemas/file_light.json"}
+                  ]
+                }
+              },
+              "required": ["@id", "@type", "createdAt", "url", "options", "response", "file", "content"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "title",
+          "requests",
+          "pinned",
+          "rating"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

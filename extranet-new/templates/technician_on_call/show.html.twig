@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.title.technician_on_call'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.customer_portal'|trans,
+        hero_title: 'toc.card.toc'|trans({}, 'technician_on_call') ~ technicianOnCall.id,
+        hero_sub: technicianOnCall.title,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.title.technician_on_call'|trans|capitalize, href: path('technician_on_call:index') },
+            { label: 'toc.card.toc'|trans({}, 'technician_on_call') ~ technicianOnCall.id }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            {# Top row: TOC details (narrow) + attached files (remaining space) #}
+            <div class="row g-4 mb-4 et-tables">
+                <div class="col-12 col-lg-5 col-xl-4">
+                    <h2 class="section-title mb-3">{{ 'toc.title.main'|trans({}, 'technician_on_call') }}</h2>
+                    {% embed '_components/association_table.html.twig' with {
+                        associationData: {
+                            items: {
+                                id: {
+                                    label: 'toc.card.toc'|trans({}, 'technician_on_call'),
+                                },
+                                createdAt: {
+                                    label: 'fields.created_at'|trans({}, 'messages'),
+                                    filters: 'date("Y-m-d")',
+                                },
+                                createdBy: {
+                                    label: 'fields.created_by'|trans({}, 'messages'),
+                                    properties: ['createdBy.lastname', 'createdBy.firstname'],
+                                },
+                                status: {
+                                    label: 'toc.fields.status'|trans({}, 'technician_on_call'),
+                                },
+                                assignee: {
+                                    label: 'toc.fields.assignee'|trans({}, 'technician_on_call'),
+                                    properties: ['assignee.lastname', 'assignee.firstname'],
+                                },
+                                equipmentRecordSerialNumber: {
+                                    label: 'service.equipment_record.fields.serial_number'|trans({}, 'service'),
+                                    properties: ['equipmentRecord.serialNumber'],
+                                    link: {
+                                        route: 'equipment:show',
+                                        params: { id: 'equipmentRecord.id' },
+                                    },
+                                },
+                                serialNumber: {
+                                    label: 'toc.fields.serialNumber'|trans({}, 'technician_on_call'),
+                                },
+                                equipmentRecordType: {
+                                    label: 'service.equipment_record.fields.type'|trans({}, 'service'),
+                                    properties: ['equipmentRecord.productType'],
+                                },
+                                equipmentRecordModel: {
+                                    label: 'service.equipment_record.fields.model'|trans({}, 'service'),
+                                    properties: ['equipmentRecord.product'],
+                                },
+                                salesOrganisationService: {
+                                    label: 'toc.fields.sales_organisation_service'|trans({}, 'technician_on_call'),
+                                    properties: ['salesOrganisationService.name'],
+                                },
+                                customerName: {
+                                    label: 'toc.fields.customer'|trans({}, 'technician_on_call'),
+                                    properties: ['customer.name'],
+                                },
+                                mainContact: {
+                                    label: 'toc.fields.main_contact.label'|trans({}, 'technician_on_call'),
+                                    properties: ['mainContact.lastname', 'mainContact.firstname'],
+                                },
+                                airport: {
+                                    label: 'toc.fields.airport'|trans({}, 'technician_on_call'),
+                                    properties: ['airport.code', 'airport.name'],
+                                },
+                                title: {
+                                    label: 'toc.fields.title'|trans({}, 'technician_on_call'),
+                                    template: 'technician_on_call/partial/_translated_field.html.twig',
+                                    templateParams: { originalKey: 'originalTitle' },
+                                },
+                                description: {
+                                    label: 'toc.fields.description'|trans({}, 'technician_on_call'),
+                                    template: 'technician_on_call/partial/_translated_field.html.twig',
+                                    templateParams: { originalKey: 'originalDescription' },
+                                },
+                            },
+                            title: 'toc.title.main'|trans({}, 'technician_on_call'),
+                            data: technicianOnCall,
+                        }
+                    } %}
+                    {% endembed %}
+                </div>
+
+                <div class="col-12 col-lg-7 col-xl-8">
+                    <div class="d-flex align-items-center mb-3">
+                        <h2 class="section-title mb-0 me-3">{{ 'menu.files'|trans | capitalize }}</h2>
+                        {% if canComment %}
+                            <a class="btn btn-outline-primary me-2" href="{{ path('technician_on_call:file:add', { id: technicianOnCall.id }) }}">
+                                {{ 'toc.action.add_file'|trans({}, 'technician_on_call') }}
+                            </a>
+                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#new_comment_modal">
+                                {{ 'toc.action.add_comment_file'|trans({}, 'technician_on_call') }}
+                            </button>
+                        {% endif %}
+                    </div>
+                    {% if technicianOnCall.files | length > 0 %}
+                        <div class="dt-wrap p-3">
+                            <div class="row g-3">
+                                <twig:Swiper
+                                        :files="technicianOnCall.files"
+                                        :fileRouteBuilder="(file) => path('technician_on_call:file_stream', {id: technicianOnCall.id, fileId: file.id})"
+                                />
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>{{ 'no_data' | trans | capitalize }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Comments datatable — full width #}
+            <h2 class="section-title mt-4 mb-3">{{ 'toc.comments'|trans({}, 'technician_on_call') }}</h2>
+            <div class="dt-wrap">
+                {{ data_table(commentDataTable) }}
+            </div>
+
+        </div>
+    </section>
+</div>
+
+{% if canComment %}
+    {% include 'technician_on_call/modal/comment.html.twig' %}
+{% endif %}
+{% endblock %}

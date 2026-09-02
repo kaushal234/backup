@@ -1,0 +1,13 @@
+{% extends 'support/serials/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="col-12">
+        {% include 'generic/_logs.html.twig' with { 'item': equipmentRecord } %}
+    </div>
+
+{% endblock %}
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

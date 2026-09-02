@@ -1,0 +1,24 @@
+{% trans_default_domain "technician_on_call" %}
+<h5>{{ 'toc.message.previous_comments'|trans({}, 'emails') }}</h5>
+<table border="1" cellpadding="5" cellspacing="0" width="100%" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+    <thead style="background-color: #1a3aa5;">
+    <tr>
+        <th align="left" style="width: 10%; border: 1px solid #ddd; padding: 8px; color: #FFFFFF;">{{ 'fields.date' | trans({}, 'messages') | capitalize }}</th>
+        <th align="left" style="width: 15%; border: 1px solid #ddd; padding: 8px; color: #FFFFFF;">{{ 'fields.created_by' | trans({}, 'messages') }}</th>
+        <th align="left" style="width: 75%; border: 1px solid #ddd; padding: 8px; color: #FFFFFF;">{{ 'activity.comment.comment' | trans({}, 'messages') }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for previousComment in previousComments %}
+        <tr>
+            <td style="width: 10%; border: 1px solid #ddd; padding: 8px;">{{ previousComment.createdAt|date('Y/m/d') }}</td>
+            <td style="width: 15%; border: 1px solid #ddd; padding: 8px;">{{ previousComment.user.lastname ~", "~ previousComment.user.firstname }}</td>
+            <td style="width: 75%; border: 1px solid #ddd; padding: 8px;">{{ previousComment.message|raw|nl2br }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3" align="center" style="border: 1px solid #ddd; padding: 8px; color: #999;">{{ 'no_data' | trans({}, 'messages') | capitalize }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

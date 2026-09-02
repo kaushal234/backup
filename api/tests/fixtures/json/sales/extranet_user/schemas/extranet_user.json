@@ -1,0 +1,348 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/extranet_users/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "gender": {
+      "type": ["string", "null"]
+    },
+    "email": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "passwordUpdatedAt": {
+      "type": "string"
+    },
+    "passwordExpirationDate": {
+      "type": "string"
+    },
+    "lastLogin": {
+      "type": ["string", "null"]
+    },
+    "createdAt": {
+      "type": ["string", "null"]
+    },
+    "updatedAt": {
+      "type": ["string", "null"]
+    },
+    "disabledAt": {
+      "type": ["string", "null"]
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "type": ["object"],
+        "properties": {
+          "@id": {"pattern": "^/phones/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "type",
+          "number"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "address": {
+      "type": "object",
+      "items": {
+        "type": "object",
+        "properties": {
+          "street1": {
+            "type": ["string", "null"]
+          },
+          "street2": {
+            "type": ["string", "null"]
+          },
+          "postalCode": {
+            "type": ["string", "null"]
+          },
+          "city": {
+            "type": ["string", "null"]
+          },
+          "town": {
+            "type": ["string", "null"]
+          },
+          "state": {
+            "type": ["string", "null"]
+          }
+        }
+      }
+    },
+    "extranetUserProfile": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/extranet_user_profiles/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "type": {
+          "type": ["string", "null"]
+        },
+        "division": {
+          "type": ["string", "null"]
+        },
+        "department": {
+          "type": ["string", "null"]
+        },
+        "jobTitle": {
+          "type": ["string", "null"]
+        },
+        "language": {
+          "type": ["string", "null"]
+        },
+        "legacyAddress": {
+          "type": ["string", "null"]
+        },
+        "legacyShippingAddress": {
+          "type": "string"
+        },
+        "sequenceIds": {
+          "type": ["array", "null"]
+        },
+        "isVerified": {
+          "type": "boolean"
+        },
+        "isGiftAccepted": {
+          "type": "boolean"
+        },
+        "giftRefusedReason": {
+          "type": ["string", "null"]
+        },
+        "shippingAddress": {
+          "type": "object",
+          "items": {
+            "type": "object",
+            "properties": {
+              "street1": {
+                "type": ["string", "null"]
+              },
+              "street2": {
+                "type": ["string", "null"]
+              },
+              "postalCode": {
+                "type": ["string", "null"]
+              },
+              "city": {
+                "type": ["string", "null"]
+              },
+              "town": {
+                "type": ["string", "null"]
+              },
+              "state": {
+                "type": ["string", "null"]
+              },
+              "country": {
+                "type": ["string", "null"]
+              }
+            }
+          }
+        },
+        "counter": {
+          "type": "integer"
+        },
+        "customer": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/sales/customers/\\d+$"},
+                "@type": {"type": "string"},
+                "name": {"type": "string"},
+                "status": {"type": "string"},
+                "legacyId": {"type": "integer"}
+              },
+              "required": ["@id", "@type", "name", "status", "legacyId"],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "country": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/countries/\\d+$"},
+                "@type": {"type": "string"},
+                "id": {"type": "integer"},
+                "name": {"type": "string"},
+                "isoCode2": {"type": "string"},
+                "legacyId": {"type": "integer"}
+              },
+              "required": ["@id", "@type", "id", "name", "isoCode2", "legacyId"],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "customerCarrierName": {
+          "type": ["string", "null"]
+        },
+        "companyName": {
+          "type": ["string", "null"]
+        },
+        "note": {
+          "type": ["string", "null"]
+        },
+        "shippingAccountNumber": {
+          "type": ["string", "null"]
+        },
+        "requestorNumber": {
+          "type": ["string", "null"]
+        },
+        "employeeNumber": {
+          "type": ["string", "null"]
+        },
+        "erpLocation": {
+          "oneOf": [
+            {"type": "null"},
+            { "$ref": "../../../directory_location/schemas/directory_location_public.json" }
+          ]
+        },
+        "archived": {
+          "type": "boolean"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "airport": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "@context": {
+                  "type": "string"
+                },
+                "@id": {"pattern": "^/airports/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "legacyId": {
+                  "type": "integer"
+                },
+                "cityName": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": ["number", "null"]
+                },
+                "longitude": {
+                  "type": ["number", "null"]
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "legacyId",
+                "cityName",
+                "code",
+                "latitude",
+                "longitude"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "type",
+        "division",
+        "department",
+        "jobTitle",
+        "language",
+        "shippingAddress",
+        "counter",
+        "customer",
+        "customerCarrierName",
+        "companyName",
+        "note",
+        "shippingAccountNumber",
+        "requestorNumber",
+        "employeeNumber",
+        "erpLocation",
+        "archived",
+        "legacyId",
+        "airport",
+        "legacyAddress",
+        "legacyShippingAddress",
+        "country",
+        "sequenceIds",
+        "isVerified",
+        "isGiftAccepted",
+        "giftRefusedReason"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "username",
+    "gender",
+    "extranetUserProfile",
+    "hidden",
+    "passwordUpdatedAt",
+    "passwordExpirationDate",
+    "legacyId",
+    "disabled",
+    "lastLogin",
+    "createdAt",
+    "updatedAt",
+    "disabledAt",
+    "phones",
+    "address"
+  ],
+  "additionalProperties": false
+}

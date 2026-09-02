@@ -1,0 +1,12 @@
+{% extends 'directory/people/layout.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ people.lastname }} {{ people.firstname }}{% endblock %}
+
+{% block breadcrumb_links %}
+    <li class="breadcrumb-item">
+        <a
+                href="{{ path('directory_people_home') }}"
+                {% if app.request.attributes.get('_route') == 'directory_people_home' %} style="font-weight: bold;"{% endif %}
+        >{{ 'menu.people.title'|trans }}</a>
+    </li>
+{% endblock %}

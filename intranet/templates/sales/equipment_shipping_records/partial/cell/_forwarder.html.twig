@@ -1,0 +1,8 @@
+<td>
+    {% if item.forwarder is not null %}
+        {{ item.forwarder.name }} :
+        {% for email in item.forwarder.emails %}
+            {{ email }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    {% endif %}
+</td>

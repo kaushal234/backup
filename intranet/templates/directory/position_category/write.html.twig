@@ -1,0 +1,27 @@
+{% extends 'directory/position_category/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+{% form_theme form 'form_theme_horizontal.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'directory.position_categories.add' | trans | capitalize }}</h5>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.positionCategoryType) }}
+                {{ form_row(form.directHeadcount) }}
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

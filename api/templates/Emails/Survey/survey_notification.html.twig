@@ -1,0 +1,29 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    {% set survey = publishedSurvey.campaign.model %}
+    {% set target = publishedSurvey.target %}
+    {% set locale = 'en' %}
+    {% if target.locale is defined and target.locale is not empty %}
+        {% set locale = target.locale | lower %}
+    {% endif %}
+    {% set linkPath = survey_host ~ '/' ~ publishedSurvey.token ~ '?lang=' ~ locale | lower %}
+    <row>
+        <columns>
+            <h3>{{ 'survey.common.dear' | trans({
+                    '%target_name%': publishedSurvey.target.displayName
+                }, 'emails', locale | lower) }}</h3>
+            <p>
+                {{ 'survey.new_publish.message' | trans({}, 'emails', locale | lower) | nl2br }}
+            </p>
+            <p>
+                {{ 'survey.new_publish.link' | trans({}, "emails", locale) }}
+                <a href="{{ linkPath }}">{{ survey.name | lower | capitalize }}</a>
+            </p>
+            <p>{{ 'survey.common.regards' | trans({}, "emails", locale) }}</p>
+        </columns>
+    </row>
+{% endblock %}

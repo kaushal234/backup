@@ -1,0 +1,24 @@
+parameters:
+    toc_webhook_access_token: '%env(LEGACY_TOC_WEBHOOK_ACCESS_TOKEN)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    LegacyBundle\Http\LegacyHandler:
+        public: true
+        arguments:
+            $legacyDir: "%legacy.root_dir%"
+
+    LegacyBundle\EventListener\:
+        resource: '../../src/LegacyBundle/EventListener/*'
+
+    LegacyBundle\HttpKernel\LegacyHttpKernel:
+        decorates: http_kernel
+
+    LegacyBundle\Translation\Translator:
+        public: true
+
+    LegacyBundle\Twig\Extension\LegacyEncodingExtension:

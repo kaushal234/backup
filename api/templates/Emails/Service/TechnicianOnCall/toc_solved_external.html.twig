@@ -1,0 +1,32 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        {{ 'toc.message.toc_solved_external'|trans({
+            '%eContact%': technicianOnCall.mainContact.firstname|capitalize ~ ' ' ~ technicianOnCall.mainContact.lastname,
+            '%createdAt%': technicianOnCall.createdAt|date,
+            '%productName%': technicianOnCall.equipmentRecord?.product?.name ?? 'N/A',
+            '%airportCode%': technicianOnCall.airport.code,
+            '%id%': technicianOnCall.id,
+            '%tocLink%': url('extranet_technician_on_call', { 'id': technicianOnCall.id }),
+            '%url%': url('extranet_satisfaction', { 'id': technicianOnCall.id, 'token': technicianOnCall.token })
+        })|raw|nl2br }}
+        <hr>
+        <div style="display: flex; justify-content: flex-start;">
+            <div>
+                {{ include('Emails/Service/TechnicianOnCall/_partials/_toc.html.twig', {technicianOnCall: technicianOnCall}) }}
+            </div>
+            {% if technicianOnCall.equipmentRecord is not null %}
+                <div style="margin-left: 16px;">
+                    {{ include('Emails/Service/TechnicianOnCall/_partials/_equipment_record.html.twig', {technicianOnCall: technicianOnCall}) }}
+                </div>
+            {% endif %}
+            {% if crt is not null %}
+                {{ include('Emails/Service/TechnicianOnCall/_partials/_crt.html.twig', {crt: crt}) }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

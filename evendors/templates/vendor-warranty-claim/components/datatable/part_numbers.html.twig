@@ -1,0 +1,5 @@
+<td>
+    {% for part in item.parts %}
+        {{ part.partNumber }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</td>

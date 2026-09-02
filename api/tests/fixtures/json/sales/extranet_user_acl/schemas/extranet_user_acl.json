@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/extranet_user_acls/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "extranetUser": {
+      "type": "object"
+    },
+    "crt": {
+      "type": "object"
+    },
+    "extranetUserGroup": {
+      "type": ["object"]
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "extranetUser",
+    "crt",
+    "extranetUserGroup",
+    "legacyId"
+  ],
+  "additionalProperties": false
+}

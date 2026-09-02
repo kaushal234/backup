@@ -1,0 +1,114 @@
+{% set today = 'now'|date %}
+
+<div class="d-none d-xxl-block container">
+    {{ include('@AlvestTwigHelper/tabs_layout.html.twig', {
+        tabsData: {
+            tabs: {
+                currentWeek: {
+                    defaultTab: true,
+                    label: 'planner.title.current_week'|trans({
+                        '%from%': today|date_modify('monday this week')|date('d/m'),
+                        '%to%': today|date_modify('sunday this week')|date('d/m'),
+                        '%week%':  today|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.currentWeek.count is same as 0) ? '' : customerServiceRecordOrdered.currentWeek.count,
+                    templateParams : {week: 'currentWeek'}
+                },
+                nextWeek: {
+                    label: 'planner.title.other_week'|trans({
+                        '%from%': today|date_modify('monday next week')|date('d/m'),
+                        '%to%': today|date_modify('sunday next week')|date('d/m'),
+                        '%week%':  today|date_modify('next week')|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.nextWeek.count is same as 0) ? '' : customerServiceRecordOrdered.nextWeek.count,
+                    templateParams : {week: 'nextWeek'}
+                },
+                secondWeek: {
+                    label: 'planner.title.other_week'|trans({
+                        '%from%': today|date_modify('monday this week +2 weeks')|date('d/m'),
+                        '%to%': today|date_modify('sunday this week +2 weeks')|date('d/m'),
+                        '%week%':  today|date_modify('+2 week')|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.secondWeek.count is same as 0) ? '' : customerServiceRecordOrdered.secondWeek.count,
+                    templateParams : {week: 'secondWeek'}
+                },
+                thirdWeek: {
+                    label: 'planner.title.other_week'|trans({
+                        '%from%': today|date_modify('monday this week +3 weeks')|date('d/m'),
+                        '%to%': today|date_modify('sunday this week +3 weeks')|date('d/m'),
+                        '%week%':  today|date_modify('+3 week')|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.thirdWeek.count is same as 0) ? '' : customerServiceRecordOrdered.thirdWeek.count,
+                    templateParams : {week: 'thirdWeek'}
+                },
+                fourthWeek: {
+                    label: 'planner.title.other_week'|trans({
+                        '%from%': today|date_modify('monday this week +4 weeks')|date('d/m'),
+                        '%to%': today|date_modify('sunday this week +4 weeks')|date('d/m'),
+                        '%week%':  today|date_modify('+4 week')|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.fourthWeek.count is same as 0) ? '' : customerServiceRecordOrdered.fourthWeek.count,
+                    templateParams : {week: 'fourthWeek'}
+                },
+            },
+            link: app.request.get('tab'),
+            data: customerServiceRecordOrdered,
+        }
+    }, with_context = false) }}
+</div>
+<div class="col d-xxl-none container">
+    {{ include('@AlvestTwigHelper/tabs_layout.html.twig', {
+        tabsData: {
+            tabs: {
+                currentWeekSmallScreen: {
+                    defaultTab: true,
+                    label: 'planner.title.current_week_small_screen'|trans({
+                        '%week%':  today|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.currentWeek.count is same as 0) ? '' : customerServiceRecordOrdered.currentWeek.count,
+                    templateParams : {week: 'currentWeek'}
+                },
+                nextWeekSmallScreen: {
+                    label: 'planner.title.other_week_small_screen'|trans({
+                        '%week%':  today|date_modify('+7 days')|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.nextWeek.count is same as 0) ? '' : customerServiceRecordOrdered.nextWeek.count,
+                    templateParams : {week: 'nextWeek'}
+                },
+                secondWeekSmallScreen: {
+                    label: 'planner.title.other_week_small_screen'|trans({
+                        '%week%':  today|date_modify('+14 days')|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.secondWeek.count is same as 0) ? '' : customerServiceRecordOrdered.secondWeek.count,
+                    templateParams : {week: 'secondWeek'}
+                },
+                thirdWeekSmallScreen: {
+                    label: 'planner.title.other_week_small_screen'|trans({
+                        '%week%':  today|date_modify('+21 days')|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.thirdWeek.count is same as 0) ? '' : customerServiceRecordOrdered.thirdWeek.count,
+                    templateParams : {week: 'thirdWeek'}
+                },
+                fourthWeekSmallScreen: {
+                    label: 'planner.title.other_week_small_screen'|trans({
+                        '%week%':  today|date_modify('+28 days')|date('W'),
+                    }, 'customer_service_record'),
+                    template: 'service/customer_service_record/partial_tabs/week.html.twig',
+                    badge: (customerServiceRecordOrdered.fourthWeek.count is same as 0) ? '' : customerServiceRecordOrdered.fourthWeek.count,
+                    templateParams : {week: 'fourthWeek'}
+                },
+            },
+            link: app.request.get('tabSmallScreen'),
+            data: customerServiceRecordOrdered,
+        }
+    }, with_context = false) }}
+</div>

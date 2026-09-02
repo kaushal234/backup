@@ -1,0 +1,49 @@
+{% props file, index, col = 3 %}
+
+{% set path = asset(upload_uri ~ '/' ~ file.filePath) %}
+
+<div class="col-{{ col }} mb-4">
+    <div class="card w-100 h-100 rounded-0 p-0">
+        <div class="d-inline-flex justify-content-center h-100 position-relative">
+            {% if file.public is true %}
+                <div class="badge badge-info h-auto px-2 position-absolute bottom-0 end-0 m-2"
+                     title="{{ 'gallery.file_visible'|trans }}">
+                    <i class="fa fa-eye"></i>
+                </div>
+            {% endif %}
+
+            {% if file|is_viewable %}
+                <button type="button" class="border-0 p-0 mh-100" data-bs-toggle="modal"
+                        data-bs-target="#modal-files-{{ index }}">
+                    <img height="300px" class="card-img-top rounded-0 object-fit-contain" src="{{ path }}" alt="">
+                </button>
+                <twig:Gallery:FileModal :index="index" :path="path" />
+            {% else %}
+                {% block icon %}
+                    <span class="h-100 w-50 d-inline-flex align-items-center">
+                        {{ file|fa_icon_class }}
+                    </span>
+                {% endblock %}
+            {% endif %}
+        </div>
+
+        <div class="d-flex align-items-end m-2">
+            <div class="col-12">
+                {% block header %}{% endblock %}
+
+                {% if file.description is not empty %}
+                    <div>{{ file.description|u.truncate(100, ' ...') }}</div>
+                {% endif %}
+
+                <div class="row mt-2">
+                    <div class="col text-secondary">
+                        <i>{{ file|file_name }}</i>
+                    </div>
+                    <div class="d-flex col-auto text-end align-self-end">
+                        {% block actions %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

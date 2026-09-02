@@ -1,0 +1,452 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/crabs/\\d+$"},
+    "@type": {"type": "string"},
+
+    "id": {"type": "integer"},
+    "createdAt": {"type": "string"},
+    "fixedAt": {"type": ["string", "null"]},
+    "inspectedAt": {"type": ["string", "null"]},
+    "description": {"type": "string"},
+    "fixingComments": {"type": ["string", "null"]},
+    "inspectingComments": {"type": ["string", "null"]},
+    "category": {"type": "string"},
+    "piQuestionType": {"type": ["string", "null"]},
+    "piQuestionId" : {
+      "type": ["integer", "null"]
+    },
+    "piQuestionParentId" : {
+      "type": ["integer", "null"]
+    },
+    "department": {"$ref": "../../crab_department/schemas/crab_department.json"},
+    "status": {
+      "type": "string",
+      "enum": ["CLOSED", "TO-FIX", "TO-INSPECT", "FOR-DEROGATION"]
+    },
+    "legacyId": {"type": "integer"},
+    "equipmentRecord": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "@type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/equipment_records/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "serialNumber": {
+              "type": "string"
+            },
+            "buyer": {
+              "@type": "object",
+              "properties": {
+                "@id": {
+                  "pattern": "^/sales/customers/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name"
+              ]
+            },
+            "endUser": {
+              "@type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "@id": {
+                  "pattern": "^/sales/customers/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId"
+              ]
+            },
+            "customerSerialNumber": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "model": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "product": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/sales/products/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "family": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "pattern": "^/sales/product_families/\\d+$"
+                        },
+                        "@type": {
+                          "type": "string"
+                        },
+                        "productType": {
+                          "type": "object",
+                          "properties": {
+                            "@id": {
+                              "pattern": "^/sales/product_types/\\d+$"
+                            },
+                            "@type": {
+                              "type": "string"
+                            },
+                            "englishName": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "@id",
+                            "@type",
+                            "englishName"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "@id",
+                        "@type",
+                        "productType"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "family"
+                  ]
+                }
+              ]
+            },
+            "location": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "dateShipped": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "dateCommissioned": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "manufacturerLocation": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/locations/\\d+$"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    },
+                    "erp": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "@type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type"
+                  ]
+                }
+              ]
+            },
+            "salesOrganisation": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/locations/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    },
+                    "erp": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "createdBy": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    },
+    "fixedBy" : {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    },
+    "inspectedBy" : {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    },
+    "part": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/parts/crab_parts/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {"type": "integer"},
+            "createdAt": {"type": "string"},
+            "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+            "deletedAt": {"type": ["null", "string"]},
+            "deletedBy": {"oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+            ]},
+            "partNumber": {"type": "string"},
+            "description": {"type": "string"},
+            "unitOfMeasure": {"type": "string"},
+            "quantity": {"type": "integer"}
+          },
+          "required": ["@id", "@type", "id", "createdAt", "createdBy", "deletedAt", "deletedBy", "partNumber", "description", "unitOfMeasure", "quantity"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "files": {
+      "oneOf" : [
+        {"type": "null"},
+        {
+          "files" : {"$ref" :  "../../shared/schemas/file.json"}
+        }
+      ]
+    },
+    "mainFile": {
+      "oneOf" : [
+        {"type": "null"},
+        {"$ref" :  "../../shared/schemas/file.json"}
+      ]
+    },
+    "code" : {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {"type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/quality/crab_codes/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "code": {
+              "type": "integer"
+            },
+            "description": {
+              "type": "string"
+            }
+          }}
+      ]
+    },
+    "derogation" : {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../derogation/schemas/derogation.json"}
+      ]
+    },
+    "eapId" : {
+      "type": ["null", "boolean"]
+    },
+    "nonConformity" : {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "additionalProperties": false,
+          "properties": {
+            "@id": {
+              "pattern": "^/quality/non_conformities/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "reportedBy": {
+              "$ref": "../../directory_people/schemas/directory_people_public.json"
+            },
+            "location": {
+              "$ref": "../../directory_location/schemas/directory_location_public.json"
+            },
+            "shortDescription": {
+              "type": "string"
+            },
+            "problem": {
+              "type": "string"
+            },
+            "solution": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rush": {
+              "type": "boolean"
+            },
+            "failureType": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "processes": {
+              "type": "array",
+              "items": {
+                "$ref": "../../process/schemas/process.json"
+              }
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "status",
+            "createdAt",
+            "reportedBy",
+            "location",
+            "shortDescription",
+            "problem",
+            "processes",
+            "solution",
+            "failureType"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "firstArticleQualification" : {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/quality/first_article_qualifications/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id"
+  ],
+  "additionalProperties": false
+}
+
+

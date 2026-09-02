@@ -1,0 +1,19 @@
+{% set notifications = notifications | default([]) %}
+<div class="p-2" data-controller="notification">
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown bookmark-container">
+                <a class="nav-link dropdown-toggle count-info notification-badge" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell fa-lg"><span data-notification-target="badge"><span class="badge rounded-pill badge-danger" data-notification-target="count"></span></span></i>
+                </a>
+                <ul id="notifications" class="dropdown-menu dropdown-menu-lg-end dropdown-messages application-container notification-list" data-notification-target="list">
+                    <li>
+                        <a class="btn btn-sm btn-light" data-action="click->notification#clearAll">Clear all</a>
+                        <a class="btn btn-sm btn-light" data-action="click->notification#readAll">Read all</a>
+                        <a href="{{ path('notifications_index') }}" class="btn btn-sm btn-light">{{ 'notifications.title.my_notifications' | trans({}, 'notifications') }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

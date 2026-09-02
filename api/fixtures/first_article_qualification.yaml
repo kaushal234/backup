@@ -1,0 +1,430 @@
+App\Entity\Quality\FirstArticleQualification\FirstArticleQualification:
+    # /quality/first_article_qualifications/1
+    faq_1:
+        id: 1
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN_PROGRESS"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: "<dateTimeInInterval('-10 days', '+5 days')>"
+        eap: 12345
+        meap: 56789
+        iFactor: "IF1"
+        tags:
+          - '@faq_tag_1'
+        planApprovalStatus: "NOT_APPROVED_YET"
+        productFamily: "@catalog_product_family_1"
+
+    # /quality/first_article_qualifications/2
+    faq_expr:
+        id: 2
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        meap: 56789
+        eap: 123
+        equipmentRecords:
+          - '@equipment_record_child'
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/3
+    faq_put_minimal:
+        id: 3
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+100 years', '+200 years')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        eap: 123
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/{4..10}
+    faq_{4..10}:
+        id: <current()>
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: <company()>
+        buyer: '@user_buyer'
+        poster: '@user_<current()>'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: <randomElement(["PENDING", "IN_PROGRESS"])>
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        members:
+          - '@user_eng'
+        meap: 56789
+        eap: 123
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/11
+    faq_deleted:
+        id: 11
+        location: '@location_factory'
+        supplierNumber: AMAZONPAR
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        eap: 123
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/12
+    faq_permissions_invalid:
+        id: 12
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: lol!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "PENDING"
+        members:
+          - '@user_mlm'
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        eap: 654
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/13
+    faq_put_full_qam:
+        id: 13
+        location: '@location_factory'
+        supplierNumber: AMAZONPAR
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN PROGRESS / PLAN 100% COMPLETED"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        eap: 123
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/14
+    faq_put_limited_buyer:
+        id: 14
+        location: '@location_factory_2'
+        supplierNumber: AMAZONPAR
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        eap: 123
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/15
+    faq_update_by_poster_buyer_owner:
+        id: 15
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_mpe'
+        poster: '@user_asm'
+        owner: '@user_pm'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        meap: 56788
+        eap: 123
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/16
+    faq_update_tags:
+        id: 16
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        eap: 123
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    # /quality/first_article_qualifications/17
+    faq_status_qam_in_progress_to_conditional:
+        id: 17
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN PROGRESS / PLAN 100% COMPLETED"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/18
+    faq_status_qam_in_progress_to_rejected:
+        id: 18
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN_PROGRESS"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/19
+    faq_status_qam_in_progress_to_qualified:
+        id: 19
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN PROGRESS / PLAN 100% COMPLETED"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/20
+    faq_status_qam_conditional_to_rejected:
+        id: 20
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "CONDITIONAL"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/21
+    faq_status_qam_conditional_to_qualified:
+        id: 21
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "CONDITIONAL"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+        ifactor: 'IF10'
+
+    # /quality/first_article_qualifications/22
+    faq_status_poster_in_progress_rejected:
+        id: 22
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN PROGRESS / PLAN 100% COMPLETED"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/23
+    faq_status_basic_user_in_progress_to_error:
+        id: 23
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_transferred'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN_PROGRESS"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/24
+    faq_qualified:
+        id: 24
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_transferred'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('12 days ago', '+3 days')>"
+        status: "QUALIFIED"
+        planDefinitionDueDate: "<dateTimeInInterval('25 days ago', '+8 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/25
+    faq_rejected:
+        id: 25
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_transferred'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('12 days ago', '+3 days')>"
+        status: "REJECTED"
+        planDefinitionDueDate: "<dateTimeInInterval('25 days ago', '+8 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/26
+    faq_buyer_not_transferable:
+        id: 26
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_transferred'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "REJECTED"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "PENDING"
+
+    # /quality/first_article_qualifications/27
+    faq_poster_transferable:
+        id: 27
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_transferred'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('12 days ago', '+3 days')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('25 days ago', '+8 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/28
+    faq_owner_transferable:
+        id: 28
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_transferred'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('12 days ago', '+3 days')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('25 days ago', '+8 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"
+
+    # /quality/first_article_qualifications/29
+    faq_to_rejected:
+        id: 29
+        location: '@location_factory'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_transferred'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('12 days ago', '+3 days')>"
+        status: "PENDING"
+        planDefinitionDueDate: "<dateTimeInInterval('25 days ago', '+8 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "PENDING"
+
+    # /quality/first_article_qualifications/30
+    faq_put_comment_completed:
+        id: 30
+        location: '@location_factory'
+        supplierNumber: AMA0011
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN PROGRESS / PLAN 100% COMPLETED"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        eap: 123
+        planApprovalStatus: "NOT_APPROVED_YET"
+
+    faq_not_completed:
+        id: 31
+        location: '@location_factory_2'
+        supplierNumber: DAN0013
+        supplierName: Pitié!
+        buyer: '@user_buyer'
+        poster: '@user_eng'
+        owner: '@user_qam'
+        createdAt: "<dateTimeInInterval('30 days ago', '2 days ago')>"
+        dueDate: "<dateTimeInInterval('+61 days', '+200 days')>"
+        status: "IN_PROGRESS"
+        planDefinitionDueDate: "<dateTimeInInterval('+30 days', '+30 days')>"
+        planDefinitionCompletedAt: <dateTime()>
+        eap: 123
+        planApprovalStatus: "APPROVED"

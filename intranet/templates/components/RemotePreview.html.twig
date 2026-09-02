@@ -1,0 +1,39 @@
+<span{{ attributes.defaults({'data-controller': 'remote-preview-hover'}) }} class="remote-preview d-flex w-100 justify-content-center position-relative">
+    <span
+        class="remote-preview__trigger d-inline-flex"
+        data-remote-preview-hover-target="trigger"
+        data-action="mouseenter->live#action mouseenter->remote-preview-hover#open"
+        data-live-action-param="load"
+    >
+        {{ ux_icon(icon, iconAttr) }}
+    </span>
+
+    <div
+        class="remote-preview-tooltip card position-absolute shadow-lg fade border-0"
+        data-remote-preview-hover-target="box"
+    >
+        <div class="remote-preview-tooltip__topbar card-header text-primary-emphasis text-bg-info d-flex align-items-center justify-content-between gap-2">
+            {% if href %}
+                <a href="{{ href }}" target="_blank" class="remote-preview-tooltip__title text-truncate fw-bold text-reset text-decoration-none">{{ title }}</a>
+            {% else %}
+                <span class="remote-preview-tooltip__title text-truncate fw-bold">{{ title }}</span>
+            {% endif %}
+            <button
+                type="button"
+                class="btn-close"
+                data-action="click->remote-preview-hover#close"
+                aria-label="Close"
+            ></button>
+        </div>
+
+        <div class="remote-preview-tooltip__body card-body overflow-y-auto">
+            {% if data is null %}
+                <div class="d-flex justify-content-center py-2">
+                    <div class="spinner-border spinner-border-sm" role="status"></div>
+                </div>
+            {% else %}
+                {{ include(template, templateVars|merge({items: data})) }}
+            {% endif %}
+        </div>
+    </div>
+</span>

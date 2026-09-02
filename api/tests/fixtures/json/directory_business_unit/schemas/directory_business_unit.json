@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/business_units/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "disabled": {"type": "boolean"},
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "domain": {
+      "type": ["string", "null"]
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "location": {
+      "type": "object",
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "company",
+        "erp",
+        "legacyId"
+      ]
+    },
+    "representative": {
+      "type": "object",
+      "required": [
+        "firstname",
+        "lastname",
+        "email"
+      ]
+    },
+    "region": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/regions/\\d+$"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "legacyId",
+    "id",
+    "name",
+    "representative",
+    "domain",
+    "location",
+    "region",
+    "disabled"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": { "pattern": "^/estimated_green_tag_quantity_reports/\\d+$" },
+    "@type": { "const": "EstimatedGreenTagQuantityReport" },
+    "id": { "type": "integer" },
+    "day": { "type": "string", "format": "date-time" },
+    "equipmentRecords": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "manufacturerLocation": { "type": "string", "pattern": "^/locations/\\d+$" }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "day",
+    "equipmentRecords",
+    "manufacturerLocation"
+  ],
+  "additionalProperties": false
+}

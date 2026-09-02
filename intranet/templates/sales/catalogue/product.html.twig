@@ -1,0 +1,180 @@
+{% extends 'sales/catalogue/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row wrapper-content">
+        <div class="col-md-8">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    'items': {
+                        description: { 'label':'catalogue.family.description'|trans | capitalize },
+                    },
+                    'title': product.name,
+                    'data': product},
+            }, with_context = false) }}
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    collapse: true,
+                    search: false,
+                    pagination: false,
+                    title: 'catalogue.family.information' | trans,
+                    items: {
+                        dmsPhoto: {
+                            label: 'catalogue.family.dmsPhoto'|trans|upper,
+                            filters: ['dmsPortalLink', 'raw']
+                        },
+                        erpLocation: {
+                            label: 'catalogue.products.erp'|trans|upper,
+                            properties: ['erpLocation.erp'],
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'erpLocation.@id'},
+                            }
+                        },
+                        hidden: {
+                            label: 'catalogue.family.status'|trans|upper,
+                            boolean: {
+                                true: '<button type="button" class="btn btn-danger btn-sm">Hidden</button>',
+                                false: '<button type="button" class="btn btn-green btn-sm">Not hidden</button>'
+                            }
+                        },
+                        light: {
+                            label: 'catalogue.products.light'|trans|upper,
+                            boolean: {
+                                true: '<i class="fa fa-check text-green"></i>',
+                                false: '',
+                            },
+                        },
+                        productStandardItems: {
+                            label: 'catalogue.products.standard_item'|trans|upper,
+                            template: 'sales/catalogue/partial/_cell_standard_items.html.twig',
+                        },
+                        innovativeLevel: {label: 'catalogue.products.innovative_level'|trans|upper}
+                    },
+                    data: product
+                }
+            }, with_context = false) }}
+
+        </div>
+        <div class="col-md-4">
+            {% if product.dmsPhoto is not same as(null) %}
+                <img class="m-t-xs img-fluid" width="400" src="{{ absolute_url(path('legacy_mis', {m:['help', 'dms'], id: product.dmsPhoto})) }}">
+            {% elseif product.family.dmsPhoto is not same as(null)  %}
+                <img class="m-t-xs img-fluid" width="400" src="{{ absolute_url(path('legacy_mis', {m:['help', 'dms'], id: product.family.dmsPhoto})) }}">
+            {% else %}
+                <img class="m-t-xs img-fluid" width="400" src="/shared/no_photo_catalogue.png">
+            {% endif %}
+        </div>
+    </div>
+    <div class="row wrapper-content">
+        <div class="col-lg-8">
+            {% set items = {
+                dms: {
+                    properties: ['dms.legacyId'],
+                    label: 'catalogue.products.id'|trans|capitalize,
+                    filters: ['dmsPortalLink', 'raw'],
+                },
+                dmsTitle: {
+                    properties: ['dms.title'],
+                    label: 'catalogue.dms.dms_title'|trans|capitalize,
+                    class: 'text-center',
+                },
+                dmsLanguage: {
+                    properties: ['dms.language'],
+                    label: 'catalogue.dms.language'|trans|capitalize,
+                    class: 'text-center',
+                },
+                dmsType: {
+                    label: 'catalogue.dms.type'|trans|capitalize,
+                    class: 'text-center',
+                },
+                file: {
+                    label: 'catalogue.dms.file'|trans|capitalize,
+                    filters: ['dmsHtmlLink', 'raw'],
+                    link:{
+                        route: 'legacy_mis',
+                        fixedParams: {'m': ['help', 'dms'], 'filenameFromDMS': true},
+                        params: {id : 'dms.legacyId'},
+                        class : 'text-center',
+                        content: '<span class="btn btn-warning btn-sm"><i class="fa fa-download fa-fw"></i></span>',
+                    }
+                }
+            }
+            %}
+
+            {% if is_granted('FEATURE_CATALOG_CREATE') or is_granted('MOO_CAT') %}
+                {% set items = items | merge ({
+                    delete: {
+                        label: 'catalogue.dms.field.delete'|trans,
+                        link:{
+                            route: 'sales_catalogue_delete_product_dms',
+                            params: {id:'@id'},
+                            class : 'text-center',
+                            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                            fixedParams: {'_token': csrf_token('delete')},
+                            popup: {
+                                type: 'confirmation',
+                                title: 'Confirmation',
+                                message: 'Are you sure you want to delete ?',
+                            }
+                        }
+                    }
+                }) %}
+            {% endif %}
+
+            {{ include ('helper/_report_table.html.twig', {
+                reportTable: {
+                    data: dms,
+                    title: 'catalogue.dms.product_title' | trans,
+                    items: items,
+                }
+            }) }}
+        </div>
+        {% if is_granted('FEATURE_CATALOG_PRODUCT_ADD_DMS') or is_granted('MOO_CAT') %}
+            <div class="col-md-4">
+                <div class="ibox float-e-margins collapsed">
+                    <div class="ibox-title">
+                        <h5>{{ 'catalogue.dms.add_product_dms' | trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        {% form_theme form 'form_theme_horizontal.html.twig' %}
+                        {{ form_start(form) }}
+                        {{ form_row(form.dms) }}
+                        {{ form_row(form.dmsType) }}
+                        {{ form_row(form.submit) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'menu.logs'|trans({}, 'messages') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="logs-block" data-resource="{{ product.iri }}" data-show-comment-form="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

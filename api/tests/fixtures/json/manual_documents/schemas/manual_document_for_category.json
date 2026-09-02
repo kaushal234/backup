@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/support/manual_documents/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "category": {
+      "oneOf": [
+        {"type":  "null"},
+        { "$ref": "../../manual_document_categories/schemas/manual_document_category_name.json" }
+      ]
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "category"
+  ]
+}

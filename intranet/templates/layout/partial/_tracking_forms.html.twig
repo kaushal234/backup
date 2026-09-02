@@ -1,0 +1,78 @@
+{# UPS #}
+<form action="https://wwwapps.ups.com/etracking/tracking.cgi" target="_blank" method="GET" style="padding-bottom: 15px">
+    <input type="hidden" name="tracknums_displayed" VALUE="5">
+    <input type="hidden" name="TypeOfInquiryNumber" VALUE="T">
+    <input type="hidden" name="HTMLVersion" VALUE="4.0">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <div>
+                <input type="text" name="InquiryNumber1" size="25" maxlength="48" class="form-control xsmalltext">
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <div>
+                <input class="btn btn-primary" type="submit" name="track" value="UPS">
+            </div>
+        </div>
+    </div>
+</form>
+{# FEFEX #}
+<form name="tracking" action="https://www.fedex.com/Tracking" method="get" style="padding-bottom: 15px">
+    <input type="hidden" name="ascend_header" value="1">
+    <input type="hidden" name="clienttype" value="dotcom">
+    <input type="hidden" name="cntry_code" value="us">
+    <input type="hidden" name="language" value="english">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <div>
+                <input type="text" name="tracknumbers" size="25" class="form-control xsmalltext">
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <div>
+                <input class="btn btn-primary" type="submit" name="track" value="FEDEX">
+            </div>
+        </div>
+    </div>
+</form>
+{# DHL #}
+<form method="get" action="https://www.dhl.com/cgi-bin/tracking.pl" onSubmit="return checkForm(this);" style="padding-bottom: 15px">
+    <input type="hidden" name="TID" value="CP_ENG">
+    <input type="hidden" name="FIRST_DB">
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <div>
+                <input type="text" name="AWB" size="25" class="form-control xsmalltext">
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <div>
+                <input class="btn btn-primary" type="submit" name="track" value="DHL">
+            </div>
+        </div>
+    </div>
+</form>
+{# TNT #}
+<form action="https://www.tnt.com/webtracker/tracking.do" method="post" style="padding-bottom: 15px">
+    <input type="hidden" name="respCountry" value="us" />
+    <input type="hidden" name="respLang" value="en" />
+    <input type="hidden" name="navigation" value="1" />
+    <input type="hidden" name="page" value="1" />
+    <input type="hidden" name="sourceID" value="1" />
+    <input type="hidden" name="sourceCountry" value="ww" />
+    <input type="hidden" name="plazaKey" value="" />
+    <input type="hidden" name="refs" value="" />
+    <input type="hidden" name="requesttype" value="GEN" />
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <div>
+                <input type="text" id="cons" name="cons" size="25" class="form-control xsmalltext">
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <div>
+                <input class="btn btn-primary" type="submit" name="track" value="TNT">
+            </div>
+        </div>
+    </div>
+</form>

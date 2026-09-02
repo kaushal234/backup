@@ -1,0 +1,117 @@
+{% trans_default_domain 'trouble_ticket' %}
+{% set badgeStyles = {
+    pending:          { cls: 'text-bg-warning'   },
+    inProgress:       { btn: 'btn-primary'        },
+    awaitingUser:     { cls: 'text-bg-info'      },
+    solutionProposed: { cls: 'text-bg-success'   },
+    closed:           { cls: 'text-bg-secondary' },
+} %}
+{% set statusBadgeMap = {
+    'PENDING':                   'pending',
+    'PENDING MOO/GKU':           'pending',
+    'IN PROGRESS':               'inProgress',
+    'AWAITING USER':             'awaitingUser',
+    'MOO/GKU AWAITING USER':     'awaitingUser',
+    'SOLUTION PROPOSED':         'solutionProposed',
+    'MOO/GKU SOLUTION PROPOSED': 'solutionProposed',
+    'SOLVED':                    'closed',
+    'NOT AN ISSUE':              'closed',
+    'ALREADY RAISED':            'closed',
+    'NOT APPROVED':              'closed',
+} %}
+
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>
+            <i class="fa fa-clone me-1"></i>
+            {{ 'trouble_ticket.relative.title'|trans }}
+            {% if rows is not empty %}<span class="text-muted fw-normal">({{ rows|length }})</span>{% endif %}
+        </h5>
+    </div>
+
+    <div class="ibox-content">
+        <p class="small text-muted mb-3">{{ 'trouble_ticket.relative.subtitle'|trans }}</p>
+
+        {% if rows is empty %}
+            <div class="text-center text-muted py-4">
+                <i class="fa fa-check-circle fa-2x text-success"></i>
+                <div class="fw-bold mt-2">{{ 'trouble_ticket.relative.empty_title'|trans }}</div>
+                <small class="text-muted">{{ 'trouble_ticket.relative.empty_text'|trans }}</small>
+            </div>
+        {% else %}
+            {% for row in rows %}
+                {% set ticket = row.ticket %}
+                {% set status = ticket.status|default('')|upper %}
+                {% set badge = badgeStyles[statusBadgeMap[status]|default('closed')] %}
+                <div class="card mb-2">
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            {% if badge.btn is defined %}
+                                <span class="btn {{ badge.btn }} fw-bold lh-1 border-0 rounded align-baseline pe-none" style="font-size:.85em; padding:.35em .65em;">{{ status|lower|title }}</span>
+                            {% else %}
+                                <span class="badge {{ badge.cls }} fw-bold">{{ status|lower|title }}</span>
+                            {% endif %}
+                            <span class="small text-muted">
+                                <a class="text-muted text-decoration-none" href="{{ path('trouble_ticket_show', { id: ticket.id }) }}" target="_blank" rel="noopener">#{{ ticket.id }}</a>
+                                {% if ticket.createdAt is defined and ticket.createdAt %}
+                                    {% set age = ('now'|date('U')) - (ticket.createdAt|date('U')) %}
+                                    {% set ageLabel = age < 3600 ? max(1, (age // 60)) ~ 'm' : (age < 86400 ? (age // 3600) ~ 'h' : (age // 86400) ~ 'd') %}
+                                    &middot; <i class="fa fa-clock"></i> {{ ageLabel }}
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <a class="fw-semibold d-block mb-2 text-decoration-none" href="{{ path('trouble_ticket_show', { id: ticket.id }) }}" target="_blank" rel="noopener">{{ ticket.shortDescription }}</a>
+
+                        <div class="small text-muted mb-3">
+                            <i class="fa fa-user"></i>
+                            {% if ticket.assignee is defined and ticket.assignee -%}
+                                {{ ticket.assignee.lastname }} {{ ticket.assignee.firstname }}
+                            {%- else -%}
+                                MIS
+                            {%- endif %} &middot;
+                            {% if row.isMine %}{{ 'trouble_ticket.relative.opened_by_you'|trans }}
+                            {%- else %}{{ ticket.createdBy.lastname }} {{ ticket.createdBy.firstname }}{% endif %}
+                        </div>
+
+                        {% if row.isMine %}
+                            {# Your own ticket: nothing to react to, just show how others responded. #}
+                            <div class="border rounded bg-light p-3">
+                                <div class="fw-semibold mb-1"><i class="fa fa-pencil me-1"></i> {{ 'trouble_ticket.relative.you_reported'|trans }}</div>
+                                <div class="small text-muted mb-2">{{ 'trouble_ticket.relative.others_responded'|trans }}</div>
+                                <div class="d-flex gap-3 small">
+                                    <span><i class="fa fa-thumbs-up"></i> <strong>{{ row.ownersCount }}</strong> {{ 'trouble_ticket.relative.tally_same_issue'|trans }}</span>
+                                    <span><i class="fa fa-bell"></i> <strong>{{ row.subscribersCount }}</strong> {{ 'trouble_ticket.relative.tally_interested'|trans }}</span>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="d-flex gap-2">
+                                {% if row.isOwner %}
+                                    <button type="button" class="btn btn-sm btn-primary text-capitalize flex-fill" disabled>
+                                        <i class="fa fa-check"></i> {{ 'trouble_ticket.fields.same_issue'|trans }} ({{ row.ownersCount }})
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="btn btn-sm btn-primary text-capitalize flex-fill"
+                                            data-action-url="{{ path('trouble_ticket_add_additional_owner', { id: ticket.id }) }}">
+                                        <i class="fa fa-thumbs-up"></i> {{ 'trouble_ticket.fields.same_issue'|trans }} ({{ row.ownersCount }})
+                                    </button>
+                                {% endif %}
+
+                                {% if row.isSubscriber %}
+                                    <button type="button" class="btn btn-sm btn-primary text-capitalize flex-fill" disabled>
+                                        <i class="fa fa-check"></i> {{ 'trouble_ticket.fields.interested'|trans }} ({{ row.subscribersCount }})
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="btn btn-sm btn-primary text-capitalize flex-fill"
+                                            data-action-url="{{ path('trouble_ticket_follow', { id: ticket.id }) }}">
+                                        <i class="fa fa-bell"></i> {{ 'trouble_ticket.fields.interested'|trans }} ({{ row.subscribersCount }})
+                                    </button>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

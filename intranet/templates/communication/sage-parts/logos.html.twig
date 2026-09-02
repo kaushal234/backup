@@ -1,0 +1,28 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'eSage Main logo': {
+                'eps': 'sage_parts/logos/eSage-MAIN.eps',
+                'png': 'sage_parts/logos/eSage-MAIN.png',
+            },
+            'eSage logo one color': {
+                'eps': 'sage_parts/logos/eSage_ONE-COLOR.eps',
+                'png': 'sage_parts/logos/eSage_ONE-COLOR.png',
+            },
+            'Sage Logo': {
+                'eps': 'sage_parts/logos/Sage Logo EPS.eps',
+                'png': 'sage_parts/logos/Sage Logo PNG.png',
+                'jpg': 'sage_parts/logos/Sage Logo JPG.jpg',
+            },
+            'Sage Logo with tagline': {
+                'eps': 'sage_parts/logos/Sage Logo + Tagline EPS.eps',
+                'png': 'sage_parts/logos/SAGE_tagline_RGB.png',
+                'jpg': 'sage_parts/logos/SAGE_tagline_CMYK.jpg',
+            },
+        },
+    }) }}
+{% endblock %}

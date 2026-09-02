@@ -1,0 +1,43 @@
+{% trans_default_domain 'service' %}
+
+{% block content %}
+    {{ include('helper/_association_table.html.twig', {
+        associationData: {
+            search: false,
+            items: {
+                serialNumber: {
+                    label: 'service.equipment_record.fields.serial_number'|trans|capitalize,
+                },
+                model: {
+                    label: 'service.equipment_record.fields.model'|trans|capitalize,
+                },
+                type: {
+                    label: 'service.equipment_record.fields.type'|trans|capitalize,
+                },
+                location: {
+                    properties: ['manufacturerLocation.name'],
+                    label: 'sector.fields.location'|trans({}, 'sector')|capitalize,
+                },
+                greenTagDate: {
+                    label: 'service.equipment_record.fields.green_tag_date'|trans|capitalize,
+                    filters: 'date("Y-m-d")',
+                    preserveNull: true,
+                },
+                dateShipped: {
+                    label: 'service.equipment_record.fields.shipped_tag'|trans|capitalize,
+                    filters: 'date("Y-m-d")',
+                    preserveNull: true,
+                },
+                publishable: {
+                    label: 'service.equipment_record.fields.publishable'|trans|capitalize,
+                    boolean: {
+                        false: '<span><button type="button" class="btn btn-danger btn-sm">No</button></span>',
+                        true: '<span><button type="button" class="btn btn-green btn-sm">Yes</button></span>'
+                    }
+                }
+            },
+            data: equipmentRecord,
+            title: 'support.equipment_record.information'|trans({}, 'support'),
+        }
+    }, with_context = false) }}
+{% endblock %}

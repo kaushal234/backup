@@ -1,0 +1,45 @@
+{#
+  pages/coming_soon.html.twig — STATIC
+  Route: page:coming_soon
+  Controller: App\Controller\StaticPageController::comingSoon
+  Used by Parts → Parts Academy links (EXTRANET navigation, How to use eParts?).
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.page.coming_soon.title'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.parts_academy'|trans,
+        hero_title: 'extranet.menu.parts_academy'|trans,
+        hero_sub: 'extranet.page.coming_soon.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.menu.parts_academy'|trans }
+        ]
+    } %}
+
+    <section>
+        <div class="coming-wrap">
+            <div class="coming-grid-bg"></div>
+            <div class="coming-inner">
+                <div class="coming-badge"><span class="pulse"></span> {{ 'extranet.page.coming_soon.badge'|trans }}</div>
+                <div class="coming-icon">
+                    <svg width="44" height="44" viewBox="0 0 16 16" fill="none"><path d="M8 2 2 13h12L8 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M6 8h4M5 11h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </div>
+                <h1 class="coming-title">{{ 'extranet.page.coming_soon.title'|trans }}</h1>
+                <p class="coming-sub">{{ 'extranet.page.coming_soon.body'|trans }}</p>
+                <div class="coming-actions">
+                    <a class="tele-cta primary" href="{{ path('index') }}">{{ 'extranet.page.back_home'|trans }}</a>
+                    <a class="btn-outline-tld" href="{{ path('contact:index') }}">{{ 'extranet.title.contact_us'|trans }}</a>
+                </div>
+                <div class="coming-progress">
+                    <div class="bar"><span></span></div>
+                    <div class="label"><span>{{ 'extranet.page.in_development'|trans }}</span><span>{{ 'extranet.page.soon'|trans }}</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

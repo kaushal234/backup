@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": { "type": "string", "pattern": "^/modules/third_party_app/update_tasks$" },
+    "@type": { "type": "string" },
+    "hydra:totalItems": { "type": "integer" },
+    "hydra:view": { "type": "object" },
+    "hydra:search": { "type": "object" },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "type": "string", "pattern": "^/modules/third_party_app/update_tasks/\\d+$" },
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "taskId": { "type": ["integer", "null"] },
+          "demandType": { "type": "string" },
+          "originType": { "type": ["string", "null"] },
+          "done": { "type": "boolean" },
+          "confirmed": { "type": "boolean" },
+          "createdAt": { "type": "string" },
+          "updatedAt": { "type": "string" },
+          "comment": { "type": ["string", "null"] },
+          "user": {
+            "type": "object",
+            "properties": {
+              "@id": { "type": "string" },
+              "@type": { "type": "string" },
+              "id": { "type": "integer" },
+              "username": { "type": "string" },
+              "email": { "type": "string" },
+              "firstname": { "type": "string" },
+              "lastname": { "type": "string" },
+              "hidden": { "type": "boolean" },
+              "disabled": { "type": "boolean" },
+              "disabledAt": { "type": ["string", "null"] },
+              "enableAt": { "type": ["string", "null"] },
+              "nickname": { "type": ["string", "null"] },
+              "jobTitle": { "type": ["string", "null"] },
+              "premise": { "type": "string" },
+              "plannedDisableAt": { "type": ["string", "null"] },
+              "updateTasks": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    { "type": "string" },
+                    { "type": "object" }
+                  ]
+                }
+              },
+              "businessUnit": { "$ref": "#/definitions/businessUnit" },
+              "legalEntity": { "$ref": "#/definitions/businessUnit" }
+            },
+            "required": ["@id", "@type", "id", "username", "email", "firstname", "lastname", "hidden", "disabled", "businessUnit", "legalEntity", "updateTasks"]
+          },
+          "thirdPartyApp": {
+            "type": "object",
+            "properties": {
+              "@id": { "type": "string" },
+              "@type": { "type": "string" },
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "shortDescription": { "type": "string" },
+              "fullDescription": { "type": "string" },
+              "status": { "type": "string" },
+              "sso": { "type": "boolean" },
+              "passwordPolicyApplied": { "type": "boolean" },
+              "mfaUser": { "type": "boolean" },
+              "mfaAdmin": { "type": "boolean" },
+              "securityReviewFrequency": { "type": "integer" },
+              "securityReviewDateStart": { "type": "string" },
+              "accountReviewFrequency": { "type": "integer" },
+              "accountReviewDateStart": { "type": "string" },
+              "availabilityClassification": { "type": "integer" },
+              "integrityClassification": { "type": "integer" },
+              "confidentialityClassification": { "type": "integer" },
+              "securityLevel": { "type": "string" },
+              "frontEndRoute": { "type": ["string", "null"] },
+              "specification": { "type": ["string", "null"] },
+              "lastSecurityReviewOld": { "type": "boolean" },
+              "lastAccountReviewOld": { "type": "boolean" },
+              "legacyLoc": { "type": "integer" },
+              "migrationCurrentStep": { "type": ["string", "null"] },
+              "migrationEstimatedHours": { "type": "integer" },
+              "migrated": { "type": "boolean" },
+              "disabledForTroubleTicket": { "type": "boolean" },
+              "department": { "type": ["string", "null"] },
+              "notificationColor": { "type": "string" },
+              "keyUser": { "type": ["object", "null"] },
+              "misRelative": { "type": "boolean" },
+              "notifyOperationalOwner": { "type": "boolean" },
+              "notifyKeyUser": { "type": "boolean" },
+              "typeDefaultAssignees": { "type": "array" },
+              "dmsProcedureId": { "type": ["integer", "string", "null"] },
+              "dmsHelpId": { "type": ["integer", "string", "null"] },
+              "application": {
+                "type": "object",
+                "properties": {
+                  "@id": { "type": "string" },
+                  "@type": { "type": "string" },
+                  "id": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "jiraProjectId": { "type": "integer" }
+                },
+                "required": ["@id", "@type", "id", "name"]
+              },
+              "mainAdmin": { "$ref": "#/definitions/nestedUser" },
+              "operationalOwner": { "$ref": "#/definitions/nestedUser" }
+            },
+            "required": ["@id", "@type", "id", "name", "status", "application", "mainAdmin", "operationalOwner"]
+          },
+          "createdBy": { "$ref": "#/definitions/nestedUser" },
+          "updatedBy": {
+            "anyOf": [
+              { "type": "null" },
+              { "$ref": "#/definitions/nestedUser" }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "demandType",
+          "originType",
+          "done",
+          "confirmed",
+          "user",
+          "thirdPartyApp",
+          "createdAt",
+          "updatedAt",
+          "createdBy",
+          "updatedBy",
+          "comment"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["@context", "@id", "@type", "hydra:totalItems", "hydra:member"],
+  "additionalProperties": false,
+
+  "definitions": {
+    "businessUnit": {
+      "type": "object",
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": { "type": "string" },
+        "id": { "type": "integer" },
+        "name": { "type": "string" },
+        "domain": { "type": "string" },
+        "region": {
+          "type": "object",
+          "properties": {
+            "@id": { "type": "string" },
+            "@type": { "type": "string" },
+            "name": { "type": "string" }
+          },
+          "required": ["@id", "@type", "name"]
+        }
+      },
+      "required": ["@id", "@type", "id", "name", "domain", "region"]
+    },
+    "nestedUser": {
+      "type": "object",
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": { "type": "string" },
+        "id": { "type": "integer" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" },
+        "hidden": { "type": "boolean" },
+        "disabled": { "type": "boolean" },
+        "disabledAt": { "type": ["string", "null"] },
+        "enableAt": { "type": ["string", "null"] },
+        "nickname": { "type": ["string", "null"] },
+        "jobTitle": { "type": ["string", "null"] },
+        "premise": { "type": "string" },
+        "plannedDisableAt": { "type": ["string", "null"] },
+        "businessUnit": { "$ref": "#/definitions/businessUnit" },
+        "legalEntity": { "$ref": "#/definitions/businessUnit" },
+        "updateTasks": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              { "type": "string" },
+              { "type": "object" }
+            ]
+          }
+        }
+      },
+      "required": ["@id", "@type", "id", "username", "email", "firstname", "lastname", "hidden", "disabled"]
+    }
+  }
+}

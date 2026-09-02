@@ -1,0 +1,135 @@
+{{ ansible_managed | comment(decoration='; ') }}
+
+[{{ item.pool_name | mandatory }}]
+listen = {{ item.pool_listen | mandatory }}
+listen.allowed_clients = {{ item.pool_listen_allowed_clients | default('127.0.0.1', true) }}
+user = {{ php_fpm_pool_user }}
+group = {{ php_fpm_pool_group }}
+
+php_value[memory_limit] = 2048M
+
+listen.owner = {{ php_fpm_pool_user }}
+listen.group = {{ php_fpm_pool_group }}
+
+pm = {{ item.pool_pm | default('dynamic', true) }}
+pm.max_children = {{ item.pool_pm_max_children | default(50, true) }}
+pm.start_servers = {{ item.pool_pm_start_servers | default(5, true) }}
+pm.min_spare_servers = {{ item.pool_pm_min_spare_servers | default(5, true) }}
+pm.max_spare_servers = {{ item.pool_pm_max_spare_servers | default(5, true) }}
+pm.max_requests = {{ item.pool_pm_max_requests | default(500, true) }}
+pm.status_path = /fpm-status
+
+rlimit_files = 65535
+
+env["SYMFONY_ENV"]=prod
+env["APP_ENV"]=prod
+env["APP_SECRET"]={{ app.secret }}
+env["LOCK_DSN"]="semaphore"
+
+env["DATABASE_URL"]={{ database.api }}
+env["LEGACY_DATABASE_URL"]={{ database.legacy }}
+env["WP_DATABASE_URL"]={{ database.wordpress }}
+
+env["WKHTMLTOPDF_PATH"]=/usr/local/bin/wkhtmltopdf
+env["WKHTMLTOIMAGE_PATH"]=/usr/local/bin/wkhtmltoimage
+
+env["JWT_SECRET_KEY"]=%kernel.project_dir%/config/jwt/private.pem
+env["JWT_PUBLIC_KEY"]=%kernel.project_dir%/config/jwt/public.pem
+env["JWT_PASSPHRASE"]={{ jwt.passphrase }}
+
+env["CORS_ALLOW_ORIGIN"]="^http.+"
+
+env["MAILER_DSN"]="{{ mailer.dsn }}"
+
+env["MESSENGER_TRANSPORT_DSN"]=doctrine://default
+
+env["GITLAB_URL"]=https://{{ gitlab_url }}/api/v4/
+env["GITLAB_PRIVATE_TOKEN"]={{ gitlab.token }}
+env["GITLAB_GRAPHQL_URL"]=https://{{ gitlab_url }}
+env["GITLAB_PROJECT_PATH"]={{ gitlab_project_path }}
+
+env["UPLOAD_DIR"]=%kernel.project_dir%/uploads
+env["MOUNT_DIRECTORY"]=/mnt
+env["INVOICES_PATH"]=/mnt/grpfps10.online_approvals/invoice
+env["STRS_PDF_PATH"]=/mnt/grpfps10.strs_pdf
+
+env["SURVEY_HOST"]=https://survey.tld-gse.com
+
+env["CSA_MICROSOFT_URL"]="https://graph.microsoft.com/v1.0/"
+env["CSA_MICROSOFT_TENANT_ID"]="{{ microsoft.tenant }}"
+env["CSA_MICROSOFT_CLIENT_ID"]="{{ microsoft.client }}"
+env["CSA_MICROSOFT_CLIENT_SECRET"]="{{ microsoft.secret }}"
+
+env["EPARTS_DATABASE_URL"]={{ eparts.url }}
+env["EPARTS_HOST"]={{ eparts.host }}
+env["EPARTS_USERNAME"]="{{ eparts.username }}"
+env["EPARTS_PASSWORD"]="{{ eparts.password }}"
+env["PARTS_PICTURES_PATH"]="{{ eparts.picture_path }}"
+
+env["PRINT_SERVER_HOST"]=http://printserver.com:631
+
+env["ION_CLIENT_ID"]="{{ ion.id }}"
+env["ION_CLIENT_SECRET"]="{{ ion.secret }}"
+env["ION_URL_ACCESS_TOKEN"]="{{ ion.token }}"
+env["ION_USERNAME"]="{{ ion.username }}"
+env["ION_PASSWORD"]="{{ ion.password }}"
+env["ION_ENVIRONMENT"]={{ ion.env }}
+env["ION_COMPANY"]={{ ion.company }}
+
+env["DEEPL_PRO_URL"]=https://api.deepl.com/v2/
+env["DEEPL_PRO_AUTH_HEADER"]=DeepL-Auth-Key
+env["DEEPL_TOKEN"]={{ deepl.token }}
+
+env["JAVELO_API_URL"]=https://api.javelo.io/scim/v2/
+env["JAVELO_API_TOKEN"]={{ javelo.token }}
+
+env["SAGE_SECRET"]="{{ sage.secret }}"
+env["SAGE_MTYPE"]="{{ sage.mtype }}"
+env["SAGE_CID"]="{{ sage.cid }}"
+
+env["TOKEN_LIFETIME"]={{ token.lifetime }}
+
+env["JIRA_URL"]=https://alvestgroup.atlassian.net
+env["JIRA_CLIENT_TOKEN"]="{{ jira.token }}"
+
+env["JIRA_TRACTEASY_URL"]=https://tracteasy-service-desk.atlassian.net
+
+env["MODULO_API_BASE_URI"]=https://www.tld-group.com/wp-json/custom/v1/
+env["MODULO_API_USERNAME"]=tld_external
+env["MODULO_API_PASSWORD"]={{ modulo_api.password }}
+
+env["AGILE_API_GET_URL"]=https://public.api.learn.link
+env["AGILE_API_POST_URL"]=https://user.api.learn.link
+env["AGILE_API_TENANT_ID"]={{ agile.tenant }}
+env["AGILE_API_KEY"]={{ agile.key }}
+
+env["SAGEPARTS_P21_BASE_URI"]={{ sage_p21.uri }}
+env["SAGEPARTS_P21_CONSUMER_KEY"]={{ sage_p21.consumer_key }}
+
+env["LINK_API_URL"]={{ link.global_url }}
+env["LINK_API_KEY"]="{{ link.global_token }}"
+env["LINK_CHINESE_API_URL"]={{ link.chinese_url }}
+env["LINK_CHINESE_API_KEY"]="{{ link.chinese_token }}"
+
+env["VAULT_PARTS_IMAGES_PATH"]="grpfps10.parts_pics"
+
+env["MISTRAL_API_KEY"]="{{ mistral.key }}"
+env["MISTRAL_BASE_URI"]="https://api.mistral.ai/v1/chat/completions"
+
+env["MERCURE_URL"]="http://{{ mercure_internal_host }}:{{ mercure_internal_port }}/.well-known/mercure"
+env["MERCURE_PUBLIC_URL"]="https://{{ alvest_api_url }}/.well-known/mercure"
+env["MERCURE_JWT_SECRET"]="{{ mercure.token }}"
+
+env["OLLAMA_URL"]="http://{{ ollama_internal_host }}:{{ ollama_internal_port }}"
+
+env["QDRANT_HOST"]="http://{{ qdrant_host }}:{{ qdrant_port }}"
+
+env["AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT"]="https://alvest-docintel.cognitiveservices.azure.com"
+env["AZURE_DOCUMENT_INTELLIGENCE_KEY"]="{{ azure_document_intelligence.key }}"
+
+env["ALVEST_AZURE_CLIENT_ID"]="{{ azure.client_id }}"
+env["ALVEST_AZURE_CLIENT_SECRET"]="{{ azure.client_secret }}"
+env["ALVEST_AZURE_TENANT_ID"]="{{ azure.tenant_id }}"
+env["MCP_ALLOWED_CALLER_APP_IDS"]="{{ azure.allowed_caller_app_ids }}"
+
+env["LN_API_URL"]="{{ ln_rest.url }}"

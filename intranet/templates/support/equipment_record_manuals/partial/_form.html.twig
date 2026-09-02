@@ -1,0 +1,66 @@
+{% block content %}
+    {% form_theme form 'form_theme_horizontal.html.twig' %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="mail-box-header clearfix">
+        <h2 class="float-sart">
+            {{ 'support.equipment_record.publish.title' | trans({}, 'support') }}
+        </h2>
+    </div>
+    <div class="mail-box">
+        <div class="mail-body">
+            {{ form_row(form.language) }}
+            {{ form_row(form.status) }}
+            {% if equipmentRecord.publishable == true %}
+                <hr>
+                <a class="btn btn-info" data-bs-toggle="collapse" href="#additionalEquipments" role="button" aria-expanded="false" aria-controls="additionalEquipments">{{ 'support.manual.fields.other equipments button' | trans({}, 'support') }}</a>
+                <div class="row">
+                    <div class="collapse multi-collapse" id="additionalEquipments">
+                        <br><hr>
+                        <div class="card card-body">
+                            {{ form_row(form.secondaryEquipmentRecords) }}
+                        </div>
+                    </div>
+                    <br>
+                    {{ form_row(form.publishable_submit) }}
+                </div>
+            {% else %}
+            <div class="row">
+                <div class="col-md-12">
+                {{ form_row(form.cbom_submit) }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if equipmentRecord.publishable == true %}
+    <div class="mail-box-header clearfix">
+        <h2 class="float-sart">
+            {{ 'support.equipment_record.cbom.test.title' | trans({}, 'support') }}
+        </h2>
+    </div>
+    <div class="mail-box">
+        <div class="mail-body">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ 'support.equipment_record.cbom.test.helper' | trans({}, 'support') }}
+                </div>
+                <div class="col-md-12">
+                    {{ 'support.equipment_record.cbom.test.important' | trans({}, 'support') }}
+                </div>
+                <div class="col-md-12">
+                    {{ 'support.equipment_record.cbom.test.vault' | trans({}, 'support') }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.cbom_submit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {{ form_end(form) }}
+{% endblock %}

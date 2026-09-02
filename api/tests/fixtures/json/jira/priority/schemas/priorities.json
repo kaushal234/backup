@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/jira/priorities$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/jira/priorities/\\d+$"},
+          "@type": { "type": "string" },
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["@id", "@type", "id", "name", "description"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

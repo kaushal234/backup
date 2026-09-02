@@ -1,0 +1,15 @@
+{% extends 'directory/business_unit/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.business_unit.title.add'|trans|capitalize }}</h3>
+
+    {{ include('directory/business_unit/_form.html.twig', {
+        form: form,
+        action: path('directory_business_units_add'),
+        cancel_link: path('directory_business_units_home')
+    }, with_context=false) }}
+
+{% endblock %}

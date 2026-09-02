@@ -1,0 +1,48 @@
+{% extends 'mis/application/layout.html.twig' %}
+{% trans_default_domain 'mis_application' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {% set items = {
+                name: {
+                    label: 'fields.name'|trans({}, 'messages') | capitalize,
+                },
+                jiraProjectId: {
+                    label: 'mis_application.fields.jiraProjectId'|trans | capitalize,
+                },
+                tasks: {
+                    label: 'TTS',
+                    link:{
+                        route: 'trouble_ticket_home',
+                        params: {'application[]':'@id'},
+                        forceIri: true,
+                        content: '<span class="btn btn-primary btn-sm"><i class="fa fa-list"></i></span>',
+                    },
+                    sortable: false,
+                }
+            } %}
+            {% if is_granted('FEATURE_APPLICATION_EDIT') %}
+                {% set items = items | merge({
+                    edit: {
+                        label: 'menu.edit'|trans([], 'messages')|capitalize,
+                        link:{
+                            route: 'mis_application_edit',
+                            params: {'id':'@id'},
+                            content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil fa-fw"></i></span>',
+                        },
+                        sortable: false,
+                    }
+                }) %}
+            {% endif %}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: items,
+                    title: 'mis_application.title.title'|trans,
+                    data: applications,
+                    initialSorting: false
+                }
+            }, with_context = false )}}
+        </div>
+    </div>
+{% endblock %}

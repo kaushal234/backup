@@ -1,0 +1,68 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/products/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "family": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/product_families/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "productType": {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/sales/product_types/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "englishName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "englishName"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "legacyId",
+        "name",
+        "productType"
+      ],
+      "additionalProperties": false
+    },
+    "name": {
+      "type": "string"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "name",
+    "family",
+    "legacyId"
+  ],
+  "additionalProperties": false
+}

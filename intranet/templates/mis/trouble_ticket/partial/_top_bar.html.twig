@@ -1,0 +1,102 @@
+{% trans_default_domain 'trouble_ticket' %}
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+            <div class="card-body py-2 px-4">
+                <div class="row align-items-center">
+                    <div class="col-auto border-end pe-3">
+                        {{ include('task/partial/_nav_task.html.twig') }}
+                    </div>
+                    <div class="col-auto pe-4">
+                        <div class="text-uppercase text-muted fw-bold">{{ troubleTicket.indiceFactor ?? "IF 1" }}</div>
+                        {% if troubleTicket.autoEscalated %}
+                            <span class="badge badge-danger mt-1">{{ 'trouble_ticket.fields.auto_escalated' | trans }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="col d-flex justify-content-start gap-5 ps-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <div>
+                                <div class="text-uppercase text-muted fw-bold"
+                                     style="font-size: 0.6rem; letter-spacing: 0.03em;">
+                                    {{ 'trouble_ticket.fields.status' | trans }}</div>
+                                <div class="fw-bold small">{{ troubleTicket.status }}</div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-5">
+                            <div class="d-flex align-items-center gap-1">
+                                <div class="d-flex align-items-center gap-2">
+                                    {% if troubleTicket.createdBy is not null and troubleTicket.createdBy.photo is not empty %}
+                                        <img class="d-block rounded-circle shadow-1-strong border"
+                                             src="{{ asset(upload_uri ~ '/' ~ troubleTicket.createdBy.photo.filePath) }}"
+                                             style="width: 38px; height: 38px; object-fit: cover;" alt="">
+                                    {% else %}
+                                        <img class="d-block rounded-circle shadow-1-strong border"
+                                             style="width: 38px; height: 38px; object-fit: cover;"
+                                             src="/shared/no_photo.jpg" alt="">
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <div class="text-uppercase text-muted fw-bold"
+                                         style="font-size: 0.6rem; letter-spacing: 0.03em;">
+                                        {{ 'trouble_ticket.fields.created_by'| trans }}
+                                    </div>
+                                    <div class="fw-bold small">
+                                        <a href="{{ path('directory_people_show', {id: iri_id(troubleTicket.createdBy['@id'])}) }}">{{ troubleTicket.createdBy.firstname }} {{ troubleTicket.createdBy.lastname }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                {% if troubleTicket.assignee is not null and troubleTicket.assignee.photo is not empty %}
+                                    <img class="d-block rounded-circle shadow-1-strong border"
+                                         src="{{ asset(upload_uri ~ '/' ~ troubleTicket.assignee.photo.filePath) }}"
+                                         style="width: 38px; height: 38px; object-fit: cover;" alt="">
+                                {% else %}
+                                    <img class="d-block rounded-circle shadow-1-strong border"
+                                         style="width: 38px; height: 38px; object-fit: cover;"
+                                         src="/shared/no_photo.jpg" alt="">
+                                {% endif %}
+                                <div>
+                                    <div class="text-uppercase text-muted fw-bold"
+                                         style="font-size: 0.6rem; letter-spacing: 0.03em;">
+                                        {{ 'trouble_ticket.fields.assignee' | trans }}
+                                    </div>
+                                    {% if troubleTicket.assignee %}
+                                        <div class="fw-bold small">
+                                            <a href="{{ path('directory_people_show', {id: iri_id(troubleTicket.assignee['@id'])}) }}">{{ troubleTicket.assignee.firstname }} {{ troubleTicket.assignee.lastname }}</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="fw-bold text-black small">MIS</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                {% if troubleTicket.misAssignee is not null %}
+                                    <div class="d-flex align-items-center gap-2">
+                                        {% if troubleTicket.misAssignee.photo is not empty %}
+                                            <img class="d-block rounded-circle shadow-1-strong border"
+                                                 src="{{ asset(upload_uri ~ '/' ~ troubleTicket.misAssignee.photo.filePath) }}"
+                                                 style="width: 38px; height: 38px; object-fit: cover;" alt="">
+                                        {% else %}
+                                            <img class="d-block rounded-circle shadow-1-strong border"
+                                                 style="width: 38px; height: 38px; object-fit: cover;"
+                                                 src="/shared/no_photo.jpg" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <div class="text-uppercase text-muted fw-bold"
+                                             style="font-size: 0.6rem; letter-spacing: 0.03em;">
+                                            {{ 'trouble_ticket.fields.mis_assignee'| trans }}
+                                        </div>
+                                        <div class="fw-bold small">
+                                            <a href="{{ path('directory_people_show', {id: iri_id(troubleTicket.misAssignee['@id'])}) }}">{{ troubleTicket.misAssignee.firstname }} {{ troubleTicket.misAssignee.lastname }}</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

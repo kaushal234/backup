@@ -1,0 +1,47 @@
+{% extends 'directory/people/layout_people.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set people_id = people['id'] %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h2>{{ 'directory.people.title.transfer_crt'|trans([], 'directory') }}</h2>
+
+    {% if activeForms.salesRepCRT %}
+        <div class="col-lg-4">
+            {{ include('directory/people/partial/_form_transfer_sales_rep_crt.html.twig', {
+                title: 'directory.people.title.transfer_crt'|trans,
+                form: formSalesRep,
+                people: people,
+                action: path('directory_people_transfer_crt', {'id': people['id']}),
+                cancel_link: path('directory_people_search')
+            }, with_context=false) }}
+        </div>
+    {% endif %}
+    {% if activeForms.partsRepCRT %}
+        <div class="col-lg-4">
+            {{ include('directory/people/partial/_form_transfer_parts_rep_crt.html.twig', {
+                title: 'directory.people.title.transfer_crt'|trans,
+                form: formPartsRep,
+                people: people,
+                action: path('directory_people_transfer_crt', {'id': people['id']}),
+                cancel_link: path('directory_people_search')
+            }, with_context=false) }}
+        </div>
+    {% endif %}
+    {% if activeForms.serviceRepCRT %}
+        <div class="col-lg-4">
+            {{ include('directory/people/partial/_form_transfer_service_rep_crt.html.twig', {
+                title: 'directory.people.title.transfer_crt'|trans,
+                form: formServiceRep,
+                people: people,
+                action: path('directory_people_transfer_crt', {'id': people['id']}),
+                cancel_link: path('directory_people_search')
+            }, with_context=false) }}
+        </div>
+    {% endif %}
+    {% if  not activeForms.salesRepCRT and not activeForms.partsRepCRT and not activeForms.serviceRepCRT %}
+        <p>{{ 'directory.people.messages.success.no_crt' | trans({}, 'directory')  }}</p>
+    {% endif %}
+{% endblock %}

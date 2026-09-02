@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/parts/eparts_order_routing_configurations$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@id": {"pattern": "^/parts/eparts_order_routing_configurations/\\d+$"},
+          "@type": {"type": "string"},
+          "sph": {
+            "$ref": "../../directory_location/schemas/directory_location_public.json"
+          },
+          "defaultRouting": {"type": "string"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "sph",
+          "defaultRouting"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

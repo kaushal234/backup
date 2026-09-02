@@ -1,0 +1,18 @@
+App\Entity\HumanResources\Job:
+  #/jobs/1
+  job_1:
+    id: 1
+    createdBy: "@user_hr"
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    businessUnit: "@business_unit_2"
+    description: "Test"
+    title: "Hand"
+
+  #/jobs/2
+  job_2:
+    id: 2
+    createdBy: "@user_basic"
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    businessUnit: "@business_unit_2"
+    description: "Test"
+    title: "Blow"

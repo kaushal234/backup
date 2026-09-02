@@ -1,0 +1,12 @@
+{% trans_default_domain 'activity' %}
+<div class="col-sm-6 col-md-8 col-lg-9">
+    {% for fieldname, fieldvalues in entry.changeSet %}
+        <div class="row">
+            <div class="col-xs-12">
+            {% set oldValue = include('@ActivityBundle/activity/_log_field_values.html.twig', { value: fieldvalues[0]|default('empty') }, with_context=false) %}
+            {% set newValue = include('@ActivityBundle/activity/_log_field_values.html.twig', { value: fieldvalues[1]|default('empty') }, with_context=false)  %}
+            {{ 'activity.activity.log.log_line' | trans({'%field%': fieldname, '%oldValue%': oldValue, '%newValue%': newValue }) | raw }}
+            </div>
+        </div>
+    {% endfor %}
+</div>

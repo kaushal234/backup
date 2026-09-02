@@ -1,0 +1,9 @@
+{% if phone_list is not empty %}
+    {% set phone = phone_list|filter(p => p.type == 'phone')|first %}
+    {% set reception = phone_list|filter(p => p.type == 'reception')|first %}
+    {% set mobile = phone_list|filter(p => p.type == 'mobile')|first %}
+
+    {% if phone %}<div>{{ 'directory.people.csv.headers.phone.phone'|trans({}, 'directory') }} : {{ phone.number }}</div>{% endif %}
+    {% if reception %}<div>{{ 'directory.people.csv.headers.phone.reception'|trans({}, 'directory') }} : {{ reception.number }}</div>{% endif %}
+    {% if mobile %}<div>{{ 'directory.people.csv.headers.phone.mobile'|trans({}, 'directory') }} : {{ mobile.number }}</div>{% endif %}
+{% endif %}

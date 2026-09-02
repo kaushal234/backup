@@ -1,0 +1,85 @@
+App\Entity\Quality\NonConformity:
+  # quality/non_conformities/1
+  ncr_1:
+    id: 1
+    location: "@location_factory"
+    processes: ['@process_1']
+    hours: 1
+    iFactor: IF1
+    reportedBy: "@user_qam"
+    supplierName: Nuts 2000
+    supplierNumber: AMA0010
+    problem: Fuel pump was removed from ENGINE-GENERATOR SET to be installed onto another ENGINE-GENERATOR SET which failed during test. ENGINE-GENERATOR SET that the fuel pump was removed from will be placed in MRB until a replacement fuel pump is available.
+    investigation: This NCR was created to keep track of this engine that had its fuel pump removed to replace a fuel pump on a separate engine so that testing could resume. A task will be created to track the status of the replacement fuel pump that was ordered for this engine.
+    shortDescription: Generator failed
+    environmentalIssue: true
+    equipmentRecords:
+      - "@equipment_record_dog"
+
+  # quality/non_conformities/2
+  ncr_2:
+    id: 2
+    location: "@location_factory_2"
+    processes: ['@process_1']
+    hours: 2
+    iFactor: IF1
+    reportedBy: "@user_qam"
+    supplierName: Nuts 2000
+    supplierNumber: AMA0010
+    responsibles: ['@responsible_supplier']
+    problem: Fuel pump was removed from ENGINE-GENERATOR SET to be installed onto another ENGINE-GENERATOR SET which failed during test. ENGINE-GENERATOR SET that the fuel pump was removed from will be placed in MRB until a replacement fuel pump is available.
+    investigation: This NCR was created to keep track of this engine that had its fuel pump removed to replace a fuel pump on a separate engine so that testing could resume. A task will be created to track the status of the replacement fuel pump that was ordered for this engine.
+    shortDescription: Generator failed
+    environmentalIssue: true
+
+  # quality/non_conformities/3
+  ncr_3:
+    id: 3
+    location: "@location_factory"
+    hours: 2
+    reportedBy: "@user_superuser"
+    supplierNumber: AMA0010
+    problem: boulon manquant
+    shortDescription: boulon is missing
+    repairApprover: "@user_hr"
+    processes: ['@process_1']
+    iFactor: IF1
+    supplierName: Nuts 2001
+    responsibles: ['@responsible_supplier']
+    investigation: This NCR was created to keep track of this engine that had its fuel pump removed to replace a fuel pump on a separate engine so that testing could resume. A task will be created to track the status of the replacement fuel pump that was ordered for this engine.
+    environmentalIssue: false
+
+  # quality/non_conformities/4 - needed for NCR report test (DAN0013 count=2 at location_factory_2)
+  ncr_4:
+    id: 4
+    location: "@location_factory_2"
+    iFactor: IF1
+    reportedBy: "@user_qam"
+    supplierName: DANA SAS FRANCE
+    supplierNumber: DAN0013
+    responsibles: ['@responsible_supplier']
+    problem: Supplier part non-conformity
+    shortDescription: Supplier part issue
+    environmentalIssue: false
+
+  # quality/non_conformities/5 - needed for NCR report test (DAN0013 count=2 at location_factory_2)
+  ncr_5:
+    id: 5
+    location: "@location_factory_2"
+    iFactor: IF1
+    reportedBy: "@user_qam"
+    supplierName: DANA SAS FRANCE
+    supplierNumber: DAN0013
+    responsibles: ['@responsible_supplier']
+    problem: Supplier part non-conformity
+    shortDescription: Supplier part issue
+    environmentalIssue: false
+
+App\Entity\Quality\Responsible:
+  # quality/responsibles/1
+  responsible_tld:
+    name: TLD
+
+  # quality/responsibles/2
+  responsible_supplier:
+    name: Supplier

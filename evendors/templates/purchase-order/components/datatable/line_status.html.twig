@@ -1,0 +1,19 @@
+<td>
+    <div data-name="{{ key }}">
+    {% if item.unconfirmed or item.late or item.toBeDeliveredIn7Days %}
+        {% if item.unconfirmed %}
+            <span class="badge bg-danger">{{ 'display.table.purchase_order_line.rows.status.unconfirmed'|trans }}</span>
+        {% endif %}
+
+        {% if item.late %}
+            <span class="badge bg-warning">{{ 'display.table.purchase_order_line.rows.status.late'|trans }}</span>
+        {% endif %}
+
+        {% if item.toBeDeliveredIn7Days %}
+            <span class="badge bg-info">{{ 'display.table.purchase_order_line.rows.status.to_be_delivered'|trans }}</span>
+        {% endif %}
+    {% else %}
+        <span class="badge bg-success">{{ 'display.table.purchase_order_line.rows.status.confirmed'|trans }}</span>
+    {% endif %}
+    </div>
+</td>

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "Contact.jsonld",
+  "type": "object",
+  "properties": {
+    "@id": {
+      "type": "string",
+      "pattern": "^/sales/extranet_users/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "username",
+    "email",
+    "firstname",
+    "lastname"
+  ],
+  "additionalProperties": false
+}

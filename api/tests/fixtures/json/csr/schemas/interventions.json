@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {
+      "pattern": "^/service/interventions"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {
+            "pattern": "^/service/interventions/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "startedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "endedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "plannedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "plannedBy" : {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "pattern": "^/people/\\d+$"
+                  },
+                  "username": {"type": "string"},
+                  "hidden": {"type": "boolean"},
+                  "disabled": {"type": "boolean"},
+                  "passwordUpdatedAt": {"type": "string"},
+                  "email": {"type": "string"},
+                  "photo": {"type": ["string", "null"]},
+                  "firstname": {"type": "string"},
+                  "lastname": {"type": "string"},
+                  "passwordExpirationDate": {"type": "string"}
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "username",
+                  "hidden",
+                  "disabled",
+                  "passwordUpdatedAt",
+                  "email",
+                  "photo",
+                  "firstname",
+                  "lastname",
+                  "passwordExpirationDate"
+                ]
+              }
+            ]
+          },
+          "comments" : {"type": ["string", "null"]},
+          "customerServiceRecord": {
+            "type": "string",
+            "pattern": "^/service/(technician_on_call_|default_|commissioning_|service_bulletin_|)customer_service_records/\\d+$"
+          },
+          "leader": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/people/\\d+$"
+              },
+              "username": {"type": "string"},
+              "hidden": {"type": "boolean"},
+              "disabled": {"type": "boolean"},
+              "passwordUpdatedAt": {"type": "string"},
+              "email": {"type": "string"},
+              "photo": {"type": ["string", "null"]},
+              "firstname": {"type": "string"},
+              "lastname": {"type": "string"},
+              "passwordExpirationDate": {"type": "string"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "username",
+              "hidden",
+              "disabled",
+              "passwordUpdatedAt",
+              "email",
+              "photo",
+              "firstname",
+              "lastname",
+              "passwordExpirationDate"
+            ]
+          },
+          "operators": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "pattern": "^/people/\\d+$"
+                },
+                "username": {"type": "string"},
+                "hidden": {"type": "boolean"},
+                "disabled": {"type": "boolean"},
+                "passwordUpdatedAt": {"type": "string"},
+                "email": {"type": "string"},
+                "photo": {"type": ["string", "null"]},
+                "firstname": {"type": "string"},
+                "lastname": {"type": "string"},
+                "passwordExpirationDate": {"type": "string"}
+              },
+              "required": [
+                "@id",
+                "@type",
+                "username",
+                "hidden",
+                "disabled",
+                "passwordUpdatedAt",
+                "email",
+                "photo",
+                "firstname",
+                "lastname",
+                "passwordExpirationDate"
+              ]
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "startedAt",
+          "endedAt",
+          "plannedAt",
+          "customerServiceRecord",
+          "operators",
+          "status",
+          "plannedBy",
+          "comments"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}
+
+

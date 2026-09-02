@@ -1,0 +1,408 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "definitions": {
+        "Shipment.jsonld-shipment": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/shipments/\\w+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "shipment": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "procedure": {
+                    "type": "integer"
+                },
+                "load": {
+                    "$ref": "#/definitions/Load.jsonld-shipment"
+                },
+                "shipFrom": {
+                    "$ref": "#/definitions/ShipFrom.jsonld-shipment"
+                },
+                "shipTo": {
+                    "$ref": "#/definitions/ShipTo.jsonld-shipment"
+                },
+                "tracking": {
+                    "$ref": "#/definitions/Tracking.jsonld-shipment"
+                },
+                "references": {
+                    "$ref": "#/definitions/References.jsonld-shipment"
+                },
+                "shippingDocuments": {
+                    "$ref": "#/definitions/ShippingDocument.jsonld-shipment"
+                },
+                "lines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ShipmentLine.jsonld-shipment"
+                    },
+                    "minItems": 1
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "shipment",
+                "status",
+                "procedure",
+                "load",
+                "shipFrom",
+                "shipTo",
+                "tracking",
+                "references",
+                "shippingDocuments",
+                "lines"
+            ],
+            "additionalProperties": false
+        },
+        "Load.jsonld-shipment": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^_:\\d+$"},
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "loadCode": {
+                    "type": "string"
+                },
+                "route": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "plannedDeliveryDate": {
+                    "type": "string"
+                },
+                "trackingNumber": {
+                    "type": "string"
+                },
+                "carrierLSP": {
+                    "type": "string"
+                },
+                "carrierLSPName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "loadCode",
+                "route",
+                "status",
+                "plannedDeliveryDate",
+                "trackingNumber",
+                "carrierLSP",
+                "carrierLSPName"
+            ],
+            "additionalProperties": false
+        },
+        "ShipFrom.jsonld-shipment": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^_:\\d+$"},
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "plannedDeliveryDate": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "type",
+                "code",
+                "address",
+                "plannedDeliveryDate"
+            ],
+            "additionalProperties": false
+        },
+        "ShipTo.jsonld-shipment": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^_:\\d+$"},
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "plannedReceiptDate": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "type",
+                "code",
+                "address",
+                "plannedReceiptDate"
+            ],
+            "additionalProperties": false
+        },
+        "Tracking.jsonld-shipment": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^_:\\d+$"},
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "carrierTrackingNumber": {
+                    "type": "string"
+                },
+                "trackingNumber": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "carrierTrackingNumber",
+                "trackingNumber"
+            ],
+            "additionalProperties": false
+        },
+        "References.jsonld-shipment": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^_:\\d+$"},
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "shipmentReference": {
+                    "type": "string"
+                },
+                "customerOrder": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "shipmentReference",
+                "customerOrder"
+            ],
+            "additionalProperties": false
+        },
+        "ShippingDocument.jsonld-shipment": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^_:\\d+$"},
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "carrierLSP": {
+                    "type": "string"
+                },
+                "route": {
+                    "type": "string"
+                },
+                "deliveryTerms": {
+                    "type": "string"
+                },
+                "pointOfTitlePassage": {
+                    "type": "string"
+                },
+                "estimatedFreightCosts": {
+                    "type": "string"
+                },
+                "estimatedFreightCostsCurrency": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "carrierLSP",
+                "route",
+                "deliveryTerms",
+                "pointOfTitlePassage",
+                "estimatedFreightCosts",
+                "estimatedFreightCostsCurrency"
+            ],
+            "additionalProperties": false
+        },
+        "ShipmentLine.jsonld-shipment": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^_:\\d+$"},
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "item": {
+                    "type": "string"
+                },
+                "itemDescription": {
+                    "type": "string"
+                },
+                "shippedQuantity": {
+                    "type": "number"
+                },
+                "unitOfMeasure": {
+                    "type": "string"
+                },
+                "orderReference": {
+                    "$ref": "#/definitions/OrderReference.jsonld-shipment"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "item",
+                "itemDescription",
+                "shippedQuantity",
+                "unitOfMeasure",
+                "orderReference"
+            ],
+            "additionalProperties": false
+        },
+        "OrderReference.jsonld-shipment": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^_:\\d+$"},
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "type": {
+                    "type": "integer"
+                },
+                "order": {
+                    "type": "string"
+                },
+                "position": {
+                    "type": "integer"
+                },
+                "sequence": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "type",
+                "order",
+                "position",
+                "sequence"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Shipment.jsonld-shipment"
+            }
+        },
+        "hydra:totalItems": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "hydra:view": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "@type": {
+                    "type": "string"
+                },
+                "hydra:first": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:last": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:previous": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:next": {
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            }
+        },
+        "hydra:search": {
+            "type": "object",
+            "properties": {
+                "@type": {
+                    "type": "string"
+                },
+                "hydra:template": {
+                    "type": "string"
+                },
+                "hydra:variableRepresentation": {
+                    "type": "string"
+                },
+                "hydra:mapping": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "@type": {
+                                "type": "string"
+                            },
+                            "variable": {
+                                "type": "string"
+                            },
+                            "property": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "required": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "hydra:member"
+    ]
+}

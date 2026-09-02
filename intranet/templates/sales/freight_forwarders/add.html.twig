@@ -1,0 +1,12 @@
+{% extends 'sales/freight_forwarders/layout.html.twig' %}
+{% trans_default_domain 'freight_forwarder' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') | capitalize }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/freight_forwarders/partials/_form.html.twig', {
+        title: 'freight_forwarder.add.title'|trans,
+        form: form,
+        action: path('freight_forwarders_add'),
+    }, with_context=false) }}
+{% endblock %}

@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/parts/quotation_lines$"},
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/parts/quotation_lines/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "partNumber": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "unitBasePrice": {
+            "type": "number"
+          },
+          "totalPrice": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "salesUnit": {
+            "type": "string"
+          },
+          "discount": {
+            "type": "number"
+          },
+          "commission": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "quotation": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/parts/quotations/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "baanCustomerNumber": {
+                "type": "string"
+              },
+              "baanCustomerName": {
+                "type": "string"
+              },
+              "sph": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/locations/\\d+$"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "erp": {"type": "number"}
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name",
+                  "erp"
+                ],
+                "additionalProperties": false
+              },
+              "customerPurchaseOrder": {
+                "type": ["string", "null"]
+              },
+              "baanSalesOrder": {
+                "type": ["integer", "null"]
+              },
+              "quoter": {
+                "oneOf": [
+                  {"type": "null"},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/people/\\d+$"},
+                      "@type": {"type": "string"},
+                      "firstname": {"type": "string"},
+                      "lastname": {"type": "string"}
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "firstname",
+                      "lastname"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "reason": {
+                "type": ["string", "null"]
+              },
+              "payableService": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "status",
+              "baanCustomerNumber",
+              "baanCustomerName",
+              "sph",
+              "customerPurchaseOrder",
+              "baanSalesOrder",
+              "quoter",
+              "reason",
+              "payableService"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "status",
+          "partNumber",
+          "description",
+          "unitBasePrice",
+          "totalPrice",
+          "currency",
+          "quantity",
+          "salesUnit",
+          "discount",
+          "commission",
+          "quotation",
+          "createdAt"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

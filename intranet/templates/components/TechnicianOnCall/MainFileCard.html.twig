@@ -1,0 +1,25 @@
+{% props technicianOnCall, elementDataSet = {} %}
+
+{% if technicianOnCall.mainFile is empty %}
+    <twig:TechnicianOnCall:AddMainFileCard :technicianOnCall="technicianOnCall" :elementDataSet="elementDataSet" />
+{% else %}
+    <twig:Gallery:FileCard :file="technicianOnCall.mainFile" :index="0">
+        <twig:block name="header">
+            <div class="d-flex justify-content-between">
+                <h3>{{ 'toc.gallery.main_file'|trans({}, 'technician_on_call') }}</h3>
+                <twig:TechnicianOnCall:ModalMainFileDropZone
+                        :technicianOnCall="technicianOnCall" :elementDataSet="elementDataSet" />
+            </div>
+        </twig:block>
+
+        <twig:block name="actions">
+            <a class="mx-1" href="{{ path('technician_on_call_main_file_download', {technicianOnCallId: technicianOnCall.id, id: file.id}) }}">
+                <i class="card-img mx-auto fa-solid fa-file-arrow-down fa-2x"></i>
+            </a>
+            <div class="badge badge-warning h-auto px-2 align-content-center" type="button"
+                 data-bs-toggle="modal" data-bs-target="#main-file-drop-zone">
+                <i class="fa fa-fa fa-pencil-alt"></i>
+            </div>
+        </twig:block>
+    </twig:Gallery:FileCard>
+{% endif %}

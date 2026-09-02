@@ -1,0 +1,40 @@
+{% if picture is defined and picture is not null %}
+
+    {% set pictures = picture is iterable ? picture : [picture] %}
+
+    {% set hasImages = false %}
+    {% for pic in pictures %}
+        {% if pic.filePath is defined and pic.filePath %}
+            {% set hasImages = true %}
+        {% endif %}
+    {% endfor %}
+
+    {% if hasImages %}
+        {% set tooltipTemplate %}
+            <div style="height: 250px; width: 250px; overflow-y: auto; display: block;">
+                {% for pic in pictures %}
+                    {% if pic.filePath is defined %}
+                        <img
+                                src="{{ asset(upload_uri ~ '/' ~ pic.filePath) }}?width=250&height=250"
+                                class="img-thumbnail"
+                        ><br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endset %}
+        <p
+                class="d-flex align-items-center m-2"
+                data-bs-toggle="popover"
+                data-bs-placement="{{ placement|default('top') }}"
+                data-bs-html="true"
+                data-bs-trigger="hover"
+                data-bs-custom-class="people-popover"
+                data-bs-delay="{{ delay|default('100') }}"
+                data-bs-content="{{ tooltipTemplate|escape('html') }}"
+                style="cursor: pointer;"
+        >
+            <i class="fa-regular fa-file-image fa-2x text-primary"></i>
+        </p>
+    {% endif %}
+
+{% endif %}

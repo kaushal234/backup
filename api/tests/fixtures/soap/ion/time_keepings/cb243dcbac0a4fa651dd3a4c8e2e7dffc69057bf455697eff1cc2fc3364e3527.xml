@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <PostHoursResponse xmlns="http://www.infor.com/businessinterface/HoursAccounting_TLD">
+      <PostHoursResponse xmlns="">
+        <DataArea>
+          <HoursAccounting_TLD>
+            <TimeKeepingPostTransactions>
+              <TimeKeepingPostTransaction>
+                <sequenceNumber>331</sequenceNumber>
+                <employee>PADM</employee>
+                <transactionType>INDIRECT</transactionType>
+                <year>2022</year>
+                <period>47</period>
+                <startTime/>
+                <endTime>2022-11-23T23:10:10 +8</endTime>
+                <productionOrder/>
+                <operationNumber/>
+                <task>173</task>
+                <status>CLOCKIN-OUT</status>
+                <accountingEntity>5000</accountingEntity>
+                <location>S_5000</location>
+              </TimeKeepingPostTransaction>
+              <TimeKeepingPostTransaction>
+                <sequenceNumber>332</sequenceNumber>
+                <employee>PADM</employee>
+                <transactionType>INDIRECT</transactionType>
+                <year>2022</year>
+                <period>47</period>
+                <startTime>2022-11-23T23:10:10 +8</startTime>
+                <endTime/>
+                <productionOrder/>
+                <operationNumber/>
+                <task>173</task>
+                <status>CLOCKIN-IN</status>
+                <accountingEntity>5000</accountingEntity>
+                <location>S_5000</location>
+              </TimeKeepingPostTransaction>
+            </TimeKeepingPostTransactions>
+          </HoursAccounting_TLD>
+        </DataArea>
+      </PostHoursResponse>
+    </PostHoursResponse>
+  </S:Body>
+</S:Envelope>

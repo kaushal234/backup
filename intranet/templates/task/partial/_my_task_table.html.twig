@@ -1,0 +1,35 @@
+{% trans_default_domain 'task' %}
+<h3 class="text-center">{{ title }}</h3>
+<div class="table-responsive">
+    <table class="table table-bordered matrix-table">
+        <tbody>
+        <tr>
+            <th></th>
+            <th class="top-label">{{ ('task_management.late') | trans }}</th>
+            <th class="top-label">{{ ('task_management.due') | trans }}</th>
+            <th class="top-label th-total">{{ 'helper.totals'|trans({}, 'messages') }}</th>
+        </tr>
+
+        {% for row in rows %}
+            <tr>
+                <th>{{ row.module }}</th>
+                <td><a href="{{ row.urls.LATE }}">{{ row.late }}</a></td>
+                <td><a href="{{ row.urls.DUE }}">{{ row.due }}</a></td>
+                <td class="total"><a href="{{ row.urls.TOTAL }}">{{ row.total }}</a></td>
+            </tr>
+        {% endfor %}
+
+        {% if showFooter %}
+            <tr>
+                <th class="th-total">{{ 'helper.totals'|trans({}, 'messages') }}</th>
+                <td class="total"><a href="{{ footerUrls.LATE }}">{{ columnsTotals.LATE|default(0) }}</a></td>
+                <td class="total"><a href="{{ footerUrls.DUE }}">{{ columnsTotals.DUE|default(0) }}</a></td>
+                <td class="total">
+                    <a href="{{ footerUrls.TOTAL }}">
+                        {{ (columnsTotals.LATE|default(0)) + (columnsTotals.DUE|default(0)) }}
+                    </a>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+</div>

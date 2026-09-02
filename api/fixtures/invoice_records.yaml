@@ -1,0 +1,32 @@
+App\Entity\Finance\InvoiceRecord:
+
+  #/finance/invoice_records/1
+  invoice_record_1:
+    id: 1
+    customerErpReference: "@customer_erp_reference_1"
+    currency: "@cur_USD"
+    originalAmount: 124.85
+    category: DISPUTE
+    invoiceNumber: 1234
+    expectedPaymentDate: <dateTimeBetween('+1 days','+30 days')>
+
+  #/finance/invoice_records/2
+  invoice_record_2:
+    id: 2
+    customerErpReference: "@customer_erp_reference_2"
+    currency: "@cur_USD"
+    originalAmount: 666.66
+    category: DISPUTE
+    invoiceNumber: 0123456
+    expectedPaymentDate: <dateTimeBetween('+1 days','+30 days')>
+
+
+  #/finance/invoice_records/3
+  invoice_record_3:
+    id: 3
+    customerErpReference: "@customer_erp_reference_2"
+    invoiceNumber: 123456789
+    currency: "@cur_USD"
+    originalAmount: 100980
+    category: DISPUTE
+    expectedPaymentDate: <dateTimeBetween('+1 days','+30 days')>

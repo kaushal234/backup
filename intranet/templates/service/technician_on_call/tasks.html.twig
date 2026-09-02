@@ -1,0 +1,64 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% macro auditDayTime(auditLog) %}
+    {% if auditLog.days is same as 0 %}
+        {{ 'audit_log.hours'|trans({'%hours%': auditLog.h, '%minutes%': auditLog.i}, 'audit_log') }}
+    {% else %}
+        {{ 'audit_log.days'|trans({'%days%': auditLog.days, '%hours%': auditLog.h}, 'audit_log') }}
+    {% endif %}
+{% endmacro %}
+
+{% block content %}
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                id: {
+                    label: 'ID',
+                    link: {
+                        route: 'task_show',
+                        params: { id :'@id' }
+                    }
+                },
+                createdBy: {
+                    label: 'tasks.assignor'|trans({}, 'messages')|capitalize,
+                    properties: ['createdBy.lastname', 'createdBy.firstname'],
+                    link: {
+                        route: 'directory_people_show',
+                        params: {id:'createdBy.@id'}
+                    }
+                },
+                assignee: {
+                    label: 'tasks.assignee'|trans({}, 'messages')|capitalize,
+                    properties: ['assignee.lastname', 'assignee.firstname'],
+                    link: {
+                        route: 'directory_people_show',
+                        params: {id:'assignee.@id'}
+                    }
+                },
+                dueDate: {
+                    label: 'account_receivable.fields.due_date'|trans({}, 'account_receivable'),
+                    filters: 'date("Y-m-d")',
+                },
+                shortDescription: {
+                    label: 'competitors.fields.short_description'| trans({}, 'sales_competitors'),
+                },
+                status: { label: 'demo.fields.status' | trans({}, 'demo') | capitalize },
+                view: {
+                    label: '',
+                    link:{
+                        route: 'task_show',
+                        params: { id :'@id' },
+                        content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                },
+            },
+            title: 'menu.people.tasks' | trans({}, 'messages') | capitalize,
+            data: tasks,
+            search: false,
+            pagination: false,
+            initialSorting: 'createdAt'
+        }
+    }, with_context = false) }}
+{% endblock %}

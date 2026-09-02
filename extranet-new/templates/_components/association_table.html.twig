@@ -1,0 +1,18 @@
+{% extends '@AlvestTwigHelper/association_table_layout.html.twig' %}
+
+{% block card_class %}card mb-3{% endblock %}
+{% block card_body_class %}{{ parent() }} p-0{% endblock %}
+{% block table_class %}{{ parent() }} border-dark mb-0 caption-top{% endblock %}
+{% block column_default_class %}text-black{% endblock %}
+{% block table_first_column_tag %}td{% endblock %}
+
+{% block card_header %}
+    <div class="card-header border-bottom border-1 border-dark py-2 px-1">
+        <div class="row">
+            <div class="col">
+                <h3 class="fs-5 ps-2 text-dark my-1">{{ table.title|raw }}</h3>
+            </div>
+            {% block card_header_after %}{% endblock %}
+        </div>
+    </div>
+{% endblock card_header %}

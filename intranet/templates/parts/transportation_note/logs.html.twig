@@ -1,0 +1,9 @@
+{% extends 'parts/transportation_note/layout.html.twig' %}
+
+{% block content %}
+{#    {{ resourceActivities(note['@id'], path('parts_transportation_note_show', { id: note.id })) }}#}
+    <div class="logs-block" data-resource="{{ note['@id'] }}" data-show-comment-form="true"></div>
+{% endblock %}
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/mis/user_stories"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "item": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/mis/user_stories/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "peopleProperties": {
+            "type": "array"
+          },
+          "specification": {
+            "pattern": "^/mis/specifications/\\d+$"
+          },
+          "status": {
+            "type": "string"
+          },
+          "userStoryFiles":{
+            "type": "array"
+          },
+          "roleAccesses": {
+            "type": "array",
+            "items": {
+              "$ref": "../../roles_accesses/schemas/role_access.json"
+            }
+          },
+          "jiraIssueNumber": {
+            "type": ["null", "string"]
+          },
+          "projectNumber": {
+            "type": [
+              "null",
+              "integer"
+            ]
+          },
+          "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+        },
+        "required": [
+          "@context",
+          "@id",
+          "@type",
+          "id",
+          "category",
+          "description",
+          "peopleProperties",
+          "specification",
+          "status",
+          "userStoryFiles",
+          "roleAccesses",
+          "jiraIssueNumber",
+          "projectNumber",
+          "createdBy"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

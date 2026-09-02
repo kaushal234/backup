@@ -1,0 +1,25 @@
+{% block notifications %}
+    {% block notifications_error %}
+        {% for flashMessage in app.session.flashbag.get(error_key|default('error')) %}
+            <div style="color: red; border: 1px solid red; padding: 5px; margin: 5px">
+                {{ flashMessage|raw }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+    {% block notifications_warning %}
+        {% for flashMessage in app.session.flashbag.get(warning_key|default('warning')) %}
+            <div style="color: orange; border: 1px solid orange; padding: 5px; margin: 5px">
+                {{ flashMessage|raw }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+    {% block notifications_success %}
+        {% for flashMessage in app.session.flashbag.get(success_key|default('success')) %}
+            <div style="color: green; border: 1px solid green; padding: 5px; margin: 5px">
+                {{ flashMessage|raw }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+{% endblock %}

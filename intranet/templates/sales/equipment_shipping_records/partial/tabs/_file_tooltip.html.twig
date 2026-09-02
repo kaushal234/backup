@@ -1,0 +1,6 @@
+<td>
+    <a href="{{ path('equipment_shipping_record_files_show', {id: item.id, equipmentShippingRecordId: equipmentShippingRecordId}) }}"
+       {% if 'image/' in item.mimeType %}data-bs-toggle="tooltip-image"{% endif %}>
+        {{ value|slice(32) }}
+    </a>
+</td>

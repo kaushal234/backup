@@ -1,0 +1,98 @@
+{% extends 'sales/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+
+{% block title %}{{ parent() }} \ {{ 'catalogue.title' | trans({}, 'catalogue') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="sales_catalogue_type_add"
+                          :security="is_granted('FEATURE_CATALOG_TYPE_CREATE') or is_granted('MOO_CAT')"/>
+        <twig:NavItem translationKey="catalogue.nav_link.all_models" domain="catalogue" icon="mynaui:list"
+                      route="sales_catalogue_product_home" :routeParameters="{ visibility: 'show' }"/>
+        <twig:NavItem translationKey="catalogue.nav_link.caac_certificates" domain="catalogue"
+                      icon="pepicons-pencil:file" route="sales_product_certificates_home"/>
+        <twig:NavItem translationKey="catalogue.nav_link.standard_lead_time" domain="catalogue" icon="mdi-light:clock"
+                      route="lead_time_home"/>
+        {% if initialState.finance is defined %}
+            <twig:NavItem translationKey="catalogue.nav_link.finance_families" domain="catalogue"
+                          icon="material-symbols:home-outline-rounded" route="finance_family_home"/>
+            <twig:NavItem translationKey="catalogue.nav_link.show_hidden_models" domain="catalogue" icon="bi:eye"
+                          route="sales_catalogue_product_home"
+                          :routeParameters="{ visibility: 'show-all' }"/>
+            <twig:NavItem translationKey="catalogue.nav_link.download_all_models" domain="catalogue"
+                          icon="material-symbols:download-rounded" route="sales_catalogue_download_all_products"
+                          :routeParameters="{ visibility: visibility }"
+                          :security="is_granted('FEATURE_CATALOG_DOWNLOAD')"/>
+        {% endif %}
+        {% if product is defined %}
+            <twig:NavItem:Edit route="sales_catalogue_product_edit" :routeParameters="{id: product.id}"
+                               :security="is_granted('FEATURE_CATALOG_EDIT') or is_granted('CATALOG_EDIT_VOTER', product['@id']) or is_granted('FEATURE_CATALOG_FINANCE_ADMIN') or is_granted('MOO_CAT')"/>
+            <twig:NavItem translationKey="catalogue.nav_link.product_family" domain="catalogue"
+                          icon="prime:sitemap" route="sales_catalogue_family_show"
+                          :routeParameters="{id: product.family.id}"/>
+            <twig:NavItem:Delete route="sales_products_delete" :routeParameters="{id: product.id}"
+                                 :security="is_granted('FEATURE_CATALOG_DELETE') or is_granted('MOO_CAT')"/>
+        {% endif %}
+        {% if productFamily is defined %}
+            <twig:Dropdown translationKey="catalogue.nav_link.family_actions" domain="catalogue">
+                <twig:NavItem:Add translationKey="catalogue.nav_link.add_model" domain="catalogue"
+                                  route="sales_catalogue_add_product"
+                                  :routeParameters="{id: productFamily.id}"
+                                  :security="is_granted('FEATURE_CATALOG_CREATE') or is_granted('MOO_CAT')"/>
+                <twig:NavItem translationKey="catalogue.nav_link.equipment_type" domain="catalogue" icon="prime:sitemap"
+                              route="sales_catalogue_type_show" :routeParameters="{id: productFamily.productType.id}"/>
+                <twig:NavItem:Edit translationKey="catalogue.nav_link.edit_family" domain="catalogue"
+                                   route="sales_catalogue_edit_family" :routeParameters="{id: productFamily.id}"
+                                   :security="is_granted('FEATURE_CATALOG_FAMILY_EDIT') or is_granted('MOO_CAT')"/>
+                <twig:NavItem:Delete route="sales_families_delete" :routeParameters="{id: productFamily.id}"
+                                     :security="is_granted('FEATURE_CATALOG_DELETE') or is_granted('MOO_CAT')"/>
+                {% if nto is defined %}
+                    <twig:NavItem translationKey="catalogue.nav_link.ntos" domain="catalogue" icon="prime:sitemap"
+                                  route="legacy_sales" :routeParameters="{m: ['gse_aircraft_data']}"/>
+                    <twig:NavItem translationKey="catalogue.nav_link.show_hidden_models" domain="catalogue"
+                                  icon="bi:eye"
+                                  route="sales_catalogue_family_show"
+                                  :routeParameters="{ id: productFamily.id, option: 'show-all' }"
+                                  :security="is_granted('FEATURE_CATALOG_CREATE')"/>
+                {% endif %}
+            </twig:Dropdown>
+        {% endif %}
+        {% if leadTimeForm is defined %}
+            <twig:Dropdown translationKey="nav_link.edit" domain="messages"
+                           :security="is_granted('FEATURE_LEAD_TIME_WRITE')">
+                {% for location in allowedLocations %}
+                    <twig:NavItem route="lead_time_edit" :routeParameters=" { id: iri_id(location['@id']) }">
+                        {{ location['name'] }}
+                    </twig:NavItem>
+                {% endfor %}
+            </twig:Dropdown>
+        {% endif %}
+        {% if productCertificates is defined %}
+            <twig:NavItem:Add translationKey="catalogue.nav_link.add_certificate" domain="catalogue"
+                              route="sales_product_certificates_add"/>
+        {% endif %}
+        {% if productCertificate is defined %}
+            <twig:NavItem:Edit route="sales_product_certificates_edit"
+                               :routeParameters="{'id': productCertificate.iriId}"
+                               :security="is_granted('FEATURE_PRODUCT_CERTIFICATE_ADMIN') or is_granted('MOO_CAT')"/>
+            <twig:NavItem:Delete route="sales_product_certificates_delete"
+                                 :routeParameters="{'id': productCertificate.iriId }"
+                                 :security="is_granted('FEATURE_PRODUCT_CERTIFICATE_ADMIN') or is_granted('MOO_CAT')"/>
+        {% endif %}
+        {% if productType is defined %}
+            <twig:NavItem:Add translationKey="catalogue.nav_link.add_certificate" domain="catalogue"
+                              route="sales_catalogue_family_add" :routeParameters="{'id': productType.id}"
+                              :security="is_granted('FEATURE_CATALOG_CREATE') or is_granted('MOO_CAT')"/>
+            <twig:NavItem:Edit translationKey="catalogue.nav_link.edit_equipment_type" domain="catalogue"
+                               route="sales_catalogue_type_edit" :routeParameters="{ id: productType.id }"
+                               :security="is_granted('FEATURE_CATALOG_TYPE_EDIT') or is_granted('MOO_CAT')"/>
+            <twig:NavItem translationKey="catalogue.nav_link.show_hidden_families" domain="catalogue"
+                          route="sales_catalogue_type_show"
+                          :routeParameters="{ id: productType.id, type: 'show-all' }"/>
+            <twig:Dropdown translationKey="catalogue.nav_link.download" domain="catalogue" :security="is_granted('FEATURE_CATALOG_DOWNLOAD')">
+                {{ include('sales/catalogue/partial/_download_menu.html.twig') }}
+            </twig:Dropdown>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

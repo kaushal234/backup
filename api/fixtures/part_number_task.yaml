@@ -1,0 +1,15 @@
+App\Entity\Task\PartNumberTask:
+
+  part_number_task:
+    module: "@module_part_number_task"
+    referenceId: 32
+    location: "@location_factory"
+    partNumber: pn-000001
+    indiceFactor: "IF 1"
+    status: PENDING
+    startedAt: <dateTimeBetween('-5 days', '-1 day')>
+    dueDate: <dateTimeBetween('+10 days', '+20 days')>
+    shortDescription: "PartNumber task test"
+    description: "PartNumber task used by Behat tests"
+    createdBy: "@user_basic"
+    assignee: "@user_hr"

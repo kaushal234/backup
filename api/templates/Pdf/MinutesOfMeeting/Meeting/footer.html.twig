@@ -1,0 +1,28 @@
+{% trans_default_domain "pdfs" %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        {{ include('Pdf/fonts/opensans.css.twig') }}
+        {{ source('@css/pdf.css') }}
+    </style>
+</head>
+
+<body class="fixed-width">
+<br/><br/>
+<div class="container" id="footer">
+    <div class="row">
+        <div class="col-md-12 text-left">
+            {{ 'meeting.meeting'|trans({},'pdfs') }} #{{ meeting.id }}
+            <br/>
+            {{ 'meeting.pdf_generated'|trans({},'pdfs') }} {{ "now"|date('Y-m-d H:i:s') }}
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

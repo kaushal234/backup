@@ -1,0 +1,288 @@
+{% extends 'finance/account-receivable/layout.html.twig' %}
+{% trans_default_domain 'account_receivable' %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-4">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'account_receivable.details' | trans,
+                    items: {
+                        id: {
+                            label: 'demo.fields.id'|trans({}, 'demo')
+                        },
+                        customer: {
+                            label: 'demo.fields.customer'|trans({}, 'demo'),
+                            properties: ['customerErpReference.customer.name'],
+                            link:{
+                                route: 'sales_customers_show',
+                                params: {'id':'customerErpReference.customer.@id'},
+                            },
+                        },
+                        watchList: {
+                            label: 'customers.fields.watch_list'|trans({}, 'sales_customers'),
+                            template: 'finance/account-receivable/partial/cells/_watch_list.html.twig',
+                        },
+                        asm: {
+                            label: 'demo.fields.asm'|trans({}, 'demo'),
+                            properties: ['customerErpReference.customer.asm.lastname', 'customerErpReference.customer.asm.firstname'],
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'customerErpReference.customer.asm.@id'},
+                            },
+                        },
+                        pcust: {
+                            label: 'account_receivable.fields.pcust'|trans,
+                            properties: ['customerErpReference.customerNumber']
+                        },
+                        company: {
+                            label: 'account_receivable.fields.company'|trans,
+                            properties: ['customerErpReference.sso.erp'],
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'customerErpReference.sso.@id'},
+                            }
+                        },
+                        transactionType: {
+                            label: 'account_receivable.fields.transaction_type'|trans,
+                            properties: ['transactionTypeReference.transactionType.name']
+                        },
+                        erpInvoiceNumber: {label: 'account_receivable.fields.erp_invoice_number'|trans},
+                        order: {
+                            label: 'account_receivable.fields.order'|trans,
+                            template: 'finance/account-receivable/partial/cells/_order.html.twig',
+                        },
+                        country: {
+                            label: 'demo.fields.country'|trans({}, 'demo'),
+                            properties: ['country.name']
+                        },
+                        invoiceDate: {
+                            label: 'account_receivable.fields.invoice_date'|trans,
+                            filters: 'date("Y-m-d")',
+                        },
+                        dueDate: {
+                            label: 'account_receivable.fields.due_date'|trans,
+                            template: 'finance/account-receivable/partial/cells/_due_date.html.twig',
+                            templateParams: {interval: interval, invoiceRecord: invoiceRecord}
+                        },
+                        revisedDueDate: {
+                            label: 'account_receivable.invoice_record.fields.revised_due_date'|trans,
+                            template: 'finance/account-receivable/partial/cells/_revised_due_date.html.twig',
+                            templateParams: {interval: revisedInterval, invoiceRecord: invoiceRecord}
+                        },
+                        originalAmount: {
+                            label: 'account_receivable.fields.original_amount'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                        },
+                        originalAmountLocalCurrency: {
+                            label: 'account_receivable.fields.original_amount_local'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value_local_currency.html.twig',
+                        },
+                        balanceAmount: {
+                            label: 'account_receivable.fields.balance_amount'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                        },
+                        balanceAmountLocalCurrency: {
+                            label: 'account_receivable.fields.balance_amount_local'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value_local_currency.html.twig',
+                        },
+                        salesReferenceA: {
+                            label: 'account_receivable.fields.sales_ref_a'|trans,
+                            preserveNull: true
+                        },
+                        salesReferenceB: {
+                            label: 'account_receivable.fields.sales_ref_b'|trans,
+                            preserveNull: true,
+                        },
+                        financeReferenceA: {
+                            label: 'account_receivable.fields.finance_ref_a'|trans,
+                            preserveNull: true,
+                        },
+                        financeReferenceB: {
+                            label: 'account_receivable.fields.finance_ref_b'|trans,
+                            preserveNull: true,
+                        },
+                        creditAnalyst: {
+                            label: 'account_receivable.fields.credit_analyst'|trans,
+                            preserveNull: true,
+                        },
+                        salesOrderNumber: {
+                            label: 'account_receivable.fields.sales_order_number'|trans,
+                            preserveNull: true,
+                        },
+                        salesOrderDate: {
+                            label: 'account_receivable.fields.sales_order_date'|trans,
+                            filters: 'date("Y-m-d")',
+                        },
+                        delinquent: {
+                            label: 'demo.fields.delinquent'|trans({}, 'demo'),
+                            boolean: {
+                                true: '<div><span class="d-none">1</span><i class="fa fa-circle text-danger"></i></div>',
+                                false: '<div><span class="d-none">0</span><i class="fa fa-circle" style="color: #009639"></i></div>'
+                            }
+                        }
+                    },
+                    data: accountReceivable
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                {% if (invoiceRecord is null) or (invoiceRecord is not null and invoiceRecord.category is null) %}
+                    <div class="col-md-6">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>{{ 'account_receivable.invoice_record.invoice_record' | trans}}</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                {% form_theme form 'form_theme_vertical.html.twig' %}
+                                {{ form_start(form) }}
+                                {{ form_row(form.comment) }}
+                                {{ form_row(form.category) }}
+                                {{ form_row(form.expectedPaymentDate) }}
+                                {{ form_row(form.submit) }}
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if revisedDueDateEditable %}
+                    <div class="col-md-6">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>{{ 'account_receivable.invoice_record.invoice_record_revised_date' | trans}}</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                {% form_theme revisedDueDateForm 'form_theme_vertical.html.twig' %}
+                                {{ form_start(revisedDueDateForm) }}
+                                {{ form_row(revisedDueDateForm.revisedDueDate) }}
+                                {{ form_row(revisedDueDateForm.submit) }}
+                                {{ form_end(revisedDueDateForm) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            {% if invoiceRecord is not null %}
+                {{ include('helper/_association_table.html.twig', {
+                    associationData: {
+                        search: false,
+                        title: 'account_receivable.invoice_record.details' | trans,
+                        items: {
+                            view: {
+                                label: 'menu.view'|trans({}, 'messages') | capitalize,
+                                link:{
+                                    route: 'invoice_record_show',
+                                    params: {'id':'id'},
+                                    content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></span>',
+                                }
+                            },
+                            edit: {
+                                label: 'menu.edit'|trans({}, 'messages') | capitalize,
+                                link:{
+                                    route: 'invoice_record_edit',
+                                    params: {'id':'id'},
+                                    content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></span>',
+                                }
+                            },
+                            category: {label: 'account_receivable.invoice_record.fields.category'|trans},
+                            expectedPaymentDate: {
+                                label: 'account_receivable.invoice_record.fields.expected_payment_date'|trans,
+                                preserveNull: true,
+                                filters: 'date("Y-m-d")',
+                            }
+                        },
+                        data: invoiceRecord
+                    }
+                }, with_context = false) }}
+                <div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>{{ 'account_receivable.fields.invoice_comment'|trans }}</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="logs-block" data-resource="{{ invoiceIri }}" data-hide-logs data-show-comment-form="true"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>{{ 'account_receivable.tasks_invoice'|trans|capitalize }}</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <a href="{{ path('legacy_calendar') }}?m[0]=tasks&m[1]=form&m[2]=newTask&module=AR&parent_id={{ invoiceRecord.id }}" class="btn btn-info text-capitalize"><i class="fa fa-plus"></i>&nbsp;{{ 'menu.add'|trans([], 'messages') }}</a>
+                            <hx:include src="/en/private/calendar/tasks/tasks_hinclude.php?module=AR&parent_id={{ invoiceRecord.id }}" id="block_task">
+                                <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                            </hx:include>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'account_receivable.tasks_ecustomer'|trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <a href="{{ path('legacy_calendar') }}?m[0]=tasks&m[1]=form&m[2]=newTask&module=ECUST&parent_id={{ accountReceivable.customerErpReference.customer.id }}" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;{{ 'account_receivable.ecustomer_task'|trans }}</a>
+                        <hx:include src="/en/private/calendar/tasks/tasks_hinclude.php?module=ECUST&parent_id={{ accountReceivable.customerErpReference.customer.id }}" id="block_task">
+                            <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                        </hx:include>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'account_receivable.fields.customer_comments'|trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="logs-block" data-resource="{{ accountReceivable.customerErpReference.customer['@id'] }}" data-hide-logs data-show-comment-form="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if accountReceivable.order is not null %}
+        <hx:include src="/en/private/sales_service/sol/sol_ar_hinclude.php?id={{ accountReceivable.order.legacyId }}&invoice={{ accountReceivable.transactionTypeReference.erpType ~ accountReceivable.erpInvoiceNumber }}&erp={{ accountReceivable.transactionTypeReference.location.erp }}" id="block_sols">
+            <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+        </hx:include>
+    {% endif %}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { domain: 'activity' }) }}"></script>
+{% endblock %}

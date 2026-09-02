@@ -1,0 +1,43 @@
+{% extends 'directory/mentoring/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    {% set items = {
+        mentee: {
+            properties: ['firstname', 'lastname'],
+            label: 'directory.people.mentoring.mentee'|trans([], 'directory')|capitalize,
+            link: {
+                route: 'directory_people_show',
+                params: {id:'@id'}
+            }
+        },
+        mentor: {
+            properties: ['mentor.firstname', 'mentor.lastname'],
+            label: 'directory.people.mentoring.mentor'|trans([], 'directory')|capitalize,
+            link: {
+                route: 'directory_people_show',
+                params: {id:'@id'}
+            }
+        },
+    } %}
+
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: items,
+            title: 'directory.people.mentoring.title'|trans([], 'directory'),
+            data: mentees
+        }
+    }, with_context = false) }}
+
+    <hr>
+    {# Email list, comma separated #}
+    {% if mentors|length > 0 %}
+        <p style="clear: both;">{{ 'directory.people.list.email'|trans([], 'directory') }}</p>
+        <p>
+            <i>
+                {{ mentors|join(', ') }}
+            </i>
+        </p>
+    {% endif %}
+
+{% endblock %}

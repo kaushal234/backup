@@ -1,0 +1,485 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/service/(technician_on_call_|default_|commissioning_|service_bulletin_|)customer_service_records/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "completedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "closedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "deletedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plannedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "type" : {"type": "string"},
+    "files": {
+      "oneOf" : [
+        {"type": "null"},
+        {
+          "files" : {"$ref" :  "../../shared/schemas/file.json"}
+        }
+      ]
+    },
+    "legacyId": {"type": "integer"},
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "airport": {
+      "$ref": "../../iata_code/schemas/iata_code.json"
+    },
+    "equipmentRecord": {
+      "@type": "object",
+      "properties": {
+        "@id": {
+          "pattern": "^/equipment_records/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "serialNumber": {
+          "type": "string"
+        },
+        "buyer": {
+          "@type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/sales/customers/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name"
+          ]
+        },
+        "endUser": {
+          "@type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/sales/customers/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "address": {
+              "type": [
+                "array",
+                "null"
+              ]
+            },
+            "phone": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "fax": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "country": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "id": {"type": "integer"},
+            "legacyId": {"type": "integer"}
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name",
+            "address",
+            "phone",
+            "fax",
+            "country",
+            "id",
+            "legacyId"
+          ],
+          "additionalProperties": false
+        },
+        "customerSerialNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "product": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "pattern": "^/sales/products/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "family": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/sales/product_families/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "productType": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "pattern": "^/sales/product_types/\\d+$"
+                        },
+                        "@type": {
+                          "type": "string"
+                        },
+                        "englishName": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "@id",
+                        "@type",
+                        "englishName"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "productType"
+                  ]
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "family"
+              ]
+            }
+          ]
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dateShipped": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dateCommissioned": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "manufacturerLocation": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "pattern": "^/locations/\\d+$"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "erp": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "@type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type"
+              ]
+            }
+          ]
+        },
+        "salesOrganisation": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "pattern": "^/locations/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "erp": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "@id",
+                "@type"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/(people|((sales|purchasing)/(extranet_|vendor_))?users)/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jobTitle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "businessUnit": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "@id": {
+              "pattern": "^/business_units/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "location": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "legacyId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "location",
+            "legacyId"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "firstname",
+        "lastname",
+        "email",
+        "username"
+      ],
+      "additionalProperties": false
+    },
+    "interventions": {"type" :  "array", "items": {"$ref": "interventions.json"}},
+    "toContinue": {"type": "boolean"},
+    "close": {"type": "boolean"},
+    "closed": {"type": "boolean"},
+    "openIntervention": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/service/interventions/\\d+$"},
+        "@type": {"type": "string"},
+        "plannedBy" : {"oneOf": [{"type": "null"},{"$ref": "../../directory_people/schemas/directory_people_public.json"}]},
+        "plannedAt": {"type": ["string", "null"]},
+        "status" : {"type": "string"},
+        "leader": {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/people/\\d+$"},
+            "username": {"type": "string"},
+            "email": {"type": "string"},
+            "legacyId": {"type": "integer"},
+            "firstname": {"type": "string"},
+            "lastname": {"type": "string"}
+          },
+          "required": [
+            "@id",
+            "@type",
+            "username",
+            "email",
+            "firstname",
+            "lastname",
+            "legacyId"
+          ]
+        }
+      }
+    },
+    "contact": {
+      "oneOf": [
+        {"type":  "null"},
+        {
+          "$ref": "../../sales/extranet_user/schemas/extranet_user.json"
+        }
+      ]
+    },
+    "hourMeterTransactions": {
+      "type": "array",
+      "items": {
+        "@type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/support/equipment_record/customer_service_record_hour_meter_transactions/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "hourMeter": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "createdAt",
+    "title",
+    "description",
+    "airport",
+    "equipmentRecord",
+    "createdBy",
+    "updatedAt",
+    "deletedAt",
+    "status",
+    "plannedAt",
+    "interventions",
+    "toContinue",
+    "close",
+    "closed",
+    "openIntervention",
+    "closedAt",
+    "completedAt",
+    "type",
+    "files",
+    "legacyId",
+    "contact",
+    "hourMeterTransactions"
+  ],
+  "additionalProperties": false
+}
+
+

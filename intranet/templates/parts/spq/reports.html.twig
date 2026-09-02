@@ -1,0 +1,109 @@
+{% extends 'parts/spq/layout.html.twig' %}
+
+{% trans_default_domain "spq" %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="row">
+        {% if formFilters is defined %}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('parts/spq/partials/_form_filters_reports.html.twig', {
+                        form: formFilters,
+                        resetPath: path('spq_reports', {type: type})
+                    }) }}
+                </div>
+            </div>
+        {% endif %}
+
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    partNumber: {label: 'spq.quotations.fields.part_number'|trans|capitalize},
+                    description: {label: 'spq.quotations.fields.quotation_line.description'|trans|capitalize},
+                    unitBasePrice: {
+                        label: 'spq.quotations.fields.quotation_line.unit_base_price'|trans|capitalize,
+                        filters: 'number_format(2)',
+                        class: 'text-end',
+                    },
+                    quantity: {
+                        label: 'spq.quotations.fields.quotation_line.quantity'|trans|capitalize,
+                        properties: ['quantity', 'salesUnit'],
+                        class: 'text-end'
+                    },
+                    discount: {
+                        label: 'spq.quotations.fields.quotation_line.discount'|trans|capitalize,
+                        filters: ['number_format(1)', 'concat(" %")'],
+                        class: 'text-end',
+                    },
+                    commission: {
+                        label: 'spq.quotations.fields.quotation_line.commission'|trans|capitalize,
+                        filters: ['number_format(1)', 'concat(" %")'],
+                        class: 'text-end',
+                    },
+                    totalPrice: {
+                        label: 'spq.quotations.fields.quotation_line.total_price'|trans|capitalize,
+                        filters: 'number_format(2)',
+                        class: 'text-end',
+                    },
+                    currency: { label: 'spq.quotations.fields.currency'|trans|capitalize, },
+                    status: {label: 'spq.quotations.fields.status'|trans|capitalize},
+                    spq_id: {
+                        label: '#',
+                        sortable: 'numeric',
+                        properties: ['quotation.@id'],
+                        link:{
+                            route: 'spq_quotations_list',
+                            params: {id:'quotation.@id'},
+                        }
+                    },
+                    quotation_status: {
+                        label: 'spq.quotations.fields.status'|trans|capitalize,
+                        properties: ['quotation.status'],
+                    },
+                    poster: {
+                        properties: ['quotation.poster.firstname', 'quotation.poster.lastname'],
+                        label: 'spq.quotations.fields.poster'|trans|capitalize,
+                        glue: ' '
+                    },
+                    baanCustomerName: {
+                        label: 'spq.quotations.fields.customer.title'|trans|capitalize,
+                        properties: ['quotation.baanCustomerName'],
+                    },
+                    baanCustomerNumber: {
+                        label: 'spq.quotations.fields.cuno'|trans|capitalize,
+                        properties: ['quotation.baanCustomerNumber'],
+                    },
+                    sph: {
+                        properties: ['quotation.sph.name'],
+                        label: 'spq.quotations.fields.sph'|trans|capitalize,
+                    },
+                    customerPurchaseOrder: {
+                        properties: ['quotation.customerPurchaseOrder'],
+                        label: 'spq.quotations.fields.customer.purchase_order'|trans|capitalize,
+                    },
+                    baanSalesOrder: {
+                        properties: ['quotation.baanSalesOrder'],
+                        label: 'spq.quotations.fields.general.sales_order'|trans|capitalize,
+                    },
+                    createdAt: {
+                        label: 'spq.quotations.fields.created_at'|trans|capitalize,
+                        filters: 'date("Y-m-d H:i:s")'
+                    }
+                },
+                title: 'spq.title'|trans|capitalize,
+                data: quotationLines,
+                pagination: false,
+                initialSorting: false,
+            }
+        }, with_context = false) }}
+    </div>
+{% endblock %}

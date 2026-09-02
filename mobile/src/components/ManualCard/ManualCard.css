@@ -1,0 +1,61 @@
+.cui .manual_card__wrapper {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: var(--cui-card-border-radius);
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.cui .manual_card__wrapper div:first-child {
+  flex: 1;
+}
+
+.cui .manual_card__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cui .manual_card__details > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cui .manual_card__left_section {
+  display: flex;
+  flex-direction: column;
+}
+
+.cui .manual_card__left_section .cui_one_line.MuiTypography-button {
+  text-transform: none;
+}
+
+.cui .manual_card__first_row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cui .manual_card__first_row > div,
+.cui .manual_card__first_row > span {
+  flex: 1;
+}
+
+.cui .manual_card__first_row_mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cui .manual_card__first_row_right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cui .manual_card__middle_row {
+  display: flex;
+  gap: 16px;
+}

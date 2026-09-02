@@ -1,0 +1,134 @@
+{% extends 'sales/orders/layout.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ (order is defined ? 'menu.edit': 'menu.add')|trans([], 'messages')|capitalize }}{% endblock %}
+
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+
+    {% if orderAlreadyExist is defined and orderAlreadyExist %}
+        <div class="alert alert-warning">
+            {{ 'sales_order.messages.errors.quote_already_exist'|trans({}, 'sales_orders') }}
+        </div>
+    {% endif %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="mail-box-header clearfix">
+                <h2 id="customer-title">Main informations{% if order.status is defined %}<span class="float-end">{{ include('sales/orders/partial/_status.html.twig', {item:order}) }}</span>{% endif %}</h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {% if order is defined %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div>
+                                    <label class="col-form-label">Id</label>
+                                    <p class="form-control-plaintext">{{ order.id }}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div>
+                                    <label class="col-form-label">Legacy Id</label>
+                                    <p class="form-control-plaintext">{{ order.legacyId }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {{ form_row(form.sso, {
+                        attr: {
+                            'data-juridical-location-url': path('sales_order_juridical_location_select'),
+                            'data-baan-customer-number-url': path('sales_order_baan_customer_number_select'),
+                            class: 'js-sales-order-form-sso'
+                        }
+                    }) }}
+                    {{ form_row(form.equoteId) }}
+                    {{ form_row(form.asm) }}
+                    {{ form_row(form.salesAgent) }}
+                    <div class="js-juridical-location-target">
+                        {% if form.juridicalLocation is defined %}{{ form_row(form.juridicalLocation) }}{% endif %}
+                    </div>
+                    {% if form.baanOrderNumbers is defined %}{{ form_row(form.baanOrderNumbers, {   attr: {class: 'no-labels'}, force_error: true}) }}{% endif %}
+                    {% if form.note is defined %}{{ form_row(form.note) }}{% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="mail-box-header clearfix">
+                <h2 id="customer-title">{{ 'customers.title'|trans({}, 'sales_customers') }}</h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.endUser) }}
+                    {{ form_row(form.buyer) }}
+                    {{ form_row(form.contact) }}
+                    {% if form.inforLnBusinessPartnerCode is defined %}{{ form_row(form.inforLnBusinessPartnerCode) }}{% endif %}
+                    {{ form_row(form.customerPurchaseOrders, { attr: {class: 'no-labels'}, force_error: true}) }}
+                    <div class="clearfix"></div>
+                    {{ form_row(form.newCustomer) }}
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages')|capitalize }}</button>
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        window.onload = function() {
+            var $ssoSelect = $('.js-sales-order-form-sso');
+            var $juridicalLocationTarget = $('.js-juridical-location-target');
+            var loader = '<div class="sk-spinner sk-spinner-three-bounce"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>'
+            $ssoSelect.on('change', function (e) {
+                $juridicalLocationTarget.html(loader)
+                $.ajax({
+                    url: $ssoSelect.data('juridical-location-url'),
+                    data: {
+                        sso: $ssoSelect.val()
+                    },
+                    success: function (html) {
+                        if (!html) {
+                            $juridicalLocationTarget.addClass('d-none');
+                            return;
+                        }
+                        $juridicalLocationTarget.html(html).removeClass('d-none')
+                    }
+                });
+            });
+
+            let buyerSelect = (0 !== $('#order_buyer').length) ? $('#order_buyer') : $('#app_add_order_buyer');
+            buyerSelect.change(function() {
+                let buyerValue = $(this).val();
+                $.ajax({
+                    url: '{{ path('sales_order_ln_bp_code_select', {'customerIri': '__buyerValue__'}) }}'.replace('__buyerValue__', buyerValue),
+                    method: 'GET',
+                    success: function(response) {
+                        let inforLnBusinessPartnerCodeField = (0 !== $('#order_inforLnBusinessPartnerCode').length) ? $('#order_inforLnBusinessPartnerCode') : $('#app_add_order_inforLnBusinessPartnerCode');
+                        inforLnBusinessPartnerCodeField.empty();
+
+                        $.each(response, function(index, value) {
+                            inforLnBusinessPartnerCodeField.append($('<option>', {
+                                value: value,
+                                text: value
+                            }));
+                        });
+                    }
+                });
+            });
+        };
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .no-labels label { display: none }
+    </style>
+{% endblock %}

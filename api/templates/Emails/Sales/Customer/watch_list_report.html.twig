@@ -1,0 +1,35 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>{{ 'customer.watch_list_report.dear' | trans }}</p>
+            <p>{{ 'customer.watch_list_report.message' | trans }}</p>
+
+            {{ include('/Helpers/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'extranet_user.fields.id' | trans,
+                            link:{
+                                route: 'customer',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        name: { label:'extranet_user.fields.name'  | trans },
+                        country: {
+                            label:'demo.fields.country'  | trans,
+                            properties: ['country.name'],
+                        },
+                    },
+                    data: customers,
+                    title: ''
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+
+{% endblock %}

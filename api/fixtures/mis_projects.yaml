@@ -1,0 +1,111 @@
+App\Entity\MIS\Project\Project:
+
+  project_1:
+    id: "1"
+    region: "@region_by_zero"
+    confidential: "false"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare pharetra tellus, eget fringilla dui volutpat vitae. Morbi elementum sapien a tempus feugiat. Nunc tristique, justo a tempor cursus, diam libero tristique est, ac pretium purus urna vitae nisi. Integer sit amet metus quam. Cras dui nibh, ullamcorper ac aliquet eu, euismod et eros. Phasellus vel est et sapien viverra sollicitudin at non nisi. Curabitur porta egestas libero eu condimentum. Sed pulvinar ex sed magna sagittis, vel mollis sapien tincidunt. Pellentesque ultricies dictum imperdiet. Suspendisse luctus enim purus, eu efficitur ipsum auctor ut. Sed ac lorem tempus, sagittis felis eu, aliquet nisl. Duis luctus lobortis justo, sed cursus arcu tincidunt pharetra. In ultricies molestie est in gravida. Aenean cursus risus eget molestie sodales."
+    indicesFactor: "IF 1"
+    misOwner: "@user_mis"
+    module: "@module_fixed_4"
+    projectManager: "@user_sa"
+    name: "first project"
+    phases:
+      - "@phase_0_project_1"
+      - "@phase_1_project_1"
+      - "@phase_2_project_1"
+      - "@phase_3_project_1"
+      - "@phase_4_project_1"
+    startedAt: <(new DateTime('+30 days'))>
+    tags:
+      - "@project_tag_1"
+    legacyId: 1
+
+  project_2:
+    id: "2"
+    region: "@region_by_zero"
+    confidential: 0
+    description: "Fusce vulputate, erat eget rutrum dictum, lectus lorem interdum risus, at iaculis risus sapien et libero. Donec vel congue arcu. In nisl libero, facilisis iaculis dapibus vitae, molestie sed sem. Donec ornare et ante et dapibus. Quisque laoreet, elit eu fermentum interdum, odio odio dictum urna, sed dictum elit urna posuere orci."
+    indicesFactor: "IF 10"
+    misMembers: ["@user_superuser", "@user_3", "@user_4"]
+    misOwner: "@user_mis"
+    module: "@module_fixed_5"
+    moduleKeyUsers: ["@user_basic", "@user_1", "@user_2"]
+    projectManager: "@user_moo_sfr"
+    name: "second project"
+    phases:
+      - "@phase_0_project_2"
+      - "@phase_1_project_2"
+      - "@phase_2_project_2"
+      - "@phase_3_project_2"
+      - "@phase_4_project_2"
+    startedAt: <(new DateTime('+30 days'))>
+    tags:
+      - "@project_tag_1"
+
+  project_3:
+    id: "3"
+    region: "@region_by_zero"
+    confidential: 1
+    description: "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. "
+    indicesFactor: "IF 100"
+    misMembers: [ "@user_superuser", "@user_3", "@user_4" ]
+    misOwner: "@user_mis"
+    module: "@module_fixed_6"
+    moduleKeyUsers: [ "@user_basic", "@user_1", "@user_2" ]
+    projectManager: "@user_moo_cat"
+    name: "third project"
+    phases:
+      - "@phase_0_project_3"
+      - "@phase_1_project_3"
+      - "@phase_2_project_3"
+      - "@phase_3_project_3"
+      - "@phase_4_project_3"
+    startedAt: <(new DateTime('+30 days'))>
+    tags:
+      - "@project_tag_2"
+
+  project_4:
+    id: "4"
+    region: "@region_by_zero"
+    confidential: 0
+    description: "Quisque pellentesque neque a odio volutpat, non condimentum diam iaculis. Vivamus imperdiet nibh condimentum tortor cursus feugiat."
+    indicesFactor: "IF 1000"
+    status: PHASE 4
+    misMembers: [ "@user_superuser" ]
+    misOwner: "@user_mis"
+    module: "@module_fixed_7"
+    moduleKeyUsers: [ "@user_basic" ]
+    projectManager: "@user_sa"
+    name: "fourth project"
+    phases:
+      - "@phase_0_project_4"
+      - "@phase_1_project_4"
+      - "@phase_2_project_4"
+      - "@phase_3_project_4"
+      - "@phase_4_project_4"
+    startedAt: <(new DateTime('+30 days'))>
+    tags:
+      - "@project_tag_1"
+
+  project_5:
+    id: "5"
+    region: "@region_by_zero"
+    confidential: 0
+    description: "Morbi et tellus semper, ultrices eros mollis, bibendum lectus. Maecenas posuere turpis et dapibus iaculis. Praesent vel velit non sapien dapibus bibendum eu non velit. "
+    indicesFactor: "IF 10000"
+    misMembers: [ "@user_superuser", "@user_3", "@user_4" ]
+    misOwner: "@user_mis"
+    module: "@module_atm"
+    moduleKeyUsers: [ "@user_basic", "@user_1", "@user_2" ]
+    projectManager: "@user_csm"
+    name: "fifth project"
+    phases:
+      - "@phase_0_project_5"
+      - "@phase_1_project_5"
+      - "@phase_2_project_5"
+      - "@phase_3_project_5"
+      - "@phase_4_project_5"
+    startedAt: <(new DateTime('+30 days'))>
+    tags:
+      - "@project_tag_2"

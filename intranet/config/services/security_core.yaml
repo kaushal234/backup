@@ -1,0 +1,16 @@
+services:
+    AppBundle\Security\Authorization\AccessDeniedHandler:
+        autoconfigure: true
+        autowire: true
+
+    ApiBundle\Security\Core\Authentication\UserProvider:
+        autoconfigure: true
+        autowire: true
+
+    ApiBundle\Security\JWTReader:
+        autowire: true
+        bind:
+            string $publicKey: '%env(resolve:JWT_PUBLIC_KEY)%'
+
+    ApiBundle\Security\Core\Authentication\JwtCookieFactory:
+        public: false

@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/quality/calibrated_tools/tools/\\d+$"},
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "serialNumber": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "calibrationInterval": {
+      "type": "integer"
+    },
+    "calibrationNotice": {
+      "type": "integer"
+    },
+    "nextCalibrationDate": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "format": "date-time"}
+      ]
+    },
+    "statusUpdatedAt": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "format": "date-time"}
+      ]
+    },
+    "purchasingDate": {
+      "type": "string"
+    },
+    "vendorErp": {
+      "type": "string"
+    },
+    "vendorName": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "vendorId": {
+      "type": "string"
+    },
+    "toolType": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer"},
+        "@id": { "type": "string"},
+        "@type": { "type": "string"},
+        "description": { "type": "string"}
+      },
+      "required": ["id", "@id", "@type", "description"],
+      "additionalProperties" : false
+    },
+    "locationArea": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer"},
+        "@id": { "type": "string"},
+        "@type": { "type": "string"},
+        "name": { "type": "string"},
+        "factory": {
+          "type": "object",
+          "properties": {
+            "@id": { "type": "string" },
+            "@type": { "type": "string" },
+            "name": { "type": "string" },
+            "company": { "type": "string" }
+          },
+          "required": [ "@id", "@type", "name", "company" ],
+          "additionalProperties": false
+        },
+        "supervisor": {
+          "type": "object",
+          "properties": {
+            "@id": { "type": "string" },
+            "@type": { "type": "string" },
+            "firstname": { "type": "string" },
+            "lastname": { "type": "string" },
+            "email": { "type": "string" },
+            "username": { "type": "string" }
+          },
+          "required": [ "@id", "@type", "firstname", "lastname", "email", "username"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["@id", "id", "@type", "name", "factory", "supervisor"],
+      "additionalProperties" : false
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": { "type": "string" },
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" },
+        "email": { "type": "string" },
+        "username": { "type": "string" }
+      },
+      "required": [ "@id", "@type", "firstname", "lastname", "email", "username"],
+      "additionalProperties": false
+    },
+    "availableStatuses": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 0
+    },
+    "remainingDaysBeforeExpiration": {
+      "type": ["integer", "null"]
+    },
+    "calibrationLogs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/quality/calibrated_tools/calibration_logs/\\d+$"}
+        },
+        "required": ["@id"]
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "serialNumber",
+    "calibrationInterval",
+    "calibrationNotice",
+    "nextCalibrationDate",
+    "statusUpdatedAt",
+    "purchasingDate",
+    "vendorId",
+    "vendorErp",
+    "vendorName",
+    "status",
+    "toolType",
+    "locationArea",
+    "createdBy",
+    "availableStatuses",
+    "remainingDaysBeforeExpiration"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,31 @@
+
+<button type="button" class="btn btn-sm btn-warning" style="width: 140px" data-bs-toggle="modal" disabled data-bs-target="#confirm_modal" id="access_confirm_delivery_date_modal" data-confirmDateMessage="{{ 'display.table.purchase_order_line.actions.confirmDate'|trans }}" data-resetDateMessage="{{ 'display.table.purchase_order_line.actions.resetDate'|trans }}">
+    {{ 'purchase_order.line.edit.confirmed_delivery_date.form.modalConfirmAccessButton'|trans }}
+</button>
+<div class="modal carousel-fade confirm_delivery_date_modal" id="confirm_modal" tabindex="-1" aria-labelledby="#new_comment_modal_label" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content display-style">
+            <div class="modal-header border-dark border-1">
+                <h5 class="modal-title text-black" id="new_comment_modal_label">{{ 'purchase_order.line.edit.caption'|trans }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="mb-2">
+                        {{ form_label(ordersForm.message, null, {'label_attr': {'class': 'mb-1'}}) }}
+                        {{ form_widget(ordersForm.message) }}
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="modal-footer border-dark">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ 'display.comments.form.new.hide'|trans }}</button>
+                <div class="tooltipInfo">
+                    <button type="submit" class="btn btn-primary" name="edit_all_lines_action_confirm" id="edit_all_lines_action_confirm">{{ 'purchase_order.line.edit.confirmed_delivery_date.form.modalConfirmAccessButton'|trans }}</button>
+                    {% include 'purchase-order/components/tooltip/legal_message.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

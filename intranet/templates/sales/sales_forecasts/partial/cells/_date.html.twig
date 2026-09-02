@@ -1,0 +1,24 @@
+{% if key == '<<' %}
+    {% set difference = datePeriod.start.format('Y-m') > date(item.estimatedSaleDate).format('Y-m') %}
+{% elseif key == '>>' %}
+    {% set difference = datePeriod.end.format('Y-m') < date(item.estimatedSaleDate).format('Y-m') %}
+{% else %}
+    {% set difference = date(item.estimatedSaleDate).format('Y-m') == date(key).format('Y-m') %}
+{% endif %}
+
+{% if difference is same as(true) %}
+    {% set success = (item.customerSuccessPercentage * item.successPercentage / 100) | round %}
+    {% if success < 25 %}
+        {% set successClass = 'danger' %}
+    {% elseif success >= 25 and success < 60 %}
+        {% set successClass = 'warning' %}
+    {% else %}
+        {% set successClass = 'green' %}
+    {% endif %}
+
+    <td>
+        <span class="btn btn-{{ successClass }}">{{ success }}%</span>
+    </td>
+{% else %}
+    <td></td>
+{% endif %}

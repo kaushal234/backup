@@ -1,0 +1,239 @@
+{% extends 'parts/layout.html.twig' %}
+
+{% trans_default_domain 'parts' %}
+{% form_theme formFilter 'form_theme_vertical.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ 'parts.dashboard.title' |trans }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 row">
+            <div class="col-md-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'parts.dashboard.help.filter'|trans }}</h5>
+                        <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+                    </div>
+                    <div class="ibox-content">
+                        {{ form_start(formFilter, {'action': path('parts_dashboard_home')}) }}
+                        {{ form_errors(formFilter) }}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ form_row(formFilter.part_number) }}
+                                {{ form_row(formFilter.location) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div style="display: flex; justify-content: space-between">
+                                    <div class="">
+                                        {{ form_widget(formFilter.submit_search) }}
+                                    </div>
+                                    <div class="">
+                                        {% if fullView %}
+                                            {{ form_widget(formFilter.submit_show_shipments) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_rest(formFilter) }}
+                        {{ form_end(formFilter) }}
+                    </div>
+                </div>
+            </div>
+            {% if partNumber %}
+            <div class="col-md-6">
+                {% set items = {
+                    pilot: {label: 'parts.dashboard.fields.pilot'|trans|capitalize},
+                } %}
+
+                {% if fullView %}
+                    {% set items = items|merge({
+                        category: {label: 'parts.dashboard.fields.category'|trans|capitalize},
+                        multiplier: {label: 'parts.dashboard.fields.multiplier'|trans|capitalize},
+                        pmoc: {
+                            label: 'parts.dashboard.fields.pmoc'|trans,
+                            template: 'parts/dashboard/partials/_item_upper_case.html.twig'
+                        },
+                    }) %}
+                {% endif %}
+
+                {{ include('helper/_association_table.html.twig', {
+                    associationData: {
+                        items: items,
+                        title: 'parts.dashboard.help.mip_detail'|trans,
+                        data: mipDetail
+                    },
+                }, with_context = false) }}
+
+                <div class="ibox float-e-margins">
+                    <a class="btn btn-info" href="{{ path('sage_inventory_view', { partNumber: partNumber }) }}">
+                        {{ 'parts.dashboard.button.sage_inventory'|trans }}
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            value: {label: 'parts.dashboard.fields.value'|trans|capitalize},
+                            currency: {label: 'parts.dashboard.fields.currency'|trans|capitalize},
+                            effectiveDate: {
+                                label: 'parts.dashboard.fields.effectiveDate'|trans,
+                                template: 'partial/cells/_nullable_date.html.twig',
+                            },
+                            expiryDate: {
+                                label: 'parts.dashboard.fields.expiryDate'|trans,
+                                template: 'partial/cells/_nullable_date.html.twig',
+                            },
+                        },
+                        title: 'parts.dashboard.help.mip'|trans,
+                        data: mips,
+                        pagination: false,
+                        search: false,
+                    },
+                }, with_context = false) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'parts.dashboard.help.images'|trans }}</h5>
+                        <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+                    </div>
+                    <div class="ibox-content">
+                        {% if pictures %}
+                            <div class="swiper">
+                                <div class="swiper-wrapper">
+                                    {% for picture in pictures %}
+                                        <div class="swiper-slide">
+                                            <div class="swiper-zoom-container">
+                                                {% set imageUrl = path('parts_dashboard_picture', {partNumber: partNumber, key: picture.key}) %}
+                                                <a href="{{ imageUrl }}">
+                                                    <img class="d-block w-100" src="{{ imageUrl }}" alt="{{ picture.filename }}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="swiper-pagination"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                                <button class="swiper-fullscreen-btn" title="Full screen">⛶</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if inventory is defined %}
+        <div class="alert alert-warning">
+            {{ 'parts.dashboard.warning' | trans }}
+        </div>
+        {% set items = {
+            site: {label: 'parts.dashboard.fields.site'|trans},
+            item: {
+                label: 'fields.part_number'|trans({},'messages'),
+                filters: ['iri_id', 'upper']
+            },
+            description: {label: 'wms.part_number.description'|trans({}, 'wms')|capitalize},
+            leadtime: {label: 'parts.dashboard.fields.leadtime'|trans|capitalize},
+            codeSignal: {label: 'parts.dashboard.fields.signal_code'|trans|capitalize},
+            code: {label: 'parts.dashboard.fields.warehouse_code'|trans|capitalize},
+            name: {label: 'wms.fields.warehouse'|trans({}, 'wms')|capitalize},
+            safetyStock: {label: 'parts.dashboard.fields.safety_stock'|trans, template: 'parts/dashboard/partials/_replace_value_zero.html.twig'},
+            itemSafety: {label: 'parts.dashboard.fields.item_safety'|trans, template: 'parts/dashboard/partials/_replace_value_zero.html.twig'},
+            inventoryOnHand: {label: 'parts.dashboard.fields.inventory_on_hand'|trans|capitalize, template: 'parts/dashboard/partials/_item_array_to_text.html.twig'},
+            inventoryOnOrder: {label: 'parts.dashboard.fields.inventory_on_order'|trans|capitalize, template: 'parts/dashboard/partials/_item_array_to_text.html.twig'},
+            allocated: {label: 'parts.dashboard.fields.allocated'|trans|capitalize, template: 'parts/dashboard/partials/_replace_value_zero.html.twig'},
+            available: {label: 'parts.dashboard.fields.available'|trans|capitalize, template: 'parts/dashboard/partials/_replace_value_zero.html.twig'},
+            unitOfMeasure: {label: 'parts.dashboard.fields.stock_unit_of_measure'|trans},
+            purchaseCurrency: {label: 'parts.dashboard.fields.purchase_currency'|trans, template: 'parts/dashboard/partials/_replace_value_zero.html.twig'},
+            purchasePrice: {label: 'parts.dashboard.fields.purchase_price'|trans, template: 'parts/dashboard/partials/_replace_value_zero.html.twig'},
+            lastPurchasePriceDate: {
+                label: 'parts.dashboard.fields.last_purchase_price_date'|trans,
+                template: 'partial/cells/_nullable_date.html.twig',
+            },
+            standardCurrency: {label: 'parts.dashboard.fields.standard_currency'|trans},
+            standardCost: {label: 'parts.dashboard.fields.standard_cost'|trans},
+            weight: {label: 'parts.dashboard.fields.weight'|trans, template: 'parts/dashboard/partials/_replace_value_zero.html.twig'},
+            weightUnitOfMeasure: {label: 'parts.dashboard.fields.unit_of_measure'|trans},
+            edm: {
+                label: 'parts.dashboard.fields.edm'|trans,
+                class: 'text-center',
+                link: {
+                    route: 'legacy_manufacturing_eng',
+                    params: {'erp': 'site', 'item':'item'},
+                    fixedParams: { m: ['revisions_detail', 'view'] }
+                }
+            },
+            bom: {
+                label: 'parts.dashboard.fields.bom'|trans,
+                class: 'text-center',
+                link: {
+                    route: 'legacy_manufacturing_eng',
+                    params: {'erp': 'site', 'pn':'item'},
+                    fixedParams: { m: ['bom', 'view'] }
+                }
+            },
+        } %}
+
+        {% if not fullView %}
+            {% set itemsToBeRemoved = [
+                'safetyStock',
+                'itemSafety',
+                'inventoryOnHand',
+                'inventoryOnOrder',
+                'allocated',
+                'purchaseCurrency',
+                'purchasePrice',
+                'lastPurchasePriceDate',
+                'standardCurrency',
+                'standardCost',
+                'edm',
+                'bom',
+            ] %}
+
+            {% for item in itemsToBeRemoved %}
+                {% set items = items|filter((v, k) => k != item) %}
+            {% endfor %}
+        {% endif %}
+
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: items,
+                title: 'parts.dashboard.title'|trans(),
+                data: inventory,
+                pagination: false,
+            },
+        }, with_context = false) }}
+
+        {% if fullView %}
+            {% embed 'helper/_report_table.html.twig' with {
+                reportTable: {
+                    items: {
+                        code: {
+                            label:'parts.dashboard.fields.text'|trans ~ '#',
+                            filters: ['iri_id', 'upper']
+                        },
+                        site: {label: 'parts.dashboard.fields.site'|trans ~ '#'},
+                        text: {label: 'parts.dashboard.fields.text'|trans|capitalize, template: 'parts/dashboard/partials/_item_text.html.twig'}
+                    },
+                    title: 'parts.dashboard.title_text'|trans({'%item%': partNumber}),
+                    data: textItems,
+                    search: false,
+                    pagination: false,
+                }
+            } %}
+                {% block table_class %}
+                    {{ parent() }} table-striped
+                {% endblock %}
+            {% endembed %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

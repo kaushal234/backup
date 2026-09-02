@@ -1,0 +1,33 @@
+framework:
+  workflows:
+    task:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\Task\Task
+      places:
+        - !php/const App\Entity\Task\Task::PENDING
+        - !php/const App\Entity\Task\Task::IN_PROGRESS
+        - !php/const App\Entity\Task\Task::PAUSE
+        - !php/const App\Entity\Task\Task::CLOSED
+      transitions:
+        pending_to_in_progress:
+          from: !php/const App\Entity\Task\Task::PENDING
+          to: !php/const App\Entity\Task\Task::IN_PROGRESS
+        pending_to_close:
+          from: !php/const App\Entity\Task\Task::PENDING
+          to: !php/const App\Entity\Task\Task::CLOSED
+        in_progress_to_pause:
+          from: !php/const App\Entity\Task\Task::IN_PROGRESS
+          to: !php/const App\Entity\Task\Task::PAUSE
+        pause_in_progress:
+          from: !php/const App\Entity\Task\Task::PAUSE
+          to: !php/const App\Entity\Task\Task::IN_PROGRESS
+        in_progress_to_close:
+          from: !php/const App\Entity\Task\Task::IN_PROGRESS
+          to: !php/const App\Entity\Task\Task::CLOSED
+        close_to_pending:
+          from: !php/const App\Entity\Task\Task::CLOSED
+          to: !php/const App\Entity\Task\Task::PENDING

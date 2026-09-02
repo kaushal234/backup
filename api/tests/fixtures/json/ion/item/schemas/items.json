@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/ion/items"},
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "properties": {
+            "@id": {"pattern": "^/ion/items/.+$"},
+            "@type": {"type": "string"},
+            "site": {"type": "string"},
+            "item": {"type": "string"},
+            "project": {"type": "string"},
+            "unitOfMeasure": {"type": "string"},
+            "itemDescription": {"type": "string"},
+            "revision": {"type": "string"}
+          },
+          "required": [
+            "@id",
+            "@type",
+            "site",
+            "project",
+            "item",
+            "unitOfMeasure",
+            "itemDescription",
+            "revision"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

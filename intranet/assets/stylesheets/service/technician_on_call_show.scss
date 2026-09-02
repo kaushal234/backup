@@ -1,0 +1,132 @@
+body.toc-show #wrapper {
+  overflow-x: unset;
+}
+
+.toc-show .sticky-top {
+  background-color: #f3f3f4;
+}
+
+.toc-cards-wrapper .alert {
+  height: 100%;
+  padding: 2px;
+  margin: 0;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.toc-cards-wrapper .alert h4,
+.toc-cards-wrapper .alert h3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 0.75rem !important;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+  display: block;
+}
+
+.toc-cards-wrapper .alert h2 {
+  font-size: 1.5rem !important;
+  margin-bottom: 5px;
+}
+
+.toc-cards-wrapper .alert > span{
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  display: block;
+}
+
+.toc-cards-wrapper .alert a {
+  color: #1976d2;
+}
+
+.toc-solved-cards-wrapper .card {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+.partial-border {
+  position: relative;
+}
+
+.partial-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 4px;
+}
+
+.partial-border-blue::before {
+  background-color: #3498DB;
+}
+
+.partial-border-green::before {
+  background-color: #45B39D;
+}
+
+.partial-border-yellow::before {
+  background-color: #F1C40F;
+}
+
+.partial-border::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 70%; /* aligné à la fin de la barre */
+  width: 0;
+  height: 0;
+  border-right: 4px solid transparent;
+}
+
+.partial-border-blue::after {
+  border-top: 4px solid #3498DB;
+}
+
+.partial-border-green::after {
+  border-top: 4px solid #45B39D;
+}
+
+.partial-border-yellow::after {
+  border-top: 4px solid #F1C40F;
+}
+
+.bs-bg-danger {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.toc-description {
+  position: relative;
+  background: #fff;
+  padding-left: 16px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  display: block !important;
+  overflow: visible !important;
+  border: 1px solid #1A3AA5;
+}
+
+.toc-description::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  height: 100%;
+  background: #1A3AA5;
+}
+
+.toc-description::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #1A3AA5;
+}

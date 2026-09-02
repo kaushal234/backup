@@ -1,0 +1,39 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        {% set translation = comment.metadata['translation']|default(null) %}
+        <p>{{ 'toc.message.toc_new_comment_external.main_content'|trans({
+                '%eContact%': technicianOnCall.mainContact.firstname|capitalize ~ ' ' ~ technicianOnCall.mainContact.lastname,
+                '%createdAt%': technicianOnCall.createdAt|date,
+                '%commentMessage%': translation ?: comment.message
+            })|raw|nl2br }}
+        </p>
+        {% if translation is not empty %}
+            <p class="subheader" style="font-size: 12px;">
+                <em>{{ 'toc.message.original_comment'|trans }}</em><br>
+                {{ comment.message|raw|nl2br }}
+            </p>
+        {% endif %}
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_external.html.twig') }}
+        <hr>
+        <p><em>{{ 'toc.message.toc_new_comment_external.warranty_disclaimer'|trans }}</em></p>
+        <div style="display: flex; justify-content: flex-start;">
+            <div>
+                {{ include('Emails/Service/TechnicianOnCall/_partials/_toc.html.twig', {technicianOnCall: technicianOnCall}) }}
+            </div>
+            {% if technicianOnCall.equipmentRecord is not null %}
+                <div style="margin-left: 16px;">
+                    {{ include('Emails/Service/TechnicianOnCall/_partials/_equipment_record.html.twig', {technicianOnCall: technicianOnCall}) }}
+                </div>
+            {% endif %}
+            {% if crt is not null %}
+                <div style="margin-left: 16px;">
+                    {{ include('Emails/Service/TechnicianOnCall/_partials/_crt.html.twig', {crt: crt}) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

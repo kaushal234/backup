@@ -1,0 +1,29 @@
+{% extends 'directory/people/layout_people.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set people_id = iri_id(people) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% import _self as tree %}
+
+{% macro tree(mainUser) %}
+    <li>
+        <span>{{ mainUser.firstname }} {{ mainUser.lastname }} ({{ mainUser.position_code }})</span>
+        <ul>
+        {% if mainUser.children is defined %}
+            {% for user in mainUser.children %}
+                <ul>
+                    {{ _self.tree(user) }}
+                </ul>
+            {% endfor %}
+        {% endif %}
+        </ul>
+    </li>
+{% endmacro %}
+
+{% block content %}
+    <ul>
+        {{ _self.tree(mainUser) }}
+    </ul>
+{% endblock %}

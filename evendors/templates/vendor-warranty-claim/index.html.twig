@@ -1,0 +1,51 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.vendor_warranty_claims'|trans }}{% endblock %}
+
+{% block main %}
+    {% embed '_components/report_table.html.twig' with {
+        reportTable: {
+            items: {
+                id: {
+                    label: 'display.table.vwc.headers.id'|trans,
+                    template: 'vendor-warranty-claim/components/datatable/id_link.html.twig'
+                },
+                statusValue: {
+                    label: 'display.table.vwc.headers.status'|trans,
+                    properties: ['status.value']
+                },
+                locationName: {
+                    label: 'display.table.vwc.headers.location'|trans,
+                    properties: ['location.name']
+                },
+                createdAt: {label: 'display.table.vwc.headers.date_entered'|trans},
+                module: {label: 'display.table.vwc.headers.oirginating_doc_type'|trans},
+                reference: {
+                    label: 'display.table.vwc.headers.reference'|trans,
+                    template: 'vendor-warranty-claim/components/datatable/reference.html.twig'
+                },
+                partNumbers: {
+                    label: 'display.table.vwc_parts.caption.title'|trans,
+                    template: 'vendor-warranty-claim/components/datatable/part_numbers.html.twig'
+                },
+                scarRequested: {
+                    label: 'display.table.vwc.headers.scar'|trans,
+                    boolean: {
+                        true: 'display.table.vwc_requested_actions.rows.scar_required.yes'|trans,
+                        false: 'display.table.vwc_requested_actions.rows.scar_required.no'|trans
+                    }
+                },
+            },
+            title: 'display.table.vwc.caption.title'|trans,
+            id: 'vendor-warranty-claim-table',
+            data: claims,
+            initialSorting: false
+        }
+    } %}
+        {% block card_header_after %}
+            <div class="col me-1">
+                <a href="{{ path('vendor-warranty-claim:download:all') }}" class="btn btn-outline-primary float-end">{{ 'display.table.mrp.caption.download_xlsx'|trans }}</a>
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

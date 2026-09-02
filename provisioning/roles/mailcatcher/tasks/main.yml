@@ -1,0 +1,46 @@
+- name: Install maildev node.js package globally
+  become: true
+  # Pinned to 2.2.1: MailDev 3.x's web UI (published as the npm "latest" tag)
+  # doesn't work behind a reverse-proxy subpath yet - its base-pathname
+  # support is broken (fixed upstream in maildev/maildev#540 but not
+  # released). Revisit once a 3.x release includes that fix.
+  ansible.builtin.command: npm install maildev@2.2.1 -g
+  when: (inventory_file | basename) == "staging.yml"
+  register: maildev_npm_install
+  changed_when: "'up to date' not in maildev_npm_install.stdout"
+  notify:
+    - Restart maildev
+
+- name: Ensure apache2-utils is installed, to generate a htpasswd file for authentication
+  become: true
+  ansible.builtin.apt:
+    name:
+      - apache2-utils
+    state: present
+  when: (inventory_file | basename) == "staging.yml"
+
+- name: Ensure Nginx .htpasswd file exists
+  ansible.builtin.file:
+    path: /etc/nginx/.htpasswd
+    state: touch
+    mode: '0640'
+    owner: root
+    group: www-data
+  become: true
+  when: (inventory_file | basename) == "staging.yml"
+
+- name: Install Python passlib library (required for htpasswd module)
+  ansible.builtin.apt:
+    name: python3-passlib
+    state: present
+  become: true
+
+- name: Set credentials in .htpasswd
+  community.general.htpasswd:
+    path: /etc/nginx/.htpasswd
+    name: "{{ maildev.user }}"
+    password: "{{ maildev.password }}"
+  become: true
+  when: (inventory_file | basename) == "staging.yml"
+  notify:
+    - Restart nginx

@@ -1,0 +1,54 @@
+{% extends 'directory/position_category/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    {% set items = {
+        name: { label: 'fields.name'|trans({}, 'messages') },
+    } %}
+
+    {% if is_granted('POSITION_CATEGORY_WRITE_VOTER') %}
+        {% set items = items | merge ({
+            edit: {
+                label: 'menu.edit'|trans({}, 'messages')|capitalize,
+                class: 'text-end',
+                link:{
+                    route: 'position_category_types_edit',
+                    content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                    params: {id: 'id'},
+                },
+                sortable: false,
+                class: 'text-end'
+            },
+            delete: {
+                label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                sortable: false,
+                class: 'text-end',
+                link: {
+                    route: 'position_category_type_delete',
+                    params: {'id': 'id'},
+                    fixedParams: {'_token': csrf_token('delete_position_category_type')},
+                    content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                    popup: {
+                        type: 'confirmation',
+                        title: 'Confirmation',
+                        message: 'Are you sure to delete ?',
+                    },
+                },
+            },
+        }) %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: items,
+                initialSorting: false,
+                title: 'directory.position_category_types.name' | trans,
+                data: positionCategoryTypes,
+                pagination: false,
+            }
+        }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

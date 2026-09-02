@@ -1,0 +1,17 @@
+{% extends 'sales/layout.html.twig' %}
+
+{% block title %}{{ parent() }} \ {{ 'competitor_pricings.title' | trans({}, 'competitor_pricings') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="competitor_pricings_add" :security="is_granted('FEATURE_COMPETITOR_PRICING_WRITE')"/>
+        {% if competitorPricing is defined %}
+            <twig:NavItem:Edit route="competitor_pricings_edit"
+                               :routeParameters="{id: iri_id(competitorPricing['@id'])}"
+                               :security="is_granted('FEATURE_COMPETITOR_PRICING_WRITE', competitorPricing['@id'])"/>
+            <twig:NavItem:Delete route="competitor_pricings_delete"
+                                 :routeParameters="{id: iri_id(competitorPricing['@id'])}"
+                                 :security="is_granted('COMPETITOR_PRICING_DELETE_VOTER', competitorPricing['@id']) or is_granted('MOO_CPR', competitorPricing['@id'])"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

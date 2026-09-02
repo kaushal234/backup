@@ -1,0 +1,73 @@
+framework:
+    workflows:
+        demo:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\Sales\Demo
+            places:
+                - !php/const App\Entity\Sales\Demo::PENDING
+                - !php/const App\Entity\Sales\Demo::SUBMITTED
+                - !php/const App\Entity\Sales\Demo::APPROVED
+                - !php/const App\Entity\Sales\Demo::ACTIVE
+                - !php/const App\Entity\Sales\Demo::REJECTED
+                - !php/const App\Entity\Sales\Demo::SUCCESSFUL
+                - !php/const App\Entity\Sales\Demo::SUCCESSFUL_FUTURE_SALE
+                - !php/const App\Entity\Sales\Demo::UNSUCCESSFUL
+                - !php/const App\Entity\Sales\Demo::CANCELLED
+            transitions:
+                to_pending:
+                    from: !php/const App\Entity\Sales\Demo::SUBMITTED
+                    to: !php/const App\Entity\Sales\Demo::PENDING
+                to_submitted:
+                    from: !php/const App\Entity\Sales\Demo::PENDING
+                    to: !php/const App\Entity\Sales\Demo::SUBMITTED
+                to_approved:
+                    from: !php/const App\Entity\Sales\Demo::SUBMITTED
+                    to: !php/const App\Entity\Sales\Demo::APPROVED
+                to_rejected:
+                    from:
+                        - !php/const App\Entity\Sales\Demo::PENDING
+                        - !php/const App\Entity\Sales\Demo::SUBMITTED
+                    to: !php/const App\Entity\Sales\Demo::REJECTED
+                to_active:
+                    from: !php/const App\Entity\Sales\Demo::APPROVED
+                    to: !php/const App\Entity\Sales\Demo::ACTIVE
+                to_sold:
+                    from: !php/const App\Entity\Sales\Demo::ACTIVE
+                    to: !php/const App\Entity\Sales\Demo::SUCCESSFUL
+                to_successful_future_sale:
+                    from: !php/const App\Entity\Sales\Demo::ACTIVE
+                    to: !php/const App\Entity\Sales\Demo::SUCCESSFUL_FUTURE_SALE
+                to_unsuccessful:
+                    from: !php/const App\Entity\Sales\Demo::ACTIVE
+                    to: !php/const App\Entity\Sales\Demo::UNSUCCESSFUL
+                to_cancel:
+                    from:
+                        - !php/const App\Entity\Sales\Demo::PENDING
+                        - !php/const App\Entity\Sales\Demo::SUBMITTED
+                        - !php/const App\Entity\Sales\Demo::APPROVED
+                    to: !php/const App\Entity\Sales\Demo::CANCELLED
+                to_closed_rejected:
+                    from: !php/const App\Entity\Sales\Demo::CLOSED_STATUSES
+                    to: !php/const App\Entity\Sales\Demo::REJECTED
+                to_closed_unsuccessful:
+                    from: !php/const App\Entity\Sales\Demo::CLOSED_STATUSES
+                    to: !php/const App\Entity\Sales\Demo::UNSUCCESSFUL
+                to_closed_successful_future_sale:
+                    from: !php/const App\Entity\Sales\Demo::CLOSED_STATUSES
+                    to: !php/const App\Entity\Sales\Demo::SUCCESSFUL_FUTURE_SALE
+                to_closed_cancel:
+                    from: !php/const App\Entity\Sales\Demo::CLOSED_STATUSES
+                    to: !php/const App\Entity\Sales\Demo::CANCELLED
+                to_closed_successful:
+                    from: !php/const App\Entity\Sales\Demo::CLOSED_STATUSES
+                    to: !php/const App\Entity\Sales\Demo::SUCCESSFUL
+
+
+
+
+
+

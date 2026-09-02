@@ -1,0 +1,37 @@
+{% trans_default_domain 'task' %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-0 border-0 rounded-3">
+                {{ include('helper/_tabs.html.twig', {
+                    tabsData: {
+                        tabs: {
+                            details: {
+                                defaultTab: true,
+                                label: 'task.fields.details' | trans,
+                                template: 'task/partial/tabs/_details.html.twig',
+                                templateParams: _context,
+                            },
+                            files: {
+                                label: 'task.fields.files' | trans,
+                                template: 'task/partial/tabs/_files.html.twig',
+                                badge: task.files | length
+                            },
+                            taskLogs: {
+                                label: 'task.fields.logs' | trans,
+                                template: 'generic/_logs.html.twig',
+                                templateParams: { addComment: false, hideComments: true },
+                            },
+                            subscription: {
+                                label: 'subscribers' | trans({}, 'messages'),
+                                template: 'generic/_subscriptions.html.twig',
+                            },
+                        },
+                        data: task,
+                        link: app.request.query.get('tab'),
+                    },
+                }, with_context = false) }}
+            </div>
+        </div>
+    </div>
+</div>

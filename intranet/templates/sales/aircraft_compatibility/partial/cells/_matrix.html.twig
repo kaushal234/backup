@@ -1,0 +1,5 @@
+<td>
+    {% if cell.compatible is same as(true) %}
+            <a href="{{ path('aircraft_compatibility_show', {id: cell.id}) }}"><i class="fa fa-check"></i></a>
+    {% endif %}
+</td>

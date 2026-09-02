@@ -1,0 +1,119 @@
+App\Entity\DMS:
+
+    # /dms/{1..2}
+    dms_{1..2}:
+        id: <current()>
+        legacyId: "<current()>234"
+        title: "title_<current()>"
+        subject: "subject_<current()>"
+        description: "description_<current()>"
+        language: "fr"
+        owner: "@user_basic"
+        portal: 'TLD'
+        type: third
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        status: 'ACTIVE'
+
+    # /dms/3
+    dms_3:
+        id: 3
+        legacyId: 3234
+        title: "title_3"
+        subject: "subject_3"
+        description: "description_3"
+        language: "fr"
+        owner: "@user_basic"
+        portal: 'EXTRANET'
+        type: third
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        status: 'ACTIVE'
+        confidential: false
+        filepath: "../../../tests/fixtures/file.pdf"
+        mimetype: "application/pdf"
+
+    # /dms/{4..5}
+    dms_{4..5}:
+        id: <current()>
+        legacyId: "<current()>234"
+        title: "title_<current()>"
+        subject: "subject_<current()>"
+        description: "description_<current()>"
+        language: "fr"
+        owner: "@user_basic"
+        portal: 'EVENDOR'
+        type: third
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        status: 'ACTIVE'
+
+    # /dms/6
+    dms_6:
+        id: 6
+        legacyId: "6234"
+        title: "title_6"
+        subject: "subject_6"
+        description: "description_6"
+        language: "fr"
+        owner: "@user_basic"
+        portal: 'EVENDOR'
+        type: third
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        status: 'REVISION'
+
+    # /dms/7
+    dms_7:
+        id: 7
+        legacyId: "7234"
+        title: "title_7"
+        subject: "subject_7"
+        description: "description_7"
+        language: "fr"
+        owner: "@user_basic"
+        portal: 'EVENDOR'
+        type: third
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        status: 'APPROVAL'
+
+    # /dms/8
+    dms_8:
+        id: 8
+        legacyId: "8234"
+        title: "title_8"
+        subject: "subject_8"
+        description: "description_8"
+        language: "fr"
+        owner: "@user_basic"
+        portal: 'EVENDOR'
+        type: third
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        status: 'ARCHIVE'
+
+    # /dms/9
+    dms_9:
+        id: 9
+        legacyId: "9234"
+        title: "title_9"
+        subject: "subject_9"
+        description: "description_9"
+        language: "fr"
+        owner: "@user_basic"
+        portal: 'EVENDOR'
+        type: third
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        status: 'EXPIRED'
+
+    # /dms/10
+    dms_10:
+        id: 10
+        legacyId: 2534
+        title: "title_10"
+        subject: "subject_10"
+        description: "description_10"
+        language: "fr"
+        owner: "@user_basic"
+        portal: 'INTRANET'
+        type: third
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        status: 'ACTIVE'
+        confidential: true
+        filepath: "../../../tests/fixtures/file.pdf"
+        mimetype: "application/pdf"

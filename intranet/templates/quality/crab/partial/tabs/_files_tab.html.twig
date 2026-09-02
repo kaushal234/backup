@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-8">
+        {% set items = {
+            filePath: {
+                label: 'menu.files'|trans({}, 'messages')|capitalize,
+                filters : 'slice(36)',
+                link:{
+                    route: 'crab_files_show',
+                    params: {
+                        'id': 'id'
+                    },
+                    fixedParams: {
+                        'crabId': item.id
+                    }
+                },
+            },
+            description: {
+                label: 'demo.fields.file_description' | trans({}, 'demo') | capitalize,
+            },
+            createdAt: {
+                label: 'demo.fields.created_at'| trans({}, 'demo') |capitalize,
+                filters: 'date("Y-m-d H:i:s")'
+            },
+            size: {
+                label: 'size'|trans({}, 'messages')|trans|capitalize,
+                filters : 'readable_filesize'
+            },
+            public: {
+                label: 'fields.file_is_public'|trans({}, 'file_type')|capitalize,
+                boolean: {
+                    true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                    false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                }
+            },
+        } %}
+
+        {% if is_granted('FEATURE_CRAB_FILE_CHANGE_VISIBILITY') %}
+            {% set items = items | merge({
+                changeVisibility: {
+                    label: 'fields.change_file_visibility'|trans({}, 'file_type')|capitalize,
+                    link: {
+                        route: 'crab_file_change_visibility',
+                        params: {'fileId': 'id'},
+                        fixedParams: {
+                            'crabId': item.id
+                        },
+                        content: '<span class="btn btn-warning btn-xs"><i class="fa fa-edit fa-fw"></i></span>',
+                        popup: {
+                            type: 'confirmation',
+                            title: 'visibility.popup.confirmation.title'|trans({}, 'file_type'),
+                            message: 'visibility.popup.confirmation.message'|trans({}, 'file_type'),
+                        },
+                    },
+                }
+            }) %}
+        {% endif %}
+
+        {% if is_granted('FEATURE_CRAB_FILE_DELETE') %}
+            {% set items = items | merge({
+                delete: {
+                    label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                    sortable: false,
+                    class: 'text-end',
+                    link: {
+                        route: 'crab_file_delete',
+                        params: {'id': 'id'},
+                        fixedParams: {'crabId': item.id, '_token': csrf_token('delete_crab_file')},
+                        content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                        popup: {
+                            type: 'confirmation',
+                            title: 'visibility.popup.confirmation.title'|trans({}, 'file_type'),
+                            message: 'delete.popup.confirmation.message'|trans({}, 'file_type'),
+                        },
+                    },
+                },
+            }) %}
+        {% endif %}
+
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: items,
+                title: 'demo.fields.files'|trans({}, 'demo'),
+                data: item.files,
+                search: false,
+                pagination: false,
+                initialSorting: 'createdAt'
+            }
+        }, with_context = false) }}
+    </div>
+
+    <div class="col-md-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'demo.fields.add_file'|trans({}, 'demo') }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        {% form_theme form_files 'form_theme_vertical.html.twig' %}
+                        {{ form_start(form_files, { action: path('crab_show', {'id': item.id}) }) }}
+                        {{ form_errors(form_files) }}
+                        {{ form_row(form_files.file, {help: 'crab.file.max_size'|trans({}, 'crab')}) }}
+                        {{ form_row(form_files.description) }}
+                        {{ form_row(form_files.public) }}
+                        {{ form_rest(form_files) }}
+                        {{ form_end(form_files) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

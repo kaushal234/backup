@@ -1,0 +1,43 @@
+{% props title = null, id = null %}
+
+{% if onlyDialog == false %}
+    <div class="modal modal-blur fade inmodal" id="{{ id }}" tabindex="-1" style="display: none;" aria-hidden="true">
+{% endif %}
+
+{% block before_modal %}{% endblock %}
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+        {% block before_modal_header %}{% endblock %}
+        <div class="modal-header">
+            {% block header %}
+                {% if title %}
+                    <h1 class="modal-title fs-5">{{ title }}</h1>
+                {% endif %}
+            {% endblock %}
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        {% block after_modal_header %}{% endblock %}
+
+        {% block before_modal_body %}{% endblock %}
+        <div class="modal-body">
+            {% block content %}{% endblock %}
+        </div>
+        {% block after_modal_body %}{% endblock %}
+
+        {% block before_modal_footer %}{% endblock %}
+        <div class="modal-footer">
+            {% if withCloseButton %}
+                <button type="button" class="btn btn-white" data-bs-dismiss="modal">{{ 'button.cancel'|trans }}</button>
+            {% endif %}
+            {% block footer %}{% endblock %}
+        </div>
+        {% block after_modal_footer %}{% endblock %}
+
+    </div>
+</div>
+{% block after_modal %}{% endblock %}
+
+{% if onlyDialog == false %}
+    </div>
+{% endif %}

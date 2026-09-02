@@ -1,0 +1,41 @@
+{% extends 'directory/premise/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'directory.premise.dashboard' | trans | upper }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="col-lg-6">
+                    {{ form_start(premiseFilterTag) }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_widget(premiseFilterTag.tag) }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ form_widget(premiseFilterTag.submit) }}
+                        </div>
+                        {{ form_errors(premiseFilterTag) }}
+                        {{ form_rest(premiseFilterTag) }}
+                        {{ form_end(premiseFilterTag) }}
+                    </div>
+                </div>
+                <br><br><br><br><br><br>
+                <div class="">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: reportData,
+                        link: {
+                            route: 'directory_people_home',
+                            xParam: 'filter_people_list[premise][value]',
+                            yParam: 'filter_people_list[businessUnit][value]',
+                        },
+                        hideTotals: 'both',
+                        containerClass: 'table-rotated-headers',
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

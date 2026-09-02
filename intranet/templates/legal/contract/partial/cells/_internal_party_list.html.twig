@@ -1,0 +1,9 @@
+<td>
+        {% if internalParty is not empty %}
+                {% for party in internalParty %}
+                        {{ party }}<br>
+                {% endfor %}
+        {% else %}
+                <span class="text-muted">—</span>
+        {% endif %}
+</td>

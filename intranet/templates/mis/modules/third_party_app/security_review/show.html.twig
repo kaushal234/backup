@@ -1,0 +1,58 @@
+{% extends 'mis/modules/third_party_app/security_review/index.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        createdAt: {
+                            label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                            filters: 'date("Y-m-d")',
+                        },
+                        createdBy: {
+                            properties: ['createdBy.lastname', 'createdBy.firstname'],
+                            label: 'fields.created_by' |trans({}, 'messages'),
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'createdBy.@id'}
+                            }
+                        },
+                        securityLevel: {
+                            label: 'mis.modules.fields.security_level'|trans,
+                            properties: ['securityLevel.name'],
+                        },
+                        securityLevelComment: {
+                            label: 'mis.security_review.fields.security_level_comment'|trans,
+                        },
+                        isPasswordPolicyApplied: {
+                            label: 'mis.security_review.fields.is_password_policy_applied'|trans,
+                        },
+                        isMFAAdminApplied: {
+                            label: 'mis.security_review.fields.is_mfa_admin_applied'|trans,
+                        },
+                        isMFAUserApplied: {
+                            label: 'mis.security_review.fields.is_mfa_user_applied'|trans,
+                        },
+                        comment: {
+                            label: 'mis.security_review.fields.comment'|trans,
+                        },
+                        file: {
+                            label: 'File'|trans|capitalize,
+                            link:{
+                                route: 'mis_modules_security_review_file',
+                                fixedParams: {moduleId: module.id},
+                                params: {securityReviewId: 'id', id : 'mainFile.id'},
+                                class : 'text-center',
+                                content: '<span class="btn btn-warning btn-sm"><i class="fa fa-download fa-fw"></i></span>',
+                            }
+                        },
+                    },
+                    title: 'mis.security_review.title'|trans,
+                    data: securityReview
+                },
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

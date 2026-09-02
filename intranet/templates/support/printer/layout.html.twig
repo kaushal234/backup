@@ -1,0 +1,15 @@
+{% extends 'support/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ 'support.printer.printer'|trans()|upper }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add translationKey="support.nav_link.add_printer" domain="support" route="printer_add" :security="is_granted('FEATURE_PRINTER_WRITE')"/>
+        <twig:NavItem translationKey="support.nav_link.manuals_list" domain="support" icon="material-symbols:home-outline-rounded" route="manuals_home"/>
+        <twig:NavItem translationKey="support.nav_link.printer_home" domain="support" icon="material-symbols:home-outline-rounded" route="printer_home"/>
+        {% if printer is defined and not null %}
+            <twig:NavItem:Edit route="printer_edit" :routeParameters="{id: iri_id(printer)}" :security="is_granted('FEATURE_PRINTER_WRITE')" />
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/aircraft_compatibilities/\\d+$"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/products/\\d+$"},
+          "@type": {"type": "string"},
+          "name": {"type": "string"},
+          "family": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/product_families/\\d+$"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "productType":{
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/product_types/\\d+$"},
+                  "@type": {"type": "string"},
+                  "englishName": {"type": "string"}
+                },
+                "required": ["@id", "@type", "englishName"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["@id", "@type", "name", "productType"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["@id", "@type", "name", "family"],
+        "additionalProperties": false
+      }
+    },
+    "aircrafts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/aircrafts/\\d+$"},
+          "@type": {"type": "string"},
+          "name": {"type": "string"},
+          "id": {"type": "integer"},
+          "manufacturer": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/manufacturers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              }
+            },
+            "required": ["@id", "@type", "name", "id"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["@id", "@type", "name", "id", "manufacturer"],
+        "additionalProperties": false
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {"pattern": "/contexts/[a-zA-Z]+File"},
+          "@id": {"pattern": "^/[a-z_\/]+_files/\\d+$"},
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "poster": {
+            "$ref": "../../../directory_people/schemas/directory_people_public.json"
+          },
+          "filePath": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "description": { "type": ["string","null"] },
+          "sha": { "type": "string" },
+          "mimeType": { "type": "string" },
+          "extension": { "type": "string" },
+          "size": { "type": "integer" },
+          "public": { "type": "boolean" },
+          "type": { "type": "string" }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "poster",
+          "filePath",
+          "createdAt",
+          "description",
+          "sha",
+          "mimeType",
+          "extension",
+          "size",
+          "public",
+          "type"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["@id", "@type", "id", "products", "aircrafts", "files"],
+  "additionalProperties": false
+}

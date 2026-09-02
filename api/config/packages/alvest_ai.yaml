@@ -1,0 +1,221 @@
+alvest_ai:
+  # Business entities exposed to the AI agent.
+  # Key = slug the LLM passes to fetch_entity_comments / fetch_related_entities
+  # (matches the extract_<slug>_information tool name).
+  #
+  # - comments / related_entities: tools for the chat agent (require class)
+  # - search:           modern Doctrine-backed semantic-search result (requires class)
+  # - legacy_search:    legacy-table semantic-search result (class optional)
+  entities:
+    sales_forecast:
+      class: App\Entity\Sales\SalesForecast
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: SFR }
+      search:
+        src: sfr
+        fields: ['poster', 'product.name']
+        route: sales_forecast
+    equipment_shipping_record:
+      class: App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: ESR }
+      search:
+        src: esr
+        fields: ['loadingPlace', 'arrivalPlace']
+        route: equipment_shipping_record
+    market_intelligence:
+      class: App\Entity\Sales\MarketIntelligence\MarketIntelligence
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: MIM }
+      search:
+        src: mim
+        fields: ['shortDescription', 'description']
+        route: market_intelligence
+    crab:
+      class: App\Entity\Quality\Crab
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: CRAB }
+      search:
+        src: crab
+        fields: ['description']
+        route: crab
+    non_conformity:
+      class: App\Entity\Quality\NonConformity
+      comments: { type: default }
+      related_entities: { parent_id: id, module: NCR }
+      search:
+        src: ncr
+        fields: ['shortDescription']
+        route: non_conformity
+    supplier_corrective_action_request:
+      class: App\Entity\Quality\SupplierCorrectiveActionRequest
+      comments: { type: default }
+      related_entities: { parent_id: id, module: SCAR }
+      search:
+        src: scar
+        fields: ['shortDescription']
+        route: supplier_corrective_action_request
+    vendor_warranty_claim:
+      class: App\Entity\Purchasing\VendorWarrantyClaim
+      comments: { type: default }
+      related_entities: { parent_id: id, module: VWC }
+    news:
+      class: App\Entity\News\News
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: INN }
+      search:
+        src: news
+        fields: ['title']
+        route: news_show
+    manual:
+      class: App\Entity\Support\Manual
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: MANUAL }
+      search:
+        src: manuals
+        fields: ['description']
+        route: manual_show
+    equipment_record:
+      class: App\Entity\EquipmentRecord
+      comments: { type: legacy, legacy_module: ER }
+      related_entities: { parent_id: legacy_id, module: ER }
+    task:
+      class: App\Entity\Task\Task
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: TASK }
+      search:
+        src: tasks
+        fields: ['shortDescription']
+        route: task
+    dms:
+      class: App\Entity\DMS
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: DMS }
+      legacy_search:
+        src: dms
+        fields: ['title']
+        route: dms
+        route_with_no_params: true
+    customer_service_record:
+      class: App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: CSR }
+      search:
+        src: csr
+        fields: ['description']
+        route: customer_service_record
+    trouble_ticket:
+      class: App\Entity\MIS\TroubleTicket\TroubleTicket
+      comments: { type: default }
+      related_entities: { parent_id: id, module: TTS }
+    project:
+      class: App\Entity\MIS\Project\Project
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: MIS }
+      search:
+        src: mis_tts
+        fields: ['name', 'description']
+        route: project
+    people:
+      class: App\Entity\Directory\People
+      search:
+        src: people
+        fields: ['firstname', 'lastname', 'jobTitle']
+        route: people
+
+    engineering_activity_process:
+      class: LegacyBundle\Entity\Engineering\EngineeringActivityProcess
+      comments: { type: legacy, legacy_module: EAP }
+      related_entities: { parent_id: id, module: EAP }
+      legacy_search:
+        src: eap
+        fields: ['short_desc']
+        route: legacy_manufacturing_env
+    master_engineering_activity_process:
+      class: LegacyBundle\Entity\Engineering\MasterEngineeringActivityProcess\MasterEngineeringActivityProcess
+      comments: { type: legacy, legacy_module: MEAP }
+      related_entities: { parent_id: id, module: MEAP }
+      legacy_search:
+        src: meap
+        fields: ['short_desc']
+        route: legacy_manufacturing_env
+    product_innovation_proposal:
+      class: LegacyBundle\Entity\Engineering\ProductInnovationProposal
+      comments: { type: legacy, legacy_module: PIP }
+      related_entities: { parent_id: id, module: PIP }
+      legacy_search:
+        src: pip
+        fields: ['short_desc']
+        route: legacy_manufacturing_env
+    interco_shipping_record:
+      class: LegacyBundle\Entity\Materials\IntercoShippingRecord
+      comments: { type: legacy, legacy_module: ISR }
+      related_entities: { parent_id: id, module: ISR }
+      legacy_search:
+        src: isr
+        fields: ['tnum', 'notes']
+        route: legacy_manufacturing_pur
+    corrective_preventive_action:
+      class: LegacyBundle\Entity\Quality\CorrectivePreventiveAction
+      comments: { type: legacy, legacy_module: CPA }
+      related_entities: { parent_id: id, module: CPA }
+      legacy_search:
+        src: cpa
+        fields: ['short_desc']
+        route: legacy_manufacturing_qa
+    warranty_claim:
+      class: LegacyBundle\Entity\Quality\WarrantyClaim
+      comments: { type: legacy, legacy_module: WC }
+      related_entities: { parent_id: id, module: WC }
+      legacy_search:
+        src: warranty
+        fields: ['problem_desc']
+        route: legacy_product_support
+        route_parameter: wc
+    service_bulletin:
+      class: LegacyBundle\Entity\ServiceBulletin
+      comments: { type: legacy, legacy_module: SB3 }
+      related_entities: { parent_id: id, module: SB3 }
+      legacy_search:
+        src: sb
+        fields: ['title']
+        route: legacy_product_support
+    technician_on_call:
+      class: App\Entity\Service\TechnicianOnCall
+      comments: { type: default }
+      related_entities: { parent_id: legacy_id, module: TOC }
+      legacy_search:
+        src: toc
+        fields: ['short_desc']
+        route: legacy_sales_service_service
+    product_demerit_claim:
+      class: LegacyBundle\Entity\Support\ProductDemeritClaim
+      comments: { type: legacy, legacy_module: PDC }
+      related_entities: { parent_id: id, module: PDC }
+      legacy_search:
+        src: pdc
+        fields: ['short_desc']
+        table: demerit
+        route: legacy_product_support
+
+    # Legacy search-only — no Doctrine class, no comments/links.
+    service_bulletin_subscription:
+      legacy_search:
+        src: sbs
+        fields: ['title']
+        route: legacy_product_support
+    spare_parts_quote:
+      legacy_search:
+        src: spq
+        fields: ['last_status']
+        route: legacy_parts
+    spare_parts_request:
+      legacy_search:
+        src: spr
+        fields: ['ship_to', 'nota']
+        route: legacy_parts
+    spare_parts_quote_engineering:
+      legacy_search:
+        src: sqe
+        fields: ['ca_name', 'note']
+        route: legacy_parts

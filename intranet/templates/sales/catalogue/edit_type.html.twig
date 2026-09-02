@@ -1,0 +1,14 @@
+{% extends 'sales/catalogue/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/catalogue/partial/_form_type.html.twig', {
+        title: 'catalogue.type.edit_type'|trans,
+        form: form,
+        productType: productType,
+        action: path('sales_catalogue_type_edit', { id: productType.id }),
+        cancel_link: path('sales_catalogue_type_show', { id: productType.id })
+    }, with_context=false) }}
+{% endblock %}

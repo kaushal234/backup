@@ -1,0 +1,11 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_wallpapers.html.twig', {
+        wallpapers: [
+            'xops/wallpapers/Xops Teams-Wallpaper.jpg',
+        ],
+    }) }}
+{% endblock %}

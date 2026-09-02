@@ -1,0 +1,18 @@
+<td>
+    {% if item.equipmentRecord.greenTagDate %}
+        {{ item.equipmentRecord.greenTagDate|date('Y-m-d') }}
+
+        {% set greenTagLimit = item.equipmentRecord.greenTagDate|date_modify('+30 days') %}
+        {% set estimatedPickUpDate = date(item.estimatedPickUpDate) %}
+
+        {% if estimatedPickUpDate > greenTagLimit %}
+            <span data-toggle="tooltip"
+                  data-placement="top"
+                  style="cursor: help; font-size: 18px;"
+                  title="{{ 'planning_daily.warning' | trans({}, 'equipment_shipping_record') }}"
+            >
+                    ⚠️
+            </span>
+        {% endif %}
+    {% endif %}
+</td>

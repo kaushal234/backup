@@ -1,0 +1,72 @@
+<button type="button" class="btn btn-outline-primary float-end" data-bs-toggle="modal" data-bs-target="#labels_modal">
+    <span class="mx-4">{{ 'display.table.purchase_order.caption.generate_labels'|trans }}</span>
+</button>
+
+<div class="modal carousel-fade" id="labels_modal" tabindex="-1" aria-labelledby="#labels_modal_label"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content display-style">
+            <div class="modal-header border-dark border-1">
+                <h5 class="modal-title text-black"
+                    id="labels_modal_label">{{ 'display.table.purchase_order.caption.generate_labels'|trans }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {% set formLabel = create_purchase_order_generate_labels_form(order) %}
+
+            {{ form_start(formLabel) }}
+
+            <div class="modal-body">
+
+                {% embed '_components/report_table.html.twig' with {
+                    reportTable: {
+                        items: {
+                            lineIdentifier: {
+                                label: 'display.table.purchase_order_line.headers.item'|trans,
+                                template: 'purchase-order/components/modal/_partial/value_form_field.html.twig',
+                            },
+                            partNumber: {
+                                label: 'display.table.purchase_order_line.headers.part'|trans,
+                                template: 'purchase-order/components/modal/_partial/value_form_field.html.twig',
+                            },
+                            quantityLabel: {
+                                label: 'display.table.purchase_order_line.headers.quantityLabel'|trans,
+                                template: 'purchase-order/components/modal/_partial/form_field.html.twig',
+                            },
+                            labelDeliveredQuantity: {
+                                label: 'display.table.purchase_order_line.headers.delivered_quantity'|trans,
+                                template: 'purchase-order/components/modal/_partial/form_field.html.twig',
+                            },
+                            packingSlip: {
+                                label: 'display.table.purchase_order_line.headers.packingSlip'|trans,
+                                template: 'purchase-order/components/modal/_partial/form_field.html.twig',
+                            },
+                        },
+                        id: 'purchase-order-lables-label-table',
+                        data: formLabel.lines,
+                    }
+                } %}
+                    {% block card_header %}
+                        {# no title #}
+                    {% endblock %}
+                    {% block table_class %}
+                        table  mb-0 table-responsive
+                    {% endblock %}
+                    {% block card_class %}
+                        card border-0 table-hover
+                    {% endblock %}
+
+                {% endembed %}
+            </div>
+
+            <div class="modal-footer border-dark">
+                <button type="button" class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">{{ 'display.table.purchase_order.action.cancel'|trans }}</button>
+                <button type="submit" name="confirm_label_action_confirm" class="btn btn-primary"
+                        id="confirm_label_action_confirm">{{ 'display.table.purchase_order.action.generate'|trans }}</button>
+            </div>
+
+            {{ form_end(formLabel) }}
+
+        </div>
+    </div>
+</div>

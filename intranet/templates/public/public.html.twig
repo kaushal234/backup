@@ -1,0 +1,19 @@
+{% extends 'public/layout_public.html.twig' %}
+{% trans_default_domain 'messages' %}
+
+{% block content %}
+
+{% if error.message is defined %}
+    <div class="alert alert-danger">
+        {{ error.messageKey|trans(error.messageData, 'support') }}
+    </div>
+{% endif %}
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name"><img class="img-fluid" src="/shared/logos/ALVEST_logo.png"></h1>
+            </div>
+            <h3>{{ 'public.welcome'|trans }}</h3>
+        </div>
+    </div>
+{% endblock %}

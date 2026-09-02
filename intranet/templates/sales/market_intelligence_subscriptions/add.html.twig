@@ -1,0 +1,24 @@
+{% extends 'sales/market_intelligence/layout.html.twig' %}
+{% trans_default_domain 'market_intelligence' %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'market_intelligence' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'competitor_pricings' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'sales_competitors' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'demo' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'catalogue' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'finance' }) }}"></script>
+{% endblock %}

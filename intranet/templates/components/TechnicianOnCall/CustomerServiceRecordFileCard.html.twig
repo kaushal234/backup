@@ -1,0 +1,12 @@
+{% props customerServiceRecord, file, index %}
+
+<twig:Gallery:FileCard :file="file" :index="index">
+    <twig:block name="actions">
+        <a class="mx-1" href="{{ path('customer_service_record_files_show', {customerServiceRecordId: customerServiceRecord.id, id: file.id}) }}">
+            <i class="card-img mx-auto fa-solid fa-file-arrow-down fa-2x"></i>
+        </a>
+        <div class="badge badge-info h-auto px-2 align-content-center">
+            CSR
+        </div>
+    </twig:block>
+</twig:Gallery:FileCard>

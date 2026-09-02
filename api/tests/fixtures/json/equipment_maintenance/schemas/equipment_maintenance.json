@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/equipment_maintenances/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "type": {
+      "type": "integer"
+    },
+    "maintenanceFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "followUpReport" : {"type": "string"}
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "date",
+    "comment",
+    "type",
+    "maintenanceFiles"
+  ]
+}

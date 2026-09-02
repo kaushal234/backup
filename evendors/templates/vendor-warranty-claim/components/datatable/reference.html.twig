@@ -1,0 +1,5 @@
+{% if item.module is same as 'NCR' %}
+    <td>{{ item.nonConformity.id }}</td>
+{% else %}
+    <td>{{ item.warrantyClaimId }}</td>
+{% endif %}

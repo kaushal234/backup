@@ -1,0 +1,23 @@
+{% extends 'parts/spare_parts_requests/layout.html.twig' %}
+{% trans_default_domain 'spare_parts_request' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h3>{{ 'titles.quick_access'|trans([], 'messages')|capitalize }}</h3>
+            {{ form_start(idSearchForm, { action: path('spare_parts_request_list') }) }}
+            <div class="row">
+                <div class="col-sm-10">
+                    {{ form_widget(idSearchForm) }}
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                </div>
+            </div>
+            {{ form_end(idSearchForm) }}
+        </div>
+    </div>
+
+    {{ data_table(dataTable) }}
+{% endblock %}

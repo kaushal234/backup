@@ -1,0 +1,49 @@
+{% extends 'purchasing/supplier_ranking/layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        expertiseLevel: {
+                            label: 'fields.expertise_level'|trans|capitalize,
+                            properties: ['expertiseLevel.name']
+
+                        },
+                        classification: {
+                            label: 'fields.classification'|trans|capitalize,
+                            properties: ['classification.name']
+                        },
+                        months: {
+                            label: 'calibration_tool.fields.calibrationIntervalUnit.months'|trans({}, 'calibration_tool')|capitalize,
+                        },
+                        edit: {
+                            label: 'menu.edit' | trans([], 'messages') | capitalize,
+                            link:{
+                                route: 'periodicity_rankings_edit',
+                                params: { expertiseLevelId: 'expertiseLevel.@id', classificationId: 'classification.@id' },
+                                content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></span>',
+                            },
+                            sortable: false,
+                        },
+                        delete: {
+                            label: 'menu.delete'|trans([], 'messages')|capitalize,
+                            class: 'text-end',
+                            link:{
+                                route: 'periodicity_rankings_delete',
+                                params: {expertiseLevelId: 'expertiseLevel.@id', classificationId: 'classification.@id'},
+                                content: '<span class="btn btn-danger btn-sm text-capitalize"><i class="fa fa-trash-alt"></i></span>',
+                            },
+                        }
+                    },
+                    title: 'periodicity.title'|trans|capitalize,
+                    data: periodicities,
+                    pagination: false,
+                    search: false
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

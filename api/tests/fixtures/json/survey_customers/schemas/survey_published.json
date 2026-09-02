@@ -1,0 +1,519 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/surveys/published/.+$"},
+    "@type": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "@id": {"pattern": "^/sales/extranet_users/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "phones": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "extranetUserProfile": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/sales/extranet_user_profiles/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "department": {
+              "type": ["string", "null"]
+            },
+            "customer": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "@id": {"pattern": "^/sales/customers/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "status"
+              ]
+            },
+            "erpLocation": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "@id": {"pattern": "^/locations/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "erp": {
+                  "type": ["integer", "null"]
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "erp"
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "department",
+            "customer",
+            "erpLocation"
+          ]
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "passwordUpdatedAt": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "passwordExpirationDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "username",
+        "disabled",
+        "extranetUserProfile",
+        "hidden",
+        "passwordUpdatedAt",
+        "displayName",
+        "firstname",
+        "lastname",
+        "email",
+        "id",
+        "passwordExpirationDate",
+        "phones"
+      ]
+    },
+    "campaign": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/surveys/campaigns/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/surveys/models/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "expirationDate": {
+              "type": "string"
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/surveys/groups/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": ["string", "null"]
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "updatedAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "name",
+                  "description",
+                  "createdAt",
+                  "updatedAt"
+                ]
+              }
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/surveys/items/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "group": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/surveys/groups/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "id",
+                      "name",
+                      "description",
+                      "createdAt",
+                      "updatedAt"
+                    ]
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "updatedAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "description",
+                  "group",
+                  "createdAt",
+                  "updatedAt"
+                ]
+              }
+            },
+            "ratingTypes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/surveys/rating_types/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "min": {
+                    "type": "integer"
+                  },
+                  "max": {
+                    "type": "integer"
+                  },
+                  "minLabel": {
+                    "type": "string"
+                  },
+                  "maxLabel": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "min",
+                  "max",
+                  "minLabel",
+                  "maxLabel",
+                  "description"
+                ]
+              }
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "name",
+            "description",
+            "expirationDate",
+            "groups",
+            "items",
+            "ratingTypes",
+            "createdAt",
+            "updatedAt"
+          ]
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "model"
+      ]
+    },
+    "token": {
+      "type": "string"
+    },
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "totalItems": {
+      "type": "integer"
+    },
+    "totalItemsAnswered": {
+      "type": "integer"
+    },
+    "totalRemainingItems": {
+      "type": "integer"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "@id": {"pattern": "^/sales/extranet_users/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "phones": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "extranetUserProfile": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/sales/extranet_user_profiles/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "department": {
+              "type": ["string", "null"]
+            },
+            "customer": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "@id": {"pattern": "^/sales/customers/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "status"
+              ]
+            },
+            "erpLocation": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "@id": {"pattern": "^/locations/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "erp": {
+                  "type": ["integer", "null"]
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "erp"
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "department",
+            "customer",
+            "erpLocation"
+          ]
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "passwordUpdatedAt": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "passwordExpirationDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "username",
+        "disabled",
+        "extranetUserProfile",
+        "hidden",
+        "passwordUpdatedAt",
+        "displayName",
+        "firstname",
+        "lastname",
+        "email",
+        "id",
+        "passwordExpirationDate",
+        "phones"
+      ]
+    },
+    "isOpened": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "customer",
+    "token",
+    "answers",
+    "comments",
+    "totalItems",
+    "totalItemsAnswered",
+    "totalRemainingItems",
+    "createdAt",
+    "updatedAt",
+    "target",
+    "isOpened"
+  ]
+}

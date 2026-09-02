@@ -1,0 +1,36 @@
+{% form_theme form 'form_theme_horizontal.html.twig' %}
+
+{{ include('directory/premise/partial/_request_new_premise.html.twig') }}
+
+{{ form_start(form, { action: action }) }}
+{{ form_errors(form) }}
+<div class="row">
+    <div class="col-md-8">
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.gender) }}
+        {{ form_row(form.nickname) }}
+        {{ form_row(form.alternateEmail) }}
+        {{ form_row(form.phones) }}
+        {{ form_row(form.premise) }}
+        <div class="d-flex justify-content-end mb-2"><a class="btn btn-info" onClick="document.getElementById('ticket-helper-form').submit()">
+            {{ 'directory.premise.new' | trans({}, 'directory') }}
+        </a></div>
+        {% if form.adress is defined%}
+            {{ form_row(form.address) }}
+        {% endif %}
+        {{ form_row(form.locale) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_row(form.image) }}
+        <p style="color: red; font-weight: bold">
+            {{ 'account.warning.photo' | trans({}, 'account') }}
+        </p>
+    </div>
+</div>
+
+{{ form_rest(form) }}
+    <button type="submit" class="btn btn-primary float-end">{{ 'button.submit'|trans|capitalize }}</button>
+{{ form_end(form) }}
+
+

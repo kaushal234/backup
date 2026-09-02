@@ -1,0 +1,47 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>{{ 'account_receivable.fields.totalBalance' | trans }}: {{ imported | number_format(0, '.', ' ') | concat("K€") }}</p>
+            {% if errors is defined and errors | length > 0 %}
+                <p>{{ 'account_receivable.message.errors' | trans }}
+                <p>{{ 'account_receivable.fields.totalBalanceNotImported' | trans }}: {% if totalNotImported < 1 %}{{ totalNotImported | number_format(2, '.', ' ')  | concat("K€") }}{% else %}{{ totalNotImported | number_format(0, '.', ' ') | concat("K€") }}{% endif %}</p></p>
+                {% if exceptionCount > 0 %}
+                    <p>{{ 'account_receivable.fields.exceptions' | trans({'%count%': exceptionCount}) }}</p>
+                {% endif %}
+               {% if truncatedErrors == true %}
+                    <p>{{ 'account_receivable.fields.truncated' | trans }}</p>
+                    <p>{{ 'account_receivable.fields.error_lines' | trans({'%count%': errorLines}) }}</p>
+               {% endif %}
+
+                <br>
+                {{ include('/Helpers/_report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            erp: { label: 'account_receivable.fields.erp'|trans },
+                            pcust: { label:'account_receivable.fields.pcust'  | trans },
+                            customer: { label:'demo.fields.customer'  | trans },
+                            transactionType: { label:'account_receivable.fields.transaction_type'  | trans },
+                            invoiceNumber: { label:'account_receivable.fields.invoice_number'  | trans },
+                            balanceAmount: {
+                                label:'account_receivable.fields.balance_amount'  | trans,
+                                properties: ['balanceAmount', 'currency'],
+                            },
+                            errors: {
+                                label:'account_receivable.fields.errors'  | trans,
+                                filters: ['nl2br'],
+                            },
+                        },
+                        data: errors,
+                        title: ''
+                    },
+                }, with_context = false) }}
+            {% else %}
+                {{ 'account_receivable.message.success' | trans }}
+            {% endif %}
+        </columns>
+    </row>
+{% endblock %}

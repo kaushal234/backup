@@ -1,0 +1,5 @@
+<td>
+    {% if item.time is not null %}
+        {{ (item.time / 3600 / 24) | round(2) }} Day(s)
+    {% endif %}
+</td>

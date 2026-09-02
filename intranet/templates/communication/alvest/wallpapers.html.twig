@@ -1,0 +1,14 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_wallpapers.html.twig', {
+        wallpapers: [
+            'alvest/wallpapers/Alvest Wallpapers 1.jpg',
+            'alvest/wallpapers/Alvest Wallpapers 2.jpg',
+            'alvest/wallpapers/Alvest Wallpapers 3.jpg',
+            'alvest/wallpapers/Alvest Wallpapers 4.jpg',
+        ],
+    }) }}
+{% endblock %}

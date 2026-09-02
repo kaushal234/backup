@@ -1,0 +1,69 @@
+{% trans_default_domain 'mis' %}
+<td>
+    {% if item.admin and is_granted('FEATURE_MODULE_WRITE') %}
+        {% embed 'helper/_modal.html.twig' with {
+            id: 'remove_admin_' ~ item.id,
+            button: {
+                name: '',
+                icon: 'fa-trash',
+                color: 'danger'
+            },
+            modal: {
+                title: 'Confirmation',
+                size: 'lg',
+                targetButton: {
+                    name: 'Yes, remove',
+                    link: path('mis_third_party_app_members_remove_admin', {
+                        id: module.id,
+                        memberId: item.id,
+                        '_token': csrf_token('remove_member')
+                    }),
+                    color: 'danger'
+                },
+                closeButton: {
+                    name: 'Cancel'
+                }
+            },
+        } %}
+            {% block body %}
+                Your're going to remove admin user <strong>{{ item.user.lastname|capitalize }} {{ item.user.firstname}}</strong>, please secure that just accordingly the right in <strong>{{ item.thirdPartyApp.name }}</strong>, are you sure you want to remove ?
+            {% endblock %}
+        {% endembed %}
+    {% else %}
+        {% embed 'helper/_modal.html.twig' with {
+            id: 'remove_member_' ~ item.id,
+            button: {
+                name: '',
+                icon: 'fa-trash',
+                color: 'danger'
+            },
+            modal: {
+                title: 'Confirmation',
+                size: 'lg',
+                targetButton: {
+                    name: 'Yes, remove',
+                    link: path('mis_third_party_app_members_remove', {
+                        id: module.id,
+                        memberId: item.id,
+                        '_token': csrf_token('remove_member')
+                    }),
+                    color: 'danger'
+                },
+                closeButton: {
+                    name: 'Cancel'
+                }
+            },
+        } %}
+            {% block body %}
+                Are you sure you want to remove ?<br />
+                This action will create a <strong>REMOVE ACCESS</strong> update task.
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+    &nbsp;
+    {% if item.admin %}
+        <a href="{{ path('mis_third_party_app_members_demote', {id: module.id, memberId: item.id}) }}" class="btn btn-warning" type="button" style="display: inline; width: 38px;" title="{{ 'mis.member.buttons.demote'|trans }}"><i class="fa fa-angle-double-down"></i></a>
+    {% else %}
+        <a href="{{ path('mis_third_party_app_members_promote', {id: module.id, memberId: item.id}) }}" class="btn btn-warning" type="button" style="display: inline; width: 38px;" title="{{ 'mis.member.buttons.promote'|trans }}"><i class="fa fa-angle-double-up"></i></a>
+    {% endif %}
+</td>

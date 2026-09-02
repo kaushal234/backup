@@ -1,0 +1,36 @@
+{% extends 'support/manual_document/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'titles.edition'|trans({}, 'messages')|capitalize }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {{ form_row(form.position) }}
+                        {{ form_row(form.factoryNumber) }}
+                        {{ form_row(form.revision) }}
+                        {{ form_row(form.category) }}
+                        {{ form_row(form.type) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.otherDescription) }}
+
+                        {% block collection %}
+                            {{ include('support/manual_document/partial/_collection.html.twig', {
+                                form: form.parts,
+                            }, with_context=false) }}
+                        {% endblock %}
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary text-capitalize">{{ 'button.submit'|trans({}, 'messages') }}</button>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

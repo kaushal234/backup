@@ -1,0 +1,27 @@
+<twig:Tabs:NavItem url="{{ path('trouble_ticket_show', {id: troubleTicket.id}) }}">
+    {{ 'contacts.menu.detail'|trans({}, 'contacts') }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('trouble_ticket_show_files', {id: troubleTicket.id}) }}">
+    {{ 'menu.files'|trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('trouble_ticket_show_logs', {id: troubleTicket.id}) }}">
+    {{ 'menu.logs'|trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('trouble_ticket_show_subscriptions', {id: troubleTicket.id}) }}">
+    {{ 'subscribers'|trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('trouble_ticket_show_status_trail', {id: troubleTicket.id}) }}">
+    {{ 'status_trail'|trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('trouble_ticket_show_help', {id: troubleTicket.id}) }}">
+    {{ 'trouble_ticket.fields.help'|trans({}, 'trouble_ticket')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('trouble_ticket_show_support', {id: troubleTicket.id}) }}">
+    {{ 'trouble_ticket.fields.support'|trans({}, 'trouble_ticket')|capitalize }}
+</twig:Tabs:NavItem>

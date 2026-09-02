@@ -1,0 +1,130 @@
+{#
+  contact/index.html.twig — CONTACT
+  Route: contact:index  (App\Controller\Contact\IndexController)
+  Vars : form (ContactType — department ChoiceType + message TextareaType),
+         customerRelationshipTeam (from session, may be null)
+
+  The form posts to contact:email (the form's own `action`). The team section
+  renders only when `customerRelationshipTeam` is in the session.
+
+  The department choices are rendered as a segmented "cards" rail bound to the
+  native select via dept_cards_controller.js; the native select stays the source
+  of truth and is shown when JS is off.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.title.contact_us'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.customer_portal'|trans,
+        hero_title: 'extranet.title.contact_us'|trans,
+        hero_sub: 'extranet.contact.intro'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.title.contact_us'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            {% if customerRelationshipTeam is defined and customerRelationshipTeam %}
+                {# ---- Your team ---- #}
+                <div class="section-head">
+                    <div class="titles">
+                        <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.contact.your_team'|trans }}</div>
+                        <h2 class="section-title mt-2">{{ 'extranet.contact.team_title'|trans }}</h2>
+                    </div>
+                </div>
+                <div class="row g-3 mb-5">
+                    {% for key, rep in {
+                        sales_representative: customerRelationshipTeam.salesRepresentative,
+                        service_representative: customerRelationshipTeam.serviceRepresentative,
+                        parts_representative: customerRelationshipTeam.partsRepresentative
+                    } %}
+                        <div class="col-md-4">
+                            <div class="rep-card rep-{{ key|split('_')|first }}">
+                                <div class="rep-head">
+                                    <div class="rep-avatar">
+                                        <img class="w-100 h-100 rounded-circle" style="object-fit:cover"
+                                             src="{{ rep.photo ? path('people-photo', {id: rep.id, fileId: rep.photo.id}) : asset('images/no_photo_catalogue.png') }}" alt="" draggable="false">
+                                    </div>
+                                    <div>
+                                        <div class="rep-role-tag">{{ ('extranet.home.' ~ key)|trans }}</div>
+                                        <h4 class="rep-name">{{ rep.firstname }} {{ rep.lastname }}</h4>
+                                        <div class="rep-bu">{{ rep.businessUnit.location.name }}</div>
+                                    </div>
+                                </div>
+                                <div class="rep-body">
+                                    <a class="rep-item" href="mailto:{{ rep.email }}"><span class="ri-ico">@</span><span>{{ rep.email }}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {# ---- Contact form ---- #}
+            <div class="section-head">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.contact.send_message'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.contact.form_title'|trans }}</h2>
+                    <p class="section-sub">{{ 'extranet.contact.form_sub'|trans }}</p>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                {{ form_start(form, {attr: {class: 'cf-grid', novalidate: 'novalidate'}}) }}
+                    {# LEFT: department as segmented cards (binds to the real select) #}
+                    <div class="cf-side">
+                        <div class="cf-side-label">{{ form_label(form.department) }}</div>
+
+                        {# Native select kept for no-JS / accessibility; hidden when JS is on #}
+                        <div data-controller="dept-cards">
+                            <div class="cf-native-select mb-2">{{ form_widget(form.department, {attr: {class: 'cf-input', 'data-dept-cards-target': 'select', 'data-action': 'dept-cards#sync'}}) }}</div>
+
+                            <div class="cf-dept-list" data-dept-cards-target="cards">
+                                {% set deptMeta = {
+                                    'Sales':       { icon: 'tabler:briefcase',    sub: 'extranet.contact.dept.sales_sub'|trans },
+                                    'Service':     { icon: 'tabler:tool',         sub: 'extranet.contact.dept.service_sub'|trans },
+                                    'Spare Parts': { icon: 'tabler:settings-2',   sub: 'extranet.contact.dept.parts_sub'|trans }
+                                } %}
+                                {% for choice in form.department.vars.choices %}
+                                    {% set meta = deptMeta[choice.label] | default({ icon: 'tabler:point', sub: '' }) %}
+                                    <button type="button" class="cf-dept{{ form.department.vars.value == choice.value ? ' active' }}"
+                                            data-dept-cards-target="card" data-value="{{ choice.value }}" data-action="dept-cards#pick">
+                                        <span class="cf-dept-ico" aria-hidden="true">{{ ux_icon(meta.icon, {width: '20', height: '20'}) }}</span>
+                                        <span class="cf-dept-body">
+                                            <span class="cf-dept-name">{{ choice.label }}</span>
+                                            <span class="cf-dept-sub">{{ meta.sub }}</span>
+                                        </span>
+                                        <span class="cf-dept-mark">{{ ux_icon('tabler:check', {width: '16', height: '16'}) }}</span>
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {# RIGHT: message + submit #}
+                    <div class="cf-main">
+                        <div class="cf-row">
+                            <label class="cf-label" for="{{ form.message.vars.id }}">{{ form_label(form.message) }}</label>
+                            {{ form_widget(form.message, {attr: {class: 'cf-input', rows: 11, style: 'min-height:300px;resize:vertical'}}) }}
+                            {{ form_errors(form.message) }}
+                        </div>
+                        <div class="cf-foot">
+                            <button type="submit" data-turbo="false" class="btn-find">
+                                {{ 'extranet.form.send'|trans }}
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+
+        </div>
+    </section>
+</div>
+{% endblock %}

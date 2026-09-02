@@ -1,0 +1,29 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'Anderson Airmotive Logo': {
+                'eps': 'anderson_airmotive/logos/AAPCO Logo.eps',
+                'jpg': 'anderson_airmotive/logos/Anderson Logo Globe_1.jpg',
+            },
+            'Anderson Airmotive Logo with tagline': {
+                'jpg': 'anderson_airmotive/logos/Anderson Logo with Tagline.jpg',
+            },
+            'Anderson Airmotive Logo no tagline': {
+                'png': 'anderson_airmotive/logos/Anderson Logo Name_No Tagline.png',
+            },
+            'Anderson Airmotive Logo no tagline black': {
+                'png': 'anderson_airmotive/logos/Anderson Logo Name_No Tagline_Black.png',
+            },
+            'Anderson Airmotive Logo with tagline black': {
+                'png': 'anderson_airmotive/logos/Anderson Logo with Tagline_Black.png',
+            },
+            'Anderson Airmotive Logo with tagline white': {
+                'png': 'anderson_airmotive/logos/Anderson Logo with Tagline_White.png',
+            },
+        },
+    }) }}
+{% endblock %}

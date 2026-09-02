@@ -1,0 +1,51 @@
+{% trans_default_domain 'equipment_shipping_record' %}
+{{ include('helper/_report_table.html.twig', {
+    reportTable: {
+        items: {
+            filePath: {
+                label: 'menu.files'|trans([], 'messages')|capitalize,
+                template: 'sales/equipment_shipping_records/partial/tabs/_file_tooltip.html.twig',
+                templateParams: {
+                    equipmentShippingRecordId: equipmentShippingRecord.id
+                },
+            },
+            size: {
+                label: 'size'|trans([], 'messages')|capitalize,
+                filters : 'readable_filesize'
+            },
+            poster: {
+                label: 'fields.poster'|trans([], 'messages')|capitalize,
+                properties: ['poster.lastname', 'poster.firstname'],
+                link:{
+                    route: 'directory_people_show',
+                    params: {'id': 'poster.@id'}
+                },
+            },
+            createdAt: {
+                label: 'fields.created_at'|trans([], 'messages'),
+                filters: 'date("Y-m-d")'
+            },
+            delete: {
+                label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                sortable: false,
+                class: 'text-end',
+                link: {
+                    route: 'delete_equipment_shipping_record_file',
+                    params: {'id': 'id'},
+                    fixedParams: {'equipmentShippingRecordId': equipmentShippingRecord.id, '_token': csrf_token('delete_equipment_shipping_record_file')},
+                    content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                    popup: {
+                        type: 'confirmation',
+                        title: 'Confirmation',
+                        message: 'Are you sure to delete ?',
+                    },
+                },
+            },
+        },
+        title: 'equipment_shipping_record.file'|trans,
+        data: equipmentShippingRecord.files,
+        search: false,
+        pagination: false,
+        initialSorting: 'createdAt'
+    }
+}, with_context = false) }}

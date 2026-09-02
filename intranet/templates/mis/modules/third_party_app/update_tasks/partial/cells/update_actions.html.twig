@@ -1,0 +1,99 @@
+<td>
+    {% if item.done %}
+        <span class="btn btn-default btn-xs">{% if item.confirmed %}{{ 'mis.update_task.buttons.confirmed'|trans({}, 'mis') }}{% else %}{{ 'mis.update_task.buttons.denied'|trans({}, 'mis') }}{% endif %}</span>
+    {% else %}
+        {% if item.demandType == 'GRANT_ACCESS' %}
+            {{ include('helper/_modal.html.twig', {
+                id: 'confirm_' ~ item.id,
+                button: {
+                    name: 'mis.update_task.confirm_modal.grant_confirmed.button'|trans({}, 'mis'),
+                    icon: 'fa-check',
+                    color: 'info'
+                },
+                modal: {
+                    title: 'Confirmation',
+                    size: 'lg',
+                    targetButton: {
+                        name: 'mis.update_task.confirm_modal.grant_confirmed.target.button'|trans({}, 'mis'),
+                        link: path('mis_third_party_app_update_tasks_grant_access_accepted', {
+                            id: module.id,
+                            updateTaskId: item.id
+                        }),
+                        color: 'info'
+                    },
+                    closeButton: {
+                        name: 'button.cancel'|trans({}, 'messages')
+                    }
+                },
+                body: 'mis.update_task.confirm_modal.grant_confirmed.target.message'|trans({userLastname: item.user.lastname|capitalize, userFirstname: item.user.firstname, moduleName: module.name}, 'mis')
+            }) }} &nbsp;
+            {{ include('helper/_modal.html.twig', {
+                id: 'denied' ~ item.id,
+                button: {
+                    name: 'mis.update_task.confirm_modal.grant_denied.button'|trans({}, 'mis'),
+                    icon: 'fa-times',
+                    color: 'danger'
+                },
+                modal: {
+                    title: 'Confirmation',
+                    size: 'lg',
+                    targetButton: {
+                        name: 'mis.update_task.confirm_modal.grant_denied.target.button'|trans({}, 'mis'),
+                        link: path('mis_third_party_app_update_tasks_grand_access_denied', {id: module.id, updateTaskId: item.id}),
+                        color: 'danger'
+                    },
+                    closeButton: {
+                        name: 'button.cancel'|trans({}, 'messages')
+                    }
+                },
+                body: 'mis.update_task.confirm_modal.grant_denied.target.message'|trans({userLastname: item.user.lastname|capitalize, userFirstname: item.user.firstname, moduleName: module.name}, 'mis')
+            }) }}
+        {% elseif item.demandType == 'REMOVE_ACCESS' %}
+            {{ include('helper/_modal.html.twig', {
+                id: 'confirm_' ~ item.id,
+                button: {
+                    name: 'mis.update_task.confirm_modal.remove_confirmed.button'|trans({}, 'mis'),
+                    icon: 'fa-check',
+                    color: 'info'
+                },
+                modal: {
+                    title: 'Confirmation',
+                    size: 'lg',
+                    targetButton: {
+                        name: 'mis.update_task.confirm_modal.remove_confirmed.target.button'|trans({}, 'mis'),
+                        link: path('mis_third_party_app_update_tasks_remove_access_accepted', {
+                            id: module.id,
+                            updateTaskId: item.id
+                        }),
+                        color: 'info'
+                    },
+                    closeButton: {
+                        name: 'button.cancel'|trans({}, 'messages')
+                    }
+                },
+                body: 'mis.update_task.confirm_modal.remove_confirmed.target.message'|trans({userLastname: item.user.lastname|capitalize, userFirstname: item.user.firstname, moduleName: module.name}, 'mis')
+            }) }} &nbsp;
+            {{ include('helper/_modal.html.twig', {
+                id: 'denied' ~ item.id,
+                button: {
+                    name: 'mis.update_task.confirm_modal.remove_denied.button'|trans({}, 'mis'),
+                    icon: 'fa-times',
+                    color: 'danger'
+                },
+                modal: {
+                    title: 'Confirmation',
+                    size: 'lg',
+                    targetButton: {
+                        name: 'mis.update_task.confirm_modal.remove_denied.target.button'|trans({}, 'mis'),
+                        link: path('mis_third_party_app_update_tasks_remove_access_denied', {id: module.id, updateTaskId: item.id}),
+                        color: 'danger'
+                    },
+                    closeButton: {
+                        name: 'button.cancel'|trans({}, 'messages')
+                    }
+                },
+                body: 'mis.update_task.confirm_modal.remove_denied.target.message'|trans({userLastname: item.user.lastname|capitalize, userFirstname: item.user.firstname, moduleName: module.name}, 'mis')
+            }) }}
+        {% endif %}
+    {% endif %}
+</td>

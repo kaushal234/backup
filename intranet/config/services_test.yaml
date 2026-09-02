@@ -1,0 +1,20 @@
+imports:
+    - { resource: services_dev.yaml }
+
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    ApiBundle\EventListener\ClientExceptionListener:
+
+    LegacyBundle\EventListener\LegacyExceptionListener:
+
+    Tests\ApiBundle\Controller\ClientExceptionController:
+
+    Tests\Behat\Context\FeatureContext:
+        public: true
+        arguments:
+            - "@validator"
+            - "@kernel"

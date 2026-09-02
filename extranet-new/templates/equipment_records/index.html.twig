@@ -1,0 +1,40 @@
+{#
+  equipment_records/index.html.twig — EQUIPMENTS (wrapper)
+  Route: equipment:index  (App\Controller\EquipmentRecord\IndexController)
+
+  Wraps the Kreyu datatable ({{ data_table(datatable) }}) in a page hero and a
+  themed container; sorting / filtering / pagination stay server-side.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.fields.equipments'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.customer_portal'|trans,
+        hero_title: 'extranet.fields.equipments'|trans,
+        hero_sub: 'extranet.equipment.intro'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.fields.equipments'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="section-head">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.title.registered_fleet'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.title.my_equipments'|trans }}</h2>
+                </div>
+            </div>
+
+            {# Kreyu datatable — unchanged data plumbing #}
+            <div class="dt-wrap">
+                {{ data_table(datatable) }}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

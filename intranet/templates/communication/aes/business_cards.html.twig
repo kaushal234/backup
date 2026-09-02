@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_business_cards.html.twig', {
+        businessCards: {
+            'AES business card': {
+                'docx': 'aes/business_cards/AES business card template-2.docx',
+            },
+        },
+    }) }}
+{% endblock %}

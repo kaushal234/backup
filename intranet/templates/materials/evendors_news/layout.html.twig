@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'material' %}
+
+{% block title %}Evendors news{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="evendors_news_add" :security="is_granted('FEATURE_EVENDORS_NEWS_WRITE')"/>
+        {% if news_id is defined %}
+            <twig:NavItem:Edit route="evendors_news_edit" :routeParameters="{ id: news_id }"
+                               :security="is_granted('FEATURE_EVENDORS_NEWS_WRITE')"/>
+            <twig:NavItem:Delete route="evendors_news_delete" :routeParameters="{ id: news_id }"
+                                :security="is_granted('FEATURE_EVENDORS_NEWS_WRITE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

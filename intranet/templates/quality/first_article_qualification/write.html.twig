@@ -1,0 +1,145 @@
+{% extends 'quality/first_article_qualification/layout.html.twig' %}
+
+{% import _self as forms %}
+
+{% form_theme form _self %}
+{% form_theme form.partNumbers _self %}
+
+{% macro collection_item(form) %}
+    <div class="card mb-2" {{ stimulus_controller('quality--first-article-qualification--part-number-line') }}>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-12">
+                    <label class="mb-0">
+                        {{ 'fields.part_number'|trans({}, 'messages') }}
+                        (<small class="form-text text-muted">
+                            <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>
+                            {{ 'first_article_qualification.fields.part_number_helper'|trans({}, 'first_article_qualification') }}
+                        </small>)
+                    </label>
+                    {{ form_widget(form.number, {
+                        attr: stimulus_target('quality--first-article-qualification--part-number-line', 'number').toArray()|merge({
+                            class: 'form-control form-control-sm text-uppercase'
+                        })
+                    }) }}
+                    {{ form_errors(form.number) }}
+                </div>
+            </div>
+
+            <div class="row align-items-end">
+                <div class="col-sm-8">
+                    <label class="mb-0">
+                        {{ 'manufacturing.bill_of_materials.headers.description'|trans({}, 'messages') }}
+                    </label>
+                    {{ form_widget(form.description, {
+                        attr: stimulus_target('quality--first-article-qualification--part-number-line', 'description').toArray()|merge({
+                            class: 'form-control form-control-sm'
+                        })
+                    }) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <div class="col-sm-2">
+                    <label class="mb-0">
+                        {{ 'manufacturing.bill_of_materials.headers.revision'|trans({}, 'messages') }}
+                    </label>
+                    {{ form_widget(form.revision, {
+                        attr: stimulus_target('quality--first-article-qualification--part-number-line', 'revision').toArray()|merge({
+                            class: 'form-control form-control-sm'
+                        })
+                    }) }}
+                    {{ form_errors(form.revision) }}
+                </div>
+
+                <div class="col-sm-2 d-flex align-items-end">
+                    {{ block('collection_widget_delete', 'bootstrap_base_layout.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% block collection_prototype %}
+    {% if prototype is defined and not prototype.rendered %}
+        {{ forms.collection_item(prototype) }}
+    {% endif %}
+{% endblock %}
+
+{% block collection_widget_item %}
+    {% if child is defined %}
+        <div class="form-collection-item">
+            {{ forms.collection_item(child) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+
+    {% if sequenceId is not null %}
+        <div class="alert alert-success alert-dismissable">
+            <a href="{{ path('legacy_calendar', {
+                m: ['tasks', 'task', 'view'],
+                id: sequenceId
+            }) }}" target="_blank">
+                {{ 'sequence.success'|trans({'%id%': sequenceId}) }}
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ title|trans({}, 'first_article_qualification') }}</h5>
+                </div>
+
+                <div class="ibox-content">
+                    {{ form_start(form, {
+                        attr: {
+                            class: 'form-horizontal'
+                        }
+                    }) }}
+
+                    {{ form_errors(form) }}
+
+                    <div class="row">
+                        <div class="col-lg-6 m-b-lg">
+                            {% set locationAttr = form.location.vars.attr|merge({
+                                'data-controller': (form.location.vars.attr['data-controller']|default('') ~ ' quality--first-article-qualification--erp-source-select')|trim
+                            }) %}
+                            {{ form_row(form.location, { attr: locationAttr }) }}
+                            {{ form_row(form.buyer) }}
+                            {{ form_row(form.owner) }}
+                            {{ form_row(form.supplier) }}
+                            {{ form_row(form.iFactor) }}
+                            {{ form_row(form.planDefinitionDueDate) }}
+                            {{ form_row(form.deliverablesDueDate) }}
+                            {{ form_row(form.dueDate) }}
+                            {{ form_row(form.eap) }}
+                            {{ form_row(form.meap) }}
+                            {{ form_row(form.tags) }}
+                            {{ form_row(form.members) }}
+                            {{ form_row(form.equipmentRecords) }}
+                            {{ form_row(form.productFamily) }}
+                        </div>
+
+                        <div class="col-lg-6 m-b-lg">
+                            {{ form_row(form.partNumbers) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 text-end">
+                            <button type="submit" class="btn btn-info m-b-xl">
+                                {{ 'button.save'|trans }}
+                            </button>
+                        </div>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

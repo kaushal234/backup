@@ -1,0 +1,22 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="text-center article-title">
+                        {% set entity = entity | replace({'-': ' '}) %}
+                        <h1>{{ entity | upper }} Social Media</h1>
+                    </div>
+                    <p>LinkedIn</p>
+                    <p><u><a href="https://www.linkedin.com/company/page-industries-inc">https://www.linkedin.com/company/page-industries-inc</a></u></p>
+                    <p>Facebook</p>
+                    <p><u><a href="https://www.facebook.com/pagegroundsupport">https://www.facebook.com/pagegroundsupport</a></u></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

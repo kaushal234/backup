@@ -1,0 +1,113 @@
+App\Entity\Quality\SupplierCorrectiveActionRequest:
+    # quality/supplier_corrective_action_requests/1
+    scar_1:
+        id: 1
+        factory: '@location_factory'
+        iFactor: IF100
+        shortDescription: Generator Failure
+        description: As reported in TOC 110126, the unit was surging and dropped power as smoke was rolling out. After examining the returned generator, it is evident that there was a short in the stator windings.
+        representative: "@user_qam"
+        issueOrigin: The generator failed due to a turn-to-turn short in the windings. This short occurred because an untrained operator performed the winding installation process. The copper wires of the winding contain an enamel coating that prevents the wires from directly contacting each other. If the winding process is done incorrectly, the enamel can be damaged creating the possibility of the wires coming into direct contact with each other. When this happens, a short will occur.
+        correctiveAction: |
+            For containment action, JTEC has isolated the 4 generators in which this particular operator performed the winding operation. Of the four, one other generator was installed in a TLD unit. TLD decided not to replace the generator on that unit based on the unit having high hours and a turb-to-turn short would manifest itself rather quickly.
+
+            JTEC disassembled, inspected, re-assembled, and tested the 50 180kVA generators that they had in stock.
+
+            The items of disassembly inspection include:
+            1. Interturn test of stator winding
+            2. Check all fasteners
+            3. Check whether there are foreign bodies in the ventilation duct
+            4. Whether there are abnormal conditions. Upon examination, no abnormal phenomenon was found.
+
+            All generators were found to be conforming.
+        commercialAgreement: N/A
+        poster: "@user_qam"
+        leader: "@user_qam"
+        supplierRepresentative: "@vendor_user_1"
+        supplierName: DANA SAS FRANCE
+        supplierNumber: DAN0013
+        preventiveAction: |
+            JTEC has retrained their operators per their training process. All personnel are evaluated on a grading system in which they are not permitted to perform certain operations independently unless they have received a grade of an "A" for that operation under supervision.
+
+            In this case, the main operator had a "B" grade and was assisted by an operator with a "C" grade. Going forward, JTEC will ensure that either the lead operator or the assisting/supervising operator has an "A" grade.
+        verificationDescription: There have been no further generator failures since this occurrence. Since this occurrence in February 2021, TLD has built and tested 23 GPU-418 units without a failure. Furthermore, there have not been any additional reported failures from the field.
+        conclusion: TLD GST performed a follow-up audit of JTEC to ensure that their manufacturing processes are being followed and that the operators performing those operations have documented training records showing that they are capable of performing those operations. The audit received a passing grade.
+        parts:
+            - "@scar_parts_5"
+        "affectedFactories":
+            - "@location_factory_2"
+
+    # quality/supplier_corrective_action_requests/2
+    scar_2:
+        id: 2
+        factory: '@location_factory_2'
+        iFactor: IF100
+        status: !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CLOSED
+        shortDescription: ACU-302 Engine Coolant Spill
+        description: Cummins engine ESN 74663857 had a cap inside a coolant hose (see photo). This condition led to an environmental spill of coolant as TLD Windsor is trying to get our ISO 14001 certification. Report containment, root cause, and corrective action on an 8 discipline quality assurance form.
+        representative: "@user_qam"
+        issueOrigin: Cummins work instruction did not force an inspection and removal of all radiator caps. In addition, Cummins supplier painted the red caps black making it difficult to notice the installed caps.
+        correctiveAction: Cummins has revised their work instruction to require a thorough inspection and removal of the radiator for shipping caps and covers prior to installation.
+        poster: "@user_qam"
+        leader: "@user_qam"
+        supplierRepresentative: "@vendor_user_1"
+        supplierName: Nuts 2000
+        supplierNumber: AMA0010
+        preventiveAction: Cummins has issued a quality alert to all operators detailing the issue to prevent a future occurrence. Cummin's supplier API has agreed not to paint the red caps black.
+        verificationDescription: as of 12/23/2020 we have not had a NCR for cap trapped in cooling system since 8/25/2020.
+        conclusion: as of 12/23/2020 we have not had a NCR for cap trapped in cooling system since 8/25/2020.
+
+    # quality/supplier_corrective_action_requests/3
+    scar_3:
+        id: 3
+        factory: '@location_factory_2'
+        iFactor: IF100
+        status: !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CLOSED
+        shortDescription: ACU-302 Engine Coolant Spill
+        description: Cummins engine ESN 74663857 had a cap inside a coolant hose (see photo). This condition led to an environmental spill of coolant as TLD Windsor is trying to get our ISO 14001 certification. Report containment, root cause, and corrective action on an 8 discipline quality assurance form.
+        representative: "@user_qam"
+        issueOrigin: Cummins work instruction did not force an inspection and removal of all radiator caps. In addition, Cummins supplier painted the red caps black making it difficult to notice the installed caps.
+        correctiveAction: Cummins has revised their work instruction to require a thorough inspection and removal of the radiator for shipping caps and covers prior to installation.
+        poster: "@user_qam"
+        leader: "@user_qam"
+        supplierRepresentative: "@vendor_user_1"
+        supplierName: Nuts 2000
+        supplierNumber: DAN0013
+        preventiveAction: Cummins has issued a quality alert to all operators detailing the issue to prevent a future occurrence. Cummin's supplier API has agreed not to paint the red caps black.
+        verificationDescription: as of 12/23/2020 we have not had a NCR for cap trapped in cooling system since 8/25/2020.
+        conclusion: as of 12/23/2020 we have not had a NCR for cap trapped in cooling system since 8/25/2020.
+
+App\Entity\Quality\SupplierCorrectiveActionRequestFile:
+    scar_file_1:
+        poster: "@user_basic"
+        filePath: "../../tests/fixtures/file.xlsx"
+        created_at: <dateTimeBetween('-30 days','-1 days')>
+        description: "Just for test"
+        sha: "miaouid10"
+        mimeType: "Mr Mime"
+        extension: "flexion"
+        size: 22
+        supplierCorrectiveActionRequest: "@scar_1"
+
+    scar_file_2:
+        poster: "@user_basic"
+        filePath: "../../tests/fixtures/file.pdf"
+        created_at: <dateTimeBetween('-30 days','-1 days')>
+        description: "Another file"
+        sha: "miaouid11"
+        mimeType: "marceau"
+        extension: "flexion"
+        size: 22
+        supplierCorrectiveActionRequest: "@scar_2"
+
+App\Entity\Quality\SupplierCorrectiveActionRequestMainFile:
+    scar_main_file_1:
+        poster: "@user_basic"
+        filePath: "../../tests/fixtures/file.pdf"
+        created_at: <dateTimeBetween('-30 days','-1 days')>
+        description: "Just for test"
+        sha: "miaouid2"
+        mimeType: "Mr Mime"
+        extension: "flexion"
+        size: 22
+        supplierCorrectiveActionRequest: "@scar_1"

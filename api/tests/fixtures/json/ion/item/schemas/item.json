@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/ion/items/.+$"},
+    "@type": {"type": "string"},
+    "@context": {"type": "string"},
+    "site": {"type": "string"},
+    "item": {"type": "string"},
+    "project": {"type": "string"},
+    "standardPrice": {"type": "string"},
+    "price": {"type": "string"},
+    "orderLeadTimeInWorkingDays": {"type": "string"},
+    "unitOfMeasure": {"type": "string"},
+    "itemDescription": {"type": "string"},
+    "revision": {"type": "string"},
+    "currency": {"type": "string"},
+    "buyer":{
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../employees/schemas/item.json" }
+      ]
+    },
+    "planner":{
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../employees/schemas/item.json" }
+      ]
+    },
+    "businessPartner":{
+      "oneOf": [
+        {"type": "null"},
+        { "type": "object",
+          "properties": {
+            "@id": {"type": "string"},
+            "@type": {"type": "string"},
+            "code": {"type": "string"},
+            "name": {"type": "string"}
+          },
+          "required": [
+            "@id",
+            "@type",
+            "code",
+            "name"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "lastSuppliers": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"type": "string"},
+          "@type": {"type": "string"},
+          "code": {"type": "string"},
+          "name": {"type": "string"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "code",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "@context",
+    "site",
+    "project",
+    "item",
+    "unitOfMeasure",
+    "itemDescription",
+    "buyer",
+    "businessPartner",
+    "lastSuppliers",
+    "planner",
+    "standardPrice",
+    "price",
+    "orderLeadTimeInWorkingDays",
+    "revision",
+    "currency"
+  ],
+  "additionalProperties": false
+}

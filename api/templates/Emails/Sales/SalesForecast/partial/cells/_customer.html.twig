@@ -1,0 +1,13 @@
+{% set customer = customerPath is defined ? item[customerPath] : item %}
+
+{% set customerStatuses = {
+    'APPROVED': '#399a4b',
+    'NOT APPROVED': '#ED5565'
+} %}
+
+<td>
+    {% if customer is not same as(null) %}
+        {{ customer.name }}
+        &nbsp;<span style="font-weight: bold; color: {{ customerStatuses[customer.status]|default('#f8ac59') }}">({{ customer.status }})</span>
+    {% endif %}
+</td>

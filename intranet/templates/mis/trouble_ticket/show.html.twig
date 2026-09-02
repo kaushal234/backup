@@ -1,0 +1,47 @@
+{% trans_default_domain 'trouble_ticket' %}
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% block title %}{{ parent() }}#{{ troubleTicket.id }}{% endblock %}
+
+{% set additionalOwners = [] %}
+{% for owner in troubleTicket.additionalOwners %}
+    {% set additionalOwners = additionalOwners | merge([owner['@id']]) %}
+{% endfor %}
+
+{% block content %}
+    <div class="container-fluid g-4">
+        {{ include('mis/trouble_ticket/partial/_top_bar.html.twig') }}
+        {% if form is not null %}
+            <div class="row g-3 mb-3">
+                <div class="col-12 col-lg-5">
+                    <div class="card border-0 shadow-sm rounded-3 h-100">
+                        <div class="card-body">
+                            {% if title != 'transfer to jira' %}
+                                {{ include('mis/trouble_ticket/partial/_form_transfer_comment.html.twig') }}
+                            {% else %}
+                                {{ include('mis/trouble_ticket/partial/_jira_transfer.html.twig') }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7">
+                    <div class="card border-0 shadow-sm rounded-3 h-100">
+                        <div class="card-body p-3" style="max-height: 500px; overflow-y: auto;">
+                            {{ include('mis/trouble_ticket/partial/_comment.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <twig:Tabs:Tabs>
+            <twig:Tabs:NavItemList>
+                {{ include('mis/trouble_ticket/partial/_nav_tabs.html.twig', {
+                    troubleTicket: troubleTicket,
+                }) }}
+            </twig:Tabs:NavItemList>
+
+            <twig:Tabs:Content>
+                {{ include('mis/trouble_ticket/partial/tabs/_details.html.twig') }}
+            </twig:Tabs:Content>
+        </twig:Tabs:Tabs>
+    </div>
+{% endblock %}

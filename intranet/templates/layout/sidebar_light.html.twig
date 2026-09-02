@@ -1,0 +1,86 @@
+{% trans_default_domain 'sidebar' %}
+
+<!-- Sidebar menu -->
+<nav class="navbar navbar-default navbar-static-side" role="navigation" style="padding-top:0; padding-bottom:0">
+    <div class="container-fluid accordion" id="accordionSidebar">
+        <ul class="navbar-nav nav flex-column" id="side-menu">
+            <li class="nav-item nav-header">
+                <div class="dropdown profile-element" style="--bs-nav-link-padding-x: -1rem">
+                    <a class="nav-link" href="/en/private">
+                        <img class="img-thumbnail mx-auto" src="/shared/logos/alvest_logo.jpg" alt="logo Alvest" style="display: block; margin-bottom: 0; width: 142px; border: 0; padding: 16px ">
+                    </a>
+                </div>
+                <div class="logo-element">
+                    <img class="img-fluid mx-auto" src="/shared/logos/ALVEST_logo.png" alt="small logo Alvest">
+                </div>
+            </li>
+            <li id="searchBar" class="nav-item quick-search"></li>
+            <li class="nav-item nav-first-level-element">
+                <a class="nav-link" href="/en/private">
+                    <i class="fa fa-home fa-fw"></i>
+                    <span class="nav-label">{{ 'sidebar.home' | trans }}</span>
+                </a>
+            </li>
+
+            <li class="nav-item accordion-item">
+                <span class="nav-link accordion-header" id="headingDirectory">
+                    <button class="accordion-button nav-label collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDirectory" aria-expanded="false" aria-controls="collapseDirectory">
+                        <i class="fa fa-users fa-fw"></i>
+                        {{ 'sidebar.hr.title' | trans }}
+                    </button>
+                </span>
+                <ul id="collapseDirectory" class="accordion-collapse collapse" aria-labelledby="headingDirectory" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body accordion-item">
+                        <span id="headingDirectoryLevel">
+                            <button class="accordion-button collapsed nav-label" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDirectoryLevel" aria-expanded="false" aria-controls="collapseDirectoryLevel">
+                                {{ 'sidebar.hr.directory.title' | trans }}
+                            </button>
+                        </span>
+                        <ul id="collapseDirectoryLevel" class="accordion-collapse collapse thirdLevel" aria-labelledby="headingDirectoryLevel" data-bs-parent="#collapseDirectory">
+                            <li class="accordion-body"><a href="{{ path('directory_index') }}">{{ 'sidebar.hr.directory.organisation_chart' | trans }}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="nav-item accordion-item d-none">
+                <span class="nav-link accordion-header" id="headingCorporate">
+                    <button class="accordion-button nav-label collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCorporate" aria-expanded="false" aria-controls="collapseCorporate">
+                        {{ 'topbar.corporate' | trans({}, 'topbar') }}
+                    </button>
+                </span>
+                <ul id="collapseCorporate" class="accordion-collapse collapse" aria-labelledby="headingCorporate" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ path('news_index') }}">{{ 'news.name'| trans({}, 'news') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('corporate_pages_main') }}">{{ 'topbar.corporate' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('corporate_pages_ethics') }}">{{ 'topbar.ethics' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="{{ path('acronyms_home') }}" title="AGR">{{ 'corporate.acronyms.glossary' | trans({}, 'corporate') }}</a></li>
+                </ul>
+            </li>
+
+
+            <li class="nav-item accordion-item d-none">
+                    <span class="nav-link accordion-header" id="headingPortals">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePortals" aria-expanded="false" aria-controls="collapsePortals">
+                            {{ 'sidebar.portals' | trans }}
+                        </button>
+                    </span>
+                <ul id="collapsePortals" class="accordion-collapse collapse" aria-labelledby="headingPortals" data-bs-parent="#accordionSidebar">
+                    <li class="accordion-body"><a href="{{ full_url('portal_shopfloor') }}shop/autoselect.php">{{ 'topbar.shopfloor' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_extranet') }}">Extranet</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_evendor') }}">eVendor</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_tldgroup') }}">{{ 'topbar.tld_website' | trans({}, 'topbar') }}</a></li>
+                    <li class="accordion-body"><a href="{{ full_url('portal_machinescloud') }}">Link</a></li>
+                    <li class="accordion-body"><a href="http://www.aes-gse.com">AES</a></li>
+                    <li class="accordion-body"><a href="http://www.smart-airport-systems.com/">SAS</a></li>
+                    <li class="accordion-body"><a href="https://www.adhetec.com/">ADHETEC</a></li>
+                    <li class="accordion-body"><a href="https://alvest.fr/">ALVEST</a></li>
+                    <li class="accordion-body"><a href="https://www.sageparts.com/">SAGE PARTS</a></li>
+                    <li class="accordion-body"><a href="https://www.aerospecialties.com/">AERO SPECIALTIES</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<!-- End sidebar menu -->

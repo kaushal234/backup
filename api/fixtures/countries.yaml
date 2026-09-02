@@ -1,0 +1,76 @@
+App\Entity\Country:
+    country_1:
+        id: 1
+        name (unique): "Estonia"
+        alternateNames: <paragraph()>
+        isoCode2 (unique): FR
+        isoCode3 (unique): <countryISOAlpha3()>
+        nb_code (unique): <numberBetween(500, 599)>
+        fipsCode: "50%? <lexify('?????')>"
+        fipsName: "50%? <word()>"
+        region: <word()>
+        subRegion: <sentence(3)>
+        latitude: "50%? <bothify('## ## ?')>"
+        longitude: "50%? <bothify('## ## ?')>"
+        continent: '@continent_1'
+
+    country_2:
+      id: 2
+      name (unique): Mandalore
+      alternateNames: <paragraph()>
+      isoCode2 (unique): <countryCode()>
+      isoCode3 (unique): <countryISOAlpha3()>
+      nb_code (unique): <numberBetween(500, 599)>
+      fipsCode: "50%? <lexify('?????')>"
+      fipsName: "50%? <word()>"
+      region: <word()>
+      subRegion: <sentence(3)>
+      latitude: "50%? <bothify('## ## ?')>"
+      longitude: "50%? <bothify('## ## ?')>"
+      continent: '@continent_2'
+
+    country_3:
+        id: 3
+        name (unique): Wutai
+        alternateNames: Hidden country of Wutai
+        isoCode2 (unique): WTI
+        isoCode3 (unique): <countryISOAlpha3()>
+        nb_code (unique): <numberBetween(500, 599)>
+        fipsCode: "50%? <lexify('?????')>"
+        fipsName: "50%? <word()>"
+        region: <word()>
+        subRegion: <sentence(3)>
+        latitude: "50%? <bothify('## ## ?')>"
+        longitude: "50%? <bothify('## ## ?')>"
+        continent: '@continent_2'
+
+    country_{4..10}:
+        id: <current()>
+        name (unique): <country()>
+        alternateNames: <paragraph()>
+        isoCode2 (unique): <countryCode()>
+        isoCode3 (unique): <countryISOAlpha3()>
+        nb_code (unique): <numberBetween(500, 599)>
+        fipsCode: "50%? <lexify('?????')>"
+        fipsName: "50%? <word()>"
+        region: <word()>
+        subRegion: <sentence(3)>
+        latitude: "50%? <bothify('## ## ?')>"
+        longitude: "50%? <bothify('## ## ?')>"
+        continent: '@continent_2'
+
+    country_kinder:
+        id: 11
+        name (unique): Kinder
+        alternateNames: <paragraph()>
+        isoCode2 (unique): KD
+        isoCode3 (unique): KDR
+        nb_code (unique): <numberBetween(500, 599)>
+        fipsCode: "50%? <lexify('?????')>"
+        fipsName: "50%? <word()>"
+        region: <word()>
+        subRegion: <sentence(3)>
+        latitude: "50%? <bothify('## ## ?')>"
+        longitude: "50%? <bothify('## ## ?')>"
+        continent: '@continent_3'
+        public: false

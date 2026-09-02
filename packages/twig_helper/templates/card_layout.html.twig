@@ -1,0 +1,57 @@
+{% extends '@AlvestTwigHelper/card_layout_base.html.twig' %}
+
+{% block card_class %}card{% endblock %}
+{% block card_header_class %}card-header{% endblock %}
+{% block card_body_class %}card-body{% endblock %}
+
+{% set card_attr = {} %}
+{% set card_header_attr = {} %}
+{% set card_body_attr = {} %}
+
+{% block card %}
+    {% set card_attr = card_attr|merge({class: block('card_class')|trim}) %}
+    <div{% with {attr: card_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{ block('card_header') }}
+        {{ block('card_body') }}
+    </div>
+{% endblock %}
+
+{% block card_header %}
+    {% set card_header_attr = card_header_attr|merge({class: block('card_header_class')|trim}) %}
+    <div{% with {attr: card_header_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{ block('card_header_title') }}
+        {% block card_header_after %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block card_header_title %}
+    {% if title is defined %}
+        {{ title }}
+    {% endif %}
+{% endblock %}
+
+{% block card_body %}
+    {% set card_body_attr = card_body_attr|merge({class: block('card_body_class')|trim}) %}
+    <div{% with {attr: card_body_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{ block('card_content') }}
+    </div>
+{% endblock %}
+
+{% block card_content %}
+    {% if content is defined %}
+        {{ content }}
+    {% endif %}
+{% endblock %}
+
+{% block attributes %}
+    {% for attrname, attrvalue in attr %}
+        {{ " " }}
+        {% if attrname in ['placeholder', 'title'] %}
+            {{ attrname }}="{{ translation_domain is same as(false) or attrvalue is null ? attrvalue : attrvalue|trans(attr_translation_parameters, translation_domain) }}"
+        {% elseif attrvalue is same as(true) %}
+            {{ attrname }}="{{ attrname }}"
+        {% elseif attrvalue is not same as(false) %}
+            {{ attrname }}="{{ attrvalue }}"
+        {% endif %}
+    {% endfor %}
+{% endblock attributes %}

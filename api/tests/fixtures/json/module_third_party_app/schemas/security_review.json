@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/modules/third_party_app/security_reviews/\\d+$"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "thirdPartyApp": {"type": "object"},
+    "createdAt": {"type": "string"},
+    "securityLevelComment": {"type": ["string", "null"]},
+    "isPasswordPolicyApplied": {"type": "boolean"},
+    "isMFAAdminApplied": {"type": "boolean"},
+    "isMFAUserApplied": {"type": "boolean"},
+    "comment": {"type": ["string", "null"]},
+    "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+    "securityLevel": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../../module_third_party_app/schemas/security_level.json"
+        }
+      ]
+    },
+    "mainFile": {
+      "oneOf" : [
+        {"type": "null"},
+        {"$ref" :  "../../shared/schemas/file.json"}
+      ]
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "thirdPartyApp",
+    "createdAt",
+    "securityLevelComment",
+    "isPasswordPolicyApplied",
+    "isMFAAdminApplied",
+    "isMFAUserApplied",
+    "comment",
+    "securityLevel",
+    "mainFile"
+  ],
+  "additionalProperties": false
+}

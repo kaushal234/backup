@@ -1,0 +1,7 @@
+<td>
+    {% for recipient in recipients %}
+            <a href="{{ path('directory_people_show',{id: iri_id(recipient)}) }}">
+                    {{ recipient.firstname }} {{ recipient.lastname }}{% if not loop.last %}, {% endif %}
+            </a>
+    {% endfor %}
+</td>

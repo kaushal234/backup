@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {
+      "pattern": "^/ion/item_monologistics"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "properties": {
+            "@id": {
+              "pattern": "^/ion/item_monologistics/.+$"
+            },
+            "@type": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "itemCode": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "description"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

@@ -1,0 +1,30 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+<div class="row">
+    <div class="col">
+        {{ form_row(form.author) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.merged_after) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.merged_before) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div>
+            <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans | upper }}</button>
+            <a href="{{ resetPath }}" class="btn btn-secondary" id="quotations-filter-submit">{{ 'button.reset'| trans | upper }}</a>
+        </div>
+    </div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

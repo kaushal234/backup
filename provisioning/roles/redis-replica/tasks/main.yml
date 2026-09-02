@@ -1,0 +1,74 @@
+- name: Install Redis
+  become: true
+  ansible.builtin.apt:
+    name: [redis, redis-sentinel]
+    state: present
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Ensure /var/lib/redis exists
+  become: true
+  ansible.builtin.file:
+    path: /var/lib/redis
+    state: directory
+    mode: "0755"
+    owner: redis
+    group: redis
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Make sure redis is started on boot
+  become: true
+  ansible.builtin.service:
+    name: redis
+    enabled: true
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Make sure redis-sentinel is started on boot
+  become: true
+  ansible.builtin.service:
+    name: redis-sentinel
+    enabled: true
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Make sure that redis config file exists and belongs to redis
+  become: true
+  ansible.builtin.file:
+    path: /etc/redis/redis.conf
+    state: touch
+    owner: redis
+    group: redis
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Prepare redis configuration file
+  become: true
+  ansible.builtin.template:
+    src: templates/redis.conf
+    dest: /etc/redis/redis.conf
+  notify:
+    - Restart redis
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Make sure that sentinel config file exists and belongs to redis
+  become: true
+  ansible.builtin.file:
+    path: /etc/redis/sentinel.conf
+    state: touch
+    owner: redis
+    group: redis
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")
+
+- name: Prepare sentinel configuration file
+  become: true
+  ansible.builtin.template:
+    src: templates/sentinel.conf
+    dest: /etc/redis/sentinel.conf
+  notify:
+    - Restart redis-sentinel
+  when: (inventory_hostname in groups['portals']) and
+    ((inventory_file | basename) == "production.yml")

@@ -1,0 +1,50 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <span class="resource-property"><strong>{{ ('first_article_qualification.titles.'~(reminderStatus |lower)) | trans | capitalize }} :</strong></span>
+
+            {{ include('/Helpers/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'first_article_qualification.fields.id' | trans | capitalize,
+                            link:{
+                                route: 'first_article_qualification_show',
+                                params: {'id':'id'},
+                            }
+                        },
+                        status: { label:'first_article_qualification.fields.status'  | trans | capitalize },
+                        planDefinitionDueDate: {
+                            label:'first_article_qualification.fields.plan_defintion_due_date'  | trans | capitalize,
+                            filters: ["format_datetime('medium', 'none')"],
+                        },
+                        dueDate: {
+                            label:'first_article_qualification.fields.due_date'  | trans | capitalize,
+                            filters: ["format_datetime('medium', 'none')"],
+                        },
+                        deliverablesDueDate: {
+                            label:'first_article_qualification.fields.deliverables_due_date'  | trans | capitalize,
+                            filters: ["format_datetime('medium', 'none')"],
+                            preserveNull: true,
+                        },
+                        poster: {
+                            label:'first_article_qualification.fields.poster'  | trans | capitalize,
+                            properties: ['poster.lastname', 'poster.firstname'],
+                        },
+                        owner: {
+                            label:'first_article_qualification.fields.owner'  | trans | capitalize,
+                            properties: ['owner.lastname', 'owner.firstname'],
+                        },
+                    },
+                    data: firstArticleQualifications,
+                    title: ''
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'quality/layout.html.twig' %}
+
+{% block title %}Quality\Crabs{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="crab_add"/>
+        <twig:NavItem:Reports route="crab_report"/>
+        <twig:NavItem translationKey="crab.nav_link.dashboard" domain="crab" icon="mynaui:list" route="crab_dashboard"/>
+        <twig:NavItem:Add translationKey="crab.title.add_from_sol" domain="crab" route="crab_add_from_order_line"/>
+        {% if crab is defined %}
+            <twig:Dropdown translationKey="crab.nav_link.crab_actions" domain="crab">
+                <twig:NavItem:Details route="crab_show" :routeParameters="{id: crab.id}"/>
+                <twig:NavItem:Edit route="crab_edit" :routeParameters="{id: crab.id}"
+                                   :security="(is_granted('FEATURE_CRAB_EDIT_VOTER', crab['@id']) and crab.status != 'CLOSED') or (crab.status == 'CLOSED' and is_granted('FEATURE_CRAB_EDIT_CLOSED'))"/>
+                <twig:NavItem:Duplicate route="crab_duplicate" :routeParameters="{id: crab.id}"/>
+                <twig:Separator show="true"/>
+                <twig:NavItem translationKey="crab.nav_link.transfer_ncr" domain="crab" icon="solar:arrow-up-outline"
+                              route="non_conformity_add" :routeParameters="{ crab : crab.id }"/>
+                <twig:NavItem translationKey="crab.nav_link.transfer_eap" domain="crab" icon="solar:arrow-up-outline"
+                              route="legacy_manufacturing_eng"
+                              :routeParameters="{ m: ['eap', 'forms', 'newEAP'], from: { mod: 'CRAB', id: crab.legacyId } }"/>
+                <twig:Separator show="true"/>
+                <twig:NavItem:AddLink route="legacy_common"
+                                      :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'CRAB', parent_id: crab.legacyId}"/>
+                <twig:NavItem:Add translationKey="crab.nav_link.add_derogation" domain="crab"
+                                  route="crab_derogation_add" :routeParameters="{id: crab.id}"
+                                  :security="is_granted('FEATURE_DEROGATION_CREATE') and (crab.status == 'TO-FIX' or crab.status == 'TO-INSPECT') and crab.derogation is null"/>
+                <twig:NavItem:AddLink translationKey="crab.nav_link.link_derogation" domain="crab"
+                                      route="crab_derogation_link" :routeParameters="{id: crab.id}"
+                                      :security="(crab.status == 'TO-FIX' or crab.status == 'TO-INSPECT') and crab.derogation is null and is_granted('FEATURE_LINK_DEROGATION')"/>
+                <twig:Separator show="true"/>
+                <twig:NavItem:Delete route="crab_delete"
+                                     :routeParameters="{ id: crab.id, '_token': csrf_token('delete_crab') }"
+                                     :security="is_granted('FEATURE_CRAB_DELETE_VOTER', crab['@id'])"/>
+            </twig:Dropdown>
+        {% endif %}
+        {% if crab.derogation.id is defined %}
+            <twig:NavItem icon="bi:eye" route="derogation_show" :routeParameters="{id: crab.derogation.id}"
+                          :security="crab.derogation is not null" translationKey="crab.nav_link.show_derogation">
+                {{ 'crab.nav_link.show_derogation'|trans({'%id%': crab.derogation.id}, 'crab') }}
+            </twig:NavItem>
+        {% endif %}
+        {% if chartType.xAxis is defined or chartDepartment.xAxis is defined or chartCode.xAxis is defined or chartFamily.xAxis is defined %}
+            <twig:LegacyNavItem translationKey="crab.nav_link.kpi" icon="carbon:summary-kpi" url="#anchor"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if crab is defined %}
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Add route="crab_add"/>
+            <twig:NavItem:Edit route="crab_edit" :routeParameters="{id: crab.id}"
+                               :security="(is_granted('FEATURE_CRAB_EDIT_VOTER', crab['@id']) and crab.status != 'CLOSED') or (crab.status == 'CLOSED' and is_granted('FEATURE_CRAB_EDIT_CLOSED'))"/>
+            <twig:NavItem:Add translationKey="crab.nav_link.add_derogation" domain="crab"
+                              route="crab_derogation_add" :routeParameters="{id: crab.id}"
+                              :security="is_granted('FEATURE_DEROGATION_CREATE') and (crab.status == 'TO-FIX' or crab.status == 'TO-INSPECT') and crab.derogation is null"/>
+            <twig:NavItem:Duplicate route="crab_duplicate" :routeParameters="{id: crab.id}"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'CRAB', parent_id: crab.legacyId}"/>
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

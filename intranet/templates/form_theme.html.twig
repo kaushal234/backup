@@ -1,0 +1,226 @@
+{% block form_row %}
+    <tr>
+        <td align="end" valign="top">{{ form_label(form) }}</td>
+        <td valign="top" align="start">
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block form_label %}
+    {% if required %}
+        <span style="color: #ed5565">*</span>
+    {% endif %}
+
+    <b>
+        {% if label is not same as(false) -%}
+            {% if not compound -%}
+                {% set label_attr = label_attr|merge({'for': id}) %}
+            {%- endif -%}
+            {% if required -%}
+                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+            {%- endif -%}
+            {% if label is empty -%}
+                {%- if label_format is not empty -%}
+                    {% set label = label_format|replace({
+                        '%name%': name,
+                        '%id%': id,
+                    }) %}
+                {%- else -%}
+                    {% set label = name|humanize %}
+                {%- endif -%}
+            {%- endif -%}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
+        {%- endif -%}
+    </b>
+{% endblock %}
+
+{%- block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            <div>
+                {{- form_widget(child) -}}
+                {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+            </div>
+        {% endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}
+
+{%- block collection_widget -%}
+    <table class="collection">
+        {% if prototype is defined %}
+            {%- set attr = attr|merge({'data-prototype': form_row(prototype) }) -%}
+        {% endif %}
+        {{- block('form_widget') -}}
+    </table>
+{%- endblock collection_widget -%}
+
+{% block app_image_widget %}
+    <div class="border rounded p-3 bg-light mb-2">
+
+        {{ form_errors(form) }}
+        {% set raw = image_url is defined ? image_url : null %}
+        {% set image_url = resolve_image_url(raw, form.vars.name) %}
+
+        {% if image_url is not empty %}
+            {% set images = image_url is iterable ? image_url : [image_url] %}
+
+            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                {% for img in images %}
+                    {% set joinable = img|split('/') %}
+
+                    <div class="border rounded p-1 bg-white">
+                        {% if joinable|length > 1 %}
+                            <img
+                                    src="{{ asset(upload_uri ~ '/' ~ img) }}?width=200&height=200"
+                                    class="tld-image-large rounded"
+                            >
+                        {% else %}
+                            <img
+                                    src="{{ asset(upload_uri ~ '/photos/' ~ img) }}?width=150"
+                                    class="tld-image-small rounded"
+                            >
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-2">
+                {% if form.delete is defined %}
+                    <div class="mb-2 text-center">
+                        {{ form_widget(form.delete) }}
+                        {{ form_label(form.delete) }}
+                    </div>
+                {% endif %}
+
+                {% if form.imageSize is defined %}
+                    <div class="mb-2">
+                        {{ form_label(form.imageSize) }}<br>
+                        {{ form_widget(form.imageSize, { attr: { class: 'form-select' } }) }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="mt-2 mb-2">
+            {{ form_widget(form.file, { attr: { class: 'form-control' } }) }}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block date_picker_widget %}
+    {% if options is defined and options|length %}
+        {% set attr = attr|merge({'data-options': options|json_encode()}) %}
+    {% endif %}
+    {{ block('datetime_widget') }}
+{% endblock date_picker_widget %}
+
+{% block date_time_picker_widget %}
+    <div class="input-group">
+        {{ block('date_picker_widget') }}
+        <span class="input-group-text rounded-0"><i class="far fa-calendar-alt"></i></span>
+    </div>
+{% endblock date_time_picker_widget %}
+
+{% block month_picker_widget %}
+    <div class="input-group">
+        {{ block('date_picker_widget') }}
+        <span class="input-group-text rounded-0"><i class="far fa-calendar-alt"></i></span>
+    </div>
+{% endblock month_picker_widget %}
+
+{% block date_range_picker_widget %}
+    <div class="input-group">
+        <span class="input-group-text rounded-0">From</span>
+        {{ form_widget(form.from) }}
+        <span class="input-group-text rounded-0">To</span>
+        {{ form_widget(form.to) }}
+    </div>
+{% endblock date_range_picker_widget %}
+
+{% block react_equipment_record_select_multiple_widget %}
+    {% set attr = attr|merge({'data-value': reactDefaultValue|json_encode()}) %}
+    {% set attr = attr|merge({'data-filter-products': filterProducts|json_encode()}) %}
+    {% set attr = attr|merge({'data-name': full_name}) %}
+    <div class="react-equipment-record-select-custom" {{ block('widget_attributes') }}></div>
+{% endblock react_equipment_record_select_multiple_widget %}
+
+{% block survey_rating_widget %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' d-flex flex-row justify-content-evenly')|trim}) %}
+    {{ block('choice_widget') }}
+{% endblock survey_rating_widget %}
+
+{% block autocomplete_choice_widget %}
+    {% set attr = attr|merge({class: ''}) %}
+    {% if multiple %}{% set attr = attr|merge({class: (attr.class ~ ' form-select')|trim}) %}{% endif %}
+    {% set attr = attr|merge({'data-symfony--ux-autocomplete--autocomplete-url-value': uri}) %}
+
+    {% set tomSelectOptions = {} %}
+    {% if idKey %}{% set tomSelectOptions = tomSelectOptions|merge({valueField: idKey}) %}{% endif %}
+    {% if textKey %}{% set tomSelectOptions = tomSelectOptions|merge({labelField: textKey}) %}{% endif %}
+
+    {% if itemsPerPage %}{% set attr = attr|merge({'data-autocomplete-items-per-page-value': itemsPerPage}) %}{% endif %}
+    {% if page %}{% set attr = attr|merge({'data-autocomplete-page-value': page}) %}{% endif %}
+    {% if minInputLength %}{% set attr = attr|merge({'data-symfony--ux-autocomplete--autocomplete-min-characters-value': minInputLength}) %}{% endif %}
+    {% if query %}{% set attr = attr|merge({'data-autocomplete-extra-query-value': query|json_encode}) %}{% endif %}
+    {% if jsTemplateSelection %}{% set attr = attr|merge({'data-autocomplete-template-selection-value': jsTemplateSelection}) %}{% endif %}
+    {% if jsTemplateResult and jsTemplateSelection != jsTemplateResult %}{% set attr = attr|merge({'data-autocomplete-template-result-value': jsTemplateResult}) %}{% endif %}
+    {% if dataDisabled and dataDisabled|length %}{% set attr = attr|merge({'data-autocomplete-data-disabled-value': dataDisabled|json_encode}) %}{% endif %}
+    {% if searchParamName %}{% set attr = attr|merge({'data-autocomplete-search-param-name-value': searchParamName}) %}{% endif %}
+    {% if searchWildcard %}{% set attr = attr|merge({'data-autocomplete-search-wildcard-value': searchWildcard}) %}{% endif %}
+
+    {{ block('select_form_widget') }}
+{% endblock autocomplete_choice_widget %}
+
+{% block select_form_widget %}
+    {% if placeholder is not none %}
+        {% set attr = attr|merge({'data-placeholder': placeholder|trans({}, translation_domain)}) %}
+        {# Keep a blank empty option on single selects so TomSelect does not auto-select the first option. #}
+        {% set placeholder = multiple ? null : '' %}
+    {% endif %}
+
+    {% if tomSelectOptions is not defined %}
+        {% set tomSelectOptions = {} %}
+    {% endif %}
+
+    {% if closeOnSelect is not null %}{% set tomSelectOptions = tomSelectOptions|merge({closeAfterSelect: closeOnSelect}) %}{% endif %}
+    {% if maxSelectionLength %}{% set tomSelectOptions = tomSelectOptions|merge({maxItems: maxSelectionLength, searchField: []}) %}{% endif %}
+
+    {% if allowClear is not null %}{% set attr = attr|merge({'data-autocomplete-allow-clear-value': allowClear ? 'true' : 'false'}) %}{% endif %}
+
+    {% if tomSelectOptions|length > 0 %}
+        {% set attr = attr|merge({'data-symfony--ux-autocomplete--autocomplete-tom-select-options-value': tomSelectOptions|json_encode }) %}
+    {% endif %}
+
+    {% if cascadingTargetForm is defined and cascadingTargetForm is not null %}
+        {% set attr = attr|merge({'data-cascading-select-target-form-value': form.parent.vars.name ~ '_' ~ cascadingTargetForm}) %}
+        {% set attr = attr|merge({'data-cascading-select-from-property-value': cascadingFromProperty}) %}
+        {% set attr = attr|merge({'data-cascading-select-to-filter-value': cascadingToFilter}) %}
+    {% endif %}
+
+    {% if redirectRoute is defined and redirectRoute is not null %}
+        {% set attr = attr|merge({'data-redirect-select-route-value': redirectRoute}) %}
+        {% if redirectRouteParamsMap %}{% set attr = attr|merge({'data-redirect-select-route-params-map-value': redirectRouteParamsMap|json_encode}) %}{% endif %}
+        {% if redirectRouteParamsExtra %}{% set attr = attr|merge({'data-redirect-select-route-params-extra-value': redirectRouteParamsExtra|json_encode}) %}{% endif %}
+    {% endif %}
+
+    {{ block('choice_widget') }}
+{% endblock select_form_widget %}
+
+{% block switch_label %}
+    <label{% with {attr: label_attr} %}{{ block('attributes') }}{% endwith %}>
+        {%- if label is not same as(false) -%}
+            {{- block('form_label_content') -}}
+        {%- endif -%}
+    </label>
+{% endblock switch_label %}
+
+{% block switch_widget %}
+    {%- set attr_class = attr.class|default('') ~ ' form-check-input' -%}
+    {%- set attr = attr|merge({class: attr_class|trim}) -%}
+    <div class="form-check form-switch">
+        <input type="checkbox" role="switch" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    </div>
+{% endblock switch_widget %}

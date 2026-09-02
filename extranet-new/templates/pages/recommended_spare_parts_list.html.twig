@@ -1,0 +1,75 @@
+{#
+  pages/recommended_spare_parts_list.html.twig — STATIC
+  Route: page:rspl
+  Controller: App\Controller\StaticPageController::rspl
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.menu.rspl'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.parts_services'|trans,
+        hero_title: 'extranet.page.rspl.title'|trans,
+        hero_sub: 'extranet.page.rspl.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.menu.parts_services'|trans },
+            { label: 'extranet.page.rspl.title'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="row g-5 align-items-start">
+                <div class="col-lg-7">
+                    <div class="doc-prose">
+                        <p>{{ 'extranet.page.rspl.intro'|trans }}</p>
+                        <p style="margin-bottom:.5rem">{{ 'extranet.page.rspl.categories'|trans }}</p>
+                    </div>
+
+                    <div class="pmoc-grid mt-3">
+                        {% set cats = [
+                            { k: 'p', letter: 'P', kind: 'extranet.page.rspl.p'|trans, eg: 'extranet.page.rspl.p_eg'|trans },
+                            { k: 'm', letter: 'M', kind: 'extranet.page.rspl.m'|trans, eg: 'extranet.page.rspl.m_eg'|trans },
+                            { k: 'o', letter: 'O', kind: 'extranet.page.rspl.o'|trans, eg: 'extranet.page.rspl.o_eg'|trans },
+                            { k: 'c', letter: 'C', kind: 'extranet.page.rspl.c'|trans, eg: 'extranet.page.rspl.c_eg'|trans }
+                        ] %}
+                        {% for c in cats %}
+                            <div class="pmoc-card {{ c.k }}">
+                                <div class="pmoc-letter">{{ c.letter }}</div>
+                                <h3 class="pmoc-kind">{{ c.kind }}</h3>
+                                <p class="pmoc-eg"><span class="eg-label">{{ 'extranet.page.rspl.examples'|trans }}</span>{{ c.eg }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="doc-prose mt-4">
+                        <p>{{ 'extranet.page.rspl.outro'|trans }}</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="rspl-rail">
+                        {# Replace with a real photo: asset('images/rspl.jpg') #}
+                        <div class="fam-media" style="height:300px"><img src="{{ asset('images/spr.png') }}" alt=""></div>
+                    </div>
+                </div>
+            </div>
+
+            {# CTA #}
+            <div class="repairs-cta mt-5">
+                <div class="cta-text">
+                    <h3>{{ 'extranet.page.rspl.cta_title'|trans }}</h3>
+                    <p>{{ 'extranet.page.rspl.cta_sub'|trans }}</p>
+                </div>
+                <a class="btn-cta" href="{{ path('contact:index') }}?dept=sales">
+                    {{ 'extranet.page.rspl.cta_btn'|trans }}
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

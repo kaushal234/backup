@@ -1,0 +1,176 @@
+{% extends 'sales/orders/layout.html.twig' %}
+
+{% set showXML = order.xmlSource|length > 0 and is_granted('ACL_GG_MIS') %}
+{% trans_default_domain "sales_orders" %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        '@id': {label: 'SOR#', filters: 'iri_id'},
+                        'legacyId': {label: 'Legacy id'},
+                        sso: {
+                            properties: ['sso.name'],
+                            label: 'fields.sso'|trans({}, 'messages')|capitalize,
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'sso.@id'},
+                            },
+                        },
+                        juridicalLocation: {
+                            properties: ['juridicalLocation.name'],
+                            label: 'directory.juridical_location.name'|trans({}, 'directory')|capitalize,
+                            link:{
+                                route: 'directory_juridical_locations_show',
+                                params: {'id':'juridicalLocation.@id'},
+                            },
+                        },
+                        asm: {
+                            properties: ['asm.firstname', 'asm.lastname'],
+                            label: 'sales.sales_areas.asm'|trans({}, 'sales')|capitalize,
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'asm.@id'},
+                            },
+                        },
+                        enteredAt: {
+                            label: 'sales_order.fields.entered_at'|trans|capitalize,
+                            filters: 'date("Y-m-d")',
+                        },
+                        enteredAt: {
+                            label: 'sales_order.fields.entered_at'|trans|capitalize,
+                            filters: 'date("Y-m-d")',
+                        },
+                        newCustomer: {
+                            label: 'sales_order.fields.new_customer'|trans|capitalize,
+                            sortable: false,
+                            boolean: {
+                                true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>',
+                            },
+                        },
+                        baanOrderNumbers: {
+                            label: 'sales_order.fields.baan_order_numbers'|trans|capitalize,
+                            template: 'sales/orders/partial/_baan_order_numbers.html.twig',
+                        },
+                        equoteId: {
+                            label: 'sales_order.fields.equote_id'|trans|capitalize,
+                        },
+                        salesAgent: {
+                            label: 'sales_order.fields.sales_agent'|trans|capitalize,
+                            template: 'sales/customers/partial/cells/_customer.html.twig',
+                            templateParams: {customerPath: 'salesAgent', showApproved: true},
+                        },
+                        status: {
+                            label: 'fields.status'|trans({}, 'messages')|capitalize,
+                            template: 'sales/orders/partial/_status_td.html.twig',
+                        },
+                        note: {
+                            label: 'fields.note'|trans({}, 'messages')|capitalize,
+                        }
+                    },
+                    title: 'sales_order.title'|trans,
+                    data: order},
+            }, with_context = false) }}
+            {% if not order.salesAgent %}
+                 <hx:include src="/en/private/inc_sf/block_sor_sales_agent.php?id={{ order.legacyId }}" id="block_sor" />
+            {% endif %}
+        </div>
+        <div class="col-lg-6">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        name: {
+                            label: 'fields.name'|trans({}, 'messages')|capitalize,
+                            template: 'sales/customers/partial/cells/_customer.html.twig',
+                            templateParams: {customerPath: 'endUser', showApproved: true},
+                        },
+                        customerTypes: {
+                            label: 'customers.fields.type'|trans({}, 'sales_customers'),
+                            template: 'sales/orders/partial/cells/_customer_types_end_user.html.twig',
+                        },
+                    },
+                    title: 'fields.end_user'|trans({}, 'messages'),
+                    data: order},
+            }, with_context = false) }}
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        name: {
+                            label: 'fields.name'|trans({}, 'messages')|capitalize,
+                            template: 'sales/customers/partial/cells/_customer.html.twig',
+                            templateParams: {customerPath: 'buyer', showApproved: true},
+                        },
+                        customerPurchaseOrders: {
+                            label: 'sales_order.fields.customer_purchase_orders'|trans|capitalize,
+                            filters: 'join("\n")|nl2br',
+                        },
+                        customerTypes: {
+                            label: 'customers.fields.type'|trans({}, 'sales_customers'),
+                            template: 'sales/orders/partial/cells/_customer_types_buyer.html.twig',
+                        },
+                        inforLnBusinessPartnerCode: {
+                            label: 'customers.fields.infor_bp_code'|trans({}, 'sales_customers')
+                        },
+                        contact: {
+                            label: 'fields.contact'|trans({}, 'messages'),
+                            properties: ['contact.lastname', 'contact.firstname'],
+                            link: {
+                                route: 'sales_contact_show',
+                                params: {'id':'contact.@id'}
+                            }
+                        }
+                    },
+                    title: 'fields.buyer'|trans({}, 'messages'),
+                    data: order},
+            }, with_context = false) }}
+        </div>
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_order.reports.linked_sol'|trans }}</h5>
+                    <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+                </div>
+                <div class="ibox-content">
+                    <hx:include src="/en/private/sales_service/sol/sol_sor_hinclude.php?id={{ order.legacyId }}" id="block_sols">
+                        <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                    </hx:include>
+                </div>
+            </div>
+        </div>
+        {% if showXML %}
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins collapsed">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_order.fields.xml_source'|trans }}</h5>
+                    <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+                </div>
+                <div class="ibox-content">
+                    <pre>
+                        <code class="xml">{{ order.xmlSource|trim }}</code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% if showXML %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('partial/_footable.html.twig', {'selectors': ['#block_sols', '#block_sor']}) }}
+    {% if showXML %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    {% endif %}
+{% endblock %}

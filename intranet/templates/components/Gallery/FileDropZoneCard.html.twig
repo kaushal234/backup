@@ -1,0 +1,10 @@
+{% props elementDataSet = {}, title, upppyClass %}
+
+<div class="position-sticky">
+    <div class="card w-100 rounded-0 p-0">
+        <div class="card-header">
+            <h4>{{ title }}</h4>
+        </div>
+        <div class="card-body h-auto {{ upppyClass }}" data-data="{{ elementDataSet | json_encode }}"></div>
+    </div>
+</div>

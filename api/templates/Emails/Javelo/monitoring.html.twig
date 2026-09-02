@@ -1,0 +1,132 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+
+    {% set create_command = [] %}
+    {% set create_by_user = [] %}
+    {% set update_command = [] %}
+    {% set update_by_user = [] %}
+
+    {% for log in logs %}
+        {% if log.action == 'create' %}
+            {% if log.poster is null %}
+                {% set create_command = create_command | merge([log]) %}
+            {% else %}
+                {% set create_by_user = create_by_user | merge([log]) %}
+            {% endif %}
+        {% elseif log.action == 'update' %}
+            {% if log.poster is null %}
+                {% set update_command = update_command | merge([log]) %}
+            {% else %}
+                {% set update_by_user = update_by_user | merge([log]) %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% set logs_by_type = {
+        'create_by_command': create_command,
+        'update_by_command': update_command,
+        'create_by_user': create_by_user,
+        'update_by_user': update_by_user
+    } %}
+
+    <row>
+
+        <h3>{{ 'javelo.table.title'|trans({})|capitalize }}</h3>
+
+        {% for type, logs in logs_by_type %}
+            {% set title = 'javelo.table.' ~ type %}
+
+                {{ include('/Helpers/_report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            createdAt: {
+                                label:'sfr.fields.date' | trans,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            intranetId: {
+                                label:'javelo.change_set.intranetId'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            givenName: {
+                                label:'javelo.change_set.givenName'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            familyName: {
+                                label:'javelo.change_set.familyName'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            userName: {
+                                label:'javelo.change_set.username'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            active: {
+                                label:'javelo.change_set.active'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            locale: {
+                                label:'javelo.change_set.locale'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            title: {
+                                label:'javelo.change_set.title'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            department: {
+                                label:'javelo.change_set.department'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            managerUserName: {
+                                label:'javelo.change_set.managerUserName'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            businessUnit: {
+                                label:'javelo.change_set.businessUnit'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            region: {
+                                label:'javelo.change_set.region'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            subdivision: {
+                                label:'javelo.change_set.subdivision'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            division: {
+                                label:'javelo.change_set.division'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            gender: {
+                                label:'javelo.change_set.gender'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            contractType: {
+                                label:'javelo.change_set.contract_type'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            lastExitDate: {
+                                label:'javelo.change_set.last_exit_date'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            position: {
+                                label:'javelo.change_set.position'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            },
+                            workingTime: {
+                                label:'javelo.change_set.working_time'|trans({})|capitalize,
+                                template : 'Emails/Javelo/_partials/_change_set_field.html.twig'
+                            }
+                        },
+                        data: logs,
+                        title: title | trans({}),
+                    },
+                }, with_context = false) }}
+    {% endfor %}
+
+
+    </row>
+
+{% endblock %}

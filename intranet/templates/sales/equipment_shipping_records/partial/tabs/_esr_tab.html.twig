@@ -1,0 +1,104 @@
+{% trans_default_domain 'equipment_shipping_record' %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'equipment_shipping_record.title'|trans()|upper }} #{{ equipmentShippingRecord.id }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ include('helper/_association_table_raw.html.twig', {
+                            associationData: {
+                                items: {
+                                    legacyId: {
+                                        label: 'equipment_shipping_record.legacyId'|trans ~ '#',
+                                    },
+                                    sso: {
+                                        properties: ['sso.name'],
+                                        label: 'directory.department.fields.sso'|trans({}, 'directory'),
+                                    },
+                                    createdAt: {
+                                        label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                                        filters: ["date('Y-m-d')"]
+                                    },
+                                    status: {
+                                        label: 'sales_forecasts.fields.status'|trans({}, 'sales_forecasts')|capitalize,
+                                    },
+                                    incorterm: {
+                                        properties: ['incoterm.code', 'incoterm.name'],
+                                        label: 'equipment_shipping_record.fields.incoterm'|trans()|capitalize,
+                                    },
+                                    loadingPlace: {
+                                        label: 'equipment_shipping_record.fields.loading'|trans()|capitalize,
+                                    },
+                                    departurePlace: {
+                                        label: 'equipment_shipping_record.fields.departure'|trans()|capitalize,
+                                    },
+                                    arrivalPlace: {
+                                        label: 'equipment_shipping_record.fields.arrival'|trans()|capitalize,
+                                    },
+                                    carrier: {
+                                        label: 'spq.quotations.fields.terms.forwarding_agent'|trans({}, 'spq')|capitalize,
+                                        template: 'sales/equipment_shipping_records/partial/cell/_carrier.html.twig',
+                                    },
+                                    forwarder: {
+                                        label: 'equipment_shipping_record.fields.forwarder'|trans()|capitalize,
+                                        template: 'sales/equipment_shipping_records/partial/cell/_forwarder.html.twig',
+                                    },
+                                    modality: {
+                                        label: 'equipment_shipping_record.fields.modality'|trans()|capitalize,
+                                    },
+                                    shipAuthorization: {
+                                        label: 'equipment_shipping_record.fields.ship_authorization'|trans()|capitalize,
+                                        boolean: {
+                                            false: '<div><span class="d-none">1</span><i class="fa fa-circle text-danger"></i></div>',
+                                            true: '<div><span class="d-none">0</span><i class="fa fa-circle" style="color: #009639"></i></div>'
+                                        }
+                                    },
+                                    notes: {
+                                        label: 'equipment_shipping_record.fields.notes'|trans()|capitalize,
+                                        filters: 'nl2br'
+                                    },
+                                },
+                                data: equipmentShippingRecord,
+                            },
+                        }, with_context = false) }}
+                    </div>
+                    {% if equipmentShippingRecord.customer is not null %}
+                        <div class="col-md-4">
+                            {{ include('helper/_association_table_raw.html.twig', {
+                                associationData: {
+                                    items: {
+                                        id: {
+                                            label: 'equipment_shipping_record.fields.customer_id'|trans()|capitalize,
+                                        },
+                                        name: {
+                                            label: 'directory.location.fields.name'|trans({}, 'directory')|capitalize
+                                        },
+                                        address: {
+                                            label: 'customers.fields.address'|trans({}, 'sales_customers')|capitalize,
+                                            template: 'sales/customers/partial/cells/_address.html.twig',
+                                        },
+                                        phone: {
+                                            label: 'customers.fields.phone'|trans({}, 'sales_customers')|capitalize
+                                        },
+                                        fax: {
+                                            label: 'customers.fields.fax'|trans({}, 'sales_customers')|capitalize
+                                        },
+                                    },
+                                    data: equipmentShippingRecord.customer,
+                                },
+                            }, with_context = false) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

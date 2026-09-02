@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+        <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
+            <faultcode>S:Server</faultcode>
+            <faultstring>PouetFault</faultstring>
+            <detail>
+                <Result:Result xmlns:Result="http://www.infor.com/businessinterface/txPurchaseOrder" xmlns="http://www.infor.com/businessinterface/txPurchaseOrder">
+                    <messageCode xmlns:ns7="http://www.infor.com/businessinterface/txPurchaseOrder" xmlns="">-99904</messageCode>
+                    <messageType xmlns:ns7="http://www.infor.com/businessinterface/txPurchaseOrder" xmlns="">Error</messageType>
+                    <messageText xmlns:ns7="http://www.infor.com/businessinterface/txPurchaseOrder" xmlns="">PouetFault.</messageText>
+                    <messageSource xmlns:ns7="http://www.infor.com/businessinterface/txPurchaseOrder" xmlns="">ERP LN Dispatcher - Company 5000</messageSource>
+                </Result:Result>
+            </detail>
+        </S:Fault>
+    </S:Body>
+</S:Envelope>

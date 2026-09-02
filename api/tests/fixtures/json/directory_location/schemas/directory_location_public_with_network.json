@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/locations/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "legacyId": {"type": "integer"},
+    "name": {
+      "type": "string"
+    },
+    "erp": {
+      "type": ["integer", "null"]
+    },
+    "network": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/networks/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {"type": "string"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "name",
+    "erp",
+    "network"
+  ],
+  "additionalProperties": false
+}

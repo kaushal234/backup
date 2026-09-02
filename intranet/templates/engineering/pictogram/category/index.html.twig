@@ -1,0 +1,11 @@
+{% extends 'engineering/pictogram/layout.html.twig' %}
+
+{% block title %}{{ parent() }} / {{ 'categories'|trans() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ data_table(categoryDataTable) }}
+        </div>
+    </div>
+{% endblock %}

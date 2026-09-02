@@ -1,0 +1,52 @@
+{% extends 'mis/groups/layout.html.twig' %}
+{% set id = iri_id(group) %}
+{% set superuser = is_granted('FEATURE_GROUPS_ADMIN') %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-6">
+    {{ include('helper/_association_table.html.twig', {
+        associationData: {
+            items: {
+                '@id': {
+                    label:'Group#',
+                    filters: 'iri_id'
+                },
+                name: {label: 'fields.name'|trans|capitalize},
+                description: {
+                    label: 'fields.description'|trans|capitalize
+                },
+                legacyPermissions: {
+                    label: 'fields.legacy_permissions'|trans|capitalize
+                },
+                legacyId: {label: 'Legacy Id'},
+            },
+            title: group.name ~ ' ' ~ 'mis.groups.group-detail'|trans([], 'mis')|capitalize,
+            data: group},
+    }, with_context = false) }}
+    </div>
+</div>
+    {% if superuser %}
+        <div class="row">
+            <div class="col-lg-6">
+                {{ include('helper/_report_table.html.twig', {
+                    'reportTable': {
+                        'items': {
+                            'name': {
+                                'label': 'fields.name'|trans()|capitalize,
+                                'link':{
+                                    'route': 'mis_features_show',
+                                    'params': {'id':'@id'}
+                                },
+                            },
+                        },
+                        'title': 'mis.features.title.features_for'|trans([], 'mis')|capitalize ~ ' ' ~ group.name ,
+                        'data': group.features
+                    }
+                }, with_context = false) }}
+            </div>
+        </div>
+        {{ resourceActivities(group['@id'], path('mis_groups_show', { id: id })) }}
+    {% endif %}
+{% endblock %}

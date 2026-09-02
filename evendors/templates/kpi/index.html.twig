@@ -1,0 +1,303 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'header.menu.kpi'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{ 'title.report.select_supplier' | trans }}</h5>
+                </div>
+                <div class="card-body">
+                    {{ form_start(formFilter) }}
+                    {{ form_row(formFilter.supplierNumber) }}
+                    {{ form_row(formFilter.factory) }}
+
+                    <button type="submit" class="mt-2 btn btn-primary w-100">{{ 'security.login.submit'|trans }}</button>
+                    {{ form_end(formFilter) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    {% if topPartFailureReport[0] is not defined
+        and (reportPartFailureHistory is null or reportSupplierHistory.rows | length == 0)
+        and (reportSupplierHistory is null or reportSupplierHistory.rows | length == 0)
+        and chartRecoveryCost is null %}
+        <p>{{ 'no_results' | trans }}</p>
+    {% endif %}
+    <div class="row">
+        <div class="col">
+            {% if topPartFailureReport[0] is defined %}
+                {% embed '_components/report_table.html.twig' with {
+                    reportTable: {
+                        data: topPartFailureReport,
+                        search: false,
+                        initialSorting: false,
+                        title: 'vendor_warranty_claim.report.top_part_failure' | trans({}, 'vendor_warranty_claim') | capitalize ,
+                        items : {
+                            name: {
+                                label: 'spare_parts_request.fields.part_number' | trans({}, 'spare_parts_request'),
+                            },
+                            value: {
+                                label: 'vendor_warranty_claim.report.number_part'| trans({}, 'vendor_warranty_claim'),
+                            },
+                        },
+                    }
+                } %}
+                    {% block card_header_after %}
+                        <div class="col text-end">
+                            <div>
+                                <label for="report-limit" class="mt-2">{{ 'vendor_warranty_claim.report.results' | trans({}, 'vendor_warranty_claim') }} :</label>
+                                <select id="report-limit" class="form-select w-auto d-inline-block ms-2">
+                                    <option value="ALL">ALL</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </div>
+                        </div>
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+        </div>
+    <br />
+        <div class="col">
+            {% if reportPartFailureHistory is not null and reportPartFailureHistory.rows | length > 0 %}
+                <div class="card mb-3">
+                    <div class="card-header border-bottom border-1 border-dark py-2 px-1">
+                        <div class="row">
+                            <div class="col-6">
+                                <h5>{{ 'vendor_warranty_claim.report.part_failure_history' | trans({}, 'vendor_warranty_claim')}}</h5>
+                            </div>
+                            <div class="col-6 text-end">
+                                <div>
+                                    <label for="matrix-limit" class="mt-2">{{ 'vendor_warranty_claim.report.results' | trans({}, 'vendor_warranty_claim') }} :</label>
+                                    <select id="matrix-limit" class="form-select w-auto d-inline-block ms-2">
+                                        <option value="ALL">ALL</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0" id="matrix-container">
+                        {{ include('_components/matrix_table.html.twig', {
+                            data: reportPartFailureHistory.getIterator.getArrayCopy,
+                        }, with_context=false) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+            {% if vendorWarrantyClaims | length > 0 %}
+                {{ include('_components/report_table.html.twig', {
+                    reportTable: {
+                        data: vendorWarrantyClaims,
+                        search: false,
+                        initialSorting: false,
+                        title: 'vendor_warranty_claim.report.vendor_to_respond' | trans({}, 'vendor_warranty_claim'),
+                        items : {
+                            id: {
+                                label: 'display.table.vwc.headers.id' | trans,
+                                template: 'vendor-warranty-claim/components/datatable/id_link.html.twig'
+                            },
+                            days: {
+                                label: 'display.table.vwc.headers.days' | trans,
+                                template: 'vendor-warranty-claim/components/datatable/days.html.twig'
+                            },
+                            requestedCreditAmount: {
+                                label: 'vendor_warranty_claim.fields.requested_credit_amount'| trans({}, 'vendor_warranty_claim'),
+                                filters: "number_format(2)"
+                            },
+                            supplierCreditAmount: {
+                                label: 'vendor_warranty_claim.fields.supplier_credit_amount'| trans({}, 'vendor_warranty_claim'),
+                                filters: "number_format(2)"
+                            },
+                            actualCreditAmount: {
+                                label: 'vendor_warranty_claim.fields.actual_credit_amount'| trans({}, 'vendor_warranty_claim'),
+                                filters: "number_format(2)"
+                            },
+                        },
+                    }
+                }, with_context=false) }}
+            {% endif %}
+        </div>
+    <br />
+        <div class="col">
+            {% if reportSupplierHistory is not null and reportSupplierHistory.rows | length > 0 %}
+                <div class="card mb-3">
+                    <div class="card-header border-bottom border-1 border-dark py-2 px-1">
+                        <h5>{{ 'vendor_warranty_claim.report.supplier_history' | trans({}, 'vendor_warranty_claim')}}</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        {{ include('_components/matrix_table.html.twig', {
+                            data: reportSupplierHistory.getIterator.getArrayCopy,
+                        }, with_context=false) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <br />
+        <div class="col">
+            {% if reportSupplierHistorySupplierCorrectiveActionRequest is not null and reportSupplierHistorySupplierCorrectiveActionRequest.rows | length > 0 %}
+                <div class="card mb-3">
+                    <div class="card-header border-bottom border-1 border-dark py-2 px-1">
+                        <h5>{{ 'supplier_corrective_action_request.supplier_history' | trans({}, 'supplier_corrective_action_request')}}</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        {{ include('_components/matrix_table.html.twig', {
+                            data: reportSupplierHistorySupplierCorrectiveActionRequest.getIterator.getArrayCopy,
+                        }, with_context=false) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% if chartRecoveryCost is not null %}
+                <div data-options="{{ chartRecoveryCost|json_encode }}" class="highcharts"></div>
+            {% endif %}
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        {% if filtered == true %}
+            {% set supplierValue = formFilter.vars['value']['supplierNumber'] %}
+            {% set factoryValue = formFilter.vars['value']['factory'] %}
+            <h4>{{ 'title.report.powerbi_64' | trans}}</h4>
+            <section
+                    data-report-id={{ power_bi_report_64 }}
+                    data-factory='{{ factoryValue }}'
+                    data-supplier='{{ supplierValue }}'
+                    class="embed-container report-container col m-3 p-0">
+            </section>
+        {% endif %}
+    </div>
+    <br />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        window.APP_CONFIG = {
+            INTERNAL_API_ENDPOINT: "{{ app.request.server.get('INTERNAL_API_ENDPOINT', 'https://localhost:8080') }}",
+            POWERBI_URL: "{{ app.request.server.get('POWERBI_URL', 'https://localhost:8082') }}",
+            POWER_BI_REPORT_64: "{{ power_bi_report_64 }}"
+        };
+    </script>
+    <script src="/js/powerbi.min.js"></script>
+    <script type="module" src="{{ asset('javascript/powerbi/client.ts') }}"></script>
+    {% if reportPartFailureHistory is not null and reportPartFailureHistory.rows | length > 0 %}
+        <script>
+            const fullReportPartFailureHistory = {{ reportPartFailureHistory.getIterator.getArrayCopy | json_encode | raw }};
+            const columnNames = Object.keys(fullReportPartFailureHistory.yTotals);
+            let rowEntries = Object.entries(fullReportPartFailureHistory.rows);
+            let sortState = { column: null, direction: 'ASC' };
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const limitSelect = document.getElementById('matrix-limit');
+                const matrixContainer = document.getElementById('matrix-container');
+
+                limitSelect.value = '10';
+
+                function applySort() {
+                    if (!sortState.column) return;
+
+                    rowEntries.sort(([, rowA], [, rowB]) => {
+                        const valueA = Number(rowA?.[sortState.column]?.value) || 0;
+                        const valueB = Number(rowB?.[sortState.column]?.value) || 0;
+                        return sortState.direction === 'ASC' ? valueA - valueB : valueB - valueA;
+                    });
+                }
+
+                function sortByColumn(columnName) {
+                    if (sortState.column === columnName) {
+                        sortState.direction = sortState.direction === 'ASC' ? 'DESC' : 'ASC';
+                    } else {
+                        sortState.column = columnName;
+                        sortState.direction = 'DESC';
+                    }
+                    applySort();
+                    renderMatrixTable();
+                }
+
+                function renderMatrixTable() {
+                    const limit = limitSelect.value;
+                    const entriesToDisplay = limit === 'ALL'
+                        ? rowEntries
+                        : rowEntries.slice(0, Number(limit));
+
+                    let html = '<table class="table table-striped table-bordered"><thead><tr><th></th>';
+                    for (const title of columnNames) {
+                        const sortIndicator = sortState.column === title
+                            ? (sortState.direction === 'ASC' ? ' ▲' : ' ▼')
+                            : '';
+                        const escapedTitle = title.replace(/'/g, "\\'");
+                        html += `<th style="cursor: pointer; user-select: none;" onclick="window.sortMatrixColumn('${escapedTitle}')" title="Click to sort">${title}${sortIndicator}</th>`;
+                    }
+                    html += '</tr></thead><tbody>';
+
+                    for (const [rowTitle, cells] of entriesToDisplay) {
+                        html += `<tr><th>${rowTitle}</th>`;
+                        for (const columnName of columnNames) {
+                            html += `<td style="text-align: center;">${cells?.[columnName]?.value ?? ''}</td>`;
+                        }
+                        html += '</tr>';
+                    }
+
+                    html += '</tbody></table>';
+                    matrixContainer.innerHTML = html;
+                }
+
+                window.sortMatrixColumn = sortByColumn;
+
+                renderMatrixTable();
+
+                limitSelect.addEventListener('change', renderMatrixTable);
+            });
+        </script>
+    {% endif %}
+    {% if topPartFailureReport[0] is defined %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const selectLimit = document.getElementById('report-limit');
+                const table = document.querySelector('table');
+
+                if (!table || !selectLimit) return;
+
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+
+                function updateTable() {
+                    const limit = selectLimit.value;
+
+                    rows.forEach((row, index) => {
+                        if (limit === 'ALL') {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = index < parseInt(limit) ? '' : 'none';
+                        }
+                    });
+                }
+
+                selectLimit.addEventListener('change', updateTable);
+
+                updateTable();
+            });
+
+        </script>
+    {% endif %}
+    <script>
+        window.user = {{ app.user | serialize |  raw }};
+    </script>
+
+{% endblock javascripts %}

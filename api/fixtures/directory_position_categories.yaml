@@ -1,0 +1,32 @@
+App\Entity\Directory\PositionCategoryType:
+    # /position_category_types/1
+    position_category_type_1:
+        id: 1
+        name: 'A box in a box'
+
+    # /position_category_types/2
+    position_category_type_2:
+        id: 2
+        name: 'Category Type Family Section Container'
+
+App\Entity\Directory\PositionCategory:
+    # /position_categories/1
+    position_category_1:
+        id: 1
+        name: 'Cat & gory'
+        description: 'Meow'
+        positionCategoryType: '@position_category_type_1'
+        directHeadcount: false
+        divisions:
+            - '@division_by_zero'
+            - '@division_vision'
+
+    # /position_categories/2
+    position_category_2:
+        id: 2
+        name: 'Cat & gorille'
+        description: 'Meow'
+        positionCategoryType: '@position_category_type_1'
+        directHeadcount: false
+        divisions:
+            - '@division_by_zero'

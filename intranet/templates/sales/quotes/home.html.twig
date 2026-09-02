@@ -1,0 +1,9 @@
+{% extends 'sales/layout.html.twig' %}
+{% trans_default_domain 'sales_orders' %}
+
+{% block title %}{{ parent() }}\{{ 'quotes.title'|trans({}, 'sales_orders')|capitalize }}{% endblock %}
+
+{% block content %}
+    {{ data_table(quoteDatatable) }}
+
+{% endblock %}

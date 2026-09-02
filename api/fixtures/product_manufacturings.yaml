@@ -1,0 +1,33 @@
+App\Entity\Manufacturing\ProductManufacturing:
+    product_manufacturing_1:
+      id: 1
+      product: '@catalog_product_1'
+      factory: '@location_factory'
+      industrialIncorporationParameter: 100
+      factoryStandardEfficiency: 95
+      effectiveAt: <( new \DateTime("2020-01-01"))>
+      modelBaseHours: 120
+
+    product_manufacturing_2:
+      id: 2
+      product: '@catalog_product_2'
+      factory: '@location_factory'
+      industrialIncorporationParameter: 10
+      factoryStandardEfficiency: 10
+      effectiveAt: <( new \DateTime("first day of this year january 00:00:00"))>
+
+    product_manufacturing_3:
+      id: 3
+      product: '@catalog_product_2'
+      factory: '@location_factory'
+      industrialIncorporationParameter: 11
+      factoryStandardEfficiency: 11
+      effectiveAt: <( new \DateTime("first day of last year january 00:00:00"))>
+
+    product_manufacturing_{4..10}:
+      id: <current()>
+      product: '@catalog_product_<current()>'
+      factory: '@location_factory'
+      industrialIncorporationParameter: <numberBetween(50,100)>
+      factoryStandardEfficiency: <numberBetween(50,100)>
+      effectiveAt: <( new \DateTime("first day of this year january 00:00:00"))>

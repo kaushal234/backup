@@ -1,0 +1,15 @@
+{% extends 'service/layout.html.twig' %}
+{% trans_default_domain 'service' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="service.nav_link.equipment_record" domain="service" icon="mdi-light:truck"
+                      route="legacy_product_support"
+                      :routeParameters="{m: ['equipment', 'view'], 'id': equipmentRecord['@id'] is defined ? equipmentRecord.legacyId : followUpReport.equipmentRecord.legacyId }"/>
+        {% if followUpReport is defined %}
+            <twig:NavItem translationKey="service.nav_link.maintenance_follow_up_report" domain="service"
+                          icon="tabler:report" route="service_maintenance_follow_up_reports_list_by_equipment"
+                          :routeParameters="{'id': equipmentRecord['@id'] is defined ? iri_id(equipmentRecord) : iri_id(followUpReport.equipmentRecord) }"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

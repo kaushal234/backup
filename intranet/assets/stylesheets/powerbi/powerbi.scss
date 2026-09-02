@@ -1,0 +1,21 @@
+/*
+ * --report-ui-offset: space consumed by UI elements above and below the container
+ * topbar (55px) + breadcrumb (45px + 14px margin-bottom) + p-w-md margin-top (50px)
+ * + report-container margin-bottom (16px) + footer (41px) = 182px (measured in browser)
+ */
+:root {
+  --report-ui-offset: 182px;
+}
+
+section#report-container,
+section.report-container {
+  height: calc(100dvh - var(--report-ui-offset));
+  min-height: fit-content;
+}
+
+@media only screen and (max-width: 575px) {
+  section#report-container,
+  section.report-container {
+    height: calc(0.5625 * 100vw); /* 16:9 aspect ratio for small screens */
+  }
+}

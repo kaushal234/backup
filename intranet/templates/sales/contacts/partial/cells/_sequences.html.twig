@@ -1,0 +1,5 @@
+<td>
+    {% for sequence in item.extranetUserProfile.sequenceIds %}
+            <a href="{{ path('legacy_calendar', {'m':['tasks', 'task', 'view'], 'id': sequence }) }}">{{ sequence }}</a><br>
+    {% endfor %}
+</td>

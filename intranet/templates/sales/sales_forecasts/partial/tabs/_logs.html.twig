@@ -1,0 +1,26 @@
+{% set summaryModalId = 'generate-summary-modal-' ~ item.id %}
+
+<div data-controller="kreyu--data-table-bundle--bootstrap-modal"
+     data-kreyu--data-table-bundle--bootstrap-modal-url-value="{{ path('sales_forecast_generate_summary_modal', {id: item.id}) }}">
+
+    <a
+            id="generate_summary"
+            class="btn btn-primary ms-4"
+            data-bs-toggle="modal"
+            data-bs-target="#{{ summaryModalId }}"
+            data-action="kreyu--data-table-bundle--bootstrap-modal#open">
+        <i>{{ ux_icon('alvi:logo', {height: '16px', width: '16px'}) }}</i>
+        {{ 'sales_forecasts.button.generate_summary' | trans({}, 'sales_forecasts') }}
+    </a>
+
+    <div class="modal fade inmodal" id="{{ summaryModalId }}" tabindex="-1" aria-hidden="true"
+         data-kreyu--data-table-bundle--bootstrap-modal-target="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">{{ 'Loading'|trans }}...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ include('generic/_logs.html.twig', {hasFileUpload: hasFileUpload}) }}

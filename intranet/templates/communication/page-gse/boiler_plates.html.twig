@@ -1,0 +1,19 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_boiler_plate.html.twig', {
+        boilerPlates: {
+            50: "<p>PAGE GSE specializes in Ground Power Unit (GPU) cables, Pre-Conditioned Air (PCA) ducting, and accessories that optimize aviation ground support operations. Backed by 150+ years of combined aviation expertise, our innovative products and dedicated customer service ensure reliability and efficiency, making us a trusted partner in the GSE industry worldwide.</p>",
+            150: "<p>PAGE GSE is a trusted leader in Ground Power Unit (GPU) cables, Pre-Conditioned Air (PCA) ducting, and accessories, delivering reliable solutions to aviation ground support operations worldwide. Since 1976, our team has combined over 150 years of aviation expertise to design and manufacture products that exceed industry standards.</p>
+                <p>Our offerings include GPU cables, PCA hoses, ducting accessories, and related components, all engineered to enhance operational efficiency and minimize downtime. Complementing our products are expert services, such as system design consultation, on-site testing, and training programs, ensuring tailored solutions for every customer.</p>
+                <p>With a focus on quality and innovation, PAGE GSE leverages cutting-edge technology and customer feedback to continually refine our products, addressing the unique challenges of ground support operations. Choose PAGE for a partner that delivers superior products, expert support, and unmatched reliability, helping you achieve operational excellence in a demanding industry.</p>",
+            300: "<p>PAGE GSE specializes in Ground Power Unit (GPU) cables, Pre-Conditioned Air (PCA) ducting, and accessories, providing reliable and innovative solutions for aviation ground support operations since 1976. With over 150 years of combined expertise, our team is dedicated to designing and manufacturing products that set the standard for quality and performance in the GSE industry.</p>
+                <p>Our core product offerings include GPU cables for efficient power distribution, durable PCA ducting to maintain precise aircraft climate control, and a full range of accessories engineered for compatibility and long-lasting reliability. These solutions are tailored to meet the operational demands of aviation ground support, ensuring efficiency and reduced downtime.</p>
+                <p>Beyond products, PAGE GSE offers comprehensive services, including system design consultation, on-site testing, and training programs, allowing us to address the specific needs of every customer. Our customer-focused approach and commitment to collaboration ensure that we exceed expectations, building strong partnerships that drive long-term success.</p>
+                <p>Innovation is central to PAGE’s mission. By staying ahead of industry trends and leveraging customer insights, we continually refine and expand our product offerings. From advanced GPU cable designs to robust PCA solutions, our goal is to optimize operational efficiency while delivering unmatched value to aviation ground support professionals worldwide.</p>
+                <p>Choose PAGE GSE for a partner that delivers high-quality GPU cables, PCA ducting, and accessories, backed by decades of experience and a reputation for excellence. With our products and expertise, you can trust us to support your ground operations with reliable, efficient, and innovative solutions. Together, we’ll elevate your performance and achieve operational excellence.</p>"
+        }
+    }) }}
+{% endblock %}

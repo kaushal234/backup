@@ -1,0 +1,22 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <h3>{{ entity.name }}</h3>
+
+    <div class="organisation">
+        {% if topPeople|default(null) is not same as (null) %}
+            <div id="people-{{ iri_id(topPeople) }}">
+                {{ include('partial/_people_search.html.twig', {
+                    entriesClass: 'orgPeople',
+                    entry: topPeople
+                }, with_context=false) }}
+                <button type="button" class="btn btn-sm open org-btn" data-people-id="{{ iri_id(topPeople) }}">-</button>
+                {{ include('directory/_ajax_organisation.html.twig', {
+                    peopleId: iri_id(topPeople),
+                    people: underPeople
+                }, with_context=false) }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

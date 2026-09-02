@@ -1,0 +1,63 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+{% form_theme filterForm 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    {{ form_start(filterForm) }}
+    <div class="row mb-3">
+        <div class="col-3">
+            {{ form_row(filterForm.salesServiceOrganisation) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(filterForm.from) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(filterForm.to) }}
+        </div>
+        <div class="col-3 d-flex align-items-center">
+            <button class="btn btn-primary">
+                {{ 'button.filter'|trans({}, 'messages')|upper }}
+            </button>
+        </div>
+    </div>
+    {{ form_end(filterForm) }}
+    <div class="row justify-content-md-center">
+        <div class="col-12 mt-3">
+            <div id="mim_by_bu_container" class="col-md-12 highcharts" data-options="{{ chartTechnicianOnCallSparePartRequestBuilder|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-12 mt-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'toc.report.spare_part_request_dispatch_time.title' | trans }}</h5>
+                    <a class="collapse-link">
+                        <div class="ibox-tools">
+                            <i class="fa fa-chevron-up"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: reportSparePartsRequestDispatchTime,
+                        link: {
+                            route: 'spare_parts_request_list',
+                            xParam: 'shippedDelay',
+                            yParam: 'sph',
+                            additionalParams: {
+                                status: ['SHIPPED', 'CLOSED'],
+                                resourceType: 'TocSparePartsRequest',
+                                createdAfter: filterForm.from.vars.value,
+                                createdBefore: filterForm.to.vars.value,
+                            },
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#&shippingDate=#}
+{#&shippedDelay=#}
+{#&createdAfter=11%2F16%2F2025&createdBefore=#}

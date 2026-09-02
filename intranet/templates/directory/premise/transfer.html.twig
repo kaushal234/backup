@@ -1,0 +1,13 @@
+{% extends 'directory/premise/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('directory/premise/partial/_form_transfer.html.twig', {
+        title: 'directory.premise.transfer.transfer'|trans,
+        form: form,
+        action: path('directory_premises_transfer', {'id': premise.iriId}),
+        cancel_link: path('directory_premise_list')
+    }, with_context=false) }}
+{% endblock %}

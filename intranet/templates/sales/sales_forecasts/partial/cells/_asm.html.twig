@@ -1,0 +1,8 @@
+{% trans_default_domain 'sales_forecasts' %}
+<td>
+    <div class="text-end">
+        <a href="{{ path('directory_people_show', {id: iri_id(item.asm)}) }}">
+            {{ item.asm.firstname }} {{ item.asm.lastname }}&nbsp;<span class="badge text-bg-{{ item.delinquent ? 'danger' : 'success' }}"><i class="fa fa-{{ item.delinquent ? 'exclamation-triangle' : 'check' }}" {% if item.delinquent %}title="{{ 'sales_forecasts.fields.delinquent'|trans }}" {% endif %}/></span>
+        </a>
+    </div>
+</td>

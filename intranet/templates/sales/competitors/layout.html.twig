@@ -1,0 +1,40 @@
+{% extends 'sales/layout.html.twig' %}
+
+{% block title %}{{ parent() }} \ {{ 'competitors.title' | trans({}, 'sales_competitors') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if competitor is not defined %}
+            <twig:NavItem:Add route="sales_competitors_add" :security="is_granted('FEATURE_COMPETITOR_CREATE')"/>
+        {% endif %}
+        {% if competitor is defined %}
+            <twig:NavItem:Details route="sales_competitors_show" :routeParameters="{id: competitor.id}"/>
+            <twig:NavItem:Delete route="sales_competitors_delete" :routeParameters="{id: competitor.id}"
+                                 :security="is_granted('FEATURE_COMPETITOR_DELETE')"/>
+            <twig:NavItem translationKey="competitors.nav_link.mim" domain="sales_competitors" icon="mynaui:list"
+                          route="market_intelligence_home" :routeParameters="{ competitors: competitor['@id'] }"/>
+            <twig:NavItem translationKey="competitors.nav_link.fcr" domain="sales_competitors" icon="mynaui:list"
+                          route="forecast_closures_home" :routeParameters="{ competitor: competitor['@id'] }"/>
+            <twig:NavItem translationKey="competitors.nav_link.cpr" domain="sales_competitors" icon="mynaui:list"
+                          route="competitor_pricings_home" :routeParameters="{ competitor: competitor['@id'] }"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if competitor is defined %}
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Add route="sales_competitors_add" :security="is_granted('FEATURE_COMPETITOR_CREATE')"/>
+            <twig:NavItem:Edit route="sales_competitors_edit" :routeParameters="{id: competitor.id}"
+                               :security="is_granted('FEATURE_COMPETITOR_EDIT')"/>
+            <twig:NavItem:Files route="sales_competitors_files" :routeParameters="{id: competitor.id}"/>
+            <twig:NavItem:AddLink route="legacy_sales"
+                                  :routeParameters="{ m: ['cor', 'view', 'links'], 'id': competitor.legacyId }"/>
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

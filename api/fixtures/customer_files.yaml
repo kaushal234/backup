@@ -1,0 +1,22 @@
+App\Entity\Sales\CustomerFile:
+    customer_file_1:
+        poster: "@user_basic"
+        filePath: "fake/path"
+        created_at: <dateTimeBetween('-30 days','-1 days')>
+        description: "Just for test"
+        sha: "miaouid6"
+        mimeType: "Mr Mime"
+        extension: "flexion"
+        size: 22
+        customer: "@customer_parent"
+
+    customer_file_2:
+        poster: "@user_basic"
+        filePath: "to/infinity/and/beyond"
+        created_at: <dateTimeBetween('-30 days','-1 days')>
+        description: "Buzz Lightyear"
+        sha: "miaouid7"
+        mimeType: "toy"
+        extension: "flexion"
+        size: 22
+        customer: "@customer_noire"

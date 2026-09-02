@@ -1,0 +1,54 @@
+{{ include('helper/_report_table.html.twig', {
+    reportTable: {
+        items: {
+            filePath: {
+                label: 'menu.files'|trans|capitalize,
+                filters: 'slice(52)',
+                link: {
+                    route: 'parts_transportation_note_file_show',
+                    params: { id: 'id' },
+                    fixedParams: { noteId: note.id }
+                },
+            },
+            size: {
+                label: 'size'|trans|capitalize,
+                filters : 'readable_filesize'
+            },
+            poster: {
+                label: 'fields.poster'|trans|capitalize,
+                properties: ['poster.lastname', 'poster.firstname'],
+                link: {
+                    route: 'directory_people_show',
+                    params: {'id': 'poster.@id'}
+                },
+            },
+            createdAt: {
+                label: 'fields.created_at'|trans|capitalize,
+                filters: 'date("Y-m-d H:i:s")'
+            },
+            delete: {
+                label: 'menu.delete'|trans|capitalize,
+                sortable: false,
+                class: 'text-end',
+                link: {
+                    route: 'parts_transportation_note_file_delete',
+                    params: {'id': 'id'},
+                    fixedParams: {'noteId': note.id, '_token': csrf_token('delete_transportation_notes_file')},
+                    content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                    popup: {
+                        type: 'confirmation',
+                        title: 'Confirmation',
+                        message: 'Are you sure to delete ?',
+                    },
+                },
+            },
+        },
+        title: 'menu.files'|trans|capitalize,
+        data: note.files|default([]),
+        search: false,
+        pagination: false,
+        initialSorting: 'createdAt'
+    }
+}, with_context = false) }}
+
+

@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": {"pattern": "^/sales/shipping_quotation_request_lines/\\d+$"},
+    "@type": { "type": "string" },
+    "id": { "type": "integer" },
+    "factory": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../../directory_location/schemas/directory_location_public.json" }
+      ]
+    },
+    "otherLocation": { "type": ["null", "string"] },
+    "incoterms": { "type": ["null", "string"] },
+    "incoLocation": { "type": ["null", "string"] },
+    "transshipmentAuthorized": { "type": "boolean" },
+    "type": { "type": "string" },
+    "estimatedPickUpDeadline": { "type": ["string", "null"] },
+    "equipmentRecord": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "@id": {"pattern": "^/equipment_records/\\d+$"},
+        "@type": { "type": "string" },
+        "legacyId": { "type": "integer" }
+      },
+      "required": ["@id", "@type", "legacyId"]
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "@id": {"pattern": "^/sales/products/\\d+$"},
+        "@type": { "type": "string" },
+        "name": { "type": "string" },
+        "legacyId": { "type": "integer" }
+      },
+      "required": ["@id", "@type", "name"]
+    },
+    "quantity": { "type": "integer" },
+    "harmonizedSystemCode": { "type": ["null", "string"] },
+    "rollingEquipment": { "type": "boolean" },
+    "length": { "type": "integer" },
+    "width": { "type": "integer" },
+    "height": { "type": "integer" },
+    "weight": { "type": "integer" },
+    "groundClearance": { "type": ["null", "integer"] },
+    "unloadingPlanned": { "type": "boolean" },
+    "note": { "type": ["string", "null"] },
+    "trucks": {
+      "type": "array",
+      "items": { "$ref": "../../truck/schemas/truck.json" }
+    },
+    "containers": {
+      "type": "array",
+      "items": { "$ref": "../../container/schemas/container.json" }
+    },
+    "shippingQuotationRequest": {
+      "oneOf": [
+        { "type":  "string" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/sales/shipping_quotation_requests/\\d+$"},
+            "@type": { "type": "string" },
+            "id": { "type": "integer" },
+            "status": { "type": "string" }
+          },
+          "required": ["@id", "@type", "id", "status"]
+        }
+      ]
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "factory",
+    "otherLocation",
+    "incoterms",
+    "incoLocation",
+    "transshipmentAuthorized",
+    "type",
+    "estimatedPickUpDeadline",
+    "equipmentRecord",
+    "product",
+    "quantity",
+    "harmonizedSystemCode",
+    "rollingEquipment",
+    "length",
+    "width",
+    "height",
+    "weight",
+    "groundClearance",
+    "unloadingPlanned",
+    "note",
+    "trucks",
+    "containers",
+    "shippingQuotationRequest"
+  ],
+  "additionalProperties": false
+}

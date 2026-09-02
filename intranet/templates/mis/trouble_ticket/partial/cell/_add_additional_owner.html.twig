@@ -1,0 +1,12 @@
+{% set additionalOwners = [] %}
+{% for owner in item.additionalOwners %}
+        {% set additionalOwners = additionalOwners | merge([owner['@id']]) %}
+{% endfor %}
+
+<td>
+    {% if app.user.getIriId not in additionalOwners and item.status not in ['RESOLVED', 'NOT AN ISSUE', 'ALREADY RAISED', 'NOT APPROVED'] %}
+        <a href="{{ path('trouble_ticket_add_additional_owner', {id: iri_id(item)}) }}"><span class="btn btn-warning btn-sm"><i class="fa fa-user-plus fa-fw"></i></span></a>
+    {% else %}
+        <span class="btn btn-light btn-sm"><i class="fa fa-user-plus fa-fw"></i></span>
+    {% endif %}
+</td>

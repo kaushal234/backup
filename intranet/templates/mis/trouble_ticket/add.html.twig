@@ -1,0 +1,59 @@
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+
+{% block title %}{{ parent() }} {{ 'menu.add'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+    {% set created = created|default(null) %}
+    {% if created is null %}
+        {# Step 1: the Symfony form #}
+        <div class="row">
+            <div class="col-lg-7 col-md-12">
+                {{ include('mis/trouble_ticket/partial/_add_form.html.twig', {
+                    title:     'trouble_ticket.form.title'|trans,
+                    subtitle:  'trouble_ticket.form.subtitle'|trans,
+                    form:      form,
+                    action:    path(app.request.attributes.get('_route')),
+                    on_behalf: isGrantedOpenOnBehalf|default(false),
+                    cios:      cios|default(''),
+                }, with_context = false) }}
+            </div>
+            <div class="col-lg-5 col-md-12">
+                {# Loaded by the relative controller once a module + option are selected. #}
+                <div id="tts-relative"
+                     data-controller="mis--trouble-ticket--relative"
+                     data-mis--trouble-ticket--relative-url-value="{{ path('trouble_ticket_relative') }}"></div>
+            </div>
+        </div>
+    {% else %}
+        {# Step 2: ticket created -> only the file uploader (the "created" flash is rendered by the layout) #}
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title"><h5>{{ 'trouble_ticket.attachments'|trans }}</h5></div>
+                    <div class="ibox-content">
+                        {# The React bundle mounts TroubleTicketFileUploader onto this element. #}
+                        <div id="tts-file-uploader" data-id="{{ created }}"></div>
+
+                        <div class="text-end m-t-md">
+                            <a class="btn btn-info" href="{{ path('trouble_ticket_show', { id: created }) }}">
+                                {{ 'button.finish'|trans({}, 'messages') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'trouble_ticket' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'contacts' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'mis' }) }}"></script>
+{% endblock %}

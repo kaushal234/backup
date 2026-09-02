@@ -1,0 +1,36 @@
+{% trans_default_domain "emails" %}
+
+
+{% set items = {
+    title: { label:'mom.meeting.subject' | trans },
+    createdBy: { label:'mom.meeting.createdBy' | trans },
+    createdAt: { label:'sfr.change_set.createdAt' | trans},
+    meetingDate: { label:'mom.meeting.meetingDate' | trans },
+    location: { label:'mom.meeting.location' | trans },
+    status: { label:'sfr.fields.status' | trans },
+    attendees: { label:'mom.meeting.attendees' | trans },
+    confidential: { label:'mom.meeting.confidential' | trans, boolean: { true: 'Yes', false: 'No' } },
+    quick: { label:'mom.meeting.quick' | trans, boolean: { true: 'Yes', false: 'No' } },
+    businessUnits: { label:'mom.meeting.businessUnits' | trans },
+} %}
+{% if meeting_normalized.customers != "" %}
+    {% set items = items | merge ({customers: { label:'mom.meeting.customers' | trans }}) %}
+{% endif %}
+{% if meeting_normalized.competitors != "" %}
+    {% set items = items | merge ({competitors: { label:'mom.meeting.competitors' | trans }}) %}
+{% endif %}
+{% if meeting_normalized.customerContacts != "" %}
+    {% set items = items | merge ({customerContacts: { label:'mom.meeting.customer_contacts' | trans }}) %}
+{% endif %}
+{% if meeting_normalized.contacts != "" %}
+    {% set items = items | merge ({contacts: { label:'mom.meeting.contacts' | trans }}) %}
+{% endif %}
+
+
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: items,
+        data: meeting_normalized,
+        title: 'MOM #'~meeting_normalized.id
+    },
+}, with_context = false) }}

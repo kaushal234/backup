@@ -1,0 +1,19 @@
+{% trans_default_domain 'technician_on_call' %}
+
+{% props technicianOnCall, elementDataSet = {}, col = 3 %}
+
+<div class="col-{{ col }} mb-4">
+    <div class="card w-100 h-100 rounded-0 p-0">
+        <div class="card-body">
+            <h4 class="card-title mb-2 text-muted">{{ 'toc.files.add_main_file'|trans }}</h4>
+            <div class="d-flex align-items-center h-75">
+                <button class="btn btn-warning" type="button" data-bs-toggle="modal"
+                        data-bs-target="#main-file-drop-zone">
+                    {{ 'toc.messages.help.add_main_file'|trans }}
+                </button>
+                <twig:TechnicianOnCall:ModalMainFileDropZone
+                        :technicianOnCall="technicianOnCall" :elementDataSet="elementDataSet" />
+            </div>
+        </div>
+    </div>
+</div>

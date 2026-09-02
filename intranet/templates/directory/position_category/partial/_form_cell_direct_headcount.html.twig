@@ -1,0 +1,9 @@
+<td>
+    {% if isGrantedEdit %}
+        {{ form_widget(form['positionCategories'][item['@id']|iri_id].directHeadcount) }}
+    {% else %}
+        {% set active = item.directHeadcount %}
+        {% set color = active ? 'green' : 'red' %}
+        <span class="fa fa-{% if active %}check{% else %}times{% endif %}" style="color: {{ color }}"></span>
+    {% endif %}
+</td>

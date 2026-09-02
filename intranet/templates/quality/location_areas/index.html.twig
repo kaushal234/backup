@@ -1,0 +1,89 @@
+{% extends '/quality/location_areas/layout.html.twig' %}
+
+{%  use 'partial/_paginated_list.html.twig' %}
+
+{% block list_header %}
+    <div class="paginatedList">
+{% endblock %}
+{% block list_footer %}
+    </div>
+{% endblock %}
+
+{% block list_entry %}
+    {% set factory = entry.factory %}
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins location_area-list-element">
+            <div class="ibox-title">
+                <h5>
+                    {{ entry.name | raw }}
+
+                </h5>
+                <div class="ibox-tools">
+                    {% if entry.toolsCount > 0 %}
+                        {% set routeParams = {locationArea: entry['@id']} %}
+                        <a href="{{ path('quality_calibrated_tools_home', routeParams ) }}" class="btn btn-primary btn-sm" target="_blank">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                    {% endif %}
+                    <a href="{{ path('directory_people_show', {'id': iri_id(entry.supervisor)}) }}">
+                        <i class="fa fa-user-circle"></i>
+                    </a>
+                    <a href="{{ path('quality_location_areas_show', {'id': iri_id(entry)}) }}">
+                        <i class="far fa-eye"></i>
+                    </a>
+                    <a href="{{ path('quality_location_areas_edit', {'id': iri_id(entry)}) }}">
+                        <i class="fa fa-pencil-alt"></i>
+                    </a>
+                    {% if entry.toolsCount == 0 %}
+                        <a href="{{ path('quality_location_areas_delete', {'id': iri_id(entry)}) }}" onclick="return confirm('{{ 'location_areas.messages.delete'| trans({'%locationArea%': entry.name}, 'location_areas') }}')" >
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if entry.factory %}
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul style="list-style-type: disc; padding-left: 18px;">
+                            <li>
+                                <strong>{{ 'calibration_tool.fields.supervisor' | trans([], 'calibration_tool') }}</strong> :
+                                <a href="{{ path('directory_people_show', {'id': iri_id(entry.supervisor)}) }}">
+                                   <small>{{ entry.supervisor.lastname }} {{ entry.supervisor.firstname }}</small>
+                                </a>
+                            </li>
+                            <li><small>{{ "calibration_tools.location_area.part_of" | trans({ company_name: factory.name })}}</small></li>
+                            <li><small><strong>{{ 'calibration_tools.location_area.tools_count' | trans({'%count%': entry.toolsCount}) }}</strong></small></li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>{{ 'calibration_tools.titles.location_areas' | trans }}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+              {{ include('quality/location_areas/partial/_form_filters.html.twig') }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            {% set entries = locationsAreas %}
+            {{ block('list') }}
+        </div>
+    </div>
+{% endblock %}
+

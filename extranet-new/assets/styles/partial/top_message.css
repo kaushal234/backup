@@ -1,0 +1,39 @@
+.env-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #c0392b;
+    color: #ffffff;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+}
+
+.env-banner__content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0
+}
+
+.env-banner__item {
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.env-banner__separator {
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.has-env-banner {
+    padding-top: 40px;
+}

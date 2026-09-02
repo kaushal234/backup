@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="text-center article-title">
+                    {% set entity = entity | replace({'-': ' '}) %}
+                    <h1>{{ entity | upper }} Boiler plates</h1>
+                </div>
+                {% if boilerPlates is defined %}
+                    <h2></h2>
+                    {% for key, boilerPlate in boilerPlates %}
+                        <p>{{ boilerPlate | raw}}</p>
+                        <p class="text-end" style="fw: bold">{{ key }} words</p>
+                        <hr>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+

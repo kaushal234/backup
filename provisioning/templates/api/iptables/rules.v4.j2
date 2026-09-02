@@ -1,0 +1,76 @@
+*filter
+
+# default policy on all chains, drop
+-P INPUT DROP
+-P FORWARD DROP
+-P OUTPUT DROP
+
+# Accept local traffic
+-A INPUT -i lo -j ACCEPT
+-A OUTPUT -o lo -j ACCEPT
+
+# keep established connections
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Allow loopback
+-A INPUT -i lo -j ACCEPT
+-A OUTPUT -o lo -j ACCEPT
+
+# ICMP (Ping)
+-A INPUT -p icmp -j ACCEPT
+-A OUTPUT -p icmp -j ACCEPT
+
+# SSH - in and out
+-A INPUT -p tcp --dport 22 -j ACCEPT
+-A OUTPUT -p tcp --dport 22 -j ACCEPT
+
+# MySQL
+-A OUTPUT -p tcp --dport 3306 -j ACCEPT
+
+# Baan SQL Server
+-A OUTPUT -p tcp -d 10.0.200.3 --dport 56988 -j ACCEPT
+-A OUTPUT -p tcp -d 10.0.200.3 --dport 1433 -j ACCEPT
+-A OUTPUT -p tcp -d 10.10.16.36 --dport 56988 -j ACCEPT
+-A OUTPUT -p tcp -d 10.10.16.36 --dport 1433 -j ACCEPT
+
+# DNS - in and out
+-A OUTPUT -p tcp --dport 53 -j ACCEPT
+-A OUTPUT -p udp --dport 53 -j ACCEPT
+
+# NTP
+-A OUTPUT -p udp --dport 123 -j ACCEPT
+
+# HTTP + HTTPS Out
+-A OUTPUT -p tcp --dport 80 -j ACCEPT
+-A OUTPUT -p tcp --dport 443 -j ACCEPT
+
+# HTTP + HTTPS In
+-A INPUT -p tcp --dport 80 -j ACCEPT
+
+# Mail SMTP
+-A OUTPUT -p tcp --dport 587 -j ACCEPT
+-A OUTPUT -p tcp --dport 25 -j ACCEPT
+
+# NFS Intranet (Linux file sharing)
+-A OUTPUT -d {{ nfs_server_ip }} -j ACCEPT
+
+# Redis and redis sentinel
+-A INPUT -p tcp --dport 6379 -j ACCEPT
+-A OUTPUT -p tcp --dport 6379 -j ACCEPT
+-A INPUT -p tcp --dport 26379 -j ACCEPT
+-A OUTPUT -p tcp --dport 26379 -j ACCEPT
+
+# SNMP
+-A INPUT -p udp --dport 161 -j ACCEPT
+
+# Auditbeat
+-A OUTPUT -p tcp --dport 1802 -j ACCEPT
+
+# Ollama (local Docker container)
+-A OUTPUT -p tcp --dport 11434 -j ACCEPT
+
+# Qdrant vector database
+-A OUTPUT -p tcp -d {{ qdrant_host }} --dport {{ qdrant_port }} -j ACCEPT
+
+COMMIT

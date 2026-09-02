@@ -1,0 +1,18 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <strong>{{ 'task.message.dear' | trans }} {{contract.owner.firstname }} {{contract.owner.lastname }},</strong>
+            <br>
+            <br>
+            <p>{{ 'contract.message.expiration' | trans({'%id%': contract.id })}}</p>
+            <p>{{ 'contract.fields.shortDescription' | trans}}: {{ contract.shortDescription }}</p>
+            <p>{{ 'contract.fields.description' | trans}}: {{ contract.description }}</p>
+
+            <p><a href="{{ url('contract', { 'id': contract.id }) }}">{{ 'contract.message.see_contract' | trans }}</a></p>
+        </columns>
+    </row>
+{% endblock %}

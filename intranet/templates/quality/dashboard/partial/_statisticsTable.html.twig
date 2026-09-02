@@ -1,0 +1,54 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="ibox">
+        {% if title %}
+            <div class="ibox-title">
+                <h4>{{ title }}</h4>
+            </div>
+        {% endif %}
+        <div class="ibox-content">
+            {% if model.rows.count == 0 %}
+                <strong>{{ model.noResultsMessage }}</strong>
+            {% else %}
+                <canvas class="statistic-chart" width="333px" height="135px" style="width: 100%; height: 135px;"></canvas>
+                <div class="">
+                    <table class="statistics-table table table-striped table-hover table-sm table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="sticky-header sticky-column">&nbsp;</th>
+                            {% for header in model.getYHeaders().getCells() %}
+                                <th class="sticky-header {% if header.isTotalCell() %}total-column{% endif %}" >
+                                    {{ header.translatedContent | raw('html') | u.truncate(100) | u.wordwrap  }}
+                                </th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in model.getRows() %}
+                        <tr {% if row.getHeader().isTotalCell() %} class="total-row" {% endif %}>
+                            <td class="sticky-column {% if row.getHeader().isTotalCell() %} total-column {% endif %}">
+                                {{ row.getHeader().translatedContent | raw('html') | u.truncate(200) | u.wordwrap }}
+                            </td>
+                            {% for cell in row.getCells() %}
+                                <td {% if cell.isTotalCell() %} class="total-column" {% endif %} cell-value="{{ cell.content }}">
+                                    {% if cell.hasLink() %}
+                                        <a href="{{ cell.getLink() }}" target="_blank" >
+                                    {% endif %}
+                                            {% if cell.content > 0 %}
+                                                {{ cell.content | number_format }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                    {% if cell.hasLink() %}
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

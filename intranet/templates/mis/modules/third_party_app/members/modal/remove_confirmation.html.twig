@@ -1,0 +1,60 @@
+{% if member.admin and is_granted('FEATURE_MODULE_WRITE') %}
+    {% embed 'helper/datatable_modal.html.twig' with {
+        id: 'remove_admin_' ~ member.id,
+        button: {
+            name: '',
+            icon: 'fa-trash',
+            color: 'danger'
+        },
+        modal: {
+            title: '<i class="fa fa-warning text-warning"></i> Confirmation',
+            size: 'lg',
+            targetButton: {
+                name: 'Yes, remove',
+                link: path('mis_third_party_app_members_remove_admin', {
+                    id: module.id,
+                    memberId: member.id,
+                    '_token': csrf_token('remove_member')
+                }),
+                color: 'danger'
+            },
+            closeButton: {
+                name: 'Cancel'
+            }
+        },
+    } %}
+        {% block body %}
+            Your're going to remove admin user <strong>{{ member.user.lastname|capitalize }} {{ member.user.firstname}}</strong>, please secure that just accordingly the right in <strong>{{ member.thirdPartyApp.name }}</strong>, are you sure you want to remove ?
+        {% endblock %}
+    {% endembed %}
+{% else %}
+    {% embed 'helper/datatable_modal.html.twig' with {
+        id: 'remove_member_' ~ member.id,
+        button: {
+            name: '',
+            icon: 'fa-trash',
+            color: 'danger'
+        },
+        modal: {
+            title: '<i class="fa fa-warning text-warning"></i> Confirmation',
+            size: 'lg',
+            targetButton: {
+                name: 'Yes, remove',
+                link: path('mis_third_party_app_members_remove', {
+                    id: module.id,
+                    memberId: member.id,
+                    '_token': csrf_token('remove_member')
+                }),
+                color: 'danger'
+            },
+            closeButton: {
+                name: 'Cancel'
+            }
+        },
+    } %}
+        {% block body %}
+            Are you sure you want to remove ?<br />
+            This action will create a <strong>REMOVE ACCESS</strong> update task.
+        {% endblock %}
+    {% endembed %}
+{% endif %}

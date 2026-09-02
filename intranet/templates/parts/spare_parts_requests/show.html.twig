@@ -1,0 +1,540 @@
+{% extends 'parts/spare_parts_requests/layout.html.twig' %}
+{% trans_default_domain 'spare_parts_request' %}
+{% if statusForm is not null %}
+    {% form_theme statusForm 'form_theme_vertical.html.twig' %}
+{% endif %}
+{% form_theme combineForm 'form_theme_vertical.html.twig' %}
+
+{% block title %}{{ parent() }}#{{ sparePartsRequest.id }}{% endblock %}
+
+{% set isGrantedEditPermission = (is_granted('FEATURE_SPARE_PARTS_REQUESTS_EDIT_FULL') or is_granted('MOO_SPR')) and sparePartsRequest.status not in ['CLOSED', 'MERGED'] %}
+{% set isGrantedShipToClosePermission = is_granted('FEATURE_SPARE_PARTS_REQUESTS_SHIPPED_TO_CLOSE') and sparePartsRequest.status in ['SHIPPED'] %}
+{% set isGrantedDeletePermission = isGrantedEditPermission or is_granted('FEATURE_SPARE_PARTS_REQUESTS_EDIT_PARTS') and sparePartsRequest.status not in ['CLOSED', 'MERGED'] %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs" id="partSprTab" role="tablist">
+                    <li class=" nav-item" role="presentation"><a class="nav-link {{ tab is null ? 'active' : '' }}" data-bs-toggle="tab" href="#spr">{{ 'sidebar.parts.spr2' | trans({}, 'sidebar') }}</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link {{ tab == 'parts' ? 'active' : '' }} " data-bs-toggle="tab" href="#spr-parts">{{ 'spare_parts_request.fields.parts' | trans }}</a></li>
+                    <li class=" nav-item" role="presentation"><a class="nav-link {{ tab == 'logs' ? 'active' : '' }}" data-bs-toggle="tab" href="#spr-logs">{{ 'menu.logs' | trans({}, 'messages') | capitalize }}</a></li>
+                    <li class=" nav-item" role="presentation"><a class="nav-link {{ tab == 'links' ? 'active' : '' }}" data-bs-toggle="tab" href="#spr-links">{{ 'menu.links' | trans({}, 'messages') | capitalize }}</a></li>
+                    <li class=" nav-item" role="presentation"><a class="nav-link {{ tab == 'tasks' ? 'active' : '' }}" data-bs-toggle="tab" href="#spr-tasks">{{ 'menu.people.tasks' | trans({}, 'messages') | capitalize }}</a></li>
+                    <li class=" nav-item" role="presentation"><a class="nav-link {{ tab == 'files' ? 'active' : '' }}" data-bs-toggle="tab" href="#spr-files">{{ 'menu.files' | trans({}, 'messages') | capitalize }}<span class="badge ms-1">{{ sparePartsRequest.sparePartsRequestFiles | length }}</span></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" id="spr" class="tab-pane {{ tab is null ? 'active' : '' }}">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="ibox float-e-margins ">
+                                        <div class="ibox-title">
+                                            <h5>
+                                                {{ 'sidebar.parts.spr2' | trans({}, 'sidebar') }}#{{ sparePartsRequest['@id']|iri_id }}
+                                            </h5>
+                                        </div>
+                                        <div class="ibox-content report-table-with-filter">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    {% set statuses = {
+                                                        'PENDING': 'warning',
+                                                        'OPEN': 'primary',
+                                                        'SHIPPED': 'green',
+                                                        'CLOSED': 'default',
+                                                        'MERGED': 'default',
+                                                    } %}
+
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            {% if statusForm is not null and isGrantedEditPermission or isGrantedShipToClosePermission %}
+                                                                {{ form_start(statusForm) }}
+                                                                {{ form_errors(statusForm) }}
+                                                                <span class="btn btn-{{ statuses[sparePartsRequest.status]|default('primary') }}"><i class="fa fa-map-marker-alt"></i>&nbsp;{{ sparePartsRequest.status }}</span>
+                                                                {{ form_widget(statusForm.submit) }}
+                                                                {{ form_widget(statusForm.comment) }}
+                                                                {% if (statusForm.proofOfDelivery is defined) %}
+                                                                    {{ form_row(statusForm.proofOfDelivery) }}
+                                                                {% endif %}
+                                                                {{ form_rest(statusForm) }}
+                                                                {{ form_end(statusForm) }}
+                                                            {% else %}
+                                                                <span class="btn btn-{{ statuses[sparePartsRequest.status]|default('primary') }}"><i class="fa fa-map-marker-alt"></i>&nbsp;{{ sparePartsRequest.status }}</span>
+                                                            {% endif %}
+                                                            {% if sparePartsRequest.status == 'CLOSED' and sparePartsRequest.proofOfDelivery is not null %}
+                                                                <a href="{{ path('spare_parts_request_proof_of_delivery', {sparePartsRequestId: sparePartsRequest.id, id: sparePartsRequest.proofOfDelivery.id}) }}" class="btn btn-{{ statuses['SHIPPED']|default('primary') }}"><i class="fa fa-file-download"></i>&nbsp;{{ 'spare_parts_request.status.download_proof_of_delivery'|trans }}</a>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p><strong><i class="far fa-calendar-alt"></i>&nbsp;{{ 'fields.created_at'|trans({}, 'messages') }}</strong>: <br>{{ sparePartsRequest.createdAt | date("Y-m-d H:i") }}</p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            {% if sparePartsRequest.estimatedShippingDate is not null %}
+                                                                <p><strong><i class="far fa-calendar-alt"></i>&nbsp;{{ 'spare_parts_request.fields.estimated_shipping_date'|trans }}</strong>: <br>{{ sparePartsRequest.estimatedShippingDate | date("Y-m-d") }}</p>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            {% if sparePartsRequest.status == 'SHIPPED' or sparePartsRequest.status == 'CLOSED' %}
+                                                                <p><strong><i class="far fa-calendar-alt"></i>&nbsp;{{ 'spare_parts_request.fields.shipping_date'|trans }}</strong>: <br>{{ sparePartsRequest.shippingDate | date("Y-m-d") }}</p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-4">
+                                                    {{ include('helper/_association_table_raw.html.twig', {
+                                                        associationData: {
+                                                            items: {
+                                                                activity: {
+                                                                    label: 'spare_parts_request.fields.activity'|trans|capitalize,
+                                                                },
+                                                                type: {
+                                                                    label: 'spare_parts_request.fields.type'|trans|capitalize,
+                                                                },
+                                                                poster: {
+                                                                    properties: ['poster.firstname', 'poster.lastname'],
+                                                                    label: 'fields.poster'|trans({}, 'messages'),
+                                                                    link: {
+                                                                        'route': 'directory_people_show',
+                                                                        'params': {'id':'poster.@id'}
+                                                                    }
+                                                                },
+                                                                customer: {
+                                                                    properties: ['customer.name'],
+                                                                    label: 'sidebar.sales.e_customer'|trans({}, 'sidebar'),
+                                                                    link:{
+                                                                        route: 'sales_customers_show',
+                                                                        params: {'id':'customer.@id'},
+                                                                    }
+                                                                },
+                                                                sph: {
+                                                                    properties: ['sph.name'],
+                                                                    label: 'spare_parts_request.fields.sph'|trans|upper,
+                                                                    link:{
+                                                                        route: 'directory_locations_show',
+                                                                        params: {'id':'sph.@id'},
+                                                                    }
+                                                                },
+                                                                sso: {
+                                                                    properties: ['sso.name'],
+                                                                    label: 'fields.sso'|trans({}, 'messages'),
+                                                                    link:{
+                                                                        route: 'directory_locations_show',
+                                                                        params: {'id':'sso.@id'},
+                                                                    }
+                                                                },
+                                                                factory: {
+                                                                    properties: ['factory.name'],
+                                                                    label: 'fields.factory'|trans({}, 'messages'),
+                                                                    link:{
+                                                                        route: 'directory_locations_show',
+                                                                        params: {'id':'factory.@id'},
+                                                                    }
+                                                                },
+                                                                erpLocation: {
+                                                                    properties: ['erpLocation.name'],
+                                                                    label: 'customer_relationship_team.fields.erp_location'|trans({}, 'customer_relationship_team'),
+                                                                    link:{
+                                                                        route: 'directory_locations_show',
+                                                                        params: {'id':'erpLocation.@id'},
+                                                                    }
+                                                                },
+                                                                airport: {
+                                                                    properties: ['airport.code', 'airport.cityName'],
+                                                                    glue: ' - ',
+                                                                    label: 'fields.airport'|trans({}, 'messages')|capitalize
+                                                                },
+                                                                salesOrder: {
+                                                                    label: 'sales_order.sales_order_report.title.report'|trans({}, 'sales_orders')|capitalize,
+                                                                },
+                                                            },
+                                                            title: 'SPR#' ~ sparePartsRequest.id,
+                                                            data: sparePartsRequest
+                                                        },
+                                                    }, with_context = false) }}
+                                                </div>
+                                                <div class="col-md-6 col-lg-8">
+                                                    {% set deliveryAddress = sparePartsRequest.deliveryAddress %}
+                                                    <h3>
+                                                        {{ 'spare_parts_request.fields.delivery_address'|trans }} -
+                                                        {{ deliveryAddress.firstname }} {{ deliveryAddress.lastname }}
+                                                        {% if deliveryAddress.contact is not null %}
+                                                            &nbsp;(<a href="{{ path('sales_contact_show', {'id': deliveryAddress.contact.id }) }}">{{ 'contacts.extranet_user'|trans({}, 'contacts') }}</a>)
+                                                        {% endif %}
+                                                        <a href="{{ path('spare_parts_request_edit_address', {id: sparePartsRequest.id}) }}" class="btn btn-warning btn-sm text-capitalize"><i class="fa fa-pencil-alt"></i>&nbsp;{{ 'menu.edit'|trans({}, 'messages') }}</a>
+                                                    </h3>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                <strong>{{ 'contacts.fields.address_street_1'|trans({}, 'contacts') }}</strong>: {{ deliveryAddress.address.street1 }}<br>
+                                                                {% if deliveryAddress.address.street2 is not null %}
+                                                                    <strong>{{ 'contacts.fields.address_street_2'|trans({}, 'contacts') }}</strong>: {{ deliveryAddress.address.street2 }}<br>
+                                                                {% endif %}
+                                                                <strong>{{ 'contacts.fields.address_postal_code'|trans({}, 'contacts') }}</strong>: {{ deliveryAddress.address.postalCode }}<br>
+                                                                <strong>{{ 'contacts.fields.address_city'|trans({}, 'contacts') }}</strong>: {{ deliveryAddress.address.city }}<br>
+                                                                {% if deliveryAddress.address.state is not null %}
+                                                                    <strong>{{ 'contacts.fields.address_state'|trans({}, 'contacts') }}</strong>: {{ deliveryAddress.address.state }}<br>
+                                                                {% endif %}
+                                                                <strong>{{ 'contacts.fields.country'|trans({}, 'contacts') }}</strong>: {{ deliveryAddress.address.country }}<br>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                <strong>{{ 'phone.name'|trans({}, 'messages') }}</strong>: <a href="tel: {{ deliveryAddress.phone }}">{{ deliveryAddress.phone }}</a><br>
+                                                                <strong>{{ 'fields.airport'|trans({}, 'messages') }}</strong>: {{ deliveryAddress.airport.code }} - {{ deliveryAddress.airport.cityName }}<br>
+                                                                {% if deliveryAddress.company is not null %}<strong>{{ 'account_receivable.fields.company'|trans({}, 'account_receivable') }}</strong>: {{ deliveryAddress.company }}{% endif %}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    {% if sparePartsRequest.deliveryNotes is not null %}
+                                                        <div>
+                                                            <h3>Delivery Notes</h3>
+                                                            <p>{{ sparePartsRequest.deliveryNotes }}</p>
+                                                        </div>
+                                                        <hr>
+                                                    {% endif %}
+                                                    {{ include('helper/_report_table_raw.html.twig', {
+                                                        reportTable: {
+                                                            items: {
+                                                                serialNumber: {
+                                                                    label: 'service.equipment_record.fields.serial_number'|trans([], 'service')|capitalize,
+                                                                    link: {
+                                                                        route: 'legacy_product_support',
+                                                                        params: {id: 'legacyId'},
+                                                                        fixedParams: {
+                                                                            m:['equipment', 'view'],
+                                                                        },
+                                                                    }
+                                                                },
+                                                                model: {label: 'service.equipment_record.fields.model'|trans([], 'service')|capitalize,},
+                                                                buyer: {
+                                                                    label: 'service.equipment_record.fields.buyer'|trans([], 'service')|capitalize,
+                                                                    properties: ['buyer.name'],
+
+                                                                },
+                                                                endUser: {
+                                                                    label: 'service.equipment_record.fields.end_user'|trans([], 'service')|capitalize,
+                                                                    properties: ['endUser.name'],
+                                                                }
+                                                            },
+                                                            data: sparePartsRequest.equipmentRecords,
+                                                            pagination: false,
+                                                            search: false
+                                                        }
+                                                    }, with_context = false )}}
+
+                                                    {% if sparePartsRequest.notes is not empty %}
+                                                        <h3>{{ 'spare_parts_request.fields.notes'|trans }}</h3>
+                                                        <div>{{ sparePartsRequest.notes|raw }}</div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% if isGrantedEditPermission and combineForm.sparePartsRequests.vars['choices'] is not empty %}
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-12 text-left">
+                                                        <h2>{{ 'spare_parts_request.combine.title'|trans }}</h2>
+                                                        <div class="alert alert-warning">
+                                                            {{ 'spare_parts_request.combine.warning' | trans }}
+                                                        </div>
+                                                            {{ form_start(combineForm) }}
+                                                            {{ form_errors(combineForm) }}
+                                                            {{ form_widget(combineForm.sparePartsRequests) }}
+                                                            {{ form_widget(combineForm.submit) }}
+                                                            {{ form_rest(combineForm) }}
+                                                            {{ form_end(combineForm) }}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" id="spr-parts" class="tab-pane {{ tab == 'parts' ? 'active' : '' }}">
+                        <div class="card-body">
+                            <div class="ibox-content">
+                                {% if isGrantedEditPermission %}
+                                    {{ form_start(form) }}
+                                    {{ form_errors(form) }}
+                                {% endif %}
+
+
+                                {% set items = {} %}
+
+                                {% if isGrantedEditPermission %}
+                                    {% set items = items|merge({
+                                        move: {
+                                            label: false,
+                                            template: 'parts/spare_parts_requests/partial/_form_cell.html.twig',
+                                            templateParams: { key: 'move', isGrantedEditPermission: isGrantedEditPermission, form: form },
+                                        }
+                                    }) %}
+                                {% endif %}
+
+                                {% set items = items|merge({
+                                    partNumber: {
+                                        label: 'spare_parts_request.fields.part_number'|trans|capitalize,
+                                        template: 'parts/spare_parts_requests/partial/_form_cell.html.twig',
+                                        templateParams: { key: 'partNumber', isGrantedEditPermission: isGrantedEditPermission, form: form },
+                                    },
+                                    description: {
+                                        label: 'fields.description'|trans([], 'messages')|capitalize,
+                                        template: 'parts/spare_parts_requests/partial/_form_cell.html.twig',
+                                        templateParams: { key: 'description', isGrantedEditPermission: isGrantedEditPermission, form: form },
+                                    },
+                                    quantity: {
+                                        label: 'fields.quantity'|trans([], 'messages'),
+                                        template: 'parts/spare_parts_requests/partial/_form_cell.html.twig',
+                                        templateParams: { key: 'quantity', isGrantedEditPermission: isGrantedEditPermission, form: form, attributes: {style: 'width: 80px'} },
+                                    },
+                                    unitOfMeasure: {
+                                        label: 'spare_parts_request.fields.unit_of_measure'|trans,
+                                        template: 'parts/spare_parts_requests/partial/_form_cell.html.twig',
+                                        templateParams: { key: 'unitOfMeasure', isGrantedEditPermission: isGrantedEditPermission, form: form, attributes: {style: 'width: 60px'} },
+                                    },
+                                    comment: {
+                                        label: 'fields.comment'|trans([], 'messages')|capitalize,
+                                        template: 'parts/spare_parts_requests/partial/_form_cell.html.twig',
+                                        templateParams: { key: 'comment', isGrantedEditPermission: isGrantedEditPermission, form: form, attributes: {style: 'resize:vertical'} },
+                                    },
+                                    createdAt: {
+                                        label: 'fields.added_at'|trans({}, 'messages')|capitalize,
+                                        filters: 'date("Y-m-d H:i:s")'
+                                    },
+                                    createdBy: {
+                                        properties: ['createdBy.firstname', 'createdBy.lastname'],
+                                        label: 'fields.poster'|trans({}, 'messages'),
+                                        link: {
+                                            'route': 'directory_people_show',
+                                            'params': {'id':'deletedBy.@id'}
+                                        }
+                                    },
+                                    plannedDeliveryDate: {
+                                        label: 'spare_parts_request.fields.planned_delivery_date'|trans,
+                                        template: 'partial/cells/_nullable_date.html.twig',
+                                    },
+                                    shippingOrigin: {
+                                        properties: ['shippingOrigin.name'],
+                                        link: {
+                                            route: 'directory_locations_show',
+                                            params: {'id':'shippingOrigin.@id'}
+                                        },
+                                        label: 'spare_parts_request.fields.shipping_origin'|trans
+                                    },
+                                    tracking: {
+                                        template: 'parts/spare_parts_requests/partial/_tracking.html.twig',
+                                        label: 'spare_parts_request.fields.tracking'|trans
+                                    },
+                                    inventory: {
+                                        label: 'manufacturing.planning_online.inventory'|trans([], 'manufacturing')|capitalize,
+                                        link: {
+                                            route: 'legacy_parts_parts',
+                                            target: '_blank',
+                                            params: {id: 'partNumber'},
+                                            fixedParams: {
+                                                m:['inv', 'view'],
+                                            },
+                                            content: '<span class="btn btn-primary btn-sm"><i class="fa fa-dolly-flatbed"></i></span>',
+                                        },
+                                        sortable: false,
+                                        class : 'text-end',
+                                    },
+                                }) %}
+
+                                {% if isGrantedDeletePermission %}
+                                    {% set items = items|merge({
+                                        delete: {
+                                            label: 'button.delete'|trans([], 'messages')|capitalize,
+                                            link: {
+                                                route: 'spare_parts_request_part_delete',
+                                                params: {partId: '@id'},
+                                                content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                                                fixedParams: {'id': sparePartsRequest.id},
+                                            },
+                                            sortable: false,
+                                            class : 'text-end',
+                                        }
+                                    }) %}
+                                {% endif %}
+
+                                {{ include('helper/_report_table_raw.html.twig', {
+                                    reportTable: {
+                                        items: items,
+                                        data: sparePartsRequest.parts,
+                                        pagination: false,
+                                        search: false
+                                    }
+                                }, with_context = false )}}
+
+                                {% if isGrantedEditPermission %}
+                                    <div id="parts-move" style="display: none">
+                                        <div class="d-flex flex-row-reverse">
+                                            <div class="col-md-offset-6 col-md-6">
+                                                {{ form_row(form.sparePartsRequest) }}
+                                                <div style="padding-bottom: 0.5rem">
+                                                    {{ form_row(form.moveToAnotherSparePartsRequest) }}
+                                                </div>
+                                                {{ form_row(form.createNewSparePartRequest) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="parts-submit">
+                                        {{ form_row(form.submit) }}
+                                    </div>
+                                    {{ form_end(form) }}
+                                {% endif %}
+
+                                {% if sparePartsRequest.deletedParts is not empty %}
+                                    <hr>
+
+                                    {% set items = {
+                                        partNumber: {
+                                            label: 'spare_parts_request.fields.part_number'|trans|capitalize,
+                                        },
+                                        description: {
+                                            label: 'fields.description'|trans([], 'messages')|capitalize,
+                                        },
+                                        quantity: {
+                                            label: 'fields.quantity'|trans([], 'messages'),
+                                        },
+                                        unitOfMeasure: {
+                                            label: 'spare_parts_request.fields.unit_of_measure'|trans,
+                                        },
+                                        comment: {
+                                            label: 'fields.comment'|trans([], 'messages')|capitalize,
+                                        },
+                                        deletedAt: {
+                                            label: 'fields.deleted_at'|trans({}, 'messages')|capitalize,
+                                            filters: 'date("Y-m-d H:i:s")'
+                                        },
+                                        deletedBy: {
+                                            properties: ['deletedBy.firstname', 'deletedBy.lastname'],
+                                            label: 'fields.deleted_by'|trans({}, 'messages'),
+                                            link: {
+                                                'route': 'directory_people_show',
+                                                'params': {'id':'deletedBy.@id'}
+                                            }
+                                        },
+                                    } %}
+
+                                    {% if isGrantedDeletePermission %}
+                                        {% set items = items|merge({
+                                            restore: {
+                                                label: 'spare_parts_request.menu.restore'|trans,
+                                                link: {
+                                                    route: 'spare_parts_request_part_restore',
+                                                    params: {partId: '@id'},
+                                                    content: '<span class="btn btn-warning btn-sm"><i class="fa fa-recycle fa-fw popup"></i></span>',
+                                                    fixedParams: {'id': sparePartsRequest.id},
+                                                },
+                                                sortable: false,
+                                                class : 'text-end',
+                                            }
+                                        }) %}
+                                    {% endif %}
+
+                                    <h3>{{ 'spare_parts_request.fields.deleted_parts'|trans }}</h3>
+                                    {{ include('helper/_report_table_raw.html.twig', {
+                                        reportTable: {
+                                            items: items,
+                                            data: sparePartsRequest.deletedParts,
+                                            pagination: false,
+                                            search: false
+                                        }
+                                    }, with_context = false )}}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" id="spr-logs" class="tab-pane {{ tab == 'logs' ? 'active' : '' }}">
+                        <div class="card-body">
+                            <div class="ibox-content">
+                                <div class="logs-block" data-resource="{{ sparePartsRequest['@id'] }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if sparePartsRequest['@type'] == 'TocSparePartsRequest' %}
+                        {% set module = 'TOC' %}
+                        {% set parentId = sparePartsRequest.tocId %}
+                    {% endif %}
+                    <div role="tabpanel" id="spr-links" class="tab-pane">
+                        <div class="card-body">
+                            <div class="ibox-content">
+                                {% if parentId is defined %}
+                                    <h3>{{ 'spare_parts_request.title.links_of'|trans({'%module%': module, '%parentId%': parentId}) }}</h3>
+                                    <hx:include src="/en/private/common/links/links_hinclude.php?module={{ module }}&parent_id={{ parentId }}">
+                                        <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                                    </hx:include>
+                                    <hr>
+                                {% endif %}
+                                <h3>{{ 'spare_parts_request.title.links_of'|trans({'%module%': 'SPR', '%parentId%': sparePartsRequest.id}) }}</h3>
+                                <hx:include src="/en/private/common/links/links_hinclude.php?module=SPR&parent_id={{ sparePartsRequest.id }}">
+                                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                                </hx:include>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" id="spr-tasks" class="tab-pane {{ tab == 'tasks' ? 'active' : '' }}">
+                        <div class="card-body">
+                            <div class="ibox-content">
+                                <hx:include src="/en/private/calendar/tasks/task_sfr_hinclude.php?module=SPR&parent_id={{ sparePartsRequest.id }}">
+                                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                                </hx:include>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" id="spr-files" class="tab-pane {{ tab == 'files' ? 'active' : '' }}">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6" id="files_tab">
+                                    {{ include('parts/spare_parts_requests/partial/files_ajax.html.twig', {sparePartsRequest: sparePartsRequest}) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="react" class="m-b-lg"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        {% if isGrantedEditPermission %}
+        window.onload = function() {
+            const partsForm = document.querySelector("#spr-parts form")
+            const partsMove = document.querySelector("#parts-move")
+            const partsSubmit = document.querySelector("#parts-submit")
+            const radioElements = partsForm.querySelectorAll("input[type=checkbox]")
+            radioElements.forEach(radio => radio.addEventListener('change', (event) => {
+                const checked = partsForm.querySelectorAll("input[type=checkbox]:checked").length > 0
+                partsMove.style.display = checked ? 'block' : 'none'
+                partsSubmit.style.display = !checked ? 'block' : 'none'
+                partsForm.querySelectorAll("input[type=text], textarea").forEach(element => {
+                    if (checked) {
+                        element.setAttribute('readonly', 'readonly')
+                    } else {
+                        element.removeAttribute('readonly')
+                    }
+                })
+            }))
+        }
+        {% endif %}
+    </script>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

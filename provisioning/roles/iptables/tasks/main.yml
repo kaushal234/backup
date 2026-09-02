@@ -1,0 +1,22 @@
+- name: Install IPTables
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - iptables
+      - iptables-persistent
+    state: present
+  check_mode: false
+
+- name: Remove iptables rules.v6 template
+  become: true
+  ansible.builtin.file:
+    path: /etc/iptables/rules.v6
+    state: absent
+
+- name: Upload iptables rules.v4 template
+  become: true
+  ansible.builtin.template:
+    src: "{{ iptables_rules_template }}"
+    dest: /etc/iptables/rules.v4
+  notify: "reload iptables"

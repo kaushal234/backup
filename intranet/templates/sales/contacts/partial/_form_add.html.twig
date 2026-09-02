@@ -1,0 +1,87 @@
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_horizontal.html.twig' %}
+
+        {{ form_start(form, { action: action }) }}
+        {{ form_errors(form) }}
+        
+        <div class="two_columns">
+            <div class="col-md-6 animated fadeInLeft">
+                <div class="mail-box-header clearfix">
+                    <h2 class="float-start" id="customer-title">
+                        {{ 'contacts.forms.general' | trans({}, 'contacts') }}
+                    </h2>
+                </div>
+                <div class="mail-box">
+                    <div class="mail-body">
+                        {{ form_row(form.gender) }}
+                        {% if is_granted("ACL_SUPERUSER") and form.hidden is defined %}
+                            {{ form_row(form.hidden, {'translation_domain': 'directory'}) }}
+                        {% endif %}
+                        {{ form_row(form.firstname) }}
+                        {{ form_row(form.lastname) }}
+                        {{ form_row(form.extranetUserProfile.companyName) }}
+                        {{ form_row(form.extranetUserProfile.customer) }}
+                        {{ form_row(form.extranetUserProfile.division) }}
+                        {{ form_row(form.extranetUserProfile.department) }}
+                        {{ form_row(form.extranetUserProfile.jobTitle) }}
+                        {{ form_row(form.extranetUserProfile.language) }}
+                        {{ form_row(form.extranetUserProfile.type) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.extranetUserProfile.isGiftAccepted) }}
+                        {{ form_row(form.extranetUserProfile.giftRefusedReason) }}
+                        <p class="text-end" style="font-weight: bold; color: red">{{'contacts.forms.phone_advise' | trans({}, 'contacts') }}</p>
+                        {{ form_row(form.phones) }}
+                    </div>
+                </div>
+                <div class="mail-box-header clearfix">
+                    <h2 class="float-sart" id="customer-title">
+                        {{ 'contacts.fields.address' | trans({}, 'contacts') }}
+                    </h2>
+                </div>
+                <div class="mail-box">
+                    <div class="mail-body">
+                        {{ form_widget(form.address) }}
+                        {{ form_row(form.extranetUserProfile.country) }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 animated fadeInRight">
+                <div class="mail-box-header clearfix">
+                    <h2 class="float-sart" id="customer-title">
+                        {{ 'contacts.forms.optional_fields' | trans({}, 'contacts') }}
+                    </h2>
+                </div>
+                <div class="mail-box">
+                    <div class="mail-body">
+                        {{ form_row(form.extranetUserProfile.erpLocation) }}
+                        {{ form_row(form.extranetUserProfile.customerCarrierName) }}
+                        {{ form_row(form.extranetUserProfile.shippingAccountNumber) }}
+                        {{ form_row(form.extranetUserProfile.requestorNumber) }}
+                        {{ form_row(form.extranetUserProfile.employeeNumber) }}
+                        {{ form_row(form.extranetUserProfile.note) }}
+                    </div>
+                </div>
+                <div class="mail-box-header clearfix">
+                    <h2 class="float-sart" id="customer-title">
+                        {{ 'contacts.fields.shipping_address' | trans({}, 'contacts') }}
+                    </h2>
+                </div>
+                <div class="mail-box">
+                    <div class="mail-body">
+                        {{ form_widget(form.extranetUserProfile.shippingAddress) }}
+                        {{ form_row(form.extranetUserProfile.airport) }}
+                    </div>
+                </div>
+                <div class="float-end">
+                    <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+                </div>
+            </div>
+        </div>
+        
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+

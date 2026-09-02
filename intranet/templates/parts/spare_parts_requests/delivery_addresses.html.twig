@@ -1,0 +1,8 @@
+{% extends 'parts/spare_parts_requests/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }}\{{ 'contacts.fields.delivery_addresses' |trans }}{% endblock %}
+
+{% block content %}
+    {{ data_table(deliveryAddressesDataTable) }}
+{% endblock %}

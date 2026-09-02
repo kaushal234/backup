@@ -1,0 +1,33 @@
+{% extends 'directory/people/show.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ people.lastname }} {{ people.firstname }}\Third Party Apps{% endblock %}
+
+{% block content %}
+
+    {% set tabs = {
+        accessList: {
+            defaultTab: true,
+            label: 'mis.access_list' | trans({}, 'mis'),
+            template: '/directory/people/third_party_app/access_list.html.twig',
+        }
+    } %}
+
+    {% if is_granted('FEATURE_MODULE_WRITE') %}
+        {% set tabs = tabs|merge({
+            updateTasksList: {
+                label: 'mis.update_task.title' | trans({}, 'mis'),
+                template: '/directory/people/third_party_app/update_tasks_list.html.twig',
+                badge: numberOfTasksInProgress,
+                security: is_granted('FEATURE_MODULE_WRITE')
+            }
+        }) %}
+    {% endif %}
+
+    {{ include('@AlvestTwigHelper/tabs_layout.html.twig', {
+        tabsData: {
+            tabs: tabs,
+            data: {},
+            link: app.request.query.get('tab')
+        },
+    }) }}
+{% endblock %}

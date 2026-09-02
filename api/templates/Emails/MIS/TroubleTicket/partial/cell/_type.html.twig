@@ -1,0 +1,4 @@
+<td>
+    {% set translation_key = 'trouble_ticket.form.option_value.' ~ item.type.description %}
+    {{ item.type.type }} {{ translation_key| trans({}, 'trouble_ticket') }}
+</td>

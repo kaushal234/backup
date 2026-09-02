@@ -1,0 +1,23 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row">
+        <div class="col-md-12">
+            <ul>
+            {% for leadTime in leadTimes %}
+                <li> {{ 'lead_time.description'|trans({'%productFamily%': leadTime.leadTime.productFamily.name, '%factory%': leadTime.leadTime.factory.name}, 'emails')}}:
+                {% for key, value in leadTime.leadTimeChange  %}
+                   {{ key }} {{ 'training.references.starting_at'|trans }} {{ value[0]}} {{ 'training.references.ending_at'|trans}} {{ value[1] }} {% if not loop.last %}, {% endif %}
+                {% endfor %}
+                </li>
+                {{ 'lead_time.salesForecast_list'|trans }}:
+                {% for salesForecast in leadTime.salesForecasts %}
+                    <a href="{{ url('sales_forecast', {id: salesForecast}) }}">{{ salesForecast }}</a> {% if not loop.last %}, {% endif %}
+                {% endfor %}
+            {% endfor  %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

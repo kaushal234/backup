@@ -1,0 +1,3 @@
+<td>
+    <a href="{{ path('sales_catalogue_product_show', {id: iri_id(item.product)}) }}">{{ item.product.name }}</a>  ({{ 'sales_forecasts.fields.same_product_cpr' | trans({}, 'sales_forecasts') }}: <a href="{{ path('competitor_pricings_home', {product: item.product['@id']}) }}">{{ 'view_here' | trans({}, 'messages') }}</a>)
+</td>

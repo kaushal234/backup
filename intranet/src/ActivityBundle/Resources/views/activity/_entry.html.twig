@@ -1,0 +1,19 @@
+{% trans_default_domain 'activity' %}
+<div class="col-sm-6 col-md-4 col-lg-3">
+    <b>
+        {% if entry.user is not defined or entry.user is empty %}
+            {{ 'activity.activity.anonymous'|trans }}
+        {% else %}
+            {{ entry.user.lastname }} {{ entry.user.firstname }}
+        {% endif %}
+    </b><br>
+    {{ entry.createdAt|format_datetime('short', 'short') }}
+    {#{% if entry['@type'] != 'Comment' %}{{ ('activity.activity.action.' ~ entry.action)|trans }}{% endif %}#}
+</div>
+
+{% if entry['@type'] == 'Comment' %}
+    {{ include('@ActivityBundle/activity/_comment_entry.html.twig', { entry: entry }, with_context=false) }}
+{% else %}
+    {{ include('@ActivityBundle/activity/_log_entry.html.twig', { entry: entry }, with_context=false) }}
+{% endif %}
+

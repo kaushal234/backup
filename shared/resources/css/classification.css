@@ -1,0 +1,102 @@
+#page {
+    color: #112233;
+}
+
+#page h3 {
+    background-color: #F0F1F5;
+    color: #112233;
+    text-align: center;
+    font-weight: bold;
+}
+
+#tab2 {
+    margin-top: 60px;
+}
+
+#tab1,
+#tab2,
+#tab1 th,
+#tab2 th,
+#tab1 td,
+#tab2 td{
+    border-collapse: collapse;
+    vertical-align: middle;
+}
+
+#tab1 td, #tab2 tr:nth-child(1), #tab2 tr:nth-child(2), #tab2 tr:nth-child(3), #tab2 tr:nth-child(4) {
+    border-bottom: 1px solid black;
+}
+
+#tab1, #tab2, .sortable {
+    table-layout: fixed;
+}
+
+#tab1 td {
+    width: 25%;
+    height: 24px;
+}
+
+#tab2 td {
+    width: 14%;
+    height: 24px;
+}
+
+#tab1 td:first-child {
+    background-color: #F0F1F5;
+    font-weight: bold;
+}
+#tab2 td:first-child {
+    font-weight: bold;
+}
+
+#tab1 td:nth-child(n+2), #tab2 td:nth-child(n+2), #tab2 input {
+    text-align: center;
+}
+
+#tab1 td:nth-child(n+3) {
+    border-bottom: 0px solid black;
+}
+
+#tab_head td:nth-child(n+2) {
+    background-color: #F0F1F5;
+}
+
+#Monitored, #notation {
+    background-color: #44BBFF;
+}
+
+#Locked, #Suppressed {
+    background-color: #112233;
+    color: #F0F1F5;
+}
+#approved, #eval_ok, #limit, #Unrestricted {
+    background-color: #66CC99;
+}
+#disapproved, #eval_late, #lock_limit, #Restricted {
+    background-color: #FC575E;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+    max-width: 20px;
+}
+
+.sortable {
+    width: 100%;
+}
+
+.sortable td {
+    word-wrap: break-word;
+}
+
+.sortable th:first-child {
+    width: 75%;
+}

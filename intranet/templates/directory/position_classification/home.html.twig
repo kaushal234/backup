@@ -1,0 +1,44 @@
+{% extends '/directory/position_category/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    {{ form_start(form, { action: path('position_classifications_edit', {id: businessUnit.iriId}) }) }}
+    <div class="row">
+        <div class="col-md-12 col-lg-9">
+            {{ form_errors(form) }}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        code: {
+                            label: 'directory.position.fields.code'|trans|capitalize
+                        },
+                        description: {
+                            label: 'directory.position.fields.description'|trans|capitalize,
+                            link: {
+                                route: 'directory_positions_show',
+                                params: {'id': '@id'},
+                                target: '_blank',
+                            }
+                        },
+                        positionCategory: {
+                            label: 'directory.position_categories.singular'|trans|capitalize,
+                            template: '/directory/position_classification/partial/_form_cell_position_category.html.twig',
+                            templateParams: {'form': form},
+                        },
+                    },
+                    title: ('directory.position_classifications.edit.title'|trans|capitalize) ~ ' - ' ~ businessUnit.name,
+                    data: positions,
+                    pagination: false,
+                    initialSorting: 'code'
+                }
+            }, with_context = false) }}
+            <div class="row">
+                <div class="col-md-12 text-end">
+                    {{ form_row(form.submit) }}
+                </div>
+                {{ form_rest(form) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

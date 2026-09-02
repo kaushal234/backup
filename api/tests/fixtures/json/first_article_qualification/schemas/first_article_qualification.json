@@ -1,0 +1,261 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/first_article_qualifications/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "location": {
+      "$ref": "../../directory_location/schemas/directory_location_public.json"
+    },
+    "crabs": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"type": "string"},
+          "@type": {"type": "string"},
+          "legacyId": {"type": "integer"},
+          "equipmentRecord": {
+            "type": "object",
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "serialNumber": {"type": "string"},
+              "model": {"type":  "string"},
+              "type": {"type":  "string"}
+            },
+            "required": ["@id", "@type", "serialNumber", "model", "type"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["@id", "@type", "legacyId"],
+        "additionalProperties": false
+      }
+    },
+    "productFamily": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/sales/product_families/\\d+$"},
+            "@type": {"type": "string"},
+            "name": {"type": "string"},
+            "legacyId": {"type": "integer"},
+            "productType": {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "englishName": {
+                  "type": "string"
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": ["@id", "@type", "englishName", "legacyId"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["@id", "@type", "name", "legacyId", "productType"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "partNumbers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/quality/first_article_qualifications_part_numbers/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "number",
+          "revision",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "supplierNumber": {
+      "type": "string"
+    },
+    "supplierName": {
+      "type": "string"
+    },
+    "iFactor": {
+      "type": ["string", "null"]
+    },
+    "buyer": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "poster": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "owner": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "$ref": "../../directory_people/schemas/directory_people_public.json"
+      },
+      "uniqueItems": true
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "completedAt": {
+      "type": ["string", "null"]
+    },
+    "planDefinitionCompletedAt": {
+      "type": ["string", "null"]
+    },
+    "planDefinitionDueDate": {
+      "type": "string"
+    },
+    "deliverablesDueDate": {
+      "type": ["string", "null"]
+    },
+    "dueDate": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/quality/first_article_qualification_tags/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/quality/first_article_qualifications_plan_items/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "number"},
+          "type": {"type": "object"},
+          "description": {"type": "string"},
+          "requestedPriorDelivery": {"type": ["boolean", "null"]},
+          "requestedAtPurchaseOrder": {"type": ["boolean", "null"]},
+          "completionRate": {"type": "integer"},
+          "validatedAt": {"type": ["string", "null"]},
+          "validatedBy": {"type": ["object", "null"]},
+          "comment": {"type": ["string", "null"]}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "type",
+          "description",
+          "requestedPriorDelivery",
+          "requestedAtPurchaseOrder",
+          "completionRate",
+          "validatedAt",
+          "validatedBy",
+          "comment"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "eap": {
+      "type": "integer"
+    },
+    "meap": {
+      "type": ["integer", "null"]
+    },
+    "status": {
+      "type": "string"
+    },
+    "equipmentRecords": {
+      "type": "array",
+      "items": {
+        "$ref": "../../equipment_record/schemas/equipment_records.json"
+      },
+      "uniqueItems": true
+    },
+    "planApprovalStatus": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "location",
+    "crabs",
+    "partNumbers",
+    "members",
+    "files",
+    "supplierNumber",
+    "supplierName",
+    "buyer",
+    "poster",
+    "owner",
+    "createdAt",
+    "completedAt",
+    "planDefinitionCompletedAt",
+    "planDefinitionDueDate",
+    "deliverablesDueDate",
+    "dueDate",
+    "tags",
+    "plan",
+    "eap",
+    "meap",
+    "status",
+    "equipmentRecords",
+    "planApprovalStatus",
+    "iFactor",
+    "productFamily"
+  ],
+  "additionalProperties": false
+}

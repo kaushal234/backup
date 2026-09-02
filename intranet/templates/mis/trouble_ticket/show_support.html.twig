@@ -1,0 +1,17 @@
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% block title %}{{ parent() }}#{{ troubleTicket.id }}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid g-4">
+        {{ include('mis/trouble_ticket/partial/_top_bar.html.twig') }}
+        <twig:Tabs:Tabs>
+            <twig:Tabs:NavItemList>
+                {{ include('mis/trouble_ticket/partial/_nav_tabs.html.twig', {troubleTicket: troubleTicket}) }}
+            </twig:Tabs:NavItemList>
+
+            <twig:Tabs:Content>
+                {{ include('mis/trouble_ticket/partial/tabs/_support.html.twig', {item: troubleTicket}) }}
+            </twig:Tabs:Content>
+        </twig:Tabs:Tabs>
+    </div>
+{% endblock %}

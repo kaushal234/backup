@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"type": "string", "pattern": "^/training_types/\\d+$"},
+    "@type": {"type": "string", "pattern": "^TrainingType$"},
+    "id": {"type": "integer"},
+    "name": {"type": "string"}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "name"
+  ],
+  "additionalProperties": false
+}

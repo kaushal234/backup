@@ -1,0 +1,20 @@
+<div class="form-group" style="display: {{ displayChoice|default("") }}">
+    {% for file in entry.files %}
+        <div style="padding-right: 10px">
+            <div style="display: inline-block; position: relative">
+                <a href="{{ path('evendors_news_show_file', {'id': iri_id(entry),'fileId': file.id}) }}"
+                   target="_blank">
+                    <strong>-</strong> {{ file.filePath | split('/') | last }}
+                </a>
+                {% if deleteButton is defined %}
+                    <a title="deleteFile"
+                       href="{{ path('evendors_news_delete_file', { evendorsNewsId: entry.id, fileId: file.id }) }}"
+                       class="text-danger btn-xs"
+                       style="position: absolute;right: -18px;top: -6px;border-radius: 15px;">
+                        <i class="fa fa-times"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>

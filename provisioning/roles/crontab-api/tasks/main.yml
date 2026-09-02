@@ -1,0 +1,935 @@
+- name: Ensure api folder exists
+  become: true
+  ansible.builtin.file:
+    path: /var/log/api
+    state: directory
+    owner: deployer
+    group: php_executor
+
+- name: Calibrated tools statuses & notifications
+  become: true
+  ansible.builtin.cron:
+    name: cron for calibrated tools
+    job: php current/api/bin/console tld:notifications:calibrated_tools >/dev/null 2>&1
+    user: deployer
+    minute: "11"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Demos check for delinquents
+  become: true
+  ansible.builtin.cron:
+    name: cron for demos check for delinquents
+    job: php current/api/bin/console api:sales:delinquent_demos >> /var/log/api/sales_demo.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: ER group synchronization jobs
+  become: true
+  ansible.builtin.cron:
+    name: cron for ER synchronization
+    job: php current/api/bin/console legacy:er:group:sync:all >> /var/log/api/er_group_sync_all.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "*/6"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: DMS synchronisation
+  become: true
+  ansible.builtin.cron:
+    name: cron for DMS synchronisation
+    job: php current/api/bin/console legacy:synch:dms --quiet >> /var/log/api/sync_dms.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: DMS restriction synchronisation
+  become: true
+  ansible.builtin.cron:
+    name: cron for DMS restriction synchronisation
+    job: php current/api/bin/console legacy:synch:dms_restriction --quiet >> /var/log/api/sync_dms.log 2>&1
+    user: deployer
+    minute: "5"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Extranet user account requests processing
+  become: true
+  ansible.builtin.cron:
+    name: cron for extranet user account requests processing
+    job: php current/api/bin/console tld:extranet_user:handle >> /var/log/api/extranet_user_requests.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Changelog update (Gitlab API synchronisation)
+  become: true
+  ansible.builtin.cron:
+    name: cron for changelog update (Gitlab API synchronisation)
+    job: php current/api/bin/console tld:changelog:synchronize 52 >/dev/null 2>&1
+    user: deployer
+    minute: "*"
+    hour: "2"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Wordpress database sync for TLD Group website
+  become: true
+  ansible.builtin.cron:
+    name: cron for wordpress database sync for TLD Group website
+    job: php current/api/bin/console tld:group:sync:all >/dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Survey Emailing
+  become: true
+  ansible.builtin.cron:
+    name: cron for survey Emailing
+    job: php current/api/bin/console tld:survey:send --quiet >> /var/log/api/survey.log 2>&1
+    user: deployer
+    minute: "*/10"
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: SFR Delinquent
+  become: true
+  ansible.builtin.cron:
+    name: cron for SFR delinquents
+    job: php current/api/bin/console tld:sales_forecast:delinquent --quiet > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: SFR Delinquent notifications
+  become: true
+  ansible.builtin.cron:
+    name: cron for SFR delinquent notifications
+    job: php current/api/bin/console tld:sales_forecast:delinquent-notifications --quiet > /dev/null 2>&1
+    user: deployer
+    minute: "10"
+    hour: "0"
+    day: "5"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: SFR unsent notifications
+  become: true
+  ansible.builtin.cron:
+    name: cron for SFR unsent notifications
+    job: php current/api/bin/console tld:sales_forecast:notifications --quiet > /dev/null 2>&1
+    user: deployer
+    minute: "*/30"
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: SFR Snapshots
+  become: true
+  ansible.builtin.cron:
+    name: cron for SFR Snapshots
+    job: php current/api/bin/console tld:sales_forecast:snapshot >> /var/log/api/sfr_snapshots.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "1"
+    state: present
+
+- name: FAQ reminder
+  become: true
+  ansible.builtin.cron:
+    name: cron for FAQ reminder
+    job: php current/api/bin/console tld:faq:reminder
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: SOR notifications
+  become: true
+  ansible.builtin.cron:
+    name: cron for SOR notifications
+    job: php current/api/bin/console tld:notifications:sor:orders_pending > /dev/null 2>&1
+    user: deployer
+    minute: "15"
+    hour: "12"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Product certificates expired
+  become: true
+  ansible.builtin.cron:
+    name: cron for product certificates expired
+    job: php current/api/bin/console api:sales:product_certificates_expired > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Extranet Users login notification
+  become: true
+  ansible.builtin.cron:
+    name: cron for Extranet Users login notification
+    job: php current/api/bin/console api:extranet_user:last_login > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: AR Delinquent
+  become: true
+  ansible.builtin.cron:
+    name: cron for AR delinquents
+    job: php current/api/bin/console api:finance:delinquent_ar > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: ATM Closure reminder
+  become: true
+  ansible.builtin.cron:
+    name: cron for ATM Closure reminder
+    job: php current/api/bin/console api:human-resources:training-reminder-command >> /var/log/api/atm_closure_reminder.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+
+- name: Customer status check for reapproval
+  become: true
+  ansible.builtin.cron:
+    name: cron for customer status check for reapproval
+    job: php current/api/bin/console api:sales:customer_reapproval > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "1"
+    state: present
+
+- name: Customers on watchlist without cuno report
+  become: true
+  ansible.builtin.cron:
+    name: cron for customers on watchlist without cuno report
+    job: php current/api/bin/console api:customers:watch_list_report > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: SPR delivery addresses removal
+  become: true
+  ansible.builtin.cron:
+    name: cron for SPR delivery addresses removal
+    job: php current/api/bin/console api:parts:remove_addresses > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "1"
+    state: present
+
+- name: Employee Staffing monthly snapshot
+  become: true
+  ansible.builtin.cron:
+    name: cron for Employee Staffing monthly snapshot
+    job: php current/api/bin/console api:human-resources:employee-staffing:snapshot >> /var/log/api/esm_snapshot.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "3"
+    day: "15"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Employee Staffing yearly snapshot
+  become: true
+  ansible.builtin.cron:
+    name: cron for Employee Staffing yearly snapshot
+    job: php current/api/bin/console api:human-resources:employee-staffing:end-of-year >> /var/log/api/esm_end_of_year.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "3"
+    day: "31"
+    month: "12"
+    weekday: "*"
+    state: present
+
+- name: Cleanup manuals temp files
+  become: true
+  ansible.builtin.cron:
+    name: cron for cleaning up manuals temp files
+    job: /bin/bash /var/www/alvest-web-portals/current/admin/jobs/daily/clean_tmp_cache.sh >> /var/log/daily.bat.log
+    user: deployer
+    minute: "0"
+    hour: "0,12"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Create ethic sequence for 1 year
+  become: true
+  ansible.builtin.cron:
+    name: cron to create ethic sequences for 1 year
+    job: php current/api/bin/console api:people:ethic_sequence GG_1Y_ETHIC_ATTESTATION > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+
+- name: Create ethic sequence for 3 years
+  become: true
+  ansible.builtin.cron:
+    name: cron to create ethic sequences for 3 years
+    job: php current/api/bin/console api:people:ethic_sequence GG_3Y_ETHIC_ATTESTATION > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+
+- name: Derogation due date passed notification
+  become: true
+  ansible.builtin.cron:
+    name: cron to notifiy people that derogation due date is passed
+    job: php current/api/bin/console tld:derogation:expired > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "1,2,3,4,5"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Activate new people
+  become: true
+  ansible.builtin.cron:
+    name: cron to activate new people arriving every day
+    job: php current/api/bin/console api:people:activate >> /var/log/api/people_activate.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Daily notification for estimated green tag date
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to notifiy concerned people for estimated green tad date of ER has changed
+    job: php current/api/bin/console api:equipment_record:odp_notification 1 > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    weekday: "1-5"
+    state: present
+
+- name: Weekly notification for estimated green tag date
+  become: true
+  ansible.builtin.cron:
+    name: weekly cron to notifiy concerned people for estimated green tad date of ER has changed
+    job: php current/api/bin/console api:equipment_record:odp_notification 7 > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    weekday: "3"
+    state: present
+
+- name: DMS KPI monthly snapshot
+  become: true
+  ansible.builtin.cron:
+    name: cron for DMS KPI monthly snapshot
+    job: php current/api/bin/console api:dms:kpi-snapshot > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Clean up of removed API ER in legacy database
+  become: true
+  ansible.builtin.cron:
+    name: cron for clean up of removed API ER in legacy database
+    job: php current/api/bin/console api:equipment:cleanup > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Remove temporary ACLs
+  become: true
+  ansible.builtin.cron:
+    name: cron to remove temporary ACLs
+    job: php current/api/bin/console api:acl:remove_temporary > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Update supplier ranking
+  become: true
+  ansible.builtin.cron:
+    name: cron for update supplier ranking
+    job: php current/api/bin/console tld:supplier_ranking:update_from_ln > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Annual revision of intranet profile
+  become: true
+  ansible.builtin.cron:
+    name: cron generate sequence for annual revision of intranet profile
+    job: php current/api/bin/console api:human-resources:annual-revision > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "31"
+    month: "1"
+    weekday: "*"
+    state: present
+
+- name: Weekly notify vendor user
+  become: true
+  ansible.builtin.cron:
+    name: cron to notify weekly vendor user
+    job: php current/api/bin/console api:vendor:weekly_notification > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    weekday: "1"
+    state: present
+
+- name: Notify for Trouble Ticket waiting to be closed
+  become: true
+  ansible.builtin.cron:
+    name: cron to notify for Trouble Ticket waiting to be closed
+    job: php current/api/bin/console api:mis:notify_trouble_ticket > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+
+- name: Close trouble ticket waiting to be closed
+  become: true
+  ansible.builtin.cron:
+    name: cron to close trouble ticket waiting to be closed
+    job: php current/api/bin/console api:mis:close_trouble_ticket > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: absent
+
+- name: Notify for Trouble Ticket auto escalated
+  become: true
+  ansible.builtin.cron:
+    name: cron to notify for Trouble Ticket auto escalated
+    job: php current/api/bin/console api:mis:auto_escalate_trouble_ticket > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Cleanup on Javelo application
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to synchronize javelo user with people
+    job: php current/api/bin/console api:human-resources:javelo:cleanup > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "2"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Daily notification for Javelo user
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to send notification on javelo user update
+    job: php current/api/bin/console api:human-resources:javelo:notification daily > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "3"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Monthly notification for Javelo user
+  become: true
+  ansible.builtin.cron:
+    name: Monthly cron to send notification on javelo user update
+    job: php current/api/bin/console api:human-resources:javelo:notification monthly > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Remove notifications older than a month
+  become: true
+  ansible.builtin.cron:
+    name: Remove notifications older than a month
+    job: php current/api/bin/console api:notification:remove > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: TTS KPI Weekly snapshot
+  become: true
+  ansible.builtin.cron:
+    name: cron for TTS KPI Weekly snapshot
+    job: php current/api/bin/console api:trouble-ticket:snapshot > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "0"
+    state: present
+
+- name: Send email for supplier ranking review
+  become: true
+  ansible.builtin.cron:
+    name: cron for email for supplier ranking review
+    job: php current/api/bin/console tld:supplier_ranking:review > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "0"
+    state: present
+
+- name: Create tasks to perform accounts and/or security audit of third party apps
+  become: true
+  ansible.builtin.cron:
+    name: daily cron for third party apps reviews
+    job: php current/api/bin/console api:mis:third_party_app:review > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Create notifications to alert MOO and admins there is still update tasks of third party app opened
+  become: true
+  ansible.builtin.cron:
+    name: daily cron for third party apps notification
+    job: php current/api/bin/console api:mis:third_party_app:update_task_alert > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "1-5"
+    state: present
+
+- name: Cleanup on Agile application
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to synchronize agile user with people
+    job: php current/api/bin/console api:human-resources:agile:cleanup > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "2"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Create annual task for MIS Users
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to create annual task for MIS Users
+    job: php current/api/bin/console api:mis:annual_task > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "1"
+    month: "6"
+    weekday: "*"
+    state: present
+
+- name: Hide and unhide disabled people
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to manage disabled people visibility
+    job: php current/api/bin/console api:people:hide-and-unhide > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "2"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Creates grant/remove update tasks for people
+  become: true
+  ansible.builtin.cron:
+    name: daily cron for third party apps grant/remove update task
+    job: php current/api/bin/console api:mis:third_party_app:create_grant_access_tasks > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "1-5"
+    state: present
+
+- name: Remove inactive vendor user
+  become: true
+  ansible.builtin.cron:
+    name: daily cron for vendor user removed when inactive
+    job: php current/api/bin/console api:vendor-user:clean-inactive >> /var/log/api/inactive_vendor_user_remove_daily_.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "1-5"
+    state: present
+
+- name: VWC from VENDOR_TO_RESPOND to ISSUE_CREDIT_NOTE
+  become: true
+  ansible.builtin.cron:
+    name: daily cron for update vwc from VENDOR_TO_RESPOND to ISSUE_CREDIT_NOTE automatically
+    job: php current/api/bin/console api:vwc:changedToIssueDebitNote > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "6"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Import holidays for this month next year
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to import holidays for this month next year
+    job: php current/api/bin/console api:human-resources:holidays > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Send weekly newsletter
+  become: true
+  ansible.builtin.cron:
+    name: weekly cron for send newsletter
+    job: php current/api/bin/console api:newsletter >> /var/log/api/newsletter.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "2"
+    weekday: "1"
+    state: present
+
+- name: Send daily notification for TTS awaiting user
+  become: true
+  ansible.builtin.cron:
+    name: daily cron for send TTS notification awaiting user
+    job: php current/api/bin/console api:mis:notify_escalated_trouble_ticket >> /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "1-5"
+    state: present
+
+- name: Send email when escalation time is running to assignee and assignor, writes a task comment, and reassigns the task to the current assignee's supervisor
+  become: true
+  ansible.builtin.cron:
+    name: daily cron for send task escalation email
+    job: php current/api/bin/console api:mis:notify_escalated_task -vv >> /var/log/api/mis_notify_escalated_task.log 2>&1
+    user: deployer
+    minute: "10"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "1-5"
+    state: present
+
+- name: Equipment Record GT monthly snapshot
+  become: true
+  ansible.builtin.cron:
+    name: cron for Equipment Record GT monthly snapshot
+    job: php current/api/bin/console api:equipment:green_tag_quantity_report >> /var/log/api/green_tag_quantity_report.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "12"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Jira closed issue from JIRA
+  become: true
+  ansible.builtin.cron:
+    name: cron for Jira closed issue from JIRA
+    job: php current/api/bin/console api:mis:jira_closed >> /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "1"
+    state: present
+
+- name: Clean DocumentTranslation DB lines
+  become: true
+  ansible.builtin.cron:
+    name: daily translate cleanup for Deepl
+    job: php current/api/bin/console api:document:translation:cleanup > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Scheduled Task Expiration
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to send an email to the assignor when a scheduled task is about to expire
+    job: php current/api/bin/console tld:scheduled-task:expiration-notification > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "6"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Contract Expiration
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to update contract status when expiration date arrive
+    job: php current/api/bin/console api:legal:contract:expiration >> /var/log/api/contract_expiration.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "6"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Contract Expiring In One Month
+  become: true
+  ansible.builtin.cron:
+    name: daily cron to notify owner and supervisor of contracts expiring in one month
+    job: php current/api/bin/console api:legal:contract:expiring-in-one-month >> /var/log/api/contract_expiring_in_one_month.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "6"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Activate new guests
+  become: true
+  ansible.builtin.cron:
+    name: cron to activate new guest users arriving every day
+    job: php current/api/bin/console api:guest:activate > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Disable expired guests
+  become: true
+  ansible.builtin.cron:
+    name: cron to disable guest users whose departure date has passed every day
+    job: php current/api/bin/console api:guest:disable > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Remove AI Log history
+  become: true
+  ansible.builtin.cron:
+    name: cron to remove AI Log history
+    job: php current/api/bin/console api:ai:clean-logs > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Create renew guest user task
+  become: true
+  ansible.builtin.cron:
+    name: cron to create renew guest user task
+    job: php current/api/bin/console api:guest-user:create-renewal-tasks > /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Send notification for Extranet User password are about to expire.
+  become: true
+  ansible.builtin.cron:
+    name: daily cron for send notification to extranet user password are about to expire
+    job: php current/api/bin/console api:user:extranet_password_expiration_notification >> /dev/null 2>&1
+    user: deployer
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Monthly Technician On Call oldest by SSO
+  become: true
+  ansible.builtin.cron:
+    name: monthly cron for Technician On Call oldest by SSO
+    job: php current/api/bin/console api:technician_on_call:oldest_report >> /var/log/api/technician_on_call_oldest_report.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "6"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Monthly Technician On Call Backlog report
+  become: true
+  ansible.builtin.cron:
+    name: monthly cron for Technician On Call backlog report
+    job: php current/api/bin/console api:technician_on_call:backlog_report >> /var/log/api/technician_on_call_backlog_report.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "4"
+    day: "1"
+    month: "*"
+    weekday: "*"
+    state: present
+
+- name: Weekly Technician On Call late customer updates report
+  become: true
+  ansible.builtin.cron:
+    name: weekly cron for Technician On Call late customer updates report
+    job: php current/api/bin/console api:toc:late_customer_updates_report >> /var/log/api/technician_on_call_late_customer_updates_report.log 2>&1
+    user: deployer
+    minute: "0"
+    hour: "7"
+    day: "*"
+    month: "*"
+    weekday: "1"
+    state: present

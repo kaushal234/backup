@@ -1,0 +1,81 @@
+{% extends 'directory/premise/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{ 'directory.premise.edit.title'|trans|capitalize }}
+            </div>
+            <div class="ibox-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col-md-9">
+                        {{ form_row(form.description) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        {{ form_row(form.address.street1) }}
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        {{ form_row(form.address.street2) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        {{ form_row(form.address.postalCode) }}
+                    </div>
+                    <div class="col-md-3 col-xs-6">
+                        {{ form_row(form.address.city) }}
+                    </div>
+                    <div class="col-md-3 col-xs-6">
+                        {{ form_row(form.address.town) }}
+                    </div>
+                    <div class="col-md-3 col-xs-6">
+                        {{ form_row(form.address.state) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(form.address.country) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.latitude) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.longitude) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        {{ form_row(form.tags) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.airport) }}
+                    </div>
+                    {% if form.archived is defined %}
+                        <div class="col-md-3">
+                            {{ form_row(form.archived) }}
+                        </div>
+                    {% endif %}
+                    <div class="col-md-3">
+                        {{ form_row(form.supportTeam) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.submit) }}
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

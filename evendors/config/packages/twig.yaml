@@ -1,0 +1,10 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes:
+        - bootstrap_5_layout.html.twig
+    globals:
+        power_bi_report_64: '%env(POWER_BI_REPORT_64)%'
+
+when@test:
+    twig:
+        strict_variables: true

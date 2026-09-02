@@ -1,0 +1,32 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block content %}
+    <div class="row">
+        {{ form_start(form, { action: path('supplier_rankings_files_add', {id: supplierRanking.id}) }) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins news-list-element">
+                    <div class="ibox-title">
+                        <h4>{{ 'file.title.add'|trans }}</h4>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-6">
+                                {{ form_row(form.category) }}
+                                {{ form_row(form.file) }}
+                                {{ form_row(form.expiredAt) }}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear-fix"></div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

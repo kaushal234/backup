@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/materials/warehouse/locations/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "erp": {
+      "type": "integer"
+    },
+    "warehouse": {
+      "type": "string"
+    },
+    "locationNumber": {
+      "type": "string"
+    },
+    "sector": {
+      "pattern": "^/materials/warehouse/sectors/\\d+$"
+    },
+    "deletedAt": {
+      "type": ["string", "null"]
+    },
+    "deletedInBaanAt": {
+      "type": ["string", "null"]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "erp",
+    "sector",
+    "locationNumber",
+    "warehouse"
+  ]
+}

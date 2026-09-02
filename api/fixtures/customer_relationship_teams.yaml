@@ -1,0 +1,99 @@
+App\Entity\Sales\CustomerRelationshipTeam:
+    crt_fixed:
+        id: 1
+        customer: '@customer_a_boire'
+        salesRepresentative: '@user_asm'
+        partsRepresentative: '@user_parts'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts'
+        serviceLocation: '@location_404'
+        erpLocation: '@location_sso'
+        customerBusinessPartnerCode: 'FIAT'
+
+    crt_transfer_sales:
+        id: 2
+        customer: '@customer_2'
+        salesRepresentative: '@user_sales'
+        partsRepresentative: '@user_parts'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts'
+        serviceLocation: '@location_404'
+        erpLocation: '@location_sso_2'
+        customerBusinessPartnerCode: "50%? <lexify('??????')>"
+
+    crt_transfer_parts:
+        id: 3
+        customer: '@customer_2'
+        salesRepresentative: '@user_service'
+        partsRepresentative: '@user_parts'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts_2'
+        serviceLocation: '@location_service'
+        erpLocation: '@location_sso_3'
+        customerBusinessPartnerCode: "50%? <lexify('??????')>"
+
+    crt_transfer_service:
+        id: 4
+        customer: '@customer_2'
+        salesRepresentative: '@user_service'
+        partsRepresentative: '@user_spm'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts'
+        serviceLocation: '@location_service'
+        erpLocation: '@location_sso_2'
+        customerBusinessPartnerCode: "50%? <lexify('??????')>"
+
+    crt_transfer_asm:
+        id: 5
+        customer: '@customer_2'
+        salesRepresentative: '@user_asm_transferred'
+        partsRepresentative: '@user_parts'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts_2'
+        serviceLocation: '@location_service'
+        erpLocation: '@location_sso_3'
+        customerBusinessPartnerCode: "50%? <lexify('??????')>"
+
+    crt_for_fur:
+        id: 6
+        customer: '@customer_for_fur'
+        salesRepresentative: '@user_sales'
+        partsRepresentative: '@user_spm'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts'
+        serviceLocation: '@location_factory'
+        erpLocation: '@location_sso'
+        customerBusinessPartnerCode: "50%? <lexify('??????')>"
+
+    crt_for_eparts:
+        id: 7
+        customer: '@customer_a_boire'
+        salesRepresentative: '@user_sales'
+        partsRepresentative: '@user_parts'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts_2'
+        serviceLocation: '@location_404'
+        erpLocation: '@location_parts'
+        customerBusinessPartnerCode: "AF1000"
+
+    crt_for_toc:
+        id: 8
+        customer: '@customer_for_fur'
+        salesRepresentative: '@user_sales'
+        partsRepresentative: '@user_spm'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts'
+        serviceLocation: '@location_factory'
+        erpLocation: '@location_sso'
+        customerBusinessPartnerCode: "50%? <lexify('??????')>"
+
+    crt_{9..15}:
+        id: <current()>
+        customer: '@customer_<($current + 1)>'
+        salesRepresentative: '@user_asm'
+        partsRepresentative: '@user_spm'
+        serviceRepresentative: '@user_service'
+        partsLocation: '@location_parts'
+        serviceLocation: '@location_service'
+        erpLocation: '@location_sso'
+        customerBusinessPartnerCode: "50%? <lexify('??????')>"

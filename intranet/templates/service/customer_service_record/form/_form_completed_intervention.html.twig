@@ -1,0 +1,34 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{{ form_start(form, {attr: { 'data-controller': 'intervention'}}) }}
+{{ form_errors(form) }}
+{{ form_row(form.status) }}
+{% if form.vars.openingIntervention %}
+    {{ form_row(form.startedDate) }}
+{% endif %}
+<div data-intervention-target="endedDateRow">
+    {{ form_row(form.endedDate) }}
+</div>
+{{ form_row(form.hourmeter) }}
+{% if form.vars.hasToc %}
+    <div data-intervention-target="solveTocRow" class="intervention-solve-toc-checkbox">
+        {{ form_row(form.solveToc) }}
+    </div>
+    <div data-intervention-target="symptomsRow" class="d-none">
+        {{ form_row(form.symptoms) }}
+    </div>
+    <div data-intervention-target="rootCauseRow" class="d-none">
+        {{ form_row(form.rootCause) }}
+    </div>
+    <div data-intervention-target="solutionRow" class="d-none">
+        {{ form_row(form.solution) }}
+    </div>
+{% endif %}
+{% if form.vars.enableSurvey %}
+    <h3>{{ 'intervention.title.survey' | trans({}, 'customer_service_record')}}</h3>
+    {{ form_row(form.answerSurveyCustomerServiceRecords) }}
+{% endif %}
+<div class="d-flex justify-content-end gap-5 gap-xxl-0 justify-content-xxl-between">
+    {{ form_row(form.submit) }}
+</div>
+{{ form_end(form) }}

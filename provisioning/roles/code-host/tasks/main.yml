@@ -1,0 +1,98 @@
+- name: Install ACL (needed by deployer)
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name: acl
+    state: present
+  check_mode: false
+
+- name: Ensure group "php_executor" exists
+  become: true
+  ignore_errors: true
+  ansible.builtin.group:
+    name: php_executor
+    state: present
+    gid: 1000
+
+- name: Add the user "deployer"
+  become: true
+  ignore_errors: true
+  ansible.builtin.user:
+    name: deployer
+    home: "{{ monorepo_path }}"
+    shell: /bin/bash
+    comment: Deployment user
+    group: php_executor
+    groups: [sudo]
+    uid: 1000
+
+- name: Ensure the code folder exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ monorepo_path }}"
+    state: directory
+    owner: deployer
+    group: php_executor
+    mode: '0755'
+
+- name: Add user to sudoers
+  become: true
+  ansible.builtin.template:
+    src: templates/deployer
+    dest: /etc/sudoers.d/deployer
+
+- name: Ensure .ssh folder exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ monorepo_path }}/.ssh"
+    state: directory
+    owner: deployer
+    group: php_executor
+    mode: '0755'
+
+- name: Place private key for gitlab authentication
+  become: true
+  ansible.builtin.copy:
+    src: templates/id_rsa
+    dest: "{{ monorepo_path }}/.ssh/id_rsa"
+    mode: '0600'
+    owner: deployer
+    group: php_executor
+
+- name: Add our gitlab server to known_hosts file (needed to git clone our monorepo via ssh)
+  become: true
+  ansible.builtin.known_hosts:
+    name: "{{ gitlab_runner_hostname }}"
+    key: "{{ gitlab_runner_hostname }} ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+BWZtotOjN56Qw6igK5duUGNcQmnOO+8az669EY2O2"
+    path: "{{ monorepo_path }}/.ssh/known_hosts"
+    state: present
+
+- name: Change known_hosts ownership
+  become: true
+  ansible.builtin.file:
+    path: "{{ monorepo_path }}/.ssh/known_hosts"
+    owner: deployer
+    group: php_executor
+    mode: '0600'
+
+- name: Create authorized_keys file (needed to git clone our monorepo via ssh)
+  become: true
+  ansible.builtin.file:
+    path: "{{ monorepo_path }}/.ssh/authorized_keys"
+    state: touch
+    owner: deployer
+    group: php_executor
+    mode: '0600'
+
+# The ondrej/php PPA used to be added here for evendors/extranet so a non-distro
+# PHP version could be installed. Those playbooks now run geerlingguy.php-versions
+# (like api/portals), which adds the sury/ondrej repo itself and purges unused PHP
+# versions. Keeping the PPA on top of that repo produces a duplicate apt source, so
+# it is removed here. This cleanup task can be dropped once every evendors/extranet
+# host has been re-provisioned.
+- name: Remove legacy ppa:ondrej/php repository (superseded by geerlingguy.php-versions)
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+    state: absent
+  when: inventory_hostname in groups['evendors'] + groups['extranet']

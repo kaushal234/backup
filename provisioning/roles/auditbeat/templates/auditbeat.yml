@@ -1,0 +1,840 @@
+#######################
+#       ADVENS        #
+#######################
+# Auteur : Mathieu LEFEBVRE
+# Version 1.1 - 13/11/2025
+#
+#   - [09/04/2025] - Creation configuration
+#   - [13/11/2025] - Suppression et ajout de filtres règles bruyantes
+#
+######################################################################
+######################## VERSION CUSTOM ALVEST #######################
+######################################################################
+#
+# Historique des changements
+#   - [09/04/2025] - Creation configuration
+#
+# PROCEDURE POUR ONBOARDING CLIENT
+#   - Renseigner les informations de connexion au cluster REDIS (cf. <INFORMATIONS_REDIS> à la fin du fichier)
+#   - Vérifier systématiquement le auditbeat.log au premier démarrage du service pour vérifier l'absence d'erreur
+#
+# PROCEDURE POUR MISE A JOUR
+#   - Remplacer l'ancien fichier .yml par celui-ci et reparamétrer les informations de connexion au cluster REDIS avec ce qui était renseigné dans l'ancien fichier
+#   - Vérifier le fichier de conf .yml avec la commande test config
+#   - Stopper/redémarrer le service auditbeat
+#   - Vérifier systématiquement le auditbeat.log au premier démarrage du service pour vérifier l'absence d'erreur
+
+
+# =========================== Modules configuration ============================
+auditbeat.modules:
+  - module: auditd
+    overflow_action: ignore
+    flush: incremental_async # Évite que le kernel se bloque si buffer saturé
+    freq: 50
+    audit_rules: |
+      ## PHASE de la killChain "Collection"
+      ## T1005 : Donnee du systeme local
+      ##
+      ################################################################################################
+      
+      ## Acces aux logs d'audit
+      
+      ### Tentatives d'acces en lecture aux logs d'audit
+      
+      -w /var/log/audit/ -k T1005_Data_From_Local_System_audit_log_1
+      
+      ## Configuration d'Auditd
+      
+      ### Modifications de la configuration des logs lorsqu'auditd est en cours d'execution
+      
+      -w /etc/audit/ -p wa -k T1005_Data_From_Local_System_audit_log_2
+      -w /etc/libaudit.conf -p wa -k T1005_Data_From_Local_System_audit_log_3
+      -w /etc/audisp/ -p wa -k T1005_Data_From_Local_System_audit_log_4
+      
+      ## Surveillance de l'utilisation des outils de gestion des logs
+      
+      -w /sbin/auditctl -p x -k T1005_Data_From_Local_System_audit_log_5
+      -w /sbin/auditd -p x -k T1005_Data_From_Local_System_audit_log_6
+      
+      # Fichier vu sur Debian
+      
+      -a always,exit -F arch=b64 -F exe=/lib64/ld-2.17.so -k T1005_Data_From_Local_System_audit_log_7_Debian
+      
+      # Fichier vu sur CentOS 7
+      
+      -a always,exit -F arch=b64 -F exe=/lib64/x86_64-linux-gnu/ld-2.24.so -k T1005_Data_From_Local_System_audit_log_7_CentOS
+      -a always,exit -F arch=b64 -F exe=/sbin/auditctl -k T1005_Data_From_Local_System_audit_log_8
+      
+      #/etc/audit/audit.rules
+      
+      # Filtres ---------------------------------------------------------------------
+      
+      ### Mise en place rapide de ces elements car auditd declenche dans l'ordre des regles, ainsi la premiere regle correspondant à un evenement precis declenche, pas les suivantes.
+      
+      ## Ignorer les enregistrements SELinux AVC
+      
+      -a always,exclude -F msgtype=AVC
+      
+      ## Ignorer les enregistrements concernant le dossier de travail courant
+      
+      -a always,exclude -F msgtype=CWD
+      
+      ## Ignorer les enregistrements de fin d'evenement EOE (End Of Event, non necessaires)
+      
+      -a always,exclude -F msgtype=EOE
+      
+      ## Les tâches Cron jobs remplissent les logs d'informations en principe non necessaires (fonctinonne avec SELinux)
+      
+      -a never,user -F subj_type=crond_t
+      -a exit,never -F subj_type=crond_t
+      
+      ## Non interessant et perte de place sur les serveurs disponibles publiquement
+      
+      -a always,exclude -F msgtype=CRYPTO_KEY_USER
+      
+      ## Outils VMWare
+      
+      -a exit,never -F arch=b64 -S fork -F success=0 -F path=/usr/lib/vmware-tools -F subj_type=initrc_t -F exit=-2
+      
+      ## Filtres specifiques
+      
+      ##
+      ## Partie à travailler avec le client pour supprimer les logs non utiles de la couche applicative
+      ##
+      
+      -a exit,never -F arch=b64 -S all -F path=/usr/libexec/postfix
+      -a exit,never -F arch=b64 -S all -F exe=/usr/sbin/postdrop
+      -a exit,never -F arch=b64 -S all -F exe=/usr/sbin/sendmail
+      -a exit,never -F arch=b64 -S all -F exe=/usr/sbin/ausearch
+      -a exit,never -F arch=b64 -S all -F path=/usr/lib/polkit-1/polkitd
+      -a exit,never -F arch=b64 -S all -F exe=/usr/lib/polkit-1/polkitd
+      -a exit,never -F arch=b64 -S all -F exe=/usr/libexec/accounts-daemon
+      -a exit,never -F arch=b64 -S all -F exe=/usr/bin/systemd-tmpfiles
+      -a exit,never -F arch=b64 -S all -F exe=/usr/lib/systemd/systemd-logind
+      -a exit,never -F arch=b64 -S all -F exe=/usr/bin/bash
+      -a exit,never -F arch=b64 -S all -F exe=/usr/bin/updatedb
+      -a exit,never -F arch=b64 -S fork -F exe=/usr/sbin/unix_chkpwd
+      -a exit,never -F arch=b64 -S all -F exe=/usr/libexec/postfix/pickup
+      
+      ### Filtre sur les evenements presentant de gros volumes (notamment sur postes de travail Linux)
+      
+      -a exit,never -F arch=b64 -F dir=/dev/shm -k sharedmemaccess
+      
+      # Regles -----------------------------------------------------------------------
+      
+      ##
+      ## PHASE de la killChain "Decouverte"
+      ## T1033 : Decouverte du proprietaire du systeme/utilisateur
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à la phase de reconnaissance
+      
+      -w /usr/bin/whoami -p x -k T1033_System_Owner_User_Discovery_1
+      
+      ##
+      ## PHASE de la killChain "Persistence"
+      ## T1215 : Modules du noyau et extensions
+      ##
+      ################################################################################################
+      
+      ## Evenements lies au noyau
+      
+      -w /etc/sysctl.conf -p wa -k T1215_Kernel_Modules_and_Extensions_1
+      -a always,exit -F perm=x -F auid!=-1 -F path=/sbin/insmod -k T1215_Kernel_Modules_and_Extensions_2
+      -a always,exit -F perm=x -F auid!=-1 -F path=/sbin/modprobe -k T1215_Kernel_Modules_and_Extensions_3
+      -a always,exit -F perm=x -F auid!=-1 -F path=/sbin/rmmod -k T1215_Kernel_Modules_and_Extensions_4
+      -a always,exit -F arch=b64 -S finit_module -S init_module -S delete_module -F auid!=-1 -k T1215_Kernel_Modules_and_Extensions_5
+      -w /etc/modprobe.conf -p wa -k T1215_Kernel_Modules_and_Extensions_6
+      
+      ##
+      ## PHASE de la killChain "Evasion defensive"
+      ## T1014 : Rootkit
+      ##
+      ################################################################################################
+      
+      -a always,exit -F arch=b64 -S kexec_load -k T1014_Rootkit_1
+      
+      ##
+      ## PHASE de la killChain "Initial access"
+      ## T1200 : Ajouts de materiel
+      ##
+      ################################################################################################
+      
+      ## Materiel ou disques logiques additionnels
+      
+      -a always,exit -F arch=b64 -S mount -S umount2 -F auid!=-1 -k T1200_Hardware_Additions_1
+      -a always,exit -F arch=b64 -S swapon -S swapoff -F auid!=-1 -k T1200_Hardware_Additions_2
+      
+      ##
+      ## PHASE de la killChain "Defence Evasion"
+      ## T1099 : Timestomp
+      ##
+      ################################################################################################
+      
+      ## Evenements lies au temps
+      
+      -a exit,always -F arch=b64 -S adjtimex -S settimeofday -k T1099_Timestomp_1
+      -a always,exit -F arch=b64 -S clock_settime -k T1099_Timestomp_2
+      -w /etc/localtime -p wa -k T1099_Timestomp_3
+      
+      ##
+      ## PHASE de la killChain "Controle commande"
+      ## T1079 : Chiffrement multicouche
+      ##
+      ################################################################################################
+      
+      ## Stunnel
+      
+      -w /usr/bin/stunnel -p x -k T1079_Multilayer_Encryption_1
+      
+      ##
+      ## PHASE de la killChain "Evasion defensive"
+      ## T1146 : Effacement de l'historique
+      ##
+      ################################################################################################
+      
+      # Suppression ou acces en ecriture à l'historique des commandes du compte 'root' (ex: 'rm ~/.bash_history' avec des privileges root)
+      
+      -w /root/.bash_history -p wa -k T1146_Clear_Command_history_1
+      
+      # Recommandation :
+      
+      # Pour les utilisateurs non root, mettre en place une regle pour chaque compte en utilisant l'exemple de regle ci-apres :
+      
+      #-w /home/<nom_utilisateur>/.bash_history -p wa -k T1146_Clear_Command_history_2
+      
+      ##
+      ## PHASE de la killChain "Execution"
+      ## T1168 : Planification locale des travaux
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à la configuration Cron et aux tâches planifiees
+      
+      -w /etc/cron.allow -p wa -k T1168_Local_Job_Scheduling_1
+      -w /etc/cron.deny -p wa -k T1168_Local_Job_Scheduling_2
+      -w /etc/cron.d/ -p wa -k T1168_Local_Job_Scheduling_3
+      -w /etc/cron.daily/ -p wa -k T1168_Local_Job_Scheduling_4
+      -w /etc/cron.hourly/ -p wa -k T1168_Local_Job_Scheduling_5
+      -w /etc/cron.monthly/ -p wa -k T1168_Local_Job_Scheduling_6
+      -w /etc/cron.weekly/ -p wa -k T1168_Local_Job_Scheduling_7
+      -w /etc/crontab -p wa -k T1168_Local_Job_Scheduling_8
+      
+      # crontab hypothetique pour les systemes Debian GNU/Linux et Ubuntu
+      
+      -w /var/spool/cron/crontabs/ -k T1168_Local_Job_Scheduling_9_Debian
+      
+      # crontab hypothetique pour les systemes CentOS (vu sur CentOS 7)
+      
+      -w /var/spool/cron/ -k T1168_Local_Job_Scheduling_9_CentOS
+      -w /etc/inittab -p wa -k T1168_Local_Job_Scheduling_10
+      -w /etc/init.d/ -p wa -k T1168_Local_Job_Scheduling_11
+      -w /etc/init/ -p wa -k T1168_Local_Job_Scheduling_12
+      -w /etc/at.allow -p wa -k T1168_Local_Job_Scheduling_13
+      -w /etc/at.deny -p wa -k T1168_Local_Job_Scheduling_14
+      -w /var/spool/at/ -p wa -k T1168_Local_Job_Scheduling_15
+      -w /etc/anacrontab -p wa -k T1168_Local_Job_Scheduling_16
+      
+      ##
+      ## PHASE de la killChain "Persistance"
+      ## T1136 : Creation de Compte
+      ##
+      ################################################################################################
+      
+      ## Evenements lies aux comptes
+      
+      -w /usr/sbin/groupadd -p x -k T1136_Create_Accounts_1
+      -w /usr/sbin/useradd -p x -k T1136_Create_Accounts_2
+      -w /usr/sbin/adduser -p x -k T1136_Create_Accounts_3
+      -w /usr/sbin/addgroup -p x -k T1136_Create_Accounts_4
+      
+      ##
+      ## PHASE de la killChain "Decouverte"
+      ## T1049 : Decouverte de connexion du reseau systeme
+      ##
+      ################################################################################################
+      
+      -w /usr/sbin/tcpdump -p x -k T1049_System_Network_Connections_discovery_1
+      
+      # Commande vue sur Debian
+      
+      -w /usr/bin/traceroute.db -p x -k T1049_System_Network_Connections_discovery_2_Debian
+      
+      # Commande vue sur CentOS 7
+      
+      -w /usr/bin/traceroute -p x -k T1049_System_Network_Connections_discovery_2_CentOS
+      -w /usr/bin/wireshark -p x -k T1049_System_Network_Connections_discovery_3
+      
+      # Chemin vu sur Debian
+      
+      -w /usr/bin/rawshark -p x -k T1049_System_Network_Connections_discovery_4_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -w /usr/sbin/rawshark -p x -k T1049_System_Network_Connections_discovery_4_CentOS
+      -w /usr/bin/netstat -p x -k T1049_System_Network_Connections_discovery_5
+      -w /usr/bin/who -p x -k T1049_System_Network_Connections_discovery_6
+      
+      # Chemin vu sur Debian
+      
+      -w /usr/bin/lsof -p x -k T1049_System_Network_Connections_discovery_7_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -w /usr/sbin/lsof -p x -k T1049_System_Network_Connections_discovery_7_CentOS
+      
+      ##
+      ## PHASE de la killChain "Acces aux fichiers"
+      ## T1081 : Information d'identification dans un fichier
+      ##
+      ################################################################################################
+      
+      # Chemin vu sur Debian
+      
+      -w /bin/grep -p x -k T1081_Credentials_In_Files_1_Debian        #EGREP,FGREP,GREP
+      
+      # Chemin vu sur CentOS 7
+      
+      -w /usr/bin/grep -p x -k T1081_Credentials_In_Files_1_CentOS    #EGREP,FGREP,GREP
+      
+      ##
+      ## PHASE de la killChain "Decouverte"
+      ## T1057 : Decouverte des processus
+      ##
+      ################################################################################################
+      
+      # Chemin vu sur Debian
+      
+      -w /bin/ps -p x -k T1057_Process_Discovery_1_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -w /usr/bin/ps -p x -k T1057_Process_Discovery_1_CentOS
+      
+      ##
+      ## PHASE de la killChain "Collection"
+      ## T1005 : Donnee du system local
+      ##
+      ################################################################################################
+      
+      ## Copie de donnees (Local)
+      
+      # Chemin vu sur Debian
+      
+      -w /bin/cp -p x -k T1005_Data_from_Local_System_1_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -w /usr/bin/cp -p x -k T1005_Data_from_Local_System_1_CentOS
+      
+      # Chemin vu sur Debian
+      
+      -w /bin/dd -p x -k T1005_Data_from_Local_System_2_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -w /usr/bin/dd -p x -k T1005_Data_from_Local_System_2_CentOS
+      
+      ##
+      ## PHASE de la killChain "Control Commande"
+      ## T1219 : Outils d'acces a distance
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à des acces à distance
+      
+      -w /usr/bin/wget -p x -k T1219_Remote_Access_Tools_1
+      -w /usr/bin/curl -p x -k T1219_Remote_Access_Tools_2
+      -w /usr/bin/base64 -p x -k T1219_Remote_Access_Tools_3
+      -w /usr/bin/nc -p x -k T1219_Remote_Access_Tools_4
+      -w /bin/netcat -p x -k T1219_Remote_Access_Tools_5
+      -w /usr/bin/ncat -p x -k T1219_Remote_Access_Tools_6
+      -w /usr/bin/ssh -p x -k T1219_Remote_Access_Tools_7
+      -w /usr/bin/socat -p x -k T1219_Remote_Access_Tools_8
+      -w /usr/bin/rdesktop -p x -k T1219_Remote_Access_Tools_9
+      -a exit,always -F arch=b64 -S mknod -S mknodat -k T1219_Remote_Access_Tools_10
+      
+      ##
+      ## PHASE de la killChain "persistence" & "defence evasion"
+      ## T1108 : Acces redondant
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à des sessions
+      
+      -w /var/run/utmp -p wa -k T1108_Redundant_Access_1
+      -w /var/log/wtmp -p wa -k T1108_Redundant_Access_2
+      -w /var/log/btmp -p wa -k T1108_Redundant_Access_3
+      
+      ##
+      ## PHASE de la killChain "defence evasion"
+      ## T1027 : Fichiers ou informations masques
+      ##
+      ################################################################################################
+      
+      ## Manipulation ou obfuscation de fichiers
+      
+      -w /etc/hosts -p wa -k T1027_Obfuscated_Files_or_Information_1
+      -w /etc/sysconfig/network -p wa -k T1027_Obfuscated_Files_or_Information_2
+      -w /etc/network/ -p wa -k T1027_Obfuscated_Files_or_Information_3
+      -a always,exit -F dir=/etc/NetworkManager/ -F perm=wa -k T1027_Obfuscated_Files_or_Information_4
+      
+      ##
+      ## PHASE de la killChain "Mouvements lateraux"
+      ## T1021 : Services à distance
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à SSH
+      
+      -w /etc/ssh/sshd_config -k T1021_Remote_Services_1
+      
+      ##
+      ## PHASE de la killChain "Decouverte"
+      ## T1201 : Decouverte de la politique de mot de passe
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à PAM
+      
+      -w /etc/pam.d/common-password -p wa -k T1201_Password_Policy_Discovery_1
+      
+      ##
+      ## PHASE de la killChain "controle commande"
+      ## T1071 : Protocole de couche d'application standard
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à PAM
+      
+      -w /etc/pam.d/ -p wa -k T1071_Standard_Application_Layer_Protocol_1
+      -w /etc/security/limits.conf -p wa  -k T1071_Standard_Application_Layer_Protocol_2
+      -w /etc/security/pam_env.conf -p wa -k T1071_Standard_Application_Layer_Protocol_3
+      -w /etc/security/namespace.conf -p wa -k T1071_Standard_Application_Layer_Protocol_4
+      -w /etc/security/namespace.init -p wa -k T1071_Standard_Application_Layer_Protocol_5
+      
+      ##
+      ## PHASE de la killChain "Controle commande"
+      ## T1043 : Port couramment utilise
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à C2
+      
+      # Consigner les processus 64bit (a2!=110 filtre sur les appels linux locaux à socket)
+      
+      #-a exit,always -F arch=b64 -S connect -F a2!=110 -k T1043_Commonly_Used_Port_1  ## CUSTOM CLIENT TRES VERBEUX
+      
+      ##
+      ## PHASE de la killChain "Decouverte"
+      ## T1087 : Decouverte de compte
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à la phase de reconnaissance
+      
+      -w /etc/group -p rxaw -k T1087_Account_Discovery_1
+      -w /etc/passwd -p xaw -k TT1087_Account_Discovery_2
+      -w /etc/gshadow -p rxaw -k T1087_Account_Discovery_3
+      -w /etc/shadow -p rxaw -k T1087_Account_Discovery_4
+      -w /etc/security/opasswd -k T1087_Account_Discovery_5
+      -w /usr/sbin/nologin -k T1087_Account_Discovery_6
+      -w /sbin/nologin -k T1087_Account_Discovery_7
+      
+      ##
+      ## PHASE de la killChain "Decouverte"
+      ## T1082 : Decouverte d'informations systeme
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à la phase de reconnaissance
+      
+      -w /etc/hostname -p r -k T1082_System_Information_Discovery_1
+      
+      # Chemin vu sur Debian
+      
+      -w /sbin/xtables-multi -p x -k T1082_System_Information_Discovery_2_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -w /usr/sbin/xtables-multi -p x -k T1082_System_Information_Discovery_2_CentOS
+      -w /sbin/ifconfig -p x -k T1082_System_Information_Discovery_3
+      -w /etc/login.defs -p wa -k T1082_System_Information_Discovery_4
+      -w /etc/securetty -p wa -k T1082_System_Information_Discovery_5
+      -w /var/log/faillog -p wa -k T1082_System_Information_Discovery_6
+      -w /var/log/lastlog -p wa -k T1082_System_Information_Discovery_7
+      -w /var/log/tallylog -p wa -k T1082_System_Information_Discovery_8
+      
+      ##
+      ## PHASE de la killChain "Decouverte"
+      ## T1016 : Decouverte de la configuration du reseau systeme
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à la phase de reconnaissance
+      
+      #-w /etc/resolv.conf -k T1016_System_Network_Configuration_Discovery_1    ## CUSTOM CLIENT TRES VERBEUX
+      -w /etc/hosts.allow -k T1016_System_Network_Configuration_Discovery_2
+      -w /etc/hosts.deny -k T1016_System_Network_Configuration_Discovery_3
+      
+      ##
+      ## PHASE de la killChain "Execution"
+      ## T1059 : Interface de ligne de commande
+      ##
+      ################################################################################################
+      
+      # Consigner toutes les commandes (bruyant)
+      
+      # Ces informations peuvent être utiles pour mieux comprendre les actions des attaquants en utilisant des processus natifs ou des outils personnalises.
+      
+      -a exit,always -F arch=b64 -S execve -k T1059_CommandLine_Interface
+      
+      ##
+      ## PHASE de la killChain "Controle commande" && "mouvement lateral"
+      ## T1105 : Acces distant de copie de fichier
+      ##
+      ################################################################################################
+      
+      ## Copie de fichiers à distance
+      
+      -w /usr/bin/ftp -p x -k T1105_remote_file_copy_1
+      -w /usr/bin/sftp -p x -k T1105_remote_file_copy_2
+      -w /usr/bin/scp -p x -k T1105_remote_file_copy_3
+      -w /usr/bin/rsync -p x -k T1105_remote_file_copy_4
+      
+      ##
+      ## PHASE de la killChain "Evasion defensive" && "elevation de privileges"
+      ## T1055 : Injection dans un process
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à des injections
+      
+      -a always,exit -F arch=b64 -S ptrace -k T1055_Process_Injection_1
+      
+      # Injection de code
+      
+      -a always,exit -F arch=b64 -S ptrace -F a0=0x4 -k T1055_Process_Injection_2
+      
+      # Injection de donnees
+      
+      -a always,exit -F arch=b64 -S ptrace -F a0=0x5 -k T1055_Process_Injection_3
+      
+      # Injection dans les registres
+      
+      -a always,exit -F arch=b64 -S ptrace -F a0=0x6 -k T1055_Process_Injection_4
+      -w /etc/ld.so.conf -p wa -k T1055_Process_Injection_5
+      -w /bin/systemctl -p wa -k T1055_Process_Injection_6
+      -w /etc/systemd/ -p wa -k T1055_Process_Injection_7
+      
+      ##
+      ## PHASE de la killChain "Exfiltration"
+      ## T1011 : Exfiltration par les liens reseau
+      ##
+      ################################################################################################
+      
+      ## Creations de sockets
+      ## declenchera pour l'IPv4 et l'IPv6
+      
+      #-a always,exit -F arch=b64 -S socket -F a0=2  -k T1011_Exfiltration_Over_Other_Network_Medium_1  ## CUSTOM CLIENT TRES VERBEUX
+      -a always,exit -F arch=b64 -S socket -F a0=10 -k T1011_Exfiltration_Over_Other_Network_Medium_2
+      
+      ##
+      ## PHASE de la killChain "Mouvement lateral"
+      ## T1017 : Deployement d'Application Logiciel
+      ##
+      ################################################################################################
+      # Solutions de deploiements
+      #                    #
+      ########################  Liste non exhaustive mais ACARO ne dispose d'aucune information sur les outils utilises par le CNMO-SI.
+      #                    #
+      
+      # RPM (Redhat/CentOS)
+      
+      -w /usr/bin/rpm -p x -k T1017_Application_Deployment_Software_1_CentOS
+      -w /usr/bin/yum -p x -k T1017_Application_Deployment_Software_2_CentOS
+      
+      # DPKG / APT-GET (Debian/Ubuntu)
+      
+      -w /usr/bin/dpkg -p x -k T1017_Application_Deployment_Software_7_Debian
+      -w /usr/bin/apt-add-repository -p x -k T1017_Application_Deployment_Software_8_Debian
+      -w /usr/bin/apt-get -p x -k T1017_Application_Deployment_Software_9_Debian
+      -w /usr/bin/aptitude -p x -k T1017_Application_Deployment_Software_10_Debian
+      
+      #
+      # Logiciels de deploiement specifiques
+      #
+      # Exemples :
+      
+      # PUPPET
+      
+      -w /etc/puppet/ssl -p wa -k T1017_Application_Deployment_Software_11_PUPPET
+      
+      # IBM BigFix EndPoint manager
+      
+      -a exit,always -F arch=b64 -S open -F dir=/opt/BESClient -F success=0 -k T1017_Application_Deployment_Software_12_IBMBigFix
+      -w /var/opt/BESClient/ -p wa  -k T1017_Application_Deployment_Software_13_IBMBigFix
+      
+      # CHEF
+      
+      -w /etc/chef -p wa  -k T1017_Application_Deployment_Software_14_CHEF
+      
+      ##
+      ## PHASE de la killChain "Persistence"
+      ## T1156 : Bash profile et bashrc
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à configurations persistantes
+      
+      -w /etc/profile.d/ -p wa -k T1156_bash_profile_and_bashrc_1
+      -w /etc/profile -p wa -k T1156_bash_profile_and_bashrc_2
+      -w /etc/shells -p wa  -k T1156_bash_profile_and_bashrc_3
+      -w /etc/bashrc -p wa  -k T1156_bash_profile_and_bashrc_4
+      -w /etc/csh.cshrc -p wa  -k T1156_bash_profile_and_bashrc_5
+      -w /etc/csh.login -p wa  -k T1156_bash_profile_and_bashrc_6
+      
+      ##
+      ## PHASE de la killChain "Evasion defensive"
+      ## T1107 : Suppression de fichier
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à des suppressions de fichiers par des utilisateurs
+      
+      -a always,exit -F arch=b64 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k T1107_File_Deletion_1
+      
+      ##
+      ## PHASE de la killChain "Evasion defensive"
+      ## T1222 : Modification des permissions de fichiers
+      ##
+      ################################################################################################
+      
+      -a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=-1 -k T1222_File_Deletion_1
+      
+      ##
+      ## PHASE de la killChain "persistence" & "Escalade de privileges"
+      ## T1166 : SETUID et SETGID
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à des escalades de privileges
+      
+      -a always,exit -F arch=b64 -S setuid -S setgid -S setreuid -S setregid -F exit=EPERM -k T1166_Seuid_and_Setgid_1
+      -a always,exit -F arch=b64 -S chmod  -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_2
+      -a always,exit -F arch=b64 -S chown -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_3
+      -a always,exit -F arch=b64 -S fchmod -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_4
+      -a always,exit -F arch=b64 -S fchmodat -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_5
+      -a always,exit -F arch=b64 -S fchown -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_6
+      -a always,exit -F arch=b64 -S fchownat -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_7
+      -a always,exit -F arch=b64 -S fremovexattr -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_8
+      -a always,exit -F arch=b64 -S fsetxattr -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_9
+      -a always,exit -F arch=b64 -S lchown -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_10
+      -a always,exit -F arch=b64 -S lremovexattr -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_11
+      -a always,exit -F arch=b64 -S lsetxattr -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_12
+      -a always,exit -F arch=b64 -S removexattr -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_13
+      -a always,exit -F arch=b64 -S setxattr -F auid>=500 -F auid!=4294967295 -k T1166_Seuid_and_Setgid_14
+      
+      ##
+      ## PHASE de la killChain "Escalade de privileges"
+      ## T1169 : Sudo
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à des escalades de privileges
+      
+      # Chemin vu sur Debian
+      
+      -w /bin/su -p x -k T1169_Sudo_1_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -w /usr/bin/su -p x -k T1169_Sudo_1_CentOS
+      -w /usr/bin/sudo -p x -k T1169_Sudo_2
+      -w /etc/sudoers -p r -k T1169_Sudo_3
+      -w /etc/sudoers -p wa -k T1169_Sudo_4
+      -a always,exit -F dir=/home -F uid=0 -F auid>=1000 -F auid!=4294967295 -C auid!=obj_uid -k T1169_Sudo_5
+      -a always,exit -F path=/usr/bin/sudoedit -F perm=x -F auid>=500 -F auid!=4294967295 -k T1169_Sudo_6
+      
+      ##
+      ## PHASE de la killChain "Evasion defensive"
+      ## T1070 : Effacement d'indicateur sur l'hote
+      ##
+      ################################################################################################
+      
+      -a always,exit -F arch=b64 -F dir=/var/log -S unlinkat -F auid>=1000 -F auid!=4294967295 -k T1070_Indicator_Removal_on_Host_2
+      -a always,exit -F arch=b64 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid=0 -k T1070_Indicator_Removal_on_Host_1
+      
+      ##
+      ## PHASE de la killChain "Acces initial" & "Persistence" & Privilege Excalation" & "defense evasion"
+      ## T1078 : Compte valide
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à des executions de commandes avec escalade de privileges
+      
+      -a always,exit -F path=/usr/sbin/userdel -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_1
+      -a always,exit -F path=/bin/ping -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_2
+      -a always,exit -F path=/bin/umount -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_3
+      -a always,exit -F path=/bin/mount -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_4
+      -a always,exit -F path=/bin/chgrp -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_5
+      -a always,exit -F path=/bin/ping6 -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_6
+      
+      # Chemin vu sur Debian
+      
+      -a always,exit -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_7_Debian
+      
+      # Commande vue sur CentOS 7
+      
+      -a always,exit -F path=/sbin/pam_timestamp_check -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_7_CentOS
+      -a always,exit -F path=/sbin/unix_chkpwd -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_8
+      
+      # Chemin vu sur Debian
+      
+      -a always,exit -F path=/usr/sbin/pwck -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_9_Debian
+      
+      # Commande vue sur CentOS 7
+      
+      -a always,exit -F path=/sbin/pwck -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_9_CentOS
+      -a always,exit -F path=/usr/sbin/suexec -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_10
+      -a always,exit -F path=/usr/sbin/newusers -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_11
+      -a always,exit -F path=/usr/sbin/groupdel -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_12
+      -a always,exit -F path=/usr/sbin/semanage -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_13
+      -a always,exit -F path=/usr/sbin/usernetctl -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_14
+      -a always,exit -F path=/usr/sbin/ccreds_validate -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_15
+      -a always,exit -F path=/usr/sbin/userhelper -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_16
+      -a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_17
+      -a always,exit -F path=/usr/bin/Xorg -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_18
+      -a always,exit -F path=/usr/bin/rlogin -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_19
+      -a always,exit -F path=/usr/bin/at -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_20
+      -a always,exit -F path=/usr/bin/rsh -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_21
+      -a always,exit -F path=/usr/bin/gpasswd -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_22
+      -a always,exit -F path=/usr/bin/kgrantpty -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_23
+      -a always,exit -F path=/usr/bin/crontab -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_24
+      -a always,exit -F path=/usr/bin/staprun -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_25
+      -a always,exit -F path=/usr/bin/rcp -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_26
+      -a always,exit -F path=/usr/bin/chsh -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_27
+      -a always,exit -F path=/usr/bin/chfn -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_28
+      -a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_29
+      
+      # Chemin vu sur Debian
+      
+      -a always,exit -F path=/bin/setfacl -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_30_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -a always,exit -F path=/usr/bin/setfacl -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_30_CentOS
+      
+      # Chemin vu sur Debian
+      
+      -a always,exit -F path=/bin/chacl -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_31_Debian
+      
+      # Chemin vu sur CentOS 7
+      
+      -a always,exit -F path=/usr/bin/chacl -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_31_CentOS
+      -a always,exit -F path=/usr/bin/chcon -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_32
+      -a always,exit -F path=/usr/bin/newgrp -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_33
+      -a always,exit -F path=/usr/bin/newrole -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_34
+      -a always,exit -F path=/usr/bin/kpac_dhcp_helper -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts_35
+      
+      ## Evenements lies à des comptes
+      
+      -w /usr/bin/passwd -p x -k T1078_Valid_Accounts_36
+      -w /usr/sbin/groupmod -p x -k T1078_Valid_Accounts_37
+      -w /usr/sbin/usermod -p x -k T1078_Valid_Accounts_38
+      
+      ## Surveillance des commandes utilisateurs
+      
+      -a exit,always -F arch=b64 -F euid=0 -S execve -k T1078_Valid_Accounts_39
+      
+      ##
+      ## PHASE de la killChain "persistence" & "Escalade de privileges" (suite)
+      ## T1166 : SETUID et SETGID
+      ##
+      ################################################################################################
+      
+      ## Evenements lies à des escalades de privileges
+      
+      -a always,exit -F arch=b64 -C auid!=uid -S execve -k T1166_Seuid_and_Setgid_15
+      -a always,exit -F arch=b64 -S setuid -S setgid -S setreuid -S setregid -k T1166_Seuid_and_Setgid_16
+      
+      ##
+      ## PHASE de la killChain "Privilege Excalation"
+      ## T1068 : Exploitation pour escalade des privileges
+      ##
+      ################################################################################################
+      
+      ## Executions par des utilisateurs avec les privileges root
+      
+      -a exit,always -F arch=b64 -F auid>500 -F  uid=0 -F auid!=4294967295 -S execve -k T1068_Exploitation_for_Privilege_Escalation_1
+      
+      ## Echecs d'acces à des elements critiques
+      
+      -a exit,always -F arch=b64 -S open -F dir=/etc -F success=0 -k T1068_Exploitation_for_Privilege_Escalation_2
+      -a exit,always -F arch=b64 -S open -F dir=/bin -F success=0 -k T1068_Exploitation_for_Privilege_Escalation_3
+      -a exit,always -F arch=b64 -S open -F dir=/sbin -F success=0 -k T1068_Exploitation_for_Privilege_Escalation_4
+      -a exit,always -F arch=b64 -S open -F dir=/usr/bin -F success=0 -k T1068_Exploitation_for_Privilege_Escalation_5
+      
+      ## Evenements lies à des elevations de privileges
+      
+      -w /usr/bin/ -p wa -k T1068_Exploitation_for_Privilege_Escalation_6
+      -a exit,always -F arch=b64 -S open -F dir=/usr/sbin -F success=0 -k T1068_Exploitation_for_Privilege_Escalation_7
+      -a exit,always -F arch=b64 -S open -F dir=/var -F success=0 -k T1068_Exploitation_for_Privilege_Escalation_8
+      -a exit,always -F arch=b64 -S open -F dir=/home -F success=0 -k T1068_Exploitation_for_Privilege_Escalation_9
+      -a exit,always -F arch=b64 -S open -F dir=/srv -F success=0 -k T1068_Exploitation_for_Privilege_Escalation_10
+      -a always,exit -F dir=/home -F uid=0 -F auid!=4294967295 -k T1068_Exploitation_for_Privilege_Escalation_11
+      
+      ## PHASE de la killChain "Decouverte"
+      ## T1083 : Decouverte de fichiers ou repertoires
+      ##
+      ################################################################################################
+      
+      -a exit,always -F arch=b64 -F euid>=1000 -S execve -k T1083_File_And_Directory_Discovery_1
+      ## Etat d'alimentation
+      -w /sbin/shutdown -p x -k Power_State_Change_1
+      -w /sbin/poweroff -p x -k Power_State_Change_2
+      -w /sbin/reboot -p x -k Power_State_Change_3
+      -w /sbin/halt -p x -k Power_State_Change_4
+
+  # ---------------------------- Exclusions pour réduire le bruit ----------------------------
+processors:
+  - drop_event:
+      when.or:
+        - equals:
+            user.name: "deployer"
+        - equals:
+            user.name: "ansible"
+        - equals:
+            user.name: "sentinelone"
+        - equals:
+            user.name: "landscape"
+  - add_fields:
+      target: 'labels'
+      fields:
+        file_version: '1.1'
+  # ---------------------------- Logging (optionnel) ----------------------------
+  # logging.level: info
+  # logging.to_files: true
+  # logging.files:
+  #   path: /var/log/auditbeat
+  #   name: auditbeat.log
+  #   keepfiles: 7
+  #   permissions: 0644
+  # ---------------------------- Redis Output ----------------------------
+
+output.redis:
+  hosts: [ "redis://10.10.16.131:1802"]    ### PARAMETRAGE ICI : Remplacez "XXXX.XXXX.XXXX.XXXX" par l'ip du serveur Redis, et "PORT" par le port du serveur Redis : hosts: ["redis://10.10.10.10:6379"]
+  # password: "XXX"     ### MODIFIER ICI : Si le serveur Redis un mot de passe, décommentez la ligne et remplacez "XXX" par le mot de passe : password: "1234"
+  key: "queue_auditbeat"         ### Nom de la clé Redis à fournir par OPS
+  #datatype: list
+  db: 0                 ### PARAMETRAGE ICI : le numéro de base de données (par défaut 0)
+  backoff.init: 1       ### PARAMETRAGE ICI : nombre de secondes avant tentative de reconnexion après une erreur réseau (par défaut 1)
+  backoff.max: 60       ### PARAMETRAGE ICI : nombre de secondes max avant tentative de reconnexion après une erreur réseau (par défaut 60)
+  bulk_max_size: 2048   ### PARAMETRAGE ICI : nombre max d'évênement dans 1 pipeline redis (par défaut 2048)
+  timeout: 5            ### PARAMETRAGE ICI : temps de timeout (par défaut 5)
+
+queue.mem:
+  events: 4096 # nombre maximum d'events en buffer:
+  flush.min_events: 512
+  flush.timeout: 1s

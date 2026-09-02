@@ -1,0 +1,33 @@
+<div class="swiper">
+    <div class="swiper-wrapper">
+        {% for item in this.processedFiles %}
+            {% set file = item.data %}
+            {% set fileRoute = item.route %}
+
+            <div class="swiper-slide">
+                <div class="swiper-zoom-container">
+                    {% set ext = file.extension|lower %}
+                    <a href="{{ fileRoute }}">
+                        {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'webp'] %}
+                            <img src="{{ asset(uploadUri ~ '/' ~ file.filePath) }}" class="d-block w-100">
+                        {% elseif ext in ['mp4', 'webm', 'ogg'] %}
+                            <video controls style="width: 100%; height: auto;">
+                                <source src="{{ asset(uploadUri ~ '/' ~ file.filePath) }}" type="video/{{ ext }}">
+                            </video>
+                        {% elseif ext in ['txt', 'csv', 'log'] %}
+                            <iframe src="{{ asset(uploadUri ~ '/' ~ file.filePath) }}" frameborder="0" width="100%" height="100%"></iframe>
+                        {% else %}
+                            <img src="/shared/bluesphere/document.svg" alt="File">
+                            <h5>{{ file.filePath | slice(36) }}</h5>
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <button class="swiper-fullscreen-btn" title="Full screen">⛶</button>
+</div>

@@ -1,0 +1,9 @@
+{% extends 'quality/qhse/layout.html.twig' %}
+
+{% block content %}
+    {% if chart.rows is defined %}
+        <div class="highcharts" data-options="{{ chart|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+    {% else %}
+        <div class="alert alert-primary text-center" role="alert">{{ 'no_results' | trans({}, 'messages') }}</div>
+    {% endif %}
+{% endblock %}

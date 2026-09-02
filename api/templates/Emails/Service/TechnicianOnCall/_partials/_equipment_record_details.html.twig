@@ -1,0 +1,65 @@
+{% trans_default_domain 'technician_on_call' %}
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: {
+            serialNumber: {
+                properties: ['equipmentRecord.serialNumber'],
+                label: 'crab.fields.equipment_record' | trans({}, 'crab'),
+                link: {
+                    route: 'legacy_product_support',
+                    params: {'id':'equipmentRecord.legacyId'},
+                    fixedParams: {'m':['equipment', 'view']},
+                },
+                preserveNull: true,
+            },
+            customerSerialNumber: {
+                properties: ['equipmentRecord.customerSerialNumber'],
+                label: 'service.equipment_record.fields.customer_asset' | trans({}, 'service') | capitalize,
+                preserveNull: true,
+            },
+            model: {
+                properties: ['equipmentRecord.model'],
+                label: 'crab.fields.model_er' | trans({}, 'crab'),
+                preserveNull: true,
+            },
+            dateShipped: {
+                properties: ['equipmentRecord.dateShipped'],
+                label: 'csr.fields.shipped_at' | trans({}, 'customer_service_record'),
+                filters: 'date("Y-m-d")',
+                preserveNull: true,
+            },
+            dateCommissioned: {
+                properties: ['equipmentRecord.dateCommissioned'],
+                label: 'er.fields.commissioned_at' | trans({}, 'customer_service_record'),
+                filters: 'date("Y-m-d")',
+                preserveNull: true,
+            },
+            hourMeter: {
+                label: 'csr.fields.hourmeter' | trans({}, 'customer_service_record'),
+            },
+            sso: {
+                properties: ['equipmentRecord.salesOrganisation.name'],
+                label: 'demo.fields.sso' | trans({}, 'emails'),
+                preserveNull: true,
+            },
+            ssoService: {
+                properties: ['equipmentRecord.salesOrganisationService.name'],
+                label: 'toc.fields.sales_organisation_service' | trans,
+                preserveNull: true,
+            },
+            manufacturerLocation: {
+                properties: ['equipmentRecord.manufacturerLocation.name'],
+                label: 'er.fields.location' | trans({}, 'customer_service_record'),
+                preserveNull: true,
+            },
+            emissionRating: {
+                properties: ['equipmentRecord.emissionRating.name'],
+                label: 'sfr.fields.emission_rating' | trans({}, 'emails'),
+                preserveNull: true,
+            },
+        },
+        title: 'csr.title.er' | trans({}, 'customer_service_record'),
+        data: technicianOnCall,
+        card: false,
+    }
+}, with_context = false) }}

@@ -1,0 +1,38 @@
+{% set _layout = user['@type'] == 'ExtranetUser'
+    ? 'Emails/Extranet/layout.html.twig'
+    : user['@type'] == 'VendorUser'
+    ? 'Emails/Evendors/layout.html.twig'
+    : 'Emails/alvest/layout.html.twig'
+%}
+
+{% embed _layout %}
+
+    {% trans_default_domain "emails" %}
+
+    {% block body %}
+        {{ parent() }}
+        <row>
+            <columns>
+                <p class="text-introduction">{{ 'password.reset_confirmation.message.hello' | trans({'%firstName%': user.firstname, '%lastName%': user.lastname}) }}</p>
+                <p>{{ 'password.reset_confirmation.message.password' | trans }}</p>
+
+                {% if user['@type'] == 'ExtranetUser' %}
+                    {% set url = url('extranet_password_reset_confirmation', { id: user.id, token: resetToken }) %}
+                {% elseif user['@type'] == 'VendorUser' %}
+                    {% set url = evendor_root_url ~ '/security/reset-password-confirmation/' ~ user.id ~ '/' ~ resetToken %}
+                {% else %}
+                    {% set url = url('security_password_reset_confirmation', {id: user.id, token: resetToken}) %}
+                {% endif %}
+
+                <center>
+                    <button href="{{ url }}">
+                        {{ 'password.reset_confirmation.click' | trans({}, 'emails') }}
+                    </button>
+                </center>
+
+                <p>{{ 'password.reset_confirmation.message.confirmation' | trans }}</p>
+                <p>{{ 'password.regenerated.message.regards' | trans }}</p>
+            </columns>
+        </row>
+    {% endblock %}
+{% endembed %}

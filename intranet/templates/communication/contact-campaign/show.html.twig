@@ -1,0 +1,120 @@
+{% extends 'communication/contact-campaign/layout.html.twig' %}
+{% trans_default_domain 'contact_campaign' %}
+
+{% block content %}
+    <div class="row row-cols-xl-5 row-cols-md-3 row-cols-1">
+        <div class="col my-3">
+            <div class="widget bg-body h-100 m-0 p-2">
+                <div class="row">
+                    <div class="col-4">
+                        <i>{{ ux_icon('material-symbols:campaign-outline', {height: '32px', width: '32px'}) }}</i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'contact_campaign.fields.name' | trans }}</span>
+                        <h3 class="font-bold">{{ contactCampaign.name }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-3">
+            <div class="widget bg-body h-100 m-0 p-2">
+                <div class="row">
+                    <div class="col-4">
+                        {% if contactCampaign.owner.photo is not empty %}
+                            <img class="rounded-circle shadow-1-strong"
+                                 src="{{ asset(upload_uri ~ '/' ~ contactCampaign.owner.photo.filePath) }}" style="max-width: 32px; max-height: 32px" alt="">
+                        {% else %}
+                            <img class="d-block rounded-circle shadow-1-strong" style="max-width: 32px; max-height: 32px" src="/shared/no_photo.jpg" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'contact_campaign.fields.owner' | trans }}</span>
+                        <h3 class="font-bold">
+                            <a href="{{ path('directory_people_show', {id: iri_id(contactCampaign.owner)}) }}">
+                                {{ contactCampaign.owner.firstname  | capitalize }} {{ contactCampaign.owner.lastname  | capitalize }}
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-3">
+            <div class="widget bg-body h-100 m-0 p-2">
+                <div class="row">
+                    <div class="col-4">
+                        <i>{{ ux_icon('hugeicons:status', {height: '32px', width: '32px'}) }}</i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'contact_campaign.fields.status' | trans }}</span>
+                        <h3 class="font-bold">{{ contactCampaign.status }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-3">
+            <div class="widget bg-body h-100 m-0 p-2">
+                <div class="row">
+                    <div class="col-4">
+                        <i>{{ ux_icon('uiw:date', {height: '32px', width: '32px'}) }}</i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'contact_campaign.fields.started_at' | trans }}</span>
+                        <h3 class="font-bold">{{ contactCampaign.startedAt | date('d-m-Y') }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-3">
+            <div class="widget bg-body h-100 m-0 p-2">
+                <div class="row">
+                    <div class="col-4">
+                        <i>{{ ux_icon('uiw:date', {height: '32px', width: '32px'}) }}</i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'contact_campaign.fields.ended_at' | trans }}</span>
+                        <h3 class="font-bold">{{ contactCampaign.endedAt | date('d-m-Y') }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 pe-xl-0">
+            <div class="bg-body h-100 m-0 p-2 overflow-auto">
+                {% set items = {
+                    id: {
+                        label: 'ID#'
+                    },
+                    businessUnits: {
+                        label: 'contact_campaign.fields.business_unit' | trans,
+                        template: '/communication/contact-campaign/partial/_business_unit.html.twig',
+                        templateParams: {
+                            businessUnits : contactCampaign.businessUnits
+                        }
+                    },
+                } %}
+                {{ include('helper/_association_table.html.twig', {
+                    associationData: {
+                        items: items,
+                        data: contactCampaign,
+                        card: false,
+                        hideTitle: false
+                    }
+                }, with_context  = false) }}
+            </div>
+        </div>
+        <div class="col-xl-8 ps-xl-0">
+            <div class="bg-body h-100 m-0 p-2 overflow-auto">
+                <h3 class="ps-1">{{'contact_campaign.fields.description' | trans }}</h3>
+                <p class="ps-1">{{ contactCampaign.description | raw }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="bg-body border rounded-2 overflow-auto">
+                    {{ data_table(contactDatatable) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

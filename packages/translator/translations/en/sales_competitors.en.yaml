@@ -1,0 +1,39 @@
+competitors:
+  title: Competitors
+  name: Competitor
+  nav_link:
+    cpr: CPR
+    fcr: FCR
+    mim: MIM
+  fields:
+    id: Id
+    name: Name
+    short_description: Short Description
+    description: Description
+    url: URL
+    product_types: Product Types
+    file_upload: Upload a file
+    file_description: File description
+    files: Competitor Files
+    created_at: Created at
+    poster: Poster
+    logo: Logo
+
+  forms:
+    add: New Competitor
+    edit: Edit Competitor
+
+  messages:
+    success:
+      add: Competitor successfully created
+      edit: Competitor successfully updated
+      delete: Competitor successfully deleted
+      file: File successfully uploaded
+    error:
+      save: Something went wrong while saving the competitor
+      unprocessable: Competitor can't be deleted because it's used in another resource
+
+  blocks:
+    mim: 5 latest MIM
+    fcr: 5 latest lost order (FCR)
+    cpr: 5 latest CPR

@@ -1,0 +1,23 @@
+{% trans_default_domain 'technician_on_call' %}
+
+{% set number = technicianOnCalls|length %}
+
+{% if number < 6 %}
+    {% set color = 'success' %}
+{% elseif number < 11 %}
+    {% set color = 'warning' %}
+{% else %}
+    {% set color = 'danger' %}
+{% endif %}
+
+<div class="alert alert-{{ color }} rounded-0 text-center align-content-center m-0 shadow">
+    <h3 class="m-0">{{ 'toc.dashboard.suspended'|trans }}</h3>
+    <span class="fs-4">
+        <a href="{{ datatable_link('technician_on_call_search', 'technician_on_call', {
+            'status': ['SUSPENDED'],
+            'actor': users is defined and users is not empty ? users : [app.user.iriId]
+        }) }}">
+                {{ number }}
+            </a>
+    </span>
+</div>

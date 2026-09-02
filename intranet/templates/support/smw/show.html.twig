@@ -1,0 +1,167 @@
+{% extends 'layout.html.twig' %}
+{% form_theme form 'form_theme_horizontal.html.twig' %}
+
+{% trans_default_domain 'support_smw' %}
+
+{% block title %} {{ 'support_smw.title.index' |trans }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="text-capitalize">{{ 'support_smw.title.index'|trans }}</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_start(form, { action: path('smw_meeting', {module: 'support'}) }) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(form) }}
+                    </div>
+
+                    <div class="col-sm-2 form-group">
+                        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'button.submit'|trans([], 'messages')|capitalize }}"/>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="ibox float-e-margins col-md-8">
+            <div class="ibox-title">
+                <h5>{{ 'support_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table" data-page-size=20>
+                        <thead>
+                        <tr>
+                            <th>{{ 'support_smw.fields.title'| trans }}</th>
+                            <th>{{ 'support_smw.fields.description'| trans }}</th>
+                            <th>{{ 'support_smw.fields.link'| trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'support_smw.links.sfr_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.sfr_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('sales_forecasts_report_quantity_per_period', {period: 'month', factory: [location['@id']]}) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.sol_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.sol_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_sales', {m: ['kpi', 'sol'], location: location.legacyId, type_graph: 'factory'}) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.toc_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.toc_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_sales', {m: ['kpi', 'toc', 'byFactorySupportRequiredGraph'], location: location.legacyId}) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.dms_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.dms_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_sales', {m: ['kpi', 'dms', 'activeSalesMaterial'], location: location.legacyId}) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.sb_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.sb_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_product_support', {m: ['sb', 'dashboard'], dashboard_type: 'Factory Dashboard'}) }}">
+                                        <span class="btn btn-warning btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.wc_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.wc_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_product_support', {m: ['wc']}) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'engineering_smw.fields.wc_top'| trans({}, 'engineering_smw') }}</td>
+                                <td>{{ 'engineering_smw.fields.support_module'| trans({}, 'engineering_smw') }}</td>
+                                <td><a href="{{ path('legacy_product_support', {m: ['wc', 'reports', 'WCPNPareto']}) }}">
+                                        <span class="btn btn-warning btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.pdc_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.pdc_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_product_support', {m: ['pdc', 'kpi'], location: location.legacyId}) }}">
+                                        <span class="btn btn-warning btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.pdi_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.pdi_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('pre_delivery_inspection_report', {period: 'month', manufacturerLocation: [location['@id']]}) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.odp_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.odp_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('stability_report', {manufacturerLocation: [location['@id']]}) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.fcr_kpi.title'| trans }}</td>
+                                <td>{{ 'support_smw.links.fcr_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('forecast_closures_home', {
+                                        filter_forecast_closure:{
+                                            factory:{value: location['@id']},
+                                            status:{value: 'LOST'}
+                                        }
+                                    }) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'support_smw.links.demo_kpi.title' | trans }}</td>
+                                <td>{{ 'support_smw.links.demo_kpi.description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('demo_home', {factory: location['@id'], status: ['PENDING', 'APPROVED', 'SUBMITTED', 'ACTIVE']}) }}">
+                                        <span class="btn btn-primary btn-xs"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

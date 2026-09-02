@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type":"object",
+  "properties":{
+    "hydra:member":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "@id": {"pattern": "^/sales/market_intelligence_subscriptions/\\d+$"},
+          "@type":{
+            "type":"string"
+          },
+          "id":{
+            "type":"integer"
+          },
+          "type": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../market_intelligence_type/schemas/market_intelligence_type.json"}
+            ]
+          },
+          "supplier": {"type":  ["string", "null"]},
+          "subscriber":{
+            "$ref":"../../../directory_people/schemas/directory_people_public.json"
+          },
+          "customer": {
+            "oneOf": [
+              {"type": "null"},
+              { "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/customers/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "productType": {
+            "oneOf": [
+              {"type": "null"},
+              { "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/product_types/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "englishName": {
+                    "type": ["string", "null"]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "englishName"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "competitor": {
+            "oneOf": [
+              {"type": "null"},
+              { "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/competitors/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "productTypes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {"pattern": "^/sales/product_types/\\d+$"},
+                        "@type": {
+                          "type": "string"
+                        },
+                        "legacyId": {
+                          "type": "integer"
+                        },
+                        "englishName": {
+                          "type": ["string", "null"]
+                        }
+                      },
+                      "required": [
+                        "@id",
+                        "@type",
+                        "englishName"
+                      ],
+                      "additionalProperties": false,
+                      "minItems": 1
+                    }
+                  }
+                },
+                "required": ["@id", "@type", "name", "productTypes"],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required":[
+          "@id",
+          "@type",
+          "id",
+          "type",
+          "subscriber",
+          "customer",
+          "productType",
+          "competitor",
+          "supplier"
+        ],
+        "additionalProperties":false
+      },
+      "minItems":1
+    }
+  },
+  "required":[
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

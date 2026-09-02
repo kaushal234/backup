@@ -1,0 +1,36 @@
+{% extends 'parts/transportation_note/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        note: {
+                            label: 'fields.note'|trans|capitalize,
+                            filters: 'nl2br'
+                        },
+                        id: {
+                            label: 'id#'|capitalize
+                        },
+                        updatedAt: {
+                            label: 'fields.updated_at'|trans|capitalize,
+                            filters: 'date("Y-m-d H:i:s")'
+                        },
+                    },
+                    title: note.country.name|capitalize,
+                    data: note
+                },
+            }, with_context = false) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" id="files">
+            {{ include('parts/transportation_note/files_ajax.html.twig', {note: note} ) }}
+        </div>
+        {% if is_granted('FEATURE_TRANSPORTATION_NOTE_WRITE') %}
+            <div class="col-md-6" id="react"></div>
+        {% endif %}
+
+    </div>
+{% endblock %}

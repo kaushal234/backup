@@ -1,0 +1,83 @@
+App\Entity\Sales\ExtranetUserGroup:
+    extranet_user_group_st:
+        id: 1
+        name: "role_ST"
+        description: "Role for ST"
+    extranet_user_group_toc:
+        id: 2
+        name: "role_TOC"
+        description: "Role for TOC"
+    extranet_user_group_ap:
+        id: 3
+        name: "role_AP"
+        description: "Role for AP"
+    extranet_user_group_staging:
+        id: 4
+        name: "role_STAGING"
+        description: "Role for staging access"
+        public: false
+    extranet_user_group_toc_notif:
+        id: 5
+        name: "fl_NOT_TOC"
+        description: "Role for TOC notifications"
+
+App\Entity\Sales\ExtranetUserAcl:
+    extranet_user_acls_1:
+        id: 1
+        extranetUser: '@extranet_user_for_fur'
+        crt: "@crt_for_fur"
+        extranetUserGroup: "@extranet_user_group_toc"
+
+    extranet_user_acls_archived:
+        id: 2
+        extranetUser: "@extranet_user_archived"
+        crt: "@crt_fixed"
+        extranetUserGroup: "@extranet_user_group_toc"
+
+    extranet_user_acls_{3..10}:
+        id: <current()>
+        extranetUser: '@extranet_user_<($current + 208)>'
+        crt: "@crt_fixed"
+        extranetUserGroup: "@extranet_user_group_toc"
+
+    extranet_user_acls_julien_lepers:
+        id: 11
+        extranetUser: "@extranet_user_fix"
+        crt: "@crt_fixed"
+        extranetUserGroup: "@extranet_user_group_toc"
+
+    extranet_user_acls_julien_lepers_eparts_300:
+        id: 12
+        extranetUser: "@extranet_user_fix"
+        crt: "@crt_for_eparts"
+        extranetUserGroup: "@extranet_user_group_toc"
+
+    extranet_user_role_ST:
+        id: 13
+        extranetUser: "@extranet_user_fix"
+        crt: "@crt_fixed"
+        extranetUserGroup: "@extranet_user_group_st"
+
+    extranet_user_acls_role_toc_notif:
+        id: 14
+        extranetUser: "@extranet_user_207"
+        crt: "@crt_fixed"
+        extranetUserGroup: "@extranet_user_group_toc_notif"
+
+    extranet_user_fur_role_ST:
+        id: 15
+        extranetUser: "@extranet_user_for_contract_enduser"
+        crt: "@crt_fixed"
+        extranetUserGroup: "@extranet_user_group_st"
+
+    extranet_user_customer_fur_role_ST:
+        id: 16
+        extranetUser: "@extranet_user_209"
+        crt: "@crt_for_toc"
+        extranetUserGroup: "@extranet_user_group_st"
+
+    extranet_user_acls_17:
+        id: 17
+        extranetUser: '@extranet_user_207'
+        crt: "@crt_fixed"
+        extranetUserGroup: "@extranet_user_group_toc"

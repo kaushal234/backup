@@ -1,0 +1,38 @@
+{% trans_default_domain 'catalogue' %}
+{% block content %}
+    {% form_theme form 'form_theme_horizontal.html.twig' %}
+
+    {{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-md-6 animated">
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart">
+                    {{ 'catalogue.main_info' | trans }}
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.englishName) }}
+                    {{ form_row(form.frenchName) }}
+                    {{ form_row(form.spanishName) }}
+                    {{ form_row(form.portugueseName) }}
+                    {{ form_row(form.chineseName) }}
+                    {{ form_row(form.japaneseName) }}
+                    {{ form_row(form.russianName) }}
+                    {{ form_row(form.germanName) }}
+                    {{ form_row(form.dms) }}
+                    <p>{{ 'catalogue.type.public_type' | trans }}</p>
+                    {{ form_row(form.publicForTLD) }}
+                    {{ form_row(form.publicForAerospecialties) }}
+                    {{ form_row(form.publicForSAS) }}
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+
+{% endblock %}

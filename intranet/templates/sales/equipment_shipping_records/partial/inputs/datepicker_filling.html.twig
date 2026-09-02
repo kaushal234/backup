@@ -1,0 +1,31 @@
+<label class="col-form-label">{{ 'equipment_shipping_record.line.fill_column_with'|trans({}, 'equipment_shipping_record') }}</label>
+<div class="input-group" data-controller="autofill" data-autofill-target-value="{{ target }}">
+    <input type="text"
+           class="form-control"
+           data-controller="datepicker"
+            {{ stimulus_target('autofill', 'source') }}
+           data-options="{{ {
+               localization:{
+                   locale:"en-us"
+               },
+               display: {
+                   components: {
+                       calendar: true,
+                       date: true,
+                       month: true,
+                       year: true,
+                       decades: true,
+                       clock: false,
+                       hours: false,
+                       minutes: false,
+                       seconds: false
+                   }
+               }
+           }|json_encode }}"
+           >
+    <button type="button" {{ stimulus_action('autofill', 'autofill') }}
+            class="btn btn-info input-group-text rounded-0"><i class="fa fa-arrow-down" aria-hidden="true"></i>
+    </button>
+    <span class="input-group-text rounded-0"><i class="far fa-calendar-alt"></i></span>
+</div>
+

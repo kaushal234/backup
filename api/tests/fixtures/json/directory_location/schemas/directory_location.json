@@ -1,0 +1,230 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/locations/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {"type": "integer"},
+    "legacyId": {"type": "integer"},
+    "capability": {
+      "type": "object",
+      "properties": {
+        "@type": {"pattern": "^LocationCapability$"},
+        "@id": { "type": "string" },
+        "sso": {"type": "boolean"},
+        "factory": {"type": "boolean"},
+        "warehouse": {"type": "boolean"},
+        "sparePartsHub": {"type": "boolean"},
+        "serviceHub": {"type": "boolean"},
+        "headQuarter": {"type": "boolean"}
+      },
+      "required": [
+        "@type",
+        "@id",
+        "sso",
+        "factory",
+        "warehouse",
+        "sparePartsHub",
+        "serviceHub",
+        "headQuarter"
+      ],
+      "additionalProperties": false
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "@type": {"pattern": "^LocationContact$"},
+        "@id": { "type": "string" },
+        "telephone": {"type": ["string" , "null"]},
+        "fax": {"type": ["string" , "null"]},
+        "sparePartsEmail": {"type": ["string" , "null"]},
+        "partsCustomerSupportEmail": {"type": ["string" , "null"]},
+        "sparePartsTelephone": {"type": ["string" , "null"]},
+        "sparePartsFax": {"type": ["string" , "null"]},
+        "serviceHubEmail": {"type": ["string" , "null"]},
+        "serviceHubTelephone": {"type": ["string" , "null"]}
+      },
+      "required": [
+        "@type",
+        "@id",
+        "telephone",
+        "fax",
+        "sparePartsEmail",
+        "partsCustomerSupportEmail",
+        "sparePartsTelephone",
+        "sparePartsFax",
+        "serviceHubEmail",
+        "serviceHubTelephone"
+      ],
+      "additionalProperties": false
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "@type": {"pattern": "^LocationState$"},
+        "@id": { "type": "string" },
+        "public": {"type": "boolean"},
+        "hidden": {"type": "boolean"},
+        "disabled": {"type": "boolean"}
+      },
+      "required": [
+        "@type",
+        "@id",
+        "public",
+        "hidden",
+        "disabled"
+      ],
+      "additionalProperties": false
+    },
+    "address": {
+      "type": "object"
+    },
+    "name": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "publicWebsite": {
+      "type": ["string", "null"]
+    },
+    "internalNetworkAddress": {
+      "type": ["string", "null"]
+    },
+    "erp": {
+      "type": ["integer", "null"]
+    },
+    "erpInLN": {
+      "type": "boolean"
+    },
+    "erpSoftware": {
+      "type": ["string", "null"]
+    },
+    "businessUnit": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"type": "string"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "domain": {"type": ["string", "null"]},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "domain",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "juridicalLocation": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/juridical_locations/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "legacyId": {"type": "integer"},
+        "name": {"type": "string"}
+      },
+        "required": [
+          "@id",
+          "@type",
+          "legacyId",
+          "name"
+        ],
+        "additionalProperties": false
+    },
+    "representative": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"type": "string"},
+        "@type": {"type": "string"},
+        "firstname": {"type": "string"},
+        "lastname": {"type": "string"},
+        "email": {"type": "string"},
+        "username": {"type": "string"},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "firstname",
+        "lastname",
+        "email",
+        "username",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "currency": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"type": "string"},
+        "id": {"type": "integer"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "timeZone": {
+      "type": ["string", "null"]
+    },
+    "network": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/networks/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {"type": "string"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "legacyId",
+    "name",
+    "company",
+    "capability",
+    "contact",
+    "state",
+    "address",
+    "domain",
+    "internalNetworkAddress",
+    "erp",
+    "businessUnit",
+    "juridicalLocation",
+    "representative",
+    "currency",
+    "timeZone",
+    "network",
+    "erpSoftware",
+    "publicWebsite"
+  ],
+  "additionalProperties": false
+}

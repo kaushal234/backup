@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  AppBundle\DataCollector\:
+    resource: '../../src/AppBundle/DataCollector'
+
+  AppBundle\DataCollector\ModuleCollector:
+    tags:
+      - { name: data_collector, template: "collector/module.html.twig", id: "tld.module_collector" }

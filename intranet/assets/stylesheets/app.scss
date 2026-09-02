@@ -1,0 +1,126 @@
+// Bootstrap
+// Align Bootstrap's primary color with the intranet blue ($navy) so that all
+// `primary` variants (btn-outline-primary, text-primary, btn-check, ...) match
+// the filled btn-primary instead of falling back to the default Bootstrap blue.
+@use "bootstrap/scss/bootstrap" as * with ($primary: #004F9E);
+@use "@eonasdan/tempus-dominus" as *;
+
+// Partials
+@use "partials/variables";
+@use "partials/md-skin";
+@use "partials/custom_media";
+@use "app_react";
+@use "partials/activity";
+
+// Uppy
+@use "@uppy/core" as *;
+@use "@uppy/dashboard" as *;
+@use "@uppy/webcam" as *;
+@use "@uppy/drag-drop" as *;
+@use "@uppy/image-editor" as *;
+@use "@uppy/screen-capture" as *;
+
+// TomSelect
+@import 'tom-select/dist/css/tom-select.bootstrap5.css';
+
+// Fonts
+@import "fonts/Footable";
+
+// Variables, Mixins
+@import "../vendor/inspinia-admin-theme/SASS/variables"; // Inspinia non compatible @use
+
+// INSPINIA Theme Elements
+@import "../vendor/inspinia-admin-theme/SASS/mixins"; // Non compatible @use
+@import "../vendor/inspinia-admin-theme/SASS/typography";
+@import "../vendor/inspinia-admin-theme/SASS/navigation";
+@import "../vendor/inspinia-admin-theme/SASS/top_navigation";
+@import "../vendor/inspinia-admin-theme/SASS/buttons";
+@import "../vendor/inspinia-admin-theme/SASS/badgets_labels";
+@import "../vendor/inspinia-admin-theme/SASS/elements";
+@import "../vendor/inspinia-admin-theme/SASS/sidebar";
+@import "../vendor/inspinia-admin-theme/SASS/base";
+@import "../vendor/inspinia-admin-theme/SASS/pages";
+@import "../vendor/inspinia-admin-theme/SASS/chat";
+@import "../vendor/inspinia-admin-theme/SASS/metismenu";
+@import "../vendor/inspinia-admin-theme/SASS/spinners";
+
+// RTL Support
+@import "../vendor/inspinia-admin-theme/SASS/landing";
+@import "../vendor/inspinia-admin-theme/SASS/rtl";
+
+// For demo only - config box style
+@import "../vendor/inspinia-admin-theme/SASS/theme-config";
+
+// INSPINIA Skins
+@import "../vendor/inspinia-admin-theme/SASS/skins";
+
+// Media query style
+@import "../vendor/inspinia-admin-theme/SASS/media";
+
+// IMPORT CUSTOM SCSS
+@import "partials/association_table";
+@import "partials/breadcrumbs";
+@import "partials/badge";
+@import "partials/btn";
+@import "partials/corporate";
+@import "partials/dropzone";
+@import "partials/form";
+@import "partials/general";
+@import "partials/identity";
+@import "partials/left-nav";
+@import "partials/matrix-table";
+@import "partials/modals";
+@import "partials/modules";
+@import "partials/news";
+@import "partials/organization";
+@import "partials/ratio";
+@import "partials/report-table";
+@import "partials/sidebar";
+@import "partials/speech";
+@import "partials/submenu";
+@import "partials/table";
+@import "partials/top-nav";
+@import "partials/progress-bar";
+@import "partials/labels";
+@import "partials/timeline";
+@import "catalogue/catalogue";
+@import "purchasing/supplier_ranking";
+@import "quality/calibrated_tools/layout";
+@import "sfr/sfr";
+@import "service/planner";
+@import "service/timeline";
+@import "service/technician_on_call_show";
+@import "support/manual";
+@import "survey/layout";
+@import "layout/top-warning";
+@import "partials/hr_form";
+@import "layout/_ln_env";
+@import "layout/_status_bar";
+@import "layout/_top_bar";
+@import "layout/nav_bar";
+@import "on_time_delivery/on_time_delivery";
+@import "utils/text";
+@import "common/_colors";
+@import "common/_common";
+@import "common/_swiper";
+@import "common/_variables";
+@import "dms_ai_search/_dms_ai_search";
+@import "toc_ai_search/_toc_ai_search";
+@import "form_field/_form_field";
+@import "purchasing/_smw";
+@import "ai/ai";
+@import "partials/_loader";
+@import "partials/_tab";
+@import "datatable/_remote_preview";
+@import "service/customer_service_record_show";
+
+// Leaflet CSS
+@import "leaflet/dist/leaflet.css";
+@import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+@import "leaflet.markercluster/dist/MarkerCluster.css";
+
+// PowerBI CSS
+@import "powerbi/powerbi";
+
+//chatbot markdown css
+@import "highlight.js/styles/github-dark.css";

@@ -1,0 +1,12 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        {{ 'purchase_order.zero_amount.description' | trans({'%id%': id}) | nl2br }}
+    </row>
+{% endblock %}

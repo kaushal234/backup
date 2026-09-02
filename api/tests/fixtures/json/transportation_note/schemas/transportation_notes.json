@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "updatedAt",
+          "country",
+          "note"
+        ],
+        "properties": {
+          "@id": {"pattern": "^/parts/transportation_notes/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "country": {
+            "type": "object",
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "name",
+              "isoCode2"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/countries/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "isoCode2": { "type":  "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

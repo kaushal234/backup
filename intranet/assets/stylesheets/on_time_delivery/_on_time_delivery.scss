@@ -1,0 +1,94 @@
+.horizontalScrollContainer {
+  overflow-x: scroll;
+  background-color: #ffffff;
+  height: 80vh;
+}
+
+.tableHeader {
+  padding: 4px;
+  background-color: #004F9E;
+  color: #ffffff;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5em;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.cell {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  margin: 0;
+  min-height: 80px;
+  min-width: 0;
+  border-bottom: 2px solid lightgray;
+  position: relative;
+
+  input[type="checkbox"] {
+    height: 1.5em;
+    width: 1.5em;
+    border-radius: 3px;
+    border: lightgrey 1px solid;
+    cursor: pointer;
+    transform: translateY(35%);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.save {
+  position: sticky;
+  padding: 0 1rem 0 2rem;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 120px;
+
+  button {
+    transition: .1s ease-in-out 0s;
+    span {
+      display: flex;
+      margin: auto;
+      align-items: center;
+      flex-wrap: nowrap;
+      i {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    transition: .1s ease-in-out 0s;
+  }
+  button:active {
+    scale: 0.9;
+    transition: .1s ease-in-out 0s;
+  }
+}
+
+.updated {
+  background-color: rgba(0, 129, 0, 0.66);
+  transition: background-color 0.8s ease;
+  .cell {
+    color: #FFFFFF;
+    transition: color 0.7s ease;
+    textarea {
+      color: #676a6c;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/purchasing/vendor_warranty_claim_thresholds/\\d+$"},
+    "@type": {"type": "string"},
+    "location": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "pattern": "^/locations/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "erp": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "currency": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "$ref": "../../finance_currency/schemas/currency.json"
+            }
+          ]
+        }
+      }
+    },
+    "threshold": {"type": "integer"}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "location",
+    "threshold"
+  ],
+  "additionalProperties": false
+}

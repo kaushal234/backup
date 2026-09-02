@@ -1,0 +1,6 @@
+- name: Dehydrated generate SSL
+  become: true
+  ansible.builtin.shell: source /etc/dehydrated/credentials &&
+    export PATH=/usr/local/bin:$PATH &&
+    /bin/dehydrated --cron --accept-terms >> /var/log/dehydrated.info.log 2>> /var/log/dehydrated.error.log;
+    systemctl reload haproxy

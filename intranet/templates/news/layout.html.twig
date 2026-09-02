@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}News{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="news.nav_link.home" domain="news" icon="material-symbols:home-outline-rounded" route="news_index"/>
+        <twig:NavItem:Add route="news_add" :security="is_granted('FEATURE_NEWS_WRITE')" />
+        <twig:NavItem:Add translationKey="news.title.add_category" domain="news" route="news_category_add" :security="is_granted('FEATURE_NEWS_WRITE')" />
+        {% if news is defined and news is not null %}
+            <twig:NavItem translationKey="menu.email" domain="messages" icon="mynaui:envelope" route="news_email" :routeParameters="{id: iri_id(news)}" />
+            <twig:NavItem:Edit route="news_edit" :routeParameters="{id: iri_id(news)}" :security="is_granted('FEATURE_NEWS_WRITE')" />
+            <twig:NavItem:Delete route="news_delete" :routeParameters="{id: iri_id(news)}" :security="is_granted('FEATURE_NEWS_WRITE')" />
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

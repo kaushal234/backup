@@ -1,0 +1,342 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.vendor_warranty_claim'|trans }}{% endblock %}
+
+{% block main %}
+    {% set route = claim.module is same as 'NCR' ? 'vendor-warranty-claim:show-ncr' : 'vendor-warranty-claim:show-wc' %}
+    {% if moduleDisplay == false %}
+        <div class="row">
+            <div class="col">
+                {% set items = {
+                    link: {
+                        label: 'display.table.vwc.headers.module'|trans,
+                        template: 'vendor-warranty-claim/components/datatable/module_link.html.twig'
+                    },
+                    id: {label: 'display.table.vwc.headers.id'|trans},
+                    status: {
+                        label: 'display.table.vwc.headers.status'|trans,
+                        properties: ['status.value']
+                    },
+                    type: {
+                        label: 'display.table.vwc.headers.type'|trans,
+                        properties: ['type.name']
+                    },
+                    createdAt: {
+                        label: 'display.table.vwc.headers.date_entered'|trans,
+                        filters: ['date']
+                    },
+                    poster: {
+                        label: 'display.table.vwc.headers.poster'|trans,
+                        properties: ['poster.firstname', 'poster.lastname']
+                    },
+                    assignee: {
+                        label: 'display.table.vwc.headers.assignee'|trans,
+                        properties: ['assignee.firstname', 'assignee.lastname'],
+                        preserveNull: false
+                    },
+                    supplierErp: {label: 'display.table.vwc.headers.erp'|trans},
+                    supplierNumber: {label: 'display.table.vwc.headers.vendor_id'|trans},
+                } %}
+                {% embed '_components/association_table.html.twig' with {
+                    associationData: {
+                        items: items,
+                        title: 'display.table.vwc.caption.id'|trans({'id': claim.id}),
+                        data: claim
+                    }
+                } %}
+                    {% block card_header_after %}
+                        <div class="col">
+                            {% include 'vendor-warranty-claim/modal/comment.html.twig' %}
+                        </div>
+                    {% endblock %}
+                {% endembed %}
+                {% if moduleDisplay == false %}
+                    {% if (claim.nonConformity.mainFile is defined and claim.nonConformity.mainFile is not null) or (claim.mainFile is defined and claim.mainFile is not null) %}
+                        {% set file = claim.nonConformity.mainFile is defined ? claim.nonConformity.mainFile : claim.mainFile %}
+                        {% set id = claim.nonConformity is defined ? claim.nonConformity.id : claim.id %}
+                        {% set route = claim.nonConformity is defined ? 'non-conformity:main-file' : 'vendor-warranty-claim:main-file' %}
+                        {% if file.extension not in ['png', 'jpg', 'jpeg'] %}
+                            <a href="{{ path(route, {id: id, fileId: file.id}) }}"><img src="{{ asset('images/document.png') }}" draggable="false"></a>
+                        {% else %}
+                            <img class="w-100 h-auto m-auto border border-gray" src="{{ path(route, {id: id, fileId: file.id}) }}" draggable="false">
+                        {% endif %}
+                    {% else %}
+                        <img class="w-100 h-auto m-auto border border-gray" src="{{ asset('images/no_photo_catalogue.png') }}" draggable="false">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col">
+                {% set items = {
+                    requestedSupplierAction: {
+                        label: 'display.table.vwc_requested_actions.headers.requested_supplier_action'|trans,
+                        template: 'vendor-warranty-claim/components/datatable/not_available.html.twig'
+                    },
+                    supplierReturnMerchandiseAuthorization: {
+                        label: 'display.table.vwc_requested_actions.headers.supplier_rma'|trans,
+                        template: 'vendor-warranty-claim/components/datatable/not_available.html.twig'
+                    },
+                    supplierShippingInstruction: {
+                        label: 'display.table.vwc_requested_actions.headers.shipping_instructions'|trans,
+                        template: 'vendor-warranty-claim/components/datatable/not_available.html.twig'
+                    },
+                    supplierShipperName: {
+                        label: 'display.table.vwc_requested_actions.headers.shipper_name'|trans,
+                        template: 'vendor-warranty-claim/components/datatable/not_available.html.twig'
+                    },
+                    trackingNumber: {
+                        label: 'display.table.vwc_requested_actions.headers.shipper_tracking_number'|trans,
+                        template: 'vendor-warranty-claim/components/datatable/not_available.html.twig'
+                    },
+                    requestedCreditAmount: {
+                        label: 'display.table.vwc_requested_actions.headers.requested_credit_amount'|trans,
+                        filters: "number_format(2)"
+                    },
+                    supplierCreditNote: {
+                        label: 'display.table.vwc_requested_actions.headers.supplier_credit_note'|trans,
+                        template: 'vendor-warranty-claim/components/datatable/not_available.html.twig'
+                    },
+                    scarRequested: {
+                        label: 'display.table.vwc_requested_actions.headers.scar_required'|trans,
+                        boolean: {
+                            true: 'display.table.vwc_requested_actions.rows.scar_required.yes'|trans,
+                            false: 'display.table.vwc_requested_actions.rows.scar_required.no'|trans
+                        }
+                    }
+                } %}
+                {% if claim.supplierCorrectiveActionRequest is not null %}
+                    {% set items = items | merge({
+                        supplierCorrectiveActionRequest: {
+                            label: 'display.table.vwc_requested_actions.headers.scar'|trans,
+                            properties: ['supplierCorrectiveActionRequest.id'],
+                            link: {
+                                route: 'supplier-corrective-action-request:show',
+                                fixedParams: {id: claim.supplierCorrectiveActionRequest.id}
+                            }
+                        }
+                    }) %}
+                {% endif %}
+                {% embed '_components/association_table.html.twig' with {
+                    associationData: {
+                        items: items,
+                        title: 'display.table.vwc_requested_actions.caption.title'|trans,
+                        data: claim
+                    }
+                } %}
+                    {% block card_header_after %}
+                        {% if claim.status.value == 'VENDOR_TO_RESPOND' %}
+                            <div class="col">
+                                {% include 'vendor-warranty-claim/modal/edit.html.twig' %}
+                            </div>
+                        {% endif %}
+                        {% if claim.scarRequested %}
+                            <div class="col">
+                                {% include 'vendor-warranty-claim/modal/scar.html.twig' %}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                {% endembed %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {{ include('_components/report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            partNumber: {label: 'display.table.vwc_parts.headers.pn'|trans},
+                            description: {label: 'display.table.vwc_parts.headers.description'|trans},
+                            serialNumber: {label: 'display.table.vwc_parts.headers.sn'|trans},
+                            vendorPartNumber: {label: 'display.table.vwc_parts.headers.vendor_pn'|trans},
+                            vendorSerialNumber: {label: 'display.table.vwc_parts.headers.vendor_sn'|trans},
+                            quantity: {label: 'display.table.vwc_parts.headers.quantity'|trans},
+                            receivedQuantity: {label: 'display.table.vwc_parts.headers.received_quantity'|trans},
+                            unitOfMeasure: {label: 'display.table.vwc_parts.headers.um'|trans},
+                            failureType: {label: 'display.table.vwc_parts.headers.failure_type'|trans},
+                            failureSystem: {label: 'display.table.vwc_parts.headers.failure_system'|trans}
+                        },
+                        title: 'display.table.vwc_parts.caption.title'|trans,
+                        id: 'scar-table',
+                        data: claim.parts
+                    }
+                }, with_context = false) }}
+            </div>
+        </div>
+
+        {% include 'files/files.html.twig' with {'files': claim.files, 'iri': claim.iri} only %}
+
+        {% if claim.nonConformity is defined and claim.nonConformity is not null and claim.nonConformity.files is defined and claim.nonConformity.files is not empty %}
+            {% include 'files/files.html.twig' with {'files': claim.nonConformity.files, 'iri': claim.nonConformity.iri, title: 'display.table.vwc_ncr_files.caption.title', fileRoute: 'file'} only %}
+        {% endif %}
+
+        {% include 'activities/activities.html.twig' with {'activities': claim.activities} only %}
+    {% endif %}
+
+    {% if claim.module is same as 'NCR' and moduleDisplay == true %}
+        <div class="row" id="module">
+            <div class="col">
+                {{ include('_components/association_table.html.twig', {
+                    associationData: {
+                        items: {
+                            claimLink: {
+                                label: 'display.table.vwc.headers.module'|trans,
+                                template: 'vendor-warranty-claim/components/datatable/claim_link.html.twig',
+                                templateParams: {claim: claim}
+                            },
+                            status: { label: 'display.table.vwc_ncr.header.status'|trans },
+                            createdAt: {
+                                label: 'display.table.vwc_ncr.header.reported_date'|trans,
+                                filters: 'date'
+                            },
+                            reportedBy: {
+                                label: 'display.table.vwc_ncr.header.reported_by'|trans,
+                                properties: ['reportedBy.firstname', 'reportedBy.lastname']
+                            },
+                            problem: {label: 'display.table.vwc_ncr.header.problem_description'|trans},
+                            scrap: {
+                                label: 'display.table.vwc_ncr.header.scrap'|trans,
+                                boolean: {
+                                    true: 'display.table.vwc_ncr.rows.yes'|trans,
+                                    false: 'display.table.vwc_ncr.rows.no'|trans
+                                }
+                            },
+                            rework: {
+                                label: 'display.table.vwc_ncr.header.rework'|trans,
+                                boolean: {
+                                    true: 'display.table.vwc_ncr.rows.yes'|trans,
+                                    false: 'display.table.vwc_ncr.rows.no'|trans
+                                }
+                            },
+                            useAsIs: {
+                                label: 'display.table.vwc_ncr.header.as_is'|trans,
+                                boolean: {
+                                    true: 'display.table.vwc_ncr.rows.yes'|trans,
+                                    false: 'display.table.vwc_ncr.rows.no'|trans
+                                }
+                            },
+                            returnVendor: {
+                                label: 'display.table.vwc_ncr.header.return_to_vendor'|trans,
+                                boolean: {
+                                    true: 'display.table.vwc_ncr.rows.yes'|trans,
+                                    false: 'display.table.vwc_ncr.rows.no'|trans
+                                }
+                            },
+                            supplierCorrectiveActionRequest: {
+                                label: 'display.table.vwc_ncr.header.scar'|trans,
+                                boolean: {
+                                    true: 'display.table.vwc_ncr.rows.yes'|trans,
+                                    false: 'display.table.vwc_ncr.rows.no'|trans
+                                }
+                            },
+                            other: {
+                                label: 'display.table.vwc_ncr.header.other'|trans,
+                                boolean: {
+                                    true: 'display.table.vwc_ncr.rows.yes'|trans,
+                                    false: 'display.table.vwc_ncr.rows.no'|trans
+                                }
+                            },
+                            chargeVendorForRepair: {
+                                label: 'display.table.vwc_ncr.header.charge_vendor_for_repairs'|trans,
+                                boolean: {
+                                    true: 'display.table.vwc_ncr.rows.yes'|trans,
+                                    false: 'display.table.vwc_ncr.rows.no'|trans
+                                }
+                            },
+                            actionComment: { label: 'display.table.vwc_ncr.header.comment'|trans },
+                            currency: {
+                                label: 'display.table.vwc_ncr.header.currency'|trans,
+                                properties: ['currency.name']
+                            },
+                            cost: {
+                                label: 'display.table.vwc_ncr.header.total_cost'|trans,
+                                filter: 'number_format(2)'
+                            },
+                            costBreakdown: { label: 'display.table.vwc_ncr.header.breakdown'|trans },
+                        },
+                        title: 'display.table.vwc_ncr.caption.title'|trans({'id': claim.nonConformity.id}),
+                        data: claim.nonConformity
+                    }
+                }) }}
+            </div>
+            <div class="col">
+                <img class="w-100 h-auto m-auto border border-gray" src="{{ claim.nonConformity.mainFile ? path('non-conformity:main-file', {id: claim.nonConformity.id, fileId: claim.nonConformity.mainFile.id}) : asset('images/no_photo_catalogue.png') }}" draggable="false" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {{ include('_components/report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            partNumber: {label: 'display.table.vwc_ncr_parts.headers.pn'|trans},
+                            description: {label: 'display.table.vwc_ncr_parts.headers.description'|trans},
+                            quantity: {label: 'display.table.vwc_ncr_parts.headers.quantity'|trans},
+                            reference: {label: 'display.table.vwc_ncr_parts.headers.reference_type'|trans},
+                            referenceNumber: {label: 'display.table.vwc_ncr_parts.headers.reference'|trans},
+                            serialNumber: {label: 'display.table.vwc_ncr_parts.headers.serial_number'|trans},
+
+                        },
+                        title: 'display.table.vwc_ncr_parts.caption.title'|trans,
+                        id: 'vwc-ncr-parts-table',
+                        data: claim.nonConformity.parts
+                    }
+                }, with_context = false) }}
+            </div>
+        </div>
+
+        {% if claim.nonConformity is defined and claim.nonConformity is not null and claim.nonConformity.files is defined and claim.nonConformity.files is not empty %}
+            {% include 'files/files.html.twig' with {'files': claim.nonConformity.files, 'iri': claim.nonConformity.iri, title: 'display.table.vwc_ncr_files.caption.title', fileRoute: 'file'} only %}
+        {% endif %}
+
+    {% endif %}
+
+    {% if claim.module is same as 'WC' and moduleDisplay == true %}
+        <hr/>
+        <div class="row" id="module">
+            <div class="col">
+                {{ include('_components/association_table.html.twig', {
+                    associationData: {
+                        items: {
+                            claimLink: {
+                                label: 'display.table.vwc.headers.module'|trans,
+                                template: 'vendor-warranty-claim/components/datatable/claim_link.html.twig',
+                                templateParams: {claim: claim}
+                            },
+                            status: { label: 'display.table.vwc.headers.status'|trans },
+                            enteredBy: { label: 'display.table.vwc_wc.header.enteredBy'|trans },
+                            claimantDetails: {
+                                label: 'display.table.vwc_wc.header.claimantDetails'|trans,
+                                filters: 'raw|nl2br',
+                            },
+                            warrantyDetails: {
+                                label: 'display.table.vwc_wc.header.warrantyDetails'|trans,
+                                filters: 'raw|nl2br',
+                            },
+                            customer: { label: 'display.table.vwc_wc.header.customer'|trans },
+                            problemDescription: {
+                                label: 'display.table.vwc_wc.header.problem_description'|trans,
+                                filters: 'raw|nl2br'
+                            },
+                            claimDate: {
+                                label: 'display.table.vwc_wc.header.claimDate'|trans,
+                                filters: 'date',
+                            },
+                            type: { label: 'display.table.vwc.headers.type'|trans },
+                            model: { label: 'display.table.vwc_wc.header.model'|trans },
+                            manufacturerLocation: { label: 'display.table.vwc_wc.header.manufacturerLocation'|trans },
+                            salesOrganization: { label: 'display.table.vwc_wc.header.salesOrganization'|trans },
+                            serialNumber: { label: 'display.table.vwc_wc.header.serialNumber'|trans },
+                            equipmentLocation: { label: 'display.table.vwc_wc.header.equipmentLocation'|trans },
+                            hours: { label: 'display.table.vwc_wc.header.hours'|trans },
+                        },
+                        title: 'display.table.vwc_wc.caption.id'|trans({'id': claim.warrantyClaimId}),
+                        data: claim.warrantyClaim
+                    }
+                }) }}
+                {% include 'files/files.html.twig' with {'files': claim.warrantyClaimFiles, 'iri': claim.iri, title: 'display.table.vwc.headers.wc_files', fileRoute: 'legacy_wc_file'} only %}
+
+                {% include 'files/files.html.twig' with {'files': claim.tocFiles, 'iri': claim.iri, title: 'display.table.vwc.headers.toc_files', fileRoute: 'legacy_toc_file'} only %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

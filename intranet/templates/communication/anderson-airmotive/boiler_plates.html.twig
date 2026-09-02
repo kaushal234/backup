@@ -1,0 +1,19 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_boiler_plate.html.twig', {
+        boilerPlates: {
+            50: "<p>Anderson Airmotive delivers rugged, easy-to-assemble connector plugs and receptacles trusted in commercial and military ground power operations worldwide. With over 25 years of proven excellence, we offer innovative, durable solutions, including AS-7974D QPL connectors, molded AC/DC power cables, and the industry’s only complete line of military-tested Attachable® plugs.</p>",
+            150: "<p>Anderson Airmotive is a trusted name in aircraft ground power connectors, delivering rugged, reliable, and easy-to-use solutions for over 25 years. Our products are engineered for real-world performance, proven in both commercial and military applications globally.</p>
+                <p>We proudly offer a comprehensive range of Qualified Products List (QPL) connectors meeting AS-7974D standards, along with molded AC/DC power connectors and cable assemblies designed for maximum durability and efficiency. Constructed from high-quality synthetic rubber for chemical and abrasion resistance, our connectors ensure consistent, reliable performance.</p>
+                <p>Featuring heavy silver-plated tellurium copper contacts, quad beams, and engineered steel springs, our connectors deliver thousands of cycles with dependable engagement. We’re the only manufacturer offering a complete line of military-tested and approved Attachable® plugs, molded AC/DC power plugs, and battery connectors. Anderson Airmotive combines technical expertise with customer-focused innovation, ensuring your operations stay powered and productive.</p>",
+            300: "<p>For over 25 years, Anderson Airmotive has been synonymous with innovation, reliability, and excellence in aircraft ground power. Our rugged, easy-to-assemble connector plugs and receptacles are engineered for real-world applications, trusted by commercial and military operations worldwide. Designed to withstand demanding environments, our solutions exemplify durability and superior performance.</p>
+                <p>Anderson Airmotive offers a wide range of products tailored to meet diverse ground power needs. Our Qualified Products List (QPL) connectors adhere to AS-7974D standards, ensuring compatibility and reliability. Our over-molded AC/DC power connectors and cable assemblies are crafted from high-quality, specially formulated synthetic rubber, providing excellent chemical and abrasion resistance for lasting performance.</p>
+                <p>Key features of our connectors include heavy silver-plated tellurium copper contacts, quad beams, and engineered steel springs that ensure consistent connections for thousands of cycles. Additionally, our plugs incorporate advanced sensing technology, allowing power-up only when 80-90% engaged, enhancing safety and efficiency.</p>
+                <p>As the only manufacturer with a complete line of military-tested and approved Attachable® plugs, Anderson Airmotive sets the standard for reliability and innovation. Our comprehensive product range includes molded AC/DC power plugs, cable assemblies, receptacles, and battery connectors, offering versatile solutions for every ground power need.</p>
+                <p>We are dedicated to delivering high-quality, customer-focused solutions that keep your operations running smoothly. Whether in extreme climates or high-traffic environments, Anderson Airmotive’s products deliver unparalleled performance and peace of mind. Trust Anderson Airmotive to power your mission with unmatched expertise and reliability.</p>"
+        }
+    }) }}
+{% endblock %}

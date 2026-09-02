@@ -1,0 +1,166 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "definitions": {
+        "ReportSnapshot.jsonld-report_snapshot": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/reports/.*"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "resource": {
+                    "type": "string"
+                },
+                "x": {
+                    "type": "string"
+                },
+                "y": {
+                    "type": "string"
+                },
+                "options": {
+                    "type": "object",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1
+                },
+                "xTotals": {
+                    "type": "object",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1
+                },
+                "yTotals": {
+                    "type": "object",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1
+                },
+                "total": {
+                    "type": "number"
+                },
+                "rows": {
+                    "type": "object",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1
+                },
+                "metadata": {
+                    "type": "object",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 1
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "createdAt",
+                "resource",
+                "x",
+                "y",
+                "options",
+                "xTotals",
+                "yTotals",
+                "total",
+                "rows",
+                "metadata"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ReportSnapshot.jsonld-report_snapshot"
+            }
+        },
+        "hydra:totalItems": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "hydra:view": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "@type": {
+                    "type": "string"
+                },
+                "hydra:first": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:last": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:previous": {
+                    "type": "string",
+                    "format": "iri-reference"
+                },
+                "hydra:next": {
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            }
+        },
+        "hydra:search": {
+            "type": "object",
+            "properties": {
+                "@type": {
+                    "type": "string"
+                },
+                "hydra:template": {
+                    "type": "string"
+                },
+                "hydra:variableRepresentation": {
+                    "type": "string"
+                },
+                "hydra:mapping": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "@type": {
+                                "type": "string"
+                            },
+                            "variable": {
+                                "type": "string"
+                            },
+                            "property": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "required": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "hydra:member"
+    ]
+}

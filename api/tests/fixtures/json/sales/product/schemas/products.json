@@ -1,0 +1,137 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/products$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/products/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "family": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/product_families/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "productType": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "legacyId",
+              "name",
+              "productType"
+            ],
+            "additionalProperties": false
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "financeFamily": {
+            "oneOf": [
+              {"type": "null"},
+              { "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/finance/finance_families/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name",
+                  "id"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "manufacturingFamily": {
+            "oneOf": [
+              {"type": "null"},
+              { "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/manufacturing/manufacturing_families/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "erpLocation": {
+            "oneOf": [
+              {"type": "null"},
+              { "$ref": "../../../directory_location/schemas/directory_location_public.json" }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "name",
+          "family",
+          "financeFamily",
+          "manufacturingFamily",
+          "hidden",
+          "erpLocation"
+        ],
+        "additionalProperties": false,
+        "minItems": 1
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

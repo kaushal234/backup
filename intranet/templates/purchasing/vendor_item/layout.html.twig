@@ -1,0 +1,9 @@
+{% extends 'purchasing/layout.html.twig' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="purchasing_smw.nav_item.home" domain="purchasing_smw"
+                      icon="material-symbols:home-outline-rounded" route="legacy_manufacturing_pur"
+                      :routeParameters="{m: ['xref']}"/>
+    </twig:NavBar:Container>
+{% endblock %}

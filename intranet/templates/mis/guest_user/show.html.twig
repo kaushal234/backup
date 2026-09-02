@@ -1,0 +1,48 @@
+{% extends 'mis/guest_user/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-12">
+            {% set tabs = {
+                details: {
+                    defaultTab: true,
+                    label: 'contacts.menu.detail'|trans({}, 'contacts'),
+                    template: 'mis/guest_user/partial/tabs/_details_tab.html.twig',
+                },
+                sequences: {
+                    label: 'menu.people.tasks' | trans({}, 'messages') | capitalize,
+                    template: 'mis/guest_user/partial/tabs/_sequences_tab.html.twig',
+                },
+                logs: {
+                    label: 'menu.logs' | trans({}, 'messages') | capitalize,
+                    template: 'generic/_logs.html.twig',
+                },
+            } %}
+
+            {% if is_granted('FEATURE_MODULE_WRITE') %}
+                {% set tabs = tabs|merge({
+                    updateTasksList: {
+                        label: 'mis.update_task.title' | trans({}, 'mis'),
+                        template: 'mis/guest_user/partial/tabs/_update_tasks_tab.html.twig',
+                        badge: numberOfTasksInProgress,
+                        security: is_granted('FEATURE_MODULE_WRITE'),
+                    }
+                }) %}
+            {% endif %}
+
+            {{ include('helper/_tabs.html.twig', {
+                tabsData: {
+                    tabs: tabs,
+                    data: guestUser,
+                    link: app.request.query.get('tab'),
+                },
+            }) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

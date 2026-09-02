@@ -1,0 +1,35 @@
+{% extends 'parts/transportation_note/layout.html.twig' %}
+
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-lg-8">
+            {{ form_errors(form) }}
+            <div class="mail-box-header clearfix">
+                {% if note is defined %}
+                    <h2>{{ note.country.name|capitalize }} {{ 'titles.edition'|trans|capitalize  }}</h2>
+                {% else %}
+                    <h2>{{ 'titles.addition'|trans|capitalize }}</h2>
+                {% endif %}
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {% if form.country is defined %}
+                        {{ form_row(form.country) }}
+                    {% endif %}
+                    {{ form_row(form.note) }}
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-info m-t-xl">{{ 'button.submit'|trans({}, 'messages')|capitalize }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}
+

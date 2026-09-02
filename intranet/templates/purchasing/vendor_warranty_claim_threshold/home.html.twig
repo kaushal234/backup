@@ -1,0 +1,49 @@
+{% extends 'purchasing/layout.html.twig' %}
+{% trans_default_domain 'vendor_warranty_claim' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'vendor_warranty_claim.threshold.title'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(newThresholdForm) }}
+                    <table class="table table-bordered">
+                        <thead>
+                        {% include 'purchasing/vendor_warranty_claim_threshold/partial/_threshold_table_header.html.twig' %}
+                        </thead>
+                        <tbody>
+                        {% include 'purchasing/vendor_warranty_claim_threshold/partial/_threshold_form_body.html.twig' with {'thresholdForm': newThresholdForm} %}
+                        </tbody>
+                    </table>
+                    {{ form_end(newThresholdForm) }}
+                    {{ form_start(editThresholdForms) }}
+                    <table class="table table-bordered">
+                        <thead>
+                            {% include 'purchasing/vendor_warranty_claim_threshold/partial/_threshold_table_header.html.twig' %}
+                        </thead>
+                        <tbody>
+                            {% for thresholdForm in editThresholdForms.thresholdForms %}
+                                {% include 'purchasing/vendor_warranty_claim_threshold/partial/_threshold_form_body.html.twig' with {'thresholdForm': thresholdForm} %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ form_end(editThresholdForms) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block translations %}
+{% endblock %}
+

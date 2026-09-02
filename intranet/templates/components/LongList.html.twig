@@ -1,0 +1,38 @@
+{% set total = labels|length %}
+{% if total > limit %}
+    {{ labels|slice(0, limit)|join(separator) }}
+    <a href="#" class="text-muted" data-bs-toggle="modal" data-bs-target="#airports-modal-{{ unique_id }}">
+        , +{{ total - limit }} more
+    </a>
+
+    <div class="modal fade" id="airports-modal-{{ unique_id }}" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ total }} {{ 'service_area.fields.airports'|trans({}, 'service') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                    {% if grouped_labels is not null %}
+                        {% for groupName, groupLabels in grouped_labels %}
+                            <h6 class="text-muted mt-3 mb-1">{{ groupName }} ({{ groupLabels|length }})</h6>
+                            <div class="row row-cols-4 g-2">
+                                {% for label in groupLabels %}
+                                    <div class="col">{{ label }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="row row-cols-4 g-2">
+                            {% for label in labels %}
+                                <div class="col">{{ label }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    {{ labels|join(separator) }}
+{% endif %}

@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/quality/derogations/\\d+(|/status)$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "description": {"type": "string"},
+    "comment": {
+      "type": ["string", "null"]
+    },
+    "shortDescription": {"type": "string"},
+    "status": {"type": "string"},
+    "dueDate": {"type": "string"},
+    "closedAt": {"type": ["string", "null"]},
+    "closedBy": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    },
+    "crabs": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"type": "string"},
+          "@type": {"type": "string"},
+          "equipmentRecord": {
+            "type": "object",
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "serialNumber": {"type": "string"},
+              "model": {"type":  "string"},
+              "type": {"type":  "string"}
+            },
+            "required": ["@id", "@type", "serialNumber", "model", "type"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["@id", "@type", "equipmentRecord"],
+        "additionalProperties": false
+      }
+    },
+    "assignee": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+    "assignor": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "iri-reference"
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "status",
+    "description",
+    "assignee",
+    "assignor",
+    "dueDate",
+    "crabs",
+    "comment",
+    "shortDescription",
+    "closedAt",
+    "closedBy",
+    "files"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,187 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/RequestForQuotation.jsonld-request_for_quotation",
+    "definitions": {
+        "RequestForQuotation.jsonld-request_for_quotation": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/request_for_quotations/\\w+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "requestForQuotationCode": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "buyerEmail": {
+                    "type": "string"
+                },
+                "responseDate": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "businessPartnerCodes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "site": {
+                    "$ref": "../../sites/schemas/site_light.json"
+                },
+                "lines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/RequestForQuotationLine.jsonld-request_for_quotation"
+                    },
+                    "minItems": 1
+                },
+                "bidders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Bidder.jsonld-request_for_quotation"
+                    },
+                    "minItems": 1
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "requestForQuotationCode",
+                "description",
+                "buyerEmail",
+                "responseDate",
+                "status",
+                "businessPartnerCodes",
+                "lines",
+                "bidders"
+            ],
+            "additionalProperties": false
+        },
+        "RequestForQuotationLine.jsonld-request_for_quotation": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "position": {
+                    "type": "integer"
+                },
+                "sequence": {
+                    "type": "integer"
+                },
+                "item": {
+                    "type": "string"
+                },
+                "itemDescription": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "unitOfMeasure": {
+                    "type": "string"
+                },
+                "warehouse": {
+                    "type": "string"
+                },
+                "receiptDate": {
+                    "type": "string"
+                },
+                "itemRevision": {
+                    "type": "string"
+                },
+                "itemSignalCode": {
+                    "type": "string"
+                },
+                "site": {
+                    "$ref": "../../sites/schemas/site_light.json"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "position",
+                "sequence",
+                "item",
+                "itemDescription",
+                "date",
+                "quantity",
+                "unitOfMeasure",
+                "warehouse",
+                "receiptDate"
+            ],
+            "additionalProperties": false
+        },
+        "Bidder.jsonld-request_for_quotation": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "bidderCode": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "bidderCode",
+                "name"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

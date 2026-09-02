@@ -1,0 +1,114 @@
+App\Entity\Sales\ProductFamily:
+    # /sales/product_families/1
+    catalog_product_family_1:
+        productType: '@catalog_product_type_1'
+        name: Famille To Test Same Name Is Ok
+        frenchDescription: <sentence()>
+        englishDescription: <sentence()>
+        spanishDescription: <sentence()>
+        portugueseDescription: <sentence()>
+        germanDescription: <sentence()>
+        chineseDescription: <sentence()>
+        japaneseDescription: <sentence()>
+        russianDescription: <sentence()>
+        hidden: false
+        publicForTLD: true
+        tags:
+            - '@product_family_tag_1'
+        manufacturingFactories:
+            - '@location_factory'
+            - '@location_factory_2'
+
+    # /sales/product_families/7
+    catalog_product_family_2:
+        productType: '@catalog_product_type_1'
+        name: <name()>
+        frenchDescription: <paragraph()>
+        englishDescription: <paragraph(50)>
+        spanishDescription: <paragraph()>
+        portugueseDescription: <paragraph()>
+        germanDescription: <paragraph()>
+        chineseDescription: <paragraph()>
+        japaneseDescription: <paragraph()>
+        russianDescription: <paragraph()>
+        hidden: false
+        publicForTLD: false
+
+    # /sales/product_families/8...15
+    catalog_product_family_{3..10}:
+        productType: '@catalog_product_type_1'
+        name: <name()>
+        frenchDescription: <paragraph()>
+        englishDescription: <paragraph(50)>
+        spanishDescription: <paragraph()>
+        portugueseDescription: <paragraph()>
+        germanDescription: <paragraph()>
+        chineseDescription: <paragraph()>
+        japaneseDescription: <paragraph()>
+        russianDescription: <paragraph()>
+        hidden: false
+        publicForTLD: true
+
+    # /sales/product_families/16...25
+    catalog_product_family_{11..20}:
+        productType: '@catalog_product_type_2'
+        name: <name()>
+        frenchDescription: <sentence()>
+        englishDescription: <sentence()>
+        spanishDescription: <sentence()>
+        portugueseDescription: <sentence()>
+        germanDescription: <sentence()>
+        chineseDescription: <sentence()>
+        japaneseDescription: <sentence()>
+        russianDescription: <sentence()>
+        hidden: false
+        publicForTLD: false
+
+    # /sales/product_families/26
+    catalog_product_family_test:
+        productType: '@catalog_product_type_2'
+        name: Family test
+        frenchDescription: <sentence()>
+        englishDescription: <sentence()>
+        spanishDescription: <sentence()>
+        portugueseDescription: <sentence()>
+        germanDescription: <sentence()>
+        chineseDescription: <sentence()>
+        japaneseDescription: <sentence()>
+        russianDescription: <sentence()>
+        hidden: false
+        publicForTLD: false
+        manufacturingFactories:
+            - '@location_factory'
+            - '@location_sage'
+            - '@location_factory_400'
+
+    # /sales/product_families/27
+    catalog_product_family_deleted:
+        productType: '@catalog_product_type_2'
+        name: To be deleted
+        frenchDescription: <sentence()>
+        englishDescription: <sentence()>
+        spanishDescription: <sentence()>
+        portugueseDescription: <sentence()>
+        germanDescription: <sentence()>
+        chineseDescription: <sentence()>
+        japaneseDescription: <sentence()>
+        russianDescription: <sentence()>
+        hidden: false
+        publicForTLD: true
+
+    # /sales/product_families/28
+    catalog_product_family_not_deleted:
+        productType: '@catalog_product_type_2'
+        name: To be not deleted
+        frenchDescription: <sentence()>
+        englishDescription: <sentence()>
+        spanishDescription: <sentence()>
+        portugueseDescription: <sentence()>
+        germanDescription: <sentence()>
+        chineseDescription: <sentence()>
+        japaneseDescription: <sentence()>
+        russianDescription: <sentence()>
+        hidden: false
+        publicForTLD: true

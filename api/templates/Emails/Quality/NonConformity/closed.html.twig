@@ -1,0 +1,58 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <a target="_blank" href="{{ url('non_conformity', {id: nonConformity.id}) }}">NCR#{{ nonConformity.id }}</a>
+
+            <p>{{ 'ncr.message' | trans({'%old_status%': oldStatus, '%status%': nonConformity.status}) }}</p>
+
+            <hr>
+
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        status: { label:'sfr.fields.status' | trans},
+                        createdAt: { label:'spr.fields.created_at' | trans, filters: ["date('Y-m-d H:i:s')"]},
+                        reportedBy: { label:'ncr.fields.reported_by' | trans, properties: ['reportedBy.lastname', 'reportedBy.firstname'] },
+                        description: { label:'first_article_qualification.fields.part_number.description' | trans | capitalize },
+                        investigation: { label:'ncr.fields.investigation' | trans },
+                        scrap: { label:'ncr.fields.scrap' | trans, boolean: { true: 'Y', false: 'N' }},
+                        rework: { label:'ncr.fields.rework' | trans, boolean: { true: 'Y', false: 'N' }},
+                        useAsIs: { label:'ncr.fields.use_as_is' | trans, boolean: { true: 'Y', false: 'N' }},
+                        returnVendor: { label:'ncr.fields.return_vendor' | trans, boolean: { true: 'Y', false: 'N' }},
+                        chargeVendorForRepair: { label:'ncr.fields.charge_vendor' | trans, boolean: { true: 'Y', false: 'N' }},
+                        supplierCorrectiveActionRequest: {label:'ncr.fields.scar' | trans, boolean: { true: 'Y', false: 'N' }},
+                        other: { label:'ncr.fields.other' | trans, boolean: { true: 'Y', false: 'N' }},
+                        actionComment: { label:'sfr.fields.status' | trans},
+                        currency: { label:'spq.partial_and_full_quotation_summary.header.currency' | trans, properties: ['currency.name']},
+                        cost: { label:'ncr.fields.cost' | trans },
+                        costBreakdown: { label:'ncr.fields.cost_breakdown' | trans },
+                        responsible: { label:'ncr.fields.responsible' | trans },
+                    },
+                    data: nonConformity,
+                    title: 'NCR #'~nonConformity.id
+                },
+            }, with_context = false) }}
+
+            <hr>
+
+            {{ include('Helpers/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        partNumber: { label: 'spr.fields.part_number'|trans },
+                        description: { label: 'spr.fields.description'|trans },
+                        unitOfMeasure: { label: 'spr.fields.unit_of_measure'|trans },
+                        quantity: { label: 'spr.fields.quantity'|trans },
+                        reference: { label: 'ncr.fields.reference' | trans },
+                        referenceNumber: { label: 'ncr.fields.reference_number' | trans },
+                        serialNumber: { label: 'ncr.fields.serial_number' | trans },
+                    },
+                    data: nonConformity.parts,
+                    title: 'ncr.fields.parts'|trans
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

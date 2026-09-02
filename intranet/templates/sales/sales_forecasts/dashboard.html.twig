@@ -1,0 +1,167 @@
+{% extends 'sales/sales_forecasts/layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% set additionalParams = military is same as(true) ? {military: true} : {} %}
+
+{% block content %}
+    <div class="row">
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_forecasts.reports.by_sso_factory_user' | trans({'%lastname%': user.lastname, '%firstname%': user.firstname}) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: SFRBySSOFactoryASM,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        link: {
+                            route: 'sales_forecasts_list_gantt',
+                            xParam: 'sso',
+                            yParam: 'factory',
+                            additionalParams: additionalParams|merge({asm: user['@id'], open: true}),
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_forecasts.reports.by_sso_factory' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: SFRBySSOFactory,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        showZero: false,
+                        link: {
+                            route: 'sales_forecasts_list_gantt',
+                            xParam: 'sso',
+                            yParam: 'factory',
+                            additionalParams: additionalParams|merge({open: true}),
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div  class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_forecasts.reports.by_sso_factory_hot_deals' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: SFRBySSOFactoryHotDeals,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        showZero: false,
+                        link: {
+                            route: 'sales_forecasts_list_gantt',
+                            xParam: 'sso',
+                            yParam: 'factory',
+                            additionalParams: additionalParams|merge({hot_deals: true}),
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_forecasts.reports.by_sso_factory_recently_ordered' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: SFRBySSOFactoryRecentlyOrdered,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        showZero: false,
+                        link: {
+                            route: 'sales_forecasts_list_gantt',
+                            xParam: 'sso',
+                            yParam: 'factory',
+                            additionalParams: additionalParams|merge({status: 'ORDERED', 'closedAt-after': limit_date}),
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_forecasts.reports.by_sso_factory_deliquent' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: SFRBySSOFactoryDelinquent,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        showZero: false,
+                        link: {
+                            route: 'sales_forecasts_list_gantt',
+                            xParam: 'sso',
+                            yParam: 'factory',
+                            additionalParams: additionalParams|merge({delinquent: true}),
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_forecasts.reports.by_sso_factory_recently_lost' | trans}}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: SFRBySSOFactoryRecentlyLost,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        showZero: false,
+                        link: {
+                            route: 'sales_forecasts_list_gantt',
+                            xParam: 'sso',
+                            yParam: 'factory',
+                            additionalParams: additionalParams|merge({status: 'LOST', 'closedAt-after': limit_date}),
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

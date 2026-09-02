@@ -1,0 +1,140 @@
+App\Entity\Purchasing\Supplier\Supplier:
+    # purchasing/suppliers/1
+    supplier_1:
+        id: 1
+        name: DANA
+        code: DANA001
+        status: ACTIVE
+        location: '@location_sso'
+        country: '@country_1'
+        currency: "@cur_USD"
+
+    # purchasing/suppliers/2
+    supplier_2:
+        id: 2
+        name: Adhetec SAS
+        code: 9ADHFRA
+        status: ACTIVE
+        location: '@location_factory'
+        country: '@country_1'
+        currency: "@cur_USD"
+
+    # purchasing/suppliers/3
+    supplier_3:
+        id: 3
+        name: Page GSE
+        code: 9AGSAPA
+        status: ACTIVE
+        location: '@location_factory'
+        country: '@country_1'
+        currency: "@cur_USD"
+
+    # purchasing/suppliers/4
+    supplier_4:
+        id: 4
+        name: SAGE PARTS PLUS INC
+        code: ALL0030
+        status: ACTIVE
+        location: '@location_factory'
+        country: '@country_1'
+        currency: "@cur_USD"
+
+    # purchasing/suppliers/5
+    supplier_5:
+        id: 5
+        name: ACE HARDWARE
+        code: ACE0012
+        status: ACTIVE
+        location: '@location_factory'
+        country: '@country_1'
+        currency: '@cur_USD'
+
+    # purchasing/suppliers/6
+    supplier_6:
+        id: 6
+        name: ALBRIGHT FRANCE
+        code: ALB0018
+        status: ACTIVE
+        location: '@location_factory'
+        country: '@country_1'
+        currency: '@cur_USD'
+
+    # purchasing/suppliers/7
+    supplier_7:
+        id: 7
+        name: Adhetec SASI
+        code: 9ADHFRI
+        status: ACTIVE
+        location: '@location_factory_400'
+        country: '@country_1'
+        currency: '@cur_USD'
+
+    # purchasing/suppliers/8
+    supplier_8:
+        id: 8
+        name: Page GSI
+        code: 9AGSAPI
+        status: ACTIVE
+        location: '@location_factory_400'
+        country: '@country_1'
+        currency: '@cur_USD'
+
+    # purchasing/suppliers/9
+    supplier_9:
+        id: 9
+        name: (Jiashan) Excelsior Hardware Ltd. C
+        code: JIA0001
+        status: ACTIVE
+        location: '@location_factory_400'
+        country: '@country_1'
+        currency: '@cur_USD'
+
+    # purchasing/suppliers/10
+    supplier_10:
+        id: 10
+        name: ACE HARDWARE
+        code: ACE0013
+        status: ACTIVE
+        location: '@location_factory_400'
+        country: '@country_1'
+        currency: '@cur_USD'
+
+    # purchasing/suppliers/11
+    supplier_11:
+        id: 11
+        name: TLD WIC (For Mig and First Go-Live)
+        code: 9MIG400
+        status: ACTIVE
+        location: '@location_factory_400'
+        country: '@country_1'
+        currency: '@cur_USD'
+
+    supplier_12:
+        id: 12
+        name: SUPPLIER UPDATE FOR RANKING
+        code: RANKING002
+        status: ACTIVE
+        location: '@location_factory_400'
+        country: '@country_1'
+        currency: '@cur_USD'
+
+App\Entity\Purchasing\Supplier\SupplierLocation:
+    supplier_location_1:
+        supplier: '@supplier_1'
+        location: '@location_sso'
+        buyer: '@user_buyer'
+
+    supplier_location_2:
+        supplier: '@supplier_5'
+        location: '@location_factory'
+        buyer: '@user_buyer'
+
+    supplier_location_3:
+        supplier: '@supplier_6'
+        location: '@location_factory'
+        buyer: '@user_buyer'
+
+    supplier_location_4:
+        supplier: '@supplier_12'
+        location: '@location_factory_400'
+        buyer: '@user_buyer'

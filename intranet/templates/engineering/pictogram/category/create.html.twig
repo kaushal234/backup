@@ -1,0 +1,15 @@
+{% extends 'engineering/pictogram/layout.html.twig' %}
+{% trans_default_domain 'engineering_pictogram' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{ 'category_add'|trans }}
+            </div>
+            <div class="ibox-content">
+                {{ include('engineering/pictogram/category/form.html.twig', {form: form}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

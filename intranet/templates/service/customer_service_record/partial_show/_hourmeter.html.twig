@@ -1,0 +1,9 @@
+<td>
+    {% set hourmeter = item.hourMeterTransactions|last %}
+
+    {% if hourmeter %}
+        {{ hourmeter.hourMeter }}
+    {% else %}
+        -
+    {% endif %}
+</td>

@@ -1,0 +1,7 @@
+<td class="col-6">
+  <ul>
+    {% for key, target in item.changeSet %}
+      <li><b>{{ key }}</b> {{ 'directory.people.activity.changedFrom' |trans({}, 'directory') }} <b> {{ target[0] ?? 'directory.people.activity.emptyData' | trans({}, 'directory') }}</b> {{ 'directory.people.activity.to' |trans({}, 'directory') }} <b>{{ target[1] ?? 'directory.people.activity.emptyData' | trans({}, 'directory') }}</b></li>
+    {% endfor %}
+  </ul>
+</td>

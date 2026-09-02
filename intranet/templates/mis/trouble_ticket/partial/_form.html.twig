@@ -1,0 +1,108 @@
+{% trans_default_domain 'trouble_ticket' %}
+
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% set form_attr = (
+    stimulus_controller('mis--trouble-ticket--application-module')
+    |stimulus_controller('mis--trouble-ticket--option-filter', {
+    incidentHelp: 'trouble_ticket.message.incident'|trans,
+    requestHelp: 'trouble_ticket.message.request'|trans,
+    notifyMessage: 'trouble_ticket.message.information'|trans({ '%cios%': cios|default('') }),
+    purchaseMessage: 'trouble_ticket.errors.it_purchase_request'|trans,
+})
+    ).toArray()|merge({ class: 'tts-form' }) %}
+{{ form_start(form, action is defined ? { action: action, attr: form_attr } : { attr: form_attr }) }}
+{{ form_errors(form) }}
+
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>{{ ux_icon('icon-park:ticket-one', { width: 16, height: 16 }) }} {{ title|default('trouble_ticket.new'|trans) }}</h5>
+    </div>
+    <div class="ibox-content">
+        {% if subtitle is defined %}<p class="text-muted mb-3">{{ subtitle }}</p>{% endif %}
+
+        {# Guidance note (add screen). Overridable so the edit screen can drop the creation framing. #}
+        {% block guidance %}
+            <div class="alert alert-primary" role="alert">
+                <div class="d-flex">
+                    <i class="fa fa-info-circle fa-fw me-2 mt-1" aria-hidden="true"></i>
+                    <div>{{ 'trouble_ticket.message.help'|trans }} {{ 'trouble_ticket.message.warning'|trans }}</div>
+                </div>
+                <hr class="my-2">
+                <div class="d-flex">
+                    <i class="fa fa-shopping-cart fa-fw me-2 mt-1" aria-hidden="true"></i>
+                    <div>
+                        {{ 'trouble_ticket.message.purchase_lead'|trans }}
+                        <a class="alert-link fw-semibold" href="{{ path('legacy_calendar') }}?m[0]=seq&m[1]=new&m[2]=it.purchase_request">{{ 'trouble_ticket.message.it_purchase_request'|trans }}</a>.
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {# On behalf of someone else: collapsed by default (rare case). Overridable so the
+           edit screen can show the assignor directly without the "opening" framing. #}
+        {% block on_behalf %}
+            {% if on_behalf|default(false) %}
+                <p class="mb-3">
+                    <a class="text-muted text-decoration-none" data-bs-toggle="collapse" href="#tts-on-behalf"
+                       role="button" aria-expanded="false" aria-controls="tts-on-behalf">
+                        <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
+                        {{ 'trouble_ticket.message.open_on_behalf'|trans }}
+                        <i class="fa fa-angle-down ms-1" aria-hidden="true"></i>
+                    </a>
+                </p>
+                <div class="collapse" id="tts-on-behalf">
+                    <div class="row">
+                        <div class="col-md-6">{{ form_row(form.createdBy) }}</div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endblock %}
+
+        {# Workflow fields (assignee + status). Admin + edit only; the edit partial fills this in
+           above the classification section. Empty on the add screen. #}
+        {% block workflow %}{% endblock %}
+
+        <div class="text-uppercase small text-muted fw-semibold border-bottom pb-2 mt-4 mb-3">{{ 'trouble_ticket.fields.classification'|trans }}</div>
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.application) }}</div>
+            <div class="col-md-6">{{ form_row(form.module) }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.typeCategory) }}</div>
+            <div class="col-md-6">{{ form_row(form.type) }}</div>
+        </div>
+        <div class="form-text mb-3" {{ stimulus_target('mis--trouble-ticket--option-filter', 'help') }}></div>
+
+        {% block fields %}{% endblock %}
+
+        <div class="text-end border-top pt-3 mt-3">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-fw fa-paper-plane" aria-hidden="true"></i>&nbsp;{{ 'button.submit'|trans({}, 'messages') }}
+            </button>
+        </div>
+    </div>
+</div>
+
+{# Informational modal (shown by the option-filter controller for notify / purchase options).
+   Kept inside the form so the message + trigger are in the controller's Stimulus scope.
+   The hidden trigger lets the controller open the modal via Bootstrap's declarative data-bs-toggle
+   (no Bootstrap JS import needed). #}
+<button type="button" class="d-none"
+        {{ stimulus_target('mis--trouble-ticket--option-filter', 'trigger') }}
+        data-bs-toggle="modal" data-bs-target="#tts-info-modal"></button>
+
+<twig:Modal id="tts-info-modal" title="{{ 'trouble_ticket.message.information_header'|trans }}">
+    <twig:block name="content">
+        <p class="m-0" {{ stimulus_target('mis--trouble-ticket--option-filter', 'message') }}></p>
+    </twig:block>
+    <twig:block name="footer">
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal">
+            {{ 'trouble_ticket.message.understand' | trans({}, 'trouble_ticket') }}
+        </button>
+    </twig:block>
+</twig:Modal>
+
+{{ form_end(form) }}

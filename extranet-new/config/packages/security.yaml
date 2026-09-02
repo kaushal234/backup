@@ -1,0 +1,41 @@
+security:
+
+    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        user_provider:
+            id: '%security_user_provider_class%'
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            access_denied_handler: App\Security\AccessDeniedHandler
+            remember_me:
+                secret: '%kernel.secret%' # required
+                lifetime: 604800 # 1 week in seconds
+                signature_properties: [ 'identifier', 'password' ]
+                always_remember_me: true
+            lazy: true
+            entry_point: App\Security\Authentication\Authenticator
+            custom_authenticators:
+                - App\Security\Authentication\Authenticator
+                - App\Security\Authentication\SwitchUserAuthenticator
+            logout:
+                path: security:logout
+                delete_cookies:
+                    _jwt:
+                        path: /
+                        domain: .tld-gse.com
+                target: security:login
+
+    access_control:
+        - { path: ^/technician-on-calls/\d+/satisfaction/.+$, roles: PUBLIC_ACCESS }
+        - { path: ^/(security|locale|impersonate|public), roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: ROLE_USER }
+
+when@test:
+    security:
+        password_hashers:
+            App\Security\User\User:
+                algorithm: plaintext

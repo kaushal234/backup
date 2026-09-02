@@ -1,0 +1,415 @@
+App\Entity\Directory\LocationState:
+    location_state_public:
+        public: true
+        hidden: false
+        disabled: false
+
+App\Entity\Directory\Location:
+    location_fixedToFalse:
+        id: 1
+        name: location_fixedToFalse
+        company: <company()>
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationCapability(0)>
+        contact: <entityLocationContact()>
+        state: <entityLocationState(100)>
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: false
+        erp: 680
+        timezone: Asia/Shanghai
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_{0..10}: # from /locations/2 to /locations/12
+        id: <($current + 2)>
+        name (unique): <company()>
+        company: location_<current()>
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationCapability(100)>
+        contact: <entityLocationContact()>
+        state: <entityLocationState()>
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 400
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        network: '@directory_network_tld' # Do not change that, used in front tests
+        erpSoftware: LN
+
+    location_403:
+        id: 13
+        name: FORBIDDEN
+        company: <company()>
+        domain: <domainName()>
+        erp: 403
+        address: <entityAddress()>
+        capability: <entityLocationCapability()>
+        contact: <entityLocationContact()>
+        state: <entityLocationState()>
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_404:
+        id: 14
+        name: NOT FOUND
+        company: <company()>
+        domain: <domainName()>
+        erp: 404
+        address: <entityAddress()>
+        capability: <entityLocationCapability(100)>
+        contact: <entityLocationContact()>
+        state: <entityLocationState()>
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_with_transferred_representative:
+        id: 15
+        name: TRANSFERRED
+        company: <company()>
+        domain: <domainName()>
+        erp: 220
+        address: <entityAddress()>
+        capability: <entityLocationCapability(100)>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_transferred'
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    # from /locations/16 to /locations/19
+    location_{11..14}:
+        id: <($current + 5)>
+        name (unique): <company()>
+        company: <company()>
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationCapability()>
+        contact: <entityLocationContact()>
+        state: <entityLocationState()>
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: <randomElement([400, 520, 540])>
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        erpSoftware: LN
+
+    # /locations/20 & /locations/21
+    location_{15..16}:
+        id: <($current + 5)>
+        name (unique): <company()>
+        company: <company()>
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationSSO()>
+        contact: <entityLocationContact()>
+        state: <entityLocationState()>
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: <randomElement([400, 520, 540])>
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        erpSoftware: LN
+
+    location_unique_erp:  # /locations/22 delete in test
+        id: 22
+        name: location_unique_erp
+        company: <company()>
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationFactory()>
+        contact: <entityLocationContact()>
+        state: <entityLocationState()>
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 600
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        erpSoftware: LN
+
+    location_sso: # /locations/23
+        id: 23
+        name: location_sso
+        company: location_sso
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationSSO()>
+        contact: <entityLocationContact('location-sso')>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 540
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        network: '@directory_network_tld'
+        currency: '@cur_EUR'
+        erpSoftware: LN
+
+    location_parts: # /locations/24
+        id: 24
+        name: location_parts
+        company: location_parts
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationCustomCapability(['factory', 'sparePartsHub', 'warehouse'])>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 300
+        timezone: 'Asia/Shanghai'
+        currency: '@cur_USD'
+        network: '@directory_network_tld'
+        businessUnit: '@business_unit_2'
+        erpSoftware: LN
+
+    location_service: # /locations/25
+        id: 25
+        name: location_service
+        company: location_service
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationServiceHub()>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 540
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_group: # /locations/26
+        id: 26
+        name: location_group
+        company: location_group
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationServiceHub()>
+        contact: <entityLocationContact()>
+        state: <entityLocationState()>
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: false
+        erp: 900
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_parts_2: # /locations/27
+        id: 27
+        name: location_parts_2
+        company: location_parts_2
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationSparePartHub()>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 540
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_sso_2: # /locations/28
+        id: 28
+        name: location_sso_2
+        company: location_sso_2
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationSSOAndFactory()>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 540
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_factory: # /locations/29
+        id: 29
+        name: location_factory
+        company: location_factory
+        domain: <domainName()>
+        address: <entityAddressCustom('308 Negra Arroyo Lane', '', '87104', 'Albuquerque', 'US')>
+        capability: <entityLocationFactory()>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 540
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_factory_2: # /locations/30
+        id: 30
+        name: location_factory_2
+        company: location_factory_2
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationFactory(100)>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 500
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_sso_3: # /locations/31
+        id: 31
+        name: location_sso_3
+        company: location_sso_3
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationSSO()>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_AMERICA'
+        representative: '@user_representative_1'
+        erpInLN: false
+        erp: 420
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: 'P21'
+
+    location_warehouse: # /locations/32
+        id: 32
+        name: location_warehouse
+        company: location_warehouse
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationWarehouseAndFactory(0)>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_EUROPE'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 510
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        network: '@directory_network_tld'
+        erpSoftware: LN
+
+    location_warehouse_2: # /locations/33
+        id: 33
+        name: location_warehouse_2
+        company: location_warehouse_2
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationWarehouse()>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_AMERICA'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 520
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_570: # /locations/34
+        id: 34
+        name: location_570
+        company: location_570
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationWarehouse(100)>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_AMERICA'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 570
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_250: # /locations/35
+        id: 35
+        name: location_250
+        company: location_250
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationWarehouse(100)>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_AMERICA'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 250
+        timezone: <randomElement(['Europe/Paris', 'Asia/Shanghai', 'America/New_York'])>
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_factory_400: # /locations/36
+        id: 36
+        name: location_factory_400
+        company: location_factory_400
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationFactory()>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_AMERICA'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 400
+        timezone: 'America/New_York'
+        currency: '@cur_USD'
+        erpSoftware: LN
+
+    location_sage: # /locations/37
+        id: 37
+        name: location_sage
+        company: location_sage
+        domain: <domainName()>
+        address: <entityAddress()>
+        capability: <entityLocationFactory()>
+        contact: <entityLocationContact()>
+        state: '@location_state_public'
+        juridicalLocation: '@juridical_location_AMERICA'
+        representative: '@user_representative_1'
+        erpInLN: true
+        erp: 400
+        timezone: 'America/New_York'
+        currency: '@cur_USD'
+        erpSoftware: P21
+
+    location_tracteasy: # /locations/38
+      id: 38
+      name: TRACTEASY
+      company: location_tracteasy
+      domain: <domainName()>
+      address: <entityAddress()>
+      capability: <entityLocationAllCapabilityButNotFactory()>
+      contact: <entityLocationContact()>
+      state: '@location_state_public'
+      juridicalLocation: '@juridical_location_AMERICA'
+      representative: '@user_representative_1'
+      erpInLN: true
+      erp: 994
+      timezone: 'America/New_York'
+      currency: '@cur_USD'
+      erpSoftware: LN

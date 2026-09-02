@@ -1,0 +1,5 @@
+<td>
+    {% for tracking in item.trackings %}
+        {% if tracking.trackingLink is not null %}<a href="{{ tracking.trackingLink }}" target="_blank">{{ tracking.trackingNumber }}</a>{% else %}{{ tracking.trackingNumber }}{% endif%}&nbsp;-&nbsp;{{ tracking.carrier }}&nbsp;({{ tracking.shippedQuantity }} {{ tracking.unitOfMeasure }}){% if not loop.last %}, {% endif %}
+    {% endfor %}
+</td>

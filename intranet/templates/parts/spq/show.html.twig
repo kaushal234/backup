@@ -1,0 +1,416 @@
+{% extends 'parts/spq/layout.html.twig' %}
+
+{% set quotation_id = iri_id(quotation) %}
+
+{% trans_default_domain "spq" %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    {% set tldContact = quotation.quoter is not null ? quotation.quoter : quotation.poster %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spq.quotations.fields.general.title'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                            <tr>
+                                <th>SPQ#</th>
+                                <td><strong>{{ quotation.id }}</strong></td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.general.status'|trans }}</th>
+                                {{ include('parts/spq/partials/_status.html.twig', {item: quotation}) }}
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.general.opened_date'|trans }}</th>
+                                <td>{{ quotation.createdAt|date('Y-m-d', quotation.sph.timeZone) }}</td>
+                            </tr>
+                            <tr>
+                                <th>SPH:</th>
+                                <td>{{ quotation.sph.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.general.request_type'|trans }}</th>
+                                <td>{{ quotation.requestType.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Baan SO#</th>
+                                <td>
+                                    {{ quotation.baanSalesOrder }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>RFQ#</th>
+                                <td>{{ quotation.rfq }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.general.received_date'|trans }}</th>
+                                <td>{{ quotation.receivedAt|date('Y-m-d') }}</td>
+                            </tr>
+                            {% if quotation.status == 'SUSPENDED' %}
+                                <tr>
+                                    <th>{{ 'spq.quotations.fields.general.suspended_date'|trans }}</th>
+                                    <td>{{ quotation.suspendedAt|date('Y-m-d', quotation.sph.timeZone) }}</td>
+                                </tr>
+                            {% elseif quotation.status == 'SUBMITTED_PARTIAL' or quotation.status == 'SUBMITTED_FULL'  or quotation.status == 'SUBMITTED_FULL_PARTIAL' %}
+                                <tr>
+                                    <th>{{ 'spq.quotations.fields.general.submitted_date'|trans }}</th>
+                                    <td>{{ quotation.submittedAt|date('Y-m-d', quotation.sph.timeZone) }}</td>
+                                </tr>
+                            {% elseif quotation.status == 'CANCELLED' or quotation.status == 'LOST' %}
+                                <tr>
+                                    <th>{{ 'spq.quotations.fields.general.closed_date'|trans }}</th>
+                                    <td>{{ quotation.closedAt|date('Y-m-d', quotation.sph.timeZone) }}</td>
+                                </tr>
+                            {% elseif quotation.status == 'ORDERED_PARTIAL' or quotation.status == 'ORDERED_FULL' %}
+                                <tr>
+                                    <th>{{ 'spq.quotations.fields.general.sales_order'|trans }}</th>
+                                    <td>{{ quotation.baanSalesOrder }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.general.ship'|trans }}</th>
+                                <td>{{ quotation.shippedComplete == true ? 'yes' : 'no' }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.general.header_text'|trans }}</th>
+                                <td>{{ quotation.headerText }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.payableService'|trans }}</th>
+                                <td>{{ (quotation.payableService ? 'yes' : 'no')|trans([], 'messages') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spq.quotations.fields.customer.title'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.cuno'|trans }}</th>
+                                <td>
+                                    {{ quotation.baanCustomerNumber }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.customer.name'|trans }}</th>
+                                <td>{{ quotation.baanCustomerName }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.customer.contact_name'|trans }}</th>
+                                <td>{{ quotation.customerName }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.customer.contact_email'|trans }}</th>
+                                <td>{{ quotation.contactEmails }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.customer.purchase_order'|trans }}</th>
+                                <td>{{ quotation.customerPurchaseOrder }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spq.quotations.fields.people.title'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.people.poster'|trans }}</th>
+                                <td>
+                                    {% if quotation.poster is not null %}
+                                        <a href="{{ path('directory_people_show', {id: iri_id(quotation.poster['@id'])}) }}">
+                                            {{ quotation.poster.firstname }} {{ quotation.poster.lastname }}</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.quoter'|trans|capitalize }}</th>
+                                <td>
+                                    {% if quotation.quoter is not null %}
+                                        <a href="{{ path('directory_people_show', {id: iri_id(quotation.quoter['@id'])}) }}">
+                                            {{ quotation.quoter.firstname }} {{ quotation.quoter.lastname }}</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.people.source'|trans }}</th>
+                                <td>
+                                    {% if quotation.source is not null %}
+                                        <a href="{{ path('directory_people_show', {id: iri_id(quotation.source['@id'])}) }}">
+                                            {{ quotation.source.firstname }} {{ quotation.source.lastname }}</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                position: {
+                    label: 'spq.quotations.fields.quotation_line.position'|trans|capitalize,
+                },
+                partNumber: {
+                    label: 'spq.quotations.fields.quotation_line.item'|trans|capitalize,
+                },
+                description: {
+                    label: 'spq.quotations.fields.quotation_line.description'|trans|capitalize,
+                },
+                status: {
+                    label: 'spq.quotations.fields.status'|trans|capitalize,
+                    template: 'parts/spq/partials/_status.html.twig',
+                },
+                unitBasePrice: {
+                    label: 'spq.quotations.fields.quotation_line.unit_base_price'|trans|capitalize,
+                    class: 'text-end',
+                    filters: ['number_format(2)', 'concat(" ' ~ quotation.currency ~ '")'],
+                    sortable: 'numeric',
+                },
+                commission: {
+                    label: 'spq.quotations.fields.quotation_line.commission'|trans|capitalize,
+                    filters: ['number_format(1)', 'concat(" %")'],
+                    class: 'text-end'
+                },
+                discount: {
+                    label: 'spq.quotations.fields.quotation_line.discount'|trans|capitalize,
+                    filters: ['number_format(1)', 'concat(" %")'],
+                    class: 'text-end'
+                },
+                quantity: {
+                    label: 'spq.quotations.fields.quotation_line.quantity'|trans|capitalize,
+                    properties: ['quantity', 'salesUnit'],
+                    class: 'text-end'
+                },
+                leadtime: {
+                    label: 'spq.quotations.fields.quotation_line.leadtime'|trans|capitalize,
+                    class: 'text-end'
+                },
+                tax: {
+                    label: 'spq.quotations.fields.quotation_line.tax'|trans|capitalize,
+                    filters: ['number_format(1)', 'concat(" %")'],
+                    class: 'text-end'
+                },
+                totalPrice: {
+                    label: 'spq.quotations.fields.quotation_line.total_price'|trans|capitalize,
+                    filters: ['number_format(2)', 'concat(" ' ~ quotation.currency ~ '")'],
+                    class: 'text-end',
+                    sortable: 'numeric',
+                },
+                comment: {
+                    label: 'spq.quotations.fields.quotation_line.comment'|trans|capitalize,
+                    collapse: true,
+                },
+                itemType: {
+                    label: 'spq.quotations.fields.quotation_line.type'|trans|capitalize,
+                    collapse: true,
+                },
+                weight: {
+                    label: 'spq.quotations.fields.quotation_line.weight'|trans|capitalize,
+                    collapse: true,
+                },
+                countryOfOrigin: {
+                    label: 'spq.quotations.fields.quotation_line.country_of_origin'|trans|capitalize,
+                    collapse: true,
+                },
+                commodityCode: {
+                    label: 'spq.quotations.fields.quotation_line.commodity_code'|trans|capitalize,
+                    collapse: true,
+                },
+            },
+            title: 'spq.quotations.fields.quotation_line.title'|trans|capitalize,
+            data: quotation.quotationLines,
+            pagination: false,
+        }
+    }, with_context = false) }}
+
+    <div class="row">
+        <div class="col-lg-4 col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spq.quotations.fields.terms.title'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.terms.payment_terms'|trans }}#</th>
+                                <td>{% if paymentTerm is not null %}{{ paymentTerm.description }}{% else %}{{ quotation.paymentTerms }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.terms.delivery_terms'|trans }}</th>
+                                <td>{{ quotation.incoterms }} - {{ quotation.incotermsLocation }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.terms.currency'|trans }}</th>
+                                <td>{{ quotation.currency }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.terms.expiration_date'|trans }}</th>
+                                <td>
+                                    {% if quotation.expiredAt is not null %}
+                                        {{ quotation.expiredAt|date('Y-m-d') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.terms.forwarding_agent'|trans }}</th>
+                                <td>{{ forwardingAgent.description|default('') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spq.quotations.fields.address.invoice'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.address.name'|trans }}</th>
+                                <td>
+                                    {{ quotation.billingAddress.name }}
+                                    {{ quotation.billingAddress.nameExtra ? ', ' ~ quotation.billingAddress.nameExtra : '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.address.address'|trans }}</th>
+                                <td>
+                                    {{ quotation.billingAddress.address }}
+                                    {{ quotation.billingAddress.addressExtra ? ', ' ~ quotation.billingAddress.addressExtra : '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.address.city'|trans }}</th>
+                                <td>
+                                    {{ quotation.billingAddress.city }}
+                                    {{ quotation.billingAddress.cityExtra ? ', ' ~ quotation.billingAddress.cityExtra : '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.address.country'|trans }}</th>
+                                <td>
+                                    {% if countries[quotation.billingAddress.country] is defined %}
+                                        {{ countries[quotation.billingAddress.country] | upper }}
+                                    {% else %}
+                                        {{ quotation.billingAddress.country }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spq.quotations.fields.address.delivery'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.address.name'|trans }}</th>
+                                <td>
+                                    {{ quotation.deliveryAddress.name }}
+                                    {{ quotation.deliveryAddress.nameExtra ? ', ' ~ quotation.deliveryAddress.nameExtra : '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.address.address'|trans }}</th>
+                                <td>
+                                    {{ quotation.deliveryAddress.address }}
+                                    {{ quotation.deliveryAddress.addressExtra ? ', ' ~ quotation.deliveryAddress.addressExtra : '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.address.city'|trans }}</th>
+                                <td>
+                                    {{ quotation.deliveryAddress.city }}
+                                    {{ quotation.deliveryAddress.cityExtra ? ', ' ~ quotation.deliveryAddress.cityExtra : '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'spq.quotations.fields.address.country'|trans }}</th>
+                                <td>
+                                    {% if countries[quotation.deliveryAddress.country] is defined %}
+                                        {{ countries[quotation.deliveryAddress.country] | upper }}
+                                    {% else %}
+                                        {{ quotation.deliveryAddress.country }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% trans_default_domain 'sales_customers' %}
+<td>
+    {% for customerType in item.endUser.customerTypes %}
+        {{ customerType.name }}<br>
+    {% endfor %}
+</td>

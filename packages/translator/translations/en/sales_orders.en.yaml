@@ -1,0 +1,91 @@
+sales_order:
+    title: sales orders records
+    make_selection: Make your selection...
+    comma_separated_list: List separated by comma
+    nav_link:
+        add_sol: Add SOL
+        in progress: In progress
+        logs: Logs
+        print: Print
+        tasks: Tasks
+    reports:
+        by_sso_status: SOR Count by SSO by status
+        last_10_orders: last 10 sales orders
+        linked_sol: Line Items
+    messages:
+        success:
+            create: Sales order has successfully been created
+            edit: Sales order has successfully been edited
+            delete: Sales order has successfully been deleted
+            delete_file: Sales order's file has successfully been deleted
+        errors:
+            duplicate: The sales order has not been duplicated
+            delete_file: You cannot delete file
+            quote_already_exist: This LN Quote has already been transferred to a SOR
+        delete_unavailable: "This SOR cannot be deleted  : %solCount% SOL linked to it"
+    fields:
+        entered_at: entered at
+        entered_at_after: entered from
+        entered_at_before: entered until
+        baan_order_number: SSO sales order
+        baan_order_numbers: SSO sales orders
+        equote_id: Equote ID
+        sales_agent: sales agent
+        customer_purchase_order: customer purchase order
+        customer_purchase_orders: customer purchase orders
+        new_customer: new customer
+        xml_source: XML source
+        infor_bp_code: Business Partner Code (LN)
+        placeholders:
+            select_bp_code: Select a BP Code
+            select_buyer_first: Please first select a buyer with BP code(s)
+    menu:
+        add_sol: Add SOL
+    sales_order_report:
+        title:
+            page: sales order report
+            report: sales order
+            filter: filter
+        fields:
+            order_no: order no.
+            cuno: cuno
+            customer: customer
+            opening_date: opened
+            customer_purchase_order: Customer PO
+            order_type: type
+            order_rep: order rep.
+            ref_a: ref a
+            ref_b: ref b
+            blocked: blocked
+            shipment_completed: ship. complete
+            payment_terms: payment terms
+            customer_rep: customer rep.
+            net_sales: net sales
+            direct_cost: direct cost
+            margin: margin
+            planned_delivery_date: planned del.
+            sales_order_count: sales order count
+            shortage: shortage
+    factory_order:
+        requested_delivery_date: Requested delivery date
+        factory_promised_delivery_date: Factory promised delivery date
+        gap_promised_gtd: Gap factory promise
+        commissioning: Commissioning
+        early_delivery: Early Delivery
+    line:
+        purchase_order_accepted_date: Purchase order accepted date
+        inspection: Inspection
+        ship_with_parts: Ship With Parts
+        incoterm_location: Incoterm Location
+    transaction:
+        invoice : Invoice
+quotes:
+    title: LN Quotes
+    fields:
+        quote_number: Quote Number
+    messages:
+        success:
+            delete: Quote deleted successfully
+        errors:
+            csrf: You cannot delete quote, please refresh your page
+            delete: Quote could not be deleted

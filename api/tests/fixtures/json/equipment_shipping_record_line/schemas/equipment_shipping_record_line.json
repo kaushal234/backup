@@ -1,0 +1,117 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/EquipmentShippingRecordLine.jsonld",
+    "definitions": {
+        "EquipmentShippingRecordLine.jsonld": {
+            "type": "object",
+            "description": "",
+            "deprecated": false,
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_record_lines/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+              "estimatedPickUpDateConfirmation": {"type": "boolean"},
+              "equipmentRecord": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "format": "iri-reference",
+                    "example": "https://example.com/"
+                },
+                "vesselLoadingDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "estimatedArrivalDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "actualArrivalDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "estimatedPickUpDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "truckType": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "comment": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "equipmentRecord",
+                "vesselLoadingDate",
+                "estimatedArrivalDate",
+                "actualArrivalDate",
+                "estimatedPickUpDate",
+                "truckType",
+                "comment",
+                "id",
+                "estimatedPickUpDateConfirmation"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

@@ -1,0 +1,197 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    app.exchange_web_service.client:
+        class: App\Tests\ExchangeWebService\FakeClient
+
+    # Enable the exception listener in test env
+    App\EventListener\ErrorListener:
+        calls:
+            - ['enable']
+
+    resolve_controller_name_subscriber:
+        class: 'stdClass'
+
+    # We re-declare the nelmio property accessor we want to override to give it a different name
+    app.nelmio_alice.generator.hydrator.property.symfony_property_access:
+        class: Nelmio\Alice\Generator\Hydrator\Property\SymfonyPropertyAccessorHydrator
+
+    # We override the nelmio property accessor
+    nelmio_alice.generator.hydrator.property.symfony_property_access:
+        class: App\Alice\Hydrator\CustomPropertyAccess
+        arguments:
+            - '@app.nelmio_alice.generator.hydrator.property.symfony_property_access'
+
+
+    App\Repository\FeatureRepository:
+    App\Repository\Sales\ExtranetUserAclRepository:
+
+    app.pdf.file_formatter:
+        class: App\Formatter\Snappy\FileFormatter
+        arguments:
+            $formatter: '@app.pdf.formatter'
+
+    App\Report\ReportDataExtractor: ~
+    App\Report\ReportQueriesBuilderFactory: ~
+
+    App\Manager\UserManager: ~
+
+    App\DataCollector\ActivityCollector:
+        autowire: true
+        tags:
+            - name:     data_collector
+              template: 'DataCollector/alvest.html.twig'
+              id:       'app.activity_collector'
+
+    App\DataCollector\IONCollector:
+        autowire: true
+        tags:
+            - name: data_collector
+              template: 'DataCollector/ion.html.twig'
+              id: 'app.ion_collector'
+
+    App\Client\DataCollector\SoapCollector:
+        autowire: true
+        tags:
+            - name: data_collector
+              template: 'DataCollector/soap.html.twig'
+              id: 'app.soap_collector'
+
+    App\Tests\Behat\:
+        resource: '../tests/Behat/*'
+
+    App\Tests\Client\SoapClientFactoryStub:
+        decorates: App\Client\SoapClientFactory
+        arguments: ['@App\Tests\Client\SoapClientFactoryStub.inner', '%env(bool:SOAP_CLIENT_RECORD)%']
+    App\Client\SoapClientFactoryInterface: '@App\Tests\Client\SoapClientFactoryStub'
+
+    App\Http\SagePartsClient:
+        arguments:
+            $sagePartsConsumerKey: '%sageparts_p21.consumer_key%'
+            $projectDir: '%kernel.project_dir%'
+            $record: '%env(bool:HTTP_CLIENT_RECORD)%'
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\Link\LinkClient:
+        arguments:
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\Link\LinkChineseClient:
+        arguments:
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\JiraClient:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $record: '%env(bool:HTTP_CLIENT_RECORD)%'
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\JiraTracteasyClient:
+      arguments:
+        $projectDir: '%kernel.project_dir%'
+        $record: '%env(bool:HTTP_CLIENT_RECORD)%'
+        $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\AzureDocumentIntelligenceClient:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $record: '%env(bool:HTTP_CLIENT_RECORD)%'
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\GitlabClient:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $record: '%env(bool:HTTP_CLIENT_RECORD)%'
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\Gitlab\GitlabGraphQlClient:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $projectPath: '%env(string:GITLAB_PROJECT_PATH)%'
+            $record: '%env(bool:HTTP_CLIENT_RECORD)%'
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\LnClient:
+        arguments:
+            $ionCompany: '%ion.company%'
+            $projectDir: '%kernel.project_dir%'
+            $record: '%env(bool:HTTP_CLIENT_RECORD)%'
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\Http\SnowflakeClient:
+        arguments:
+            $snowflakeWarehouse: '%snowflake.warehouse%'
+            $projectDir: '%kernel.project_dir%'
+            $record: '%env(bool:HTTP_CLIENT_RECORD)%'
+            $httpCallEnabled: '%env(bool:HTTP_CLIENT_ENABLED)%'
+
+    App\ION\EventListener\VendorUserJWTAuthenticatedEventListener:
+        class: App\Tests\ION\EventListener\VendorUserJWTAuthenticatedEventListenerStub
+
+    App\ION\Serializer\Normalizer\SpartaExtensions\Times\TimeKeepingInputNormalizer:
+        class: App\Tests\ION\Serializer\Normalizer\SpartaExtensions\Times\TimeKeepingInputNormalizerStub
+
+    LegacyBundle\Factory\LegacyFileFactory:
+        class: App\Tests\LegacyBundle\Factory\LegacyFileFactoryStub
+
+    fidry_alice_data_fixtures.loader.simple:
+        class: Fidry\AliceDataFixtures\Loader\SimpleLoader
+        arguments:
+            $filesLoader: '@nelmio_alice.files_loader'
+            $logger: '@logger'
+
+    App\Alice\Loader\FilesOrderLoader:
+        decorates: 'fidry_alice_data_fixtures.loader.simple'
+        arguments:
+
+    App\AI\Platform\Invoker\PlatformInvoker:
+        class: App\Tests\AI\Platform\Invoker\PlatformInvokerStub
+
+    App\AI\Factory\ChatFactory:
+        class: App\Tests\AI\Factory\ChatFactoryStub
+
+    ai.retriever.dms:
+        class: App\Tests\AI\Store\RetrieverStub
+        arguments:
+            $metadataList:
+                - { dms_id: 1 }
+                - { dms_id: 2 }
+
+    ai.retriever.intranet:
+        class: App\Tests\AI\Store\RetrieverStub
+        arguments:
+            $metadataList:
+                - { src: 'sfr', id: 1 }
+                - { src: 'sfr', id: 2 }
+
+    ai.retriever.toc:
+        class: App\Tests\AI\Store\RetrieverStub
+        arguments:
+            $metadataList:
+                - { tocid: 37024 }
+                - { tocid: 37025 }
+
+    App\Mercure\Publisher\HubPublisher:
+        class: App\Tests\Mercure\Publisher\PublisherStub
+
+    mcp.azure_provider:
+        class: App\Tests\Security\MCP\McpAzureProviderStub
+        arguments:
+            - {}
+            - {}
+
+    App\Security\McpAuthenticator:
+        arguments:
+            $allowedTenantId: 'aaaaaaaa-0000-0000-0000-000000000001'
+            $allowedCallerAppIds: &mcpAllowedIds ['bbbbbbbb-0000-0000-0000-000000000001', 'cccccccc-0000-0000-0000-000000000001']
+            $allowedAudiences: *mcpAllowedIds
+
+    App\Alice\Loader\CustomLoader:
+        decorates: 'fidry_alice_data_fixtures.loader.simple'
+        arguments:
+            - '@App\Alice\Loader\CustomLoader.inner'
+            - '@event_dispatcher'
+            - '@App\EventListener\AuditLogListener'

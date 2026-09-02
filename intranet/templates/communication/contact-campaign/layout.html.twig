@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'contact_campaign.title.contact_campaigns' | trans({}, 'contact_campaign') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="contact_campaign_add" :security="is_granted('FEATURE_UPDATE_CONTACT_CAMPAIGN')"/>
+        {% if contactCampaign is defined and contactCampaign is not null and contactCampaign.status != 'CLOSED' %}
+            <twig:NavItem:Edit route="contact_campaign_edit" :routeParameters="{'id': contactCampaign.id}"
+                               :security="is_granted('FEATURE_UPDATE_CONTACT_CAMPAIGN')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

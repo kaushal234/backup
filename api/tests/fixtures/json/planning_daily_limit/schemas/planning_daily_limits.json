@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/planning_daily_limits$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/sales/planning_daily_limits/\\d+$"},
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "days": { "type": "integer" },
+          "comment": { "type": ["string", "null"] },
+          "factory": {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "days",
+          "comment",
+          "factory"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Human Resources\Jobs{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="human_resources_job_add" :security="is_granted('FEATURE_JOB_WRITE')"/>
+        {% if job is defined and job.iriId is defined %}
+            <twig:NavItem:Edit route="human_resources_job_edit" :routeParameters="{ id: job.iriId }"
+                               :security="is_granted('FEATURE_JOB_WRITE')"/>
+            <twig:NavItem:Edit route="human_resources_job_delete" :routeParameters="{ id: job.iriId }"
+                               :security="is_granted('FEATURE_JOB_WRITE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

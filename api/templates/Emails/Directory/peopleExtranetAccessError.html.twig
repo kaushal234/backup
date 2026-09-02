@@ -1,0 +1,11 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>{{ 'people.extranet_access.message' | trans({'%people%': people |capitalize}, 'emails') | nl2br }}</p>
+            <p>{{ 'people.extranet_access.footer' | trans | nl2br }}</p>
+        </columns>
+    </row>
+{% endblock %}

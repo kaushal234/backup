@@ -1,0 +1,55 @@
+{% extends 'human_resources/job/layout.html.twig' %}
+{% trans_default_domain 'job' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        {{ form_start(form, { action: actionPath }) }}
+        {{ form_errors(form) }}
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{ formTitle | trans }}
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.title) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.businessUnit) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.experience) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.diploma) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.description) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_widget(form.enabled) }}
+                        {{ form_widget(form.synchronized) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.submit) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+

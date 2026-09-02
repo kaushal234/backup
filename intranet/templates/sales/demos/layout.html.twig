@@ -1,0 +1,34 @@
+{% extends 'sales/layout.html.twig' %}
+{% trans_default_domain 'demo' %}
+
+{% block title %}{{ parent() }} \ {{ ('demo.title'|trans) }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="demo_add" :security="is_granted('FEATURE_DEMO_CREATE') or is_granted('MOO_DEMO')"/>
+        <twig:NavItem translationKey="demo.nav_link.reports" icon="tabler:report" route="sales_demos_reports"/>
+        {% if demo is defined and demo is not null %}
+            <twig:NavItem translationKey="demo.nav_link.detail" icon="mynaui:list" route="demo_show"
+                          :routeParameters="{id: demo.id}"/>
+            <twig:NavItem translationKey="demo.nav_link.followers" icon="fa7-regular:address-card" route="demo_subscription_home"
+                          :routeParameters="{id: demo.id}"/>
+            <twig:NavItem:Edit route="demo_edit" :routeParameters="{id: demo.id}"
+                               :security="is_granted('DEMO_EDIT_VOTER', demo.iri)"/>
+            <twig:NavItem translationKey="demo.nav_link.close_demo" icon="material-symbols:close-rounded" route="sales_demos_close"
+                          :routeParameters="{id: demo.id}"
+                          :security="demo.status is same as('ACTIVE') and is_granted('DEMO_STATUS_VOTER', demo.iri)"/>
+            <twig:NavItem translationKey="demo.nav_link.cancel" icon="mdi:ban" route="sales_demos_cancel"
+                          :routeParameters="{id: demo.id}"
+                          :security="(demo.status == 'PENDING' or demo.status == 'SUBMITTED' or demo.status == 'APPROVED') and (is_granted('MOO_DEMO') or is_granted('FEATURE_DEMO_ADMIN'))"/>
+            <twig:NavItem:Delete route="sales_demos_delete" :routeParameters="{ id: demo.id }"
+                                 :security="is_granted('FEATURE_DEMO_DELETE')"/>
+            <twig:NavItem:NewTask route="legacy_calendar"
+                                  :routeParameters="{ m: ['tasks', 'form', 'newTask'], module: 'DEMO', parent_id: demo.id }"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'DEMO', parent_id: demo.iriId }"/>
+            <twig:NavItem translationKey="demo.nav_link.active" icon="material-symbols:check-rounded" route="sales_demos_active"
+                          :routeParameters="{'id': demo.id}"
+                          :security="is_granted('DEMO_STATUS_VOTER', demo.iri) and demo.status is same as('APPROVED') and demo.equipmentRecord is not null"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

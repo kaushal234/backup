@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'account' %}
+
+{% block title %}My Account{% endblock %}
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Edit route="account_edit"/>
+        <twig:NavItem translationKey="account.nav_link.change_password" domain="account" route="account_change_password"
+                      icon="material-symbols:edit-outline-rounded"/>
+        <twig:NavItem translationKey="account.nav_link.acls" domain="account" route="account_show"
+                      :routeParameters="{ id: iri_id(people) }"
+                      :security="is_granted('FEATURE_PEOPLE_ACL_VOTER', account['@id'])"
+                      icon="material-symbols:edit-outline-rounded"/>
+        <twig:NavItem translationKey="account.nav_link.email_signature" domain="account" route="legacy_account_index"
+                      :routeParameters="{m: 'signature'}" :security="is_granted('INTRANET_ACCESS')"
+                      icon="mynaui:envelope"/>
+        <twig:NavItem translationKey="account.nav_link.personal_address_book" domain="account"
+                      route="legacy_account_index" :routeParameters="{m: 'adressbook'}"
+                      :security="is_granted('INTRANET_ACCESS')" icon="solar:book-linear"/>
+    </twig:NavBar:Container>
+{% endblock %}

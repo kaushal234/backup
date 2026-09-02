@@ -1,0 +1,73 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $legacyConnection: '@doctrine.dbal.legacy_connection'
+            $router: '@api_platform.router'
+            string $legacyUploadDir: '%legacy.upload_dir%'
+
+    LegacyBundle\Doctrine\Voter\:
+        resource: '../../Doctrine/Voter/'
+
+    LegacyBundle\Doctrine\Mapping\Mapper\:
+        resource: '../../Doctrine/Mapping/Mapper/'
+
+    LegacyBundle\Filter\:
+        resource: '../../Filter/*'
+
+    LegacyBundle\Manager\:
+        resource: '../../Manager/'
+
+    LegacyBundle\Factory\:
+        resource: '../../Factory/'
+
+    LegacyBundle\Command\Helper\:
+        resource: '../../Command/Helper/'
+
+    LegacyBundle\Command\:
+        resource: '../../../../src/LegacyBundle/Command/'
+
+    LegacyBundle\CollectionHandler\:
+        resource: '../../../../src/LegacyBundle/CollectionHandler/'
+        tags: [ { name: "legacy.collection_handler"} ]
+
+    LegacyBundle\Doctrine\EventListener\PersistenceSubscriber:
+
+    LegacyBundle\EventListener\:
+        resource: '../../EventListener/'
+
+    LegacyBundle\EventListener\CollectionListener:
+        arguments: [!tagged_iterator  legacy.collection_handler]
+
+    LegacyBundle\EventListener\DoubleWriteListener:
+        arguments:
+            $transformers: !tagged_iterator  legacy.double_write_transformer
+
+    LegacyBundle\Doctrine\Transformer\:
+        resource: '../../Doctrine/Transformer/'
+        tags: ['legacy.double_write_transformer']
+
+    LegacyBundle\Twig\StringifyExtension:
+
+    LegacyBundle\Repository\:
+        arguments: [ '@doctrine' ]
+        resource: '../../Repository/'
+        tags: [ 'doctrine.repository_service' ]
+
+    LegacyBundle\Doctrine\ORM\Extension\:
+        resource: '../../Doctrine/ORM/Extension/'
+
+    LegacyBundle\Security\:
+        resource: '../../Security/'
+
+    LegacyBundle\Controller\DownloadFileController:
+
+    LegacyBundle\Controller\DownloadEquipmentRecordFileController:
+
+    LegacyBundle\DataProvider\ServiceBulletinFileOutputProvider:
+
+    LegacyBundle\DataProvider\EquipmentRecordFileOutputProvider:
+
+    LegacyBundle\DataProvider\ServiceBulletinItemProvider:

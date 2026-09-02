@@ -1,0 +1,14 @@
+{% extends 'support/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+{% block title %}{{ parent() }} \ {{ 'support.manual_print.add.title' | trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="support.nav_link.printers" domain="support"
+                      icon="material-symbols:home-outline-rounded" route="printer_home"/>
+        {% if manual.id is defined %}
+            <twig:NavItem translationKey="support.nav_link.cancel" domain="support" icon="mdi:ban"
+                          route="manual_prints_list" :routeParameters="{id: manual.id}" class="action-danger"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

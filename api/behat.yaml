@@ -1,0 +1,567 @@
+default_contexts: &default_contexts
+  - App\Tests\Behat\Context\ActivityContext
+  - App\Tests\Behat\Context\DatabaseContext
+  - App\Tests\Behat\Context\FeatureContext
+  - App\Tests\Behat\Context\FilterContext
+  - App\Tests\Behat\Context\JsonContext
+  - App\Tests\Behat\Context\RestContext
+  - Behat\MinkExtension\Context\MinkContext
+  - Behatch\Context\RestContext
+  - Behatch\Context\JsonContext
+
+async_email_context: &async_email_context
+  21: App\Tests\Behat\Context\AsyncEmailContext
+
+file_context: &file_context
+  22: App\Tests\Behat\Context\FileContext
+
+user_context: &user_context
+  24: App\Tests\Behat\Context\UserContext
+
+message_context: &message_context
+  26: App\Tests\Behat\Context\MessageContext
+
+legacy_context: &legacy_context
+  27: App\Tests\Behat\Context\Legacy\LegacyContext
+
+ion_context: &ion_context
+  28: App\Tests\Behat\Context\IONContext
+
+toc_context: &toc_context
+  29: App\Tests\Behat\Context\Service\TechnicianOnCallContext
+
+# Pre-merged anchors — reduces YAML alias count below the 128-reference parser limit.
+default_file_contexts: &default_file_contexts
+  - App\Tests\Behat\Context\ActivityContext
+  - App\Tests\Behat\Context\DatabaseContext
+  - App\Tests\Behat\Context\FeatureContext
+  - App\Tests\Behat\Context\FilterContext
+  - App\Tests\Behat\Context\JsonContext
+  - App\Tests\Behat\Context\RestContext
+  - Behat\MinkExtension\Context\MinkContext
+  - Behatch\Context\RestContext
+  - Behatch\Context\JsonContext
+  - App\Tests\Behat\Context\FileContext
+
+default_async_contexts: &default_async_contexts
+  - App\Tests\Behat\Context\ActivityContext
+  - App\Tests\Behat\Context\DatabaseContext
+  - App\Tests\Behat\Context\FeatureContext
+  - App\Tests\Behat\Context\FilterContext
+  - App\Tests\Behat\Context\JsonContext
+  - App\Tests\Behat\Context\RestContext
+  - Behat\MinkExtension\Context\MinkContext
+  - Behatch\Context\RestContext
+  - Behatch\Context\JsonContext
+  - App\Tests\Behat\Context\AsyncEmailContext
+
+default_async_file_contexts: &default_async_file_contexts
+  - App\Tests\Behat\Context\ActivityContext
+  - App\Tests\Behat\Context\DatabaseContext
+  - App\Tests\Behat\Context\FeatureContext
+  - App\Tests\Behat\Context\FilterContext
+  - App\Tests\Behat\Context\JsonContext
+  - App\Tests\Behat\Context\RestContext
+  - Behat\MinkExtension\Context\MinkContext
+  - Behatch\Context\RestContext
+  - Behatch\Context\JsonContext
+  - App\Tests\Behat\Context\AsyncEmailContext
+  - App\Tests\Behat\Context\FileContext
+
+default_async_file_ion_contexts: &default_async_file_ion_contexts
+  - App\Tests\Behat\Context\ActivityContext
+  - App\Tests\Behat\Context\DatabaseContext
+  - App\Tests\Behat\Context\FeatureContext
+  - App\Tests\Behat\Context\FilterContext
+  - App\Tests\Behat\Context\JsonContext
+  - App\Tests\Behat\Context\RestContext
+  - Behat\MinkExtension\Context\MinkContext
+  - Behatch\Context\RestContext
+  - Behatch\Context\JsonContext
+  - App\Tests\Behat\Context\AsyncEmailContext
+  - App\Tests\Behat\Context\FileContext
+  - App\Tests\Behat\Context\IONContext
+
+default:
+  calls:
+    error_reporting: 16383 # E_ALL & ~E_USER_DEPRECATED
+  suites:
+    platform:
+      paths:
+        - '%paths.base%/features/negotiation'
+      contexts:
+        <<: *default_contexts
+
+    sales:
+      paths:
+        - '%paths.base%/features/country'
+        - '%paths.base%/features/customer'
+        - '%paths.base%/features/xu'
+      contexts:
+        <<: [*default_contexts, *async_email_context, *file_context, *message_context]
+
+    esr:
+      paths:
+        - '%paths.base%/features/esr'
+      contexts: *default_async_file_contexts
+
+    odp:
+      paths:
+        - '%paths.base%/features/on_time_delivery_planning'
+      contexts: *default_async_contexts
+
+    spq:
+      paths:
+        - '%paths.base%/features/spq'
+      contexts: *default_async_file_contexts
+
+    directory:
+      paths:
+        - '%paths.base%/features/directory/'
+      contexts: *default_file_contexts
+
+    calibrated-tools:
+      paths:
+        - '%paths.base%/features/ct'
+      contexts: *default_async_file_contexts
+
+    cleanliness:
+      paths:
+        - '%paths.base%/features/cleanliness'
+      contexts:
+        <<: *default_contexts
+
+    catalog:
+      paths:
+        - '%paths.base%/features/catalog'
+      contexts: *default_file_contexts
+
+    survey:
+      paths:
+        - '%paths.base%/features/survey'
+      contexts: *default_async_contexts
+
+    activity:
+      paths:
+        - '%paths.base%/features/activity'
+      contexts:
+        <<: *default_contexts
+
+    news:
+      paths:
+        - '%paths.base%/features/news'
+      contexts: *default_async_file_contexts
+
+    module:
+      paths:
+        - '%paths.base%/features/module'
+      contexts: *default_file_contexts
+
+    changelog:
+      paths:
+        - '%paths.base%/features/changelog'
+      contexts: *default_file_contexts
+
+    transfer:
+      paths:
+        - '%paths.base%/features/transfer'
+      contexts:
+        <<: *default_contexts
+
+    user:
+      paths:
+        - '%paths.base%/features/user'
+      contexts:
+        <<: [*default_contexts, *user_context, *async_email_context]
+
+    acl:
+      paths:
+        - '%paths.base%/features/acl'
+        - '%paths.base%/features/group'
+        - '%paths.base%/features/feature'
+      contexts:
+        <<: *default_contexts
+
+    people:
+      paths:
+        - '%paths.base%/features/people'
+        - '%paths.base%/features/phone'
+      contexts:
+        <<: [*default_contexts, *async_email_context, *file_context, *message_context]
+
+    api:
+      paths:
+        - '%paths.base%/features/api'
+      contexts: *default_file_contexts
+
+    agr:
+      paths:
+        - '%paths.base%/features/agr'
+      contexts: *default_file_contexts
+
+    er:
+      paths:
+        - '%paths.base%/features/er'
+      contexts: *default_async_file_contexts
+
+    manual:
+      paths:
+        - '%paths.base%/features/manual'
+      contexts:
+        <<: [*default_contexts, *file_context, *message_context, *ion_context]
+
+    iata:
+      paths:
+        - '%paths.base%/features/iata'
+      contexts:
+        <<: *default_contexts
+
+    emission-rating:
+      paths:
+        - '%paths.base%/features/emission_rating'
+      contexts:
+        <<: *default_contexts
+
+    fur:
+      paths:
+        - '%paths.base%/features/uos'
+        - '%paths.base%/features/fur'
+      contexts: *default_file_contexts
+
+    file-cleanup:
+      paths:
+        - '%paths.base%/features/file-cleanup'
+      contexts: *file_context
+
+    competitor:
+      paths:
+        - '%paths.base%/features/competitor'
+      contexts: *default_file_contexts
+
+    dms:
+      paths:
+        - '%paths.base%/features/dms'
+      contexts:
+        <<: *default_contexts
+
+    sfr:
+      paths:
+        - '%paths.base%/features/sfr'
+      contexts: *default_async_file_contexts
+
+    demo:
+      paths:
+        - '%paths.base%/features/demo'
+      contexts: *default_async_file_contexts
+
+    faq:
+      paths:
+        - '%paths.base%/features/faq'
+      contexts: *default_async_file_contexts
+
+    field:
+      paths:
+        - '%paths.base%/features/field'
+      contexts:
+        <<: *default_contexts
+
+    finance:
+      paths:
+        - '%paths.base%/features/finance'
+      contexts:
+        <<: *default_contexts
+
+    sales-areas:
+      paths:
+        - '%paths.base%/features/sales_areas'
+      contexts:
+        <<: *default_contexts
+
+    service-areas:
+      paths:
+        - '%paths.base%/features/service_areas'
+      contexts:
+        <<: *default_contexts
+
+    sor:
+      paths:
+        - '%paths.base%/features/sor'
+      contexts: *default_async_file_contexts
+
+    currency:
+      paths:
+        - '%paths.base%/features/currency'
+        - '%paths.base%/features/exchange_rate'
+      contexts:
+        <<: *default_contexts
+
+    transport:
+      paths:
+        - '%paths.base%/features/transport'
+      contexts: *default_file_contexts
+
+    subscription:
+      paths:
+        - '%paths.base%/features/subscription'
+      contexts:
+        <<: *default_contexts
+
+    mim:
+      paths:
+        - '%paths.base%/features/mim'
+      contexts:
+        <<: [*default_contexts, *file_context, *message_context]
+
+    product-manufacturing:
+      paths:
+        - '%paths.base%/features/product-manufacturing'
+      contexts:
+        <<: *default_contexts
+
+    mom:
+      paths:
+        - '%paths.base%/features/mom'
+      contexts: *default_async_file_contexts
+
+    manufacturing-margin:
+      paths:
+        - '%paths.base%/features/manufacturing-margin'
+      contexts: *default_async_file_contexts
+
+    job:
+      paths:
+        - '%paths.base%/features/job'
+      contexts:
+        <<: *default_contexts
+
+    legacy:
+      paths:
+        - '%paths.base%/src/LegacyBundle/features'
+      contexts:
+        <<: [*default_contexts, *file_context, *legacy_context, *message_context]
+
+    ar:
+      paths:
+        - '%paths.base%/features/ar'
+      contexts:
+        <<: [*default_contexts, *message_context, *file_context]
+
+    qhse:
+      paths:
+        - '%paths.base%/features/qhse'
+      contexts:
+        <<: [*default_contexts]
+
+    warehouse:
+      paths:
+        - '%paths.base%/features/warehouse'
+      contexts:
+        <<: [*default_contexts]
+
+    spr:
+      paths:
+        - '%paths.base%/features/spr'
+      contexts: *default_async_file_ion_contexts
+
+    authorized_application:
+      paths:
+        - '%paths.base%/features/authorized_applications'
+      contexts: *default_file_contexts
+
+    ion:
+      paths:
+        - '%paths.base%/features/ion'
+      contexts:
+        <<: [*default_contexts, *ion_context, *async_email_context, *file_context, *legacy_context]
+
+    erp:
+      paths:
+        - '%paths.base%/features/erp'
+      contexts:
+        <<: [*default_contexts, *message_context]
+
+    print:
+      paths:
+        - '%paths.base%/features/print'
+      contexts: *default_async_contexts
+
+    printer:
+      paths:
+        - '%paths.base%/features/printer'
+      contexts:
+        <<: [*default_contexts]
+
+    vendor:
+      paths:
+        - '%paths.base%/features/vendor'
+      contexts:
+        <<: [*default_contexts, *async_email_context, *ion_context]
+
+    scar:
+      paths:
+        - '%paths.base%/features/scar'
+      contexts: *default_async_file_ion_contexts
+
+    ncr:
+      paths:
+        - '%paths.base%/features/ncr'
+      contexts: *default_async_file_contexts
+
+    vwc:
+      paths:
+        - '%paths.base%/features/vwc'
+      contexts: *default_async_file_ion_contexts
+
+    materials:
+      paths:
+        - '%paths.base%/features/materials'
+      contexts: *default_file_contexts
+
+    crab:
+      paths:
+        - '%paths.base%/features/crab'
+      contexts:
+        <<: [*default_contexts, *message_context, *file_context, *async_email_context, *ion_context]
+
+    csr:
+      paths:
+        - '%paths.base%/features/csr'
+      contexts: *default_async_file_contexts
+
+    pdi:
+      paths:
+        - '%paths.base%/features/pdi'
+      contexts: *default_async_contexts
+
+    sageparts:
+      paths:
+        - '%paths.base%/features/sageparts'
+      contexts:
+        <<: [*default_contexts]
+
+    supplier-ranking:
+      paths:
+        - '%paths.base%/features/supplier-ranking'
+      contexts: *default_async_file_contexts
+
+    mis:
+      paths:
+        - '%paths.base%/features/mis'
+      contexts: *default_async_file_contexts
+
+    vendor-user:
+      paths:
+        - '%paths.base%/features/vendor-user'
+      contexts:
+        <<: [ *default_contexts ]
+
+    notification:
+      paths:
+        - '%paths.base%/features/notification'
+      contexts:
+        <<: [ *default_contexts ]
+
+    audit:
+      paths:
+        - '%paths.base%/features/audit'
+      contexts:
+        <<: [ *default_contexts ]
+
+    event:
+      paths:
+        - '%paths.base%/features/event'
+      contexts: *default_file_contexts
+
+    task:
+      paths:
+        - '%paths.base%/features/task'
+      contexts: *default_async_file_contexts
+
+    base-task:
+      paths:
+        - '%paths.base%/features/base_task'
+      contexts: *default_file_contexts
+
+    mis-project:
+      paths:
+        - '%paths.base%/features/mis_project'
+      contexts: *default_async_file_contexts
+
+    pictogram:
+      paths:
+        - '%paths.base%/features/pictogram'
+      contexts: *default_file_contexts
+
+    document-translation:
+      paths:
+        - '%paths.base%/features/document-translation'
+      contexts:
+        <<: [ *default_contexts ]
+
+    power-bi:
+      paths:
+        - '%paths.base%/features/power_bi'
+      contexts:
+        <<: [ *default_contexts ]
+
+    legal:
+      paths:
+        - '%paths.base%/features/legal'
+      contexts: *default_file_contexts
+
+    supplier:
+      paths:
+        - '%paths.base%/features/supplier'
+      contexts:
+        <<: [ *default_contexts ]
+
+    jira:
+      paths:
+        - '%paths.base%/features/jira'
+      contexts:
+        <<: [ *default_contexts ]
+
+    snowflake:
+      paths:
+        - '%paths.base%/features/snowflake'
+      contexts:
+        <<: [ *default_contexts ]
+
+    communication:
+      paths:
+        - '%paths.base%/features/communication'
+      contexts: *default_file_contexts
+
+    ai:
+      paths:
+        - '%paths.base%/features/ai'
+      contexts: *default_file_contexts
+
+    aircraft-compatibility:
+      paths:
+        - '%paths.base%/features/aircraft_compatibility'
+      contexts: *default_file_contexts
+
+    guest-user:
+      paths:
+        - '%paths.base%/features/guest_user'
+      contexts: *default_async_file_contexts
+
+    toc:
+      paths:
+        - '%paths.base%/features/technician_on_call'
+      contexts:
+        <<: [*default_contexts, *file_context, *async_email_context, *toc_context]
+
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: tests/bootstrap.php
+      kernel:
+        debug: false
+    Behat\MinkExtension:
+      base_url: "http://example.com/"
+      files_path: "tests/fixtures"
+      sessions:
+        symfony:
+          symfony: ~
+    Behatch\Extension: ~

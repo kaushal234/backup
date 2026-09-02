@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/calibrated_tools/out_of_tolerance_forms/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "impactAnalysis": {
+      "type": "string"
+    },
+    "correctiveMeasures": {
+      "type": "string"
+    },
+    "calibrationLog": {
+      "type": null
+    },
+    "analysisBy": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "@id",
+    "@context",
+    "@type",
+    "id",
+    "status",
+    "impactAnalysis",
+    "correctiveMeasures",
+    "analysisBy"
+  ]
+}

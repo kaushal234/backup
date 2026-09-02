@@ -1,0 +1,39 @@
+{% if items is empty %}
+    <div class="text-muted small">No comments yet.</div>
+{% else %}
+    {% for comment in items %}
+        {% set factoryFlag = comment.metadata.factoryFlag ?? null %}
+        {% set isExtranetUser = comment.user is not null and comment.user['@type'] == 'ExtranetUser' %}
+        {% set hasBadges = factoryFlag in ['OPEN_FACTORY_FLAG', 'CLOSE_FACTORY_FLAG'] or isExtranetUser or comment.public %}
+        <div class="remote-preview-comment{% if not loop.first %} border-top pt-2 mt-2{% endif %}">
+            <div class="d-flex align-items-start justify-content-between gap-2">
+                <span class="remote-preview-comment__meta flex-grow-1">
+                    <span class="text-muted text-nowrap">{{ comment.createdAt|date('Y-m-d H:i') }}</span> - <span class="fw-bold">{{ comment.user ? comment.user.firstname ~ ' ' ~ comment.user.lastname : 'Anonymous' }}</span>
+                </span>
+
+                {% if hasBadges %}
+                    <div class="d-flex align-items-center flex-wrap gap-1">
+                        {% if factoryFlag == 'OPEN_FACTORY_FLAG' %}
+                            <span class="badge text-bg-danger">{{ 'toc.badge.factory_flag_open'|trans({}, 'technician_on_call') }}</span>
+                        {% elseif factoryFlag == 'CLOSE_FACTORY_FLAG' %}
+                            <span class="badge text-bg-success">{{ 'toc.badge.factory_flag_close'|trans({}, 'technician_on_call') }}</span>
+                        {% endif %}
+
+                        {% if isExtranetUser %}
+                            <span class="badge text-bg-warning">Cust</span>
+                        {% endif %}
+
+                        {% if comment.public %}
+                            <span class="badge text-bg-info" title="{{ 'toc.badge.public'|trans({}, 'technician_on_call') }}">
+                                {{ ux_icon('tabler:eye', {width: '12', height: '12'}) }}
+                            </span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="remote-preview-comment__message text-pre-wrap mt-1">
+                {{ (comment.metadata.translation ?? comment.message)|raw }}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

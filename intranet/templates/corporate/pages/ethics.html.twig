@@ -1,0 +1,51 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+{% trans_default_domain 'corporate' %}
+{% set viewName = 'Ethics' %}
+
+{% block title %}{{ parent() }}{{ 'menu.page.title'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row" id="corporate">
+        <div class="col-md-9">
+            <div class="ibox-title">
+                <h3>Ethics</h3>
+            </div>
+            <div class="ibox-content no-padding">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span>Group Code of Ethics</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(236) }}">EN</a>-
+                            <a href="{{ dms(238) }}">FR</a>-
+                            <a href="{{ dms(833) }}">ZH</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>Group Compliance Statement</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(1897) }}">EN</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>Speak Up Policy</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(3066) }}">FR</a>
+                            <a href="{{ dms(3054) }}">EN</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>Group Compliance Video</span>
+                        <hr>
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://player.vimeo.com/video/415109398" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

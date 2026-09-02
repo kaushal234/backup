@@ -1,0 +1,35 @@
+{% extends 'directory/position/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'items': {
+                        'code': {
+                            'label': 'directory.position.fields.code'|trans|capitalize,
+                            'link':{
+                                'route': 'directory_positions_show',
+                                'params': {'id':'@id'},
+                            },
+                        },
+                        'description': {'label': 'directory.position.fields.description'|trans|capitalize},
+                        'view': {
+                            'label': 'menu.view'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'directory_positions_show',
+                                'params': {'id':'@id'},
+                                'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        },
+                    },
+                    'title': 'directory.position.title.list'|trans,
+                    'data': positions
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

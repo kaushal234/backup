@@ -1,0 +1,26 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            {% set apiRoute = constant('AppBundle\\DataPersister\\Service\\TechnicianOnCallPersister::RESOURCE_URL') %}
+
+            {{ id_search_form(
+                idLabel: false,
+                idPlaceholder: 'By ID',
+                redirectRoute: 'technician_on_calls_show',
+                apiRoute: apiRoute,
+            ) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ data_table(technicianOnCallDatatable) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

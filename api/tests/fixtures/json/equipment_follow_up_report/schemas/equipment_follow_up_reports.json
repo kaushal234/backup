@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/equipment_follow_up_reports$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@id": {"pattern": "^/equipment_follow_up_reports/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "createdBy": {
+            "oneOf": [
+              {"type": "null"},
+              { "$ref": "../../directory_people/schemas/directory_people_public.json" }
+            ]
+          },
+          "equipmentRecord": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/equipment_records/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "legacyId"
+            ]
+          },
+          "hourmeter": {
+            "type": "integer"
+          },
+          "hourmeterTotalizer": {
+            "type": "integer"
+          },
+          "hourmeterDate": {
+            "type": "string"
+          },
+          "operationalStatus": {
+            "$ref": "../../unit_operational_status/schemas/unit_operational_status.json"
+          },
+          "accident": {
+            "type": ["string", "null"]
+          },
+          "maintenance": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "createdAt",
+          "createdBy",
+          "equipmentRecord",
+          "hourmeter",
+          "hourmeterDate",
+          "operationalStatus",
+          "accident",
+          "maintenance"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

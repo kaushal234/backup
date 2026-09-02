@@ -1,0 +1,26 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <h2>New Extranet message</h2>
+            <p>{{ message | raw | nl2br }}</p>
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        firstname: { label:'settings.profile.form.firstname.label' |trans({}, 'messages') | capitalize},
+                        lastname: { label:'settings.profile.form.lastname.label' |trans({}, 'messages') | capitalize },
+                        email: {label: 'extranet.fields.email' | trans({}, 'messages')},
+                        customer: {
+                            label: 'display.table.vwc_wc.header.customer' | trans({}, 'messages'),
+                            properties: ['extranetUserProfile.customer.name'],
+                        },
+                    },
+                    data: extranetUser,
+                    title: 'Extranet User #'~ extranetUser.id
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

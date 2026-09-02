@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/equipment_serials"},
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "properties": {
+            "@id": {
+              "pattern": "^/equipment_serials/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "component": {
+              "oneOf": [
+                { "type": "null" },
+                { "$ref": "../../equipment_serial_component/schemas/equipment_serial_component_public.json" }
+              ]
+            },
+            "model": {
+              "type": ["string", "null"]
+            },
+            "serial": {
+              "type": "string"
+            },
+            "brand": {
+              "type": ["string", "null"]
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "createdBy": {
+              "$ref": "../../directory_people/schemas/directory_people_public.json"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "legacyId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "component",
+            "serial",
+            "createdAt",
+            "createdBy",
+            "id",
+            "legacyId"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

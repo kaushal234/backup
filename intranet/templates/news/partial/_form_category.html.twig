@@ -1,0 +1,24 @@
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+
+        {{ form_start(form, { action: action }) }}
+        {{ form_errors(form) }}
+
+        <div class="col-md-6">
+            <div class="ibox float-e-margins news-list-element">
+                <div class="ibox-title">
+                    <h4>{{ title }}</h4>
+                </div>
+                <div class="ibox-content">
+                    {{ form_widget(form) }}
+                    <br>
+                    <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        </div>
+        <div class="clear-fix"></div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

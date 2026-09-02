@@ -1,0 +1,18 @@
+{% block breadcrumb %}
+    <div class="row wrapper border-bottom white-bg page-heading breadcrumbs-container">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/en/private">Home</a>
+                </li>
+                <li class="breadcrumb-item-active">
+                    {% if mainStateName is defined %}
+                        <strong>{{ mainStateName | capitalize }} - {{ viewName }}</strong>
+                    {% else %}
+                        <strong>{{ viewName|default('') }}</strong>
+                    {% endif %}
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}

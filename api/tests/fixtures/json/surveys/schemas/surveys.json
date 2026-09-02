@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/surveys/models$"},
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+           "@id": {"type": "string"},
+            "@type": {"type": "string"},
+            "id": {"type": "integer"},
+            "name": {"type": "string"},
+            "expirationDate": {"type": ["string", "null"]},
+            "description": {"type": "string"},
+            "createdAt": {"type": "string"},
+            "updatedAt": {"type": "string"},
+            "createdBy": {
+                "type": "object",
+                "properties": {
+                    "@id": {"pattern": "^/people/\\d+$"},
+                    "@type"    : {"type": "string"},
+                    "firstname": {"type": "string"},
+                    "lastname" : {"type": "string"},
+                    "photo": {
+                      "oneOf": [
+                        { "type": "null" },
+                        { "$ref": "../../shared/schemas/file_light.json" }
+                      ]
+                    },
+                    "email"    : {"type": "string"},
+                    "username" : {"type": "string"}
+                },
+                "required": [ "@id", "@type", "firstname", "lastname", "photo", "email", "username" ],
+                "additionalProperties": false
+            },
+            "updatedBy": {
+                "type": ["object", "null"],
+                "properties": {
+                    "@id": {"pattern": "^/people/\\d+$"},
+                    "@type"    : {"type": "string"},
+                    "firstname": {"type": "string"},
+                    "lastname" : {"type": "string"},
+                    "photo": {
+                      "oneOf": [
+                        { "type": "null" },
+                        { "$ref": "../../shared/schemas/file_light.json" }
+                      ]
+                    },
+                    "email"    : {"type": "string"},
+                    "username" : {"type": "string"}
+                },
+                "required": [ "@id", "@type", "firstname", "lastname", "photo", "email", "username" ],
+                "additionalProperties": false
+            }
+        },
+        "required": [
+            "@id",
+            "@type",
+            "id",
+            "name",
+            "expirationDate",
+            "description",
+            "createdAt",
+            "updatedAt",
+            "createdBy",
+            "updatedBy"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

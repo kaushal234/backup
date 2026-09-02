@@ -1,0 +1,337 @@
+survey_show:
+    path: /en/private/surveys/{surveyId}/campaigns/{campaignId}/published/{token}/show
+    host: www.tld-gse.com
+    schemes: https
+
+calendar:
+    path: /en/private/calendar/calendar.php
+    host: www.tld-gse.com
+    schemes: https
+
+extranet_password_reset_confirmation:
+    path: /security/reset-password-confirmation/{id}/{token}
+    host: extranet.tld-gse.com
+    schemes: https
+
+extranet_update_password:
+    path: /account/update-password
+    host: extranet.tld-gse.com
+    schemes: https
+
+extranet_technician_on_call:
+    path: /technician_on_call/{id}
+    host: extranet.tld-gse.com
+    schemes: https
+
+extranet_satisfaction:
+    path: /technician-on-calls/{id}/satisfaction/{token}
+    host: extranet.tld-gse.com
+    schemes: https
+
+extranet_user_profile:
+    path: /account
+    host: extranet.tld-gse.com
+    schemes: https
+
+demos:
+    path: /en/private/sales/demos/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+customer:
+    path: /en/private/sales/customers/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+sales_forecast:
+    path: /en/private/sales/sales-forecasts/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+forecast_closure:
+    path: /en/private/sales/forecast-closures/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+competitor_pricings:
+    path: /en/private/sales/competitor-pricings/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+extranet_users:
+    path: /en/private/sales/contacts/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+module:
+    path: /en/private/mis/modules/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+legacy_mis:
+    path: /en/private/mis/mis.php
+    host: www.tld-gse.com
+    schemes: https
+
+people:
+    path: /en/private/directory/people/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+
+first_article_qualification_show:
+    path: /en/private/quality/first-article-qualifications/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+crt_show:
+    path: /en/private/sales/customer_relationship_teams/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+sor:
+    path: /en/private/sales/orders/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+manuals:
+    path: /en/private/support/manuals
+    host: www.tld-gse.com
+    schemes: https
+
+manual_show:
+    path: /en/private/support/manuals/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+manual_prints:
+    path: /en/private/public/prints/{id}
+    host: www.tld-gse.com
+    schemes: https
+
+market_intelligence:
+    path: /en/private/sales/market-intelligences/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+meeting:
+    path: /en/private/meetings/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+training:
+    path: /en/private/human-resources/trainings/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+training_feedback:
+    path: /en/private/human-resources/trainings/{trainingId}/attendees/{id}/feedback
+    host: www.tld-gse.com
+    schemes: https
+
+training_attendees_answer:
+    path: /en/private/human-resources/trainings/{trainingId}/attendees/{id}/update/{answer}
+    host: www.tld-gse.com
+    schemes: https
+
+product_certificate:
+    path: /en/private/sales/catalogue/certificates/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+finance:
+    path: /en/private/finance/finance.php
+    host: www.tld-gse.com
+    schemes: https
+
+invoice_archive:
+    path: /en/private/invoices/archive/{path}
+    host: www.tld-gse.com
+    schemes: https
+    requirements:
+        path: .+
+
+picking_alerts:
+    path: /en/private/materials/warehouse/picking-alerts
+    host: www.tld-gse.com
+    schemes: https
+
+manufacturing_purchase:
+    path: /en/private/manufacturing/pur/dev.php
+    host: www.tld-gse.com
+    schemes: https
+
+dms_photo:
+    path: /en/private/public/dms.php
+    host: www.tld-gse.com
+    schemes: https
+
+tools:
+    path: /en/private/quality/calibrated-tools/tools/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+location_area:
+    path: /en/private/quality/location_areas/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+tracking_files:
+    path: /en/private/parts/tracking-numbers/{trackingId}/files/{id}
+    host: www.tld-gse.com
+    schemes: https
+
+spare_parts_request:
+    path: /en/private/parts/spare-parts-requests/{sparePartsRequestId}/show
+    host: www.tld-gse.com
+    schemes: https
+
+non_conformity:
+    path: /en/private/quality/non-conformities/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+supplier_corrective_action_request:
+    path: /en/private/quality/supplier-corrective-action-requests/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+vendor_warranty_claim:
+    path: /en/private/purchasing/vendor-warranty-claims/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+vendor_warranty_claim_email_vendor:
+    path: /en/private/purchasing/vendor-warranty-claims/{id}/email-vendor
+    host: www.tld-gse.com
+    schemes: https
+
+evendors_scar:
+    path: /supplier-corrective-action-request/{id}
+    host: evendors.tld-gse.com
+    schemes: https
+
+evendors_vwc_ncr:
+    path: /vendor-warranty-claim/ncr/show/{id}
+    host: evendors.tld-gse.com
+    schemes: https
+
+evendors_vwc_wc:
+    path: /vendor-warranty-claim/wc/show/{id}
+    host: evendors.tld-gse.com
+    schemes: https
+
+crab:
+    path: /en/private/quality/crabs/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+odp:
+    path: /en/private/support/on_time_delivery_planning/show
+    host: www.tld-gse.com
+    schemes: https
+
+supplier_ranking:
+    path: /en/private/purchasing/supplier-rankings/{id}
+    host: www.tld-gse.com
+    schemes: https
+
+trouble_ticket:
+    path: /en/private/mis/trouble-tickets/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+third_party_app_update_task:
+    path: /en/private/mis/modules/{id}/update_tasks
+    host: www.tld-gse.com
+    schemes: https
+
+customer_service_record:
+    path: /en/private/service/customer-service-records/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+third_party_app_account_review:
+    path: /en/private/mis/modules/{id}/account_reviews
+    host: www.tld-gse.com
+    schemes: https
+
+third_party_app_security_review:
+    path: /en/private/mis/modules/{id}/security_reviews
+    host: www.tld-gse.com
+    schemes: https
+
+account_acl:
+    path: /en/private/account/{id}/acls
+    host: www.tld-gse.com
+    schemes: https
+
+derogation:
+    path: /en/private/quality/derogations/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+news_show:
+    path: /en/private/news/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+news_list:
+    path: /en/private/news
+    host: www.tld-gse.com
+    schemes: https
+
+jobs_show:
+    path: /en/private/human-resources/jobs/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+jobs_list:
+    path: /en/private/human-resources/jobs
+    host: www.tld-gse.com
+    schemes: https
+
+new_comers:
+    path: /en/private/human-resources/new-comers/report
+    host: www.tld-gse.com
+    schemes: https
+
+holidays:
+    path: /en/private/human-resources/events
+    host: www.tld-gse.com
+    schemes: https
+
+task:
+    path: /en/private/tasks/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+project:
+    path: /en/private/mis/projects/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+security_password_reset_confirmation:
+    path: /en/private/reset-password-confirmation/{id}/{token}
+    host: www.tld-gse.com
+    schemes: https
+
+equipment_shipping_record:
+    path: /en/private/sales/equipment_shipping_records/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+contract:
+    path: /en/private/legal/contracts/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+technician_on_call:
+    path: /en/private/service/technician-on-calls/{id}/show
+    host: www.tld-gse.com
+    schemes: https
+
+mobile_technician_on_call:
+    path: toc/details/{id}
+    host: mobile.tld-gse.com
+    schemes: https

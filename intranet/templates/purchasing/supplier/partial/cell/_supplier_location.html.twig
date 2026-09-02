@@ -1,0 +1,8 @@
+<span class="label label-default">
+    {{ data.location.name }}
+        {% if data.buyer is not null %}
+                <a href="{{ path('directory_people_show', {id: iri_id(data.buyer['@id'])}) }}">
+            {{ data.buyer.lastname }} {{ data.buyer.firstname }}
+        </a>
+        {% endif %}
+</span>

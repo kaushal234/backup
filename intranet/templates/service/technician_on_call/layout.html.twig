@@ -1,0 +1,154 @@
+{% extends 'service/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% block title %}{{ 'toc.page_title'|trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="technician_on_calls_write"/>
+        <twig:Dropdown translationKey="toc.button.report" domain="technician_on_call">
+            <twig:NavItem translationKey="toc.button.dashboard" domain="technician_on_call"
+                          icon="material-symbols:table-outline" route="technician_on_calls_home"/>
+            <twig:NavItem translationKey="toc.button.reports" domain="technician_on_call" icon="mdi-light:chart-line"
+                          route="technician_on_calls_reports"/>
+            <twig:NavItem translationKey="toc.button.smw" domain="technician_on_call" icon="lucide:chart-bar"
+                          route="smw_meeting" :routeParameters="{module: 'service'}"/>
+        </twig:Dropdown>
+        <twig:NavItem translationKey="toc.button.survey.list" domain="technician_on_call"
+                      icon="material-symbols:star-rounded" route="technician_on_call_surveys"/>
+        <twig:NavItem translationKey="toc.button.subscriptions" domain="technician_on_call" icon="bi:sliders"
+                      route="technician_on_calls_subscriptions"/>
+        {% if app.request.uri ends with '/edit' and is_granted('FEATURE_TECHNICIAN_ON_CALL_DELETE') %}
+            <twig:NavItem:Delete route="technician_on_calls_delete"
+                                 :routeParameters="{ id: technicianOnCall.id, '_token': csrf_token('technician_on_call_delete')}"/>
+        {% endif %}
+        {% if technicianOnCall is defined and not null %}
+            {% set sprPartsCount = 0 %}
+            {% if technicianOnCall.sparePartsRequests is defined and not null %}
+                {% for spr in technicianOnCall.sparePartsRequests %}
+                    {% set sprPartsCount = sprPartsCount + spr.parts|length + spr.deletedParts|length %}
+                {% endfor %}
+            {% endif %}
+            {% if technicianOnCall.parts is defined and not null and technicianOnCall.id is defined and not null %}
+                <twig:NavItem:Modal id="parts_modal" icon="fa7-solid:cogs" size="90" title="toc.fields.parts.title"
+                                    domain="technician_on_call">
+                    <twig:block name="content">
+                        {{ 'toc.fields.parts.title'|trans({}, 'technician_on_call') }}
+                        <span
+                                id="parts-count-badge"
+                                style="color: rgb(25, 55, 157);"
+                                class="badge bg-white ms-1"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="{{ 'toc.messages.information.parts_count_tooltip'|trans({
+                                    '%tocPartsCount%': technicianOnCall.parts|length,
+                                    '%sprPartsCount%': sprPartsCount
+                                }, 'technician_on_call') }}">
+                                {{ technicianOnCall.parts|length + sprPartsCount }}
+                            </span>
+                    </twig:block>
+                    <twig:block name="body">
+                        <div id="technician-on-call-parts" data-toc-id="{{ technicianOnCall.id }}"></div>
+                    </twig:block>
+                    <twig:block name="footer">
+                    </twig:block>
+                </twig:NavItem:Modal>
+                <twig:NavItem:Files route="technician_on_call_files" :routeParameters="{id: technicianOnCall.id}">
+                                <span>
+                                    {{ 'nav_link.files' | trans({}, 'messages') }}
+                                    {{ technicianOnCall.files is iterable ? technicianOnCall.files|length : 0 }}
+                                </span>
+                </twig:NavItem:Files>
+                <twig:NavItem:Modal id="survey_modal" name="open-survey-modal" icon="material-symbols:star-rounded"
+                                    size="lg"
+                                    title="toc.fields.survey.title" domain="technician_on_call"
+                                    :class="technicianOnCall.survey is null ? 'action-warning' : (technicianOnCall.survey.perfect ? 'action-success' : 'action-danger')">
+                    <twig:block name="content">
+                        {{ 'toc.fields.survey.title'|trans({}, 'technician_on_call') }}
+                        {% if technicianOnCall.survey is not null %}
+                            <span>({{ technicianOnCall.survey.execution + technicianOnCall.survey.responsiveness + technicianOnCall.survey.communication + technicianOnCall.survey.attitude }}/20)</span>
+                        {% endif %}
+                    </twig:block>
+                    <twig:block name="body">
+                        <div id="technician-on-call-survey"
+                             data-is-granted-write="{{ is_granted('FEATURE_TECHNICIAN_ON_CALL_SURVEY') }}"></div>
+                    </twig:block>
+                    <twig:block name="footer">
+                    </twig:block>
+                </twig:NavItem:Modal>
+                <twig:Dropdown translationKey="toc.button.toc_actions" domain="technician_on_call">
+                    <twig:NavItem:Edit route="technician_on_calls_edit" :routeParameters="{id: technicianOnCall.id}"/>
+                    <twig:NavItem:Duplicate route="technician_on_calls_duplicate"
+                                            :routeParameters="{id: technicianOnCall.id}"
+                                            :security="is_granted('MOO_TOC')"/>
+                    <twig:NavItem translationKey="toc.button.history" domain="technician_on_call"
+                                  icon="material-symbols:history-rounded" route="technician_on_call_audit_log"
+                                  :routeParameters="{id: technicianOnCall.id}"/>
+                    <twig:NavItem translationKey="menu.logs" domain="messages" icon="mynaui:list"
+                                  route="technician_on_calls_activity" :routeParameters="{id: technicianOnCall.id}"/>
+                    <twig:LegacyNavItem translationKey="toc.button.pdc" domain="technician_on_call"
+                                        :url="relative_path('/product_support/index.ps.php?m[0]=pdc&m[1]=forms&m[2]=add&tocid=' ~ technicianOnCall.id)"/>
+                    <twig:NavItem translationKey="menu.links" domain="messages" icon="bi:eye" route="technician_on_calls_links"
+                                  :routeParameters="{id: technicianOnCall.id}" />
+                    {% if app.request.attributes.get('_route') === "technician_on_calls_links" %}
+                        <twig:LegacyNavItem translationKey="nav_link.add_link" domain="messages" icon="bitcoin-icons:plus-filled"
+                                            :url="'/en/private/sales_service/service.php?m[0]=toc&m[1]=form&m[2]=newLink&module=TOC&parent_id=' ~ technicianOnCall.id"/>
+                    {% endif %}
+                    <twig:NavItem translationKey="toc.button.task" domain="technician_on_call" icon="bi:eye"
+                                  route="technician_on_calls_tasks" :routeParameters="{id: technicianOnCall.id}"/>
+                    {% if app.request.attributes.get('_route') === "technician_on_calls_tasks" %}
+                        <twig:NavItem:NewTask route="task_add" :routeParameters="{module: 'TOC', referenceId: technicianOnCall.id, indiceFactor: technicianOnCall.indiceFactor}" />
+                    {% endif %}
+                    <twig:NavItem translationKey="subscribers" domain="messages" route="technician_on_calls_follow"
+                                  :routeParameters="{id: technicianOnCall.id}"/>
+                </twig:Dropdown>
+                <twig:chat:AskAlvi
+                        label="{{ 'toc.button.ai_search'|trans([], 'technician_on_call') }}"
+                        prompt="{{ 'toc.ai.search_prompt'|trans({ '%id%': technicianOnCall.id }, 'technician_on_call') }}"
+                        class="nav-link m-0 d-flex align-items-center action-primary"
+                />
+                <twig:chat:AskAlvi
+                        label="{{ 'toc.button.ai_summary'|trans([], 'technician_on_call') }}"
+                        prompt="{{ 'toc.ai.summary_prompt'|trans({ '%id%': technicianOnCall.id },'technician_on_call') }}"
+                        class="nav-link m-0 d-flex align-items-center action-primary"
+                />
+            {% endif %}
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+ {% block quick_action_bar %}
+     {% if technicianOnCall.id is defined and not null %}
+         <twig:NavBar:Container>
+             <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+             </li>
+             <twig:NavItem:Edit route="technician_on_calls_edit" :routeParameters="{id: technicianOnCall.id}"/>
+             <twig:NavItem translationKey="contacts.fields.email" domain="contacts" icon="mynaui:envelope"
+                           route="technician_on_calls_email" :routeParameters="{id: technicianOnCall.id}"/>
+             <twig:LegacyNavItem translationKey="toc.button.pdc" domain="technician_on_call"
+                                 :url="relative_path('/product_support/index.ps.php?m[0]=pdc&m[1]=forms&m[2]=add&tocid=' ~ technicianOnCall.id)"/>
+             <twig:NavItem translationKey="menu.links" domain="messages" icon="bi:eye" route="technician_on_calls_links"
+                           :routeParameters="{id: technicianOnCall.id}" />
+             {% if app.request.attributes.get('_route') === "technician_on_calls_links" %}
+                 <twig:LegacyNavItem translationKey="nav_link.add_link" domain="messages" icon="bitcoin-icons:plus-filled"
+                                     :url="'/en/private/sales_service/service.php?m[0]=toc&m[1]=form&m[2]=newLink&module=TOC&parent_id=' ~ technicianOnCall.id"/>
+             {% endif %}
+             <twig:NavItem translationKey="toc.button.task" domain="technician_on_call" icon="bi:eye"
+                           route="technician_on_calls_tasks" :routeParameters="{id: technicianOnCall.id}"/>
+             {% if app.request.attributes.get('_route') === "technician_on_calls_tasks" %}
+                 <twig:NavItem:NewTask route="task_add" :routeParameters="{module: 'TOC', referenceId: technicianOnCall.id, indiceFactor: technicianOnCall.indiceFactor}" />
+             {% endif %}
+             <twig:NavItem translationKey="subscribers" icon="material-symbols:star-rounded" domain="messages"
+                           route="technician_on_calls_follow"
+                           :routeParameters="{id: technicianOnCall.id}"/>
+         </twig:NavBar:Container>
+     {% endif %}
+ {% endblock %}
+
+{% block translations %}
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'technician_on_call' }) }}"></script>
+{% endblock %}

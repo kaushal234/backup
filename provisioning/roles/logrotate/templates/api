@@ -1,0 +1,95 @@
+{{ monorepo_path }}/shared/api/var/log/prod.ion-requests-*.log {
+    size 100M
+    rotate 10
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/api/var/log -name "prod.ion-requests-*" -mtime +5 -delete
+    endscript
+}
+
+{{ monorepo_path }}/shared/api/var/log/prod.deepl-requests-*.log {
+    rotate 5
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/api/var/log -name "prod.deepl-requests-*" -mtime +5 -delete
+    endscript
+}
+
+{{ monorepo_path }}/shared/api/var/log/prod.javelo-requests-*.log {
+    rotate 5
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/api/var/log -name "prod.javelo-requests-*" -mtime +5 -delete
+    endscript
+}
+
+{{ monorepo_path }}/shared/api/var/log/prod-*.log {
+    rotate 5
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/api/var/log -name "prod-*" -mtime +5 -delete
+    endscript
+}
+
+{{ monorepo_path }}/shared/api/var/log/prod.deprecations-*.log {
+    rotate 2
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/api/var/log -name "prod.deprecations-*" -mtime +2 -delete
+    endscript
+}
+
+{{ monorepo_path }}/shared/api/var/log/emails-*.log {
+    rotate 5
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/api/var/log -name "emails-*" -mtime +5 -delete
+    endscript
+}
+
+{{ monorepo_path }}/shared/api/var/log/prod.mcp-*.log {
+    rotate 5
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/api/var/log -name "prod.mcp-*" -mtime +5 -delete
+    endscript
+}
+
+{{ monorepo_path }}/shared/api/var/log/prod.alvi-*.log {
+    rotate 5
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/api/var/log -name "prod.alvi-*" -mtime +5 -delete
+    endscript
+}

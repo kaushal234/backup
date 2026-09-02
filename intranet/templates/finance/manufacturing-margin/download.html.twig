@@ -1,0 +1,48 @@
+{% extends 'finance/manufacturing-margin/layout.html.twig' %}
+{% trans_default_domain 'manufacturing_margin' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ title }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% form_theme form 'form_theme_vertical.html.twig' %}
+
+                            {{ form_start(form, { action: path(route) }) }}
+                            {{ form_errors(form) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.from, {'date_pattern': '<span style="display: none;">{{ day }}</span> {{ month }} {{ year }}'}) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(form.to, {'date_pattern': '<span style="display: none;">{{ day }}</span> {{ month }}{{ year }}'}) }}
+                                </div>
+                            </div>
+                            <div>
+                                {{ form_row(form.factory) }}
+                                {% if route == 'manufacturing_margin_download_by_er' %}
+                                    {{ form_widget(form.full) }}
+                                {% endif %}
+                            </div>
+                            {{ form_row(form.submit) }}
+
+                            {{ form_rest(form) }}
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

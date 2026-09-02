@@ -1,0 +1,45 @@
+{% extends 'sales/catalogue/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h1>{{ 'catalogue.catalogue' | trans }}</h1>
+                </div>
+                <div class="ibox-content">
+                    <div class="row-cols-lg-1 row">
+                        {% for productType in productTypes %}
+                            <div class="col-md-4 col-lg-2 col-sm-6">
+                                <div>
+                                    <div class="catalogue_thumbnail">
+                                        <h4 class="text-center">
+                                            <a href="{{ path('sales_catalogue_type_show', { 'id' : productType.id }) }}">
+                                                {{ productType.englishName }}</a>
+                                        </h4>
+                                    </div>
+                                    <div class="ratio-box">
+                                        <div class="ratio-content">
+                                            <a href="{{ path('sales_catalogue_type_show', { 'id' : productType.id }) }}">
+                                                {% if productType.dms is null %}
+                                                    <img class="m-t-xs img-fluid" width="150" src="/shared/no_photo_catalogue.png">
+                                                {% else %}
+                                                    <img class="m-t-xs img-fluid" width="150" src="{{ absolute_url(path('legacy_mis', {m:['help', 'dms'], id: productType.dms.legacyId})) }}">
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

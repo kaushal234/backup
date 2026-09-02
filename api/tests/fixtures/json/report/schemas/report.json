@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"type": "string", "pattern": "^/reports/resource="},
+    "@type": {"type": "string", "pattern": "^Report$"},
+    "resource": {
+      "type": "string"
+    },
+    "x": {
+      "type": "string"
+    },
+    "y": {
+      "type": "string"
+    },
+    "xTotals": {
+      "type": ["object", "array"]
+    },
+    "yTotals": {
+      "type": ["object", "array"]
+    },
+    "total": {
+      "type": "number"
+    },
+    "rows": {
+      "type": ["object", "array"]
+    },
+    "metadata": {
+      "type": ["object", "array"]
+    }
+  },
+  "required": [
+    "resource",
+    "x",
+    "y",
+    "xTotals",
+    "yTotals",
+    "total",
+    "rows",
+    "metadata"
+  ]
+}

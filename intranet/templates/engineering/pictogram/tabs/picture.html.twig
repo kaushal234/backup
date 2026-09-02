@@ -1,0 +1,5 @@
+{% if pictogram.picture %}
+    <img class="img-fluid" src="{{ asset(upload_uri ~ '/' ~ pictogram.picture.filePath) }}">
+{% else %}
+    <div class="alert alert-danger">No image.</div>
+{% endif %}

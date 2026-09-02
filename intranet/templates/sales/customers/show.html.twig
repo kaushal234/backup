@@ -1,0 +1,314 @@
+{% extends 'sales/customers/layout.html.twig' %}
+{% trans_default_domain 'sales_customers' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+<script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+<div class="row" style ="flex-wrap: wrap">
+    <div class="col-md-5">
+        {{ include('helper/_association_table.html.twig', {
+            associationData: {
+                search: false,
+                title: 'customers.fields.title' |trans,
+                items: {
+                    id: {
+                        label: 'demo.fields.id'|trans({}, 'demo'),
+                    },
+                    name: { label: 'fields.name'|trans({}, 'messages') | capitalize },
+                    address: {
+                        label: 'customers.fields.address'|trans,
+                        template: 'sales/customers/partial/cells/_address.html.twig',
+                    },
+                    phone: {
+                        label: 'customers.fields.phone'|trans
+                    },
+                    fax: {
+                        label: 'customers.fields.fax'|trans
+                    },
+                    url: {
+                        label: 'customers.fields.url'|trans,
+                        template: 'sales/customers/partial/cells/_url.html.twig',
+                    },
+                    customerTypes: {
+                        label: 'customers.fields.type'|trans,
+                        template: 'sales/customers/partial/cells/_customer_types.html.twig',
+                    },
+                    asm: {
+                        label: 'customers.fields.main_asm'|trans,
+                        template: 'sales/customers/partial/cells/_main_asm.html.twig',
+                    },
+                    secondaryAsms: {
+                        label: 'customers.fields.other_asms'|trans,
+                        template: 'sales/customers/partial/cells/_secondary_asms.html.twig',
+                    },
+                    parentCustomer: {
+                        properties: ['parentCustomer.name'],
+                        label: 'customers.fields.parent_customer'|trans|capitalize,
+                        link: {
+                            'route': 'sales_customers_show',
+                            'params': {'id':'parentCustomer.@id'}
+                        }
+                    },
+                    legacyId: {
+                        label: 'customers.fields.legacyId'|trans,
+                    },
+                    status: {
+                        label: 'customers.fields.status'|trans,
+                        template: 'sales/customers/partial/cells/_status.html.twig',
+                    },
+                    inforLnBusinessPartnerCodes: {
+                        label: 'customers.fields.infor_bp_code'|trans,
+                        template: 'sales/customers/partial/cells/_business_partner_codes.html.twig'
+                    }
+                },
+                data: customer
+            }
+        }, with_context = false) }}
+        {% if customer.logo is not empty %}
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="text-center">
+                        <img class="img-thumbnail img-fluid" src="{{ asset(upload_uri ~ '/' ~ customer.logo.filePath) }}">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-7">
+        {% if is_granted('FEATURE_CUSTOMER_WATCH_LIST') %}
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'customers.fields.watch_list'|trans({'%number%':5}) }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                {% form_theme watchListForm 'form_theme_vertical.html.twig' %}
+                {{ form_start(watchListForm, { action: path('sales_customers_show', {'id': customer.iriId}) }) }}
+                {{ form_rest(watchListForm) }}
+                {{ form_errors(watchListForm) }}
+                {{ form_end(watchListForm) }}
+            </div>
+        </div>
+        {% endif %}
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                search: false,
+                pagination: false,
+                items: {
+                    type: { label: 'customers.fields.type'|trans|capitalize },
+                    amount: {
+                        label: 'fields.amount'|trans({}, 'messages'),
+                        template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                        templateParams: {decimal: 0},
+                    },
+                },
+                initialSorting: false,
+                title: 'Credit Limits',
+                data: customer.creditLimits
+            }
+        }, with_context = false) }}
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'customers.fields.sol_linked'|trans({'%number%':5}) }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <hx:include src="/en/private/sales_service/sol/sol_hinclude.php?id={{ customer.legacyId }}" id="block_sol">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+        </div>
+        <div class="ibox float-e-margins collapsed">
+            <div class="ibox-title">
+                <h5>{{ 'customers.fields.er_linked'|trans({'%number%':5}) }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content collapsed">
+                <hx:include src="/en/private/product_support/equipment/er_hinclude.php?id={{ customer.legacyId }}" id="block_er">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+        </div>
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    '@id': {
+                        label: 'customers.fields.id'|trans|capitalize,
+                        link:{
+                            route: 'demo_show',
+                            params: {'id':'@id'},
+                        },
+                        filters: 'iri_id'
+                    },
+                    product: {
+                        label: 'catalogue.products.product'|trans([], 'catalogue')|capitalize,
+                        properties: ['product.name'],
+                        link:{
+                            route: 'sales_catalogue_product_show',
+                            params: {'id':'@id'},
+                        },
+                        class : 'text-end'
+                    },
+                    factory: {
+                        label: 'fields.factory'|trans([], 'messages')|capitalize,
+                        properties: ['factory.name'],
+                        link:{
+                            route: 'directory_locations_show',
+                            params: {'id':'@id'},
+                        },
+                        class : 'text-end'
+                    },
+                    sso: {
+                        label: 'fields.sso'|trans([], 'messages')|capitalize,
+                        properties: ['sso.name'],
+                        link:{
+                            route: 'directory_locations_show',
+                            params: {'id':'@id'},
+                        },
+                        class : 'text-end'
+                    },
+                    status: {
+                        label: 'fields.status'|trans([], 'messages')|capitalize,
+                        class : 'text-end'
+                    },
+                    statusUpdatedAt: {
+                        label: 'demo.fields.status_updated_at'|trans([], 'demo')|capitalize,
+                        filters: ["date('Y-m-d')"],
+                        class : 'text-end'
+                    },
+                },
+                initialSorting: false,
+                title: 'customers.fields.demos'|trans({'%number%':5})|trans,
+                data: demos
+            }
+        }, with_context = false) }}
+        {{ include('sales/market_intelligence/partial/_table.html.twig', {
+            reportTitle: 'competitors.blocks.mim'|trans({}, 'sales_competitors'),
+            marketIntelligences: marketIntelligences,
+            searchTable: false,
+        }, with_context=false) }}
+        <div class="ibox float-e-margins collapsed">
+            <div class="ibox-title">
+                <h5>{{ 'customers.fields.fcr_linked'|trans({'%number%':5}) }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                {{ include('sales/forecast_closures/partial/_table.html.twig', {forecastClosures: forecastClosures, pagination: false, search: false, raw: true}) }}
+            </div>
+        </div>
+        {% if  customer.crt|length > 0 %}
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'customers.fields.crt_linked'|trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="ibox-content">
+                <table class="footable table table-hover toggle-arrow-tiny report-table">
+                    <thead>
+                        <th>{{ 'customers.fields.id' | trans | upper }}</th>
+                        <th>{{ 'customer_relationship_team.fields.cuno' |trans({}, 'customer_relationship_team') | upper }}</th>
+                        <th>{{ 'customer_relationship_team.fields.erp_location' |trans({}, 'customer_relationship_team') | upper }}</th>
+                    </thead>
+                    <tbody>
+                        {% for crt in customer.crt %}
+                            <tr>
+                                <td ><a href="{{ path("customer_relationship_team_show", { 'id': iri_id(crt) }) }}">
+                                        {{ iri_id(crt) }}
+                                    </a>
+                                </td>
+                                <td >{{ crt.customerBusinessPartnerCode }}</td>
+                                <td >{% if crt.erpLocation.name is defined %}
+                                        <a href="{{ path("directory_locations_show", { 'id': iri_id(crt.erpLocation) }) }}">
+                                            {{ crt.erpLocation.name }}
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a class="btn btn-info" href="{{ path('customer_relationship_team_add', {'customer': customer['@id']}) }}"><i class="fa fa-plus" aria-hidden="true"></i> {{ 'customers.fields.create_crt'|trans }}</a>
+            </div>
+        </div>
+        {% endif %}
+        {% if is_granted('FEATURE_CUSTOMER_EDIT') %}
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'customers.fields.validation'|trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <a class="btn btn-info" href="{{ path('sales_customers_validate', {id: customer.iriId}) }}"><i class="fa fa-plus" aria-hidden="true"></i> {{ 'customers.fields.seq_validation'|trans }}</a>
+            </div>
+        </div>
+        {% endif %}
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'customers.fields.seq'|trans() }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <hx:include src="/en/private/calendar/seq/seq_customer_hinclude.php?id={{ customer.legacyId }}" id="block_seq">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'menu.logs'|trans({}, 'messages') }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="logs-block" data-resource="{{ customer.iri }}" data-show-comment-form="true"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('partial/_footable.html.twig', {'selectors': ['#block_mim', '#block_er', '#block_sol', '#block_seq']}) }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

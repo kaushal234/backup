@@ -1,0 +1,40 @@
+{% extends 'sales/customers/layout.html.twig' %}
+{% trans_default_domain 'sales_customers' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'customers.fields.hierarchy'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {% import 'sales/customers/partial/macro.html.twig' as macros %}
+                    <div id="tree">
+                        <li>
+                            <a href="{{ path('sales_customers_show', { 'id': customerTopParent['id'] })  }}"
+                                    {% if customerTopParent.id == id %} class="customer-active"{% endif %}>
+                                {{ customerTopParent.name }} </a>
+                            <ul>
+                                {{ macros.childrenCustomers(customerTopParent, id) }}
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('salesCustomers') }}
+{% endblock %}

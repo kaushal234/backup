@@ -1,0 +1,30 @@
+App\Entity\Directory\Region:
+    region_{0..4}:
+        id: <($current + 1)>
+        name (unique): 'TLD <company()>'
+        representative: '@user_representative_3'
+        subDivision: '@sub_division_1'
+
+    region_by_zero:
+        id: 6
+        name (unique): 'TLD by zero'
+        representative: '@user_representative_3'
+        subDivision: '@sub_division_by_zero'
+
+    region_ALVEST:
+        id: 7
+        name: ALVEST
+        representative: '@user_representative_2'
+        subDivision: '@sub_division_1'
+
+    region_ALVEST_OEM:
+        id: 8
+        name: ALVEST OEM
+        representative: '@user_representative_2'
+        subDivision: '@sub_division_3'
+
+    region_SAGE:
+        id: 9
+        name: SAGE
+        representative: '@user_representative_2'
+        subDivision: '@sub_division_sage'

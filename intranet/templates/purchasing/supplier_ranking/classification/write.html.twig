@@ -1,0 +1,47 @@
+{% extends 'purchasing/supplier_ranking/layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{ 'classification.write.title'|trans|capitalize }}
+            </div>
+            <div class="ibox-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col-md-9">
+                        {{ form_row(form.description) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(form.workflowLevel) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.color) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.targetClassifications) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.isSupplierApproved) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary float-end">{{ 'button.submit'|trans([], 'messages') }}</button>
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

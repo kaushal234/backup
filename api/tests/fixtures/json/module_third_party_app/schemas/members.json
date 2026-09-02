@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/modules/third_party_app/members$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {"type": "string"},
+          "@id": {"pattern": "^/modules/third_party_app/members/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "user": {"type":  "object"},
+          "thirdPartyApp": {"type":  "object"},
+          "admin": {"type":  "boolean"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "user",
+          "thirdPartyApp",
+          "admin"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

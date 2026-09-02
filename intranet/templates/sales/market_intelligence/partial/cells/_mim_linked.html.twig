@@ -1,0 +1,5 @@
+<td>
+    {% for marketIntelligence in item.marketIntelligencesLinked %}
+        <a href="{{ path('market_intelligence_show', {id: iri_id(marketIntelligence)}) }}">#{{ marketIntelligence.id }} </a><br>
+    {% endfor %}
+</td>

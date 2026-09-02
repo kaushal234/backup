@@ -1,0 +1,46 @@
+{
+  "name": "alvest/admin",
+  "description": "The Alvest recurrent jobs",
+  "autoload": {
+    "psr-4": { "App\\": "src/" }
+  },
+  "autoload-dev": {
+    "psr-4": { "Tests\\": "tests/" }
+  },
+  "require": {
+    "php": ">=8.3.0",
+    "monolog/monolog": "^3.10.0",
+    "psr/log": "^3.0.2",
+    "symfony/console": "^7.4.16",
+    "ext-json": "*",
+    "ext-simplexml": "*",
+    "ext-libxml": "*",
+    "ext-openssl": "*",
+    "ext-ftp": "*",
+    "ext-gettext": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.95.11",
+    "php-parallel-lint/php-var-dump-check": "^0.5",
+    "phpspec/prophecy-phpunit": "^2.5.0",
+    "phpunit/phpunit": "^9.6.34"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "bump-after-update": true
+  },
+  "replace": {
+    "symfony/polyfill-apcu": "*",
+    "symfony/polyfill-mbstring": "*",
+    "symfony/polyfill-php56": "*",
+    "symfony/polyfill-php70": "*",
+    "symfony/polyfill-php71": "*",
+    "symfony/polyfill-php72": "*",
+    "symfony/polyfill-php73": "*",
+    "symfony/polyfill-php80": "*"
+  },
+  "scripts": {
+    "cs": "php-cs-fixer fix --no-interaction --config=.php-cs-fixer.php --cache-file .php-cs-fixer.cache",
+    "cs-check": "php-cs-fixer fix --dry-run --diff --using-cache=no --config=.php-cs-fixer.php"
+  }
+}

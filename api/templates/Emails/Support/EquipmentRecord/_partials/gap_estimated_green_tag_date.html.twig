@@ -1,0 +1,3 @@
+<td>
+    <span style="color: {{ item.changeSet.gapGreenTag > 0 ? 'red' : (item.changeSet.gapGreenTag < 0 ? 'green' : 'black') }}">{{ item.changeSet.gapGreenTag }} {{ 'days' | trans({}, 'messages') }}</span>
+</td>

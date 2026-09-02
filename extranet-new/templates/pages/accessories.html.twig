@@ -1,0 +1,99 @@
+{#
+  pages/accessories.html.twig — STATIC
+  Route: page:accessories
+  Controller: App\Controller\StaticPageController::accessories
+  Linked from Parts → Parts Services → Accessories.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.menu.accessories'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.parts_support'|trans,
+        hero_title: 'extranet.page.accessories.title'|trans,
+        hero_sub: 'extranet.page.accessories.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.menu.parts_support'|trans },
+            { label: 'extranet.page.accessories.title'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            {# Product image strip #}
+            <div class="acc-strip">
+                {% for i in 1..9 %}
+                    <div class="acc-cell">
+                        <img src="{{ asset('images/acc-' ~ i ~ '.png') }}" alt="" loading="lazy"
+                             style="width:100%;height:100%;object-fit:contain"
+                             onerror="this.src='{{ asset('images/no_photo_catalogue.png') }}'">
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="row g-5 align-items-start">
+                <div class="col-lg-7">
+                    <div class="section-head">
+                        <div class="titles">
+                            <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.page.accessories.eyebrow'|trans }}</div>
+                            <h2 class="section-title mt-2">{{ 'extranet.page.accessories.heading'|trans }}</h2>
+                        </div>
+                    </div>
+
+                    <div class="doc-prose">
+                        <p>{{ 'extranet.page.accessories.intro'|trans }}</p>
+                        <p>{{ 'extranet.page.accessories.portfolio_label'|trans }}</p>
+                    </div>
+
+                    <div class="comp-types">
+                        {% for item in ['Couplers', 'GPU cables', 'Wheel chocks', 'Cones', 'Spare kits', 'Lavatory cleaners', 'Lavatory hoses', 'Service wands', 'Towbars', 'Towbar heads'] %}
+                            <span class="comp-type"><span class="ct-ico">●</span>{{ item }}</span>
+                        {% endfor %}
+                        <span class="comp-type more">+ {{ 'extranet.page.accessories.and_more'|trans }}</span>
+                    </div>
+
+                    <div class="doc-prose mt-4">
+                        <p>{{ 'extranet.page.accessories.performance'|trans }}</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="priority-block">
+                        <h3 class="priority-head"><span class="ph-bar"></span>{{ 'extranet.page.accessories.why'|trans }}</h3>
+                        <ul class="note-list">
+                            {% for benefit in [
+                                'extranet.page.accessories.b1'|trans,
+                                'extranet.page.accessories.b2'|trans,
+                                'extranet.page.accessories.b3'|trans,
+                                'extranet.page.accessories.b4'|trans
+                            ] %}
+                                <li><span class="n-ico">✓</span><span>{{ benefit }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {# CTA #}
+            <div class="repairs-cta mt-5">
+                <div class="cta-text">
+                    <h3>{{ 'extranet.page.accessories.cta_title'|trans }}</h3>
+                    <p>{{ 'extranet.page.accessories.cta_sub'|trans }}</p>
+                    <div class="acc-cta-links">
+                        <a href="https://www.aerospecialties.com" target="_blank" rel="noopener">↗ aerospecialties.com</a>
+                        <a href="https://www.tldparts.com/" target="_blank" rel="noopener">↗ tldparts.com</a>
+                    </div>
+                </div>
+                <a class="btn-cta" href="{{ path('contact:index') }}?dept=parts&topic=spare-parts">
+                    {{ 'extranet.page.accessories.cta_btn'|trans }}
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

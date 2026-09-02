@@ -1,0 +1,14 @@
+<td data-toggle="tooltip" data-placement="top" title="{{ division.name }}">
+    {% if isGrantedEdit %}
+        {% set formRow = form['positionCategories'][item['@id']|iri_id]['divisions'][division.id] %}
+            <div class="table-checkbox-center">
+                    {{ form_row(formRow.iri) }}
+                    {{ form_widget(formRow.active) }}
+            </div>
+
+    {% else %}
+        {% set active = item.divisions[division.id].active %}
+        {% set color = active ? 'green' : 'red' %}
+        <span class="fa fa-{% if active %}check{% else %}times{% endif %}" style="color: {{ color }}"></span>
+    {% endif %}
+</td>

@@ -1,0 +1,34 @@
+{% extends 'purchasing/vendor_warranty_claim/layout.html.twig' %}
+{% trans_default_domain 'vendor_warranty_claim' %}
+
+{% block title %}{{ parent() }}#{{ vendorWarrantyClaim.id }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+
+        <twig:Tabs:Tabs>
+
+            <twig:Tabs:NavItemList>
+                {{ include('purchasing/vendor_warranty_claim/partial/tabs/_nav.html.twig', {
+                    vendorWarrantyClaim: vendorWarrantyClaim,
+                }) }}
+            </twig:Tabs:NavItemList>
+
+            <twig:Tabs:Content>
+                <div class="ibox-content">
+                    <a href="{{ path('legacy_calendar') }}?m[0]=tasks&m[1]=form&m[2]=newTask&module=VWC&parent_id={{ vendorWarrantyClaim.id }}" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;{{ 'vendor_warranty_claim.title.add_task'|trans({}, 'vendor_warranty_claim') }}</a>
+                    <hr>
+                    <hx:include src="/en/private/calendar/tasks/tasks_hinclude.php?module=VWC&parent_id={{ vendorWarrantyClaim.id }}" id="block_task">
+                        <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                    </hx:include>
+                </div>
+            </twig:Tabs:Content>
+
+        </twig:Tabs:Tabs>
+
+{% endblock %}
+
+ {% block translations %}
+     <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+     <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+ {% endblock %}

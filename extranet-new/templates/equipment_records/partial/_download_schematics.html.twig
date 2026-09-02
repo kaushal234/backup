@@ -1,0 +1,7 @@
+<td>
+        {% if equipment.projectNumber and item.component.signalCode %}
+                <a class="btn btn-outline-primary btn-sm" href="{{ path('schematics:download', {project: equipment.projectNumber,signalCode: item.component.signalCode,erp: equipment.manufacturerLocationErp,serial: item.serial}) }}">
+                        {{ 'display.table.document.rows.download.link_text'|trans }}
+                </a>
+        {% endif %}
+</td>

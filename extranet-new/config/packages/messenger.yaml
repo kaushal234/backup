@@ -1,0 +1,10 @@
+framework:
+    messenger:
+        default_bus: query.bus
+
+        buses:
+            command.bus: ~
+            query.bus: ~
+
+            # Route your messages to the transports
+            # 'App\Message\YourMessage': async

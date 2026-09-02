@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name = "PriceAndAvailability">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Header">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="From">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Credential" >
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Identity" type="xs:string"/>
+                        </xs:sequence>
+                        <xs:attribute name="domain" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="To">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Credential" >
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Identity" type="xs:string"/>
+                        </xs:sequence>
+                        <xs:attribute name="domain" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Sender">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Credential" >
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Identity" type="xs:string"/>
+                          <xs:element name="SharedSecret" type="xs:string"/>
+                          <xs:element name="UserAgent" type="xs:string"/>
+                        </xs:sequence>
+                        <xs:attribute name="domain" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ItemInquiryRequest" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Item" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="MasterID" minOccurs="1" maxOccurs="1" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="qty" type="xs:int" use="required" />
+                  <xs:attribute name="unit" type="xs:string" use="required" />
+                  <xs:attribute name="lineNumber" type="xs:int" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="PriceItems">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="Yes"/>
+                  <xs:enumeration value="YES"/>
+                  <xs:enumeration value="yes"/>
+                  <xs:enumeration value="No"/>
+                  <xs:enumeration value="NO"/>
+                  <xs:enumeration value="no"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="payloadID" type="xs:string" use="required" />
+      <xs:attribute name="timestamp" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

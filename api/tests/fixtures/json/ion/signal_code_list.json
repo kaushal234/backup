@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/ion/signal_codes/.+$"},
+          "@type": {"type": "string"},
+          "code": {"type": "string"},
+          "description": {"type": "string"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "code",
+          "description"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

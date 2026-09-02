@@ -1,0 +1,28 @@
+mcp:
+  app: 'Alvest API'
+  version: '1.0.1'
+  description: 'API for Alvest Web Portals providing AI tools'
+  instructions: |
+    This server provides access to Alvest Web Portals internal data and AI processing capabilities.
+    Use it to search the intranet, summarize various documents (dms, sfr, toc), 
+    and perform other business-related AI tasks.
+
+  discovery:
+    scan_dirs:
+      - 'src/AI'
+
+  client_transports:
+    http: true
+
+  http:
+    path: /_mcp # HTTP endpoint path (default: /_mcp)
+    # mcp-bundle 0.11 added DNS rebinding protection (Mcp\Server\...\DnsRebindingProtectionMiddleware),
+    # which by default only allows the Host/Origin header to be localhost/127.0.0.1/[::1] and rejects
+    # everything else with "Forbidden: Invalid Host header." This server is reached over its public
+    # hostname and already requires auth (App\Security\McpAuthenticator, see security.yaml), so the
+    # protection is disabled here rather than allow-listing hosts.
+    allowed_hosts: false
+    session:
+      store: file # Session store type: 'file' or 'memory' (default: file)
+      directory: '%kernel.cache_dir%/mcp-sessions'
+      ttl: 3600 # Session TTL in seconds (default: 3600)

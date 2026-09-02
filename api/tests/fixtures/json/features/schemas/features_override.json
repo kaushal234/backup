@@ -1,0 +1,25 @@
+{
+  "required": ["hydra:member", "@id"],
+  "properties": {
+    "@id": {"pattern": "^/features$"},
+    "hydra:member": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/features/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["@id", "@type", "name"],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    }
+  }
+}

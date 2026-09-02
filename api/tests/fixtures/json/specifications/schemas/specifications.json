@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/mis/specifications"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "item": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/mis/specifications/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "module": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/mis/specifications/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "name"
+            ]
+          },
+          "id": {
+            "type": "integer"
+          },
+          "userStories": {
+            "type": "array",
+            "items": {
+              "$ref": "../../user_stories/schemas/user_story.json"
+            }
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "module",
+          "id",
+          "userStories",
+          "status"
+        ]
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

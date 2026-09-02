@@ -1,0 +1,17 @@
+{% extends 'directory/business_unit/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set business_unit_id = iri_id(business_unit) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.business_unit.title.edit'|trans([], 'directory') }}</h3>
+
+    {{ include('directory/business_unit/_form.html.twig', {
+        form: form,
+        action: path('directory_business_units_edit', { id: business_unit_id }),
+        cancel_link: path('directory_business_units_show', { id: business_unit_id }),
+        id: business_unit_id
+    }, with_context=false) }}
+{% endblock %}

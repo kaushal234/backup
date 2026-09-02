@@ -1,0 +1,36 @@
+App\Entity\Sales\CompetitorPricing:
+    # /sales/competitor_pricings/1
+    cpr_1:
+        forecastClosure: '@fcr_1'
+        quotationDate: <(new DateTime("+1 year"))>
+        competitor: '@competitor_1'
+        competitorModel: 'Citronopipo'
+        competitorOptions: 'Sièges en cuir'
+        poster: '@user_asm'
+        quantity: 89
+        price: 56.35
+        currency: "@cur_USD"
+        exchangeRate: 2.22
+        incoterm: "@incoterm_EXW"
+        incotermsLocation: far
+        markupPercentage: 80
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        id: 1
+
+    # /sales/competitor_pricings/2
+    cpr_2:
+        forecastClosure: '@fcr_3'
+        quotationDate: <(new DateTime("+1 year"))>
+        competitor: '@competitor_1'
+        competitorModel: 'Citronopipo'
+        competitorOptions: 'Sièges en cuir'
+        poster: '@user_asm'
+        quantity: 89
+        price: 56.35
+        currency: "@cur_USD"
+        exchangeRate: 2.22
+        incoterm: "@incoterm_EXW"
+        incotermsLocation: far
+        markupPercentage: 80
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+        id: 2

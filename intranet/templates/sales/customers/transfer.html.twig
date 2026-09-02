@@ -1,0 +1,17 @@
+{% extends 'sales/customers/layout.html.twig' %}
+{% trans_default_domain 'sales_customers' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/customers/partial/_form_transfer.html.twig', {
+        title: 'customers.forms.title.transfer'|trans,
+        form: form,
+        action: path('sales_customers_transfer', {'id': customer.iriId}),
+        cancel_link: path('sales_customers_home')
+    }, with_context=false) }}
+{% endblock %}
+
+
+
+

@@ -1,0 +1,72 @@
+App\Entity\Purchasing\VendorUser:
+    # purchasing/vendor_users/300
+    vendor_user_1 :
+        id: 300
+        firstname: Vendorella
+        lastname: Userlastname
+        erpIdentifier: 420000001
+        username: vendor.user@vendor.fr
+        email: vendor.user@vendor.fr
+        encodedPassword: itqEcWdVju8FuQ281+Udyat5M9OJ+CDAoiswjTQym307Kds+ZlS+VPUNqip5NLsPHk+4aa9VgRG5kTSPY3Vomw== # P@ssw0rd15chars
+        salt: ac7e188ba20f987a00da38781c490ea45fa51cb105be8eaeab4687b1075f1158
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+
+    # purchasing/vendor_users/301
+    vendor_user_2 :
+        id: 301
+        firstname: Vendorello
+        lastname: Userlastname
+        erpIdentifier: DARTY37
+        username: vendor.user2@vendor.fr
+        email: vendor.user2@vendor.fr
+        encodedPassword: itqEcWdVju8FuQ281+Udyat5M9OJ+CDAoiswjTQym307Kds+ZlS+VPUNqip5NLsPHk+4aa9VgRG5kTSPY3Vomw== # P@ssw0rd15chars
+        salt: ac7e188ba20f987a00da38781c490ea45fa51cb105be8eaeab4687b1075f1158
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+
+    # purchasing/vendor_users/302
+    vendor_user_3:
+        id: 302
+        firstname: Dave
+        lastname: TimHelene
+        erpIdentifier: 420000001
+        username: devteam@tld-america.com
+        email: '@self->username'
+        encodedPassword: itqEcWdVju8FuQ281+Udyat5M9OJ+CDAoiswjTQym307Kds+ZlS+VPUNqip5NLsPHk+4aa9VgRG5kTSPY3Vomw== # P@ssw0rd15chars
+        salt: ac7e188ba20f987a00da38781c490ea45fa51cb105be8eaeab4687b1075f1158
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+        last_login: <dateTimeBetween('-2 hours', 'now')>
+
+    # purchasing/vendor_users/303
+    vendor_user_4:
+        id: 303
+        firstname: Helene
+        lastname: Etlesgarçons
+        erpIdentifier: 30D000004
+        username: kris.geiger-blue@aerospecialties.com
+        email: '@self->username'
+        encodedPassword: itqEcWdVju8FuQ281+Udyat5M9OJ+CDAoiswjTQym307Kds+ZlS+VPUNqip5NLsPHk+4aa9VgRG5kTSPY3Vomw== # P@ssw0rd15chars
+        salt: ac7e188ba20f987a00da38781c490ea45fa51cb105be8eaeab4687b1075f1158
+        hidden: true
+        disabled: true
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+        last_login: <dateTimeBetween('-2 hours', 'now')>
+
+    # purchasing/vendor_users/304..319
+    vendor_user_{5..20}:
+        id: <($current + 299)>
+        firstname: <firstname()>
+        lastname: <lastname()>
+        erpIdentifier: VEN<current()>
+        username (unique): vendor_user_<email()>
+        email: '@self->username'
+        encodedPassword: itqEcWdVju8FuQ281+Udyat5M9OJ+CDAoiswjTQym307Kds+ZlS+VPUNqip5NLsPHk+4aa9VgRG5kTSPY3Vomw== # P@ssw0rd15chars
+        salt: ac7e188ba20f987a00da38781c490ea45fa51cb105be8eaeab4687b1075f1158
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>

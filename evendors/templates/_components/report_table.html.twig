@@ -1,0 +1,48 @@
+{% extends '@AlvestTwigHelper/report_table_layout.html.twig' %}
+
+{% block card_class %}card mb-3{% endblock %}
+{% block card_body_class %}{{ parent() }}{% if countElements %} p-0{% endif %}{% endblock %}
+{% block table_class %}{{ parent() }}border-dark mb-0 table-striped{% endblock %}
+{% block column_default_class %}fw-normal text-black{% endblock %}
+
+{% block table_search %}{% endblock %}
+
+{% block card_content %}
+    {% set countElements = table.data|length %}
+    {% set sluggifiedTitle = table.title|default('table')|striptags|replace({' ': '', '&nbsp;': '', '.' : '', ',': ''}) %}
+    {% set card_body_attr = card_body_attr|merge({class: block('card_body_class')|trim}) %}
+    <div{% with {attr: card_body_attr} %}{{ block('attributes') }}{% endwith %}>
+        {% if countElements == 0 %}
+            {{ block('table_no_results') }}
+        {% else %}
+            {% if table.search is not defined or table.search != false %}
+                {{ block('table_search') }}
+            {% endif %}
+            {{ block('table') }}
+            {% if table.pagination is defined and table.pagination.paginationUrl is defined %}
+                {{ block('pagination') }}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock card_content %}
+
+{% block card_header %}
+    <div class="card-header border-bottom border-1 border-dark py-2 px-1">
+        <div class="row">
+            <div class="col">
+                <h3 class="fs-5 ps-2 text-dark my-1">{{ table.title|raw }}</h3>
+            </div>
+            {% block card_header_after %}{% endblock %}
+        </div>
+    </div>
+{% endblock card_header %}
+
+{% block table_footer %}
+    <tfoot class="visually-hidden">
+        <tr>
+            {% for key, item in table.items %}
+                {{ block('table_column') }}
+            {% endfor %}
+        </tr>
+    </tfoot>
+{% endblock %}

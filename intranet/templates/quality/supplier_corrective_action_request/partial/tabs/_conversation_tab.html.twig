@@ -1,0 +1,78 @@
+{% trans_default_domain "supplier_corrective_action_request" %}
+<div class="row">
+    <div class="ibox-title">
+        <h5>{{ 'supplier_corrective_action_request.conversation_title'|trans()|capitalize }}</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="col-md-8">
+            {% for comment in comments %}
+                {% set isPeople = comment.user['@type']|default('') == 'People' %}
+                <div class="col-md-9 pull-{{ isPeople ? 'left' : 'right' }}">
+                    <div class="speech-bubble {{ isPeople? '' : 'right' }}">
+                        <p>{{ comment.message|nl2br }}</p>
+                        {% if comment.metadata.recipients is defined %}
+                            <p class="cc">
+                                <b>{{ 'supplier_corrective_action_request.people_notified'|trans()|capitalize }}</b>:
+                                {% for recipient in comment.metadata.recipients %}
+                                    {{ recipient }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                        {% if comment.files is not empty %}
+                            {% for file in comment.files %}
+                                <a href="{{ path('download_comment_file', {'id':iri_id(comment) ,'fileId': iri_id(file)}) }}" target="_blank">
+                                    <i class="fa fa-file-download fa-3x" style="color:white"></i>
+                                </a>
+                            {% endfor %}
+                        {% endif %}
+                        {% if comment.user is not null %}
+                            {% set firstname = comment.user.firstname%}
+                            {% set lastname = comment.user.lastname%}
+                        {% elseif comment.metadata.firstname is defined and comment.metadata.lastname is defined %}
+                            {% set firstname = comment.metadata.firstname%}
+                            {% set lastname = comment.metadata.lastname%}
+                        {% else %}
+                            {% set firstname = 'undefined' %}
+                            {% set lastname = 'undefined' %}
+                        {% endif %}
+                        <cite>{{ firstname }}, {{ lastname }}  / {{ comment.createdAt }}</cite>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-4">
+            {% if is_granted('SUPPLIER_CORRECTIVE_ACTION_REQUEST_COMMENT_VOTER', supplierCorrectiveActionRequest.iri) %}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="ibox-title">
+                    <h4>{{ 'supplier_corrective_action_request.comment.title'|trans|capitalize }}</h4>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.message) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.contacts) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            {{ form_row(form.file) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            {% else %}
+                <h3 style="color: red">{{ 'supplier_corrective_action_request.title.conversation_closed' | trans }}</h3>
+            {% endif %}
+        </div>
+
+    </div>
+</div>

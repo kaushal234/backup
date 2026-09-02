@@ -1,0 +1,46 @@
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+
+    {{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            {{ title }}
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-md-7">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.location) }}
+                </div>
+                <div class="col-md-5">
+                    {{ form_row(form.customers) }}
+                    {{ form_row(form.competitors) }}
+                    {{ form_row(form.competitors) }}
+                    {{ form_row(form.productTypes) }}
+                    {{ form_row(form.customerContacts) }}
+
+                    <div class="row">
+                        {% if form.call is defined %}
+                            <div class="col-xs-4 col-sm-3">
+                                {{ form_row(form.call) }}
+                            </div>
+                        {% endif %}
+                        <div class="col-xs-6">
+                            {{ form_row(form.confidential) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_rest(form) }}
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

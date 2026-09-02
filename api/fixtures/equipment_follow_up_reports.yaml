@@ -1,0 +1,137 @@
+App\Entity\Support\EquipmentFollowUpReport:
+    # equipment_follow_up_reports/1
+    fur_1:
+        id: 1
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_remi'
+        comment: <text()>
+        hourmeter: <numberBetween(10,5000)>
+        hourmeterTotalizer: '@self->hourmeter'
+        hourmeterDate: <(new \DateTime())>
+        odometer: '5%? <numberBetween(10,5000)>'
+        odometerDate: '5%? <(new \DateTime())>'
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+        accident: '@equipment_accident_1'
+        maintenance: '@equipment_maintenance_1'
+
+    # equipment_follow_up_reports/2..5
+    fur_{2..5}:
+        id: <current()>
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_1'
+        comment: <text()>
+        hourmeter: <numberBetween(100,5000)>
+        hourmeterTotalizer: '@self->hourmeter'
+        hourmeterDate: <(new \DateTime())>
+        odometer: '5%? <numberBetween(10,5000)>'
+        odometerDate: '5%? <(new \DateTime())>'
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+        accident: '@equipment_accident_<current()>'
+        maintenance: '@equipment_maintenance_<current()>'
+
+    # equipment_follow_up_reports/6
+    fur_no_accident_nor_maintenance:
+        id: 6
+        createdBy: '@extranet_user_fix'
+        equipmentRecord: '@equipment_record_remi'
+        comment: <text()>
+        hourmeter: <numberBetween(10,5000)>
+        hourmeterTotalizer: '@self->hourmeter'
+        hourmeterDate: <(new \DateTime())>
+        odometer: '5%? <numberBetween(10,5000)>'
+        odometerDate: '5%? <(new \DateTime())>'
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+
+    # equipment_follow_up_reports/7
+    fur_on_active_contract:
+        id: 7
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_child'
+        comment: <text()>
+        hourmeter: <numberBetween(10,50)>
+        hourmeterTotalizer: '@self->hourmeter'
+        hourmeterDate: <(new \DateTime())>
+        odometer: '5%? <numberBetween(10,5000)>'
+        odometerDate: '5%? <(new \DateTime())>'
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+
+    # equipment_follow_up_reports/8
+    fur_on_expired_contrac:
+        id: 8
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_dog'
+        comment: <text()>
+        hourmeter: <numberBetween(10,50)>
+        hourmeterTotalizer: '@self->hourmeter'
+        hourmeterDate: <(new \DateTime())>
+        odometer: '5%? <numberBetween(10,5000)>'
+        odometerDate: '5%? <(new \DateTime())>'
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+
+    # equipment_follow_up_reports/9..20
+    fur_{9..20}:
+        id: <current()>
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_1'
+        comment: <text()>
+        hourmeter: <numberBetween(10,50)>
+        hourmeterTotalizer: '@self->hourmeter'
+        hourmeterDate: <(new \DateTime())>
+        odometer: '5%? <numberBetween(10,5000)>'
+        odometerDate: '5%? <(new \DateTime())>'
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+
+    # equipment_follow_up_reports/21
+    fur_for_reset_1:
+        id: 21
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_2'
+        comment: <text()>
+        hourmeter: 100
+        hourmeterTotalizer: 100
+        hourmeterDate: <(new \DateTime('-100 days'))>
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+
+    # equipment_follow_up_reports/22
+    fur_for_reset_2:
+        id: 22
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_2'
+        comment: <text()>
+        hourmeter: 180
+        hourmeterTotalizer: 180
+        hourmeterDate: <(new \DateTime('-80 days'))>
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+
+    # equipment_follow_up_reports/23
+    fur_for_reset_3:
+        id: 23
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_2'
+        comment: <text()>
+        hourmeter: 10
+        hourmeterTotalizer: 230 # self::hourmeter + hourmeter_reset_2::hourmeter
+        hourmeterDate: <(new \DateTime('-40 days'))>
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+
+    # equipment_follow_up_reports/24
+    fur_for_reset_4:
+        id: 24
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_2'
+        comment: <text()>
+        hourmeter: 30
+        hourmeterTotalizer: 250
+        hourmeterDate: <(new \DateTime('-20 days'))>
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'
+
+    # equipment_follow_up_reports/25
+    fur_for_reset_5:
+        id: 25
+        createdBy: '@extranet_user_for_fur'
+        equipmentRecord: '@equipment_record_2'
+        comment: <text()>
+        hourmeter: 50
+        hourmeterTotalizer: 420 # self::hourmeter hourmeter_reset_2::hourmeter + hourmeter_reset_3::hourmeter
+        hourmeterDate: <(new \DateTime('-2 days'))>
+        operationalStatus: '@unit_op_status_<randomElement(["MCF", "MCP", "NMC"])>'

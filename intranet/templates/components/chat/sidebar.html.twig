@@ -1,0 +1,117 @@
+{% trans_default_domain 'ai' %}
+
+<aside
+        {{ attributes }}
+        data-action="chat:conversation-title-updated@window->live#$render"
+        class="chat-sidebar border-end bg-white d-flex flex-column"
+>
+    <div class="p-3 border-bottom">
+        <div class="d-flex justify-content-center mb-3">
+            {{ ux_icon('alvi:logo', { class: 'rounded-circle overflow-hidden', style: 'width: 120px; height: 120px;' }) }}
+        </div>
+
+        <a href="{{ path('chat_home') }}" class="btn btn-primary w-100 mb-3">
+            {{ 'ai.fields.new_conversation' | trans }}
+        </a>
+
+        <button
+                class="btn w-100 d-flex align-items-center justify-content-between px-0 py-2 border-0 bg-transparent shadow-none"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#chat-conversations-list"
+                aria-expanded="true"
+                aria-controls="chat-conversations-list"
+        >
+            <span class="fw-semibold text-body">{{ 'ai.fields.your_conversations' | trans }}</span>
+            <span class="text-secondary"><i class="fa fa-chevron-down text-secondary"></i></span>
+        </button>
+    </div>
+
+    <div id="chat-conversations-list" class="collapse show chat-conversations p-2 flex-grow-1 overflow-auto">
+        {% if this.pinError %}
+            <div class="alert alert-danger alert-sm small py-1 px-2 mb-2">{{ this.pinError }}</div>
+        {% endif %}
+
+        {% for log in this.logs %}
+            {% set requests = log['requests'] is defined ? log['requests'] : [] %}
+            {% set firstRequest = requests|first %}
+            {% set fallbackTitle = firstRequest and firstRequest.content is defined ? firstRequest.content : 'Nouvelle conversation' %}
+            {% set displayTitle = log.title is defined and log.title is not empty ? log.title : fallbackTitle %}
+            {% set active = currentLogId is not null and currentLogId == log['id'] %}
+
+            <div class="chat-conversation-item d-flex align-items-center justify-content-between rounded px-2 py-2 mb-1 {{ active ? 'is-active' : '' }}">
+                <a
+                        href="{{ path('chat_show', { id: log.id }) }}"
+                        class="chat-conversation-link text-decoration-none text-body flex-grow-1 me-2"
+                        title="{{ displayTitle }}"
+                >
+                    <div class="small fw-medium text-truncate">
+                        {{ displayTitle }}
+                    </div>
+                </a>
+
+                <div class="d-flex align-items-center gap-2">
+                    {% if log.pinned is defined and log.pinned %}
+                        <button
+                                type="button"
+                                class="btn btn-link p-0 border-0 lh-1"
+                                data-action="live#action"
+                                data-live-action-param="pinConversation"
+                                data-live-id-param="{{ log.id }}"
+                                data-live-pinned-param="0"
+                                aria-label="{{ 'ai.actions.unpin' | trans }}"
+                        >
+                            {{ ux_icon('fa6-solid:thumbtack', { style: 'width: 1em; height: 1em; color: #004F9E;' }) }}
+                        </button>
+                    {% endif %}
+                <div class="dropdown">
+                    <button
+                            type="button"
+                            class="btn btn-sm btn-link text-secondary p-0"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            aria-label="Conversation actions"
+                    >
+                        <i class="fa fa-ellipsis-h"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <button
+                                    type="button"
+                                    class="dropdown-item"
+                                    data-action="live#action"
+                                    data-live-action-param="pinConversation"
+                                    data-live-id-param="{{ log.id }}"
+                                    data-live-pinned-param="{{ log.pinned is defined and log.pinned ? '0' : '1' }}"
+                            >
+                                {% if log.pinned is defined and log.pinned %}
+                                    <i class="fa fa-thumbtack me-2"></i>{{ 'ai.actions.unpin' | trans }}
+                                {% else %}
+                                    <i class="fa fa-thumbtack me-2"></i>{{ 'ai.actions.pin' | trans }}
+                                {% endif %}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                    type="button"
+                                    class="dropdown-item text-danger"
+                                    data-action="live#action"
+                                    data-live-action-param="deleteConversation"
+                                    data-live-id-param="{{ log.id }}"
+                                    onclick="return confirm('Are you sure you want to delete ?')"
+                                    aria-label="Remove the conversation"
+                            >
+                                <i class="fa fa-trash me-2"></i>{{ 'ai.actions.delete' | trans }}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-muted small px-2 py-2">
+                {{ 'ai.fields.no_conversation' | trans }}
+            </div>
+        {% endfor %}
+    </div>
+</aside>

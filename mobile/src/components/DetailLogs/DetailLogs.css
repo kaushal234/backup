@@ -1,0 +1,105 @@
+.cui .detail_logs__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cui .detail_logs__chat_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cui .detail_logs__chat_row {
+  display: flex;
+  gap: 16px;
+}
+
+.cui .detail_logs__chat_message_box {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  border-radius: var(--cui-card-border-radius);
+  padding: 8px 16px;
+  flex-direction: column;
+}
+
+.cui .detail_logs__chat_message_box .MuiTypography-root {
+  margin: 0;
+  line-height: 1.25;
+}
+
+.cui .detail_logs__chat_date {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  color: grey;
+}
+
+.cui .detail_logs__chat_files {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 256px;
+}
+
+.cui .detail_logs__chat_heading_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cui.light .detail_logs__add_comment {
+  background-color: var(--mui-palette-primary-main);
+}
+
+.cui.light .detail_logs__add_comment button {
+  color: white;
+}
+
+.cui .detail_logs__chat_row_wrapper {
+  display: flex;
+  gap: 16px;
+  flex-direction: column-reverse;
+}
+
+.cui .detail_logs__chat_index {
+  font-size: 14px;
+}
+
+.cui .detail_logs__chat_message_box .detail_logs__chat_message {
+  white-space: pre-wrap;
+}
+
+.cui .detail_logs__first_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cui .detail_logs__ext_detail {
+  color: grey;
+  font-weight: bold;
+}
+
+.cui .detail_logs__chat_files .file_chip__avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.cui .detail_logs__chip_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.cui .detail_logs__action_wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.cui .detail_logs__chat_content {
+  white-space: pre-wrap;
+}

@@ -1,0 +1,29 @@
+- name: Allow internal connections on port 6379
+  become: true
+  firewalld:
+    zone: internal
+    port: 6379/tcp
+    permanent: true
+    state: enabled
+  notify:
+    - restart firewalld
+
+- name: Allow internal connections on port 26379
+  become: true
+  firewalld:
+    zone: internal
+    port: 26379/tcp
+    permanent: true
+    state: enabled
+  notify:
+    - restart firewalld
+
+- name: Prevent public connections on port 6379
+  become: true
+  firewalld:
+    zone: public
+    port: 6379/tcp
+    permanent: true
+    state: disabled
+  notify:
+    - restart firewalld

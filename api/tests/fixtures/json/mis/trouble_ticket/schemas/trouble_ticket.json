@@ -1,0 +1,296 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/mis/trouble_tickets/\\d+$"},
+    "@type": {"type": "string"},
+    "id": {"type":  "integer"},
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string"
+        },
+        "@id": {"pattern": "^/people/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "photo": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../../shared/schemas/file_light.json" }
+          ]
+        },
+        "supportTeam": {
+          "type": ["string", "null"]
+        },
+        "location": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../../directory_location/schemas/directory_location_public.json" }
+          ]
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "firstname",
+        "lastname",
+        "email",
+        "username",
+        "photo"
+      ],
+      "additionalProperties": false
+    },
+    "assignee": {
+      "oneOf": [
+        { "type": "null"},
+        { "$ref": "../../../directory_people/schemas/directory_people_public_photo.json" }
+      ]
+    },
+    "misAssignee": {
+      "oneOf": [
+        { "type": "null"},
+        { "$ref": "../../../directory_people/schemas/directory_people_public_photo.json" }
+      ]
+    },
+    "autoEscalated": {
+      "type": "boolean"
+    },
+    "type": { "$ref": "../../type/schemas/type.json" },
+    "module": {
+      "type": "object",
+      "properties": {
+        "@id": {"type": "string"},
+        "@type": {"type": "string"},
+        "id": {"type": "integer"},
+        "name": {"type": "string"},
+        "notificationColor": {"type": ["string", "null"]},
+        "notifyOperationalOwner": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "notifyKeyUser": {
+          "type": "boolean"
+        },
+        "specification": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "@id": {
+              "pattern": "^/mis/specifications/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          }
+        },
+        "operationalOwner": {
+          "oneOf": [
+            { "type": "null"},
+            { "$ref": "../../../directory_people/schemas/directory_people_public_photo.json" }
+          ]
+        },
+        "shortDescription": {"type": "string"},
+        "fullDescription": {"type": "string"},
+        "dmsProcedureId": {"type": ["integer", "null"]},
+        "dmsHelpId": {"type": ["integer", "null"]},
+        "legacyLoc": {"type": "integer"},
+        "migrationCurrentStep": {"type": ["null", "object"]},
+        "migrationEstimatedHours": {"type": "integer"},
+        "migrated": {"type": "boolean"},
+        "disabledForTroubleTicket": {"type": "boolean"},
+        "department": {"type": ["object", "null"]},
+        "misRelative": {"type":  "boolean"},
+        "keyUser": {
+          "oneOf": [
+            { "type": "null"},
+            { "$ref": "../../../directory_people/schemas/directory_people_public_photo.json" }
+          ]
+        },
+        "localKeyUser": {
+          "oneOf": [
+            { "type": "null"},
+            { "$ref": "../../../directory_people/schemas/directory_people_public_photo.json" }
+          ]
+        },
+        "typeDefaultAssignees": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "localKeyUsers": {
+          "type": "array",
+          "items": { "$ref": "../../../directory_people/schemas/directory_people_public_photo.json" }
+        },
+        "application": {
+          "type": "object",
+          "properties": {
+            "@id": {"type": "string"},
+            "@type": {"type": "string"},
+            "name": {"type": "string"},
+            "id": {"type": "integer"},
+            "jiraProjectId": {"type":  ["integer", "null"]}
+          },
+          "required": ["@id", "@type", "name", "id", "jiraProjectId"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["@id", "@type", "id", "department", "legacyLoc", "migrated", "migrationCurrentStep", "migrationEstimatedHours", "name", "operationalOwner", "typeDefaultAssignees", "shortDescription", "dmsHelpId", "dmsProcedureId", "fullDescription", "keyUser", "application", "localKeyUsers", "misRelative", "notifyKeyUser", "notifyOperationalOwner", "status", "notificationColor", "specification", "disabledForTroubleTicket"],
+      "additionalProperties": false
+    },
+    "jiraIssueNumber": {"type": ["string", "null"]},
+    "supportLevel": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "properties": {
+            "@context": {"type": "string"},
+            "@id": {"pattern": "^/mis/support_levels/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {"type": "integer"},
+            "level": {"type": "integer"},
+            "name": {"type": "string"}
+          },
+          "required": ["@id", "@type", "id", "level", "name"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "indiceFactor": {"type": ["string", "null"]},
+    "satisfaction": {"type": ["string", "null"]},
+    "dueDate": {"type": ["string", "null"]},
+    "solutionProposedAt": {"type": ["string", "null"]},
+    "url": {"type": ["string", "null"]},
+    "hostName": {"type": ["string", "null"]},
+    "referer": {"type": ["string", "null"]},
+    "closedAt": {"type": ["string", "null"]},
+    "shortDescription": {"type": "string"},
+    "description": {"type": "string"},
+    "createdAt": {"type": "string"},
+    "status": {"type": "string"},
+    "issue": {
+      "oneOf": [
+        { "type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"type": "string"},
+            "@type": {"type": "string"},
+            "id": {"type": ["string", "null"]},
+            "startDueDate": {"type": ["string", "null"]},
+            "endDueDate": {"type": ["string", "null"]},
+            "status": {"type": "string"},
+            "summary": {"type": "string"},
+            "description": {"type": "string"},
+            "troubleTicketId": {"type": ["integer", "null"]},
+            "issueType": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/jira/issue_types/\\d+$"},
+                "@type": {"type": "string"},
+                "id": {"type": "string"},
+                "name": {"type": "string"},
+                "description": {"type": "string"}
+              },
+              "required": ["@id", "@type", "id", "name", "description"],
+              "additionalProperties": false
+            },
+            "priority": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/jira/prorities/\\d+$"},
+                "@type": {"type": "string"},
+                "id": {"type": "string"},
+                "name": {"type": "string"},
+                "description": {"type": "string"}
+              },
+              "required": ["@id", "@type", "id", "name", "description"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["@id", "@type", "endDueDate", "description", "issueType", "startDueDate", "troubleTicketId", "status", "summary", "id", "priority"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ccs": {
+      "type": "array",
+      "items": { "$ref": "../../../directory_people/schemas/directory_people_public_photo.json" }
+    },
+    "additionalOwners": {
+      "type": "array",
+      "items": { "$ref": "../../../directory_people/schemas/directory_people_public_photo.json" }
+    },
+    "files": {
+      "type": "array",
+      "items": { "$ref": "../../../shared/schemas/file.json"}
+    },
+    "isAddToUserStories": {
+      "type": "boolean"
+    },
+    "lastCommentedAt": {"type": ["string", "null"]}
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "type",
+    "issue",
+    "module",
+    "description",
+    "indiceFactor",
+    "additionalOwners",
+    "assignee",
+    "createdAt",
+    "url",
+    "hostName",
+    "referer",
+    "createdBy",
+    "dueDate",
+    "files",
+    "jiraIssueNumber",
+    "misAssignee",
+    "shortDescription",
+    "ccs",
+    "status",
+    "satisfaction",
+    "closedAt",
+    "solutionProposedAt",
+    "isAddToUserStories",
+    "solutionProposedAt",
+    "autoEscalated",
+    "supportLevel"
+  ],
+  "additionalProperties": false
+}

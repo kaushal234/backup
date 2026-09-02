@@ -1,0 +1,11 @@
+<td>
+    {% if item.competitor is null %}
+        {% if item.status in ['ORDERED', 'PARTIAL-ORDERED'] %}
+            {{ item.salesForecast.sso.network is not null ? item.salesForecast.sso.network.name : 'ALVEST' }}
+        {% elseif item.status in ['LOST', 'PARTIAL-LOST'] %}
+            {{ 'forecast_closures.unknown_competitor'|trans({}, 'forecast_closures') }}
+        {% endif %}
+    {% else %}
+        <a href="{{ path('sales_competitors_show', {id: iri_id(item.competitor)}) }}">{{ item.competitor.name }}</a>
+    {% endif %}
+</td>

@@ -1,0 +1,115 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/product_families$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/product_families/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "productType": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/product_types/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "englishName": {
+                "type": "string"
+              },
+              "dms": {
+                "type": ["object", "null"]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "name": {
+            "type": "string"
+          },
+          "frenchDescription": {
+            "type": ["string", "null"]
+          },
+          "englishDescription": {
+            "type": ["string", "null"]
+          },
+          "spanishDescription": {
+            "type": ["string", "null"]
+          },
+          "portugueseDescription": {
+            "type": ["string", "null"]
+          },
+          "chineseDescription": {
+            "type": ["string", "null"]
+          },
+          "japaneseDescription": {
+            "type": ["string", "null"]
+          },
+          "germanDescription": {
+            "type": ["string", "null"]
+          },
+          "russianDescription": {
+            "type": ["string", "null"]
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "publicForTLD": {
+            "type": "boolean"
+          },
+          "publicForAerospecialties": {
+            "type": "boolean"
+          },
+          "publicForSAS": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "productType",
+          "name",
+          "frenchDescription",
+          "englishDescription",
+          "spanishDescription",
+          "portugueseDescription",
+          "chineseDescription",
+          "japaneseDescription",
+          "germanDescription",
+          "russianDescription",
+          "hidden",
+          "publicForTLD",
+          "publicForAerospecialties",
+          "publicForSAS"
+        ],
+        "additionalProperties": false,
+        "minItems": 1
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

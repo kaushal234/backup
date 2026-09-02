@@ -1,0 +1,16 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_colour_palette.html.twig', {
+        colors: [
+            {
+                pantone: '376 C',
+                cmyk: '54 / 0 / 100 / 0',
+                rgb: '132 / 189 / 0',
+                hex: '#84BD00'
+            }
+        ],
+    }) }}
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'service/customer_service_record/layout.html.twig' %}
+{% trans_default_domain 'customer_service_record' %}
+{% form_theme formId 'form_theme_vertical.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-4">
+        <h3 class="text-capitalize">{{ 'customer_relationship_team.fields.quick_access'|trans({}, 'customer_relationship_team') }}</h3>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(formId) }}
+                <div class="row">
+                    <div class="col-sm-10">
+                        {{ form_widget(formId) }}
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                    </div>
+                </div>
+                {{ form_end(formId) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins {% if filtered == false or resetPath is defined and resetPath == path('customer_service_record_search') %}collapsed{% endif %}">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('service/customer_service_record/form/_form_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('customer_service_record_search')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title collapse-link">
+                    <h5>{% if filtered == true %}{{ 'csr.fields.map_filtered'|trans }}{% else %}{{ 'csr.fields.map_no_filters'|trans }}{% endif %}</h5>
+                    <div class="ibox-tools">
+                        <i class="fa fa-chevron-up"></i>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12" style="height: 400px;">
+                            <div id="map" class="h-100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: '#',
+                            link:{
+                                route: 'customer_service_record_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        type: {
+                            label: 'csr.fields.type' | trans(),
+                            filters: 'upper'
+                        },
+                        title: { label: 'tasks.description' | trans({}, 'messages')},
+                        airport: {
+                            label: 'fields.airport_code' | trans({}, 'messages'),
+                            properties: ['airport.code']
+                        },
+                        daysOpened: {
+                            label: 'csr.fields.days_opened' | trans(),
+                            template: 'service/customer_service_record/partial/cells/daysOpened.html.twig'
+                        },
+                        technician: {
+                            label: 'csr.fields.technician' | trans(),
+                            properties: ['openIntervention.leader.lastname', 'openIntervention.leader.firstname'],
+                        },
+                        completedAt: {
+                            label: 'fields.completed_at' | trans({}, 'messages')|capitalize,
+                            filters: 'date("Y-m-d")',
+                            template: 'partial/cells/_nullable_date.html.twig',
+                        },
+                        serialNumber: {
+                            properties: ['equipmentRecord.serialNumber'],
+                            label: 'calibration_tools.tools.fields.serialNumber' | trans({}, 'messages'),
+                            link:{
+                                route: 'legacy_product_support',
+                                params: {'id':'equipmentRecord.legacyId'},
+                                fixedParams: {'m':['equipment', 'view']}
+                            }
+                        },
+                        model: {
+                            label: 'catalogue.products.product' | trans({}, 'catalogue'),
+                            properties: ['equipmentRecord.model']
+                        },
+                        delete: {
+                            security: is_granted('FEATURE_CUSTOMER_SERVICE_RECORD_DELETE'),
+                            label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                            sortable: false,
+                            class: 'text-end',
+                            link: {
+                                route: 'customer_service_record_delete',
+                                params: {'id': 'id'},
+                                fixedParams: {'_token': csrf_token('customer_service_record_delete')},
+                                content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                                popup: {
+                                    type: 'confirmation',
+                                    title: 'Confirmation',
+                                    message: 'Are you sure to delete ?',
+                                },
+                            },
+                        },
+                    },
+                    title: customerServiceRecordsReportTitle | trans,
+                    data: customerServiceRecords,
+                    initialSorting: false,
+                    additionalClass: 'table-striped'
+                },
+            }, with_context = false )}}
+        </div>
+    </div>
+{% endblock %}
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var globalCsrs = {{ customerServiceRecords.getSimpleArrayCopy|json_encode|raw }}
+    </script>
+
+    {{ encore_entry_script_tags('planner') }}
+{% endblock %}

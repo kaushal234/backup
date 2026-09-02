@@ -1,0 +1,91 @@
+{% extends 'sales/sales_forecasts/layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+{% if idSearchForm is defined %}
+    {% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+{% endif %}
+{% if legacyIdSearchForm is defined %}
+    {% form_theme legacyIdSearchForm 'form_theme_vertical.html.twig' %}
+{% endif %}
+
+{% block content %}
+    {% if salesForecasts is defined and salesForecasts.pagination.estimatedNumberOfPages|default(0) > 1 and (salesForecasts | length) == 500 %}
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"></span></button>
+            {{ 'sales_forecasts.messages.items_per_page' | trans }}</div>
+    {% endif %}
+
+    <div class="row">
+        {% if formFilter is defined and formFilter is not null %}
+            <div class="col-md-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'button.filters' | trans([], 'messages') | upper }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        {{ include('sales/sales_forecasts/partial/_form_filter.html.twig', {
+                            form: formFilter,
+                            resetPath: path('sales_forecasts_home')
+                        }) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if legacyIdSearchForm is defined and idSearchForm is defined %}
+        <div class="col-md-{{ formFilter is defined and formFilter is not null ? 4 : 12 }}">
+            <div class="ibox float-e-margins {% if formFilter is not defined or formFilter is null %}collapsed{% endif %}">
+                <div class="ibox-title">
+                    <h5>{{ 'titles.quick_access' | trans([], 'messages') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        {{ form_start(idSearchForm, { action: path('sales_forecasts_list') }) }}
+                        <div class="row">
+                            <div class="col-sm-9">
+                                {{ form_widget(idSearchForm.id) }}
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                            </div>
+                        </div>
+                        {{ form_end(idSearchForm) }}
+                    </div>
+                    <div class="row">
+                        {{ form_start(legacyIdSearchForm, { action: path('sales_forecasts_list') }) }}
+                        <div class="row">
+                            <div class="col-sm-9">
+                                {{ form_widget(legacyIdSearchForm) }}
+                            </div>
+
+                            <div class="col-sm-3">
+                                <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                            </div>
+                        </div>
+                        {{ form_end(legacyIdSearchForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div id="salesForecasts">
+        {% block sales_forecast_list %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block form_label -%}
+    {{ include('sales/partial/input_with_no_label.html.twig') }}
+{%- endblock form_label %}
+
+

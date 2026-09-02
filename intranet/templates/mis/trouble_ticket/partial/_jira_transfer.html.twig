@@ -1,0 +1,21 @@
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="row mb-2">
+    <div class="pe-0 d-flex flex-column gap-3">
+        <div class="bg-body rounded h-100 m-0 p-2">
+            <h3 class="ps-3">Send to Jira</h3>
+            <hr style="margin: 0 -8px">
+            {{ form_row(form.type) }}
+            {{ form_row(form.priority) }}
+            {{ form_row(form.summary) }}
+            {{ form_row(form.description) }}
+            <div class="row mt-2 d-flex justify-content-end">
+                <div class="col-3 text-end">
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

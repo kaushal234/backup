@@ -1,0 +1,49 @@
+framework:
+    workflows:
+        supplier_corrective_action_request:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\Quality\SupplierCorrectiveActionRequest
+            initial_marking: !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::PENDING
+            places:
+                - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::PENDING
+                - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VENDOR_TO_FILL_FORM
+                - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::TLD_TO_REVIEW_FORM
+                - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VALIDATION
+                - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::COMMERCIAL_AGREEMENT
+                - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CLOSED
+                # ⚠️ Legacy only – CANCEL status comes from historical data and should not be used in transitions
+                - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CANCEL
+            transitions:
+                to_validation:
+                    from:
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::TLD_TO_REVIEW_FORM
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CLOSED
+                    to: !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VALIDATION
+                to_tld_to_review_form:
+                    from:
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VENDOR_TO_FILL_FORM
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VALIDATION
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CLOSED
+                    to: !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::TLD_TO_REVIEW_FORM
+                to_commercial_agreement:
+                    from:
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VALIDATION
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CLOSED
+                    to: !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::COMMERCIAL_AGREEMENT
+                to_closed:
+                    from:
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VALIDATION
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::COMMERCIAL_AGREEMENT
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::TLD_TO_REVIEW_FORM
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VENDOR_TO_FILL_FORM
+                    to: !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CLOSED
+                to_vendor_to_fill_form:
+                    from:
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::PENDING
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::CLOSED
+                        - !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::TLD_TO_REVIEW_FORM
+                    to: !php/const App\Entity\Quality\SupplierCorrectiveActionRequest::VENDOR_TO_FILL_FORM

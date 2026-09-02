@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/phones/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "@context": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "@context"
+  ],
+  "additionalProperties": false
+}

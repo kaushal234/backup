@@ -1,0 +1,34 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        failure_transport: failed
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            failed: 'doctrine://default?queue_name=failed'
+            sync: 'sync://'
+
+        routing:
+            Symfony\Component\Mailer\Messenger\SendEmailMessage: async
+            App\Message\Sales\NotifyMarketIntelligenceComment: async
+            App\Message\Sales\NotifyMarketIntelligenceCreate: async
+            App\Message\Sales\NotifyMarketIntelligenceUpdate: async
+            App\Message\Finance\AccountReceivableImportFromFile: async
+            App\Message\Finance\AccountReceivableDelinquent: async
+            App\Message\Sales\CustomerMainRepresentativeUpdate: async
+            App\Message\Support\ManualDuplication: async
+            App\Message\Directory\GroupPositionUpdate: async
+            App\Message\Quality\Crab\CrabWrite: async
+            App\Message\Support\EquipmentRecordGreenTagUpdate: async
+            App\Javelo\Message\CreateUserMessage: async
+            App\Javelo\Message\UpdateUserMessage: async
+            App\Agile\Message\UpdateUserMessage: async
+            App\Message\Service\TechnicianOnCallJiraCommentSync: async
+            App\Message\Service\TechnicianOnCallJiraTracteasyIssueCreate: async
+
+when@test:
+    framework:
+        messenger:
+            transports:
+                async: 'in-memory:///'

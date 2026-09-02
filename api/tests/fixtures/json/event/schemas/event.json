@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Event.jsonld-event_country_list",
+  "definitions": {
+    "Event.jsonld-event_country_list": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "required": [
+        "name",
+        "state",
+        "country",
+        "startedAt",
+        "endedAt",
+        "id",
+        "@id",
+        "@type",
+        "dayOff"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dayOff": {
+          "type": "boolean"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "country": {
+          "$ref": "#/definitions/Country.jsonld-event_country_list"
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "id": {
+          "readOnly": true,
+          "type": "integer"
+        },
+        "concernedLocations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Country.jsonld-event_country_list": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "id": {
+          "readOnly": true,
+          "type": "integer"
+        },
+        "name": {
+          "minLength": 2,
+          "maxLength": 100,
+          "description": "Get name.",
+          "type": "string"
+        },
+        "isoCode2": {
+          "minLength": 2,
+          "maxLength": 2,
+          "description": "Get isoCode2.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "isoCode2",
+        "@id",
+        "@type",
+        "id"
+      ]
+    }
+  }
+}

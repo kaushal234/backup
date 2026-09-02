@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@context": {"type": "string"},
+        "@id": {"pattern": "^/service_bulletins/\\d+$"},
+        "@type": {"type": "string"},
+        "id": {"type": "integer"},
+        "status": {"type": ["string"]},
+        "category": {"type": ["string"]},
+        "type": {"type": ["string"]},
+        "title": {"type": ["string"]},
+        "description": {"type": ["string"]},
+        "confidential": {"type": ["string"]},
+        "createdAt": {"type": ["string", "null"]},
+        "ssdDecidedAt": {"type": ["string", "null"]},
+        "partsNeeded": {"type": ["boolean"]},
+        "lines": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "status": {"type": ["string"]},
+                    "equipmentRecord": {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": "integer"},
+                            "serialNumber": {"type": ["string"]},
+                            "model": {"type": ["string"]},
+                            "type": {"type": ["string"]},
+                            "customerName": {"type": ["string"]}
+                        },
+                        "required": ["id", "serialNumber", "model", "type", "customerName"]
+                    }
+                },
+                "required": ["status", "equipmentRecord"]
+            }
+        }
+    },
+    "required": [
+        "@context",
+        "@id",
+        "@type",
+        "id",
+        "status",
+        "type",
+        "title",
+        "description",
+        "confidential",
+        "category",
+        "ssdDecidedAt",
+        "partsNeeded",
+        "createdAt",
+        "lines"
+    ]
+}

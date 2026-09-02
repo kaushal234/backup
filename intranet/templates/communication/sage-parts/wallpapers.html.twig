@@ -1,0 +1,15 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_wallpapers.html.twig', {
+        wallpapers: [
+            'sage_parts/wallpapers/SAGE Wallpaper 1.jpg',
+            'sage_parts/wallpapers/SAGE Wallpaper 2.jpg',
+            'sage_parts/wallpapers/SAGE Wallpaper 3.jpg',
+            'sage_parts/wallpapers/SAGE Wallpaper 4.jpg',
+            'sage_parts/wallpapers/SAGE Wallpaper 5.jpg',
+        ],
+    }) }}
+{% endblock %}

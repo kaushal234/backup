@@ -1,0 +1,153 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% set survey_id = iri_id(survey) %}
+
+{% block title %}{{ parent() }} \ {{ 'menu.view' | trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    title: survey.name,
+                    items: {
+                        expirationDate: {
+                            label: 'survey.fields.expirationDate'|trans|capitalize,
+                            filters: "date('Y-m-d')",
+                        },
+                        createdAt: {
+                            label: 'general_fields.createdAt'|trans|capitalize,
+                            filters: "date('Y-m-d')",
+                        },
+                        updatedAt: {
+                            label: 'general_fields.updatedAt'|trans|capitalize,
+                            filters: "date('Y-m-d')",
+                        },
+                        description: {label: 'survey.fields.name'|trans|capitalize},
+                        createdBy: {
+                            label: 'general_fields.createdBy'|trans|capitalize,
+                            properties: ['createdBy.lastname', 'createdBy.firstname'],
+                        },
+                    },
+                    data: survey
+                },
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-6">
+            {{ include ('helper/_report_table.html.twig', {
+                reportTable: {
+                    data: survey.items,
+                    currentPage: 0,
+                    title: 'survey_items.page_titles.list' | trans,
+                    items: {
+                        description: {
+                            label: 'survey_items.fields.description' | trans,
+                            class: 'small',
+                            link:{
+                                route: 'survey_items_edit',
+                                params: { 'itemId':'@id' },
+                                fixedParams: { 'id': survey_id }
+                            },
+                        },
+                        createdAt: {
+                            label: 'general_fields.createdAt' | trans,
+                            class: 'small',
+                            filters: ['format_datetime("medium", "none")']
+                        },
+                        createdBy: {
+                            label: 'general_fields.createdBy' | trans,
+                            properties: ['createdBy.lastname', 'createdBy.firstname'],
+                            link: {
+                                route: 'directory_people_show',
+                                params: { 'id': 'createdBy.@id' }
+                            }
+                        },
+                        edit: {
+                            label: 'menu.edit' | trans([], 'messages') | capitalize,
+                            link:{
+                                route: 'survey_items_edit',
+                                params: { 'itemId':'@id' },
+                                fixedParams: { 'id': survey_id },
+                                content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+                        delete: {
+                            label: 'menu.delete' | trans([], 'messages') | capitalize,
+                            link:{
+                                route: 'survey_items_delete',
+                                params: {'itemId': '@id'},
+                                fixedParams: { 'id': survey_id },
+                                popup: {
+                                    message: 'messages.grid_delete_confirmation' | trans | capitalize
+                                },
+                                content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        }
+                    }
+                }
+            }) }}
+        </div>
+        <div class="col-md-3">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>
+                        <span class="label float-end">{{ survey.ratingTypes | length }}</span>
+                        {{ 'rating_type.page_titles.list' | trans }}
+                    </h5>
+                    <div class="ibox-tools">
+                        {% if is_granted('FEATURE_SURVEY_WRITE') %}
+                            <a title="{{ 'show.rating_type.new' | trans }}" href="{{ path('survey_rating_types_add', {id: survey_id}) }}">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        {% endif %}
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    {% if survey.ratingTypes | length > 0 %}
+                        {% for ratingType in survey.ratingTypes %}
+                            {{ include('surveys/survey/partial/rating_type_ibox.html.twig', {survey_id: survey_id, ratingType: ratingType}) }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>
+                        <span class="label float-end">{{ survey.groups | length }}</span>
+                        {{ 'group.page_titles.list' | trans }}
+                    </h5>
+                    <div class="ibox-tools">
+                        {% if is_granted('FEATURE_SURVEY_WRITE') %}
+                            <a title="{{ 'show.group.new' | trans }}" href="{{ path('survey_groups_add', {id: survey_id}) }}">
+                                <i class="fa fa-plus fa-fw">
+                                </i>
+                            </a>
+                        {% endif %}
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div>
+                    {% if survey.groups | length > 0 %}
+                        {% for group in survey.groups %}
+                            <div class="ibox-content">
+                                {{ include('surveys/survey/partial/survey_group.html.twig', {survey_id: survey_id, group: group}) }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

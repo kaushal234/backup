@@ -1,0 +1,927 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% macro auditDayTime(auditLog) %}
+    {% if auditLog.days is same as 0 %}
+        {{ 'audit_log.hours'|trans({'%hours%': auditLog.h, '%minutes%': auditLog.i}, 'audit_log') }}
+    {% else %}
+        {{ 'audit_log.days'|trans({'%days%': auditLog.days, '%hours%': auditLog.h}, 'audit_log') }}
+    {% endif %}
+{% endmacro %}
+
+{# Add this class to disable the overflow-x only for TOC show page to allow use of position: sticky #}
+{% block bodyClass %}toc-show{% endblock %}
+
+{% block content %}
+    {{ include('helper/_status_bar.html.twig', {
+        statuses: {
+            'PENDING': ['PENDING'],
+            'IN PROGRESS': ['IN_PROGRESS'],
+            'SUSPENDED': ['SUSPENDED'],
+            'SOLVED': ['SOLVED'],
+            'CLOSED': ['CLOSED'],
+        },
+        current: technicianOnCall.status,
+    }) }}
+
+    {# TOP CARDS #}
+    <div class="sticky-top pt-2">
+        <div class="row toc-cards-wrapper">
+            {# CARDS ID #}
+            <div class="col-1">
+                <div class="alert alert-light rounded-0 text-center align-content-center m-0">
+                    <h4 class="fw-bold">{{ 'toc.card.toc'|trans }}</h4>
+                    <span>{{ technicianOnCall.id }}</span>
+                </div>
+            </div>
+            {# CARDS INDICE FACTOR #}
+            <div class="col-1">
+                <div class="alert rounded-0 text-center align-content-center m-0
+                {% if technicianOnCall.indiceFactor is same as 'IF 1000' %}
+                    alert-danger
+                {% elseif technicianOnCall.indiceFactor is same as 'IF 100' %}
+                    alert-warning
+                {% else %}
+                    alert-light
+                {% endif %}">
+                    <h4 class="fw-bold">{{ 'toc.card.indice_factor' | trans() }}</h4>
+                    <span>{{ technicianOnCall.indiceFactor }}</span>
+                </div>
+            </div>
+            {# CARDS CONFIDENTIAL #}
+            <div class="col-1">
+                {% if technicianOnCall.confidential %}
+                    <div
+                        class="alert rounded-0 text-center align-content-center m-0 alert-danger"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="{{ 'toc.fields.confidential.tooltip'|trans }}"
+                    >
+                {% else %}
+                    <div class="alert rounded-0 text-center align-content-center m-0 alert-success">
+                {% endif %}
+                    <h4 class="fw-bold">{{ 'toc.fields.confidential.label' | trans }}</h4>
+                    <span>{{ technicianOnCall.confidential ? 'yes'|trans([], 'messages')|upper : 'no' | trans([], 'messages')|upper }}</span>
+                </div>
+            </div>
+            {# CARDS DAYS OPENED #}
+            <div class="col-1">
+                {% if technicianOnCall.daysWithoutActivityStatus is same as 'OUTDATED' %}
+                    <div
+                        class="alert rounded-0 text-center align-content-center m-0 alert-danger"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="{{ 'toc.messages.information.outdated_tooltip'|trans({
+                            '%daysWithoutActivity%': technicianOnCall.daysWithoutActivity,
+                            '%iFactor%': technicianOnCall.indiceFactor
+                            }) }}"
+                    >
+                {% else %}
+                    <div class="alert rounded-0 text-center align-content-center m-0 alert-success">
+                {% endif %}
+                    <h4 class="fw-bold">{{ 'csr.fields.days_opened' | trans({}, 'customer_service_record') }}</h4>
+                    <span>{{ technicianOnCall.openDays }}</span>
+                </div>
+            </div>
+            {# CARDS WARRANTY #}
+            <div class="col-2">
+                <div class="alert rounded-0 text-center align-content-center m-0
+                {% if technicianOnCall.warrantyInformation is same as 'EXPIRED' %}
+                    alert-danger
+                {% elseif technicianOnCall.warrantyInformation is same as 'EFFECTIVE' %}
+                    alert-success
+                {% else %}
+                    alert-warning
+                {% endif %}
+                ">
+                    <h4 class="fw-bold">{{ 'toc.card.warranty' | trans }}</h4>
+                    <span>{{ technicianOnCall.warrantyInformation }}</span>
+                </div>
+            </div>
+            {# CARDS SERIAL #}
+            <div class="col-1">
+                <div class="alert alert-light rounded-0 text-center align-content-center m-0">
+                {% if technicianOnCall.equipmentRecord is not null %}
+                    <h3 class="m-0 fw-bold">{{ 'toc.card.serial_number'|trans }}</h3>
+                    <span
+                        data-bs-toggle="tooltip"
+                        title="{{ 'toc.fields.serialNumber'|trans }}: {{ technicianOnCall.serialNumber ?? "---" }}"
+                        data-bs-placement="top"
+                    >
+                        <a href="/en/private/product_support/index.ps.php?id={{ technicianOnCall.equipmentRecord.legacyId }}&m[0]=equipment&m[1]=view">{{ technicianOnCall.equipmentRecord.serialNumber }}</a>
+                    </span>
+                {% else %}
+                    <h3 class="m-0 fw-bold">{{ 'toc.card.customer_asset_number'|trans }}</h3>
+                    <span>{{ technicianOnCall.serialNumber ?? "---" }}</span>
+                {% endif %}
+                </div>
+            </div>
+            {# CARD HOURMETER #}
+            <div class="col-1">
+                <div class="alert alert-light rounded-0 text-center align-content-center m-0">
+                    <h3 class="fw-bold">{{ 'csr.fields.hourmeter'|trans({}, 'customer_service_record') }}</h3>
+                    <span>
+                        {% set lastTransaction = technicianOnCall.hourMeterTransactions|sort((a, b) => a.createdAt <=> b.createdAt)|last %}
+                        {{ lastTransaction is not empty ? lastTransaction.hourMeter : '---' }}
+                    </span>
+                </div>
+            </div>
+            {# CARDS MODEL #}
+            <div class="col-2">
+                <div class="alert alert-light rounded-0 text-center align-content-center m-0">
+                    <h3 class="fw-bold">{{ 'toc.card.model'|trans }}</h3>
+                    <span>
+                    {% if technicianOnCall.equipmentRecord is not null %}
+                        {{ technicianOnCall.equipmentRecord.model }}
+                    {% else %}
+                        ---
+                    {% endif %}
+                    </span>
+                </div>
+            </div>
+            {# CARDS AIRPORT #}
+            <div class="col-2">
+                <div class="alert alert-light rounded-0 text-center align-content-center m-0">
+                    <h4 class="fw-bold">{{ 'toc.card.airport'|trans }}</h4>
+                    <span>{{ technicianOnCall.airport.code }}</span>
+                    {% if technicianOnCall.airport.name %}
+                        <em>{{ '(' ~ technicianOnCall.airport.name ~ ')' }}</em>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row toc-cards-wrapper mt-3 mb-4">
+            <div class="col-4">
+                <div class="alert alert-light rounded-0 text-center align-content-center m-0 pt-2 row partial-border partial-border-blue">
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.factory'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start">
+                        {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.manufacturerLocation is not null %}
+                            {{ technicianOnCall.equipmentRecord.manufacturerLocation.name }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.ship_date'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start">
+                        {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.dateShipped is not null %}
+                            {{ technicianOnCall.equipmentRecord.dateShipped|date('Y-m-d') }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.commissioning_date'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start">
+                        {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.dateCommissioned is not null %}
+                            {{ technicianOnCall.equipmentRecord.dateCommissioned|date('Y-m-d') }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.emission_rating'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start">
+                        {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.emissionRating is not null %}
+                            {{ technicianOnCall.equipmentRecord.emissionRating.name }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </dd>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="alert alert-light rounded-0 text-center align-content-center m-0 pt-2 row partial-border partial-border-green">
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.customer'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start  text-truncate" title="{{ technicianOnCall.customer.name }}">
+                        <a href="{{ path('sales_customers_show', {id: technicianOnCall.customer.id}) }}">
+                            {{ technicianOnCall.customer.name }}
+                        </a>
+                    </dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.buyer'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start text-truncate" {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.buyer is not null %}title="{{ technicianOnCall.equipmentRecord.buyer.name }}"{% endif %}>
+                        {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.buyer is not null %}
+                            <a href="{{ path('sales_customers_show', {id: technicianOnCall.equipmentRecord.buyer.id}) }}">
+                                {{ technicianOnCall.equipmentRecord.buyer.name }}
+                            </a>
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.end_user'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start text-truncate" {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.endUser is not null %}title="{{ technicianOnCall.equipmentRecord.endUser.name }}"{% endif %}>
+                        {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.endUser is not null %}
+                            <a href="{{ path('sales_customers_show', {id: technicianOnCall.equipmentRecord.endUser.id}) }}">
+                                {{ technicianOnCall.equipmentRecord.endUser.name }}
+                            </a>
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.maintainer'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start text-truncate" {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.maintainer is not null %}title="{{ technicianOnCall.equipmentRecord.maintainer.name }}"{% endif %}>
+                        {% if technicianOnCall.equipmentRecord is not null and technicianOnCall.equipmentRecord.maintainer is not null %}
+                            <a href="{{ path('sales_customers_show', {id: technicianOnCall.equipmentRecord.maintainer.id}) }}">
+                                {{ technicianOnCall.equipmentRecord.maintainer.name }}
+                            </a>
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </dd>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="alert alert-light rounded-0 text-center align-content-center m-0 pt-2 row partial-border partial-border-yellow">
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.fields.unit_operational_status'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start">
+                        {% if technicianOnCall.unitOperationalStatus is not empty %}
+                        <span class="badge
+                            {% if technicianOnCall.unitOperationalStatus.name is empty or technicianOnCall.unitOperationalStatus.name == 'NMC' %}
+                                bs-bg-danger text-light
+                            {% elseif technicianOnCall.unitOperationalStatus.name == 'MCP' %}
+                                bg-warning text-dark
+                            {% else %}
+                                bg-success text-light
+                            {% endif %}
+                        ">
+                            {{ technicianOnCall.unitOperationalStatus.name }}
+                        </span>
+                        {% endif %}
+                    </dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.time_nmc'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start">{{ _self.auditDayTime(auditUnitOperationalStatus) }}</dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.factory_flag'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start">
+                        {% if technicianOnCall.factoryFlag %}
+                            <span id="factory-flag-status-badge" class="badge bs-bg-danger text-light">{{ 'toc.card.factory_flag_on'|trans }}</span>
+                        {% else %}
+                            <span id="factory-flag-status-badge" class="badge bs-bg-secondary">{{ 'toc.card.factory_flag_off'|trans }}</span>
+                        {% endif %}
+                    </dd>
+                    <dt class="col-sm-6 m-0 text-end">{{ 'toc.card.factory_flag_time'|trans }}</dt>
+                    <dd class="col-sm-6 m-0 text-start">{{ _self.auditDayTime(auditFactoryFlag) }}</dd>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Solution CARDS #}
+    {% if technicianOnCall.symptoms is not empty %}
+        <div class="toc-solved-cards-wrapper row mb-4">
+            <div class="col-4">
+                <div class="card h-100 rounded-0 border-0">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h3 class="card-title">{{ 'toc.fields.symptoms'|trans }}</h3>
+                            {% if technicianOnCall.originalSymptoms != technicianOnCall.symptoms %}
+                                <button type="button" class="btn btn-link p-0 ms-2 flex-shrink-0 text-secondary" data-bs-toggle="collapse" data-bs-target="#toc-original-symptoms">
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'toc.messages.help.translation'|trans }}">
+                                        <i class="fa fa-language"></i>
+                                    </span>
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="card-text">{{ technicianOnCall.symptoms }}</div>
+                        {% if technicianOnCall.originalSymptoms != technicianOnCall.symptoms %}
+                            <div class="collapse mt-2" id="toc-original-symptoms">
+                                <div class="border-top pt-2 text-muted">{{ technicianOnCall.originalSymptoms }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card h-100 rounded-0 border-0">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h3 class="card-title">{{ 'toc.fields.rootCause'|trans }}</h3>
+                            {% if technicianOnCall.originalRootCause != technicianOnCall.rootCause %}
+                                <button type="button" class="btn btn-link p-0 ms-2 flex-shrink-0 text-secondary" data-bs-toggle="collapse" data-bs-target="#toc-original-root-cause">
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'toc.messages.help.translation'|trans }}">
+                                        <i class="fa fa-language"></i>
+                                    </span>
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="card-text">{{ technicianOnCall.rootCause }}</div>
+                        {% if technicianOnCall.originalRootCause != technicianOnCall.rootCause %}
+                            <div class="collapse mt-2" id="toc-original-root-cause">
+                                <div class="border-top pt-2 text-muted">{{ technicianOnCall.originalRootCause }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card h-100 rounded-0 border-0">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h3 class="card-title">{{ 'toc.fields.solution'|trans }}</h3>
+                            {% if technicianOnCall.originalSolution != technicianOnCall.solution %}
+                                <button type="button" class="btn btn-link p-0 ms-2 flex-shrink-0 text-secondary" data-bs-toggle="collapse" data-bs-target="#toc-original-solution">
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'toc.messages.help.translation'|trans }}">
+                                        <i class="fa fa-language"></i>
+                                    </span>
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="card-text">{{ technicianOnCall.solution }}</div>
+                        {% if technicianOnCall.originalSolution != technicianOnCall.solution %}
+                            <div class="collapse mt-2" id="toc-original-solution">
+                                <div class="border-top pt-2 text-muted">{{ technicianOnCall.originalSolution }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {# ThirdParty CARDS #}
+    {% if
+        technicianOnCall.thirdPartyName is not empty and
+        technicianOnCall.thirdPartyJobDescription is not empty and
+        technicianOnCall.thirdPartyHours is not empty
+    %}
+        <div class="toc-solved-cards-wrapper row mb-4">
+            <div class="col-4">
+                <div class="card h-100 rounded-0 border-0">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            {{ 'toc.fields.third_party_name.label'|trans }}
+                        </h3>
+                        <div class="card-text">
+                            {{ technicianOnCall.thirdPartyName }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card h-100 rounded-0 border-0">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            {{ 'toc.fields.third_party_job_description'|trans }}
+                        </h3>
+                        <div class="card-text">
+                            {{ technicianOnCall.thirdPartyJobDescription }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card h-100 rounded-0 border-0">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            {{ 'toc.fields.third_party_hours'|trans }}
+                        </h3>
+                        <div class="card-text">
+                            {{ technicianOnCall.thirdPartyHours }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {# Main content #}
+    <div class="toc-main-content row">
+        {# Left Column #}
+        <div class="col-12 col-xl-4">
+            <div class="ibox float-e-margins toc-description">
+                <div class="ibox-content">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h3>{{ technicianOnCall.title }}</h3>
+                        {% if technicianOnCall.originalTitle != technicianOnCall.title or technicianOnCall.originalDescription != technicianOnCall.description %}
+                            <button type="button" class="btn btn-link p-0 ms-2 flex-shrink-0 text-secondary" data-bs-toggle="collapse" data-bs-target="#toc-original-content">
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'toc.messages.help.translation'|trans }}">
+                                    <i class="fa fa-language"></i>
+                                </span>
+                            </button>
+                        {% endif %}
+                    </div>
+                    {{ technicianOnCall.description|raw }}
+                    {% if technicianOnCall.originalTitle != technicianOnCall.title or technicianOnCall.originalDescription != technicianOnCall.description %}
+                        <div class="collapse mt-3" id="toc-original-content">
+                            <div class="border-top pt-3 text-muted">
+                                <h3>{{ technicianOnCall.originalTitle }}</h3>
+                                {{ technicianOnCall.originalDescription|raw|nl2br }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-6 d-flex">
+                    <div class="flex-fill">
+                        <div id="technician-on-call-status"></div>
+                    </div>
+                </div>
+
+                <div class="col-6 d-flex">
+                    <div class="flex-fill">
+                        <div class="ibox float-e-margins flex-fill d-flex flex-column">
+                            <div class="ibox-title">
+                                <div class="ibox-tools collapse-link">
+                                    <h5>{{ 'toc.title.main_file' | trans }}</h5>
+                                    <a>
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="ibox-content d-flex align-items-center justify-content-center">
+                                {% if technicianOnCall.mainFile is not empty %}
+                                <button class="border-0 mb-2 d-flex flex-column align-items-center" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#carousel_modal">
+                                    <img src="{{ asset(upload_uri ~ '/' ~ technicianOnCall.mainFile.filePath) }}"
+                                         alt=""
+                                         class="mw-100 h-auto"
+                                         style="max-height: 150px;"
+                                    />
+                                </button>
+                                {% else %}
+                                    <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#main-file-drop-zone">
+                                        {{ 'toc.messages.help.add_main_file'|trans }}
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CSR cards -->
+            {% if technicianOnCall.currentCustomerServiceRecord or technicianOnCall.customerServiceRecords %}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'toc.title.csr' | trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content position-relative" style="min-height: 80px;">
+                        <button class="btn btn-primary position-absolute top-0 end-0 m-3" type="button"
+                                data-bs-toggle="modal" data-bs-target="#csrs_modal">
+                            <i class="fa fa-engine"></i>
+                            {{ 'toc.title.customer_service_records'|trans }}
+                            ({{ technicianOnCall.customerServiceRecords|length }})
+                        </button>
+
+                        <!-- CSRs Modal -->
+                        <div class="modal fade modal-xl" id="csrs_modal" tabindex="-1" aria-labelledby="csrs_modal"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2>{{ 'toc.title.customer_service_records'|trans }}</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-responsive table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>{{ 'csr.fields.id'|trans({}, 'customer_service_record') }}</th>
+                                                <th>{{ 'fields.title'|trans({}, 'messages') }}</th>
+                                                <th>{{ 'fields.status'|trans({}, 'messages') }}</th>
+                                                <th>{{ 'csr.fields.is_open'|trans({}, 'customer_service_record') }}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for customerServiceRecord in technicianOnCall.customerServiceRecords %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ path('customer_service_record_show', {'id': customerServiceRecord.id}) }}">
+                                                            {{ customerServiceRecord.id }}
+                                                        </a>
+                                                    </td>
+                                                    <td>{{ customerServiceRecord.title }}</td>
+                                                    <td>{{ customerServiceRecord.status }}</td>
+                                                    <td>
+                                                        {% if customerServiceRecord.closed %}
+                                                            <span class="d-none">0</span><i
+                                                                class="fa fa-times text-danger"></i>
+                                                        {% else %}
+                                                            <span class="d-none">1</span><i
+                                                                class="fa fa-check text-info"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if technicianOnCall.currentCustomerServiceRecord %}
+                            <dl class="row">
+                                <dt class="col-sm-3 text-end">{{ 'fields.status' | trans({}, 'messages') }}</dt>
+                                <dd class="col-sm-9">{{ technicianOnCall.currentCustomerServiceRecord.status }}</dd>
+                                <dt class="col-sm-3 text-end">{{ 'csr.fields.planned_date' | trans({}, 'customer_service_record') }}</dt>
+                                <dd class="col-sm-9">
+                                    {% if technicianOnCall.currentCustomerServiceRecord.openIntervention %}
+                                        {{ technicianOnCall.currentCustomerServiceRecord.openIntervention.plannedAt|date('Y-m-d') }}
+                                    {% elseif technicianOnCall.currentCustomerServiceRecord.plannedAt %}
+                                        {{ technicianOnCall.currentCustomerServiceRecord.plannedAt|date('Y-m-d') }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </dd>
+                                <dt class="col-sm-3 text-end">{{ 'fields.completed_at' | trans({}, 'messages') }}</dt>
+                                <dd class="col-sm-9">
+                                    {% if technicianOnCall.currentCustomerServiceRecord.completedAt %}
+                                        {{ technicianOnCall.currentCustomerServiceRecord.completedAt|date('Y-m-d') }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </dd>
+                                <dt class="col-sm-3 text-end">{{ 'intervention.fields.leader' | trans({}, 'customer_service_record') }}</dt>
+                                <dd class="col-sm-9">
+                                    {% if technicianOnCall.currentCustomerServiceRecord.openIntervention and technicianOnCall.currentCustomerServiceRecord.openIntervention.leader %}
+                                        {{ technicianOnCall.currentCustomerServiceRecord.openIntervention.leader.firstname }} {{ technicianOnCall.currentCustomerServiceRecord.openIntervention.leader.lastname }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </dd>
+                            </dl>
+
+                            <div class="text-center">
+                                <a class="btn btn-{% if technicianOnCall.currentCustomerServiceRecord.closed %}primary{% else %}warning{% endif %} btn-lg fs-4"
+                                   href="{{ path('customer_service_record_show', { id: technicianOnCall.currentCustomerServiceRecord.id }) }}">
+                                    CSR #{{ technicianOnCall.currentCustomerServiceRecord.id }}
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        {% if technicianOnCall.numberOfOpenCustomerServiceRecords > 1 %}
+                            <div class="alert alert-warning">
+                                {{ 'toc.messages.information.to_many-csr' |trans }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% elseif customerServiceRecordForm is defined and customerServiceRecordForm is not null %}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'toc.title.csr' | trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <style>
+                        .tempus-dominus-widget .today:before {
+                            display: none !important;
+                        }
+
+                        .tempus-dominus-widget .today:not(.active) {
+                            border: 1px solid grey;
+                        }
+                    </style>
+                    <div class="ibox-content">
+                        {{ form_start(customerServiceRecordForm) }}
+                        {{ form(customerServiceRecordForm) }}
+                        {{ form_end(customerServiceRecordForm) }}
+                    </div>
+                </div>
+            {% elseif not is_granted('FEATURE_CUSTOMER_SERVICE_RECORD_CREATE') %}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'toc.title.csr' | trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        {{ 'toc.messages.errors.not_allowed_csr_creation'|trans|nl2br }}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools collapse-link">
+                        <h5>{{ 'toc.title.contacts' | trans }}</h5>
+                        <a>
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content d-flex">
+                    <div class="d-flex gap-4">
+                        <div>
+                            <h3>{{ 'toc.fields.main_contact.label'|trans }}</h3>
+                            {% if technicianOnCall.mainContact is null %}
+                                <div>---</div>
+                            {% else %}
+                                <div>{% include 'service/technician_on_call/partial/_contact_badge.html.twig' with {'contact': technicianOnCall.mainContact} %}</div>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h3>{{ 'toc.fields.contacts.label'|trans }}</h3>
+                            <div class="card-text gap-1 d-flex">
+                                {% if technicianOnCall.contacts is empty %}
+                                    <div>---</div>
+                                {% else %}
+                                    <div class="p-0 m-0 d-flex gap-1 flex-wrap">
+                                    {% for contact in technicianOnCall.contacts %}
+                                        {% include 'service/technician_on_call/partial/_contact_badge.html.twig' with {'contact': contact} %}
+                                    {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% set associationItems = {} %}
+
+            {% if technicianOnCall.equipmentRecord is not null %}
+                {% set associationItems = {
+                    equipmentRecord: {
+                        properties: ['equipmentRecord.serialNumber'],
+                        label: 'calibration_tools.tools.fields.serialNumber' | trans({}, 'messages'),
+                        link:{
+                            route: 'legacy_product_support',
+                            params: {'id':'equipmentRecord.legacyId'},
+                            fixedParams: {'m':['equipment', 'view']}
+                        }
+                    }
+                } %}
+            {% endif %}
+
+            {% set associationItems = associationItems|merge({
+                serialNumber: { label: 'toc.fields.serialNumber' | trans},
+                assignee: {
+                    properties: ['assignee.lastname', 'assignee.firstname'],
+                    label: 'tasks.assignee' | trans({}, 'messages'),
+                    link:{
+                        route: 'directory_people_show',
+                        params: {'id':'assignee.@id'},
+                    },
+                },
+                errorCodes: { label: 'toc.fields.error_codes.label' | trans},
+                unitOperationalStatus: {
+                    properties: ['unitOperationalStatus.name', 'unitOperationalStatus.description'],
+                    label: 'toc.fields.unit_operational_status' | trans
+                },
+                technicianOnCallType: {
+                    template: 'service/technician_on_call/partial/cell/_type.html.twig',
+                    label: 'toc.fields.technician_on_call_type' | trans
+                },
+                serviceActivity: {
+                    properties: ['serviceActivity.name'],
+                    label: 'toc.fields.service_activity' | trans
+                },
+                tags: {
+                    template: 'generic/_cell_tags.html.twig',
+                    label: 'toc.fields.tags.label'|trans|capitalize,
+                    templateParams: {
+                        domain: 'technician_on_call',
+                        separator: '<br/>'
+                    },
+                },
+                indiceFactor: { label: 'fields.ifactor' | trans({}, 'messages')},
+                thirdPartyName: { label: 'toc.fields.third_party_name.label' | trans },
+                thirdPartyRef: { label: 'toc.fields.third_party_ref.label' | trans },
+                createdBy: {
+                    properties: ['createdBy.lastname', 'createdBy.firstname'],
+                    label: 'fields.created_by' |trans({}, 'messages'),
+                    link: {
+                        route: 'directory_people_show',
+                        params: {'id':'createdBy.@id'}
+                    }
+                },
+                createdAt: {
+                    label: 'fields.created_at' | trans({}, 'messages')|capitalize,
+                    filters: 'date("Y-m-d")',
+                    template: 'partial/cells/_nullable_date.html.twig',
+                },
+                updatedAt: {
+                    label: 'fields.updated_at' | trans({}, 'messages')|capitalize,
+                    filters: 'date("Y-m-d")',
+                    template: 'partial/cells/_nullable_date.html.twig',
+                }
+            }) %}
+
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: associationItems,
+                    title: 'toc.title.information' | trans,
+                    data: technicianOnCall,
+                    card: false,
+                }
+            }, with_context = false) }}
+
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        id: {
+                            label: '#',
+                            link:{
+                                route: 'sales_customers_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        name: {label: 'fields.name'|trans([], 'messages')|capitalize},
+                        address: {
+                            label: 'customers.fields.address'|trans({}, 'sales_customers')|capitalize,
+                            template: 'sales/customers/partial/cells/_address.html.twig',
+                        },
+                        country: {
+                            properties: ['country.name'],
+                            label: 'address.fields.country'|trans({}, 'messages')|capitalize,
+                            preserveNull: true,
+                        },
+                        phone: {
+                            label: 'customers.fields.phone'|trans({}, 'sales_customers')|capitalize
+                        },
+                        fax: {
+                            label: 'customers.fields.fax'|trans({}, 'sales_customers')|capitalize
+                        },
+                    },
+                    title: 'toc.title.customer_information' | trans,
+                    data: technicianOnCall.customer,
+                    card: false,
+                }
+            }, with_context = false) }}
+
+            <div class="ibox float-e-margins ">
+                <div class="ibox-title"><h5>{{ 'menu.links' | trans({}, 'messages') | capitalize }}</h5>
+                    <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+                </div>
+                {{ include('generic/_links.html.twig', {item: technicianOnCall, module: 'TOC', legacy:true} ) }}
+            </div>
+        </div>
+        {# Right Column #}
+        <div class="col-12 col-xl-8 px-4">
+            {% if technicianOnCall.serviceBulletins is not null and technicianOnCall.serviceBulletins|length %}
+            <div class="row">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'toc.title.sb' | trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>{{ 'toc.modal.service_bulletin.id'|trans({}, 'technician_on_call') }}</th>
+                                <th>{{ 'toc.modal.service_bulletin.status'|trans({}, 'technician_on_call') }}</th>
+                                <th>{{ 'toc.modal.service_bulletin.description'|trans({}, 'technician_on_call') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for serviceBulletin in technicianOnCall.serviceBulletins %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ "/en/private/product_support/index.ps.php?m[0]=sb&m[1]=view&id=" ~ serviceBulletin.id }}"
+                                           title="{{ 'toc.modal.service_bulletin.header'|trans({}, 'technician_on_call') }}">
+                                            #{{ serviceBulletin.id }}
+                                        </a>
+                                    </td>
+                                    <td>{{ serviceBulletin.status }}</td>
+                                    <td>{{ serviceBulletin.description }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row">
+                <div class="m-0 p-3 fs-5 tracking-status-intransit">
+                    {{ 'fields.created_by'|trans({}, 'messages') }}
+                    : {{ technicianOnCall.createdBy.firstname | capitalize }}
+                    {{ technicianOnCall.createdBy.lastname | upper }}
+
+                    <br />
+
+                    {{ 'tasks.assignee'|trans({}, 'messages') }}
+                    : {% if technicianOnCall.assignee is not null %}{{ technicianOnCall.assignee.firstname | capitalize }} {{ technicianOnCall.assignee.lastname | upper }}{% endif %}
+
+                    <br />
+
+                    {{ 'toc.fields.technician'|trans }}
+                    : {% if technicianOnCall.technician is not null %}{{ technicianOnCall.technician.firstname | capitalize }} {{ technicianOnCall.technician.lastname | upper }}{% endif %}
+                </div>
+                <div class="ibox-content p-0 p-lg-2 pt-3 ">
+                    {# React display log #}
+                    <div class="logs-technician_on_call"
+                         data-resource="{{ technicianOnCall['@id'] }}"
+                         data-confidential="{{ technicianOnCall.confidential }}"
+                         data-factory-flag="{{ technicianOnCall.factoryFlag }}"
+                         data-status="{{ technicianOnCall.status }}"
+                         data-granted-factory-flag="{{ grantedFactoryFlag ? 1 : 0 }}"
+                    ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="carousel_modal" tabindex="-1" aria-labelledby="carousel_modal" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if technicianOnCall.mainFile is not empty %}
+                        <div class="carousel-item active">
+                            <img class="img-responsive w-100"
+                                 src="{{ asset(upload_uri ~ '/' ~ technicianOnCall.mainFile.filePath) }}" alt="">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Service Bulletin Modal -->
+    {% if technicianOnCall.serviceBulletins|length > 0 %}
+        <div class="modal fade" id="service_bulletin_modal" tabindex="-1" aria-labelledby="service_bulletin_modal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>{{ 'toc.modal.service_bulletin.header'|trans({}, 'technician_on_call') }}</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>{{ 'toc.modal.service_bulletin.status'|trans({}, 'technician_on_call') }}</th>
+                                <th>{{ 'toc.modal.service_bulletin.status'|trans({}, 'technician_on_call') }}</th>
+                                <th>{{ 'toc.modal.service_bulletin.description'|trans({}, 'technician_on_call') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for serviceBulletin in technicianOnCall.serviceBulletins %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ "/en/private/product_support/index.ps.php?m[0]=sb&m[1]=view&id=" ~ serviceBulletin.id }}"
+                                           title="{{ 'toc.modal.service_bulletin.header'|trans({}, 'technician_on_call') }}">
+                                            #{{ serviceBulletin.id }}
+                                        </a>
+                                    </td>
+                                    <td>{{ serviceBulletin.status }}</td>
+                                    <td>{{ serviceBulletin.description }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="modal fade" id="main-file-drop-zone" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>{{ technicianOnCall.mainFile is empty ? 'toc.files.add_main_file' : 'toc.files.change_main_file' |trans }}</h4>
+                    <button type="button" class="btn-close pull-right" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% set elementDataSet = {
+                        id: technicianOnCall.id
+                    } %}
+                    <div class="toc-files-dropZone" data-main-file="true" data-data="{{ elementDataSet | json_encode }}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+
+    <script>
+        document.addEventListener("tocPartsCountUpdated", function (e) {
+            const badge = document.getElementById("parts-count-badge");
+            if (badge) {
+                badge.textContent = e.detail.total;
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'technician_on_call' }) }}"></script>
+{% endblock %}

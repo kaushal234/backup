@@ -1,0 +1,18 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ comment|raw }}</p>
+
+            {{ include('Emails/MinutesOfMeeting/partials/_meeting_table.html.twig', {meeting_normalized: meeting_normalized}, with_context = false) }}
+
+            <p>{{ meeting_normalized.description|raw }}</p>
+
+            <hr>
+            <center><button href="{{ url('meeting', {id: meeting_normalized.id}) }}">{{ 'mom.meeting.link' | trans }}</button></center>
+        </columns>
+    </row>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+
+    {{ include('/directory/people/search_by_name.html.twig') }}
+    {% if is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_MIS') %}
+    <div class="row mb-2">
+        <div class="col-md-2 col-xs-6 m-xs-auto">
+            <a
+                    class="btn btn-{{ showDisabledBusinessUnits ? 'danger' : 'primary' }}"
+                    href="{{ path('directory_index', {showDisabledBusinessUnits: showDisabledBusinessUnits ? false : true}) }}"
+            >
+                <i class="far fa-eye{{ showDisabledBusinessUnits ? '-slash' : '' }}"></i>&nbsp
+                {{ (showDisabledBusinessUnits ? 'directory.location.hide_disabled' : 'directory.location.show_disabled')|trans }}
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item "><a class="nav-link active" data-bs-toggle="tab" href="#division_chart">{{ 'directory.title.organisation'|trans }}</a></li>
+                    {% for division in divisions %}
+                        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#division_{{ division['@id']|iri_id }}">{{ division.name }} <small> - {{ 'directory.division.name'|trans }}</small></a></li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" id="division_chart" class="tab-pane active">
+                        <div class="card-body">
+                            <div class="row">
+                                <img class="img-fluid" src="/shared/images/alvest_org_chart.jpg" alt="Alvest Organisation Chart">
+                            </div>
+                        </div>
+                    </div>
+                    {% for division in divisions %}
+                        <div role="tabpanel" id="division_{{ division['@id']|iri_id }}" class="tab-pane">
+                            <div class="card-body">
+                                <div class="row">
+                                    {% for subDivision in division.subDivisions %}
+                                        {% set subDivisionsCount = division.subDivisions|length %}
+                                        {% set subDivisionWidth = 12 %}
+                                        {% if subDivisionsCount == 2 %}
+                                            {% set subDivisionWidth = 6 %}
+                                        {% elseif subDivisionsCount == 3 %}
+                                            {% set subDivisionWidth = 4 %}
+                                        {% elseif subDivisionsCount > 3 %}
+                                            {% set subDivisionWidth = 3 %}
+                                        {% endif %}
+                                        <div class="col-lg-{{ subDivisionWidth }}">
+                                            <div class="card bg-primary">
+                                                <div class="card-header">{{ subDivision.name }} <small> - {{ 'directory.sub_division.name'|trans }}</small></div>
+                                                <div class="card-body">
+                                                    <div class="row g-4" style="display: flex; flex-wrap: wrap">
+                                                    {% for region in subDivision.regions %}
+                                                        {% set regionWidth = 12 %}
+                                                        {% if subDivisionWidth == 6 %}
+                                                            {% set regionWidth = 6 %}
+                                                        {% elseif subDivisionWidth == 8 %}
+                                                            {% set regionWidth = 4 %}
+                                                        {% endif %}
+                                                        {% if division.subDivisions|length == 1 or subDivision.regions|length == 1 %}
+                                                            {% set regionWidth = 12 %}
+                                                        {% endif %}
+                                                        <div class="col-lg-{{ regionWidth  }}">
+                                                            <div class="card bg-primary">
+                                                                <div class="card-header">
+                                                                    <h3 class="card-title">
+                                                                        <a href="{{ path('directory_organisation_region', { regionId: iri_id(region) }) }}">{{ region.name }}&nbsp;<i class="fas fa-external-link-alt"></i></a> <small> - {{ 'directory.region.name'|trans }}</small>
+                                                                    </h3>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    {% if region.businessUnits|length == 0 %}
+                                                                        <p>{{ 'directory.business_unit.no_business_unit'|trans }}</p>
+                                                                    {% else %}
+                                                                        <ul class="list-unstyled">
+                                                                            {% for businessUnit in region.businessUnits %}
+                                                                                {% if showDisabledBusinessUnits or not businessUnit.disabled %}
+                                                                                    <li>
+                                                                                        <a href="{{ path('directory_organisation_business_unit', {
+                                                                                            regionId: iri_id(region),
+                                                                                            businessUnitId: iri_id(businessUnit)
+                                                                                        }) }}">
+                                                                                            {{ businessUnit.name }}
+                                                                                        </a>
+                                                                                    </li>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </ul>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{{ include('helper/_report_table.html.twig', {
+    reportTable: {
+        items: {
+            name: {
+                'label': 'fields.fullname'|trans({}, 'messages')|capitalize,
+                'properties': ['lastname', 'firstname'],
+                'link': {
+                    'route': 'directory_people_show',
+                    'params': {'id':'@id'}
+                }
+            },
+        },
+        title: 'fields.members'|trans({}, 'messages')|capitalize,
+        initialSorting: 'name',
+        data: members,
+    },
+}, with_context = false) }}

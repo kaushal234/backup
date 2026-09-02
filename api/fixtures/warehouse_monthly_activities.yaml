@@ -1,0 +1,55 @@
+App\Entity\Materials\Warehouse\MonthlyActivities:
+    # /materials/warehouse/monthly_activities/1..12
+    monthly_activities_1_{1..12}:
+        location: '@location_6'
+        applicatedOn: <( new \DateTime("2019-$current-01"))>
+        inboundLines: <numberBetween(0, 5000)>
+        outboundLines: <numberBetween(0, 25000)>
+        inboundHours: <numberBetween(0, 500)>
+        outboundHours: <numberBetween(0, 500)>
+        improductiveHours: <numberBetween(0, 500)>
+        excludedHours: <numberBetween(0, 100)>
+
+    # /materials/warehouse/monthly_activities/13..24
+    monthly_activities_2_{1..12}:
+        location: '@location_7'
+        applicatedOn: <( new \DateTime("2019-$current-01"))>
+        inboundLines: <numberBetween(0, 5000)>
+        outboundLines: <numberBetween(0, 25000)>
+        inboundHours: <numberBetween(0, 500)>
+        outboundHours: <numberBetween(0, 500)>
+        improductiveHours: <numberBetween(0, 500)>
+        excludedHours: <numberBetween(0, 100)>
+
+    # /materials/warehouse/monthly_activities/24..26
+    monthly_activities_3_{1..12}:
+        location: '@location_warehouse'
+        applicatedOn: <( new \DateTime("2019-$current-01"))>
+        inboundLines: <numberBetween(0, 5000)>
+        outboundLines: <numberBetween(0, 25000)>
+        inboundHours: <numberBetween(0, 500)>
+        outboundHours: <numberBetween(0, 500)>
+        improductiveHours: <numberBetween(0, 500)>
+        excludedHours: <numberBetween(0, 100)>
+
+    # /materials/warehouse/monthly_activities/37..48
+    monthly_activities_4_{1..12}:
+        location: '@location_warehouse_2'
+        applicatedOn: <( new \DateTime("2019-$current-01"))>
+        inboundLines: <numberBetween(0, 5000)>
+        outboundLines: <numberBetween(0, 25000)>
+        inboundHours: <numberBetween(0, 500)>
+        outboundHours: <numberBetween(0, 500)>
+        improductiveHours: <numberBetween(0, 500)>
+        excludedHours: <numberBetween(0, 100)>
+
+    # /materials/warehouse/monthly_activities/49..60
+    monthly_activities_5_{1..12}:
+        location: '@location_404'
+        applicatedOn: <( new \DateTime("2019-$current-01"))>
+        inboundLines: <numberBetween(0, 5000)>
+        outboundLines: <numberBetween(0, 25000)>
+        inboundHours: <numberBetween(0, 500)>
+        outboundHours: <numberBetween(0, 500)>
+        improductiveHours: <numberBetween(0, 500)>
+        excludedHours: <numberBetween(0, 100)>

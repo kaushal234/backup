@@ -1,0 +1,19 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+
+{% block body %}
+    <row>
+        <columns>
+            <a target="_blank" href="{{ url('customer_service_record', {id: commissioningCustomerServiceRecord.id}) }}">CSR#{{ commissioningCustomerServiceRecord.id }}</a>
+
+            <hr>
+            <h5>New comment{% if author %} by {{ author }}{% endif %}</h5>
+            {{ comment|raw|nl2br }}
+            <hr>
+            {{ include('Emails/Service/CustomerServiceRecord/partial/_survey.html.twig', {commissioningCustomerServiceRecord: commissioningCustomerServiceRecord}) }}
+            <hr>
+            {{ include('Emails/Service/CustomerServiceRecord/partial/_csr.html.twig', {commissioningCustomerServiceRecord: commissioningCustomerServiceRecord}) }}
+            <hr>
+            {{ include('Emails/Service/CustomerServiceRecord/partial/_equipment_record.html.twig', {commissioningCustomerServiceRecord: commissioningCustomerServiceRecord}) }}
+        </columns>
+    </row>
+{% endblock %}

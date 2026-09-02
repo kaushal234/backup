@@ -1,0 +1,185 @@
+{% extends 'finance/account-receivable/layout.html.twig' %}
+{% trans_default_domain 'account_receivable' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filters' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('finance/account-receivable/partial/_form_filter_overview.html.twig', {
+                        form: formFilter,
+                        resetPath: path('account_receivable_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'account_receivable.dashboard.total_ar' | trans({'%currency%': currency.name}) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-filter=#filter>
+                            <thead>
+                            <tr>
+                                <th class="text-end">{{ 'account_receivable.overview.total_value' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.total_past_due' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.not_past_due' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.past_due_one_month' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.past_due_two_months' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.past_due_three_months' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.past_due_six_months' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.past_due_more_than_six_months' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.past_due_percentage' | trans }}</th>
+                                <th class="text-end">{{ 'account_receivable.overview.past_due_two_months_percentage' | trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-end">{% if total.totalValue is same as(0) %}{{ total.totalValue }}{% elseif total.totalValue < 1 %}{{ total.totalValue | number_format(2, '.', ' ')  | concat("K") }}{% else %}{{ total.totalValue | round | number_format(0, '.', ' ') | concat("K") }}{% endif %}</td>
+                                    <td class="text-end">{% if total.totalPastDue is same as(0) %}{{ total.totalPastDue }}{% elseif total.totalPastDue < 1 %}{{ total.totalPastDue | number_format(2, '.', ' ')  | concat("K") }}{% else %}{{ total.totalPastDue | round | number_format(0, '.', ' ') | concat("K") }}{% endif %}</td>
+                                    <td class="text-end">{% if total.notPastDue is same as(0) %}{{ total.notPastDue }}{% elseif total.notPastDue < 1 %}{{ total.notPastDue | number_format(2, '.', ' ')  | concat("K") }}{% else %}{{ total.notPastDue | round | number_format(0, '.', ' ') | concat("K")}}{% endif %}</td>
+                                    <td class="text-end">{% if total.pastDueOneMonth is same as(0) %}{{ total.pastDueOneMonth }}{% elseif total.pastDueOneMonth < 1 %}{{ total.pastDueOneMonth | number_format(2, '.', ' ')  | concat("K") }}{% else %}{{ total.pastDueOneMonth | round | number_format(0, '.', ' ') | concat("K")}}{% endif %}</td>
+                                    <td class="text-end">{% if total.pastDueTwoMonths is same as(0) %}{{ total.pastDueTwoMonths }}{% elseif total.pastDueTwoMonths < 1 %}{{ total.pastDueTwoMonths | number_format(2, '.', ' ')  | concat("K") }}{% else %}{{ total.pastDueTwoMonths | round | number_format(0, '.', ' ') | concat("K")}}{% endif %}</td>
+                                    <td class="text-end">{% if total.pastDueThreeMonths is same as(0) %}{{ total.pastDueThreeMonths }}{% elseif total.pastDueThreeMonths < 1 %}{{ total.pastDueThreeMonths | number_format(2, '.', ' ')  | concat("K") }}{% else %}{{ total.pastDueThreeMonths | round | number_format(0, '.', ' ') | concat("K")}}{% endif %}</td>
+                                    <td class="text-end">{% if total.pastDueSixMonths is same as(0) %}{{ total.pastDueSixMonths }}{% elseif total.pastDueSixMonths < 1 %}{{ total.pastDueSixMonths | number_format(2, '.', ' ')  | concat("K") }}{% else %}{{ total.pastDueSixMonths | round | number_format(0, '.', ' ') | concat("K")}}{% endif %}</td>
+                                    <td class="text-end">{% if total.pastDueMoreThanSixMonths is same as(0) %}{{ total.pastDueMoreThanSixMonths }}{% elseif total.pastDueMoreThanSixMonths < 1 %}{{ total.pastDueMoreThanSixMonths | number_format(2, '.', ' ')  | concat("K") }}{% else %}{{ total.pastDueMoreThanSixMonths | round | number_format(0, '.', ' ') | concat("K")}}{% endif %}</td>
+                                    <td class="text-end">{{ total.pastDuePercentage | round | concat('%', ' ') }}</td>
+                                    <td class="text-end">{{ total.pastDuePercentageTwoMonths | round | concat('%', ' ') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        customer: {
+                            label: 'demo.fields.customer'|trans({}, 'demo'),
+                            properties: ['customerErpReference.customer.name'],
+                            link:{
+                                route: 'account_receivable_search',
+                                params: { 'customerErpReference_customer': 'customerErpReference.customer.@id', 'customerErpReference_sso[]': 'customerErpReference.sso.@id'},
+                                forceIri: true,
+                            },
+                        },
+                        totalValue: {
+                            label: 'account_receivable.overview.total_value'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                            templateParams: {withCurrency: false, kValue: true, textRight: true, scale: 1},
+                            sortable: 'numeric',
+                        },
+                        notPastDue: {
+                            label: 'account_receivable.overview.not_past_due'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                            templateParams: {withCurrency: false, kValue: true, textRight: true, scale: 1},
+                            sortable: 'numeric',
+                        },
+                        pastDueOneMonth: {
+                            label: 'account_receivable.overview.past_due_one_month'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                            templateParams: {withCurrency: false, kValue: true, textRight: true, scale: 1},
+                            sortable: 'numeric',
+                        },
+                        pastDueTwoMonths: {
+                            label: 'account_receivable.overview.past_due_two_months'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                            templateParams: {withCurrency: false, kValue: true, textRight: true, scale: 1},
+                            sortable: 'numeric',
+                        },
+                        pastDueThreeMonths: {
+                            label: 'account_receivable.overview.past_due_three_months'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                            templateParams: {withCurrency: false, kValue: true, textRight: true, scale: 1},
+                            sortable: 'numeric',
+                        },
+                        pastDueSixMonths: {
+                            label: 'account_receivable.overview.past_due_six_months'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                            templateParams: {withCurrency: false, kValue: true, textRight: true, scale: 1},
+                            sortable: 'numeric',
+                        },
+                        pastDueMoreThanSixMonths: {
+                            label: 'account_receivable.overview.past_due_more_than_six_months'|trans,
+                            template: 'finance/account-receivable/partial/cells/_value.html.twig',
+                            templateParams: {withCurrency: false, kValue: true, textRight: true, scale: 1},
+                            sortable: 'numeric',
+                        },
+                        pastDuePercentage: {
+                            label: 'account_receivable.overview.past_due_percentage'|trans,
+                            filters: ['concat("%")'],
+                            sortable: 'numeric',
+                            class: 'text-end',
+                        },
+                        pastDueTwoMonthsPercentage: {
+                            label: 'account_receivable.overview.past_due_two_months_percentage'|trans,
+                            filters: ['concat("%")'],
+                            sortable: 'numeric',
+                            class: 'text-end',
+                        },
+                    },
+                    initialSorting: false,
+                    search: true,
+                    title: 'account_receivable.dashboard.overview_ar'|trans({ '%currency%': currency.name }),
+                    data: accountReceivableOverview,
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('/finance/account-receivable/partial/report.html.twig', { data: overviewPastDueNinetyDays, title: 'account_receivable.dashboard.past_due_ninety', currency: currency }, with_context = false ) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('/finance/account-receivable/partial/report.html.twig', { data: summaryNextComingGreaterThan, title: 'account_receivable.dashboard.comming_due_thirty', currency: currency }, with_context = false ) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ include('/finance/account-receivable/partial/report.html.twig', { data: overviewThirtyDaysGreaterThan, title: 'account_receivable.dashboard.past_due_thirty_gt', currency: currency }, with_context = false ) }}
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'account_receivable.dashboard.customer_credit_limit' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: creditLimitCustomers,
+                        template: 'finance/account-receivable/partial/cells/_matrix.html.twig',
+                        additionalParams: {'currency': currency},
+                        hideTotals: 'both',
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

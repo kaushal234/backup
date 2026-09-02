@@ -1,0 +1,437 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/lights$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/(|lights|extendeds)/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "specification": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {
+                "pattern": "^/mis/specifications/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "module": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "userStories": {
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": "string"
+              }
+            }
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "notifyOperationalOwner": {
+            "type": "boolean"
+          },
+          "notifyKeyUser": {
+            "type": "boolean"
+          },
+          "notificationColor": {
+            "type": ["string", "null"]
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "misRelative": {
+            "type": "boolean"
+          },
+          "operationalOwner": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/people/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "photo": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "../../../shared/schemas/file_light.json"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "email",
+              "legacyId",
+              "username",
+              "photo"
+            ],
+            "additionalProperties": false
+          },
+          "keyUser": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "pattern": "^/people/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "photo": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "$ref": "../../../shared/schemas/file_light.json"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "legacyId",
+                  "username",
+                  "photo"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "fullDescription": {
+            "type": "string"
+          },
+          "dmsProcedureId": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "dmsHelpId": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "legacyLoc": {
+            "type": "integer"
+          },
+          "migrationCurrentStep": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "migrationEstimatedHours": {
+            "type": "integer"
+          },
+          "migrated": {
+            "type": "boolean"
+          },
+          "disabledForTroubleTicket": {
+            "type": "boolean"
+          },
+          "application": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@context": {
+                    "type": "string"
+                  },
+                  "@id": {"pattern": "^/mis/applications/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": {"type":  "integer"},
+                  "name": {"type":  "string"},
+                  "jiraProjectId": {"type":  ["integer", "null"]}
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "name",
+                  "jiraProjectId"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "typeDefaultAssignees": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@context": {
+                  "type": "string"
+                },
+                "@id": {
+                  "pattern": "^/mis/type_default_assignees/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "defaultAssignee": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "id",
+                "defaultAssignee",
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "department": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {
+                "pattern": "^/departments/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "sso": {
+            "type": "boolean"
+          },
+          "mfaUser": {
+            "type": "boolean"
+          },
+          "mfaAdmin": {
+            "type": "boolean"
+          },
+          "securityReviewFrequency": {
+            "type": "integer"
+          },
+          "accountReviewFrequency": {
+            "type": "integer"
+          },
+          "mainAdmin": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/people/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "photo": {
+                    "oneOf": [
+                      { "type": "null" },
+                      { "$ref": "../../../shared/schemas/file_light.json" }
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "legacyId",
+                  "username",
+                  "photo"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "securityLevel": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/security_levels/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": ["string", "null"]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "name",
+                  "description"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "specification",
+          "id",
+          "legacyId",
+          "name",
+          "operationalOwner",
+          "keyUser",
+          "shortDescription",
+          "fullDescription",
+          "dmsProcedureId",
+          "dmsHelpId",
+          "legacyLoc",
+          "migrationCurrentStep",
+          "migrationEstimatedHours",
+          "migrated",
+          "department",
+          "application",
+          "typeDefaultAssignees",
+          "misRelative",
+          "notificationColor",
+          "sso",
+          "mfaUser",
+          "mfaAdmin",
+          "securityReviewDateStart",
+          "securityLevel",
+          "accountReviewDateStart",
+          "availabilityClassification",
+          "notifyKeyUser",
+          "notifyOperationalOwner",
+          "integrityClassification",
+          "confidentialityClassification",
+          "mainAdmin",
+          "disabledForTroubleTicket"
+        ],
+        "additionalProperties" : true
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:totalItems"
+  ]
+}

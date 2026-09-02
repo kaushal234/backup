@@ -1,0 +1,13 @@
+{% extends 'sales/sales_forecasts/layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,93 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+            {% set activePhase = form.vars.value.activePhase.number|default(null) %}
+            {{ form_start(form, {attr: {'data-controller': 'mis--project--autofill-project-manager'}}) }}
+                {{ form_errors(form) }}
+<div class="row">
+    <div class="col-lg-2 col-md-12">
+        {{ form_row(form.confidential) }}
+    </div>
+    <div class="col-lg-5 col-md-12">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="col-lg-5 col-md-12">
+        {{ form_row(form.teamsLink) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        {{ form_row(form.tags) }}
+    </div>
+    <div class="col-lg-3 col-md-12">
+        {{ form_row(form.region) }}
+    </div>
+    <div class="col-lg-3 col-md-12">
+        {{ form_row(form.indicesFactor) }}
+    </div>
+</div>
+<div class="row">
+    {{ form_row(form.description) }}
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-12">
+        {{ form_row(form.module) }}
+    </div>
+    <div class="col-lg-3 col-md-12">
+        {{ form_row(form.projectManager) }}
+    </div>
+    <div class="col-lg-3 col-md-12">
+        {{ form_row(form.misOwner) }}
+    </div>
+    <div class="col-lg-3 col-md-12">
+        {{ form_row(form.startedAt) }}
+    </div>
+</div>
+<hr>
+<div class="row">
+    {% for phase in form.phases %}
+        {{ form_row(phase.number) }}
+        <div class="col {% if activePhase is not null and loop.index0 < activePhase %}opacity-50{% endif %}">
+            <div class="card" {% if activePhase is not null and loop.index0 == activePhase %}style="border: 3px solid green; opacity: 1;"{% endif %}>
+                <div class="card-header">
+                    <h3>{{ 'mis_project.fields.phase'|trans({}, 'mis_project') }} {{ loop.index0 }}</h3>
+                    <h5>{{ ('mis_project.fields.phase_description_' ~ loop.index0)|trans({}, 'mis_project') }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(phase.estimatedClosureAt) }}
+                        </div>
+                        {% if phase.revisedClosureAt is defined %}
+                            <div class="col-md-12">
+                                {{ form_row(phase.revisedClosureAt) }}
+                            </div>
+                        {% endif %}
+                        <div class="col-md-12">
+                            {{ form_row(phase.estimatedHours) }}
+                        </div>
+                        {% if phase.revisedClosureAt is defined %}
+                            <div class="col-md-12">
+                                {{ form_row(phase.revisedEstimatedHours) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<hr>
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        {{ form_row(form.moduleKeyUsers) }}
+    </div>
+    <div class="col-lg-6 col-md-12">
+        {{ form_row(form.misMembers) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary float-end text-capitalize">{{ 'button.submit'|trans }}</button>
+    </div>
+</div>
+{% do form.phases.setRendered %}
+            {{ form_end(form) }}

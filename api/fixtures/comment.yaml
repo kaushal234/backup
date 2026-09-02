@@ -1,0 +1,99 @@
+App\Entity\Activity\Comment:
+  #/comments/1
+  comment_aleau:
+    user: "@user_mpe"
+    resource: "/quality/supplier_corrective_action_requests/1"
+    createdAt: <dateTimeBetween('-30 days','-3 days')>
+    updatedAt: <dateTimeBetween('-2 days','-1 days')>
+    public: true
+    message: "Hello, How are you ? Something is wrong here"
+    discriminator: "scar_conversation"
+    metadata:
+      tos: ['smile8800@sina.com']
+      recipients: ['zhensheng.zhou@tld-asia.com', 'ping.shi@tld-asia.com']
+
+  #/comments/2
+  comment_aldacier:
+    resource: "/quality/supplier_corrective_action_requests/1"
+    createdAt: <dateTimeBetween('-30 days','-3 days')>
+    updatedAt: <dateTimeBetween('-2 days','-1 days')>
+    public: true
+    message: "Ok let's have talk about this problem this is serious"
+    discriminator: "scar_conversation"
+    metadata:
+     firstname: 'Emily'
+     lastname: 'Zhao'
+
+  #/comments/{3..8}
+  comment_toc_{3..8}:
+    user: "@user_ast"
+    resource: "/service/technician_on_calls/7"
+    createdAt: <dateTimeBetween('-30 days','-3 days')>
+    updatedAt: <dateTimeBetween('-2 days','-1 days')>
+    public: <boolean(50)>
+    message: <sentence()>
+
+  comment_toc_extranet_public:
+    user: "@user_ast"
+    resource: "/service/technician_on_calls/44"
+    message: "Public comment TOC#44"
+    public: true
+    createdAt: <( new \DateTime('-5 days'))>
+
+  comment_toc_extranet_private:
+    user: "@user_ast"
+    resource: "/service/technician_on_calls/44"
+    message: "Private comment TOC#44"
+    public: false
+    createdAt: <( new \DateTime('-5 days'))>
+
+  comment_toc_late:
+    user: "@user_ast"
+    resource: "/service/technician_on_calls/34"
+    message: "Late public comment"
+    public: true
+    createdAt: <( new \DateTime('-5 days'))>
+
+  comment_toc_late_private:
+    user: "@user_ast"
+    resource: "/service/technician_on_calls/35"
+    message: "Late public comment"
+    public: false
+    createdAt: <( new \DateTime('-5 days'))>
+
+  comment_csr_multiple_1:
+    user: "@user_ast"
+    resource: "/service/technician_on_call_customer_service_records/10"
+    message: "Comment on first CSR"
+    public: false
+    createdAt: <( new \DateTime('-5 days'))>
+
+  comment_csr_multiple_2:
+    user: "@user_ast"
+    resource: "/service/technician_on_call_customer_service_records/11"
+    message: "Comment on second CSR"
+    public: false
+    createdAt: <( new \DateTime('-5 days'))>
+
+App\Entity\Activity\CommentFile:
+  comment_file_1:
+    poster: "@user_mpe"
+    filePath: "../../tests/fixtures/file.pdf"
+    created_at: <dateTimeBetween('-30 days','-1 days')>
+    description: "For SCAR"
+    sha: "miaouid8"
+    mimeType: "Mr Mime"
+    extension: "flexion"
+    size: 22
+    comment: "@comment_aleau"
+
+  comment_file_2:
+    poster: "@user_basic"
+    filePath: "../../tests/fixtures/file.pdf"
+    created_at: <dateTimeBetween('-30 days','-1 days')>
+    description: "Another file"
+    sha: "miaou9"
+    mimeType: "marceau"
+    extension: "flexion"
+    size: 22
+    comment: "@comment_aldacier"

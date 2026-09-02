@@ -1,0 +1,351 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/quality/crabs"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/quality/crabs/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "createdAt": {"type": "string"},
+          "fixedAt": {"type": ["string", "null"]},
+          "inspectedAt": {"type": ["string", "null"]},
+          "description": {"type": "string"},
+          "category": {"type": "string"},
+          "piQuestionType": {"type": ["string", "null"]},
+          "department": {"$ref": "../../crab_department/schemas/crab_department.json"},
+          "equipmentRecord": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "@type": "object",
+                "properties": {
+                  "@id": {
+                    "pattern": "^/equipment_records/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "serialNumber": {
+                    "type": "string"
+                  },
+                  "buyer": {
+                    "@type": "object",
+                    "properties": {
+                      "@id": {
+                        "pattern": "^/sales/customers/\\d+$"
+                      },
+                      "@type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name"
+                    ]
+                  },
+                  "endUser": {
+                    "@type": "object",
+                    "properties": {
+                      "@id": {
+                        "pattern": "^/sales/customers/\\d+$"
+                      },
+                      "@type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name"
+                    ]
+                  },
+                  "customerSerialNumber": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "model": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "product": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "@id": {
+                            "pattern": "^/sales/products/\\d+$"
+                          },
+                          "@type": {
+                            "type": "string"
+                          },
+                          "family": {
+                            "type": "object",
+                            "properties": {
+                              "@id": {
+                                "pattern": "^/sales/product_families/\\d+$"
+                              },
+                              "@type": {
+                                "type": "string"
+                              },
+                              "productType": {
+                                "type": "object",
+                                "properties": {
+                                  "@id": {
+                                    "pattern": "^/sales/product_types/\\d+$"
+                                  },
+                                  "@type": {
+                                    "type": "string"
+                                  },
+                                  "englishName": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "@id",
+                                  "@type",
+                                  "englishName"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "@id",
+                              "@type",
+                              "productType"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "family"
+                        ]
+                      }
+                    ]
+                  },
+                  "location": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "dateShipped": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "dateCommissioned": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "manufacturerLocation": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "@id": {
+                            "pattern": "^/locations/\\d+$"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "erp": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          },
+                          "@type": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type"
+                        ]
+                      }
+                    ]
+                  },
+                  "salesOrganisation": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "@id": {
+                            "pattern": "^/locations/\\d+$"
+                          },
+                          "@type": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "erp": {
+                            "type": [
+                              "integer",
+                              "null"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "createdBy": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+            ]
+          },
+          "fixedBy": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "$ref": "../../directory_people/schemas/directory_people_public.json"
+              }
+            ]
+          },
+          "inspectedBy": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "$ref": "../../directory_people/schemas/directory_people_public.json"
+              }
+            ]
+          },
+          "part": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/parts/crab_parts/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "createdAt": {"type": "string"},
+                  "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                  "deletedAt": {"type": ["null", "string"]},
+                  "deletedBy": {"oneOf": [
+                    {"type": "null"},
+                    {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                  ]},
+                  "partNumber": {"type": "string"},
+                  "description": {"type": "string"},
+                  "unitOfMeasure": {"type": "string"},
+                  "quantity": {"type": "integer"}
+                },
+                "required": ["@id", "@type", "id", "createdAt", "createdBy", "deletedAt", "deletedBy", "partNumber", "description", "unitOfMeasure", "quantity", "reference", "referenceNumber", "serialNumber"],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "code": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../crab_code/schemas/crab_code.json"}
+            ]
+          },
+          "derogation" : {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/quality/derogations/\\d+$"},
+                  "@context": {"type": "string"},
+                  "@type": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "description": {"type": "string"},
+                  "status": {"type": "string"},
+                  "dueDate": {"type": "string"},
+                  "closedAt": {"type": ["null", "string"]},
+                  "assignee": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                  "assignor": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                  "closedBy": {
+                    "oneOf": [
+                      {"type": "null"},
+                      {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "createdAt",
+          "fixedAt",
+          "inspectedAt",
+          "description",
+          "category",
+          "piQuestionType",
+          "department",
+          "equipmentRecord",
+          "createdBy",
+          "fixedBy",
+          "inspectedBy",
+          "part",
+          "code",
+          "legacyId",
+          "derogation"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

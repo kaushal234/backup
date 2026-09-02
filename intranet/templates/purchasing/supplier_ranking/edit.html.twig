@@ -1,0 +1,38 @@
+{% extends 'purchasing/supplier_ranking/layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block content %}
+    <div class="row">
+        {{ form_start(form, { action: path('supplier_rankings_edit', {id: supplierRanking.id}) }) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins news-list-element">
+                    <div class="ibox-title">
+                        <h4>Edit</h4>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-6">
+                                {{ form_row(form.expertiseLevel) }}
+                                {{ form_row(form.classification) }}
+                                {{ form_row(form.lastScreeningAt) }}
+                            </div>
+                            <div class="col-6">
+                                {% for formNotation in form.notations %}
+                                    {{ form_row(formNotation.notation, {label: formNotation.vars.value.criteria.name}) }}
+                                    {{ form_row(formNotation.criteria) }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear-fix"></div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

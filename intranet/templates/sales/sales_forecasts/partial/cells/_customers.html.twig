@@ -1,0 +1,11 @@
+<td>
+    {% if item.buyer is not same as(null) %}
+        {{ include('sales/customers/partial/_customer_with_status.html.twig', {customer: item.buyer, maxLength: 15}, with_context=false) }}
+    {% endif %}
+    {% if item.endUser is not same as(null) %}
+        <br>{{ include('sales/customers/partial/_customer_with_status.html.twig', {customer: item.endUser, maxLength: 15}, with_context=false) }}
+    {% endif %}
+    {% if item.thirdParty is not same as(null) %}
+        <br>{{ include('sales/customers/partial/_customer_with_status.html.twig', {customer: item.thirdParty, maxLength: 15}, with_context=false) }}
+    {% endif %}
+</td>

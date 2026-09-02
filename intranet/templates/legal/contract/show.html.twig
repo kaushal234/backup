@@ -1,0 +1,43 @@
+{% extends 'legal/layout.html.twig' %}
+{% trans_default_domain 'legal' %}
+
+{% block title %}{{ parent() }}\{{ 'legal.title.contract'|trans }}{% endblock %}
+
+{% block content %}
+    {{ include('legal/contract/partial/_top_cards.html.twig') }}
+    {{ include('@AlvestTwigHelper/tabs_layout.html.twig', {
+        tabsData: {
+            tabs: {
+                details: {
+                    defaultTab: true,
+                    label: 'contacts.menu.detail'|trans({}, 'contacts'),
+                    template: 'legal/contract/partial/tabs/_details_tab.html.twig',
+                    templateParams: {contract: contract}
+                },
+                files: {
+                    label: 'menu.files' | trans({}, 'messages') | capitalize,
+                    template: 'legal/contract/partial/tabs/_files.html.twig',
+                    templateParams: {contract: contract},
+                    badge: contract.files | length
+                },
+                logs: {
+                    label: 'menu.logs' | trans({}, 'messages') | capitalize,
+                    template: 'generic/_logs.html.twig',
+                    templateParams: {item: contract, addComment: true}
+                },
+                subscription: {
+                    label: 'subscribers' | trans({}, 'messages'),
+                    template: 'generic/_subscriptions.html.twig',
+                },
+            },
+            data: contract,
+            link: app.request.query.get('tab')
+        }
+    }, with_context = false) }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+{% endblock %}
+

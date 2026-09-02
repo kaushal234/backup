@@ -1,0 +1,19 @@
+{% set field = form ~ '_scarRequested' %}
+<script type="text/javascript">
+    window.onload = function() {
+        var scarRequested = document.getElementById('{{ field }}')
+        if (!scarRequested.checked) {
+            $('.field-to-disable').prop('disabled', true).trigger("chosen:updated")
+        }
+
+        Array.from(document.getElementsByClassName('disable-field')).forEach((checkbox) => {
+            checkbox.addEventListener('change', function (event) {
+                $('.field-to-disable').prop('disabled', !event.target.checked).trigger("chosen:updated")
+            }, false)
+        })
+
+        $('.supplier').change(function () {
+            $('.supplier-to-disable').prop('disabled', $(this).val() !== '')
+        })
+    }
+</script>

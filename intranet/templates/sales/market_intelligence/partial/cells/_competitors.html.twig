@@ -1,0 +1,5 @@
+<td>
+    {% for competitor in item.competitors %}
+        <a href="{{ path('sales_competitors_show', {id: iri_id(competitor)}) }}">{{ competitor.name }}</a><br>
+    {% endfor %}
+</td>

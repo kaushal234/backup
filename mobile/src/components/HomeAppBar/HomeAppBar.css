@@ -1,0 +1,145 @@
+.cui .home_app_bar__wrapper {
+  background-color: transparent;
+  backdrop-filter: blur(8px);
+  background-image: none;
+}
+
+.cui.dark .home_app_bar__wrapper {
+  background-color: rgb(18, 18, 18, 0.1);
+  background-color: transparent;
+}
+
+.cui.light .home_app_bar_menu {
+  color: var(--cui-alvest-logo-light);
+}
+
+.cui .home_app_bar_avatar_menu {
+  border-radius: 13px;
+}
+
+.cui.light .home_app_bar_avatar_menu {
+  background-color: transparent;
+  border: 1px solid rgb(223, 226, 231);
+  color: var(--cui-alvest-logo-light);
+}
+
+.cui.dark .home_app_bar_avatar_menu {
+  color: var(--mui-palette-text-secondary);
+  background-color: transparent;
+  border: 1px solid var(--mui-palette-text-secondary);
+}
+
+.cui .home_app_bar__logo {
+  height: 32px;
+  margin: 4px 0;
+}
+
+.cui .home_app_bar__section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cui .home_app_bar__content_wrapper--no_card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 56px);
+  padding: 16px 28px;
+}
+
+.cui.light .home_app_bar__content_wrapper--no_card {
+  background-color: var(--cui-light-background);
+}
+
+.cui .home_app_bar__content_card {
+  border-radius: 20px;
+  padding: 28px;
+  width: 100%;
+  border: none;
+}
+
+.cui .home_app_bar__content_card_container {
+  max-width: 570px;
+}
+
+.cui .home_app_bar__wrapper .home_app_bar__section:first-child {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.cui .home_app_bar__wrapper .home_app_bar__section:last-child {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cui .home_app_bar_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 8px 16px;
+  gap: 16px;
+}
+
+.cui.light .home_app_bar__pad {
+  background-color: var(--cui-light-background);
+}
+
+.cui .home_app_bar__content_wrapper--breadcrumb {
+  min-height: calc(100vh - 93px);
+}
+
+.cui .home_app_bar__content_wrapper--no_breadcrumb {
+  min-height: calc(100vh - 56px);
+}
+
+.cui .home_app_bar__content_wrapper--breadcrumb {
+  min-height: calc(100vh - 93px);
+}
+
+.cui .home_app_bar__content_wrapper--main {
+  display: flex;
+}
+
+.cui .home_app_bar__content_wrapper--main > div {
+  flex: 1;
+  max-width: 100%;
+}
+
+.cui .home_app_bar__content_wrapper--container {
+  max-width: 570px;
+  margin: 0 auto;
+}
+
+.cui.light .home_app_bar__content_root_wrapper {
+  background-color: var(--cui-light-background);
+}
+
+.cui .home_app_bar__network_bar_pad {
+  height: 49px;
+  background-color: var(--cui-light-background);
+}
+
+.cui .home_app_bar__content_wrapper--main > div {
+  overflow: auto;
+}
+
+.cui .home_app_bar__section_right {
+  gap: 6px;
+}
+
+@media (max-width: 375px) {
+  .cui .home_app_bar_row {
+    padding: 8px;
+  }
+
+  .cui .home_app_bar_row .MuiAvatar-root {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.cui.dark .home_app_bar_row .MuiButtonBase-root .MuiAvatar-root {
+  color: var(--mui-palette-text-secondary);
+  background-color: transparent;
+}

@@ -1,0 +1,51 @@
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+
+        {{ form_start(form, { action: action }) }}
+        <div class="col-md-12 col-lg-12">
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="ibox float-e-margins news-list-element">
+                <div class="ibox-title">
+                    <h5> {{ title }}</h5>
+                    {% if collapsible is defined and collapsible == true %}
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            {{ form_row(form.name) }}
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            {{ form_row(form.factory) }}
+                            </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            {{ form_row(form.supervisor) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div>
+                                <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+                                <a href="{{ cancel_link }}" class="btn btn-secondary">
+                                    {{ 'button.cancel'|trans({}, 'messages') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="clear-fix"></div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+

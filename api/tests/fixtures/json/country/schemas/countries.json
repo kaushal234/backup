@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/countries$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/countries/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "isoCode2": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "subRegion": {
+            "type": "string"
+          },
+          "continent": {
+            "oneOf": [
+              {"type": "null"},
+              { "$ref": "../../continent/schemas/continent.json" }
+            ]
+          }
+        },
+        "required": ["@id", "@type", "id", "legacyId", "name", "isoCode2", "region", "subRegion", "continent"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

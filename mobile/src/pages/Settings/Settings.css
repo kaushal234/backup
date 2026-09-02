@@ -1,0 +1,29 @@
+.cui .settings__wrapper {
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 24px;
+  gap: 16px;
+}
+
+.cui .settings__card {
+  display: grid;
+  padding: 16px;
+  border-radius: var(--cui-card-border-radius);
+  width: 100%;
+  max-width: 100%;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.cui .settings__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.cui .settings__wrapper button {
+  min-width: 100px;
+}

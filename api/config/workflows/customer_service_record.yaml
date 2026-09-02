@@ -1,0 +1,47 @@
+framework:
+  workflows:
+    customer_service_record:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord
+      initial_marking: !php/const App\Entity\Service\CustomerServiceRecord\CustomerServiceRecord::PENDING
+      places:
+        - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::PENDING
+        - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::PLANNED
+        - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::ASSIGNED
+        - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::IN_PROGRESS
+        - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::COMPLETED
+        - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::CLOSED
+      transitions:
+        to_planned:
+          from:
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::PENDING
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::ASSIGNED
+          to: !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::PLANNED
+        to_assigned:
+          from:
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::PENDING
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::PLANNED
+          to: !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::ASSIGNED
+        to_in_progress:
+          from: !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::ASSIGNED
+          to: !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::IN_PROGRESS
+        to_completed:
+          from:
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::CLOSED
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::IN_PROGRESS
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::ASSIGNED
+          to: !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::COMPLETED
+        to_pending:
+          from:
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::CLOSED
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::PLANNED
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::ASSIGNED
+            - !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::COMPLETED
+          to: !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::PENDING
+        to_closed:
+          from: !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::COMPLETED
+          to: !php/const App\Entity\Service\CustomerServiceRecord\AbstractCustomerServiceRecord::CLOSED

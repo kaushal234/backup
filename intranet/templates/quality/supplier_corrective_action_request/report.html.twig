@@ -1,0 +1,52 @@
+{% extends 'quality/supplier_corrective_action_request/layout.html.twig' %}
+{% trans_default_domain 'supplier_corrective_action_request' %}
+{% form_theme formSupplierFactory 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox-title">
+                <h5>{{ 'wms.form.filter' | trans([], 'wms') | upper }} {{ 'finance.approver.supplier' | trans([], 'finance') | upper }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(formSupplierFactory) }}
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form_row(formSupplierFactory.factory) }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form_row(formSupplierFactory.supplierNumber) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="float-end">
+                        {{ form_row(formSupplierFactory.submit) }}
+                    </div>
+                </div>
+                {{ form_end(formSupplierFactory) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'supplier_corrective_action_request.supplier_history' | trans({}, 'supplier_corrective_action_request')}}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: reportSupplierHistory,
+                        template: 'quality/supplier_corrective_action_request/partial/report/_cell_supplier_history.html.twig',
+                        extraParameters: parameters
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

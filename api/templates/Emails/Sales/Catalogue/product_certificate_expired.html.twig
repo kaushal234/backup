@@ -1,0 +1,18 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'product_certificate.message' | trans }}</p>
+
+            <ul>
+                {% for certificate in productCertificates %}
+                    <li><a href="{{ path('product_certificate',{id: certificate.id}) }}">{{ 'product_certificate.id' |trans({'%id%': certificate.id}) }}</a></li>
+                {% endfor %}
+            </ul>
+        </columns>
+    </row>
+{% endblock %}

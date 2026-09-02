@@ -1,0 +1,17 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            {% if addedParts is not empty %}<p>{{ 'spr.parts.added'|trans }} {% for part in addedParts %}{{ part.partNumber }} X {{ part.quantity }} {{ part.unitOfMeasure }}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+            {% if removedParts is not empty %}<p>{{ 'spr.parts.deleted'|trans }} {% for part in removedParts %}{{ part.partNumber }} X {{ part.quantity }} {{ part.unitOfMeasure }}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+
+            {{ include('Emails/SparePartsRequest/partials/_spr.html.twig', {sparePartsRequest: sparePartsRequest}, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

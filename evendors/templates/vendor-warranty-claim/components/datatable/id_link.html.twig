@@ -1,0 +1,7 @@
+<td>
+    {% if item.module is same as 'NCR' %}
+        <a href="{{ path('vendor-warranty-claim:show-ncr', {id: item.id}) }}">{{ item.id }}</a>
+    {% else %}
+        <a href="{{ path('vendor-warranty-claim:show-wc', {id: item.id}) }}">{{ item.id }}</a>
+    {% endif %}
+</td>

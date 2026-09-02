@@ -1,0 +1,44 @@
+{% extends 'service/maintenance_contracts/layout.html.twig' %}
+{% set id = iri_id(contract) %}
+{% trans_default_domain 'service' %}
+
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'titles.edition'|trans([], 'messages')|capitalize }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {% if id is defined %}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div>
+                                    <label class="col-form-label">{{ 'service.equipment_record.fields.buyer'|trans|capitalize }}</label>
+                                    <p class="form-control-plaintext">{{ contract.buyer.name }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div>
+                                    <label class="col-form-label">{{ 'service.equipment_record.fields.end_user'|trans|capitalize }}</label>
+                                    <p class="form-control-plaintext">{{ contract.endUser.name }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 visible-md visible-lg">
+                                <div>
+                                    <label class="col-form-label">Id</label>
+                                    <p class="form-control-plaintext">{{ id }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

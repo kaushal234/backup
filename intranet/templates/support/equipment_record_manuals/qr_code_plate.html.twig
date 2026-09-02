@@ -1,0 +1,9 @@
+{% extends 'support/equipment_record_manuals/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div id="react" />
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'support' }) }}"></script>
+{% endblock %}

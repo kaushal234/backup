@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/support/manual_documents"},
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "properties": {
+            "@context": {
+              "type": "string"
+            },
+            "@id": {"pattern": "^/support/manual_documents/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "manual": {
+              "oneOf": [
+                {"type":  "null"},
+                { "$ref": "../../manuals/schemas/manual.json" }
+              ]
+            },
+            "position": {
+              "type": "integer"
+            },
+            "factoryNumber": {
+              "type": ["string", "null"]
+            },
+            "revision": {
+              "type": ["string", "null"]
+            },
+            "category": {
+              "oneOf": [
+                {"type":  "null"},
+                { "$ref": "../../manual_document_categories/schemas/manual_document_category.json" }
+              ]
+            },
+            "type": {
+              "type": "string"
+            },
+            "description": {
+              "type": ["string", "null"]
+            },
+            "otherDescription": {
+              "type": ["string", "null"]
+            },
+            "quantity": {
+              "type": "number"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "createdBy": {
+              "$ref": "../../directory_people/schemas/directory_people_public.json"
+            },
+            "parts": {
+              "type": "array",
+              "items": {
+                "$ref": "../../manual_parts/schemas/manual_part.json"
+              }
+            },
+            "files": {
+              "type": "array",
+              "items": {
+                "$ref": "../../shared/schemas/file.json"
+              }
+            },
+            "id": {
+              "type": "integer"
+            },
+            "legacyId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "position",
+            "factoryNumber",
+            "type",
+            "quantity",
+            "parts",
+            "document",
+            "legacyId"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

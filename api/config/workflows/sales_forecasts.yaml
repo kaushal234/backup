@@ -1,0 +1,52 @@
+framework:
+    workflows:
+        sales_forecast:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\Sales\SalesForecast
+            places:
+                - !php/const App\Entity\Sales\SalesForecast::BUDGET
+                - !php/const App\Entity\Sales\SalesForecast::IN_PROGRESS
+                - !php/const App\Entity\Sales\SalesForecast::DELAYED
+                - !php/const App\Entity\Sales\SalesForecast::ORDERED
+                - !php/const App\Entity\Sales\SalesForecast::LOST
+                - !php/const App\Entity\Sales\SalesForecast::CANCELLED
+                - !php/const App\Entity\Sales\SalesForecast::PARTIAL
+            transitions:
+                to_in_progress:
+                    from:
+                        - !php/const App\Entity\Sales\SalesForecast::BUDGET
+                        - !php/const App\Entity\Sales\SalesForecast::DELAYED
+                    to: !php/const App\Entity\Sales\SalesForecast::IN_PROGRESS
+                to_delayed:
+                    from:
+                        - !php/const App\Entity\Sales\SalesForecast::BUDGET
+                        - !php/const App\Entity\Sales\SalesForecast::IN_PROGRESS
+                    to: !php/const App\Entity\Sales\SalesForecast::DELAYED
+                to_ordered:
+                    from:
+                        - !php/const App\Entity\Sales\SalesForecast::BUDGET
+                        - !php/const App\Entity\Sales\SalesForecast::IN_PROGRESS
+                        - !php/const App\Entity\Sales\SalesForecast::DELAYED
+                    to: !php/const App\Entity\Sales\SalesForecast::ORDERED
+                to_lost:
+                    from:
+                        - !php/const App\Entity\Sales\SalesForecast::BUDGET
+                        - !php/const App\Entity\Sales\SalesForecast::IN_PROGRESS
+                        - !php/const App\Entity\Sales\SalesForecast::DELAYED
+                    to: !php/const App\Entity\Sales\SalesForecast::LOST
+                to_cancelled:
+                    from:
+                        - !php/const App\Entity\Sales\SalesForecast::BUDGET
+                        - !php/const App\Entity\Sales\SalesForecast::IN_PROGRESS
+                        - !php/const App\Entity\Sales\SalesForecast::DELAYED
+                    to: !php/const App\Entity\Sales\SalesForecast::CANCELLED
+                to_partial:
+                    from:
+                        - !php/const App\Entity\Sales\SalesForecast::BUDGET
+                        - !php/const App\Entity\Sales\SalesForecast::IN_PROGRESS
+                        - !php/const App\Entity\Sales\SalesForecast::DELAYED
+                    to: !php/const App\Entity\Sales\SalesForecast::PARTIAL

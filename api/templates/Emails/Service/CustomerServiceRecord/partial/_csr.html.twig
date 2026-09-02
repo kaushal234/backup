@@ -1,0 +1,23 @@
+{% trans_default_domain "customer_service_record" %}
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: {
+            createdAt: {
+                label: 'fields.created_at' | trans({}, 'messages')|capitalize,
+                filters: 'date("Y-m-d")',
+            },
+            createdBy: {
+                properties: ['createdBy.firstname', 'createdBy.lastname'],
+                label: 'fields.created_by' | trans({}, 'messages'),
+                link:{
+                    route: 'directory_people_show',
+                    params: {'id':'createdBy.@id'},
+                },
+            },
+            title: { label: 'display.table.document.headers.title' | trans({}, 'messages')},
+            description: { label: 'tasks.description' | trans({}, 'messages')},
+        },
+        data: commissioningCustomerServiceRecord,
+        title: 'CSR details'
+    },
+}, with_context = false) }}

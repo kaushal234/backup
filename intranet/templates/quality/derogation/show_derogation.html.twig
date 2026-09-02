@@ -1,0 +1,102 @@
+{% extends 'quality/derogation/layout.html.twig' %}
+{% trans_default_domain 'crab' %}
+{% if form is not null %}
+    {% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+{% endif %}
+
+{% block title %}{{ parent() }}\{{ 'crab.fields.derogation'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        id: {
+                            label: 'display.table.rfq.headers.id' | trans({}, 'messages'),
+                        },
+                        assignor: {
+                            properties: ['assignor.firstname', 'assignor.lastname'],
+                            label: 'tasks.assignor' | trans({}, 'messages'),
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'assignor.@id'},
+                            },
+                        },
+                        assignee: {
+                            properties: ['assignee.firstname', 'assignee.lastname'],
+                            label: 'tasks.assignee' | trans({}, 'messages'),
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'assignee.@id'},
+                            },
+                        },
+                        shortDescription: {
+                            label: 'fields.short-description' | trans({}, 'messages') | capitalize,
+                            properties: ['shortDescription'],
+                        },
+                        derogationDescription: {
+                            label: 'tasks.description' | trans({}, 'messages'),
+                            properties: ['description'],
+                        },
+                        status: {
+                            label: 'fields.status' | trans({}, 'messages') | capitalize,
+                            template: '/quality/derogation/partial/cells/_status.html.twig',
+                            templateParams: {form: formDecision}
+                        },
+                        dueDate: {
+                            label: 'fields.due_date' | trans({}, 'messages')|capitalize,
+                            template: '/quality/derogation/partial/cells/_due_date.html.twig',
+                            templateParams: {form: formReschedule}
+                        },
+                        crabs: {
+                            label: 'crab.fields.crab_list' | trans({}, 'crab')|capitalize,
+                            template: '/quality/derogation/partial/cells/_crabs_list.html.twig',
+                            templateParams: {crabs: derogation.crabs}
+                        }
+                    },
+                    title: 'crab.fields.derogation' | trans,
+                    data: derogation,
+                    card:false,
+                }
+            }, with_context  = false) }}
+
+            {% if derogation.files | length > 0 %}
+                <div class="ibox float-e-margin">
+                    <div class="ibox-title">
+                        <h5>{{ 'crab.derogation.files' |trans({}, 'crab') }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ component('Swiper', {
+                            files: derogation.files,
+                            uploadUri: upload_uri,
+                            fileRouteBuilder: (file) => path('derogation_file_show', {derogationId: iri_id(derogation), id: file.id})
+                        }) }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {{ include('generic/_logs.html.twig', { item: derogation, addComment: false }) }}
+        </div>
+        {% if derogation.status == 'OPEN' %}
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.assignee) }}
+                    </div>
+                </div>
+                {{ form_row(form.comment) }}
+                {{ form_row(form.file) }}
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

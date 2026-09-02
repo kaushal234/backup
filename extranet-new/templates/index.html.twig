@@ -1,0 +1,122 @@
+{#
+  index.html.twig — HOME
+  Route: index  (App\Controller\IndexController)
+
+  The equipment finder forms (#by_sn / #by_customer_sn) are driven by
+  equipment_search_controller.js; the banner carousel by banner_controller.js.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.title.home'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+
+    {# ---- Banner carousel ---- #}
+    <section class="banner-carousel" data-controller="banner">
+        <div class="banner-track" data-banner-target="track">
+            <div class="banner-slide"><img src="{{ asset('images/banner-1.png') }}" alt=""></div>
+            <div class="banner-slide"><img src="{{ asset('images/banner-2.png') }}" alt=""></div>
+            <div class="banner-slide"><img src="{{ asset('images/banner-3.png') }}" alt=""></div>
+        </div>
+        <button class="banner-nav prev" data-action="banner#prev" aria-label="Previous">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M10 4 6 8l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="banner-nav next" data-action="banner#next" aria-label="Next">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="banner-dots" data-banner-target="dots"></div>
+    </section>
+
+    {# ---- Welcome + finder ---- #}
+    <section class="welcome-strip">
+        <div class="welcome-pattern"></div>
+        <div class="container-fluid px-4 position-relative" style="z-index:2">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-eyebrow">
+                        <span class="dot"></span>
+                        <span>{{ 'extranet.title.customer_portal'|trans }} · {{ app.session.get('customer').name }}</span>
+                    </div>
+                    <h1 class="welcome-title">{{ 'extranet.home.welcome'|trans }}, <em>{{ app.user.firstname|default(app.user.fullname) }}.</em></h1>
+                    <p class="welcome-sub">{{ 'extranet.home.welcome_sub'|trans }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# finder card overlapping the welcome strip #}
+    <div class="container-fluid px-4 finder-wrap">
+        <div class="finder">
+            <div class="label-row">
+                <span class="label">{{ 'extranet.home.find_equipment'|trans }}</span>
+            </div>
+
+            <form id="by_sn" class="find-input-group"
+                  data-controller="equipment-search"
+                  data-equipment-search-filter-value="__search"
+                  data-equipment-search-url-value="{{ path('equipment:index') }}">
+                <div class="field">
+                    <svg class="icon" width="18" height="18" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="m11 11 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <label for="tld_serial" class="visually-hidden">{{ 'extranet.home.by_tld_sn'|trans }}</label>
+                    <input id="tld_serial" type="text" placeholder="{{ 'extranet.home.search_tld_sn'|trans }}"
+                           data-equipment-search-target="input">
+                </div>
+                <button class="btn-find" type="submit">{{ 'extranet.fields.find'|trans }}</button>
+            </form>
+
+            <form id="by_customer_sn" class="find-input-group mt-2"
+                  data-controller="equipment-search"
+                  data-equipment-search-filter-value="__search"
+                  data-equipment-search-url-value="{{ path('equipment:index') }}">
+                <div class="field">
+                    <svg class="icon" width="18" height="18" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="m11 11 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <label for="customer_serial" class="visually-hidden">{{ 'extranet.home.by_customer_sn'|trans }}</label>
+                    <input id="customer_serial" type="text" placeholder="{{ 'extranet.home.search_customer_sn'|trans }}"
+                           data-equipment-search-target="input">
+                </div>
+                <button class="btn-find" type="submit">{{ 'extranet.fields.find'|trans }}</button>
+            </form>
+
+            <div class="finder-foot">
+                <span></span>
+                <a id="see_all_equipments" href="{{ path('equipment:index') }}">
+                    {{ 'extranet.title.see_all'|trans }}
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {# ---- Quick access ---- #}
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="section-head">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.home.quick_access'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.home.quick_access_title'|trans }}</h2>
+                </div>
+            </div>
+            <div class="row g-3">
+                {% set tiles = [
+                    { title: 'extranet.menu.technical_services'|trans, sub: '', href: path('page:technical_services'), accent: true },
+                    { title: 'extranet.menu.catalogue'|trans, sub: '', href: path('catalogue:index'), accent: false },
+                    { title: 'extranet.menu.rspl'|trans, sub: '', href: path('page:rspl'), accent: false },
+                    { title: 'extranet.menu.warranty_conditions'|trans, sub: '', href: path('page:warranty_conditions'), accent: false }
+                ] %}
+                {% for tile in tiles %}
+                    <div class="col-lg-3 col-md-6">
+                        <a href="{{ tile.href }}" class="quick-tile {{ tile.accent ? 'is-accent' }}">
+                            <div class="qt-ico">
+                                <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            </div>
+                            <h3 class="qt-title">{{ tile.title }}</h3>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

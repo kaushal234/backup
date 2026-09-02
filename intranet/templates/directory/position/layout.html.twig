@@ -1,0 +1,28 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.position.title'|trans([], 'messages') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="directory_positions_add"
+                          :security="is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_HR')"/>
+        {% if position.id is defined %}
+            <twig:NavItem:Edit route="directory_positions_edit" :routeParameters="{ id: position.id }"
+                               :security="is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_HR')"/>
+            <twig:NavItem:Delete route="directory_positions_delete" :routeParameters="{ id: position.id }"
+                                 :security="is_granted('ACL_SUPERUSER')"/>
+            <twig:NavItem translationKey="directory.nav_link.members" domain="directory"
+                          route="directory_positions_people" :routeParameters="{ id: position.id }"
+                          icon="mdi:user-outline"/>
+            {% if app.request.attributes.get('_route') === "directory_positions_people" %}
+                <twig:NavItem:CopyEmail translationKey="directory.people.list.copy_to_clipboard" domain="directory"
+                                        icon="material-symbols:content-copy-outline"
+                                        subject="{{ position['@id'] }}" type="position"/>
+                <twig:NavItem translationKey="directory.position.back_to_position" domain="directory"
+                              route="directory_positions_show" :routeParameters="{ id: position.id }"
+                              icon="tabler:arrow-back"/>
+            {% endif %}
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

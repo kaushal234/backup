@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/finance/transaction_type_references/\\d+$"},
+    "@type": { "type": "string" },
+    "erpType": { "type": "string" },
+    "location": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/locations/\\d+$"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "erp": {"type": ["integer", "null"]}
+      },
+      "required": ["@id", "@type", "name", "erp"],
+      "additionalProperties": false
+    },
+    "transactionType": {
+      "type": "object",
+      "$ref": "../../transaction_type/schemas/transaction_type.json"
+    }
+  },
+  "required": ["@id", "@type", "erpType", "location", "transactionType"],
+  "additionalProperties": false
+}

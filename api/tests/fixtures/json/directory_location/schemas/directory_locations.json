@@ -1,0 +1,122 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/locations$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:search": {
+      "type": "object"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/locations/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "capability": {
+            "type": "object"
+          },
+          "contact": {
+            "type": "object"
+          },
+          "state": {
+            "type": "object"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "erp": {
+            "type": ["integer", "null"]
+          },
+          "erpInLN": {
+            "type": "boolean"
+          },
+          "currency": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"type": "string"},
+              "id": {"type": "integer"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "legacyId": {"type": "integer"}
+            },
+            "required": [
+              "@id",
+              "id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "timeZone": {
+            "type": ["string", "null"]
+          },
+          "internalNetworkAddress": {
+            "type": ["string", "null"]
+          },
+          "network": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"pattern": "^/networks/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {"type": "string"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "name",
+          "company",
+          "capability",
+          "contact",
+          "state",
+          "domain",
+          "currency",
+          "timeZone",
+          "internalNetworkAddress"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:member"
+  ]
+}

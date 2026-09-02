@@ -1,0 +1,31 @@
+<div class="row" id="identity">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="ibox">
+            <div class="ibox-content">
+                {% set entity = entity | replace({'-': ' '}) %}
+                <h1>{{ entity | upper }} LinkedIn Banners</h1>
+                <div class="banner-grid">
+                    {% for img in banners %}
+                        <div class="banner-grid-item">
+                            {% set original = asset(upload_uri ~ '/corporate/' ~ img) %}
+
+                            <a href="{{ original }}" target="_blank" rel="noopener">
+                                <img
+                                        src="{{ original }}"
+                                        alt="{{ img }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                >
+                            </a>
+                            <div style="margin-top: 6px;">
+                                <a href="{{ original }}" download>
+                                    <i class="fa fa-download"></i> {{ img }}
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

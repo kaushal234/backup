@@ -1,0 +1,24 @@
+.cui .form_file_upload__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.cui .form_file_upload__wrapper-files {
+  gap: 8px;
+}
+
+.cui .form_file_upload__files_wrapper {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 450px) {
+  .cui .form_file_upload__files_wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cui .form_file_upload__file_chip {
+  padding: 0 8px;
+}

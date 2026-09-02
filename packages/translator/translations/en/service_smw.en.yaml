@@ -1,0 +1,35 @@
+service_smw:
+    filter:
+        location: Location
+    title:
+        index: Service / SMW
+        links: Links
+    fields:
+        title: Title
+        description: Description of the link
+        link: Link
+    pages:
+        kpi:
+          title: TOC KPI
+          description: Number of TOC Open and Solved, Average time to solve (TAT), Immediate ratio (TIR), TOC Oldest
+        closure_time:
+          title: TOC by closure time
+          description: TOC dispatch by range of closure time
+        backlog:
+          title: Service Back logs (TOC and CSR)
+          description: TOC (Tech-On-Call) and CSR (Customer Service Request) back logs
+        remote:
+          title: Remote or on site visits
+          description: "Quantity of TOC managed remotly or throught CSR (field visit : Intervention)"
+        spare_part_request:
+          title: TOC and Spare Parts
+          description: Spare Parts dispatch
+        factory_flag:
+          title: Factory Flag
+          description: Factory Flag requests, FF per model of unit
+        service_bulletin:
+          title: Service Bulletin
+          description: Service Bulletin back log
+        if1000:
+          title: TOC IF 1000
+          description: Open TOC classified as highest severity (Indice Factor IF 1000)

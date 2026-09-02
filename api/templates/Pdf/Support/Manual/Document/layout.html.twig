@@ -1,0 +1,95 @@
+{% extends 'Pdf/base.html.twig' %}
+
+{% trans_default_domain "pdfs" %}
+
+{% block stylesheets %}
+    <style type="text/css">
+        {{ include('Pdf/fonts/opensans.css.twig') }}
+        {{ source('@css/pdf.css') }}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="page-break-after: always">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p style="font-size: 24px; font-weight: bold; text-align: left">
+                    {{ document.factoryNumber }}{% if document.revision is not null %}_{{ document.revision }}{% endif %}<br>
+                    {% if manual.language is same as('ENGLISH') %}
+                        {{ document.description | raw }}
+                    {% else %}
+                        {{ document.otherDescription | raw}}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="row text-center">
+            <div class="manual-document-frame">
+                {% if file is defined and file is not null and jpeg_exists(file) %}
+                    <img src="{{ rotate(file) }}" alt="image of file {{ document.getDocument }}" class="h-100">
+                    <br>
+                {% elseif document.getDocument is not null and jpeg_exists(legacy_upload_uri~document.getDocument) %}
+                    <img src="{{ rotate(legacy_upload_uri~document.getDocument) }}" alt="image of file {{ document.getDocument }}" class="h-100">
+                    <br>
+                {% else %}
+                    <div>
+                        {{ 'manual.chapter4.layout.no image' | trans }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="page-break-after: always">
+        <div class="row">
+            <br>
+            <div class="col-md-12 text-center">
+                <h2 style="font-size: 24px; font-weight: bold; text-align: left">
+                    {{ document.factoryNumber }}{% if document.revision is not null %}_{{ document.revision }}{% endif %}<br>
+                    {% if manual.language is same as('ENGLISH') %}
+                        {{ document.description }}
+                    {% else %}
+                        {{ document.otherDescription }}
+                    {% endif %}
+                </h2>
+                <br><hr>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'manual.layout.item' | trans}}</th>
+                <th style="max-width: 30px;">{{ 'manual.layout.part number' | trans}}</th>
+                <th style="max-width: 30px;">{{ 'manual.layout.quantity' | trans}}</th>
+                <th>{{ 'manual.general.description' | trans}}</th>
+                <th>{{ 'manual.part.p' | trans}}</th>
+                <th>{{ 'manual.part.m' | trans}}</th>
+                <th>{{ 'manual.part.o' | trans}}</th>
+                <th>{{ 'manual.part.c' | trans}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for part in document.parts|sort %}
+                <tr>
+                    <td>{{ part.position }}</td>
+                    <td>{{ part.partNumber }}</td>
+                    <td>{{ part.quantity }}</td>
+                    <td>
+                        {% if manual.language is same as('ENGLISH') %}
+                            {{ part.description | raw }}
+                        {% else %}
+                            {{ part.otherDescription | raw }}
+                        {% endif %}
+                    </td>
+                    <td>{% if part.preventive %}&#10004;{% endif %}</td>
+                    <td>{% if part.maintenance %}&#10004;{% endif %}</td>
+                    <td>{% if part.overhaul %}&#10004;{% endif %}</td>
+                    <td>{% if part.critical %}&#10004;{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

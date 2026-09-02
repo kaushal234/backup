@@ -1,0 +1,5 @@
+{% for task in value %}
+    <a href="{{ task.url }}" class="badge bg-primary text-white text-decoration-none me-1">
+        #{{ task.id }}
+    </a>
+{% endfor %}

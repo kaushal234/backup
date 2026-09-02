@@ -1,0 +1,67 @@
+{% extends 'Pdf/base.html.twig' %}
+
+{% trans_default_domain "pdfs" %}
+
+{% block stylesheets %}
+    <style type="text/css">
+        {{ include('Pdf/fonts/opensans.css.twig') }}
+        {{ source('@css/pdf.css') }}
+        html, body {
+            font-family: Arial;
+            font-size: 15px;
+        }
+        ul.leaders {
+            padding: 0;
+            overflow-x: hidden;
+            list-style: none
+        }
+        ul.leaders li:before {
+            float: left;
+            width: 0;
+            white-space: nowrap;
+            content:
+                    ". . . . . . . . . . . . . . . . . . . . "
+                    ". . . . . . . . . . . . . . . . . . . . "
+                    ". . . . . . . . . . . . . . . . . . . . "
+                    ". . . . . . . . . . . . . . . . . . . . "
+        }
+        ul.leaders span:first-child {
+            padding-right: 0.33em;
+            background: white
+        }
+        ul.leaders span + span {
+            float: right;
+            padding-left: 0.33em;
+            background: lightgrey
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% set maxRowsByColumn = 51 %}
+
+            {% for part in partsData %}
+
+                {% if (loop.index - 1) is divisible by(maxRowsByColumn) %}
+                    <div class="col-sm-3" >
+                {% endif  %}
+                    <div class="row">
+                        <ul class="leaders">
+                            <li>
+                                <span>&nbsp;{{ part['partNumber'] }}</span>
+                                <span>{{ part['document'] }}-{{ part['position']|format_number({integer_digit: 2}) }}&nbsp; </span>
+                            </li>
+                        </ul>
+                    </div>
+                {% if loop.index is divisible by(maxRowsByColumn) %}
+                    </div>
+                {% endif  %}
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+

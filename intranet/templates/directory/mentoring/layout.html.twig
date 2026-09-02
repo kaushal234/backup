@@ -1,0 +1,12 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.people.mentoring'|trans([], 'messages') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="directory.nav_link.export" domain="directory"
+                      icon="material-symbols:download-rounded" route="directory_mentoring_download"
+                      :security="is_granted('FEATURE_DOWNLOAD_DIRECTORY')"/>
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'directory/business_unit/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set business_unit_id = iri_id(business_unit) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('helper/_association_table.html.twig', {
+                'associationData': {
+                    'items': {
+                        '@id': {
+                            'label':'directory.business_unit.name'|trans|capitalize ~ '#',
+                            'filters': 'iri_id'
+                        },
+                        'name': {'label': 'directory.business_unit.fields.name'|trans|capitalize},
+                        'representative': {
+                            'label': 'directory.business_unit.fields.representative'|trans()|capitalize,
+                            'properties': ['representative.lastname', 'representative.firstname'],
+                            'link': {
+                                'route': 'directory_people_show',
+                                'params': {'id':'representative.@id'}
+                            }
+                        },
+                        'location': {
+                            'label': 'directory.business_unit.fields.location'|trans()|capitalize,
+                            'properties': ['location.name'],
+                            'link': {
+                                'route': 'directory_locations_show',
+                                'params': {'id':'location.@id'}
+                            }
+                        },
+                        'region': {
+                            'label': 'directory.region.name'|trans()|capitalize,
+                            'properties': ['region.name'],
+                            'link': {
+                                'route': 'directory_regions_show',
+                                'params': {'id':'region.@id'}
+                            }
+                        },
+                        'disabled': {
+                            'label': 'directory.location_state.fields.disabled'|trans|capitalize
+                        },
+                    },
+                    'title': 'directory.business_unit.title.view'|trans|capitalize,
+                    'data': business_unit},
+            }, with_context = false) }}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'menu.logs'|trans({}, 'messages') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="logs-block" data-resource="{{ business_unit.iri }}" data-show-comment-form="true"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            {{ include('directory/partial/members.html.twig', {members: members}, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base_public.html.twig' %}
+
+{% block title %}{{ 'extranet.error.too_many_requests_title'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="alert alert-warning mt-4" role="alert">
+        <h4 class="alert-heading">{{ 'extranet.error.too_many_requests_title'|trans }}</h4>
+        <p class="mb-0">{{ 'extranet.error.too_many_requests'|trans }}</p>
+        {% if retryAfter is defined and retryAfter > 0 %}
+            <hr>
+            <p class="mb-0 text-muted">{{ 'extranet.error.retry_after'|trans({ '%seconds%': retryAfter }) }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

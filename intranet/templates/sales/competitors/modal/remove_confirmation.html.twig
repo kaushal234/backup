@@ -1,0 +1,25 @@
+<twig:Modal
+        id="modal-delete-competitor-{{ competitor.id }}"
+        :onlyDialog="true"
+        :withCloseButton="true"
+>
+    <twig:block name="header">
+        <h1 class="modal-title fs-5">
+            <i class="fa fa-warning text-warning"></i> {{ 'confirmation'|trans }}
+        </h1>
+    </twig:block>
+
+    <twig:block name="content">
+        {{ 'modal_messages.confirm_delete'|trans({}) }}
+    </twig:block>
+
+    <twig:block name="footer">
+        <a href="{{ path('sales_competitors_delete', {
+            id: competitor.id,
+            '_token': csrf_token('delete_competitor')
+        }) }}"
+           class="btn btn-danger">
+            {{ 'button.delete'|trans }}
+        </a>
+    </twig:block>
+</twig:Modal>

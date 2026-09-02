@@ -1,0 +1,6 @@
+services:
+    #API Platform
+    ApiPlatform\Core\Metadata\Resource\Factory\ResourceMetadataFactoryInterface: '@api_platform.metadata.resource.metadata_factory'
+
+    lexik_jwt_authentication.key_loader.openssl:
+        alias: lexik_jwt_authentication.key_loader.raw

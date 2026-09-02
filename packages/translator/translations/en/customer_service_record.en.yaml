@@ -1,0 +1,233 @@
+csr:
+  nav_link:
+    advanced_cost_report_by_criteria: Advanced cost report by criteria
+    advanced_sb_cost_report_by_criteria: Advanced SB cost report by criteria
+    costs: Costs
+    csr: Customer service record
+    csr_actions: CSR actions
+    csr_completed_list : CSR completed list
+    csr_planner: CSR planner
+    my_team_dashboard: My team dashboard
+    search_csr: Search CSR
+    switch_to_ast_dashboard: Switch to AST dashboard
+  title:
+    customer_service_record: Customer Service Record
+    add: Add CSR
+    edit: Edit CSR
+    last: Last 10 CSRs created
+    filtered : CSRs filtered
+    detail: CSR
+    er: Equipment Record
+    airport: Airport
+    airports: Airports
+    customer: Customer
+    contact: Contact
+    current_week: Current Week
+    next_week : Next Week
+    in_two_weeks : In Two Weeks
+    in_three_weeks : In Three Weeks
+    in_four_weeks : In Four Weeks
+    csr_completed : CSR Completed List
+    csr_to_be_closed : CSR to be closed (max 500)
+    active_csr : Active CSR
+    count_by_status_by_sso : CSRs count by status by SSO Service
+    survey_rating: Survey rating
+    search : Search CSR
+    switch_ast : Switch to AST Dashboard
+    edit_operator: Additional AST (Service members only)
+    send_file: Send File
+    dashboard_ast: My Dashboard
+    dashboard_csm: My Team Dashboard
+    csr_team_dashboard: CSR - Customer Service Request- dashboard
+    comments: Adding a comment in CSR do NOT trigger an automatic notification, please use “SEND EMAIL” button to email a request to someone”, or use NEW TASK button.
+    request_factory_support: Request Factory Support
+  tooltips:
+    csr_team_dashboard: This dashboard displays the CSR (on site visit) assigned to you or selected technician(s) in the filter above
+  table:
+    ratings: Ratings
+  questions:
+    aspect : General aspect of the unit as presented on site rating
+    aspect_comment : General aspect of the unit as presented on site comments
+    conformity : Conformity/compliance with the specifications (including options) rating
+    conformity_comment : Conformity/compliance with the specifications (including options) comment
+    operational : Unit operational at first start rating
+    operational_comment : Unit operational at first start comment
+    shipping : Shipping damages
+    shipping_choices:
+        no_damages: No shipping damages
+        transport: Pure transportation root cause
+        factory: Due to Factory lack of protection
+        transport,factory: Transportation and  Factory
+    shipping_comment : Shipping damages comment
+    is_link_working : Is Unit sending data to LINK FMS ?
+    is_link_working_comment : Comment
+    is_link_working_placeholder : If you select NO for LINK, Take video of the LED blinking status on the LINK OBU for Link Super User action.
+  fields:
+    id: Id
+    hourmeter: Hourmeter
+    days_opened: Days Opened
+    operators: Operators
+    airport: Airport
+    shipped_at: Shipped At
+    end_date: End Date
+    start_date: Start Date
+    planned_date: Planned Date
+    sso_service: SSO Service
+    airport_name: Airport name
+    city_name: City name
+    city_code: City code
+    technician: Technician
+    technicians: Technicians
+    additional_technicians: Additional Technicians
+    by_airport: By Airport
+    end_user : End User
+    buyer : Buyer
+    type : Type
+    csr_type : CSR Type
+    type_number : Type number#
+    map_filtered : MAP will display a maximum of 500 CSR if one or multiple filters are applied for loading speed reason
+    map_no_filters : MAP will display only the 10 most recent CSR if no filters are applied
+    completed_at_after: Completed After
+    completed_at_before: Completed Before
+    comment_factory_flag: Comment TOC Factory Flag
+    is_open: Is Open
+  button:
+    submit: Submit
+    costs: Costs
+    add_cost: Add financial step
+    send: Send Email
+    request_factory_flag: Request FF
+  success:
+    add: CSR has been successfully created.
+    update: CSR has been successfully updated.
+    delete: CSR has been successfully deleted.
+    hourmeter: Hourmeter updated to %hourmeter%
+    closed: CSR has been successfully closed.
+    factory_flag: TOC Factory Flag has been OPEN
+  errors:
+    add: Something went wrong and the CSR could not be created.
+    delete: Something went wrong and the CSR could not be deleted.
+    not_exist: 'CSR #%id% does not exist'
+    no_id_for_default_csr: You cannot define ID for the default type
+    id_for_specific_csr: ID is required when you select type TOC, SB or COMMISSIONING
+  chart:
+    shipping: Allocation of responsibility for damages caused during transport
+  alert:
+    mind_to_close: Mind to close
+  notification:
+    commissioning_imperfect: 'CSR#%csr% Completed : %rating_result% - ER#%serial% commissioned'
+  dashboard:
+    messages:
+      no_csr_started: No CSR started yet.
+    title:
+      planner: CSR Planner
+  report:
+    year_backlog:
+      title: CSR Back log
+      y: Number of CSRs
+intervention:
+    breadcrumb: Intervention
+    title:
+      menu: Service\Intervention
+      add: Add Intervention
+      edit: Edit Intervention
+      intervention : Intervention
+      interventions : Interventions
+      survey: Survey
+    fields:
+      status: Status
+      status_placeholder: Select a status
+      solveToc: Would you like to close the TOC?
+      symptoms: Symptoms
+      rootCause: Root Cause
+      solution: Solution
+      csr_id: CSR ID
+      csr: CSR
+      start_date: Start On
+      end_date: End On
+      leader: Service Technician
+      operators: Operators
+      start: START
+      done: DONE
+      fail: FAIL
+      comments: Comments
+      comments_placeholder: |
+        1.Parts needed for repair => Y/N, if yes, parts to be required
+        2.Update soft PLC => Y/N, PN and version ?
+        3.Parameters modified ? Adjustment done ?
+        4.Temporary or permanent fix ?
+        5.Pictures/video showing the issue
+      hourmeter: "Hourmeter (Last hours : %hourMeter%)"
+      completion_date: Completion Date
+      survey_aspect: General aspect of the unit as presented on site
+      aspect: Aspect Rating (max 5)
+      survey_conformity: Conformity/compliance with the specifications (including options)
+      conformity: Conformity Rating (max 5)
+      survey_operational: Unit operational at first start
+      operational: Operational Rating (max 5)
+      survey_shipping: Shipping damages
+      shipping: Shipping Damages Responsibility
+      survey_comment: Comments
+      link_fms: Link FMS ?
+      is_link_working : Sending data to LINK FMS ?
+    tooltips:
+      aspect: >
+        0: Not good at all - the unit is not compliant, with defects blocking the usage (wrong customer logo, wrong paint color). Unit must return to the factory.
+        1: Not good - the unit is not compliant, with defects on critical components or broken accessories affecting safety. Can be fixed later locally.
+        2: Not good - the unit is not compliant, with defects such as visible rust, scratches, or missing/incorrect safety markings that may endanger the user. Can be fixed locally.
+        3: Unit is operational - compliant but with defects like scratches, broken accessories affecting aesthetics, or missing TLD Service sticker. Fixed the same day.
+        4: Unit is operational - fully compliant with minor defects only (small scratches, no broken accessories). Fixed the same day.
+        5: 100% correct - the unit looks great.
+      conformity: >
+        0: Not good or non-compliant at all - the unit is in such a bad shape that it cannot operate (wrong engine, missing component). Must return to the factory.
+        1: Not good or non-compliant - critical components are not operating and may endanger the user. Needs fixing later, locally.
+        2: Not good or non-compliant - critical components are not operating but with no immediate danger. Fixed locally.
+        3: Unit is operational - works but key options are missing or its mission may not be completed. Fixed locally.
+        4: Unit is operational - works with minor defects and can usually complete its mission. Fixed the same day.
+        5: 100% correct - the unit is in top-notch condition.
+      operational: >
+        0: Not good or non-compliant at all - the unit is not operational and must be brought back to the factory.
+        1: Not good or non-compliant - the unit is not operational and requires major fixes before starting (transmission, engine, software, etc.). New commissioning date required, fixed locally.
+        2: Not good or non-compliant - the unit is operational but needs fixes before starting or cannot perform all missions (transmission, engine, software, etc.). Fixes done locally.
+        3: Unit is operational - works but required fixes before start (fuses, oil level, bulbs, etc.) or still cannot perform all missions. Fixes done on commissioning day.
+        4: Unit is operational - starts after minor checks only.
+        5: 100% correct - the unit starts on the first try and can accomplish all missions.
+    success:
+      add: Intervention has been successfully created.
+      update: Intervention has been successfully updated.
+      delete: Intervention has been successfully deleted.
+      toc: "TOC #%toc% has been successfully updated."
+    error:
+      toc: "Something went wrong while updating TOC #%toc%."
+    submit: Submit
+planner:
+  title:
+    pool: Pool
+    current_week: "W.%week% : %from%-%to%"
+    current_week_small_screen: "W. %week%"
+    other_week: "W.%week% : %from%-%to%"
+    other_week_small_screen: "W. %week%"
+    forecast: Forecast
+er:
+  fields:
+    shipped_at: Shipped At
+    commissioned_at : Commissioned At
+    sso : Sales Organisation
+    ssoService : Service Organisation
+    location : Manufacturer Location
+    delivered_country : Delivered Country
+log:
+  description: '<strong>Description :</strong> %description%'
+  status: '<strong>Status :</strong> %status%'
+  airport: '<strong>Airport :</strong> %airport%'
+  plannedAt: '<strong>Intervention</strong> has been <strong>planned at</strong> %plannedAt%'
+  leader: '<strong>Service Technician :</strong> %leader%'
+  equipmentRecord: '<strong>Equipment record sn :</strong> %sn%'
+  change:
+    description: '<strong>Description</strong> has change as %description%'
+    hourmeter: '<strong>HourMeter has change from %hourmeter[0]% to %hourmeter[1]%'
+    airport: '<strong>Airport</strong> has change from %airport[0]% to %airport[1]%'
+    plannedAt: '<strong>Planned intervention</strong> has change from %plannedAt[0]% to %plannedAt[1]%'
+    leader: '<strong>Service Technician</strong> has change from %leader[0]% to %leader[1]%'
+    status: '<strong>Status</strong> has change from %status[0]% to %status[1]%'
+    equipmentRecord: '<strong>Equipment record</strong> has change from sn : %sn[0]% to sn: %sn[1]%'

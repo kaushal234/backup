@@ -1,0 +1,39 @@
+framework:
+  workflows:
+    user_story:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\Module\Specification\UserStory
+      initial_marking: !php/const App\Entity\Module\Specification\UserStory::PENDING
+      places:
+        - !php/const App\Entity\Module\Specification\UserStory::PENDING
+        - !php/const App\Entity\Module\Specification\UserStory::PLANNED
+        - !php/const App\Entity\Module\Specification\UserStory::HAS_BEEN_EDITED
+        - !php/const App\Entity\Module\Specification\UserStory::DEVELOPMENT
+        - !php/const App\Entity\Module\Specification\UserStory::TESTING
+        - !php/const App\Entity\Module\Specification\UserStory::VALIDATED
+      transitions:
+        to_planned:
+          from:
+           - !php/const App\Entity\Module\Specification\UserStory::PENDING
+          to: !php/const App\Entity\Module\Specification\UserStory::PLANNED
+        to_development:
+          from:
+           - !php/const App\Entity\Module\Specification\UserStory::PLANNED
+           - !php/const App\Entity\Module\Specification\UserStory::HAS_BEEN_EDITED
+          to: !php/const App\Entity\Module\Specification\UserStory::DEVELOPMENT
+        to_testing:
+          from: !php/const App\Entity\Module\Specification\UserStory::DEVELOPMENT
+          to: !php/const App\Entity\Module\Specification\UserStory::TESTING
+        to_validated:
+          from: !php/const App\Entity\Module\Specification\UserStory::TESTING
+          to: !php/const App\Entity\Module\Specification\UserStory::VALIDATED
+        to_has_been_edited:
+          from: !php/const App\Entity\Module\Specification\UserStory::VALIDATED
+          to: !php/const App\Entity\Module\Specification\UserStory::HAS_BEEN_EDITED
+        to_validated_from_has_been_edited:
+          from: !php/const App\Entity\Module\Specification\UserStory::HAS_BEEN_EDITED
+          to: !php/const App\Entity\Module\Specification\UserStory::VALIDATED

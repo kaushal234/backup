@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/business_unit_positions$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {"type": "string"},
+          "@id": {"pattern": "^/business_unit_positions/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "thirdPartyApp": {"type":  "object"},
+          "position": {
+            "type": "object",
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "code": {"type": "string"},
+              "description": {"type": "string"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "code",
+              "description"
+            ],
+            "additionalProperties": false
+          },
+          "businessUnit": {
+            "type": "object",
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "domain": {"type": ["string", "null"]},
+              "region": {"type":  ["string", "null"]}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "domain",
+              "region"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "thirdPartyApp",
+          "position",
+          "businessUnit"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="0.1 (Beta)">
+  <xsd:annotation>
+    <xsd:documentation>
+      Description: XML template for Transferring Inventory Information
+      Owner: Sage Parts
+      Date: 2013-04-26T14:04:46
+      Version: 0.1 (Beta)
+    </xsd:documentation>
+    <xsd:appinfo>InventoryRoot</xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element name="InventoryRoot">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Item" minOccurs="0" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="SageItemId" minOccurs="0" maxOccurs="1" type="xsd:string" />
+              <xsd:element name="ItemDescription" minOccurs="0" maxOccurs="1" type="xsd:string" />
+              <xsd:element name="SageUID" minOccurs="0" maxOccurs="1" type="xsd:string" />
+              <xsd:element name="Location" minOccurs="0" maxOccurs="unbounded" >
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="OnHand" minOccurs="1" maxOccurs="1" >
+                      <xsd:complexType>
+                        <xsd:simpleContent>
+                          <xsd:extension base="xsd:string">
+                            <xsd:attribute name="Unit" type="xsd:string" use="required">
+                              <xsd:annotation>
+                                <xsd:documentation>Unit of Measure</xsd:documentation>
+                              </xsd:annotation>
+                            </xsd:attribute>
+                          </xsd:extension>
+                        </xsd:simpleContent>
+                      </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="OnOrder" minOccurs="1" maxOccurs="1" >
+                      <xsd:complexType>
+                        <xsd:simpleContent>
+                          <xsd:extension base="xsd:string">
+                            <xsd:attribute name="Unit" type="xsd:string" use="required">
+                              <xsd:annotation>
+                                <xsd:documentation>Unit of Measure</xsd:documentation>
+                              </xsd:annotation>
+                            </xsd:attribute>
+                          </xsd:extension>
+                        </xsd:simpleContent>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                  <xsd:attribute name="Name" type="xsd:string" use="required">
+                    <xsd:annotation>
+                      <xsd:documentation>ID of Warehouse</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:attribute>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="MasterID" type="xsd:string" use="required">
+              <xsd:annotation>
+                <xsd:documentation>ID used to identify items between Sage and TLD (Curently TLD part number)</xsd:documentation>
+              </xsd:annotation>
+            </xsd:attribute>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
+

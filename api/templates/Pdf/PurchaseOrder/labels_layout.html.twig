@@ -1,0 +1,27 @@
+{% extends 'Pdf/base.html.twig' %}
+
+{% trans_default_domain "pdfs" %}
+
+{% block stylesheets %}
+    <style type="text/css">
+        {{ include('Pdf/fonts/opensans.css.twig') }}
+        {{ source('@css/pdf.css') }}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="purchase-order-labels" class="container" style="page-break-after: always; font-family: sans-serif;">
+        <div>
+            {% for line in purchaseOrder.lines %}
+                {% for i in 1..line.quantityLabel %}
+                        <div class="label-block">
+                            {{ include('Pdf/PurchaseOrder/label.html.twig', {
+                                purchaseOrder: purchaseOrder,
+                                line: line
+                            }) }}
+                        </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

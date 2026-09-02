@@ -1,0 +1,43 @@
+{% extends 'sales/sales_forecasts/layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block content %}
+    <div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'sales_forecasts.close_sfr' | trans }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>
+                            {{ 'sales_forecasts.fcr_info' | trans }}
+                        </h2>
+                        <h2 style="color: red; font-weight: bold">
+                            {{ 'sales_forecasts.partial_fcr' | trans }}
+                        </h2>
+                        </br>
+                    </div>
+                    <div>
+                        {% if cancelled is same as(true) %}
+                            {{ include('sales/sales_forecasts/partial/_form_cancelled.html.twig', {
+                                form: closeForm,
+                                cancelled: cancelled,
+                                action: path('sales_forecasts_close', {id: salesForecast.id}),
+                            }, with_context=false) }}
+                        {% else %}
+                            {{ include('sales/sales_forecasts/partial/_form_close.html.twig', {
+                                form: closeForm,
+                                cancelled: cancelled,
+                                action: path('sales_forecasts_open_fcr', {id: salesForecast.id, status: status}),
+                            }, with_context=false) }}
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

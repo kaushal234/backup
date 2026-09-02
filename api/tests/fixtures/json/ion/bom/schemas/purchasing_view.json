@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PurchasingView.jsonld",
+  "definitions": {
+    "PurchasingView.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "engineeringDescription": {
+          "type": "string"
+        },
+        "engineeringSignalCode": {
+          "type": "string"
+        },
+        "itemSignalCode": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchasingViewItem.jsonld"
+          }
+        },
+        "site": {
+          "type": "integer"
+        },
+        "project": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "itemDescription": {
+          "type": "string"
+        },
+        "itemOtherDescription": {
+          "type": "string"
+        },
+        "engineeringRevision": {
+          "type": "string"
+        },
+        "engineeringRevisionEffectiveDate": {
+          "type": "string"
+        },
+        "engineeringRevisionExpiryDate": {
+          "type": "string"
+        },
+        "expired": {
+          "readOnly": true,
+          "type": "boolean"
+        }
+      }
+    },
+    "PurchasingViewItem.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "level": {
+          "type": "integer"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "operation": {
+          "type": "integer"
+        },
+        "supplySource": {
+          "type": ["string", "null"]
+        },
+        "supplier": {
+          "type": "string"
+        },
+        "supplierName": {
+          "type": "string"
+        },
+        "leadTime": {
+          "type": "integer"
+        },
+        "leadTimeUnit": {
+          "type": ["string", "null"]
+        },
+        "inventoryOnHand": {
+          "type": "integer"
+        },
+        "inventoryOnOrder": {
+          "type": "integer"
+        },
+        "allocated": {
+          "type": "integer"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchasingViewItem.jsonld"
+          }
+        },
+        "engineeringRevision": {
+          "type": "string"
+        },
+        "engineeringRevisionEffectiveDate": {
+          "type": "string"
+        },
+        "engineeringRevisionExpiryDate": {
+          "type": "string"
+        },
+        "partNumber": {
+          "type": "string"
+        },
+        "itemDescription": {
+          "type": "string"
+        },
+        "itemOtherDescription": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "productQuantity": {
+          "type": "number"
+        },
+        "unitOfMeasure": {
+          "type": "string"
+        },
+        "expired": {
+          "readOnly": true,
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

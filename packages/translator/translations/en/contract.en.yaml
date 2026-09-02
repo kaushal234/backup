@@ -1,0 +1,114 @@
+contract:
+  add:
+    accordion:
+      title: Add Contract
+  edit:
+    accordion:
+      title: Edit Contract
+  form:
+    status:
+      title: Edit Contract Status
+    ai:
+      heading: Ai Analysis
+      questions:
+        "1": How are indirect and consequential damages treated?
+        "2": Knowing that insurance coverage is not provided by TLD and the supplier mentioned in the contract is TLD, is there a liability cap for TLD?
+        "3": Are the parties' liabilities subject to a liability cap?
+        "4": What are the contractual insurance requirements for the parties?
+        "5": What are the penalties or liquidated damages established, if any?
+        "6": What are the termination conditions established?
+    general:
+      heading: General Information
+      shortDescription:
+        label: Contract Title
+        placeholder: "ex: Master Lease Agreement"
+      category:
+        label: Category
+      sub_category:
+        label: Sub Category
+      confidential:
+        label: Confidential
+      description:
+        label: Contract Description
+        hint: Briefly describe the scope of the Contract, its purpose, as well as any important context/background information.
+      parent_contract:
+        label: Parent Contract
+        hint: If the Contract you are entering is related or subject to another Contract, please inform the name of the other Contract in this field.
+      jurisdiction:
+        label: Jurisdiction
+        placeholder: "Type a country (or a state), ex: France"
+      start_date:
+        label: Start/Effective Date
+        hint: This is the date the Contract enters into effect. The Contract's Duration/Term will start at this date (it may be the signature date or it could be a pre-defined date).
+      signature_date:
+        label: Signature Date
+      owner:
+        label: Owner
+      customer:
+        label: Customer
+      status:
+        label: Status
+      status_comment:
+        label: Status Comment
+      comment:
+        label: Comment
+    organization:
+      heading: Organization
+      hint: Identify your organization within the Alvest Group structure by completing the fields below.
+      division:
+        label: Division
+        placeholder: Type to search
+      region:
+        label: Region
+        placeholder: Type to search
+      business_unit:
+        label: Business Unit
+        placeholder: Type to search
+      premise:
+        label: Premise
+        placeholder: Type to search
+    values:
+      heading: Values
+      value:
+        label: Contract Value
+        hint: Define a value to the Contract. It can be an exact real amount or an estimate based on forecasts.
+      currency:
+        label: Currency
+      observations:
+        label: Observations
+        hint: Explain the rationale behind the value that you attributed to the Contract (e.g. the sum of all POs that will be received during the Term).
+    term:
+      heading: Term
+      expiration_date:
+        label: Expiration Date
+      renewal_period:
+        label: Renewal Period
+        hint: If the contract establishes a fixed renewal period, please include it herein (include only the number - the time scale (days, months, years) should be included in the next field "Renewal Unit".
+      renewal_unit:
+        label: Renewal Unit
+        placeholder: Make your selection
+      indefinite_period_type:
+        label: Indefinite Period Type
+        hint: Check this box if the Contract is for an indefinite term (i.e.. terminated only by an action of the Parties and not with the passage of time).
+      automatic_renewal:
+        label: Automatic Renewal
+        hint: Check this box if the Contract is tacitly and automatically renewed once it reaches its expiration date (i.e. no action needed from the Parties for the renewal). If the renewal is for a definite period, you can complete the field “Renewal Period”. If the renewal is for an indefinite period, you can indicate this in the field “Observation”.
+      observations:
+        label: Observations
+        hint: Any information you deem relevant regarding the Term.
+    parties:
+      heading: Parties
+      external_party:
+        label: External Party
+        hint: Identify the other party.
+        placeholder: Type people / company
+      internal_party:
+        label: Internal Party
+        hint: Identify the exact company of the Alvest Group signing this Contract.
+      other_party_signatories:
+        label: Other Party Signatories
+    action:
+      add: Add
+      delete: Delete
+      submit: Submit
+    error: Something went wrong

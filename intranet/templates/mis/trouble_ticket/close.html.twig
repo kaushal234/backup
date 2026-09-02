@@ -1,0 +1,52 @@
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+
+{% block title %}{{ parent() }} #{{ troubleTicket.id }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7 col-md-12">
+            <twig:TroubleTicketCloseDynamicForm troubleTicketId="{{ troubleTicket.id }}">
+                {% form_theme form 'form_theme_vertical.html.twig' %}
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ ux_icon('icon-park:ticket-one', { width: 16, height: 16 }) }} {{ 'trouble_ticket.button.close'|trans({}, 'trouble_ticket') }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ form_row(form.ccs) }}
+                        {{ form_row(form.comment) }}
+                        {{ form_row(form.status) }}
+
+                        <div class="{{ form.status.vars.value == 'SOLVED' ? '' : 'd-none' }}">
+                            {{ form_row(form.satisfaction) }}
+                            {{ form_row(form.satisfactionComment) }}
+                        </div>
+
+                        <div class="text-end border-top pt-3 mt-3 d-flex gap-1 justify-content-end">
+                            <button type="submit"
+                                    class="btn btn-primary"
+                                    data-action="live#action:prevent"
+                                    data-live-action-param="save">
+                                <i class="fa fa-fw fa-save" aria-hidden="true"></i>&nbsp;{{ 'button.submit'|trans({}, 'messages') }}
+                            </button>
+                            {% if tasks %}
+                                <button type="submit"
+                                        class="btn btn-primary"
+                                        data-action="live#action:prevent"
+                                        data-live-action-param="save"
+                                        data-live-next-param="1">
+                                    <i class="fa fa-fw fa-save" aria-hidden="true"></i>&nbsp;{{ 'trouble_ticket.button.close_and_next'|trans }}
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </twig:TroubleTicketCloseDynamicForm>
+        </div>
+    </div>
+{% endblock %}

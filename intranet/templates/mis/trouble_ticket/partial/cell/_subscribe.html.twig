@@ -1,0 +1,7 @@
+<td>
+    {% if item.alreadySubscribed is same as(false) and item.status not in ['RESOLVED', 'NOT AN ISSUE', 'ALREADY RAISED', 'NOT APPROVED'] %}
+        <a href="{{ path('trouble_ticket_follow', {id: iri_id(item)}) }}"><span class="btn btn-warning btn-sm"><i class="fa fa-bookmark fa-fw"></i></span></a>
+    {% else %}
+        <span class="btn btn-light btn-sm"><i class="fa fa-bookmark fa-fw"></i></span>
+    {% endif %}
+</td>

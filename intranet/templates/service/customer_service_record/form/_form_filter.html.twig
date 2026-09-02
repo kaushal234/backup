@@ -1,0 +1,86 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+<div class="row">
+    <div class="col-lg-4">
+        {{ form_row(form.createdBy) }}
+    </div>
+    <div class="col-lg-4">
+        {{ form_row(form.leader) }}
+    </div>
+    <div class="col-lg-4">
+        {{ form_row(form.endUser) }}
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-lg-2">
+        {{ form_row(form.createdAfter) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.createdBefore) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.completedAfter) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.completedBefore) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.closedAfter) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.closedBefore) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2">
+        {{ form_row(form.location) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.salesOrganisation) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.salesOrganisationService) }}
+    </div>
+    <div class="col-lg-6">
+        {{ form_row(form.productType) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2">
+        {{ form_row(form.equipmentRecord) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.model) }}
+    </div>
+    <div class="col-lg-2">
+        {{ form_row(form.airport) }}
+    </div>
+    <div class="col-lg-3">
+        {{ form_row(form.country) }}
+    </div>
+    <div class="col-lg-3">
+        {{ form_row(form.discriminator) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        {{ form_row(form.status) }}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <hr class="hr-line-dashed">
+        <div class="form-group text-end">
+            <label class="control-label">&nbsp;</label>
+            <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans | upper }}</button>
+            <a href="{{ resetPath }}" class="btn btn-secondary">{{ 'button.reset'| trans | upper }}</a>
+            {{ form_widget(form.download) }}
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

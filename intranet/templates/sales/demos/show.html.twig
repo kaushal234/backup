@@ -1,0 +1,495 @@
+{% extends 'sales/demos/layout.html.twig' %}
+{% trans_default_domain 'demo' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    {{ include('helper/_status_bar.html.twig', {
+        statuses: {
+            'PENDING': ['PENDING'],
+            'SUBMITTED': ['SUBMITTED'],
+            'APPROVED': ['APPROVED'],
+            'ACTIVE': ['ACTIVE'],
+            'CLOSED': ['SUCCESSFUL', 'SUCCESSFUL_FUTURE_SALE', 'REJECTED', 'UNSUCCESSFUL', 'CANCELLED']
+        },
+        current: demo.status,
+        translation: {
+            domain: 'demo',
+            key_prefix: 'demo.status'
+        }
+    }) }}
+    <div class="row">
+        <div class="col-md-5">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'demo.information' | trans,
+                    items: {
+                        id: {
+                            label: 'demo.fields.id'|trans|upper
+                        },
+                        customer: {
+                            label: 'demo.fields.customer'|trans,
+                            properties: ['customer.name'],
+                            link:{
+                                route: 'sales_customers_show',
+                                params: {'id':'customer.@id'},
+                            }
+                        },
+                        product: {
+                            label: 'demo.fields.product'|trans|capitalize,
+                            properties: ['product.name'],
+                            link:{
+                                route: 'sales_catalogue_product_show',
+                                params: {'id':'product.@id'},
+                            }
+                        },
+                        emissionRating: {
+                            label: 'sales_forecasts.fields.tier'|trans({}, 'sales_forecasts')|capitalize,
+                            properties: ['emissionRating.name'],
+                        },
+                        sso: {
+                            label: 'fields.sso'|trans({}, 'messages')|upper,
+                            properties: ['sso.name'],
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'sso.@id'},
+                            }
+                        },
+                        factory: {
+                            label: 'fields.factory'|trans({}, 'messages')|capitalize,
+                            properties: ['factory.name'],
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'factory.@id'},
+                            }
+                        },
+                        country: {
+                            label: 'demo.fields.country'|trans|capitalize,
+                            properties: ['country.name']
+                        },
+                        airport: {
+                            label: 'fields.airport_code'|trans({}, 'messages')|capitalize,
+                            properties: ['airport.name', 'airport.cityCode3'],
+                            hideNull: true,
+                        },
+                        sequenceId: {
+                            label: 'demo.fields.sequence_id'|trans,
+                            hideNull: true,
+                            link:{
+                                route: 'legacy_calendar',
+                                fixedParams: {'m':['tasks', 'task', 'view']},
+                                params: {'id':'sequenceId'}
+                            }
+                        },
+                        expectedStartDate: {
+                            label: 'demo.fields.expected_start_date'|trans,
+                            filters: 'date("Y-m-d")',
+                            hideNull: true
+                        },
+                        actualStartDate: {
+                            label: 'demo.fields.actual_start_date'|trans,
+                            filters: 'date("Y-m-d")',
+                            hideNull: true
+                        },
+                        expectedEndDate: {
+                            label: 'demo.fields.expected_end_date'|trans,
+                            filters: 'date("Y-m-d")',
+                            hideNull: true
+                        },
+                        revisedEndDate: {
+                            label: 'demo.fields.revised_end_date'|trans,
+                            filters: 'date("Y-m-d")',
+                            hideNull: true
+                        },
+                        statusUpdatedAt: {
+                            label: 'demo.fields.status_updated_at'|trans,
+                            filters: 'date("Y-m-d")',
+                            hideNull: true,
+                        },
+                        closingDate: {
+                            label: 'demo.fields.closing_date'|trans,
+                            filters: 'date("Y-m-d")',
+                            hideNull: true
+                        },
+                        equipmentRecord: {
+                            label: 'demo.fields.er_serial_number'|trans,
+                            properties: ['equipmentRecord.serialNumber'],
+                            hideNull: true,
+                            link:{
+                                route: 'legacy_product_support',
+                                params: {'id':'equipmentRecord.legacyId'},
+                                fixedParams: {'m':['equipment', 'view']},
+                            }
+                        },
+                        futureDemo: {
+                            label: 'demo.fields.future_demo'|trans,
+                            properties: ['futureDemo.id'],
+                            link:{
+                                route: 'demo_show',
+                                params: {'id':'futureDemo.@id'},
+                            },
+                            hideNull: true
+                        },
+                        closingComment: {
+                            label: 'demo.fields.closing_comment'|trans,
+                            hideNull: true
+                        },
+                        delinquent: {
+                            label: 'demo.fields.delinquent'|trans,
+                            boolean: {
+                                true: '<button type="button" class="btn btn-danger btn-sm">YES</button>',
+                                false: '<button type="button" class="btn btn-green btn-sm">No</button>'
+                            }
+                        },
+                        linkAllocated: {
+                            label: 'demo.fields.link_allocated'|trans,
+                            boolean: {
+                                true: '<button type="button" class="btn btn-green btn-sm">Yes</button>',
+                                false: '<button type="button" class="btn btn-danger btn-sm">No</button>'
+                            },
+                        }
+                    },
+                    data: demo
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-4">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'demo.representatives' | trans,
+                    items: {
+                        asm: {
+                            label: 'demo.fields.asm'|trans|upper,
+                            properties: ['asm.firstname', 'asm.lastname'],
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'asm.@id'},
+                            }
+                        },
+                        psm: {
+                            label: 'demo.fields.psm'|trans|upper,
+                            properties: ['psm.firstname', 'psm.lastname'],
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'psm.@id'},
+                            }
+                        },
+                        ast: {
+                            label: 'demo.fields.ast'|trans|upper,
+                            properties: ['ast.firstname', 'ast.lastname'],
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'ast.@id'},
+                            },
+                            hideNull: true
+                        },
+                    },
+                    data: demo
+                }
+            }, with_context = false) }}
+            {% if is_granted('DEMO_EDIT_VOTER', demo.iri) and demo.status is same as('APPROVED') and demo.equipmentRecord is same as(null) %}
+                <div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>{{ 'demo.add_er.title' | trans }}</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            {% form_theme form_er 'form_theme_vertical.html.twig' %}
+                            {{ form_start(form_er) }}
+                            {{ form_errors(form_er) }}
+                            {{ form_row(form_er.equipmentRecord) }}
+                            {{ form_row(form_er.submit) }}
+                            {{ form_end(form_er) }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if is_granted('DEMO_EDIT_VOTER', demo.iri) and (demo.status is same as('APPROVED') or demo.status is same as('ACTIVE')) and demo.airport is same as(null) %}
+                <div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>{{ 'demo.add_airport.title' | trans }}</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            {% form_theme form_airport 'form_theme_vertical.html.twig' %}
+                            {{ form_start(form_airport) }}
+                            {{ form_row(form_airport.airport) }}
+                            {{ form_row(form_airport.submit) }}
+                            {{ form_end(form_airport) }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-lg-3">
+            {% if demo.product.dmsPhoto is not same as(null) %}
+                <img class="m-t-xs img-fluid" width="400" src="{{ absolute_url(path('legacy_mis', {m:['help', 'dms'], id: demo.product.dmsPhoto})) }}">
+            {% elseif demo.product.family.dmsPhoto is not same as(null)  %}
+                <img class="m-t-xs img-fluid" width="400" src="{{ absolute_url(path('legacy_mis', {m:['help', 'dms'], id: demo.product.family.dmsPhoto})) }}">
+            {% else %}
+                <img class="m-t-xs img-fluid" width="400" src="/shared/no_photo_catalogue.png">
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.fields.comments'|trans({}, 'demo') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="logs-block" data-resource="{{ demo.iri }}" data-hide-logs></div>
+                </div>
+            </div>
+        </div>
+        {% if is_granted('DEMO_EDIT_VOTER', demo.iri) %}
+            <div class="col-md-5">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'demo.fields.add_comment'|trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% form_theme form_comment 'form_theme_vertical.html.twig' %}
+
+                                {{ form_start(form_comment, { action: path('demo_show', {'id': demo.id}) }) }}
+                                {{ form_errors(form_comment) }}
+
+                                {{ form_row(form_comment.message, {'attr': {'style':'resize:vertical; height:130px'}}) }}
+                                {{ form_row(form_comment.submit) }}
+
+                                {{ form_rest(form_comment) }}
+
+                                {{ form_end(form_comment) }}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-9" id="demo-files">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        filePath: {
+                            label: 'menu.files'|trans({}, 'messages')|capitalize,
+                            filters : 'slice(19)',
+                            link:{
+                                route: 'sales_demo_files_show',
+                                params: {
+                                    'id': 'id'
+                                },
+                                fixedParams: {
+                                    'demoId': demo.id
+                                }
+                            },
+                        },
+                        description: {
+                            label: 'demo.fields.file_description'|trans|capitalize,
+                        },
+                        createdAt: {
+                            label: 'demo.fields.created_at'|trans|capitalize,
+                            filters: 'date("Y-m-d H:i:s")'
+                        },
+                        size: {
+                            label: 'size'|trans({}, 'messages')|trans|capitalize,
+                            filters : 'readable_filesize'
+                        },
+                        delete: {
+                            label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                            sortable: false,
+                            class: 'text-end',
+                            link: {
+                                route: 'sales_delete_demo_file',
+                                params: {'id': 'id'},
+                                fixedParams: {'demoId': demo.id, '_token': csrf_token('delete_demo_file')},
+                                content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                                popup: {
+                                    type: 'confirmation',
+                                    title: 'Confirmation',
+                                    message: 'Are you sure to delete ?',
+                                },
+                            },
+                        },
+                    },
+                    title: 'demo.fields.files'|trans,
+                    data: demo.demoFiles,
+                    search: false,
+                    pagination: false,
+                    initialSorting: 'createdAt'
+                }
+            }, with_context = false) }}
+        </div>
+        {% if is_granted('DEMO_EDIT_VOTER', demo.iri)%}
+            <div class="col-md-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'demo.fields.add_file'|trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% form_theme form_files 'form_theme_vertical.html.twig' %}
+
+                                {{ form_start(form_files, { action: path('demo_show', {'id': demo.id}) }) }}
+                                {{ form_errors(form_files) }}
+
+                                {{ form_row(form_files.file) }}
+                                {{ form_row(form_files.description) }}
+
+                                {{ form_rest(form_files) }}
+
+                                {{ form_end(form_files) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+    {% if demo.equipmentRecord is not same as(null) and demo.equipmentRecord.legacyId is not same as(null) %}
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'demo.fields.toc_linked'|trans({'%number%':5}) }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <hx:include src="/en/private/sales_service/toc/toc_hinclude.php?id={{ demo.equipmentRecord.legacyId }}&startDate={{ demo.actualStartDate }}&endDate={{ demo.closingDate }}" id="block_sol">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'demo.fields.sb_linked'|trans({'%number%':5}) }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <hx:include src="/en/private/product_support/sb/sb_hinclude.php?id={{ demo.equipmentRecord.legacyId }}" id="block_sol">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'demo.fields.wc_linked'|trans({'%number%':5}) }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <hx:include src="/en/private/product_support/wc/wc_hinclude.php?id={{ demo.equipmentRecord.legacyId }}" id="block_sol">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'demo.fields.tasks_er_linked'|trans() }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <hx:include src="/en/private/calendar/tasks/task_demo_hinclude.php?er_id={{ demo.equipmentRecord.legacyId }}&startDate={{ demo.actualStartDate }}&endDate={{ demo.closingDate }}" id="block_sol">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+        </div>
+    {% endif %}
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>{{ 'demo.fields.tasks_demo_linked'|trans() }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <hx:include src="/en/private/calendar/tasks/tasks_hinclude.php?parent_id={{ demo.id }}&module=DEMO" id="block_sol">
+                <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+            </hx:include>
+        </div>
+    </div>
+    <div>
+        <div class="ibox float-e-margins ">
+            <div class="ibox-title"><h5>{{ 'menu.links' | trans({}, 'messages') }}</h5>
+                <div class="ibox-tools"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></div>
+            </div>
+            <div class="ibox-content">
+                <hx:include src="/en/private/common/links/links_hinclude.php?module=DEMO&parent_id={{ demo.iriId }}">
+                    <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                </hx:include>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'menu.logs'|trans({}, 'messages') }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="logs-block" data-resource="{{ demo.iri }}" data-hide-comments></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('partial/_footable.html.twig', {'selectors': ['#block_mim', '#block_er', '#block_fcr', '#block_sol', '#block_seq']}) }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+
+
+

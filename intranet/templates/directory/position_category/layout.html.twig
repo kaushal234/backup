@@ -1,0 +1,29 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'directory.position_categories.name'|trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add translationKey="directory.nav_link.add_category" route="position_categories_add"
+                          domain="directory" :security="is_granted('POSITION_CATEGORY_WRITE_VOTER')"/>
+        <twig:NavItem:Add translationKey="directory.nav_link.add_category_types" route="position_category_types_add"
+                          domain="directory" :security="is_granted('POSITION_CATEGORY_WRITE_VOTER')"/>
+        <twig:NavItem translationKey="directory.nav_link.position_categories" domain="directory"
+                      icon="mynaui:list" route="position_categories_home"/>
+        <twig:NavItem translationKey="directory.nav_link.position_categories_types" domain="directory"
+                      icon="mynaui:list" route="position_category_types_home"/>
+        <twig:Dropdown translationKey="directory.position_classifications.name" domain="directory">
+            {% for choice in formFilter.businessUnits.vars.choices %}
+                {% if choice.value is not empty %}
+                    <li><a class="dropdown-item" href="{{ choice.value }}">{{ choice.label }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </twig:Dropdown>
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('positionsCategories') }}
+{% endblock %}

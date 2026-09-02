@@ -1,0 +1,12 @@
+{% extends 'mis/layout.html.twig' %}
+
+{% block title %}MIS\Features{% endblock %}
+
+{% block breadcrumb_links %}
+    <li class="breadcrumb-item">
+        <a
+                href="{{ path('mis_features_index') }}"
+                {% if app.request.attributes.get('_route') == 'mis_features_index' %} style="font-weight: bold;"{% endif %}
+        >{{ 'mis.features.title.list'|trans({}, 'mis') }}</a>
+    </li>
+{% endblock %}

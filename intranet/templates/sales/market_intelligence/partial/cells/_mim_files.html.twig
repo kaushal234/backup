@@ -1,0 +1,5 @@
+<td>
+    {% for file in item.marketIntelligenceFiles %}
+        <a href="{{ path('market_intelligence_files_show', {id: iri_id(file), marketIntelligenceId: item.id}) }}">{{ file.filePath | slice(27)}} </a><br>
+    {% endfor %}
+</td>

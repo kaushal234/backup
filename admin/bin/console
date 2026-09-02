@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+include_once 'common.inc.php';
+
+use App\Application;
+use App\Error\ErrorHandler;
+use App\Logger\CommandLoggerFactory;
+use Symfony\Component\Console\Application as ConsoleApplication;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+$errorHandler = new ErrorHandler();
+register_shutdown_function($errorHandler);
+
+$application = new Application(new ConsoleApplication(), $errorHandler, new CommandLoggerFactory());
+
+$jobsIterator = new FilesystemIterator(__DIR__.'/../src/Job');
+foreach ($jobsIterator as $folder) {
+    if (!$folder->isDir()) {
+        continue;
+    }
+    $subFolderIterator = new FilesystemIterator($folder->getPathname());
+    foreach ($subFolderIterator as $job) {
+        $classname = "App\\Job\\" . $folder->getBasename() . "\\" . $job->getBasename('.php');
+        if ((new ReflectionClass($classname))->isAbstract()) {
+            continue;
+        }
+        $class = new $classname();
+        if ($class instanceof Symfony\Component\Console\Command\Command) {
+            $application->add($class);
+        }
+    }
+}
+
+$application->run(new ArgvInput(), new ConsoleOutput());
+
+$errorHandler->setExecutionSuccessful();

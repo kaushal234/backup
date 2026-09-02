@@ -1,0 +1,76 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+
+            <h4>SFR#{{ sales_forecast_normalized.id }}</h4>
+
+            <p>{{ sales_forecast_normalized.comment | nl2br }}</p>
+
+            <ul>
+                {% for field, values in changeSet %}
+                    <li>{{ 'sfr.change' | trans({
+                            '%field%': field,
+                            '%before%': '<b>' ~ values[0] ~ '</b>',
+                            '%after%': '<b>' ~ values[1] ~ '</b>'
+                        }) | raw }}</li>
+                {% endfor %}
+            </ul>
+
+            <p>
+                {{ 'sfr.linked' | trans }}<br>
+                {{ 'sfr.affected' | trans }}:
+            </p>
+
+            <ul>
+                {% for sfr in linked_sales_forecasts_normalized %}
+                    <li><a href="{{ url('sales_forecast', {'id': sfr.id}) }}">SFR#{{ sfr.id }}</a></li>
+                {% endfor %}
+            </ul>
+
+            {% for sfr in linked_sales_forecasts_normalized %}
+                {{ include('Helpers/_association_table_raw.html.twig', {
+                    associationData: {
+                        items: {
+                            id: {
+                                label: 'sfr.view_details' | trans({'%id%': sfr.id}),
+                                link: {
+                                    'route': 'sales_forecast',
+                                    'fixedParams': {'id': sfr.id}
+                                }
+                            },
+                            createdAt: { label:'sfr.fields.date' | trans, filters: ["date('Y-m-d')"] },
+                            status: { label:'sfr.fields.status' | trans},
+                            estimatedSaleDate: { label:'sfr.fields.estimated_sale_date' | trans, filters: ["date('Y-m')"] },
+                            buyer: { label:'sfr.fields.customer_buyer' | trans, template: 'Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', templateParams: {customerPath: 'buyer'} },
+                            endUser: { label:'sfr.fields.customer_user' | trans, template: 'Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', templateParams: {customerPath: 'endUser'} },
+                            thirdParty: { label:'sfr.fields.third_party' | trans, template: 'Emails/Sales/SalesForecast/partial/cells/_customer.html.twig', templateParams: {customerPath: 'thirdParty'} },
+                            country: { label:'sfr.fields.customer_country' | trans, properties: ['country.name'] },
+                            airport: { label:'sfr.fields.airport_code' | trans, properties: ['airport.code'] },
+                            factory: { label:'sfr.fields.factory' | trans, properties: ['factory.name'] },
+                            sso: { label:'sfr.fields.sso' | trans, properties: ['sso.name'] },
+                            asm: { label:'sfr.fields.asm' | trans, properties: ['asm.lastname', 'asm.firstname'] },
+                            poster: { label:'sfr.fields.poster' | trans, properties: ['poster.lastname', 'poster.firstname'] },
+                            model: { label:'sfr.fields.model' | trans, properties: ['product.name'] },
+                            tier: { label:'sfr.fields.emission_rating' | trans, properties: ['tier.name'] },
+                            quantity: { label:'sfr.fields.quantity' | trans },
+                            customerSuccessPercentage: { label:'sfr.fields.customer_purchase_percentage' | trans },
+                            successPercentage: { label:'sfr.fields.alvest_success_percentage' | trans },
+                        },
+                        rowHeaderWidth: '40%',
+                        data: sfr,
+                    },
+                }, with_context = false) }}
+                <br>
+
+            {% endfor %}
+
+        </columns>
+    </row>
+{% endblock %}

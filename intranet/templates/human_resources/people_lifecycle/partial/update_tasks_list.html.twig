@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-12">
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    thirdPartyApp: {
+                        label: 'mis.update_task.fields.module_name'|trans({}, 'mis'),
+                        properties: ['thirdPartyApp.name'],
+                    },
+                    application: {
+                        label: 'mis.modules.fields.application'|trans({}, 'mis'),
+                        properties: ['thirdPartyApp.application.name']
+                    },
+                    mainAdmin: {
+                        label: 'mis.modules.fields.main_admin'|trans({}, 'mis'),
+                        properties: ['thirdPartyApp.mainAdmin.lastname', 'thirdPartyApp.mainAdmin.firstname'],
+                        link: {
+                            route: 'directory_people_show',
+                            params: {id:'thirdPartyApp.mainAdmin.@id'}
+                        }
+                    },
+                    location: {
+                        label: 'mis.modules.fields.business_unit'|trans({}, 'mis'),
+                        properties: ['user.businessUnit.name'],
+                    },
+                    originType: {
+                        label: 'mis.update_task.fields.origin_type'|trans({}, 'mis'),
+                        template: '/mis/modules/third_party_app/update_tasks/partial/cells/origin_type.html.twig'
+                    },
+                    demandType: {
+                        label: 'mis.update_task.fields.demand_type'|trans({}, 'mis'),
+                        template: '/directory/people/third_party_app/partial/cells/demand_type.html.twig'
+                    },
+                    actions: {
+                        label: 'mis.update_task.fields.actions'|trans({}, 'mis'),
+                        template: '/directory/people/third_party_app/partial/cells/update_actions.html.twig'
+                    },
+                    updatedAt: {
+                        label: 'mis.update_task.fields.updated_at'|trans({}, 'mis'),
+                        filters: 'date("Y-m-d H:i")',
+                    },
+                    updatedBy: {
+                        label: 'mis.update_task.fields.updated_by'|trans({}, 'mis'),
+                        properties: ['updatedBy.lastname', 'updatedBy.firstname'],
+                        link: {
+                            route: 'directory_people_show',
+                            params: {id:'updatedBy.@id'}
+                        }
+                    },
+                },
+                data: updateTasks,
+                initialSorting: false,
+                options: {
+                    card: false
+                }
+            }
+        }) }}
+    </div>
+</div>

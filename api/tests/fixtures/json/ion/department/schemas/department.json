@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"type": "string"},
+    "@type": {"type": "string"},
+    "code": {"type": "string"},
+    "erp": {"type": "string"},
+    "name": {"type": "string"},
+    "buyer": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../employees/schemas/item.json" }
+      ]
+    }
+  },
+  "required": [
+    "@type",
+    "code",
+    "name",
+    "buyer",
+    "erp"
+  ],
+  "additionalProperties": false
+}

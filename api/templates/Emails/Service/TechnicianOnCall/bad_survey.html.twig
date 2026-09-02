@@ -1,0 +1,118 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "technician_on_call" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            {{ 'toc.message.task_bad_survey.content'|trans({'%id%': task.id}, 'emails')|raw }}
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <a href="{{ url('task', { 'id': task.id }) }}">
+                {{ 'toc.message.task_bad_survey.link'|trans({'%id%': task.id}, 'emails')|raw }}
+            </a>
+        </columns>
+    </row>
+
+    <row>
+        {# Survey ratings & comment #}
+        <columns>
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        execution: {
+                            label: 'toc.fields.survey.execution'|trans
+                        },
+                        responsiveness: {
+                            label: 'toc.fields.survey.responsiveness'|trans
+                        },
+                        communication: {
+                            label: 'toc.fields.survey.communication'|trans
+                        },
+                        attitude: {
+                            label: 'toc.fields.survey.attitude'|trans
+                        },
+                        comment: {
+                            label: 'fields.comment'|trans({}, 'messages')
+                        },
+                    },
+                    data: survey,
+                    title: 'toc.message.survey.header'|trans({}, 'emails')
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+    <row>
+        {# Customer & main contact #}
+        <columns>
+            {% set mainContact = survey.technicianOnCall.mainContact %}
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        customer: {
+                            label: 'demo.fields.customer'|trans({}, 'demo'),
+                            properties: ['technicianOnCall.customer.name'],
+                        },
+                        contact: {
+                            properties: ['technicianOnCall.mainContact.lastname', 'technicianOnCall.mainContact.firstname'],
+                            label: 'toc.fields.main_contact.label'|trans|capitalize,
+                        },
+                        email: {
+                            properties: ['technicianOnCall.mainContact.email'],
+                            label: 'extranet.fields.email'|trans({}, 'messages'),
+                        },
+                    },
+                    data: survey,
+                    title: 'toc.title.customer_information'|trans
+                },
+            }, with_context = false) }}
+            {% if mainContact is not null and mainContact.phones is not empty %}
+                {{ include('Emails/Service/TechnicianOnCall/_partials/cell/_phones.html.twig', {phone_list: mainContact.phones}) }}
+            {% endif %}
+        </columns>
+
+        {# TOC info #}
+        <columns>
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        title: {
+                            label: 'display.table.document.headers.title'|trans({}, 'messages'),
+                            properties: ['technicianOnCall.title'],
+                        },
+                        description: {
+                            label: 'tasks.description'|trans({}, 'messages'),
+                            properties: ['technicianOnCall.description'],
+                        },
+                        equipmentRecord: {
+                            label: 'crab.fields.equipment_record'|trans({}, 'crab'),
+                            properties: ['technicianOnCall.equipmentRecord.serialNumber'],
+                        },
+                        serialNumber: {
+                            label: 'toc.card.customer_asset_number'|trans,
+                            properties: ['technicianOnCall.serialNumber'],
+                        }
+                    },
+                    data: survey,
+                    title: 'toc.title.detail'|trans
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+    <br>
+    <row>
+        <columns>
+            {{ 'toc.message.link'|trans({'%id%': survey.technicianOnCall.id}, 'emails') }}
+			&nbsp;—&nbsp;
+			<a href="{{ path('technician_on_call', {id: survey.technicianOnCall.id }) }}">
+				{{ 'toc.message.intranet'|trans({}, 'emails') }}
+			</a>
+			&nbsp;|&nbsp;
+			<a href="{{ path('mobile_technician_on_call', {id: survey.technicianOnCall.id }) }}">
+				{{ 'toc.message.mobile'|trans({}, 'emails') }}
+			</a>
+        </columns>
+    </row>
+{% endblock %}

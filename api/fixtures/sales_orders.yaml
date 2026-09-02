@@ -1,0 +1,118 @@
+App\Entity\Sales\Order:
+    # /sales/orders/1
+    sor_1:
+        id: 1
+        sso: '@location_sso'
+        status: PENDING
+        equoteId: 1984
+        inforLnBusinessPartnerCode: AF1000
+        juridicalLocation: '@juridical_location_EUROPE'
+        asm: '@user_asm'
+        buyer: '@customer_a_boire'
+        endUser: '@customer_35'
+        salesAgent: '@customer_15'
+        customerName: AIR JORDAN
+        newCustomer: false
+        baanOrderNumbers: ['123', '456']
+        customerPurchaseOrders: ['789', '654']
+        lines: ['@order_line_1']
+
+    # /sales/orders/2
+    sor_to_be_deleted:
+        id: 2
+        sso: '@location_sso'
+        status: IN PROGRESS
+        juridicalLocation: '@juridical_location_EUROPE'
+        inforLnBusinessPartnerCode: <bothify('??##')>
+        asm: '@user_asm'
+        buyer: '@customer_a_boire'
+        endUser: '@customer_35'
+        customerName: AIR JORDAN
+        newCustomer: false
+        baanOrderNumbers: []
+        customerPurchaseOrders: ['1984']
+
+    # /sales/orders/3
+    sor_with_backlog_rule:
+        id: 3
+        sso: '@location_sso'
+        status: PENDING
+        juridicalLocation: '@juridical_location_EUROPE'
+        asm: '@user_transferred'
+        buyer: '@customer_a_boire'
+        endUser: '@customer_35'
+        customerName: AIR JORDAN
+        newCustomer: false
+        baanOrderNumbers: []
+        customerPurchaseOrders: ['1984']
+
+    # /sales/orders/4
+    sor_not_transferable:
+        id: 4
+        sso: '@location_sso'
+        status: CLOSED
+        juridicalLocation: '@juridical_location_EUROPE'
+        asm: '@user_transferred'
+        buyer: '@customer_a_boire'
+        endUser: '@customer_35'
+        customerName: AIR JORDAN
+        newCustomer: false
+        baanOrderNumbers: []
+        customerPurchaseOrders: ['1984']
+
+    # /sales/orders/5
+    sor_editable_by_asm:
+        id: 5
+        sso: '@location_sso'
+        juridicalLocation: '@juridical_location_EUROPE'
+        inforLnBusinessPartnerCode: <bothify('??##')>
+        closedAt:  '15%? <dateTime()>'
+        status: PENDING
+        equoteId: <word()>
+        baanOrderNumbers: <randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9'], 3)>
+        asm: '@user_asm'
+        buyer: '@customer_a_boire'
+        endUser: '@customer_35'
+        customerName: <company()>
+        newCustomer: <boolean()>
+        salesAgent: '10%? @customer_a_boire'
+        customerPurchaseOrders: [b, c]
+        xmlSource: '10%? <paragraph()>'
+
+    # /sales/orders/6
+    sor_not_editable_by_asm:
+        id: 6
+        sso: '@location_sso'
+        juridicalLocation: '@juridical_location_EUROPE'
+        inforLnBusinessPartnerCode: <bothify('??##')>
+        closedAt:  '15%? <dateTime()>'
+        status: IN PROGRESS
+        equoteId: <word()>
+        baanOrderNumbers: <randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9'], 3)>
+        asm: '@user_asm'
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_order'
+        customerName: <company()>
+        newCustomer: <boolean()>
+        salesAgent: '10%? @customer_a_boire'
+        customerPurchaseOrders: <randomElements(['a', 'b', 'c', 'd', 'e', 'f', 'g'], 2)>
+        xmlSource: '10%? <paragraph()>'
+
+    # /sales/orders/7..40
+    sor_{7..40}:
+        id: <current()>
+        sso: '@location_sso'
+        juridicalLocation: '@juridical_location_EUROPE'
+        inforLnBusinessPartnerCode: <bothify('??##')>
+        closedAt:  '15%? <dateTime()>'
+        status: <randomElement(['PENDING', 'IN PROGRESS', 'CLOSED'])>
+        equoteId: <word()>
+        baanOrderNumbers: <randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9'], 3)>
+        asm: '@user_asm'
+        buyer: '@customer_a_boire'
+        endUser: '@customer_35'
+        customerName: <company()>
+        newCustomer: <boolean()>
+        salesAgent: '10%? @customer_a_boire'
+        customerPurchaseOrders: <randomElements(['a', 'b', 'c', 'd', 'e', 'f', 'g'], 2)>
+        xmlSource: '10%? <paragraph()>'

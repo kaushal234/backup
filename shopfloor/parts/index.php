@@ -1,0 +1,1 @@
+<html><head></head><body><h2>This feature is not accessible from the shopfloor anymore, please use the <a href="https://www.tld-gse.com/en/private/parts/tracking-numbers">intranet tracking number page</a> instead from now on</h2></body></html>

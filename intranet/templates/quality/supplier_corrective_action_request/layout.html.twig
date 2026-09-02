@@ -1,0 +1,36 @@
+{% extends 'quality/layout.html.twig' %}
+{% trans_default_domain 'supplier_corrective_action_request' %}
+
+{% block title %} {{ parent() }}\{{ 'supplier_corrective_action_request.supplier_corrective_action_request' | trans }} {% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="supplier_corrective_action_request_add"/>
+        <twig:NavItem:Reports route="supplier_corrective_action_request_report"/>
+        {% if supplierCorrectiveActionRequest.id is defined and supplierCorrectiveActionRequest.id is not none %}
+            <twig:NavItem:Details route="supplier_corrective_action_request_show"
+                                  :routeParameters="{id: supplierCorrectiveActionRequest.id}"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'SCAR', parent_id: supplierCorrectiveActionRequest.id}"/>
+            <twig:NavItem:Edit route="supplier_corrective_action_request_edit"
+                               :routeParameters="{id: supplierCorrectiveActionRequest.id}"
+                               :security="supplierCorrectiveActionRequest.status != 'CLOSED'"/>
+            <twig:NavItem translationKey="supplier_corrective_action_request.nav_link.edit_parts"
+                          domain="supplier_corrective_action_request"
+                          route="supplier_corrective_action_request_admin_parts" icon="teenyicons:basket-plus-outline"
+                          :routeParameters="{id: supplierCorrectiveActionRequest.id}"
+                          :security="supplierCorrectiveActionRequest.status != 'CLOSED'"/>
+            <twig:NavItem:Delete route="supplier_corrective_action_request_delete"
+                                 :routeParameters="{ id: supplierCorrectiveActionRequest.id }"
+                                 :security="is_granted('SUPPLIER_CORRECTIVE_ACTION_REQUEST_DELETE_VOTER', supplierCorrectiveActionRequest['@id'])"/>
+            {% if status_form is defined %}
+                <twig:Dropdown translationKey="supplier_corrective_action_request.nav_link.change_status"
+                               domain="supplier_corrective_action_request">
+                    {{ form_start(status_form) }}
+                    {{ form_widget(status_form.status) }}
+                    {{ form_end(status_form) }}
+                </twig:Dropdown>
+            {% endif %}
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

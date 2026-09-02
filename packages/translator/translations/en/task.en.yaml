@@ -1,0 +1,125 @@
+task:
+  add_form_title: Add Task
+  edit_form_title: Edit Task
+  title: Task
+  nav_link:
+    close: Close
+    comment: Comment
+    pause: Pause
+    reopen: Reopen
+    reschedule: Reschedule
+    transfer: Transfer
+  fields:
+    add_comment: Add Comment
+    assignee: Assignee
+    ccs: Ccs
+    close_comment: Close comment
+    closed_at: Closed date
+    closing_next: Close and next
+    closing_reason: Closing reason
+    comment: Comment
+    comment_next: Comment and next
+    comments: Comments
+    confidential: Confidential
+    created_at: Created date
+    created_by: Assignor
+    delete: Delete
+    dependency_id: Dependency id
+    description: Description
+    detail: Detail
+    details: Details
+    download: Download
+    due_date: Due date
+    due_date_after: Due date after
+    due_date_before: Due date before
+    edit: Edit
+    escalation_trigger: Escalation trigger
+    file: File
+    file_description: File description
+    files: Files
+    filter: Filter
+    indice_factor: Importance Factor
+    location: Location
+    logs: Logs
+    module: Module
+    next: Next
+    pause_next: Pause and next
+    previous: Previous
+    reference_id: Reference ID
+    reschedule_date: Reschedule date
+    reschedule_next: Reschedule and next
+    reset: Reset
+    short_description: Short Description
+    size: Size
+    started_after: Started after
+    started_before: Started before
+    started_date: Started date
+    status: Status
+    task_pause: Pause reason
+    task_reschedule: Reschedule reason
+    transfer_next: Transfer and next
+    transfer_reason: Transfer reason
+    unassigned: Unassigned
+    unit: Unit
+    unpause: Unpause
+    updated_at: Update at
+    upload_file: Upload A File
+  message:
+    add: Your task has been successfully added.
+    assignee_require: An assignee has to be set
+    close: Your task has been successfully closed.
+    delete: Your task has been successfully deleted.
+    delete_alert: Are you sure you want to delete this task ?
+    delete_error: Your can not delete this task.
+    delete_file: Your file has been successfully deleted.
+    edit: Your task has been successfully edited.
+    multi_assignee_selected: One task per selected assignee will be created.
+    no_comment: No comment yet.
+    not_allowed: Your not allowed to do this action
+    not_exist: "Task #%id% does not exists."
+    pause: Your task has been successfully paused.
+    people_notified: People notified
+    reschedule: Your task has been successfully rescheduled.
+    transfer: Your task has been successfully transferred.
+  errors:
+    assignee: Assignee is mandatory.
+    date_in_past: This date cannot be in the past.
+    description: Description is mandatory.
+    due_date: Due date is mandatory
+    escalation_trigger: Escalation trigger is mandatory.
+    indices_factor: Importance factor is mandatory.
+    module: The module you have selected is not accepted.
+    module_not_accepted: Module is mandatory.
+    pause: The task have to be IN PROGRESS to be set on pause
+    reference_id: Reference id is mandatory.
+    short_description: short Description is mandatory.
+    started_date: Started date is mandatory
+    too_many_assignee_selected: You have select too many assignee limit is 10
+    unit: Unit is mandatory.
+task_management:
+  migrated_tasks: Migrated Tasks
+  other_modules: Other Modules
+  late: LATE
+  due: DUE
+
+scheduled_task:
+  expiration_notification: 'Scheduled task #%id% is about to expire on %date%'
+
+renew_guest_user:
+  duration_months: Duration (months)
+  renewal_decision: Renewal decision
+  success:
+    renewed: Guest user successfully renewed.
+    not_renewed: Guest user not renewed.
+
+warehouse_task:
+  title: Warehouse Task
+  title_edit: Edit WHT
+  error:
+    module_code_not_found: The module with code "WHT" was not found.
+
+part_number_task:
+  title: Part Number Tasks
+  title_edit: Edit PNT
+  error:
+    module_code_not_found: The module with code "PNT" was not found.

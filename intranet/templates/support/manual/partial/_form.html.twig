@@ -1,0 +1,105 @@
+{#Override form_row to delete label#}
+{% block form_row -%}
+    {%- set widget_attr = {'class': 'row'} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div
+        {% with {
+            attr: row_attr|merge({class: (row_attr.class|default('') ~ 'form-group' ~ ((not compound or force_error|default(false)) and not valid ? ' has-error'))|trim})
+            }
+        %}
+            {{ block('attributes') }}
+        {% endwith %}
+    >
+        <div class="col-lg-12">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock form_row %}
+
+{% block _manual_documents_entry_factoryNumber_row %}
+    {% with { size: 1 } %}
+        {{ block('document_element_row') }}
+    {% endwith %}
+{%- endblock %}
+
+{% block _manual_documents_entry_position_row %}
+    {% with { size: 1 } %}
+        {{ block('document_element_row') }}
+    {% endwith %}
+{%- endblock %}
+
+{% block _manual_documents_entry_revision_row %}
+    {% with { size: 1 } %}
+        {{ block('document_element_row') }}
+    {% endwith %}
+{%- endblock  %}
+
+{% block _manual_documents_entry_category_row %}
+    {% with { size: 1 } %}
+        {{ block('document_element_row') }}
+    {% endwith %}
+{%- endblock  %}
+
+{% block _manual_documents_entry_quantity_row %}
+    {% with { size: 1 } %}
+        {{ block('document_element_row') }}
+    {% endwith %}
+{%- endblock  %}
+
+{% block _manual_documents_entry_description_row %}
+    {% with { size: 2 } %}
+        {{ block('document_element_row') }}
+    {% endwith %}
+{%- endblock  %}
+
+{% block _manual_documents_entry_otherDescription_row %}
+    {% with { size: 2 } %}
+        {{ block('document_element_row') }}
+    {% endwith %}
+{%- endblock  %}
+
+{% block _manual_documents_entry_type_row %}
+    {% with { size: 1 } %}
+        {{ block('document_element_row') }}
+    {% endwith %}
+{%- endblock  %}
+
+{#Add div for delete button#}
+{% block _manual_documents_entry_otherDescription_widget -%}
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-9">{{ form_widget(form) }}</div>
+        <div class="col-md-2">
+            <div class="delete-button-block"></div>
+        </div>
+        <br>
+    </div>
+{%- endblock %}
+
+{% block document_element_row %}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div
+        {% with {
+                attr: row_attr|merge({class: (row_attr.class|default('') ~ 'col-sm-' ~ (size) ~ ((not compound or force_error|default(false)) and not valid ? ' has-error'))|trim})
+            } %}
+            {{ block('attributes') }}
+        {% endwith %}
+    >
+        <div class="col">
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{% endblock %}
+
+{% block form_label_class -%}
+    col
+{%- endblock form_label_class %}

@@ -1,0 +1,145 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/acls$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/acls/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/(users|people)/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "email",
+              "legacyId",
+              "username"
+            ],
+            "additionalProperties": false
+          },
+          "group": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/groups/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "features": {
+                "type": "array",
+                "items": {}
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "name",
+              "description",
+              "features",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "location": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/locations/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "company": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "company",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "expiredAt": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "user",
+          "group",
+          "location",
+          "expiredAt"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

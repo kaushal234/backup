@@ -1,0 +1,150 @@
+defaults
+    timeout connect 10s		 # 10 seconds max to connect or to stay in queue
+    timeout client 300s
+    timeout server 1800s
+    timeout http-keep-alive 5s # 5 second max for the client to post next request
+    timeout http-request 1m    # 30 seconds max for the client to send a request
+    timeout queue 30s          # 30 seconds max queued on load balancer
+    timeout tarpit 1m          # tarpit hold tim
+    mode http
+    maxconn 10000
+    option httplog
+    option  dontlognull        # Do not log connections with no requests
+    option  redispatch         # Try another server in case of connection failure
+    option  contstats          # Enable continuous traffic statistics updates
+    retries 3                  # Try to connect up to 3 times in case of failure
+    backlog 10000              # Size of SYN backlog queue
+    log global
+
+
+
+frontend main-http
+    bind :80
+    bind :443 ssl crt tld_group_com crt tld_gse_com crt tld_america_com crt alvest_fr
+
+   #acl always_true always_true
+   #use_backend maintenance if always_true
+
+
+
+    bind abns@secflow accept-proxy name WAF
+    # True when the WAF endpoint is operational
+    acl waf_is_up  nbsrv(waf) ge 1
+    # True when the current request has been inspected
+    acl waf_inspected  so_name WAF
+    # exclude some url from waf inspection
+    acl waf_exclusion path_beg -i /api/graphql /api/v4/jobs/ /devteam/alvest-web-portals.git/ /devteam/alvest-web-portals/
+    # Defines a unique identifier such as '6357B9A0-C0A8447C00506311-0007'
+    # that is appended to sec-offloader traffic logs and load balancer
+    # traffic logs so that you can associate log entries to a particular request
+    # Note that you can set a different format here
+    unique-id-format %{+X}o\ %Ts-%fi%fp%pid-%rt
+    http-request add-header X-HAPReq-ID %[unique-id] if !waf_inspected
+    http-request capture req.fhdr(X-HAPReq-ID) len 128
+    # Relays request to the WAF for inspection
+
+    acl evendors hdr(host) evendors.tld-gse.com
+    use_backend waf if waf_is_up !waf_inspected !waf_exclusion evendors
+
+    redirect scheme https code 301 if !{ ssl_fc } !waf_inspected
+
+    http-request add-header X-Forwarded-Proto http if !{ ssl_fc }
+    http-request add-header X-Forwarded-Proto https if { ssl_fc }
+
+    acl gitlab_alvest hdr(host) gitlab.alvest.fr
+    acl extranet hdr(host) extranet.tld-gse.com
+    acl mobile hdr(host) mobile.tld-gse.com
+    acl host_api hdr(host) api.alvest.fr
+    acl host_api_staging hdr(host) test-api.alvest.fr
+    acl host_powerbi hdr(host) powerbi.alvest.fr
+    acl host_powerbi_staging hdr(host) test-powerbi.alvest.fr
+    acl staging req.cook(ALVEST_STAGING) -m found
+
+    use_backend gitlab_alvest if gitlab_alvest
+    use_backend evendors-staging if evendors staging
+    use_backend evendors if evendors
+    use_backend extranet-staging if extranet staging
+    use_backend extranet if extranet
+    use_backend mobile-staging if mobile staging
+    use_backend mobile if mobile
+    use_backend web-portals-staging if staging
+    use_backend api-staging if host_api_staging
+    use_backend api if host_api
+    use_backend powerbi-staging if host_powerbi_staging
+    use_backend powerbi if host_powerbi
+
+    default_backend web-portals
+    option forwardfor
+
+backend web-portals
+    server web-portals web-portals-02.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend web-portals-staging
+    server web-portals-staging web-stag-portals-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend evendors
+    server evendors web-evendors-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend evendors-staging
+    server evendors-staging web-stag-evendors-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend extranet
+    server extranet web-extranet-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend extranet-staging
+    server extranet-staging web-stag-extranet-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend mobile-staging
+    server mobile-staging web-stag-mobile-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend mobile
+    server mobile web-mobile-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend powerbi
+    server powerbi web-powerbi-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend powerbi-staging
+    server powerbi-staging web-stag-powerbi-01.tld-america.com:80 check inter 10s downinter 10s fall 3 rise 6 observe layer4 error-limit 10 on-error mark-down
+
+backend gitlab_alvest
+    server gitlab_alvest web-gitlab-01.tld-america.com:80
+
+backend api
+    server api web-api-01.tld-america.com:80
+
+backend api-staging
+    server api-staging web-stag-api-01.tld-america.com:80
+
+backend maintenance
+    errorfile 503 /etc/haproxy/maintenance_pages/maintenance.http
+
+frontend stats
+    bind *:8404
+    stats enable
+    stats uri /stats
+    stats refresh 10s
+    stats admin if LOCALHOST
+
+frontend ft_redis
+    mode tcp
+    bind :6379 name redis
+    option tcplog
+    default_backend bk_redis
+
+backend bk_redis
+    mode tcp
+    option tcp-check
+    tcp-check send AUTH\ password\r\n
+    tcp-check expect string +OK
+    tcp-check send PING\r\n
+    tcp-check expect string +PONG
+    tcp-check send info\ replication\r\n
+    tcp-check expect string role:master
+    tcp-check send QUIT\r\n
+    tcp-check expect string +OK
+    server web-api-01.tld-america.com web-api-01.tld-america.com:6379 check inter 1s
+    server web-portals-01.tld-america.com web-portals-01.tld-america.com:6379 check inter 1s
+    server web-portals-02.tld-america.com web-portals-02.tld-america.com:6379 check inter 1s
+
+backend waf
+    server waf_endpoint abns@waf3-tosec send-proxy check

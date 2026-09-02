@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_email_signatures.html.twig', {
+        signatures: {
+            'AAES Email Signature': {
+                'docx': 'aaes/email_signatures/AAES Email Signature Block.docx',
+            }
+        }
+    }) }}
+{% endblock %}

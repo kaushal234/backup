@@ -1,0 +1,31 @@
+{% trans_default_domain 'directory' %}
+<td>
+    <table>
+        <tbody>
+        <tr>
+            <th>{{ 'directory.location_capability.fields.sso'|trans }}</th>
+            <td>{{ (item.capability.sso ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_capability.fields.factory'|trans|capitalize }}</th>
+            <td>{{ (item.capability.factory ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_capability.fields.warehouse'|trans|capitalize }}</th>
+            <td>{{ (item.capability.warehouse ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_capability.fields.sparePartsHub'|trans|capitalize }}</th>
+            <td>{{ (item.capability.sparePartsHub ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_capability.fields.serviceHub'|trans|capitalize }}</th>
+            <td>{{ (item.capability.serviceHub ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_capability.fields.headQuarter'|trans|capitalize }}</th>
+            <td>{{ (item.capability.headQuarter ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        </tbody>
+    </table>
+</td>

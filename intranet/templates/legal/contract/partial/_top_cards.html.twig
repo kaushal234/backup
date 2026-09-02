@@ -1,0 +1,74 @@
+<div class="row mb-1 d-none d-xxl-flex pb-2">
+    <div class="col d-flex align-items-stretch">
+        <div class="widget bg-body rounded-0 w-100 d-flex align-items-center">
+            <div class="row d-flex align-items-center w-100">
+                <div class="col-2">
+                    <i>{{ ux_icon('hugeicons:status', {height: '32px', width: '32px'}) }}</i>
+                </div>
+                <div class="col-10 text-end">
+                    {{ contract.status }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex align-items-stretch">
+        <div class="widget bg-body rounded-0 w-100 d-flex align-items-center">
+            <div class="row d-flex align-items-center w-100">
+                <div class="col-2">
+                    <i>{{ ux_icon('uiw:date', {height: '32px', width: '32px'}) }}</i>
+                </div>
+                <div class="col-10 text-end">
+                    {{ 'service.maintenance_contract.fields.expiration_date' | trans({}, 'service') }} :
+                    {{ contract.expirationDate|date('Y/m/d') }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex align-items-stretch">
+        <div class="widget bg-body rounded-0 w-100 d-flex align-items-center">
+            <div class="row d-flex align-items-center w-100">
+                <div class="col-2 ">
+                    <i>{{ ux_icon('material-symbols:factory-outline', {height: '32px', width: '32px'}) }}</i>
+                </div>
+                <div class="col-10 text-end">
+                    {% if contract.businessUnits is not empty %}
+                        {% for businessUnit in contract.businessUnits %}
+                        <a href="{{ path('directory_business_units_show', { id: iri_id(businessUnit) }) }}">
+                            {{ businessUnit.name }}
+                            </a>{% if not loop.last %} | {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <span class="text-muted">—</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex align-items-stretch">
+        <div class="widget bg-body rounded-0 w-100 d-flex align-items-center">
+            <div class="row d-flex align-items-center w-100">
+                <div class="col-2 ">
+                    <i>{{ ux_icon('material-symbols:category-outline', {height: '32px', width: '32px'}) }}</i>
+                </div>
+                <div class="col-10 text-end">
+                    {{ contract.subCategory.name }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col d-flex align-items-stretch">
+        <div class="widget bg-body rounded-0 w-100 d-flex align-items-center">
+            <div class="row d-flex align-items-center w-100">
+                <div class="col-2 ">
+                    <i>{{ ux_icon('fluent:signature-28-regular', {height: '32px', width: '32px'}) }}</i>
+                </div>
+                <div class="col-10 text-end">
+                    {{ contract.otherPartySignatories is not empty
+                    ? contract.otherPartySignatories|join(' | ')
+                    : '<span class="text-muted">—</span>'|raw
+                    }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

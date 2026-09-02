@@ -1,0 +1,69 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'AES University Logo': {
+                'png': 'aes/logos/aes_university_blk.png',
+                'png': 'aes/logos/aes_university_stars.png',
+                'png': 'aes/logos/aes_university_w.png',
+            },
+            'AES Black': {
+                'eps': 'aes/logos/AES_BLACK_CMYK.eps',
+                'jpg': 'aes/logos/AES_BLACK_CMYK.jpg',
+                'png': 'aes/logos/AES_BLACK_RGB.png',
+            },
+            'AES Black Strapline': {
+                'eps': 'aes/logos/AES_BLACK_BLACK Strapline_CMYK.eps',
+                'jpg': 'aes/logos/AES_BLACK_BLACK Strapline_CMYK.jpg',
+                'png': 'aes/logos/AES_BLACK_BLACK Strapline_RGB.png',
+            },
+            'AES Black Dark Grey Strapline': {
+                'eps': 'aes/logos/AES_BLACK_DRK GREY Strapline_CMYK.eps',
+                'jpg': 'aes/logos/AES_BLACK_DRK GREY Strapline_CMYK.jpg',
+                'png': 'aes/logos/AES_BLACK_DRK GREY Strapline_RGB.png',
+            },
+            'AES Outline Black Strapline': {
+                'eps': 'aes/logos/AES_OUTLINE_BLACK_BLACK Strapline_CMYK.eps',
+                'jpg': 'aes/logos/AES_OUTLINE_BLACK_BLACK Strapline_CMYK.jpg',
+                'png': 'aes/logos/AES_OUTLINE_BLACK_BLACK Strapline_RGB.png',
+            },
+            'AES_OUTLINE_WHITE_WHITE Strapline_BLACK background': {
+                'eps': 'aes/logos/AES_OUTLINE_WHITE_WHITE Strapline_BLACK background_CMYK.eps',
+                'jpg': 'aes/logos/AES_OUTLINE_WHITE_WHITE Strapline_BLACK background_CMYK.jpg',
+                'png': 'aes/logos/AES_OUTLINE_WHITE_WHITE Strapline_BLACK background_RGB.png',
+            },
+            'AES_WHITE_WHITE Strapline_BLACK Background': {
+                'eps': 'aes/logos/AES_WHITE_WHITE Strapline_BLACK Background_CMYK.eps',
+                'jpg': 'aes/logos/AES_WHITE_WHITE Strapline_BLACK Background_CMYK.jpg',
+                'png': 'aes/logos/AES_WHITE_WHITE Strapline_BLACK Background_RGB.png',
+            },
+            'AES_WHITE_WHITE Strapline_BLUE Background': {
+                'eps': 'aes/logos/AES_WHITE_WHITE Strapline_BLUE Background_CMYK.eps',
+                'jpg': 'aes/logos/AES_WHITE_WHITE Strapline_BLUE Background_CMYK.jpg',
+                'png': 'aes/logos/AES_WHITE_WHITE Strapline_BLUE Background_RGB.png',
+            },
+            'AES_WHITE_WHITE Strapline_TRANSP Background': {
+                'eps': 'aes/logos/AES_WHITE_WHITE Strapline_TRANSP Background.eps',
+                'jpg': 'aes/logos/AES_WHITE_WHITE Strapline_TRANSP Background.jpg',
+            },
+            'AES Blue': {
+                'eps': 'aes/logos/AES-BLUE_CMYK.eps',
+                'jpg': 'aes/logos/AES-BLUE_CMYK.jpg',
+                'png': 'aes/logos/AES-BLUE_RGB.png',
+            },
+            'AES-WHITE_BLACK Background': {
+                'eps': 'aes/logos/AES-WHITE_BLACK Background_CMYK.eps',
+                'jpg': 'aes/logos/AES-WHITE_BLACK Background_CMYK.jpg',
+                'png': 'aes/logos/AES-WHITE_BLACK Background_RGB.png',
+            },
+            'AES-WHITE_BLUE Background_CMYK': {
+                'eps': 'aes/logos/AES-WHITE_BLUE Background_CMYK.eps',
+                'jpg': 'aes/logos/AES-WHITE_BLUE Background_CMYK.jpg',
+                'png': 'aes/logos/AES-WHITE_BLUE Background_RGB.png',
+            },
+        },
+    }) }}
+{% endblock %}

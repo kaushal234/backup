@@ -1,0 +1,105 @@
+.data_table_view__wrapper .MuiTableCell-head {
+  white-space: nowrap;
+}
+
+.data_table_view__wrapper .MuiTableCell-body {
+  vertical-align: top;
+  display: table-cell;
+}
+
+.data_table_view__wrapper .MuiIconButton-root {
+  padding: 0;
+}
+
+.data_table_view__wrapper .data_table_view__no_wrap.MuiTableCell-head {
+  white-space: wrap;
+  vertical-align: top;
+}
+
+.data_table_view__wrapper .MuiToolbar-root {
+  border-collapse: collapse;
+  border-top: 1px solid rgba(224, 224, 224, 1);
+}
+
+.data_table_view__wrapper .MuiTablePagination-displayedRows {
+  margin-bottom: 2px;
+}
+
+.data_table_view__wrapper .MuiTablePagination-selectLabel {
+  margin-bottom: 2px;
+}
+
+.data_table_view__loading_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.data_table_view__wrapper .MuiTableBody-root {
+  position: relative;
+}
+
+.data_table_view__loader_pad {
+  height: 67px;
+}
+
+.data_table_view__wrapper .MuiTableSortLabel-root {
+  color: inherit;
+}
+
+.MuiTableSortLabel-root:hover .MuiSvgIcon-root {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.data_table_view__loading_row td {
+  padding: 0;
+  border: 0;
+}
+
+.data_table_view__wrapper .MuiTableCell-head,
+.data_table_view__wrapper .MuiTableCell-head * {
+  background-color: #004f9e;
+  color: #a7b1c2 !important;
+}
+
+.data_table_view__wrapper .MuiTableCell-head {
+  padding: 8px;
+}
+
+.data_table_view__wrapper .MuiTableCell-head .Mui-active,
+.data_table_view__wrapper .MuiTableCell-head .Mui-active * {
+  color: white !important;
+}
+
+.data_table_view__wrapper .MuiTableCell-body {
+  padding: 8px 6px;
+  min-height: 35px;
+}
+
+.data_table_view__wrapper
+  .MuiTableBody-root
+  .MuiTableRow-root:nth-child(odd)
+  .MuiTableCell-body {
+  background-color: #f4f4f4;
+}
+
+.data_table_view__wrapper
+  .MuiTableBody-root
+  .MuiTableRow-root:nth-child(even)
+  .MuiTableCell-body {
+  background-color: white;
+}
+
+.data_table_view__loading_row .MuiTableCell-root {
+  padding: 0;
+}
+
+.data_table_view__wrapper .data_table_view__no_border {
+  border-bottom: 0;
+}

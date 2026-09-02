@@ -1,0 +1,154 @@
+{% extends 'Pdf/base.html.twig' %}
+
+{% trans_default_domain "pdfs" %}
+
+{% block stylesheets %}
+    <style type="text/css">
+        {{ include('Pdf/fonts/opensans.css.twig') }}
+        {{ source('@css/pdf.css') }}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container" id="meeting-summary">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="title">{{ 'meeting.description'|trans({},'pdfs') }}</h3>
+                {{ meeting.description|raw }}
+            </div>
+        </div>
+        <br/>
+        {% if meeting.attendees is not empty %}
+            <div class="row">
+                <div class="col-md-12">
+                    <hr/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" >
+                    <h3 class="title">{{ 'meeting.attendees'|trans({},'pdfs') }}</h3>
+                    <ul>
+                    {% for attendee in meeting.attendees %}
+                        <li>{{ attendee.lastName }} {{ attendee.firstName }} - <a href="mailto:{{ attendee.email }}">{{ attendee.email }}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr/>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            {% if meeting.competitors is not empty %}
+                <div class="col-md-4" >
+                    <h3 class="title">{{ 'meeting.competitors'|trans({},'pdfs') }}</h3>
+                    <ul>
+                        {% for competitor in meeting.competitors %}
+                            <li>{{competitor.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if meeting.customers is not empty %}
+                <div class="col-md-4" >
+                    <h3 class="title">{{ 'meeting.customers'|trans({},'pdfs') }}</h3>
+                    <ul>
+                        {% for customer in meeting.customers %}
+                            <li>{{customer.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if meeting.customerContacts is not empty %}
+                <div class="col-md-4" >
+                    <h3 class="title">{{ 'meeting.customerContacts'|trans({},'pdfs') }}</h3>
+                    <ul>
+                        {% for customerContact in meeting.customerContacts %}
+                            <li>{{customerContact.lastName }} {{customerContact.firstName }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if meeting.competitors is not empty or meeting.customers is not empty or meeting.customerContacts is not empty %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr/>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% if meeting.contacts is not empty %}
+        <div class="row">
+            <div class="col-md-12" >
+                <h3 class="title">{{ 'meeting.contacts'|trans({},'pdfs') }}</h3>
+                <ul>
+                    {% for contact in meeting.contacts %}
+                        <li>{{contact.lastName }} {{ contact.firstName }}
+                            {% if contact.mail != null %}
+                            - <a href="mailto:{{ contact.mail }}">{{ contact.mail }}</a>
+                            {% endif %}
+                            {% if contact.phone != null %}
+                            - <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+                            {% endif %}
+                            - {{ contact.company }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr/>
+            </div>
+        </div>
+        {% endif %}
+        {% if meeting.actions is not empty %}
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="title">{{ 'meeting.actions'|trans({},'pdfs') }}</h3>
+                <table>
+                    <tr>
+                        <th>{{ 'meeting.action.number'|trans({},'pdfs') }}</th>
+                        <th>{{ 'meeting.description'|trans({},'pdfs') }}</th>
+                        <th>{{ 'meeting.action.assignee'|trans({},'pdfs') }}</th>
+                        <th>{{ 'meeting.action.due_date'|trans({},'pdfs') }}</th>
+                        <th>{{ 'meeting.action.completed'|trans({},'pdfs') }}</th>
+                        <th>{{ 'meeting.action.closingComment'|trans({},'pdfs') }}</th>
+                    </tr>
+                    {% set i = 1 %}
+                    {% for action in meeting.actions %}
+                        {% if action.internal == false %}
+                            <tr>
+                                <td>{{ i }}</td>
+                                <td>{{ action.description }}</td>
+                                <td>{{ action.assignee }}</td>
+                                <td>{{ action.initialDueDate|date('Y-m-d') }}</td>
+                                <td class="text-center">{{ (action.completed ? 'meeting.action.yes' : 'meeting.action.no')|trans({},'pdfs') }}</td>
+                                <td>{{ action.closingComment }}</td>
+                            </tr>
+                            {% set i = i + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <hr/>
+            </div>
+        </div>
+        {% if meeting.fullDescription is not empty %}
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="title">{{ 'meeting.detail'|trans({},'pdfs') }}</h3>
+                {{ meeting.fullDescription|raw }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+

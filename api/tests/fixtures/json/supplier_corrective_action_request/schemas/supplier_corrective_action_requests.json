@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/quality/supplier_corrective_action_requests"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/quality/supplier_corrective_action_requests/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "createdAt": {"type": "string"},
+          "closedAt": {"type": ["null", "string"]},
+          "iFactor": {"type": "string"},
+          "status": {"type": "string"},
+          "shortDescription": {"type": ["string", "null"]},
+          "supplierName": {"type": "string"},
+          "supplierNumber": {"type": "string"},
+          "supplierErp": {"type": ["integer", "null"]},
+          "factory":{"$ref": "../../directory_location/schemas/directory_location_public.json"},
+          "leader":{"$ref": "../../directory_people/schemas/directory_people_public.json"},
+          "representative":{
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+            ]
+          },
+          "poster":{
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "createdAt",
+          "closedAt",
+          "iFactor",
+          "status",
+          "shortDescription",
+          "factory",
+          "leader",
+          "representative",
+          "poster",
+          "supplierName",
+          "supplierNumber"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

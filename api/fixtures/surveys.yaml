@@ -1,0 +1,28 @@
+App\Entity\Survey\Survey:
+  first_survey:
+    id: 1
+    name: Nom de l'enquête française
+    description: Dolorem culpa amet occaecati quibusdam vel sunt. Tempora libero nihil sit quae reiciendis. Rerum excepturi rerum quis molestiae ipsum officia omnis dicta. Eum quas explicabo deserunt doloremque.
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>
+    expirationDate: <dateTimeBetween('+30 days', '+90 days')>
+    createdBy: '@user_superuser'
+    updatedBy: '@user_superuser'
+  second_survey:
+    id: 2
+    name: <text()>
+    description: <text()>
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>
+    expirationDate: <dateTimeBetween('+30 days', '+90 days')>
+    createdBy: '@user_gcoo'
+    updatedBy: '@user_gcoo'
+  empty_survey:
+    id: 3
+    name: <text()>
+    description: <text()>
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>
+    expirationDate: <dateTimeBetween('+30 days', '+90 days')>
+    createdBy: '@user_gceo'
+    updatedBy: '@user_gceo'

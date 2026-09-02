@@ -1,0 +1,35 @@
+.cui .toc_form__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+  width: 100%;
+}
+
+.cui .toc_form__submit {
+  flex: 1;
+  width: 100%;
+}
+
+.cui .toc_form__new_contact {
+  margin-top: -6px;
+  border-radius: 100px;
+}
+
+.cui .toc_form__new_contact .MuiButton-icon {
+  margin-left: 2px;
+}
+
+.cui .toc_form__new_contact .MuiTypography-root {
+  text-transform: none;
+}
+
+.cui.dark .toc_form__new_contact {
+  color: var(--mui-palette-primary-contrastText);
+  background-color: var(--mui-palette-primary-main);
+}
+
+.cui.dark .toc_form__new_contact.Mui-disabled {
+  color: var(--mui-palette-action-disabled);
+  background-color: var(--mui-palette-action-disabledBackground);
+}

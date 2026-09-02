@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'notifications' %}
+
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'document_translation' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'base_public.html.twig' %}
+
+{% set hasEquipment = equipment is not null %}
+{% set hasManual    = hasEquipment and equipment.lastManual is not empty %}
+{% set hasDocuments = hasManual and equipment.lastManual.documents is not empty %}
+
+{% block title %}
+    {{ hasEquipment ? equipment.serialNumber : serialNumber }} — {{ 'extranet.fields.equipment'|trans }}
+{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {# Hero #}
+    <section class="page-hero">
+        <div class="page-hero-pattern"></div>
+        <div class="container-fluid px-4 position-relative" style="z-index:2">
+            <p class="hero-eyebrow mt-2">
+                <span class="dot"></span> {{ 'extranet.title.customer_portal'|trans }}
+            </p>
+            {% if hasEquipment %}
+                <h1 class="page-hero-title">{{ equipment.serialNumber }}</h1>
+                <p class="page-hero-sub">
+                    {{ equipment.productType }}{% if equipment.productType and equipment.product %} — {% endif %}{{ equipment.product }}
+                </p>
+            {% else %}
+                <h1 class="page-hero-title">{{ serialNumber }}</h1>
+                <p class="page-hero-sub">{{ 'extranet.error.no_equipment_record_found'|trans }}{{ serialNumber }}</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            {% if hasEquipment %}
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-6 col-xl-5 et-tables">
+                        <h2 class="section-title mb-3">{{ 'extranet.fields.equipment'|trans }}</h2>
+                        {% embed '_components/association_table.html.twig' with {
+                            associationData: {
+                                title: '',
+                                items: {
+                                    serialNumber: {
+                                        label: 'calibration_tools.tools.fields.serialNumber'|trans,
+                                    },
+                                    productType: {
+                                        label: 'display.table.vwc.headers.type'|trans,
+                                    },
+                                    product: {
+                                        label: 'display.table.vwc_wc.header.model'|trans,
+                                    },
+                                    airportCode: {
+                                        label: 'fields.airport'|trans,
+                                    },
+                                    optionsDescription: {
+                                        label: 'extranet.fields.options_description'|trans,
+                                        template: 'generic/_expandable_cell.html.twig',
+                                    },
+                                },
+                                data: equipment,
+                            }
+                        } %}
+                        {% endembed %}
+                    </div>
+                </div>
+
+                {% if hasDocuments %}
+                    {% set documentsTitle = 'extranet.title.manual_documents_with_manual_date'|trans({
+                        '%date%': equipment.lastManual.createdAt|date('d/m/Y')
+                    }) %}
+
+                    <div class="row justify-content-center mt-5">
+                    <div class="col-12 col-lg-8 col-xl-7 et-tables">
+                        <h2 class="section-title mb-3">{{ documentsTitle }}</h2>
+                        {{ include(
+                            '_components/report_table.html.twig',
+                            {
+                                reportTable: {
+                                    items: {
+                                        categoryName: { label: 'fields.category'|trans },
+                                        description:  { label: 'fields.description'|trans },
+                                        download: {
+                                            label: 'display.table.document.headers.download'|trans,
+                                            template: 'equipment_records/partial/_manual_document.html.twig',
+                                        },
+                                    },
+                                    title: '',
+                                    data: equipment.lastManual.documents,
+                                }
+                            },
+                            with_context = false
+                        ) }}
+
+                        {# Blurred teaser — entice anonymous users to log in #}
+                        <div class="position-relative" style="margin-top:-1px">
+                            <table class="table mb-0" aria-hidden="true"
+                                   style="filter:blur(5px);pointer-events:none;user-select:none">
+                                <tbody>
+                                    {% for i in 1..3 %}
+                                        <tr>
+                                            <td>Chapter {{ i + 1 }}</td>
+                                            <td>Lorem ipsum dolor sit amet consectetur adipiscing</td>
+                                            <td><span class="btn btn-outline btn-primary btn-xs">{{ 'display.table.document.rows.download.link_text'|trans }}</span></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="position-absolute top-50 start-50 translate-middle text-center bg-white border rounded shadow px-4 py-3" style="min-width:260px">
+                                <p class="mb-3 text-muted" style="font-size:.9rem">{{ 'extranet.public.login_to_see_more'|trans }}</p>
+                                <a href="{{ path('security:login', { '_target_path': path('equipment:show_by_serial_number', { 'serialNumber': serialNumber }) }) }}" class="btn btn-primary btn-sm">
+                                    {{ 'extranet.public.login_link'|trans }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>{# col #}
+                    </div>{# row #}
+                {% endif %}
+            {% endif %}
+
+        </div>
+    </section>
+</div>
+{% endblock %}

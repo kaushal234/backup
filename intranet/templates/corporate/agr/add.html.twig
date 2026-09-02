@@ -1,0 +1,14 @@
+{% extends 'corporate/agr/layout.html.twig' %}
+{% trans_default_domain 'corporate' %}
+
+{% block title %}{{ parent() }}\New{% endblock %}
+
+{% block content %}
+    <h3>{{ 'titles.addition'|trans([], 'messages')|capitalize }}</h3>
+
+    {{ include('corporate/agr/_form.html.twig', {
+        form: form,
+        cancel_link: path('acronyms_home'),
+        action: path('acronyms_add')
+    }, with_context=false) }}
+{% endblock %}

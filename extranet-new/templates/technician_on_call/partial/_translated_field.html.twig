@@ -1,0 +1,30 @@
+<td>
+    {% set originalValue = attribute(item, originalKey) %}
+    {% set isDifferent = originalValue != attribute(item, key) %}
+    <div class="d-flex align-items-center justify-content-between gap-3">
+        <div>{{ attribute(item, key)|raw }}</div>
+        {% if isDifferent %}
+            <div
+                class="btn btn-outline-secondary p-0 shadow"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="{{ 'toc.messages.help.translation'|trans({}, 'technician_on_call') }}"
+            >
+                <div
+                    class="px-2"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#toc-original-{{ key }}"
+                >
+                    {{ ux_icon('tabler:language', {height: '18px', width: '18px', 'aria-hidden': true}) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {% if isDifferent %}
+        <div class="collapse mt-2" id="toc-original-{{ key }}">
+            <div class="border-top pt-2 text-muted">
+                {{ originalValue|raw|nl2br }}
+            </div>
+        </div>
+    {% endif %}
+</td>

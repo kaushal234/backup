@@ -1,0 +1,18 @@
+{% extends 'account/layout.html.twig' %}
+{% trans_default_domain 'account' %}
+
+{% block content %}
+    <h3>{{ 'titles.edition'|trans([], 'messages')|capitalize }}</h3>
+
+    <p>{{ 'account.warning.email'|trans }}</p>
+    <p>{{ 'account.warning.phone'|trans }}</p>
+<div class="row">
+    <div>
+        {{ include('account/_form.html.twig', {
+            form: form,
+            action: path('account_edit')
+        }, with_context=false) }}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+<td>
+    {% set answerKey = 3 %}
+    {% if item[answerKey] is defined %}
+        {% for damageType in item[answerKey].answer|split(',')  %}
+        {{ ('csr.questions.shipping_choices.' ~ damageType)|trans({}, 'customer_service_record') }}<br/>
+        {% endfor %}
+    {% endif %}
+</td>

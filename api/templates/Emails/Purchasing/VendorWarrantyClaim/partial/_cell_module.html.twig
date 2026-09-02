@@ -1,0 +1,7 @@
+<td>
+    {% if item.nonConformity is defined %}
+        <a href="{{ url('non_conformity', {id: item.nonConformity.id}) }}">NCR#{{ item.nonConformity.id }}</a>
+    {% else %}
+        <a href="{{ url('legacy_product_support', {m: ['wc', 'view'], id: item.warrantyClaimId}) }}">WC#{{ item.warrantyClaimId }}</a>
+    {% endif %}
+</td>

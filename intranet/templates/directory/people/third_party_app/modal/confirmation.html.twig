@@ -1,0 +1,23 @@
+<twig:Modal id="update_task_modal" title="{{ 'modal.confirm.title'|trans }}" withCloseButton onlyDialog>
+    <twig:block name="before_modal_body">
+        {{ form_start(form, {action: path(route, {id: user.id, updateTaskId: updateTask.id})}) }}
+    </twig:block>
+    {{ labelDescription|trans({
+        userLastname: updateTask.user.lastname,
+        userFirstname: updateTask.user.firstname,
+        moduleName: module.name,
+    }, 'mis')|raw }}
+
+    <div class="mt-3">
+        {{ form_label(form.comment) }}
+        {{ form_errors(form.comment) }}
+        {{ form_widget(form.comment) }}
+    </div>
+
+    <twig:block name="footer">
+        <button type="submit" class="btn btn-{{ type }}" data-turbo="false">{{ labelConfirm|trans({}, 'mis') }}</button>
+    </twig:block>
+    <twig:block name="after_modal_footer">
+        {{ form_end(form) }}
+    </twig:block>
+</twig:Modal>

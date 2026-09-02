@@ -1,0 +1,22 @@
+{% extends '@AlvestTwigHelper/card_layout.html.twig' %}
+
+{% block card_class %}
+    ibox float-e-margins
+    {% if options.collapsable is defined and options.collapsable == 'collapsed'%}collapsed{% endif %}
+{% endblock %}
+{% block card_header_class %}ibox-title{% endblock %}
+{% block card_body_class %}ibox-content{% endblock %}
+
+{% block card_header_title %}
+    <h5>{{ parent() }}</h5>
+{% endblock %}
+
+{% block card_header_after %}
+    {% if options.collapsable is not defined or options.collapsable != false %}
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

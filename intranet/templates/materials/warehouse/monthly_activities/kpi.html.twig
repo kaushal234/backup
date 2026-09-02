@@ -1,0 +1,108 @@
+{% extends 'materials/warehouse/layout.html.twig' %}
+{% trans_default_domain 'materials' %}
+
+{% block title %}{{ parent() }}\{{ ('materials.monthly_activities.titles.default')|trans|title }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% if formFilters is defined %}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter'|trans({}, 'messages')|upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('materials/warehouse/monthly_activities/partials/_form_filters_kpi.html.twig', {
+                        form: formFilters,
+                        resetPath: path('warehouse_monthly_activities_home'),
+                    }) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if activityChart|default(null) is not same as (null) %}
+            <div id="activityContainer" class="ibox float-e-margins" style="min-width: 400px; height: 500px;"></div>
+        {% endif %}
+        <div class="row">
+            {% for name, aggregate in aggregates|default([]) %}
+                <div class="col-lg-4 col-md-6 aggregate">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <h3><b>{{ name }}</b></h3>
+                            <h2><small style="font-size: 50%">{{ 'materials.monthly_activities.fields.inbound_average_rate'|trans|title }}</small><span style="float:end" class="text-{% if aggregate.inboundAverageRate >= targets['inboundAverageRate'] %}info{% else %}danger{% endif %}">{{ aggregate.inboundAverageRate|number_format(1) }}</span></h2>
+                            <div style="float:right; font-size: 75%; margin-top: -10px;"> ({{ aggregate.inboundLines }} / {{ aggregate.inboundHours }})</div>
+                            <div class="clearfix"></div>
+                            <h2><small style="font-size: 50%">{{ 'materials.monthly_activities.fields.outbound_average_rate'|trans|title }}</small><span style="float:end" class="text-{% if aggregate.outboundAverageRate >= targets['outboundAverageRate'] %}info{% else %}danger{% endif %}">{{ aggregate.outboundAverageRate|number_format(1) }}</span></h2>
+                            <div style="float:right; font-size: 75%; margin-top: -10px;"> ({{ aggregate.outboundLines }} / {{ aggregate.outboundHours }})</div>
+                            <div class="clearfix"></div>
+                            <h2><small style="font-size: 50%">{{ 'materials.monthly_activities.fields.productive_average_ratio'|trans|title }}&nbsp;(%)</small><span style="float:end" class="text-{% if aggregate.productiveAverageRatio >= targets['productiveAverageRatio'] %}info{% else %}danger{% endif %}">{{ aggregate.productiveAverageRatio|number_format(1) }}</span></h2>
+                            <div style="float:right; font-size: 75%; margin-top: -10px;"> ({{ aggregate.inboundHours + aggregate.outboundHours }} / {{ aggregate.inboundHours + aggregate.outboundHours + aggregate.improductiveHours }})</div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% if productivityChart|default(null) is not same as (null) %}
+            <div id="productivityContainer" data-options="{{ productivityChart | json_encode }}" class="ibox float-e-margins highcharts" style="min-width: 400px; height: 500px;"></div>
+        {% endif %}
+        {% if fullTimeEquivalentChart|default(null) is not same as (null) %}
+            <div id="fullTimeEquivalentContainer" class="ibox float-e-margins" style="min-width: 400px; height: 500px;"></div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if activityChart|default(null) is not same as (null) %}
+        <script>
+            window.onload = function() {
+                let config = {{ activityChart|json_encode|raw }}
+
+                    config.tooltip = {
+                        ...config.tooltip,
+                        formatter: function () {
+                            const stack = this.series.userOptions.stack
+                            let content = `<b>${stack}</b><br/>${this.x}<br/>`
+                            this.series.chart.series.forEach((serie) => {
+                                if (serie.options.stack === this.point.series.options.stack) {
+                                    content += `${serie.name.replace(`${stack} (`, '').replace(')', '')}: <b>${serie.points[this.point.index].y}</b><br/>`
+                                }
+                            })
+                            return content += `Total: ${this.point.stackTotal}`
+                        }
+                    }
+                Highcharts.chart('activityContainer', config)
+            }
+
+        </script>
+    {% endif %}
+
+    {% if fullTimeEquivalentChart|default(null) is not same as (null) %}
+        <script>
+            window.onload = function() {
+                config = {{ fullTimeEquivalentChart|json_encode|raw }}
+
+                    config.tooltip = {
+                        ...config.tooltip,
+                        formatter: function () {
+                            const stack = this.series.userOptions.stack
+                            let content = `<b>${stack}</b><br/>${this.x}<br/>`
+                            this.series.chart.series.forEach((serie) => {
+                                if (serie.options.stack === this.point.series.options.stack) {
+                                    content += `${serie.name.replace(`${stack} (`, '').replace(')', '')}: <b>${serie.points[this.point.index].y}</b><br/>`
+                                }
+                            })
+
+                            return content += `Total: ${this.point.stackTotal}`
+                        }
+                    }
+                Highcharts.chart('fullTimeEquivalentContainer', config)
+            }
+        </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,6 @@
+<div>
+    {% for note in [5, 4, 3, 2, 1] %}
+        <p>{{ note }}: {{ ('headers.criteria_' ~ item.templateParams.criteriaId ~ '_' ~ note) | trans({}, 'supplier_ranking') }}</p>
+    {% endfor %}
+
+</div>

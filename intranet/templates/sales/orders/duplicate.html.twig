@@ -1,0 +1,22 @@
+{% extends 'sales/orders/layout.html.twig' %}
+{% trans_default_domain 'sales_orders' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.duplicate'|trans([], 'messages')|capitalize }}{% endblock %}
+
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="col-lg-6">
+        <div class="mail-box-header clearfix">
+            <h2 id="customer-title">{{ 'menu.duplicate'|trans([], 'messages')|capitalize }} #{{ order.id }}</h2>
+        </div>
+        <div class="mail-box">
+            <div class="mail-body">
+                {{ form_rest(form) }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-info float-end text-capitalize">{{ 'menu.duplicate'|trans([], 'messages') }}</button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

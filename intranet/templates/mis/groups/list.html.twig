@@ -1,0 +1,35 @@
+{% extends 'mis/groups/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block title %}Mis/Groups{% endblock %}
+
+{% block content %}
+
+    {{ include('helper/_report_table.html.twig', {
+        'reportTable': {
+            'items': {
+                'name': {
+                    'label': 'fields.name'|trans([], 'messages')|capitalize,
+                    'link':{
+                        'route': 'mis_groups_show',
+                        'params': {'id':'@id'},
+                    },
+                },
+                'description': {'label': 'fields.description'|trans([], 'messages')|capitalize},
+                'members': {
+                    'label': 'mis.menu.members'|trans([], 'mis')|capitalize,
+                    'link':{
+                        'route': 'mis_groups_people',
+                        'params': {'id':'@id'},
+                        'content': '<span class="btn btn-primary btn-sm"><i class="fa fa-users fa-fw"></i></span>',
+                    },
+                    'sortable': false,
+                    'class' : 'text-end'
+                },
+            },
+            'title': 'mis.groups.groups-title'|trans|capitalize,
+            'data': groups
+        }
+    }, with_context = false) }}
+
+{% endblock %}

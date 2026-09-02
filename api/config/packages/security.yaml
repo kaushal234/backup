@@ -1,0 +1,55 @@
+security:
+    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+    password_hashers:
+        App\Entity\User: sha512
+
+    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    providers:
+        user_provider:
+            id: App\Security\UserProvider
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        reset_password:
+            pattern:  ^/reset_password
+            stateless: true
+
+        token:
+            pattern:  ^/token$
+            stateless: true
+            user_checker: App\Security\UserChecker
+            form_login:
+                check_path: /token
+                username_parameter: username
+                password_parameter: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        mcp:
+            pattern: ^/_mcp
+            stateless: true
+            security: true
+            custom_authenticators:
+                - App\Security\McpAuthenticator
+
+        default:
+            stateless: true
+            user_checker: App\Security\UserChecker
+            jwt: ~
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/public, roles: PUBLIC_ACCESS }
+        - { path: ^/token, roles: PUBLIC_ACCESS }
+        - { path: ^/token-sage, roles: PUBLIC_ACCESS }
+        - { path: ^/token-alvest, roles: PUBLIC_ACCESS }
+        - { path: ^/reset_password, roles: PUBLIC_ACCESS }
+        - { path: ^/docs, roles: PUBLIC_ACCESS }
+        - { path: ^/_mcp, roles: PUBLIC_ACCESS }
+        - { path: ^/service/technician_on_call_surveys$, roles: PUBLIC_ACCESS, methods: [POST] }
+        - { path: ^/service/technician_on_calls/\d+/from_token$, roles: PUBLIC_ACCESS, methods: [GET] }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

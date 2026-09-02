@@ -1,0 +1,39 @@
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: {
+            shortDescription: { label:'fields.short-description' |trans({}, 'messages') | capitalize},
+            description: { label:'fields.description' |trans({}, 'messages') | capitalize },
+            createdBy: {
+                properties: ['createdBy.firstname', 'createdBy.lastname'],
+                label: 'tasks.assignor' | trans({}, 'messages'),
+            },
+            assignee: {
+                label: 'tasks.assignee' | trans({}, 'messages'),
+                template: 'Emails/MIS/TroubleTicket/partial/cell/_assignee.html.twig',
+            },
+            status: {
+                label: 'demo.fields.status' | trans({}, 'emails'),
+            },
+            type: {
+                properties: ['type.type', 'type.description'],
+                glue: ' - ',
+                label: 'trouble_ticket.fields.type' | trans({}, 'trouble_ticket'),
+                template: 'Emails/MIS/TroubleTicket/partial/cell/_type.html.twig',
+            },
+            module: {
+                properties: ['application.name', 'module.name'],
+                glue: ' - ',
+                label: 'mis.changelog.fields.module' | trans({}, 'mis'),
+            },
+            indiceFactor: {
+                label:'fields.ifactor' |trans({}, 'messages'),
+            },
+            dueDate: {
+                label: 'fields.due_date' | trans({}, 'messages')|capitalize,
+                filters: ['date("Y-m-d")']
+            }
+        },
+        data: troubleTicket,
+        title: 'TTS #'~troubleTicket.id
+    },
+}, with_context = false) }}

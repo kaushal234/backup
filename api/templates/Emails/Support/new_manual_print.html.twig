@@ -1,0 +1,60 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ manualPrint.createdBy.firstname }} {{ manualPrint.createdBy.lastname }} {{ 'resource.introduction' | trans }} </p>
+            <hr>
+            <center><button href="{{ url('manual_prints', {id: manualPrint.id}) }}">{{ 'print.link' | trans }}</button></center>
+            <hr>
+            <p>{{ 'print.message' | trans }}</p><br>
+            {{ include('/Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        requestedDeliveryDate: {
+                            label: 'print.requestedDeliveryDate' | trans,
+                            filters: 'date("Y-m-d")',
+                        },
+                        standard: {
+                            label: 'print.standard' |trans,
+                        },
+                        full: {
+                            label:'print.full'  | trans,
+                        },
+                        extra: {
+                            label: 'print.extra' | trans,
+                        },
+                        chapter5: {
+                            label: 'print.chapter5' | trans,
+                        },
+                        comment: {
+                            label: 'print.comment' | trans,
+                        },
+                        serial: {
+                            label: 'print.equipmentSerial' | trans,
+                            properties: ['manual.equipmentRecord.serialNumber'],
+                        },
+                        model: {
+                            label: 'print.model' | trans,
+                            properties: ['manual.equipmentRecord.model'],
+                        },
+                        buyer: {
+                            label: 'print.buyer' | trans,
+                            properties: ['manual.equipmentRecord.buyer.name'],
+                        }
+                    },
+                    data: print_normalized,
+                    title: 'print.details' | trans
+                },
+            }, with_context = false) }}
+            <br>
+            <p>{{ 'print.note' | trans }}</p>
+            <hr>
+        </columns>
+    </row>
+{% endblock %}

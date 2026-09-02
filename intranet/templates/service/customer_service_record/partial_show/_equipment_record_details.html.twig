@@ -1,0 +1,44 @@
+{% trans_default_domain 'customer_service_record' %}
+{{ include('helper/_association_table.html.twig', {
+    associationData: {
+        items: {
+            serialNumber: {
+                properties: ['equipmentRecord.serialNumber'],
+                label: 'crab.fields.equipment_record' | trans({}, 'crab'),
+                link:{
+                    route: 'legacy_product_support',
+                    params: {'id':'equipmentRecord.legacyId'},
+                    fixedParams: {'m':['equipment', 'view']}
+                }
+            },
+            model: {
+                properties: ['equipmentRecord.model'],
+                label: 'crab.fields.model_er' | trans({}, 'crab'),
+            },
+            type: {
+                properties: ['equipmentRecord.type'],
+                label: 'crab.fields.type' | trans({}, 'crab'),
+            },
+            shippedAt: {
+                properties: ['equipmentRecord.dateShipped'],
+                label: 'csr.fields.shipped_at' | trans,
+                filters: 'date("Y-m-d")',
+            },
+            sso: {
+                properties: ['equipmentRecord.salesOrganisation.name'],
+                label: 'demo.fields.sso' | trans({}, 'emails'),
+            },
+            ssoService: {
+                properties: ['equipmentRecord.salesOrganisationService.name'],
+                label: 'csr.fields.sso_service' | trans,
+            },
+            manufacturerLocation: {
+                properties: ['equipmentRecord.manufacturerLocation.name'],
+                label: 'er.fields.location' | trans,
+            },
+        },
+        title: 'csr.title.er' | trans,
+        data: customerServiceRecord,
+        card: false,
+    }
+}, with_context = false) }}

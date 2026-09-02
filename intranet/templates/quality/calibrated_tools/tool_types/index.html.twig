@@ -1,0 +1,66 @@
+{% extends 'quality/calibrated_tools/layout.html.twig' %}
+{% trans_default_domain 'tool_types' %}
+{% block title %} {{ parent() }}\{{ 'tool_types.title.index' | trans }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('quality/calibrated_tools/tool_types/partial/_form_filters.html.twig', {
+                        form: form,
+                        resetPath: path('quality_calibrated_tool_types_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'items': {
+                        '@id': {
+                            'label': 'tool_types.fields.index'| trans|capitalize,
+                            'filters': ['iri_id'],
+                        },
+                        'description': {
+                            'label': 'tool_types.fields.description' | trans | capitalize,
+                            'filters': ['u.truncate(100)', 'u.wordwrap'],
+                            'sortable': true,
+                            'link': {
+                                'route': 'quality_calibrated_tool_types_show',
+                                'params': {'id': '@id'}
+                            }
+                        },
+                        'toolsCount': {
+                            'label': 'tool_types.fields.nbTools' | trans | capitalize,
+                            'filters': [ 'number_format' ],
+                        },
+                        'view': {
+                            'label': 'menu.view'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'quality_calibrated_tool_types_show',
+                                'params': {'id':'@id'},
+                                'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        }
+                    },
+                    'title': 'tool_types.title.index' | trans | upper,
+                    'data': toolTypes,
+                    'paginationUrl': paginationUrl
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

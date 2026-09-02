@@ -1,0 +1,18 @@
+{% extends 'purchasing/supplier_ranking/layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block title %}{{ 'sidebar.materials.purchasing'|trans({}, 'sidebar') }} / {{ 'sidebar.materials.supplier_rankings'|trans({}, 'sidebar') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ data_table(allVendorsDataTable) }}
+        </div>
+        <div class="col-lg-12 mt-2">
+            {{ data_table(limitedVendorsDataTable) }}
+        </div>
+        <div class="col-lg-12 mt-2">
+            {{ data_table(monitoredVendorsDataTable) }}
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,10 @@
+<twig:Modal id="generate_summary_modal_{{ id }}" title="Generate Summary" onlyDialog>
+    <twig:block name="content">
+        {% if summary %}
+            {{ summary | raw | nl2br }}
+        {% endif %}
+    </twig:block>
+    <twig:block name="footer">
+        <a id="confirm_summary" class="btn btn-primary" data-bs-dismiss="modal">OK</a>
+    </twig:block>
+</twig:Modal>

@@ -1,0 +1,16 @@
+{% extends 'news/layout.html.twig' %}
+{% trans_default_domain 'news' %}
+
+{% set news_id = iri_id(news) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('news/partial/_form.html.twig', {
+        title: 'news.title.edit'|trans,
+        form: form,
+        action: path('news_edit', { id: news_id}),
+        cancel_link: path('news_index'),
+        id: news_id,
+    }, with_context=false) }}
+{% endblock %}

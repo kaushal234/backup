@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/mis/emails$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "item": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/mis/emails/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "peopleProperties": {
+            "type": "array"
+          },
+          "follower": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "recipientAccesses": {
+            "type": "array",
+            "items": {
+              "ref": "../../user_story_emails_accesses/schemas/emails_access.json"
+            }
+          },
+          "copyAccesses": {
+            "type": "array",
+            "items": {
+              "ref": "../../user_story_emails_accesses/schemas/emails_access.json"
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "object",
+          "body",
+          "peopleProperties",
+          "follower",
+          "id",
+          "recipientAccesses",
+          "copyAccesses"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

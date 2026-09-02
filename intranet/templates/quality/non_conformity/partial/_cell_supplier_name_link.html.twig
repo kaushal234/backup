@@ -1,0 +1,10 @@
+<td>
+	<span class="footable-toggle"></span>
+	{% if item.supplierId is defined and item.supplierId %}
+		<a href="{{ path('suppliers_show', {'id': item.supplierId}) }}">
+			{{ item.supplierName }}
+		</a>
+	{% else %}
+		{{ item.supplierName }}
+	{% endif %}
+</td>

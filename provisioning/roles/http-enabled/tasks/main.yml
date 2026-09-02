@@ -1,0 +1,39 @@
+- name: Enable HTTP service on public zone
+  become: true
+  ansible.posix.firewalld:
+    zone: public
+    service: http
+    permanent: true
+    state: enabled
+  notify:
+    - restart firewalld
+
+- name: Enable HTTPS service on public zone
+  become: true
+  ansible.posix.firewalld:
+    zone: public
+    service: https
+    permanent: true
+    state: enabled
+  notify:
+    - restart firewalld
+
+- name: Enable HTTP service on internal zone
+  become: true
+  ansible.posix.firewalld:
+    zone: internal
+    service: http
+    permanent: true
+    state: enabled
+  notify:
+    - restart firewalld
+
+- name: Enable HTTPS service on internal zone
+  become: true
+  ansible.posix.firewalld:
+    zone: internal
+    service: https
+    permanent: true
+    state: enabled
+  notify:
+    - restart firewalld

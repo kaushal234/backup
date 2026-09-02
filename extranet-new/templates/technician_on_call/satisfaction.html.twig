@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form _self %}
+{% block choice_widget_expanded %}
+    <div {{ block('widget_container_attributes') }} class="d-flex gap-3 mt-3">
+        {% for child in form %}
+            <div class="d-flex flex-column align-items-center">
+                {{ form_widget(child) }}
+                {{ form_label(child) }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block title %}{{ 'extranet.title.satisfaction'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.customer_portal'|trans,
+        hero_title: 'extranet.title.satisfaction'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.title.technician_on_call'|trans|capitalize },
+            { label: 'extranet.title.satisfaction'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            {{ form_start(form) }}
+            <div class="info-grid">
+                <div class="info-card span-2">
+                    <div class="info-head"><span class="ph-bar"></span><h3>{{ 'extranet.title.satisfaction'|trans }}</h3></div>
+                    <div class="info-body">
+                        <p class="text-muted">{{ 'extranet.satisfaction.header'|trans({'%id%': technicianOnCall.id})|nl2br }}</p>
+                        {{ form_errors(form) }}
+                        <div class="field-grid">
+                            <div class="field-block full">{{ form_row(form.execution) }}</div>
+                            <div class="field-block full">{{ form_row(form.responsiveness) }}</div>
+                            <div class="field-block full">{{ form_row(form.communication) }}</div>
+                            <div class="field-block full">{{ form_row(form.attitude) }}</div>
+                            <div class="field-block full">{{ form_row(form.comment) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acct-savebar">
+                <button type="submit" class="btn-find" data-turbo="false">{{ 'extranet.form.send'|trans }}</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </section>
+</div>
+{% endblock %}

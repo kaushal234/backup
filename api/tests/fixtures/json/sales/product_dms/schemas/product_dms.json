@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/product_dms$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/product_dms/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "product": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/products/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "dmsPhoto": {
+                "type": ["integer", "null"]
+              },
+              "hidden": {
+                "type": "boolean"
+              },
+              "erpLocation": {
+                "type": "object"
+              },
+              "name": {
+                "type": "string"
+              },
+              "family": {
+                "type": "object"
+              },
+              "financeFamily": {
+                "type": ["object", "null"]
+              },
+              "manufacturingFamily": {
+                "type": ["object", "null"]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "legacyId",
+              "erpLocation",
+              "family",
+              "financeFamily",
+              "manufacturingFamily",
+              "name",
+              "hidden"
+            ],
+            "additionalProperties": false
+          },
+          "dms": {
+            "type": "object",
+            "$ref": "../../../dms/schemas/dms.json"
+          },
+          "dmsType": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "product",
+          "dms",
+          "dmsType"
+        ],
+        "additionalProperties": false,
+        "minItems": 1
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

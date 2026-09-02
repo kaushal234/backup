@@ -1,0 +1,32 @@
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+
+        {{ form_start(form, { action: action }) }}
+        {{ form_errors(form) }}
+
+        <div class="col-md-6">
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart">
+                    Export Sales Forecasts
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.createdAt) }}
+                    {{ form_row(form.product) }}
+                    {{ form_row(form.factory) }}
+                    {{ form_row(form.sso) }}
+                    {{ form_row(form.customer) }}
+                    {{ form_row(form.status) }}
+                    {{ form_row(form.asm) }}
+                    {{ form_row(form.format) }}
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+

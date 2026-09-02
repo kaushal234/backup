@@ -1,0 +1,33 @@
+{% extends 'quality/supplier_corrective_action_request/layout.html.twig' %}
+{% trans_default_domain 'supplier_corrective_action_request' %}
+
+{% block content %}
+    {{ data_table(dataTable) }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h3>{{ 'supplier_corrective_action_request.report'|trans }}</h3>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: supplierCorrectiveActionRequestsByFactoryStatus,
+                        link: {
+                            route: 'supplier_corrective_action_request_home',
+                            xParam: 'filter_supplier_corrective_action_request[factory][value]',
+                            yParam: 'filter_supplier_corrective_action_request[status][value][]',
+                            removeXTotalsParam: true,
+                            removeYTotalsParam: true,
+                        },
+                        headers: {columns: ['PENDING', 'VENDOR TO FILL FORM', 'TLD TO REVIEW FORM', 'VALIDATION', 'COMMERCIAL AGREEMENT', 'CANCEL', 'CLOSED']},
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+- name: Make sure destination dir exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ dotenv_path | dirname }}"
+    state: directory
+    owner: deployer
+    group: php_executor
+
+- name: Place .env file
+  become: true
+  ansible.builtin.template:
+    src: "{{ dotenv_template }}"
+    dest: "{{ dotenv_path }}"
+    owner: deployer
+    group: php_executor
+
+- name: Place .sh file
+  become: true
+  ansible.builtin.template:
+    src: templates/env.sh
+    dest: "/etc/profile.d/{{ dotenv_profile_filename }}.sh"

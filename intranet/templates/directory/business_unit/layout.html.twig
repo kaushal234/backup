@@ -1,0 +1,14 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.business_unit.title'|trans([], 'messages') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="directory_business_units_add" :security="is_granted('FEATURE_BUSINESS_UNIT_WRITE')"/>
+        {% if business_unit_id is defined and not null %}
+            <twig:NavItem:Edit route="directory_business_units_edit" :routeParameters="{id: business_unit_id}" :security="is_granted('FEATURE_BUSINESS_UNIT_WRITE')" />
+            <twig:NavItem:Delete route="directory_business_units_delete" :routeParameters="{id: business_unit_id}" :security="is_granted('FEATURE_BUSINESS_UNIT_WRITE')" />
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

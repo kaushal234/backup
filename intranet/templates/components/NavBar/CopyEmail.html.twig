@@ -1,0 +1,27 @@
+{# Copy member emails to clipboard. #}
+{% if security is same as true %}
+    <li class="nav-item" data-controller="clipboard">
+        <input type="hidden" data-clipboard-target="source" value="{{ emails }}">
+        <button type="button"
+                class="nav-link m-0 d-flex align-items-center action-primary {{ class }}"
+                data-action="clipboard#copy">
+            {% if icon is defined and icon is not null %}
+                {{ ux_icon(icon, {height: '16px', width: '16px'}) }}
+            {% endif %}
+            <span class="ms-1">{{ translationKey | trans([], domain | default(app.request.attributes.get('moduleDomain'))) }}</span>
+        </button>
+
+        <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1100;">
+            <div data-clipboard-feedback
+                 class="toast align-items-center border-0 {{ capped ? 'text-bg-warning' : 'text-bg-success' }}"
+                 role="alert" aria-live="assertive" aria-atomic="true"
+                 data-bs-delay="4000">
+                <div class="d-flex">
+                    <div class="toast-body">{{ message }}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                            data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </li>
+{% endif %}

@@ -1,0 +1,5 @@
+<td>
+    {% for localKeyUser in item.localKeyUsers %}
+        <a href="{{ path('directory_people_show', {id: iri_id(localKeyUser)}) }}">{{ localKeyUser.lastname }}, {{ localKeyUser.firstname }} - {{ localKeyUser.businessUnit.region.name }}</a><br>
+    {% endfor %}
+</td>

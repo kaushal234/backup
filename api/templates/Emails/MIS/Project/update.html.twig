@@ -1,0 +1,28 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'mis_project.message.updated' | trans({'%id%': project.id, '%project_name%': project.name}) }}:</p>
+
+            <ul>
+                {% for field, values in changeSet %}
+                    <li>{{ 'sfr.change' | trans({
+                            '%field%': field,
+                            '%before%': '<b>' ~ (values[0] is same as ('') ? 'empty' : values[0]) ~ '</b>',
+                            '%after%': '<b>' ~ (values[1] is same as ('') ? 'empty' : values[1]) ~ '</b>'
+                        }) | raw }}</li>
+                {% endfor %}
+            </ul>
+
+            {% if comment is not null %}
+                {{ comment | raw }}
+            {% endif %}
+
+            <p><a href="{{ url('project', { 'id': project.id }) }}">{{ 'mis_project.message.generic' | trans }}</a></p>
+        </columns>
+    </row>
+{% endblock %}

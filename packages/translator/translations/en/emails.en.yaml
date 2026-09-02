@@ -1,0 +1,1517 @@
+resource:
+  link: Click here to view this in TLD Intranet
+  introduction: sent you this email to share the following resource from the Alvest Intranet
+  with_note: ' with the comment:<br>%note%'
+
+address:
+  delivery_address: Delivery Address
+  shipping_address: Shipping Address
+  billing_address: Billing Address
+  street1: street 1
+  street2: street 2
+  postal_code: postal code
+  city: city
+  town: town
+  state: state
+  country: country
+
+password:
+  regenerated:
+    subject: Reset Password
+    message:
+      hello: 'Hello %firstName% %lastName%!'
+      password: 'Your password has been regenerated. Please use the following password:'
+      login_reminder: 'Your login has not been changed and remains %username%'
+      regards: |
+        Regards,
+        the Team.
+  changed:
+    subject: Your password has been changed
+    message:
+      hello: 'Hello %firstName% %lastName%,'
+      body: Your password has been successfully changed. You can now log in with your new password.
+      warning: If you did not make this change, please contact our support team immediately and secure your account. Someone may have gained unauthorized access to your account.
+      regards: The Team
+
+  reset_confirmation:
+    subject: Reset Password Confirmation
+    click: Click here to reset your password
+    message:
+      hello: Hello %firstName% %lastName%!
+      password: 'You asked for a password reset. Please confirm by using the following link:'
+      confirmation: Once you confirmed, another email will be sent to you with your new password.
+      regards: |
+        Regards,
+        the Team.
+
+  notification:
+    reminder: Your password will expire in %days_remaining% days. Please log in and change your password before the %expiration_date%.
+    toto: toto
+tool:
+  subject: Quality / Calibrated Tools Notifications
+
+guest_user:
+  disabled:
+    subject: Guest user %guestName% has been disabled
+    message:
+      hello: Hello %firstName% %lastName%!
+      body: 'The guest user %guestName% has reached his/her planned departure date and has been disabled.'
+      regards: |
+        Regards,
+        MIS Team.
+
+spq:
+  common:
+    dear: Dear
+    regards: Sincerely,
+    signature: TLD Spare Parts Team
+    signature_aero: AERO Specialties Sales Team
+    signature_lebrun: Lebrun Team
+    subject_status_changed: Quotation's status changed to %status%
+    subject_summary_pending_suspended: "'PENDING' and 'SUSPENDED' quotations > 48h"
+    subject_ssummary_submittedfull_submittedfpartial: "'SUBMITTED FULL' and 'SUBMITTED PARTIAL' quotations of the week"
+    spare_parts_contact: "Spare parts Contact:"
+
+  new_quotation:
+    subject: New Quotation
+    message: |
+      Following-up on your request to %company% Spare Parts Department on %createdAt%, we inform you that your Request for Quote %rfq% is addressed by %firstnamePoster% %lastnamePoster% under reference SPQ#%id%.
+      Please keep this reference handy as it will facilitate any further exchanges we may have.
+
+      In the meantime, whilst we work on the quotation, your sales representative %firstnamePoster% %lastnamePoster% and our %company% Spare Parts Team are always available for any other questions or inquiries you may have.
+
+  suspended_quotation:
+    message: |
+          Following-up on your request for Quote %rfq% (SPQ#%id%) on %receivedAt%, we currently have this quote on hold for the following reason(s) :
+
+          %comment%
+
+          Feel free to call %firstnamePoster% %lastnamePoster% at %tldContactPhones% (or email: %emailPoster%) if you have any question.
+
+  submitted_full_quotation:
+    message: |
+          Your Request for Quote %rfq% has now been released : see attached Quote number SPQ#%id%.
+
+          %comment%
+
+          Should you have any queries regarding the above mentioned quotation, please contact us at your earliest convenience.
+
+          We do thank you for trusting %company% in your operation.
+
+  submitted_partial_quotation:
+    message: |
+          Your Request for Quote %rfq% has been released : see attached Quote number %id%. Note that quotation is only partial as some references could not be quoted for the following reason(s):
+
+          %comment%
+
+          Contact %firstnameQuoter% %lastnameQuoter% at %tldContactPhones% (or email: %emailQuoter%) if you have any question about this quote status.
+
+  ordered_quotation:
+    message: |
+          Your order %custPoNumber% has been recorded under Sale Order Acknowledgement number SO#%so%.
+
+          If any question you can contact %firstnameQuoter% %lastnameQuoter% at %tldContactPhones% (or email: %emailQuoter%).
+
+  lost_or_cancelled_quotation:
+    message: |
+          SPQ %status% by %firstnameQuoter% %lastnameQuoter%
+
+          Reason:
+
+  pending_or_suspended_quotation_summary:
+    message: "Quotations with status 'PENDING' or 'SUSPENDED' since more than 2 days"
+    header:
+      customer_name: Customer name
+      spq: SPQ#
+      open_date: Open Date
+      suspend_date: Suspend Date
+      days_late: Nb days late
+
+  partial_and_full_quotation_summary:
+    message: "Quotations with status 'SUBMITTED PARTIAL' or 'SUBMITTED FULL' of the week"
+    header:
+      location: Location Sales Rep
+      sales_rep: Sales rep
+      status: Status
+      customer_name: Customer name
+      spq: SPQ#
+      open_date: Opened date
+      quote_value: Quote value
+      currency: 'Currency'
+
+  references:
+    spq_number: SPQ (Spare Parts Quote) Number
+    customer_name: Customer Name
+    customer_contact_name: Customer Contact Name
+    customer_contact_email: Customer Contact Email
+    rfq_number: Your RFQ number
+
+survey:
+  common:
+    dear: Dear %target_name%
+    regards: Sincerely
+  new_publish:
+    subject: Your opinion is very important to us.
+    message: |
+      Your opinion is very important to us.
+      As part of our improvement process, we would like you to spend a few minutes to share with us your opinion about our collaboration and our products.
+      This will take only a few minutes but will be of a great value to us, and will allow us to better address your needs and concerns in the future.
+    link: "You can access the survey here: "
+  completed:
+    subject: Survey completed
+    message: '%target_name% has completed the survey %survey_name%'
+    click_here: Click here to see the result
+
+extranet_user:
+  contact:
+    subject: Message from Extranet User
+  last_login:
+    subject: Extranet Users login report
+    title: Extranet Users
+    intro: |
+      Dear MOO's,
+
+      Please find below report with Extranet Users who used our extranet last month:
+  update_password:
+    subject: Update your TLD extranet password
+    intro: Dear %gender% %firstname% %lastname%,
+    link: |
+      This email has been sent to make sure you still have an access to this email address.
+      Please click here to login and update your password:
+    regards: Best regards.
+
+  confirmation:
+    header: |
+      Dear %gender% %firstname% %lastname%,
+
+      Your application for a TLD Extranet Site account has been authorized.
+
+      Your username is: %username%
+      Your password is: %password%
+
+    footer: |
+      To access the partners site use the following url %extranet_url% or go through the 'login' page on our main website https://www.tld-group.com
+      Please note that at on your first login you will be requested to update your account password with a password of your choice.
+      If you require any assistance or have any questions regarding our website please don't hesitate to contact us.
+
+      Best regards.
+      %user_lastname%, %user_firstname%
+      %user_location%
+      %user_email%
+  fields:
+    id: ID#
+    name: Name
+    last_login: Last Login
+    counter: Counter
+people:
+  extranet_access:
+    subject: Extranet Access Request
+    message: |
+        Dear %people%,
+
+        We received your extranet access request.
+        However, to our knowledge, you already are registered as a TLD User.
+        If you want more information about Extranet Access, please open a ticket.
+    footer: |
+        Regards,
+        MIS Team.
+
+
+task:
+  description: Task Description
+  sequence:
+    name: Sequence
+    attention: requires your attention
+    subject_new: "SEQ #%sequenceId%: %templateDescription%"
+  task:
+    name: Task
+    assigned: has been assigned to you.
+    escalated: "Task #%id% belonging to %assignee_name%, has been auto escalated to you."
+    subject_new: "Tasks, New: #%taskId% opened for %assignee_name% by %assignor_name%"
+    creation: "Task #%id% opened, for %assignee_name% by %createdBy_name%"
+    update: "Task #%id% updated, for %assignee_name% by %createdBy_name%"
+    comment: "Task #%id% commented by %user_full_name%"
+    close: "Task #%id% has been closed by %createdBy_name%"
+    reopen: "Task #%id% has been reopened by %createdBy_name%"
+  message:
+    dear: Dear
+    new_task_assigned: A new task has been assigned to you by
+    see_task: See task
+    status: Status
+    description: Description
+    edit: The task has been edited
+    new_comment: The task has been commented by
+    comment: Comment
+    close_task: The task has been closed by
+    reopen_task: The task has been reopened by
+    escalated: "This task has been escalated to the new assignee %supervisor_name%"
+
+scheduled_task:
+  subject_expiration_notification: 'Scheduled task about to expire'
+
+mcm:
+  end_user_summary:
+    subject: Monthly summary for contract#%contractId%
+  buyer_summary:
+    subject: Summary for contract#%contractId% ER S/N#%equipmentSn%
+    period: period
+    cumulated_operation_hours: cumulated op. hours
+    number_of_reports: number of reports submitted
+    number_of_maintenances: declared PM
+    number_of_accidents: reported accidents
+  contract:
+    id: 'contract #'
+    starting_date: starting date
+    expiration_date: expiration date
+  follow_up_report:
+    unit: unit
+    last_report_date: date of the last follow-up report
+    last_hourmeter: last reported hourmeter
+    next_report: due date of next follow-up report
+    overdue: overdue in days
+    last_maintenance_date: date of the last PM reported
+    last_maintenance_type: type of PM reported
+
+demo:
+  subject: "%eCustomer% / %model% demo update"
+  subject_reminder: Comment DEMO reminder
+  message: |
+      Please be informed that status the Demo #%demoId% has been set to %status%
+  link: Click here to go to detail page of the Demo
+  message_comment: |
+    %lastname% %firstname% posted the following comment on Demo #%demoId%:
+
+    "%comment%"
+  message_comment_closed_demo: |
+    Demo comments have been updated after its closing.
+  message_comment_no_user: |
+    The following comment on Demo #%demoId% has been posted:
+
+    "%comment%"
+  message_reminder: |
+    Demo #%demoId% hasn't been commented since 25 days, it will soon be flagged as delinquent.
+  message_delinquent: |
+    Please be informed that the Demo #%demoId% is now delinquent.
+  reason_delinquent: |
+    Due to:
+  fields:
+    status: Status
+    customer: Customer
+    product: Product
+    factory: Factory
+    sso: SSO
+    country: Country
+    asm: ASM
+    psm: PSM
+    expected_start_date: Expected Start Date
+    expected_end_date: Expected End Date
+    ast: AST
+    closing_comment: Closing comment
+
+finance:
+  supplier_bank_transfer:
+    subject: 'Bank transfer notification'
+    message: |
+
+        Hello, please find attached the detail of the transfer in your favor.
+
+        Regards
+        Finance department
+  supplier_bank_transfer_report:
+    subject: TLD Bank transfer notifications report
+
+sfr:
+    subject:
+      creation: "%buyer_short%; %model%; %quantity%; %month_year%; %success_percentage%%; SFR#%id% Created"
+      edition: "%buyer_short%; %model%; %quantity%; %month_year%; %success_percentage%%; SFR#%id% Updated"
+      comment: "%buyer_short%; %model%; %quantity%; %month_year%; %success_percentage%%; SFR#%id%, New comment added"
+      cancellation: "%buyer_short%; %model%; %quantity%; %month_year%; %success_percentage%%; SFR#%id% Cancelled"
+      closure: "%buyer_short%; %model%; %quantity%; %month_year%; %success_percentage%%; SFR#%id% Closed as %status% by %user%"
+      master_edition: "%buyer_short%; SFR Package Updated"
+      delinquent: Delinquent SFR reminder for %asm%
+    comment: Comment
+    view_details: 'View SFR #%id% details'
+    closed_message: 'SFR #%id% closed as %status% by %user%'
+    created_message: New SFR created, pls process
+    change: 'Field %field% changed from %before% to %after%'
+    linked: Linked SFR have been updated too
+    affected: Affected SFR
+    fields:
+      date: Date
+      idle: Idle
+      status: Status
+      estimated_sale_date: Estimated Sale Date
+      e_quote: eQuote
+      customer_buyer: Customer Buyer
+      customer_user: Customer User
+      third_party: Third Party
+      customer_country: Customer Country
+      airport_code: Airport Code
+      factory: Factory
+      sso: SSO
+      asm: ASM
+      poster: Poster
+      model: Model
+      emission_rating: Emission Rating
+      quantity: Quantity
+      customer_purchase_percentage: 'Customer Purchase %'
+      alvest_success_percentage: 'ALVEST Success %'
+      total_success_percentage: 'Total Success %'
+      watch_list: Credit Risk Watch List
+      watch_list_reason: Specific terms and conditions applied to mitigate credit risk
+      watch_list_on: ON Watch list
+      watch_list_not_on: NOT on Watch list
+    change_set:
+      createdAt: Created At
+      updatedAt: Updated At
+      closedAt: Closed At
+      lastComment: Last Comment
+      endUser: End User
+      thirdParty: Third Party
+      estimatedSaleDate: Estimated Sale Date
+      customerSuccessPercentage: Customer Purchase Percentage
+      successPercentage: Alvest Success Percentage
+    delinquent:
+      header: Dear ASM,
+      body: We noted that the SFR's listed below are delinquent, it means they have not been updated for at least one month or are planned for an earlier date than today.
+      footer: Please proceed with the monthly update as soon as you can.
+    closure:
+      fcr_header: FCR Record as %status%
+      cpr_header: CPR Records
+      sfr_header: General
+    restricted: 'Warning: Restricted notification'
+
+fcr:
+  fields:
+    reason: Reason
+    reasons:
+      LOYALTY: 'Customer Loyalty'
+      LEAD_TIME: 'Lead-Time'
+      PERFORMANCE: 'Technical / Equipment Performance'
+      PRICE: 'Price'
+      SALES: 'Sales Job'
+      SUPPORT: 'Service & Spare Part Support'
+      PAYMENT: 'Payment Terms'
+      CANCELLED: 'Requirement Cancelled'
+    quantity: 'Ordered Quantity'
+    price: 'TLD Price'
+    currency: 'TLD Currency'
+    competitor: 'Winning Party'
+    comment: 'Closing Comment'
+
+cpr:
+  no_cpr: No CPR
+  fields:
+    model: Model
+    price: Quoted Price
+    currency: Quoted Currency
+
+first_article_qualification:
+    subjects:
+        status_change: Quality / First article qualification status change notification
+        creation: A new FAQ has been created
+        comment: New FAQ comment
+        file_added: New file added on FAQ#%faq_id%
+        plan_completed: Plan completed for FAQ#%faq_id%
+        plan_status: Plan %status% for FAQ %faq_id%
+    link: Click here to see FAQ#%faqId%
+    fields:
+        id: number
+        status: status
+        plan_defintion_due_date: plan definition due date
+        due_date: due date
+        poster: poster
+        owner: owner
+        supplier_name: supplier name
+        supplier_number: supplier number
+        express: FAI only
+        deliverables_due_date: Deliverables due date
+        part_number:
+            revision: revision
+            number: number
+            description: description
+    titles:
+        file_added: A new file has been added on FAQ %faqId% by %posterFirstname% %posterLastname%
+        comment: |
+          Dear members,
+          A new comment has been posted for FAQ#%faqId% by %posterFirstname% %posterLastname%:
+        status: FAQ %faqId% is now in status %faqStatus%.
+        status_override_transition: 'Status changed from %previous% to %new%.'
+        status_override_actor: 'Change performed by %actor%.'
+        status_override_changed_at: 'On %datetime%.'
+        plan_completed: Plan for FAQ %faqId% has been completed.
+        plan_status: Plan for FAQ %faqId% has been %status%
+        creation: FAQ %faqId% has been created
+        due_date_soon: FAQ due date soon
+        due_date_passed: FAQ due date is passed
+        plan_due_date_soon: FAQ plan definition due date soon
+        plan_due_date_passed: FAQ plan definition is passed
+        part_numbers: part numbers
+        deliverables_due_date_passed: Deliverables due date passed
+
+changelog:
+    subject: MIS dev update
+    introduction: Some modifications have been made to modules of which you are the MOO. Please consider updating the associated DMS and make sure a communication has been sent to the relevant services.
+
+sor:
+  pending_summary:
+    message: "Sales Orders with status 'PENDING' entered in the last 24 hours"
+    header:
+      sor: SOR#
+      sso: SSO
+      juridical_location: Juridical Loc
+      asm: ASM
+      buyer: Buyer
+      end_user: End User
+
+customer:
+  validation:
+    subject: "SEQ#%sequenceId%: %templateDescription%"
+  re_approval:
+    subject: "eCustomer #%id% is in RE-APPROVAL"
+    message: The third party customer %customer_name% status has been switch to RE-APPROVAL.
+  subject: "SEQ#%sequenceId% requires your attention (New eCustomer %customerName%)"
+  message: |
+      You have just created a new customer name which is %customerName% (#%customerId%).
+      To validate this new customer and definitively record it in our database, your action is now required to provide more information about this customer and then proceed with the approval process sequence.
+
+      Please click on the below link to proceed:
+  link: Proceed to SEQ#%sequenceId% on website
+  watch_list_report:
+    subject: eCustomers watch list report
+    dear: Dear Sales Admin,
+    message: |
+      You'll find below list of eCustomers on watch list with no ERP reference.
+      Please link each of the below eCustomers belonging to your region to a proper Business partner in LN.
+  edition:
+    subject: Customer %customer_name% (ID#%id%) edition
+    description: |
+      Customer %customer_name% has been edited by %lastname% %firstname%, please see changes below:
+    view_details: 'View Customer #%id% details'
+market_intelligence:
+  subject: |
+      MIM : %short_description%, %type%, %components%
+  link: Click here to see MIM#%id%
+  create:
+      message: This is to inform you that %user% has posted the new MIM#%id%.
+  update:
+      message: This is to inform you of MIM#%id% have been updated by %user% which matches your MIM Notification(s) list.
+  comment:
+      message: This is to inform you that a new comment has been added on MIM#%id% by %user% which matches your MIM Notification(s) list.
+
+link:
+  subject: Link Cockpit account created
+  intro: Dear %recipient%
+  message: |
+    Your account on the Link Cockpit has been created.
+    You can now login to %link% using your regular Windows Account.
+  message_shopfloor: |
+    The account for %employee% on the Link Cockpit (%link%) has been created.
+    The login is %login% and the password is "%password%".
+
+    Please ask %firstname% to update this password as soon as possible.
+
+training:
+  link: Click here to go to detail page of the Training
+  max_attendance_reached:
+    subject: Your training session has reached %limit% attendees
+    message: |
+      Dear %trainer% the number of participants to your session '%designation%' has reached its limit %limit%.
+
+      You now have a full class.
+  invitation:
+    subject: Training invitation - Action needed
+    message: |
+      You've been invited to the training '%designation%'.
+
+      Will you be present ?
+  withdrawal:
+    subject: '%guest% has cancelled his/her attendance'
+    message: '%guest% has cancelled his/her attendance to your training %designation%.'
+  cancellation:
+    subject: The training %designation% has been cancelled
+    message: |
+      Your invitation to the training %designation% has been cancelled.
+
+      Should you need further information please contact %trainer%
+  rescheduling:
+    subject: The training '%designation%' has been rescheduled - Action needed
+    message:  |
+      The training '%designation%' has been rescheduled.
+
+      Due to this time and/or location change your previous answer has been put on hold. Will you be present for this rescheduled session?
+  creation:
+    subject: The training '%designation%' has been planned and you're the trainer
+    message:  |
+      The training '%designation%' has been planned you have been selected as the trainer in charge.
+
+      Please manage accordingly
+  trainer_update:
+    subject: You've been unassigned as trainer from the training %designation%
+    message: |
+      Dear %trainer% you are now responsible for the training %designation%.
+
+      Please manage this session accordingly.
+      Thank you.
+  attendee_deletion:
+    subject: Your invitation to the training %designation% has been cancelled
+    message: Your invitation to the training %designation% has been cancelled.
+  subscribers_alert:
+    subject: A new meeting that you might be interested in is scheduled
+    message: A new meeting %designation% has been planned.
+  training_feedback:
+    subject: Guest feedback
+    message: Please provide your feedback on this training
+    button: give feedback
+  closing_reminder:
+    subject: Training remininder
+    message: |
+      Dear %trainer% you are responsible for the training %designation%
+
+      It was supposed to be given some hours ago but is still not marked as DONE.
+      Remember to check and validate the attendance list before doing so.
+      Thank you.
+  training_content:
+    subject: Training content update
+    message: Content section of the Training %designation% was changed.
+
+  references:
+    designation: designation
+    trainer_name: trainer Name
+    starting_at: from
+    ending_at: to
+    timezone: timezone
+    language: language
+    category: category
+    type: type
+    mandatory: mandatory
+    meeting_place: place
+    attendees: attendees
+    content: content
+
+mom:
+  creation_subject: New MOM#%id% created by %createdBy% - %title%
+  status_subject: "MOM#%id% status: %status% - %title%"
+  subscription_subject: MOM#%id% summary - %title%
+  comment_subject: "MOM#%id%: a new comment has been added by %user%"
+  meeting:
+    meeting: meeting
+    confidential: Confidential
+    quick: quick Meeting
+    new: A new meeting has been created by %createdBy%.
+    title: Title
+    subject: Subject
+    createdBy: Created By
+    meetingDate: Meeting date
+    link: Click here to go to detail page of the meeting
+    customers: Customers
+    competitors: Competitors
+    customer_contacts: Customer Contacts
+    contacts: Contacts
+    location: Location
+    businessUnits: Business Units
+    attendees: Attendees
+    new_status: "The status of the meeting is now: %status%"
+
+product_certificate:
+  subject: Civil Aviation Administration of China (CAAC) Certificates expired
+  message: |
+    The following certificates are now expired, please update them:
+  id: ID#%id%
+
+manufacturing_margin:
+  subject: Factory Margin Variance Report, %factory%, %exportedAt%
+  message: |
+    A new Manufacturing Margins excel upload was made for %factory% and %exportedAt% period:
+  title: Factory Margin Variance Report (more than 2% variance between Factory Margins)
+  fields:
+    serial_number: ER SN
+    sol: SOL#
+    actual_margin_percentage: Actual Factory Margin (%)
+    standard_margin_percentage: Standard Factory Margin (%)
+    estimated_margin_percentage: Projected Factory Margin (%)
+
+shipping_quotation_request:
+  subject: Shipping quotation request
+  good_day: Good day,
+  message: |
+    Please see our new request for quote:
+  footer: Waiting for your reply,
+  regards: Regards.
+  fields:
+    incoterms: Incoterm
+    type: Type
+    estimated_pick_up_deadline: Estimated pick up deadline
+    answer_deadline: Answer deadline
+    note: Note
+    transshipment_authorized: Transshipment authorized
+    product: Product
+    hs_code: HS Code
+    rolling_equipment: Rolling equipment
+    length: Length
+    width: Width
+    height: Height
+    weight: Weight
+    ground_clearance: Ground clearance
+    unloading_planned: Unloading planned
+    trucks: Trucks
+    containers: Containers
+    inco_location: Inco Location
+    key_line: Quotation Line %key%
+    factory_location: Factory / Other location
+    yes: Yes
+    no: No
+    loading_factory: Loading at factory
+    loading_port: Loading at port
+
+account_receivable:
+  subject: Account Receivable import
+  title: Account Receivable errors
+  fields:
+    erp: ERP
+    pcust: pCust
+    errors: Errors
+    invoice_number: Invoice Number
+    transaction_type: Transaction type
+    balance_amount: Balance amount
+    totalBalance: Total imported
+    exceptions: "%count% invoice(s) could not be converted, hence the balance not imported could be different from reality."
+    totalBalanceNotImported: Total not imported
+    truncated: Please note that only the first 100 errors are displayed.
+    error_lines: "%count% invoice(s) were not imported."
+  message:
+    errors: Import is finished and invoices have been imported but there were errors in some lines, please review it below.
+    success: Import is finished and invoices have been imported succesfully without errors.
+
+wms:
+  picking_alert:
+    creation:
+      subject: Picking Alert '%type%' has been created
+      message:  |
+        Please manage accordingly
+    link: Click here to see picking alerts dashboard
+    references:
+      created_by: created by
+      status: status
+      type: type
+      warehouse: warehouse
+      location: location
+      part_number: P/N
+      operation: operation
+      work_order: work order
+      comment: comment
+      quantity_picked: quantity picked
+      quantity_requested: quantity requested
+      stock: stock
+      inventory_unit: inventory unit
+    quantity_incorrect: Incorrect quantity
+    quantity_missing: No quantity
+
+sales:
+  pre_delivery_inspection:
+    scheduled:
+      subject: "A new PDI on %serialNumber%"
+      message: |
+        A new Pre-delivery Inspection has been scheduled for Equipment Record %serialNumber%
+        Scheduled for %plannedAt%
+    date_changed:
+      subject: "PDI on %serialNumber% : date changed"
+      message: |
+        The date of the Pre-delivery Inspection for Equipment Record %serialNumber% has been changed
+        From %previousDate% to %newDate%
+    closed:
+      subject: "PDI %status%"
+      message: |
+        The PDI scheduled on %plannedAt%
+        for Equipment Record %serialNumber%
+        has been %status%
+
+manufacturing:
+  equipment_record:
+    update: Following unit has been updated
+    model: |
+      Model: %model%
+    end_user: |
+      End User:
+    first_estimated_gt: First estimated green tag date
+    previous_estimated_gt: Previous estimated green tag date
+    new_estimated_gt: New estimated green tag date
+    estimated_green_tag: estimated green tag date
+    gap_gt : Gap EGTD
+    estimated_gt: Estimated GT Date updated from %previous_date% to %new_date%
+    odp_note: ODP comment updated from "%previous_odp_comment%" to "%new_odp_comment%"
+    done_by: Update done by %user%
+    link_odp : Here link to the complete GT status of your fleet not shipped
+    update_subject: Equipment Record Updated
+    days_late_notice : "Days late: %days_late% days"
+    new_delay_notice : "New delay: %new_delay% days"
+    contract_fms: Contract FMS
+    link_status: LINK Status
+    sim_card_status: SIM CARD Status
+    fms_end_use_date: FMS End use Date
+    sequence:
+      subject: Late GT Request for Unit %serialNumber% - SEQ#%sequenceId%
+    green_tag_date:
+      subject: "ODP Update - SOR#%sorId% SOL#%solId% SN#%serialNumber% End User: %endUserName% - Actual GT date Change"
+      message: Unit SN %serialNumber% %model% for customer %customerName% Project#%project%, Work Order#%workOrder%
+      update_gt: GT Date updated from %previousGreenTagDate% to %newGreenTagDate%
+      link_fms_contract: LINK FMS Contract
+    estimated_green_tag_date:
+      subject: "ODP Update - SOR#%sorId% SOL#%solId% SN#%serialNumber% End User: %endUserName% - Estimated GT date Change"
+      update_estimated_gt: Estimated GT Date updated from %previousEstimatedGreenTagDate% to %newEstimatedGreenTagDate%
+    yellow_tag_date:
+      subject: "ODP Update - SOR#%sorId% SOL#%solId% SN#%serialNumber% End User: %endUserName% - YT date Change"
+      update_yt: YT Date updated from %previousYellowTagDate% to %newYellowTagDate%
+    shipped_date:
+      subject: "ODP Update - SOR#%sorId% SOL#%solId% SN#%serialNumber% End User: %endUserName% - Shipped date Change"
+      update_shipped_date: Shipped Date updated from %previousShippedDate% to %newShippedDate%
+    periodical_estimated_green_tag_date:
+      subject: "%periodicity% ODP Notification of %today% for %public%"
+    alert_gap_estimated_green_tag_date:
+      subject: Escalation estimated GT date with important deviation
+      message: The unit SN %serialNumber% - %model% from SOL#%sol% %buyer% for %endUser% has been replanned by %factory% of %gap% days from %previousEstimatedGreenTagDate% to %newEstimatedGreenTagDate%
+      promise: Promise date %promise%
+
+
+account_payable:
+  subject: A new invoice sequence need your approval
+  error:
+    subject: an error appeared during the creation of invoice sequence
+    message: "an Error occured for the invoices files of erp: %erp%"
+  sequence:
+    subject: |
+      DOC# %id% approval:
+
+      Document type: %type%
+      TLD Company number: %erp%
+      supplier number: %supplierNumber%
+      supplier name: %supplierName%
+      supplier invoice number: %supplierInvoiceNumber%
+
+    description:  |
+      DOC# %id% approval:
+      Document type: %type%
+      TLD Company number: %erp%
+      supplier number: %supplierNumber%
+      supplier name: %supplierName%
+    link: Click here to see Online Details
+    pdf: Click here to see Scanned PDF
+
+purchase_order:
+  zero_amount:
+    subject: TLD ePO %id% Vendor# %supplierId% - TOTAL AMOUNT IS 0
+    description:  |
+      PO# %id% have a total amount equal to 0, please check,
+  evendor:
+    subject: TLD ePO / Order %id% - Vendor# %supplierId%
+    description:  |
+      Attached is a copy of our ePO %id%.
+      NOTE: If you have previously received a copy of this ePO then this may be an updated version. Please review the ePO to confirm. If item is passed normal lead time please ship to us 2nd day Air.
+      Please log into our eVendors website to confirm your delivery dates.
+      Email has been sent to %emails%
+  no_evendor:
+    subject: TLD ePO / Commande %id% - Vendor# " . %supplierId%
+    description:  |
+      This vendor does not have an eVendor account
+      Please make the necessary to avoid this email.
+  po_onlive: See ePO online
+  status:
+    unconfirmed: Unconfirmed
+    confirmed: Confirmed
+    to_be_delivered: To be delivered in 7 days
+    late: Late
+  confirmation:
+    subject: Vendor %supplier_number% response for PO#%purchase_order_id%
+    comment: Vendor comment
+    warnings: Dates returned by the vendor for this purchase order produced the following warnings
+    warning_title: Dates returned by the vendor for this purchase order produced the following warnings
+    warning_message: Line %position% -> Signal code not empty, confirm date %date% will not be updated, please update manually
+    warning_login: Please login into the TLD Intranet to see full report
+    fields:
+      id: PO#
+      position: Position
+      sequence: Sequence
+      line: Line
+      erp: ERP
+      company: Company
+      part_number: Part Number
+      revision: Revision
+      supplier_number: Supplier Number
+      supplier_part_number: Supplier PN
+      revision_status: Revision Status
+      description: Description
+      signal_code: Signal Code
+      order_quantity: Order Qty
+      delivered_quantity: Del Qty
+      to_be_delivered_quantity: To be delivered Qty
+      back_order_quantity: Back Qty
+      original_requested_date: Orig Req. Date
+      rescheduled_delivery_date: Last Resched Del. Date
+      current_delivery_date: Current Del. Date
+      confirmed_delivery_date: Confirmed Del. Date
+      shipping_date: Shipping Date
+      order_date: Order Date
+      reference_a: Reference A
+      reference_b: Reference B
+      lines_count: Qty of PO lines
+      po_status: PO Status
+      po_delivery_status: PO Delivery Status
+      po_line_status: Line Status
+      po_line_state: Line State
+      po_line_delivery_status: Line Delivery Status
+      delivery_status: Delivery Status
+      delivery_date: Delivery Date
+      supplier_answer: Supplier answer
+      line_text: Line Text
+
+  zip:
+    title: Drawings Zip download notification
+    subject: Drawings and documents have been downloaded on eVendor portal
+    message: |
+      Drawings and documents have been downloaded on eVendor portal.
+
+      Supplier: %supplierName% %supplierNumber%
+      Purchase Order id : %id%
+      Erp : %erp%
+
+lead_time:
+  subject: Standard Lead Time Update
+  description: Standard Lead Time for product families %productFamily% and factory %factory% quoted in the below SFR(s), has been modified
+  salesForecast_list: List of SalesForecast
+
+spr:
+  subject:
+    creation: New SPR#%id% opened
+    creation_from: created from
+    parts_update: SPR#%id% - parts updated
+    shipped: SPR#%id% - shipped
+    shipped_customer: SPR#%id% has been shipped
+    shipping_origin: SPR#%id% - shipping origin updated
+    delivery_address_update: SPR#%id% - delivery address updated
+  delivery_address:
+    updated: Delivery address has been updated
+  parts:
+    added: "The following parts have been added to the SPR:"
+    deleted: "The following parts have been deleted from the SPR:"
+  title:
+    lines: Line Items
+  message:
+    link: Click here to go to SPR#%id%
+    shipped: SPR#%id% has been Shipped
+    shipped_extra: "with the following tracking numbers and couriers:"
+    shipping_origin: Shipping Origin has been updated from %before% to %after%
+    customer:
+      dear: Dear %firstname% %lastname%
+      introduction_toc: "Regarding your Service request registered as TOC %tocId%, we inform you that the parts below have been shipped at the address :"
+      introduction_sb: "Please note that all parts related to the implementation of SB %sbId% have been shipped to your attention at the address :"
+      shipping_information: "Tracking number: %trackingNumber% %courier%"
+      conclusion: |
+        Please contact your TLD On Call advisor should you have any questions or inquiries.
+        Sincerely,
+        TLD Service Team
+      disclaimer: |
+        Warranty disclaimer:
+        Unless otherwise provided, the only warranty, which TLD makes in connection with its equipment, parts and products, is the published
+        TLD general warranty conditions. Any work, repair, shipment of parts required by the customer, outside of the general warranty
+        conditions application or resulting from a breach of warranty by the customer, is subject to invoicing from TLD to the customer.
+  fields:
+    created_at: "Date/Time Opened"
+    sph: SPH
+    notes: Notes
+    part_number: Part Number
+    description: Description
+    unit_of_measure: UOM
+    quantity: quantity
+    delivery_notes: Delivery notes
+
+print:
+  subject_new: New Manual Print request notification
+  message: | 
+    Here are the instructions attached to this Manual Print request :
+  link: Click here to download the Manual zip file
+  standard: Standard
+  full: Full
+  extra: Extra
+  chapter5: Chapter 5
+  comment: Comment
+  equipmentSerial: Equipment Serial
+  model: Model
+  buyer: Buyer
+  requestedDeliveryDate: Requested Delivery Date
+  details: Print request details
+  note: |
+    Please note that this link will let you download the Manual only once.
+    The generation process of this zip is a long process, please be patient.
+
+manual:
+  subject_duplication: Manual duplication process results
+  message: |
+    You requested a Manual duplication. Here is the list of duplicated manuals including the original one :
+  error_message: |
+    Something went wrong when duplicating a manual. Please create a ticket to MIS with the content of the error :
+  manual_link: Click here to go to the main cloned manual
+  details: Manual duplication request details
+  id : Id
+
+ncr:
+  closed:
+    subject_closed: NCR#%id% has been CLOSED
+    subject_rejected: NCR#%id% has been REJECTED
+  creation:
+    subject: NCR#%id% opened for %product_types%
+    subject_rush: "!!URGENT RUSH ORDER!! NCR#%id% opened for %product_types%"
+    message: A new NCR#%id% has been opened.
+  fields:
+    parts: Parts
+    serial_number: SN
+    reference: Reference
+    reference_number: Reference Number
+    reported_by: Reported By
+    investigation: Investigation
+    responsible: Responsible
+    cost_breakdown: Cost Breakdown
+    cost: Cost
+    other: Other
+    scar: SCAR
+    charge_vendor: Charge vendor for repair
+    return_vendor: Return to vendor
+    use_as_is: Use as is
+    rework: Rework
+    scrap: Scrap
+  message: This is to inform you that following NCR status has been changed from %old_status% to %status%
+
+scar:
+  subject_status: SCAR#%id% - %current_status%
+  subject_comment: SCAR#%id% - New comment / Nouveau commentaire
+  fields:
+    leader: Leader
+    representative: TLD Assignor
+    i_factor: Importance Factor
+    short_description: Short Description
+    root_cause: Root Cause
+    corrective_actions: Corrective Actions
+    preventive_actions: Preventive Actions
+    commercial_agreements: Commercial Agreements
+    conclusion: Conclusion
+  message_vendor_to_fill_form: |
+    Dear supplier,
+    Cher fournisseur,
+    尊敬的供应商,
+    
+    TLD SCAR #%id% status has been set to 'VENDOR TO FILL FORM'.
+    Le statut du TLD SCAR #%id% vient d'être mis à jour en 'VENDOR TO FILL FORM'.
+    整改措施报告#%id%目前的状态是'请您提交整改报告'
+    
+    You are requested to submit your response within 15 working days to TLD via your eVendor site.
+    Vous êtes invité à soumettre votre réponse à TLD dans les 15 jours ouvrés via notre site web eVendor.
+    请在15天内通过该账户向TLD提交整改措施报告。
+    
+    Thank you
+    Merci
+    谢谢
+  message_tld_to_review_form: |
+    Dear employee,
+    Cher employé,
+    你好，
+    
+    A SCAR has been submitted by the supplier.
+    Un SCAR a été soumis par le fournisseur.
+    供应商已经提交整改措施报告。
+    
+    Waiting for you review.
+    En attente d'une revue de votre part.
+    待审核。
+  message_validation: |
+    Dear supplier,
+    Cher fournisseur,
+    尊敬的供应商,
+
+    Your form has been validated by TLD.
+    Votre formulaire a été validé par TLD.
+    TLD已经审核了你的报告。
+
+    TLD is looking for the next shipment to confirm the case is solved.
+    TLD confirmera la résolution de ce SCAR lors de la prochaine réception.
+    下次发货时我们会验证整改措施。
+
+    Thank you
+    Merci
+    谢谢
+  message_commercial_agreement: |
+    Dear supplier,
+    Cher fournisseur,
+    尊敬的供应商,
+
+    SCAR#%id% appears to be solved and status has been updated to 'COMMERCIAL AGREEMENT'.
+    SCAR#%id% semble avoir été résolu et le statut a été mis à jour vers 'COMMERCIAL AGREEMENT'.
+    整改措施报告#%id%已经解决， 实施永久措施。
+
+    TLD will contact you shortly to discuss eventual commercial agreements.
+    TLD vous contactera prochainement pour discuter d'un éventuel accord commercial.
+    TLD会验证永久措施。
+
+    Thank you
+    Merci
+    谢谢
+  message_closed: |
+    Dear supplier,
+    Cher fournisseur,
+    尊敬的供应商,
+
+    TLD SCAR#%id% has been CLOSED.
+    Le TLD SCAR#%id% a été cloturé (statut CLOSED).
+    整改措施报告#%id%已经关闭。
+
+    Thank you
+    Merci
+    谢谢
+  intro_message_comment_tld: |
+    Dear supplier,
+    Cher fournisseur,
+    尊敬的供应商,
+
+  intro_message_comment_supplier: |
+    Dear TLD employee,
+    Cher employé TLD,
+    你好,
+
+  message_comment: |
+    A new comment has been posted for SCAR#%id% by %lastname% %firstname%
+    Un nouveau commentaire a été posté pour le SCAR#%id% par %lastname% %firstname%
+    %lastname% %firstname% 要求您对SCAR#%id%提交整改措施报告。
+    
+    Comment / Commentaire / 整改措施:
+    %message%
+
+  message_comment_light: |
+    A new comment has been posted for SCAR#%id% by %lastname% %firstname%
+    
+    Comment:
+    %message%
+
+vwc:
+  view: Click here to view VWC#%id%
+  vendor:
+    subject: VWC#%id%, Pending RMA#
+    created: VENDOR_TO_RESPOND Vendor Warranty Claim has been created
+
+  vendor_reminder:
+    subject: "Urgent: Response Required for VWC#%id%"
+    message: |
+            We are still awaiting your response regarding VWC#%id%. Please provide your feedback within 5 days. If we do not receive a reply within this timeframe, our accounting department will automatically issue a debit note.
+  
+            Thank you for your prompt attention to this matter.
+  
+            Best regards,
+
+  assignee:
+    subject: VWC#%id% - Assignee Change
+    message: |
+      Dear %lastname% %firstname%,
+      
+      Please take note that VWC#%id% has been assigned to you.
+
+  creation:
+    subject: VWC#%id% has been created
+  status:
+    subject: VWC#%id% status changed from %previousStatus% to %status%
+  fields:
+    assignee: Assignee
+    module: module
+    requested_supplier_action: Request supplier action
+    scar_requested: SCAR requested
+    scar: SCAR#
+    vwc_accepted: VWC accepted
+    rma: Supplier RMA
+    ship_back_defective_part: Defective parts to ship back ?
+    supplier_shipping_instruction: Supplier shipping instruction
+    tracking_number: Tracking number
+    request_credit_amount: Requested credit amount
+    supplier_credit_amount: Supplier credit amount
+    actual_credit_amount: Actual credit amount
+    currency: Currency
+    resolution: Resolution
+    supplier_erp: Supplier ERP
+    vendor_part_number: Vendor PN
+    part_number: Part Number
+    vendor_serial_number: Vendor SN
+    received_quantity: Received Qty
+    failure_type: Failure type
+    failure_system: Failure system
+    supplier: Supplier
+    status_definition:  |
+      General - Status: %status%. %description%
+  external_comment:
+    subject: VWC#%id%, eVendor message from %poster%
+  internal_comment:
+    subject: VWC#%id% - TLD Internal Communication
+    message: New Internal TLD note
+  comment:
+    subject: TLD eVendor message
+    message: Message from TLD
+    please_login: Please login to the TLD Vendors website to view VWC#%id%
+    module: |
+      VWC#%id% - %module%#%module_id%
+
+generic:
+  not_available: N/A
+
+mrp:
+  fields:
+    planned_order_date: Planned Order Date
+    planned_delivery_date: Planned Del. Date
+    price: Price
+
+crab:
+  subject: New Crab Notification (#%id%) - Changed to YELLOW-TAG
+  subject_yellow_tag: New Crab Notification (#%id%) - %model%
+  new_crab: "A new CRAB #%id% has been reported on %date%"
+  note: "NOTE: Unit %serialNumber% has been changed to YELLOW-TAG from GT"
+  derogation:
+    subject_create: New derogation opened for CRAB#%id% Assigned to %assignee%
+    subject_transfer: Derogation for CRAB#%id% Assigned to %assignee%
+    subject_denied: Derogation for CRAB#%id% denied
+    subject_accepted: Derogation for CRAB#%id% accepted
+    subject_expired: Derogation for CRAB#%id% due date passed.
+    new: A new derogation has been opened on CRAB#%id% by %assignor_lastname% %assignor_firstname% and is assigned to %assignee_firstname% %assignee_lastname%.
+    transfer: Derogation for CRAB#%id% has been transferred to %assignee_firstname% %assignee_lastname%.
+    closed: Derogation for CRAB#%id% has been %status%.
+    expired: Derogation for CRAB#%id% due date is passed, please process it or reschedule.
+
+csr:
+  subject: Commissioning CSR Updated
+  message: |
+    The Following CSR has been updated: schedule date is %newDate% 
+    Please take action accordingly
+  csr: CSR# %id%
+  commissioned: 'CSR#%csr% SURVEY Completed : %rating_result% - ER#%serial% %model% %customer_buyer% commissioned'
+
+toc:
+  intranet_email_comment: |
+    An email has been sent.
+    
+    %message%
+    
+    Sent to : %tos%
+  subject:
+    toc_created_by_customer: 'TOC#%id%, PENDING, open by %customer%, for %productName%, %serialNumber%'
+    toc_created_by_people_internal: 'TOC#%id%, Day %openDays%, %sso%, %customer%, %productName% - OPEN and ASSIGNED'
+    toc_created_by_people_external: 'Your request on %productName% : TOC#%id%, Day %openDays%, %sso%, %customer%, - OPEN and ASSIGNED'
+    toc_updated: 'TOC#%id%, Day %openDays%, %sso%, %customer%, %productName% has been updated'
+    toc_pending_to_in_progress_internal: 'TOC#%id%, Day %openDays%, %productName% - %serialNumber% is now ASSIGNED TO YOU'
+    toc_pending_to_in_progress_external: 'TOC#%id%, Day %openDays%, %productName% - %serialNumber% is now ASSIGNED'
+    toc_new_comment_internal: 'TOC#%id% Day %openDays%, %sso%, %customer%, %productName% - New Log Entry for - %indiceFactor% -'
+    toc_new_comment_external: "TOC#%id%, day %openDays%, %sso%, %productName% - New notification"
+    toc_new_comment_by_cust: "TOC#%id%, day %openDays%, %sso%, %customer%, %productName% - New Log Entry by %customer% - %indiceFactor% -"
+    toc_factory_flag_open: 'Factory Support is required - TOC#%id%, Day %openDays%, %sso%, %customer%, %productName%'
+    toc_factory_flag_closed: 'Factory Support has been provided - TOC#%id%, Day %openDays%, %sso%, %customer%, %productName%'
+    toc_solved_external: 'TOC#%id%, for %productName%, %serialNumber% has been SOLVED'
+    survey: 'TOC#%id%, %customer%, %productName%, %serial% - Survey results from extranet'
+    task_bad_survey: "Task#%id% opened following TOC Survey Below 5/5/5/5"
+    task_survey_error: '#%id% Bad Survey error occurred during task creation'
+    toc_black_cat: 'TOC#%id%, Day %openDays%, %sso%, %customer%, %productName% - OPEN on BLACK CAT'
+    toc_csr_created: 'TOC#%id% Day %openDays%, %sso%, %customer%, %productName% - CSR CREATED - %indiceFactor% -'
+    toc_late_customer_updates_report: 'Late Customer TOC Updates - %sso%'
+    toc_late_customer_updates_report_all_sso: 'Late Customer TOC Updates - All SSO'
+    factory_support_needed_suffix: 'FACTORY SUPPORT NEEDED'
+  message:
+    toc_csr_created:
+      content: |
+        Dear %technician%,
+        
+        You are requested to go on site %airport% for %customer%.
+        Customer contact is %mainContact%
+        TOC #%id% - %model%
+        Problem description : %description%
+        CSR <a href="%url%">#%customerServiceRecordId%</a> planned date is %datePlanned%.
+
+        <a href="%url%">Please log your comments and update the CSR log. Click here to access.</a>
+
+        Thank you.
+    toc_created_by_customer:
+      content: |
+        Dear %eContact%,
+        
+        Following up your record on the Website, the TOC (Technician On Call) number %id% is now open for your equipment.
+        The service team will assign a technician to support your request and contact you shortly.
+        You can review this TOC on the <a href="%tocLink%">TLD extranet portal</a>
+      contact_check: |
+        Are your below contact details still valid ?
+         - Your email: %contactEmail%
+         - Your phone: %contactPhones%
+        
+        If not, please update <a href="%url%">your profile on the Website</a>.
+      closing:
+        Best Regards,
+        The Service Team.
+    toc_created_by_people_internal: 'TOC#%id% below has been created %unitOperationalStatus% / %indiceFactor%'
+    toc_created_by_people_external: |
+      Dear %customer%,
+      Following-up on your request to our Support Services on %createdAt%, we inform you that your case is being addressed by our Service Team.
+      Please reference your case number TOC#%tocId% in any further communication about this request.
+      
+      We will inform you upon solving of your issue. You may also receive intermediary reports stating the various actions undertaken.
+      Our ‘Technician On Call’ advisor remains available should you have any other questions or inquiries.
+      
+      Sincerely,
+      The Service Team
+    toc_updated: |
+      TOC#%id% has been updated.
+      Please see applied changes below :
+    toc_pending_to_in_progress_internal: |
+      You are assigned to TOC#%id% (%unitOperationalStatus%) / %indiceFactor%.
+      Please contact the customer shortly to start investigating and solving the TOC.
+      Thank you.
+    toc_pending_to_in_progress_external: |
+      Dear %eContact%,
+      TOC number #%id% is now assigned to %assignee%.
+       - Equipment Record: SN# %serialNumber% / %model% 
+       - Your Asset Number: %customerAssetNumber%
+      
+      Best regards,
+      The service team.
+    toc_new_comment_external:
+      main_content: |
+        Dear %eContact%,
+        Following-up on your request to "Technician on Call" on %createdAt% your case has been investigated by our Service Team and the following actions have been carried out:
+  
+        %commentMessage%
+  
+        We do hope that our support is to your satisfaction. Please visit our support website to find product information, manuals, tutorials, troubleshooting steps, and much more.
+        In the meantime our TOC advisor is always available should you have any other questions or inquiries.
+        Sincerely,
+        The Service Team
+      warranty_disclaimer: |
+        Warranty disclaimer:
+        Unless otherwise provided, the only warranty, which TLD / AERO or SAS makes in connection with its equipment, parts and products, is the our published general warranty conditions. Any work, repair, shipment of parts required by the customer, outside of the general warranty conditions application or resulting from a breach of warranty by the customer, is subject to invoicing to the customer.
+    previous_comments: "Previous logs on this TOC :"
+    original_comment: "Original text:"
+    toc_new_comment: "New Log Entry :"
+    toc_new_comment_by_customer: |
+      A comment has been added by %eContact%:
+    toc_factory_flag_open: "Factory Support is required - TOC#%tocId% by %userName%"
+    toc_factory_flag_closed: "Factory Support has been supplied for TOC#%tocId% by %userName%"
+    toc_solved_external: |
+      Dear %eContact%,
+
+      Following-up on your request to Techncian-On-Call on %createdAt% about your equipment %productName% at %airportCode% airport, we inform you that your case TOC#%id% is now solved.
+      You can access further details <a href="%tocLink%">here</a>.
+
+      We do hope our service delivery has been satisfactory and would appreciate if you could take a moment to rate your experience <a href="%url%">here</a> (1 minute)
+      Should you have any query pending, please contact us at your earliest convenience. If we do not hear or read from you within the next 14 days we would consider the case definitely closed.
+
+      We thank you for relying on us for your GSE operation.
+
+      Sincerely,
+      The Service Team
+    airport: Airport %apc% (%country%)
+    crt:
+      title: CRT information
+      fields:
+        service_location: Service Location
+        service_representative: Service Representative
+        parts_location: Part Location
+        parts_representative: Parts Representative
+        sales_representative: Sales Representative
+    link: Click here to go to TOC#%id%
+    survey:
+      header: Survey results
+    task_bad_survey:
+      content: |
+        Task#%id% has been created.<br>
+        Please log in to the TLD-GSE intranet and go to the calendar module to view your open tasks.<br>
+      link:
+        Click here to go to Task.
+    task_survey_error: |
+        The survey has been correctly created but an error occurred while creating the task requesting a customer callback.
+
+    toc_black_cat: |
+      TOC#%id% below has been created and this unit has been triggered as a BLACK CAT.
+
+      The SSO and FACTORY Management need to define an action plan in order to stabilize the performance of this unit and recover customer confidence
+
+    toc_late_customer_updates_report: |
+      For each TOC below, please update the TOC external log to communicate with customers on status and next steps. As a reminder, you shall update the customer at least once a week through the external TOC log.
+
+    footer: The correct method of reply is to update the TOC log. Click here to reply
+
+    intranet: Intranet
+
+    mobile: Mobile
+
+supplier_ranking:
+  classification_decreased_subject: supplierName classification has been decreased
+  review_subject: It is time to review supplierName
+
+vendor:
+  weekly_reminder:
+    subject: TLD-Evendor Weekly Reminder orders, VWC and SCAR %supplierName%
+    intro: Dear Supplier %supplierName%,
+    orders: Orders
+    late_orders: Late order lines
+    unconfirmed_orders: Unconfirmed
+    acknowledge_orders: Please Acknowledge your orders on our website
+    acknowledge_access: By connecting you will have access to your in progress purchase orders, quotation request (RFQ), drawing, forecast, VWC and SCAR. For any questions, please contact your TLD representative
+    acknowledge_quality: Please review your VWC and SCAR on our website
+    quality: Quality
+    vwc: Vendor Warranty Claim
+    scar: Supplier Corrective Action Request
+    waiting_review: waiting your review
+    review_vwc: Vendor Warranty Claim  waiting your review
+    regards: Best Regards,
+  email_not_valid:
+    subject: Email of contact not valid in LN
+    text: |
+      Hello,
+      
+      Email of contact %contact% is not valid, please update it in LN.
+      
+      Regards
+      MIS Team
+    
+trouble_ticket:
+  subject:
+    creation: "TTS #%id% opened, %application% - %module%, %business_unit%"
+    update: "TTS #%id% updated, %application% - %module%, %business_unit%"
+    comment: "TTS #%id% commented by %user_fullname%, %application% - %module%, %business_unit%"
+    transfer: "TTS #%id% transferred to %assignee_fullname%, %application% - %module%, %business_unit%"
+    auto_escalate: "TTS #%id% auto-escalated, %application% - %module%, %business_unit%"
+    jira_reminder: "Report for Issues done in Jira, with TTS still not closed in Intranet"
+  message:
+    reason: |
+      Reason for editing:
+      
+      %comment%
+    create: New TTS has been created by %assignor_lastname% %assignor_firstname%.
+    generic: Click here to go to Trouble Ticket
+    auto_escalate: No action has been taken on this TTS although a solution has been proposed. It has been auto-escalated from %previous_assignee_fullname% to %assignee_fullname%.
+    transfer: |
+      Reason for transferring:
+      
+      %comment%
+    jira_reminder: |
+      These TTS seems to be done in JIRA Project, but are still opened in the intranet:
+  change_set:
+    module: Module
+    type: Type
+    dueDate: Due Date
+    indiceFactor: Importance Factor
+    misAssignee: MIS Contact
+
+javelo:
+  subject: Javelo Monitoring {period}
+  table:
+    title: monitoring
+    update_by_user: Updated by Intranet portal
+    create_by_user: Created by Intranet portal
+    update_by_command: Updated by Daily synchronization job
+    create_by_command: Created by Daily synchronization job
+  mails:
+    group_missing:
+      title: Create Business Unit Group on Javelo
+      intro: "The following business unit groups were not found in Javelo and could not be synchronized:"
+      item: "%groupName% (business unit: %businessUnit%)"
+      outro: Please create these groups in Javelo to synchronize the users' business unit groups and prevent this notification from appearing again.
+
+  change_set:
+    id: Javelo#
+    intranetId: Intranet#
+    username: Email
+    familyName: Lastname
+    givenName: FirstName
+    active: Active
+    locale: Locale
+    title: Job Title
+    department: Department
+    managerUserName: Manager
+    businessUnit: Business unit
+    region: Region
+    subdivision: Subdivision
+    division: Division
+    gender: Gender
+    contract_type: Contract type
+    last_exit_date: Last exit date
+    position: Position
+    working_time: Working time
+
+sequence:
+  annual_revision:
+    header: |
+      Dear %fullname%,
+
+      You are receiving that yearly sequence because it is important to keep accurate and exhaustive data in your ALVEST Intranet profile to insure good communication and proper access to the ALVEST intranet features.
+
+      1/ Please have a look at your Intranet account and proceed with the necessary updates
+    second_point: |
+      2/ Please consult your assigned intranet groups/rights, through the following <a href="%url%">link</a>. May you identify any evolution need, comment the SEQ before approving accordingly. It will be transferred to your supervisor that will study your request and decide to implement or not your request.
+
+    footer: |
+      For supervisor :
+
+      1/ Please confirm the good update of the profile of your employee.
+      2/ Please confirm also his/her Intranet groups/rights conformity. May you need these groups/rights to be adjusted, please raise a TTS accordingly.
+
+      We thank you for taking good care of the subject
+
+      Best regards
+
+      Management/HR and MIS Teams
+    missing_property: seems to be absent, please check
+    fields:
+      photo: • Picture (help recognition)
+      alternateEmail: • Alternate email (important field for contacting you on an exceptional basis for example in case of cyberattack)
+      businessUnit: • Business address / Premise (important for locating the employee and in case of any shipment)
+      mobile: • Cell phone number (mandatory if professional but can be useful and help communication if cell phone is personal)
+      phone: • Telephone numbers (mandatory for the business one)
+
+mis_project:
+  message:
+    generic: Click here to see MIS Project.
+    updated: MIS Project %id% (%project_name%) has been updated with following changes
+    commented: MIS Project %id% (%project_name%) has been commented
+    status: MIS Project %id% (%project_name%) has been updated to status %status%
+  update:
+    subject: "MIS Project #%id% (%project_name%) updated"
+  comment:
+    subject: "MIS Project #%id% (%project_name%) commented"
+  status:
+    subject: "MIS Project #%id% (%project_name%) to %status%"
+  change_set:
+    module: Module
+    businessUnit: Business Unit
+    indicesFactor: Importance Factor
+    projectManager: Project Manager
+    misOwner: MIS Owner
+    startedAt: Started At
+    estimatedHours: Estimated Hours
+
+contract:
+    subject:
+      expired: Contract expiration date
+      expire_soon: Contract expiring in one month
+    fields:
+      shortDescription: Short Description
+      description: Description
+    message:
+        expiration: 'The expiration date of Contract #%id% has arrived.'
+        expiring_soon: 'The Contract #%id% will expire in one month'
+        see_contract: Click here to see contract
+
+equipment_shipping_record:
+    subject:
+      new_equipment_shipping_record: New ESR (%equipmentShippingRecordId%) has been created
+      onChangePickUpInformationNotification: Pick-Up information on an ESR line has been updated on ESR# %equipmentShippingRecordId%
+    created:
+      message: A new Equipment Shipping Record has been created
+      empty: No ESR lines
+    pick_up_date:
+      updated:
+        message: |
+          The pick-up information on the relevant ESR line for %serialNumber% has been updated.
+          Please refer to the ESR for full details.
+      estimated:
+        previous: Previous estimated pick-up date
+        new: New estimated pick-up date
+      confirmation:
+        previous: Previous pick-up date confirmation
+        new: New pick-up date confirmation

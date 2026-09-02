@@ -1,0 +1,58 @@
+/* Legacy overrides — kept for non-theme pages only.
+   The extranet redesign theme (extranet-theme.css) supersedes these. */
+
+.followed-by-hr {
+    content: '';
+    display: block;
+    border-bottom: black solid 1px;
+    padding: 2px;
+}
+
+html {
+    scroll-behavior: auto !important;
+}
+
+.rating-widget {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+.rating-widget input[type="radio"] {
+    display: none;
+}
+
+.rating-widget label {
+    cursor: pointer;
+    font-size: 2rem;
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.rating-widget label .star {
+    display: inline-block;
+}
+
+.rating-widget label:hover .star,
+.rating-widget label:hover ~ label .star {
+    color: #ffc107;
+}
+
+.rating-widget input[type="radio"]:checked ~ label .star {
+    color: #ffc107;
+}
+
+.rating-widget input[type="radio"]:checked + label .star,
+.rating-widget input[type="radio"]:checked + label ~ label .star {
+    color: #ffc107;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}
+
+.form-check-label.required:after {
+    content: none;
+}

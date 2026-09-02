@@ -1,0 +1,21 @@
+App\Entity\Communication\ContactCampaign:
+
+  contact_campaign_1:
+    name: "Christmas day"
+    startedAt: <dateTimeBetween('now', 'now')>
+    endedAt: <dateTimeBetween('+2 month', '+2 month')>
+    status: 'DRAFT'
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    owner: "@user_coo"
+    businessUnits: ["@tld_america"]
+    contacts: ["@extranet_user_209"]
+
+  contact_campaign_2:
+    name: "New years"
+    startedAt: <dateTimeBetween('now', 'now')>
+    endedAt: <dateTimeBetween('+2 month', '+2 month')>
+    status: 'DRAFT'
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    owner: "@user_coo"
+    businessUnits: ["@tld_america", "@business_unit_2"]
+    contacts: ["@extranet_user_209"]

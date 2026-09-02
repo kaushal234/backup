@@ -1,0 +1,72 @@
+{% extends 'quality/first_article_qualification/layout.html.twig' %}
+
+{% trans_default_domain 'first_article_qualification' %}
+
+{% block title %} {{ 'first_article_qualification.titles.first_article_qualification' |trans }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'first_article_qualification.titles.dashboard_by_status' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: statusByBusinessUnit,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        link: {
+                            route: 'first_article_qualifications_search',
+                            xParam: 'location',
+                            yParam: 'status[]'
+                        },
+                        headers: {
+                            columns: ['PENDING', 'IN_PROGRESS', 'IN PROGRESS / PLAN 100% COMPLETED', 'CONDITIONAL', 'QUALIFIED', 'REJECTED']
+                        },
+                        filters: {
+                            columnHeaders: "replace({'_': ' '})"
+                        }
+                    }, with_context=false) }}
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'first_article_qualification.titles.dashboard_by_plan_status' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: planStatusByBusinessUnit,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        link: {
+                            route: 'first_article_qualifications_search',
+                            xParam: 'location',
+                            yParam: 'planApprovalStatus',
+                            additionalParams: {
+                                exists: {planDefinitionCompletedAt: 'true'},
+                                status: ['IN_PROGRESS', 'IN PROGRESS / PLAN 100% COMPLETED']
+                            }
+                        },
+                        headers: {
+                            columns: ['NOT_APPROVED_YET', 'UNAPPROVED', 'APPROVED']
+                        },
+                        filters: {
+                            columnHeaders: "replace({'_': ' '})"
+                        }
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

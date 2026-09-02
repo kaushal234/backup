@@ -1,0 +1,25 @@
+{% trans_default_domain 'catalogue' %}
+<li>
+    <a class="dropdown-item"
+       href="{{ path('sales_catalogue_download_by_er_product_user', { id: productType.id }) }}">{{ 'catalogue.type.download_by_er_product_user'|trans }}</a>
+</li>
+<li>
+    <a class="dropdown-item"
+       href="{{ path('sales_catalogue_download_by_er_product_buyer', { id: productType.id }) }}">{{ 'catalogue.type.download_by_er_product_buyer'|trans }}</a>
+</li>
+<li>
+    <a class="dropdown-item"
+       href="{{ path('sales_catalogue_download_er_count_user_customer', { id: productType.id }) }}">{{ 'catalogue.type.download_by_er_user_customer'|trans }}</a>
+</li>
+<li>
+    <a class="dropdown-item"
+       href="{{ path('sales_catalogue_download_er_count_buyer_customer', { id: productType.id }) }}">{{ 'catalogue.type.download_by_er_buyer_customer'|trans }}</a>
+</li>
+<li>
+    <a class="dropdown-item"
+       href="{{ path('sales_catalogue_download_er_user_customer', { id: productType.id }) }}">{{ 'catalogue.type.download_er_user_customer'|trans }}</a>
+</li>
+<li>
+    <a class="dropdown-item"
+       href="{{ path('sales_catalogue_download_er_buyer_customer', { id: productType.id }) }}">{{ 'catalogue.type.download_er_buyer_customer'|trans }}</a>
+</li>

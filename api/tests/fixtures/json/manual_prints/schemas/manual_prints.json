@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/support/manual_prints"},
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "properties": {
+            "@context": {
+              "type": "string"
+            },
+            "@id": {
+              "readOnly": true,
+              "type": "string",
+              "pattern": "^/support/manual_prints/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "manual": {
+              "oneOf": [
+                {"type":  "null"},
+                {"type":  "string"},
+                { "$ref": "../../manuals/schemas/manual_public.json" }
+              ]
+            },
+            "manualPrinter": {
+              "oneOf": [
+                {"type":  "string"},
+                { "$ref": "../../printer/schemas/printer.json" }
+              ]
+            },
+            "standard": {
+              "type": "integer"
+            },
+            "full": {
+              "type": "integer"
+            },
+            "extra": {
+              "type": "integer"
+            },
+            "chapter5": {
+              "type": "integer"
+            },
+            "comment": {
+              "type": ["string", "null"]
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "createdBy": {
+              "$ref": "../../directory_people/schemas/directory_people_public.json"
+            },
+            "requestedDeliveryDate": {
+              "type": "string"
+            },
+            "downloadedAt": {
+              "type": ["string", "null"]
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "legacyId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "standard",
+            "full",
+            "extra",
+            "chapter5",
+            "createdAt",
+            "createdBy",
+            "requestedDeliveryDate",
+            "legacyId"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

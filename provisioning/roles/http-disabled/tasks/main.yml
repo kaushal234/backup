@@ -1,0 +1,39 @@
+- name: Disable HTTP service on public zone
+  become: true
+  ansible.posix.firewalld:
+    zone: public
+    service: http
+    permanent: true
+    state: disabled
+  notify:
+    - restart firewalld
+
+- name: Disable HTTPS service on public zone
+  become: true
+  ansible.posix.firewalld:
+    zone: public
+    service: https
+    permanent: true
+    state: disabled
+  notify:
+    - restart firewalld
+
+- name: Disable HTTP service on internal zone
+  become: true
+  ansible.posix.firewalld:
+    zone: internal
+    service: http
+    permanent: true
+    state: disabled
+  notify:
+    - restart firewalld
+
+- name: Disable HTTPS service on internal zone
+  become: true
+  ansible.posix.firewalld:
+    zone: internal
+    service: https
+    permanent: true
+    state: disabled
+  notify:
+    - restart firewalld

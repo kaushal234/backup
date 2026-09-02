@@ -1,0 +1,102 @@
+{% extends 'quality/non_conformity/layout.html.twig' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+    <twig:NonConformityDynamicForm crabId="{{ crabId }}" faqId="{{ faqId }}">
+        {% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'non_conformity.title.add' | trans([], 'non_conformity') }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(form.location) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.reportedBy) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(form.hours) }}</div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.iFactor) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex align-items-center gap-5">
+                                        {{ form_widget(form.rush) }}
+                                        {{ form_widget(form.environmentalIssue) }}
+                                        {{ form_widget(form.safety) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6" id="equipment-records-wrapper-{{ random() }}">
+                                        {{ form_row(form.equipmentRecords, {
+                                            attr: {
+                                                'data-model': 'selectedEquipment'
+                                            }
+                                        }) }}
+                                    </div>
+                                    <div class="col-md-6" id="products-wrapper-{{ random() }}">
+                                        {{ form_row(form.products, {
+                                            attr: {
+                                                'data-model': 'selectedProducts'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                                <div>
+                                    {% if form.importCrabPhoto is defined %}
+                                        {{ form_widget(form.importCrabPhoto) }}
+                                    {% endif %}
+                                    {{ form_row(form.mainFile) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.shortDescription) }}
+                                {{ form_row(form.problem) }}
+                                {{ form_row(form.investigation) }}
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            {{ form_row(form.submit, {
+                                attr: {
+                                    'data-action': 'live#action:prevent',
+                                    'data-live-action-param': 'files|save',
+                                    'data-live-clicked-button-param': 'submit'
+                                }
+                            }) }}
+                            {{ form_row(form.no_parts_to_add, {
+                                attr: {
+                                    'data-action': 'live#action:prevent',
+                                    'data-live-action-param': 'files|save',
+                                    'data-live-clicked-button-param': 'no_parts_to_add'
+                                }
+                            }) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </twig:NonConformityDynamicForm>
+{% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        {{ include('quality/non_conformity/partial/js/_form_action.html.twig', { form: 'add'}) }}
+    {% endblock %}
+
+    {% block translations %}
+        <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'non_conformity' }) }}"></script>
+    {% endblock %}

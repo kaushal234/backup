@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/parts/eparts_order_routing_configurations/\\d+$"},
+    "@type": { "type": "string" },
+    "sph": {
+      "$ref": "../../directory_location/schemas/directory_location_public.json"
+    },
+    "defaultRouting": {"type": "string"},
+    "areaRoutings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@id": {"pattern": "^/parts/area_routings/\\d+$"},
+          "@type": {"type": "string"},
+          "area": {"type": "string"},
+          "routing": {"type": "string"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "area",
+          "routing"
+        ]
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "sph",
+    "defaultRouting",
+    "areaRoutings"
+  ],
+  "additionalProperties": false
+}

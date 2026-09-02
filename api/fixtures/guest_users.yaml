@@ -1,0 +1,52 @@
+App\Entity\MIS\GuestUser\GuestUser:
+  # /guest_users/320
+  guest_user_1:
+    id: 320
+    lastname: guest
+    firstname: user
+    email: user-guest@guest.fr
+    username: user-guest@guest.fr
+    position: '@position_guest'
+    supervisor: '@user_hr'
+    premise: '@premise_moa'
+    hidden: false
+    disabled: false
+    encodedPassword: itqEcWdVju8FuQ281+Udyat5M9OJ+CDAoiswjTQym307Kds+ZlS+VPUNqip5NLsPHk+4aa9VgRG5kTSPY3Vomw== # P@ssw0rd15chars
+    salt: ac7e188ba20f987a00da38781c490ea45fa51cb105be8eaeab4687b1075f1158
+    plannedDisableAt: <dateTimeBetween('+60 days', '+80 days')>
+    businessUnit: '@tld_america'
+    enableAt: <dateTimeBetween('-80 days', '-60 days')>
+
+  guest_user_renewed:
+    id: 321
+    lastname: guest renewed
+    firstname: user renewed
+    email: user-guest-renewed@guest.fr
+    username: user-guest-renewed@guest.fr
+    position: '@position_guest'
+    supervisor: '@user_hr'
+    premise: '@premise_moa'
+    hidden: false
+    disabled: false
+    encodedPassword: itqEcWdVju8FuQ281+Udyat5M9OJ+CDAoiswjTQym307Kds+ZlS+VPUNqip5NLsPHk+4aa9VgRG5kTSPY3Vomw== # P@ssw0rd15chars
+    salt: ac7e188ba20f987a00da38781c490ea45fa51cb105be8eaeab4687b1075f1158
+    plannedDisableAt: <( new \DateTime("2026-01-01 00:00:00"))>
+    businessUnit: '@tld_america'
+    enableAt: <dateTimeBetween('-80 days', '-60 days')>
+
+  guest_user_not_renewed:
+    id: 322
+    lastname: guest renewed
+    firstname: user renewed
+    email: user-guest-not-renewed@guest.fr
+    username: user-guest-not-renewed@guest.fr
+    position: '@position_guest'
+    supervisor: '@user_hr'
+    premise: '@premise_moa'
+    hidden: false
+    disabled: false
+    encodedPassword: itqEcWdVju8FuQ281+Udyat5M9OJ+CDAoiswjTQym307Kds+ZlS+VPUNqip5NLsPHk+4aa9VgRG5kTSPY3Vomw== # P@ssw0rd15chars
+    salt: ac7e188ba20f987a00da38781c490ea45fa51cb105be8eaeab4687b1075f1158
+    plannedDisableAt: <dateTimeBetween('+60 days', '+80 days')>
+    businessUnit: '@tld_america'
+    enableAt: <dateTimeBetween('-80 days', '-60 days')>

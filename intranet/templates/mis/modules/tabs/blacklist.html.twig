@@ -1,0 +1,64 @@
+{% trans_default_domain 'mis' %}
+<div class="row">
+    <div class="col-md-12 mb-2">
+
+        {% if is_granted('FEATURE_MODULE_WRITE') or is_granted('FEATURE_THIRD_PARTY_APP_ADMIN_VOTER', '/modules/' ~ module.id) %}
+            {{ form_start(blacklistForm, {'action': path('mis_third_party_app_blacklist_add', {id: module.id})}) }}
+            <div class="row mb-2">
+                <div class="col-md-10">
+                    {{ form_widget(blacklistForm.user) }}
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary float-end">{{ 'button.add'|trans([], 'messages')|capitalize }}</button>
+                </div>
+            </div>
+            {{ form_end(blacklistForm) }}
+        {% endif %}
+
+        {% set items = {
+            people: {
+                label: 'mis.modules.fields.user'|trans,
+                properties: ['lastname', 'firstname'],
+                link: {
+                    route: 'directory_people_show',
+                    params: {id:'@id'}
+                }
+            },
+            businessUnit: {
+                label: 'mis.modules.fields.business_unit'|trans,
+                properties: ['businessUnit.name'],
+            },
+        } %}
+
+        {% if is_granted('FEATURE_MODULE_WRITE') or is_granted('FEATURE_THIRD_PARTY_APP_ADMIN_VOTER', '/modules/' ~ module.id) %}
+            {% set items = items|merge({
+                delete: {
+                    label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                    sortable: false,
+                    class: 'text-end',
+                    link: {
+                        route: 'mis_third_party_app_blacklist_remove',
+                        params: {'userId': '@id'},
+                        fixedParams: {'id': module.id, '_token': csrf_token('delete_user')},
+                        content: '<span class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i></span>',
+                        popup: {
+                            type: 'confirmation',
+                            title: 'mis.blacklist.delete.popup.title'|trans,
+                            message: 'mis.blacklist.delete.popup.message'|trans,
+                        },
+                    },
+                },
+            }) %}
+        {% endif %}
+
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: items,
+                data: module.blacklistedUsers,
+                initialSorting: false,
+                options: {card: false},
+            }
+        }) }}
+
+    </div>
+</div>

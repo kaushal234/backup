@@ -1,0 +1,18 @@
+{% extends 'finance/finance-families/layout.html.twig' %}
+{% trans_default_domain 'finance' %}
+
+{% block content %}
+    <div id="react" data-is-granted-create="{{ is_granted('FINANCE_FAMILY_CREATE_VOTER') }}"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

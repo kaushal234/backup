@@ -1,0 +1,19 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <h3>{{ 'purchase_order.zip.title' | trans }}</h3>
+            <p>
+                {{ 'purchase_order.zip.message' | trans({
+                    '%id%': purchase_order.id,
+                    '%erp%': purchase_order.erp,
+                    '%supplierName%': supplier_name,
+                    '%supplierNumber%': supplier_number,
+                }) | nl2br }}
+            </p>
+        </columns>
+    </row>
+{% endblock %}

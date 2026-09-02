@@ -1,0 +1,16 @@
+<td>
+    {% for keys, change in value %}
+            {% if item.action != 'create' and change is null %}
+                <span {% if keys > 0  %}style="background-color: #ffed21"{% endif %} >none</span>
+            {% else%}
+                {% if keys > 0  %}
+                    <span {% if item.action != 'create' %}style="background-color: #ffed21"{% endif %} >{{ change is same as(false) ? 0 : change is same as("") ? "-" : change }}</span>
+                {% else%}
+                    <span>{{ change is same as(false) ? 0 : change }}</span>
+                {% endif%}
+            {% endif %}
+        {% if item.action != 'create' %}
+        <br>
+        {% endif %}
+    {% endfor %}
+</td>

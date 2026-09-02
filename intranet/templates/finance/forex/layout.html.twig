@@ -1,0 +1,13 @@
+{% extends 'finance/layout.html.twig' %}
+{%  trans_default_domain 'finance' %}
+
+{% block title %}{{ parent() }} \ {{ 'forex.title' | trans({}, 'forex') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="forex_add" :security="is_granted('FEATURE_EXCHANGE_RATE_WRITE')"/>
+        <twig:NavItem:Add translationKey="finance.nav_link.add_currency" domain="finance" route="currency_add" :security="is_granted('FEATURE_CURRENCY_WRITE')"/>
+        <twig:NavItem:Search route="forex_search" :security="is_granted('FEATURE_EXCHANGE_RATE_WRITE')"/>
+        <twig:NavItem translationKey="finance.nav_link.home" domain="finance" icon="material-symbols:home-outline-rounded" route="forex_home"/>
+    </twig:NavBar:Container>
+{% endblock %}

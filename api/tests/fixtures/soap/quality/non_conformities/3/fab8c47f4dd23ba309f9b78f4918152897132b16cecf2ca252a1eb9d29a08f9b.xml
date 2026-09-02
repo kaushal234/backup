@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
+      <faultcode>S:Server</faultcode>
+      <faultstring>createManagedConnection failed</faultstring>
+      <detail>
+        <Exception:Exception xmlns:Exception="http://www.infor.com/businessinterface/txBusinessPartner" xmlns="http://www.infor.com/businessinterface/txBusinessPartner">createManagedConnection failed</Exception:Exception>
+        <Exception:Exception xmlns:Exception="http://www.infor.com/businessinterface/txBusinessPartner" xmlns="http://www.infor.com/businessinterface/txBusinessPartner">Connection broken during login</Exception:Exception>
+        <Exception:Exception xmlns:Exception="http://www.infor.com/businessinterface/txBusinessPartner" xmlns="http://www.infor.com/businessinterface/txBusinessPartner">Remote host terminated the handshake</Exception:Exception>
+        <Exception:Exception xmlns:Exception="http://www.infor.com/businessinterface/txBusinessPartner" xmlns="http://www.infor.com/businessinterface/txBusinessPartner">SSL peer shut down incorrectly</Exception:Exception>
+      </detail>
+    </S:Fault>
+  </S:Body>
+</S:Envelope>

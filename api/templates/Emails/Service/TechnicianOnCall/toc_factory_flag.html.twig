@@ -1,0 +1,28 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        {% if technicianOnCall.factoryFlag %}
+            {{ 'toc.message.toc_factory_flag_open'|trans({
+                '%tocId%': technicianOnCall.id,
+                '%userName%': userName
+            })|nl2br }}
+        {% else %}
+            {{ 'toc.message.toc_factory_flag_closed'|trans({
+                '%tocId%': technicianOnCall.id,
+                '%userName%': userName
+            })|nl2br }}
+        {% endif %}
+        <hr>
+        {{ comment.message|raw|nl2br }}
+        <hr>
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_internal.html.twig') }}
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc.html.twig', {technicianOnCall: technicianOnCall}) }}
+        {% if technicianOnCall.equipmentRecord is not null %}
+            <hr>
+            {{ include('Emails/Service/TechnicianOnCall/_partials/_equipment_record.html.twig', {technicianOnCall: technicianOnCall}) }}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/master_sales_forecasts/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "salesForecasts": {
+      "type": "array"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "salesForecasts",
+    "legacyId"
+  ],
+  "additionalProperties": false
+}

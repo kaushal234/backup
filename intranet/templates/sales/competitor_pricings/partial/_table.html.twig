@@ -1,0 +1,85 @@
+{% trans_default_domain 'competitor_pricings' %}
+
+{% if raw is defined and raw is same as(true) %}
+    {% set template = 'helper/_report_table_raw.html.twig' %}
+{% else %}
+    {% set template = 'helper/_report_table.html.twig' %}
+{% endif %}
+
+{{ include(template, {
+    reportTable: {
+        items: {
+            id: {
+                label: 'sidebar.sales.cpr'|trans({}, 'sidebar')~'#',
+                link:{
+                    route: 'competitor_pricings_show',
+                    params: {'id':'@id'},
+                },
+                sortable: 'numeric'
+            },
+            fcr: {
+                label: 'sidebar.sales.fcr'|trans({}, 'sidebar')~'#',
+                properties: ['forecastClosure.@id'],
+                link:{
+                    route: 'forecast_closures_show',
+                    params: {'id':'forecastClosure.@id'},
+                },
+                sortable: 'numeric'
+            },
+            sfr: {
+                label: 'sidebar.sales.sfr'|trans({}, 'sidebar')~'#',
+                properties: ['forecastClosure.salesForecast.@id'],
+                link:{
+                    route: 'sales_forecasts_show',
+                    params: {'id':'forecastClosure.salesForecast.@id'},
+                },
+                sortable: 'numeric'
+            },
+            competitor: {
+                properties: ['competitor.name'],
+                label: 'competitors.name'|trans({}, 'sales_competitors'),
+                link:{
+                    route: 'sales_competitors_show',
+                    params: {'id':'competitor.@id'},
+                }
+            },
+            competitorModel: {
+                label: 'competitor_pricings.fields.model'|trans()
+            },
+            incoterm: {
+                properties: ['incoterm.code'],
+                label: 'competitor_pricings.fields.incoterms'|trans()
+            },
+            quantity: {
+                label: 'fields.quantity'|trans({}, 'messages')
+            },
+            price: {
+                label: 'competitor_pricings.fields.price'|trans(),
+                filters: ['number_format(2)'],
+                preserveNull: true
+            },
+            currency: {
+                properties: ['currency.name'],
+                label: 'competitor_pricings.fields.currency'|trans()
+            },
+            markupPercentage: {
+                label: 'competitor_pricings.fields.markup'|trans()
+            },
+            view: {
+                label: 'menu.view'|trans([], 'messages')|capitalize,
+                link:{
+                    route: 'competitor_pricings_show',
+                    params: {id:'id'},
+                    content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                },
+                sortable: false,
+                class : 'text-end'
+            },
+        },
+        title: 'competitor_pricings.title'|trans,
+        search: search is defined ? search : true,
+        data: competitorPricings,
+        initialSorting: false,
+        pagination: pagination is defined ? pagination : 20
+    }
+}, with_context = false) }}

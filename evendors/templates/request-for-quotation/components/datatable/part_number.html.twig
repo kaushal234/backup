@@ -1,0 +1,11 @@
+<td>
+    <div>
+        {{ item.partNumber }}
+    </div>
+    {% if item.site is defined %}
+        {% set revisionEffectiveDate = item.date|default("now"|date('Y-m-d')) %}
+        <div>
+            <a href="{{ path('manufacturing:bill-of-material:drawing-3d', {site: item.site.siteID, item: item.partNumber,effectiveDate: revisionEffectiveDate, revision: item.revision}) }}" class="ms-2 text-muted" title="Download 3D ZIP">3D files <i class="fa-solid fa-cube"></i></a>
+        </div>
+    {% endif %}
+</td>

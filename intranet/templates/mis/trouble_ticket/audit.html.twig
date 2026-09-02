@@ -1,0 +1,114 @@
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_row(form.location) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.region) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(form.subDivision) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{ form_row(form.division) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.createdAfter) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.createdBefore) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.supportTeam) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{ form_row(form.application) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.type) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.module) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.indiceFactor) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <hr class="hr-line-dashed">
+                            <div class="float-end">
+                                <label class="col-form-label">&nbsp;</label>
+                                <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans({}, 'messages') | upper }}</button>
+                            </div>
+                        </div>
+                    </div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if data is not null %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h3>{{ 'trouble_ticket.audit.title' | trans({}, 'trouble_ticket') | upper }}</h3>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive report-table-with-filter">
+                            <table class="footable table table-hover toggle-arrow-tiny report-table" data-filter=#filter data-page-size=20>
+                                <thead>
+                                <tr>
+                                    {% for key, value in data %}
+                                        <th>{{ ('trouble_ticket.audit.' ~ key) | trans({}, 'trouble_ticket') }}</th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    {% for key, value in data %}
+                                        <td>{{ value | round(2) }}</td>
+                                    {% endfor %}
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if chart is not null %}
+        <div class="col-md-12 highcharts" data-options="{{ chart|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+        <div class="col-md-12 highcharts" data-options="{{ chartTroubleTicketsByMonth|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+        <div class="col-md-12 highcharts" data-options="{{ chartTroubleTicketsClosed|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+    {% endif %}
+
+
+{% endblock %}

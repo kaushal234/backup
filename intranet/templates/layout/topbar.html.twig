@@ -1,0 +1,276 @@
+<nav class="navbar navbar-expand-lg navbar-static-top white-bg" style="padding: 0; height: 55px" role="navigation">
+    <div class="container-fluid d-flex">
+        <div class="me-auto p-2">
+            <a class="navbar-brand btn btn-primary navbar-minimalize" style="line-height: 20px" href="#">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+        {#                    NOTIFICATIONS#}
+        {{ include('layout/partial/_notifications_ajax.html.twig')}}
+
+        {#                    BOOKMARK #}
+        <div class="p-2">
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown bookmark-container">
+                        <a class="nav-link dropdown-toggle count-info" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-th fa-lg"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg-end dropdown-messages application-container">
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="{{ full_url('portal_shopfloor') }}shop/autoselect.php">
+                                        <i class="far fa-file img-fluid"></i>
+                                        <span>{{ 'topbar.shopfloor' | trans({}, 'topbar') }}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            {% if is_granted('INTRANET_ACCESS') %}
+                                <li>
+                                    <div class="icon">
+                                        <a class="dropdown-item" href="https://www.tld-gse.com/en/private/bounce/bounce.php?portal=dms">
+                                            <i class="far fa-file img-fluid"></i>
+                                            <span>DMS</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="{{ full_url('portal_extranet') }}">
+                                        <i class="far fa-file img-fluid"></i>
+                                        <span>Extranet</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="{{ full_url('portal_evendor') }}">
+                                        <i class="far fa-file img-fluid"></i>
+                                        <span>eVendor</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon mt-0">
+                                    <a class="dropdown-item" href="https://mobile.tld-gse.com">
+                                        <i class="img-fluid">
+                                            {{ ux_icon('uiw:mobile', {height: '32px', width: '32px'}) }}
+                                        </i>
+                                        <span>Mobile App</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="{{ full_url('portal_tldgroup') }}">
+                                        <i class="far fa-file img-fluid"></i>
+                                        <span>{{ 'topbar.tld_website' | trans({}, 'topbar') }}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="{{ full_url('portal_machinescloud') }}">
+                                        <img src="/shared/images/link-logo.jpg" alt="Link logo" title="Link" class="img-fluid"/>
+                                        <span>Link</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="http://www.aes-gse.com">
+                                        <img src="/shared/images/aes.jpg" alt="Alvest Equipment Services" title="Alvest Equipment Services" class="img-fluid"/>
+                                        <span>AES</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="http://www.smart-airport-systems.com/">
+                                        <img src="/shared/images/sas.jpg" alt="Smart Airport System" title="Smart Airport System" class="img-fluid"/>
+                                        <span>SAS</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://xops-aero.com/">
+                                        <img src="/shared/images/xops-logo.png" alt="XOPS" title="XOPS" class="img-fluid"/>
+                                        <span>XOPS</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://alvest.fr/">
+                                        <img src="/shared/logos/alvest_logo.jpg" alt="Alvest" title="Alvest" class="img-fluid"/>
+                                        <span>ALVEST</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://www.sageparts.com/">
+                                        <img src="/shared/images/sage-logo.png" alt="Sage Parts" title="Sage Parts" class="img-fluid"/>
+                                        <span>SAGE PARTS</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://www.aerospecialties.com/">
+                                        <img src="/shared/images/aerospecialties-logo.jpg" alt="Aero specialties" title="Aero specialties" class="img-fluid"/>
+                                        <span style="white-space: normal;">AERO SPECIALTIES</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://mingle-portal.eu1.inforcloudsuite.com/TLD_PRD">
+                                        <img src="/shared/images/infor-logo.png" alt="Infor" title="Infor" class="img-fluid"/>
+                                        <span>LN</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://alvest.learn.link/login">
+                                        <img src="/shared/images/logo-agile.png" alt="Alvest Agile" title="Alvest Agile" class="img-fluid"/>
+                                        <span>{{ 'home.title.agile'|trans }}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://crowdin.com/">
+                                        <i class="fa fa-language img-fluid"></i>
+                                        <span>{{ 'topbar.crowdin' | trans({}, 'topbar') }}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://tld-group.javelo.io/auth/login/signin">
+                                        <img src="/shared/images/logo-javelo.png" alt="Javelo" title="Javelo" class="img-fluid"/>
+                                        <span>{{ 'home.title.javelo'|trans }}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <a class="dropdown-item" href="https://send.transfertpro.com/?c=ALVEST">
+                                        <img src="/shared/images/transfert-pro-logo.png" alt="Transfert pro" title="Transfert pro" class="img-fluid"/>
+                                        <span>{{ 'home.title.transfert_pro'|trans }}</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {#                    CORPORATE CORPORATE CORPORATE CORPORATE CORPORATE CORPORATE#}
+        <div class="p-2">
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown corporate-container">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="far fa-building fa-lg"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg-end dropdown-alerts notifications-container">
+                            <li><a class="dropdown-item" href="{{ path('news_index') }}">{{ 'news.name'| trans({}, 'news') }}</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('corporate_pages_main') }}">{{ 'topbar.corporate' | trans({}, 'topbar') }}</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('corporate_pages_ethics') }}">{{ 'topbar.ethics' | trans({}, 'topbar') }}</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('acronyms_home') }}" title="AGR">{{ 'corporate.acronyms.glossary' | trans({}, 'corporate') }}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        {#                    CALENDAR CALENDAR CALENDAR CALENDAR CALENDAR CALENDAR#}
+        {% if is_granted('INTRANET_ACCESS') %}
+            <div class="p-2">
+                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown calendar-container">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="far fa-calendar-alt fa-lg"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-lg-end dropdown-alerts notifications-container">
+                                <li><a class="dropdown-item" href="{{ path('legacy_calendar') }}?m[0]=gwf">{{ 'topbar.group_work_flow' | trans({}, 'topbar') }}</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ path('legacy_calendar') }}">{{ 'topbar.tasks_and_sequences' | trans({}, 'topbar') }}</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ path('legacy_calendar') }}?m[0]=st&m[1]=STList">{{ 'topbar.scheduled_tasks' | trans({}, 'topbar') }}</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ path('legacy_calendar') }}?m[0]=bp">{{ 'topbar.business_process' | trans({}, 'topbar') }}</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ path('meeting_home') }}">{{ 'topbar.mom' | trans({}, 'topbar') }}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
+
+
+        {#                    LANGUAGE LANGUAGE LANGUAGE LANGUAGE LANGUAGE LANGUAGE#}
+        <div class="p-2">
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown language-container">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-language fa-lg"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg-end dropdown-alerts notifications-container">
+                            {% for key, language in languages %}
+                                <li><a class="dropdown-item" href="?_locale={{ key }}"><i class="fa fa-flag"></i>&nbsp;&nbsp;{{ language }}</a></li>
+                                {% if not loop.last %}
+                                    <li class="dropdown-divider"></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        {#                    ACCOUNT ACCOUNT ACCOUNT ACCOUNT ACCOUNT ACCOUNT#}
+        <div class="p-2">
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown account-container">
+                        <a class="nav-link dropdown-toggle user-thumbnail" href="{{ path('account_home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if (app.user is not null) and (app.user.photo is not empty) and app.environment is not same as 'dev' %}
+                                <img src="{{ asset(upload_uri ~ '/' ~ app.user.photo.filePath) }}?width=50">
+                            {% else %}
+                                <img width="50" height="50" src="/shared/no_photo.jpg">
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg-end dropdown-alerts">
+                            <li><a class="dropdown-item" href="{{ path('account_home') }}"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ 'topbar.account' | trans({}, 'topbar') }}</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('notifications_index') }}"><i class="fa-solid fa-bell"></i>&nbsp;&nbsp;{{ 'notifications.title.my_notifications' | trans({}, 'notifications') }}</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('followed_topics_home') }}"><i class="fa-solid fa-star"></i>&nbsp;&nbsp;{{ 'account.menu.followed_topics' | trans({}, 'account') }}</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('logout') }}"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;{{ 'topbar.logout' | trans({}, 'topbar') }}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</nav>

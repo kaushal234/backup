@@ -1,0 +1,243 @@
+{% extends 'purchasing/vendor_warranty_claim/layout.html.twig' %}
+
+ {% block title %}{{ parent() }}#{{ vendorWarrantyClaim.id }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+     <twig:Tabs:Tabs>
+            <twig:Tabs:NavItemList>
+                {{ include('purchasing/vendor_warranty_claim/partial/tabs/_nav.html.twig', {
+                    vendorWarrantyClaim: vendorWarrantyClaim,
+                }) }}
+            </twig:Tabs:NavItemList>
+
+            <twig:Tabs:Content>
+                {% trans_default_domain 'vendor_warranty_claim' %}
+                <div class="row">
+                    <div class="col-md-7">
+                        {% set items = {
+                            id: { label: '#' },
+                            status: {
+                                label: 'fields.status'|trans({}, 'messages'),
+                                properties: ['status.name'],
+                            },
+                            type: {
+                                label: 'spare_parts_request.fields.type' | trans({}, 'spare_parts_request'),
+                                template: '/purchasing/vendor_warranty_claim/partial/_type_cell.html.twig',
+                            },
+                            module: {
+                                label: 'sidebar.it.module'|trans({}, 'sidebar'),
+                                template: '/purchasing/vendor_warranty_claim/partial/_module_cell.html.twig',
+                            },
+                            createdAt: {
+                                label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                                filters: 'date("Y-m-d")',
+                            },
+                            closedAt: {
+                                label: 'wms.picking_alert.closed_at'|trans({}, 'wms')|capitalize,
+                                filters: 'date("Y-m-d")',
+                                preserveNull: true,
+                            },
+                            poster: {
+                                properties: ['poster.firstname', 'poster.lastname'],
+                                label: 'fields.poster'|trans({}, 'messages'),
+                                link: {
+                                    'route': 'directory_people_show',
+                                    'params': {'id':'poster.@id'}
+                                }
+                            },
+                            assignee: {
+                                properties: ['assignee.lastname', 'assignee.firstname'],
+                                label: 'tasks.assignee'|trans({}, 'messages'),
+                                link: {
+                                    route: 'directory_people_show',
+                                    params: {'id':'assignee.@id'}
+                                }
+                            },
+                            erp: {
+                                label:'directory.location.fields.erp' | trans({}, 'directory') | upper,
+                                properties: ['location.name'],
+                                filters: ['concat(" - ' ~ vendorWarrantyClaim.location.erp ~ '")']
+                            },
+                            supplierNumber: { label: 'vendor_warranty_claim.fields.supplier_number' | trans | capitalize },
+                            supplierName: { label: 'finance.approver.supplier_name'|trans({}, 'finance'), },
+                            requestedSupplierAction: { label: 'vendor_warranty_claim.fields.requested_supplier_action'|trans },
+                            scarRequested: {
+                                label:'vendor_warranty_claim.fields.scar_requested' | trans,
+                                boolean: {
+                                    true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                    false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                                }
+                            },
+                            supplierCorrectiveActionRequest: {
+                                label:'vendor_warranty_claim.fields.scar' | trans,
+                                properties: ['supplierCorrectiveActionRequest.id'],
+                                link: {
+                                    route: 'supplier_corrective_action_request_show',
+                                    params: {'id':'supplierCorrectiveActionRequest.@id'}
+                                }
+                            },
+                            accepted: {
+                                label:'vendor_warranty_claim.fields.accepted' | trans,
+                                boolean: {
+                                    true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                    false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                                }
+                            },
+                            supplierReturnMerchandiseAuthorization: { label:'vendor_warranty_claim.fields.supplier_rma' | trans },
+                            shipBackDefectivePart: {
+                                label:'vendor_warranty_claim.fields.ship_back_defective_part' | trans,
+                                boolean: {
+                                    true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                    false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                                }
+                            },
+                            supplierShippingInstruction: { label:'vendor_warranty_claim.fields.shipping_instructions' | trans },
+                            supplierStockVerified: { label:'vendor_warranty_claim.fields.supplier_stock_verified' | trans },
+                            tldStockVerified: { label:'vendor_warranty_claim.fields.tld_stock_verified' | trans },
+                            issueOrigin: { label:'vendor_warranty_claim.fields.issue_origin' | trans },
+                            correctiveAction: { label:'vendor_warranty_claim.fields.corrective_action' | trans },
+                            supplierShipperName: { label:'vendor_warranty_claim.fields.supplier_shipper_name' | trans },
+                            trackingNumber: { label:'tracking.fields.tracking_number' | trans({}, 'tracking') },
+                            costBreakdown: { label:'vendor_warranty_claim.fields.cost_breakdown' | trans },
+                            requestedCreditAmount: { label:'vendor_warranty_claim.fields.requested_credit_amount' | trans },
+                            resolution: { label:'vendor_warranty_claim.fields.resolution' | trans },
+                        } %}
+
+                        {% if vendorWarrantyClaim['@type'] is same as('NcrVendorWarrantyClaim') %}
+                            {% set items = items | merge({
+                                failureType: {
+                                    properties: ['nonConformity.failureType'],
+                                    label: 'non_conformity.fields.failure_type' | trans({}, 'non_conformity'),
+                                },
+                                processes: {
+                                    label: 'non_conformity.fields.process' |  trans({}, 'non_conformity'),
+                                    template: 'purchasing/vendor_warranty_claim/partial/_cell_process.html.twig',
+                                    templateParams: { item: vendorWarrantyClaim.nonConformity }
+                                }
+                            }) %}
+                        {% endif %}
+
+                        {{ include('helper/_association_table.html.twig', {
+                            associationData: {
+                                items: items,
+                                title: 'VWC#' ~ vendorWarrantyClaim.id,
+                                data: vendorWarrantyClaim
+                            },
+                        }, with_context = false) }}
+                    </div>
+                    <div class="col-md-5">
+                        <div style="margin-bottom: 20px">
+                            {% if (vendorWarrantyClaim.nonConformity is defined and vendorWarrantyClaim.nonConformity.mainFile is not null) or (vendorWarrantyClaim.mainFile is defined and vendorWarrantyClaim.mainFile is not null) %}
+                                {% if (vendorWarrantyClaim.nonConformity is defined and vendorWarrantyClaim.nonConformity.mainFile is not null) %}
+                                    {% set file = vendorWarrantyClaim.nonConformity.mainFile %}
+                                {% else %}
+                                    {% set file = vendorWarrantyClaim.mainFile  %}
+                                {% endif %}
+                                {% set route = vendorWarrantyClaim.nonConformity is defined ? 'non_conformity_download_main_file' : 'vendor_warranty_claim_mail_file_show' %}
+                                {% set id = vendorWarrantyClaim.nonConformity is defined ? vendorWarrantyClaim.nonConformity.id : vendorWarrantyClaim.id %}
+                                {% if file.extension not in ['png', 'jpg', 'jpeg'] %}
+                                    <a href="{{ path(route, {id: id, fileId: file.id}) }}"><img src="/shared/bluesphere/96x96/mimetypes/document.png"></a>
+                                {% else %}
+                                    <a href="{{ path(route, {id: id, fileId: file.id}) }}"><img class="m-t-xs img-responsive" width="400" src="{{ asset(upload_uri ~ '/' ~ file.filePath) }}"></a>
+                                {% endif %}
+                            {% else %}
+                                <img class="m-t-xs img-responsive" width="400" src="/shared/no_photo_catalogue.png">
+                            {% endif %}
+                        </div>
+                        <h3>{{ 'vendor_warranty_claim.title.business_partner_contacts_list'|trans }}</h3>
+                        {{ include('helper/_report_table.html.twig', {
+                            reportTable: {
+                                items: {
+                                    fullName: {label: 'contacts.fields.name'|trans({}, 'contacts')},
+                                    emailAddress: {label: 'contacts.fields.email'|trans({}, 'contacts')},
+                                    telephone: {label: 'contacts.fields.phone'|trans({}, 'contacts')},
+                                },
+                                data: contacts,
+                                pagination: false,
+                                search: false,
+                                options: {
+                                    card: false,
+                                }
+                            }
+                        }, with_context = false )}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% set items = {
+                            view: {
+                                label: 'menu.view'|trans([], 'messages')|capitalize,
+                                link:{
+                                    route: 'legacy_manufacturing_whse',
+                                    params: {id: 'partNumber'},
+                                    fixedParams: { m: ['inv', 'byPNPlanned'], erp: vendorWarrantyClaim.location.erp },
+                                    content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                                },
+                                sortable: false,
+                            },
+                            partNumber: {
+                                label: 'spare_parts_request.fields.part_number'|trans({}, 'spare_parts_request')|capitalize,
+                                link: {
+                                    route: 'legacy_manufacturing_eng',
+                                    params: {'pn':'partNumber'},
+                                    fixedParams: { m: ['bom', 'view'], erp: vendorWarrantyClaim.location.erp }
+                                }
+                            },
+                            description: { label: 'fields.description'|trans([], 'messages')|capitalize },
+                            serialNumber: { label: 'demo.fields.serial_number'|trans([], 'demo') },
+                            vendorPartNumber: { label: 'vendor_warranty_claim.part.fields.vendor_part_number'|trans },
+                            vendorSerialNumber: { label: 'vendor_warranty_claim.part.fields.vendor_serial_number'|trans },
+                            quantity: { label: 'fields.quantity'|trans([], 'messages') },
+                            receivedQuantity: { label: 'vendor_warranty_claim.part.fields.vendor_serial_number'|trans },
+                            unitOfMeasure: { label: 'spare_parts_request.fields.unit_of_measure'|trans({}, 'spare_parts_request') },
+                            standardCost: { label: 'vendor_warranty_claim.part.fields.standard_cost'|trans },
+                            failureType: { label: 'vendor_warranty_claim.part.fields.failure_type'|trans },
+                            failureSystem: { label: 'vendor_warranty_claim.part.fields.failure_system'|trans },
+                            ship: {
+                                label: 'vendor_warranty_claim.part.fields.ship'|trans,
+                                boolean: {
+                                    true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                    false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                                }
+                            },
+                            drawing: {
+                                label: 'vendor_warranty_claim.drawing'|trans([], 'vendor_warranty_claim'),
+                                link: {
+                                    route: 'legacy_manufacturing_eng',
+                                    params: {'item':'partNumber'},
+                                    fixedParams: { m: ['getfile', 'drawing'], erp: vendorWarrantyClaim.location.erp, date: "now"|date('Y-m-d') },
+                                    content: ux_icon('bi:filetype-doc', {height: '16px', width: '16px'}),
+                                    target: '_blank',
+                                }
+                            },
+                        } %}
+                        {% if is_granted('FEATURE_VENDOR_WARRANTY_CLAIM_EDIT') %}
+                            {% set items = items|merge({
+                                delete: {
+                                    label: 'button.delete'|trans([], 'messages')|capitalize,
+                                    link: {
+                                        route: 'vendor_warranty_claim_part_delete',
+                                        params: {partId: '@id'},
+                                        content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                                        fixedParams: {'id': vendorWarrantyClaim.id},
+                                    },
+                                    sortable: false,
+                                    class : 'text-end',
+                                }
+                            }) %}
+                        {% endif %}
+                        {{ include('helper/_report_table.html.twig', {
+                            reportTable: {
+                                items: items,
+                                data: vendorWarrantyClaim.parts,
+                                title: 'spare_parts_request.fields.parts' | trans({}, 'spare_parts_request'),
+                                pagination: false,
+                                search: false
+                            }
+                        }, with_context = false )}}
+                    </div>
+                </div>
+            </twig:Tabs:Content>
+        </twig:Tabs:Tabs>
+{% endblock %}

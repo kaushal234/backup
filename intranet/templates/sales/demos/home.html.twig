@@ -1,0 +1,183 @@
+{% extends 'sales/demos/layout.html.twig' %}
+{% trans_default_domain 'demo' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js" xmlns:hx="http://www.w3.org/1999/XSL/Transform"></script>
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="text-capitalize">{{ 'customer_relationship_team.fields.quick_access'|trans([], 'customer_relationship_team') }}</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_start(idSearchForm, { action: path('demo_home') }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(idSearchForm) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(idSearchForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filters' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('sales/demos/partial/_form_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('demo_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'demo.fields.id'|trans|capitalize,
+                            link:{
+                                route: 'demo_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        customer: {
+                            label: 'demo.fields.customer'|trans,
+                            properties: ['customer.name'],
+                            link:{
+                                route: 'sales_customers_show',
+                                params: {'id':'customer.@id'},
+                            }
+                        },
+                        product: {
+                            properties: ['product.name'],
+                            label: 'demo.fields.product'|trans|capitalize,
+                            link:{
+                                route: 'sales_catalogue_product_show',
+                                params: {'id':'product.@id'},
+                            }
+                        },
+                        equipmentRecord: {
+                            properties: ['equipmentRecord.legacyId'],
+                            label: 'demo.fields.equipment_record'|trans|capitalize,
+                            link:{
+                                route: 'legacy_product_support',
+                                params: {'id':'equipmentRecord.legacyId'},
+                                fixedParams: {'m':['equipment', 'view']},
+                            }
+                        },
+                        factory: {
+                            properties: ['factory.name'],
+                            label: 'fields.factory'|trans({}, 'messages')|capitalize,
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'factory.@id'},
+                            }
+                        },
+                        sso: {
+                            properties: ['sso.name'],
+                            label: 'fields.sso'|trans({}, 'messages'),
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'sso.@id'},
+                            }
+                        },
+                        country: {
+                            properties: ['country.name'],
+                            label: 'demo.fields.country'|trans|capitalize
+                        },
+                        airport: {
+                            properties: ['airport.code'],
+                            label: 'fields.airport'|trans({}, 'messages')|capitalize
+                        },
+                        asm: {
+                            properties: ['asm.lastname', 'asm.firstname'],
+                            label: 'demo.fields.asm'|trans|upper,
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'asm.@id'}
+                            }
+                        },
+                        status: {label: 'demo.fields.status'|trans|capitalize},
+                        statusUpdatedAt: {
+                            label: 'demo.fields.status_updated_at'|trans,
+                            filters: 'date("Y-m-d")',
+                            preserveNull: true,
+                        },
+                        expectedStartDate: {
+                            label: 'demo.fields.expected_start_date'|trans,
+                            filters: 'date("Y-m-d")',
+                            preserveNull: true,
+                        },
+                        expectedEndDate: {
+                            label: 'demo.fields.expected_end_date'|trans,
+                            filters: 'date("Y-m-d")',
+                            preserveNull: true,
+                        },
+                        revisedEndDate: {
+                            label: 'demo.fields.revised_end_date'|trans,
+                            filters: 'date("Y-m-d")',
+                            preserveNull: true,
+                        },
+                        delinquent: {
+                            label: 'demo.fields.delinquent'|trans,
+                            boolean: {
+                                true: '<div class="text-center"><span class="d-none">1</span><i class="fa fa-circle text-danger"></i></div>',
+                                false: '<div class="text-center"><span class="d-none">0</span><i class="fa fa-circle" style="color: #009639"></i></div>'
+                            }
+                        }
+                    },
+                    initialSorting: false,
+                    searchTable: searchTable,
+                    title: reportTitle|trans,
+                    data: demos,
+                    tooltip: {
+                        property: 'comment'
+                    }
+                }
+            }, with_context = false) }}
+        </div>
+
+    </div>
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>{{ 'demo.fields.last_seq'|trans }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <hx:include src="/en/private/calendar/seq/seq_demos_hinclude.php" id="block_seq">
+                <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+            </hx:include>
+        </div>
+    </div>
+{% endblock %}
+
+{% block form_label -%}
+    {{ include('sales/partial/input_with_no_label.html.twig') }}
+{%- endblock form_label %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('partial/_footable.html.twig', {'selectors': ['#block_seq']}) }}
+{% endblock %}

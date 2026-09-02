@@ -1,0 +1,906 @@
+{% extends 'layout.html.twig' %}
+{% form_theme form 'form_theme_horizontal.html.twig' %}
+
+{% trans_default_domain 'purchasing_smw' %}
+
+{% block title %} {{ 'purchasing_smw.title.index' |trans }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="text-capitalize mb-3">{{ 'purchasing_smw.title.index'|trans }}</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_start(form, { action: path('smw_meeting', {module: 'purchasing'}) }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(form) }}
+                        </div>
+                        <div class="col-sm-2 ">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'button.submit'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <hr></hr>
+    </div>
+
+    <div class="row mb-3">
+        <h2 class="smw-section">{{ 'quality_smw.section.v1'| trans([], 'quality_smw') }}</h2>
+    </div>
+
+    <div class="row">
+        <div class="ibox float-e-margins col-md-10">
+            <div class="ibox-title">
+                <h5>{{ 'purchasing_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                            <tr>
+                                <th>{{ 'purchasing_smw.fields.title'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.description'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.link'| trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.wc_1st_link'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.fields.warranty_new'| trans([], 'quality_smw') }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_index', {m: ['kpi2'], bu: location.legacyId, graph: 'quality' }) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.vwc_count'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.manufacturing_vwc'| trans}}</td>
+                                <td><a href="{{ path('legacy_manufacturing_pur', {m: ['vwc'], setting:'people_titles'}) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.ncr_2nd_link'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.fields.manufacturing_ncr_10'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_manufacturing_qa', {m: ['ncr', 'reports', 'mlList', 'topTenSuppliers'], location: location.legacyId}) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.inventory_by_site'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.fields.inventory_by_site'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('power_bi_report_show', {id: 1}) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.supplier_ranking'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.manufacturing_supplier'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_pur', {m: ['vendors', 'comp-dashboard'], erp: location.erp}) }}">
+                                        <span class="btn btn-warning btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.payment_terms'| trans }}</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.vendor_otdp'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.kpi'| trans }}</td>
+                                <td><a href="{{ path('power_bi_report_show', {id: 3}) }}" target="_blank" rel="noopener noreferrer">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.review_materials'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.excel'| trans }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.vendor_negociation'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.vendor_description'| trans }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.review_impact'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.excel'| trans }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.ppv_standard'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.ppv_standard_dashboard'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_pur', {m: ['reports', 'PPVStdDashBoard'], erp: location.erp}) }}">
+                                        <span class="btn btn-warning btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.ppv_invoice'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.ppv_invoice_dashboard'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_pur', {m: ['reports', 'PPVInvDashBoard'], erp: location.erp}) }}">
+                                        <span class="btn btn-warning btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.sim_evolution'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.excel'| trans }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.raw_material'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.inventory_chart'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_pur', {m: ['reports', 'inventorywipraw', 'byBUID'], erp: location.erp}) }}">
+                                        <span class="btn btn-warning btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.cycle_count'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.cycle_count_chart'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_manufacturing_index', {m: ['kpi', 'buid', 'inventory', ''], buid: location.legacyId}) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.purchasing_freight'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.kpi'| trans }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'purchasing_smw.fields.purchasing_dashboard'| trans }}</td>
+                                <td>{{ 'purchasing_smw.fields.pur_dashboard'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_pur', {m: ['home', 'statistics'], erp: location.erp}) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <hr></hr>
+    </div>
+
+    <div class="row">
+        <h2 class="smw-section">{{ 'quality_smw.section.v2'| trans([], 'quality_smw') }}</h2>
+    </div>
+
+    {# overview section #}
+    <div class="row smw">
+        <div class="heading">
+            {{ 'quality_smw.overview.heading'| trans([], 'quality_smw') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins col-md-10">
+            <div class="ibox-title">
+                <h5>{{ 'purchasing_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                            <tr>
+                                <th>{{ 'purchasing_smw.fields.title'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.description'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.link'| trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.overview.review.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.overview.review.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('legacy_manufacturing_index', {m: ['kpi2'], bu: location.legacyId, graph: 'quality' }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.overview.trends.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.overview.trends.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('smw_charts') }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {# operational performance section #}
+    <div class="row smw">
+        <div class="heading">
+            {{ 'quality_smw.performance.heading'| trans([], 'quality_smw') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins col-md-10">
+            <div class="ibox-title">
+                <h5>{{ 'purchasing_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                            <tr>
+                                <th>{{ 'purchasing_smw.fields.title'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.description'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.link'| trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.performance.otdp.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.performance.otdp.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '2.1', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.performance.mrp.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.performance.mrp.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '2.2', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.performance.mrp_shortage.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.performance.mrp_shortage.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '2.3', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.performance.payment.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.performance.payment.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.performance.ncr.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.performance.ncr.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('non_conformity_report', {
+                                        'location': location['@id'],
+                                        'createdAfter': "now"|date_modify('first day of last month')|date('m/d/Y'),
+                                        'createdBefore': "now"|date_modify('first day of this month')|date('m/d/Y'),
+                                    })}}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.performance.vwc.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.performance.vwc.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('vendor_warranty_claim_flop', {
+                                        'location': location.id,
+                                    })}}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.performance.scar.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.performance.scar.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('supplier_corrective_action_request_review', {
+                                        'filter_all_scar_data_table': {
+                                            'iFactor': {
+                                                'value': 'IF1000'
+                                            },
+                                            'createdAt': {
+                                                'value': {
+                                                    'from': "now"|date_modify('first day of last month')|date('m/d/Y'),
+                                                    'to': "now"|date_modify('last day of last month')|date('m/d/Y')
+                                                }
+                                            },
+                                            'factory': {
+                                                'value': location['@id']
+                                            },
+                                        },
+                                        'filter_opened_scar_data_table': {
+                                            'iFactor': {
+                                                'value': 'IF1000'
+                                            },
+                                            'createdAt': {
+                                                'value': {
+                                                    'from': "now"|date_modify('first day of last month')|date('m/d/Y'),
+                                                    'to': "now"|date_modify('last day of last month')|date('m/d/Y')
+                                                }
+                                            },
+                                            'status': {
+                                                'value': [
+                                                    'PENDING',
+                                                    'VENDOR TO FILL FORM',
+                                                    'TLD TO REVIEW FORM',
+                                                    'VALIDATION',
+                                                    'COMMERCIAL AGREEMENT'
+                                                ]
+                                            },
+                                            'factory': {
+                                                'value': location['@id']
+                                            },
+                                        },
+                                        'page_all_scar_data_table': '1',
+                                        'limit_all_scar_data_table': '10',
+                                        'page_opened_scar_data_table': '1',
+                                        'limit_opened_scar_data_table': '10'
+                                    })}}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.performance.claims.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.performance.claims.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('vendor_warranty_claim_home', {
+                                        'filter_vendor_warranty_claims': {
+                                            'location': {
+                                                'value': location['@id']
+                                            },
+                                            'status': {
+                                                'value': [
+                                                    '/purchasing/vendor_warranty_claim_statuses/3'
+                                                ]
+                                            },
+                                            'createdAt': {
+                                                'value': {
+                                                    'from': "first day of -3 month"|date('m/d/Y'),
+                                                    'to': "last day of last month"|date('m/d/Y')
+                                                }
+                                            }
+                                        },
+                                        'sort_vendor_warranty_claims': {
+                                            'requestedCreditAmount': 'desc'
+                                        },
+                                        'show_claim_amount': true,
+                                    })}}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    {# supplier ranking section #}
+    <div class="row smw">
+        <div class="heading">
+            {{ 'quality_smw.ranking.heading'| trans([], 'quality_smw') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins col-md-10">
+            <div class="ibox-title">
+                <h5>{{ 'purchasing_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                            <tr>
+                                <th>{{ 'purchasing_smw.fields.title'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.description'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.link'| trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.ranking.vendor_review.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.ranking.vendor_review.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('supplier_rankings_review', {
+                                        'filter_all_vendors_data_table': {
+                                            'classification': {
+                                                'value': [
+                                                    '/purchasing/supplier_ranking/classifications/1',
+                                                    '/purchasing/supplier_ranking/classifications/2',
+                                                    '/purchasing/supplier_ranking/classifications/3',
+                                                    '/purchasing/supplier_ranking/classifications/4'
+                                                ]
+                                            },
+                                            'location': {
+                                                'value': location['@id']
+                                            }
+                                        },
+                                        'sort_datatable1': {
+                                            'nextReviewAt': 'asc'
+                                        },
+                                        'filter_limited_vendors_data_table': {
+                                            'classification': {
+                                                'value': [
+                                                    '/purchasing/supplier_ranking/classifications/3',
+                                                    '/purchasing/supplier_ranking/classifications/4'
+                                                ]
+                                            },
+                                            'location': {
+                                                'value': location['@id']
+                                            }
+                                        },
+                                        'filter_monitored_vendors_data_table': {
+                                            'classification': {
+                                                'value': [
+                                                    '/purchasing/supplier_ranking/classifications/2',
+                                                ]
+                                            },
+                                            'location': {
+                                                'value': location['@id']
+                                            }
+                                        },
+                                        'page_all_vendors_data_table': '1',
+                                        'limit_all_vendors_data_table': '10',
+                                        'page_limited_vendors_data_table': '1',
+                                        'limit_limited_vendors_data_table': '10',
+                                        'page_monitored_vendors_data_table': '1',
+                                        'limit_monitored_vendors_data_table': '10'
+                                    })}}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.ranking.score_completion.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.ranking.score_completion.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('supplier_rankings_criteria', { location: location.id })}}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.ranking.resist.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.ranking.resist.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('supplier_rankings_home', {
+                                        'filter_supplier_ranking': {
+                                            'criteriaEnvironmentalSocialGovernance': {
+                                                'value': [
+                                                    '1',
+                                                    'null'
+                                                ] 
+                                            },
+                                            'location': {
+                                                'value': location['@id']
+                                            }
+                                        }
+                                    })}}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.ranking.files_review.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.ranking.files_review.description'| trans([], 'quality_smw') }}</td>
+                                <td>
+                                    <a href="{{ path('supplier_rankings_files_review', {
+                                        'filter_completed_files_data_table': {
+                                            'classification': {
+                                                'value': [
+                                                    '/purchasing/supplier_ranking/classifications/1',
+                                                    '/purchasing/supplier_ranking/classifications/2',
+                                                    '/purchasing/supplier_ranking/classifications/3',
+                                                    '/purchasing/supplier_ranking/classifications/4',
+                                                ]
+                                            },
+                                            'location': {
+                                                'value': location['@id']
+                                            }
+                                        },
+                                        'filter_expired_files_data_table': {
+                                            'classification': {
+                                                'value': [
+                                                    '/purchasing/supplier_ranking/classifications/1',
+                                                    '/purchasing/supplier_ranking/classifications/2',
+                                                    '/purchasing/supplier_ranking/classifications/3',
+                                                    '/purchasing/supplier_ranking/classifications/4',
+                                                ]
+                                            },
+                                            'location': {
+                                                'value': location['@id']
+                                            },
+                                            'hasExpiredFiles': {
+                                                'value': true
+                                            }
+                                        },
+                                        'page_completed_files_data_table': '1',
+                                        'limit_completed_files_data_table': '10',
+                                        'page_expired_files_data_table': '1',
+                                        'limit_expired_files_data_table': '10'
+                                    })}}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# monthly review section #}
+    <div class="row smw">
+        <div class="heading">
+            {{ 'quality_smw.review.heading'| trans([], 'quality_smw') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins col-md-10">
+            <div class="ibox-title">
+                <h5>{{ 'purchasing_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                            <tr>
+                                <th>{{ 'purchasing_smw.fields.title'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.description'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.link'| trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.review.material.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.review.material.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.review.global.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.review.global.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.review.top20.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.review.top20.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.review.top3.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.review.top3.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.review.negotiation.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.review.negotiation.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    {# cost control section #}
+    <div class="row smw">
+        <div class="heading">
+            {{ 'quality_smw.cost.heading'| trans([], 'quality_smw') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins col-md-10">
+            <div class="ibox-title">
+                <h5>{{ 'purchasing_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                            <tr>
+                                <th>{{ 'purchasing_smw.fields.title'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.description'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.link'| trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.cost.global.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.cost.global.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.cost.machine.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.cost.machine.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.cost.review.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.cost.review.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.cost.evolution.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.cost.evolution.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.cost.plan.title'| trans([], 'quality_smw') }}</td>
+                                <td>{{ 'quality_smw.cost.plan.description'| trans([], 'quality_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# inventory section #}
+    <div class="row smw">
+        <div class="heading">
+            {{ 'quality_smw.inventory.heading'| trans([], 'quality_smw') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins col-md-10">
+            <div class="ibox-title">
+                <h5>{{ 'purchasing_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                            <tr>
+                                <th>{{ 'purchasing_smw.fields.title'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.description'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.link'| trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.inventory.evolution.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '6.1', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.inventory.top10.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '6.2', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.inventory.top10_worst.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '6.3', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.inventory.transit.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '6.4', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.inventory.quarantine.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '6.5', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.inventory.obsolete.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '6.6', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.inventory.pipo.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '6.7', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    {# warehouse section #}
+    <div class="row smw">
+        <div class="heading">
+            {{ 'quality_smw.warehouse.heading'| trans([], 'quality_smw') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins col-md-10">
+            <div class="ibox-title">
+                <h5>{{ 'purchasing_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                            <tr>
+                                <th>{{ 'purchasing_smw.fields.title'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.description'| trans }}</th>
+                                <th>{{ 'purchasing_smw.fields.link'| trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.warehouse.rate.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '7.1', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.warehouse.status_rate.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.warehouse.phr.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '7.3', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.warehouse.plan.title'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '7.4', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

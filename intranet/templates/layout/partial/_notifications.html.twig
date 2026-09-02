@@ -1,0 +1,57 @@
+{% block notifications %}
+    {% block notifications_impersonated %}
+        {% if is_granted('ROLE_IMPERSONATED') %}
+            <div class="alert alert-danger">
+                You are connected as {{ app.user.username }}
+                <a href="?_switch_exit">Click to log back to your account</a>
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block notifications_password %}
+        {% if app.user is not null and not is_granted('ROLE_PASSWORD_NOT_EXPIRING') %}
+            {% set remainingDays = app.user.timeBeforePasswordExpiration|date("%R%a") %}
+            {% if remainingDays <= 5 %}
+                <div class="alert alert-danger">
+                    {% if remainingDays <=0 %}
+                        Your password is expired
+                    {% else %}
+                        {{ 'security.login.expired_notice'|trans({'%count%': app.user.timeBeforePasswordExpiration|date("%a")}) }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endblock %}
+
+    {% block notifications_error %}
+        {% for flashMessage in app.session.flashbag.get(error_key|default('error')) %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                {{ flashMessage|raw }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+    {% block notifications_warning %}
+        {% for flashMessage in app.session.flashbag.get(warning_key|default('warning')) %}
+            <div class="alert alert-warning alert-dismissible fade show">
+                {{ flashMessage|raw }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+    {% block notifications_info %}
+        {% for flashMessage in app.session.flashbag.get(info_key|default('info')) %}
+            <div class="alert alert-info alert-dismissible fade show">
+                {{ flashMessage|raw }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+    {% block notifications_success %}
+        {% for flashMessage in app.session.flashbag.get(success_key|default('success')) %}
+            <div class="alert alert-success alert-dismissible fade show">
+                {{ flashMessage|raw }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+{% endblock %}

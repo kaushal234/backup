@@ -1,0 +1,99 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_widget(form.createdBy) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.location) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.region) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.subDivision) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_widget(form.assignee) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.application) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.module) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.division) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(form.createdAfter) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.createdBefore) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.type) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.status) }}
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(form.dueDateAfter) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.dueDateBefore) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_widget(form.misAssignee) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.premise) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(form.jiraIssueNumber ) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.indiceFactor ) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.shortDescription ) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.operationalOwner ) }}
+            </div>
+            <div class="col-lg-3" style="margin-top: 45px">
+                {{ form_widget(form.assignee_exists) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3" style="margin-top: 45px">
+                {{ form_widget(form.mis_assignee_exists) }}
+            </div>
+            <div class="col-lg-3" style="margin-top: 45px">
+                {{ form_widget(form.jira_issue_not_exists) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <hr class="hr-line-dashed">
+                <div class="float-end">
+                    <label class="col-form-label">&nbsp;</label>
+                    <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans | upper }}</button>
+                    <a href="{{ resetPath }}" class="btn btn-secondary">{{ 'button.reset'| trans | upper }}</a>
+                    {{ form_widget(form.download) }}
+                </div>
+            </div>
+        </div>
+{{ form_end(form) }}
+

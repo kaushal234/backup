@@ -1,0 +1,7 @@
+<td>
+    <a href="{{ path('user_story_files_show', {moduleId: moduleId, id: item.id, userStoryId: userStoryId}) }}"
+       {% if 'image/' in item.mimeType %}data-bs-toggle="tooltip-image"{% endif %}
+    >
+        {{ value|slice(27) }}
+    </a>
+</td>

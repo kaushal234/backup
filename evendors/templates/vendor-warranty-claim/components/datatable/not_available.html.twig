@@ -1,0 +1,2 @@
+{% set value = attribute(item, key) is not null and attribute(item, key) != '' ? attribute(item, key) : 'N/A' %}
+<td>{{ value | raw | nl2br }}</td>

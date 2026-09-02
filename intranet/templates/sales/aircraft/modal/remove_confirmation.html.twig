@@ -1,0 +1,27 @@
+{% embed 'helper/datatable_modal.html.twig' with {
+    id: 'remove_aircraft_' ~ aircraft.id,
+    button: {
+        name: '',
+        icon: 'fa-trash',
+        color: 'danger'
+    },
+    modal: {
+        title: '<i class="fa fa-warning text-warning"></i> Confirmation',
+        size: 'lg',
+        targetButton: {
+            name: 'Yes, remove',
+            link: path('aircraft_delete', {
+                id: aircraft.id,
+                '_token': csrf_token('delete_aircraft')
+            }),
+            color: 'danger'
+        },
+        closeButton: {
+            name: 'Cancel'
+        }
+    },
+} %}
+    {% block body %}
+        Are you sure you want to remove ?<br />
+    {% endblock %}
+{% endembed %}

@@ -1,0 +1,13 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block body %}
+    {{ parent() }}
+    <row>
+        <p>{{ 'sales.pre_delivery_inspection.closed.message'|trans({
+                '%serialNumber%': preDeliveryInspection.equipmentRecord.serialNumber|default(''),
+                '%plannedAt%': preDeliveryInspection.plannedAt|date('Y-m-d'),
+                '%status%': preDeliveryInspection.status
+            }, 'emails')|nl2br }}
+        </p>
+    </row>
+{% endblock %}

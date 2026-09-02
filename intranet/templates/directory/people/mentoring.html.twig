@@ -1,0 +1,32 @@
+{% extends 'directory/people/layout_people.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h5>{{ 'directory.people.mentoring.mentor'|trans|capitalize }}</h5>
+    <div class="row">
+        {% if (people.mentor is not null) %}
+                    {{ include('partial/_people_contact.html.twig', {
+                        entry: people.mentor,
+                    }, with_context=false) }}
+        {% else %}
+            {{ 'directory.people.mentoring.no_mentor'|trans|capitalize }}
+        {% endif %}
+    </div>
+    <hr>
+    <h5>{{ 'directory.people.mentoring.mentees'|trans|capitalize }}</h5>
+    <div class="row">
+        {% if (people.mentees|length) > 0 %}
+            {% for mentee in people.mentees %}
+                {{ include('partial/_people_contact.html.twig', {
+                    entry: mentee,
+                }, with_context=false) }}
+                {% if (loop.index % 3) == 0 %} </div><div class="row">{% endif %}
+            {% endfor %}
+        {% else %}
+            {{ 'directory.people.mentoring.no_mentee'|trans|capitalize }}
+        {% endif %}
+    </div>
+{% endblock %}
+

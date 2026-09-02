@@ -1,0 +1,98 @@
+App\Entity\Directory\People:
+    user_representative_1:
+        id: 1
+        firstname: <firstname()>
+        lastname: <lastname()>
+        username (unique): <email()>
+        email: '@self->username'
+        encodedPassword: 1WK5xqIdtvNuUxfyKMm9zAx41k38FgrkcfrGoYMahQai/gvpqzbLlw4G/l/AovxP/UzHSij5Hz7GNkDRmkxA4A== # P@ssw0rd
+        salt: aa798bf8879d46aac7e4cf081551f58bf201df963091fc41415dcd494eaa4603
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+        phones: ['@phone_user_basic']
+
+    user_representative_2:
+        id: 2
+        firstname: user
+        lastname: rep
+        username: user-rep
+        email: <email()>
+        encodedPassword: 1WK5xqIdtvNuUxfyKMm9zAx41k38FgrkcfrGoYMahQai/gvpqzbLlw4G/l/AovxP/UzHSij5Hz7GNkDRmkxA4A== # P@ssw0rd
+        salt: aa798bf8879d46aac7e4cf081551f58bf201df963091fc41415dcd494eaa4603
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+        phones: ['@phone_user_basic']
+
+    user_representative_3:
+        id: 3
+        firstname: "William"
+        lastname: "ADAMA"
+        username (unique): "representative_william.adama@galactica.cap"
+        email: '@self->username'
+        encodedPassword: 1WK5xqIdtvNuUxfyKMm9zAx41k38FgrkcfrGoYMahQai/gvpqzbLlw4G/l/AovxP/UzHSij5Hz7GNkDRmkxA4A== # P@ssw0rd
+        salt: aa798bf8879d46aac7e4cf081551f58bf201df963091fc41415dcd494eaa4603
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+        contractType: '@contract_type_1'
+        businessUnit: '@business_unit_<numberBetween(2,15)>'
+        closestAirport: '@airport_tesurlesysteme'
+
+    user_representative_4:
+        id: 4
+        firstname: Ellie
+        lastname: WILLIAMS
+        username (unique): representative_ellie@tlou.com
+        email: '@self->username'
+        encodedPassword: 1WK5xqIdtvNuUxfyKMm9zAx41k38FgrkcfrGoYMahQai/gvpqzbLlw4G/l/AovxP/UzHSij5Hz7GNkDRmkxA4A== # P@ssw0rd
+        salt: aa798bf8879d46aac7e4cf081551f58bf201df963091fc41415dcd494eaa4603
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+        contractType: '@contract_type_1'
+        businessUnit: '@business_unit_9'
+        closestAirport: '@airport_tesurlesysteme'
+
+    user_representative_5:
+        id: 5
+        firstname: Abigail
+        lastname: HERMAN
+        username (unique): representative_abi@tld.com
+        email: '@self->username'
+        encodedPassword: 1WK5xqIdtvNuUxfyKMm9zAx41k38FgrkcfrGoYMahQai/gvpqzbLlw4G/l/AovxP/UzHSij5Hz7GNkDRmkxA4A== # P@ssw0rd
+        salt: aa798bf8879d46aac7e4cf081551f58bf201df963091fc41415dcd494eaa4603
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+        contractType: '@contract_type_1'
+        businessUnit: '@business_unit_<numberBetween(2,15)>'
+
+    user_representative_{6..9}:
+        id: <current()>
+        firstname: <firstname()>
+        lastname: <lastname()>
+        username (unique): "representative_<current()>_@loop.io"
+        email: '@self->username'
+        encodedPassword: 1WK5xqIdtvNuUxfyKMm9zAx41k38FgrkcfrGoYMahQai/gvpqzbLlw4G/l/AovxP/UzHSij5Hz7GNkDRmkxA4A== # P@ssw0rd
+        salt: aa798bf8879d46aac7e4cf081551f58bf201df963091fc41415dcd494eaa4603
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>
+        contractType: '@contract_type_1'
+        businessUnit: '@business_unit_<numberBetween(2,15)>'
+
+    # /people/10
+    user_transferred:
+        id: 10
+        firstname: user
+        lastname: transferred
+        username: user-transferred@tld.fr
+        alternateEmail: alternate@email.com
+        email: '@self->username'
+        encodedPassword: 1WK5xqIdtvNuUxfyKMm9zAx41k38FgrkcfrGoYMahQai/gvpqzbLlw4G/l/AovxP/UzHSij5Hz7GNkDRmkxA4A== # P@ssw0rd
+        salt: aa798bf8879d46aac7e4cf081551f58bf201df963091fc41415dcd494eaa4603
+        hidden: false
+        disabled: false
+        passwordUpdatedAt: <dateTimeBetween('-30 days', 'now')>

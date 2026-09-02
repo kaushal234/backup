@@ -1,0 +1,9 @@
+framework:
+    rate_limiter:
+        # Public equipment search limiter (route equipment:show:public).
+        # sliding_window strategy: max LIMIT requests over the sliding window INTERVAL.
+        # Chosen to smooth out bursts at window boundaries while staying simple to calibrate.
+        public_equipment_search:
+            policy: 'sliding_window'
+            limit: '%env(int:RATE_LIMIT_PUBLIC_SEARCH_LIMIT)%'
+            interval: '%env(RATE_LIMIT_PUBLIC_SEARCH_INTERVAL)%'

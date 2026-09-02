@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <txShowResponse xmlns="http://www.infor.com/businessinterface/txBusinessPartner">
+      <txShowResponse xmlns="">
+        <DataArea>
+          <txBusinessPartner>
+            <code>ACE0012</code>
+            <name>ACE HARDWARE</name>
+            <role>supplier</role>
+            <status>active</status>
+            <text/>
+            <currency>USD</currency>
+            <contacts/>
+            <buyFrom>
+              <departments>
+                <department>
+                  <code>250PPU</code>
+                  <name>AS OEM Purchase Parts</name>
+                  <buyer>
+                    <code>ZZMIG    </code>
+                    <name>DUMMY EMPLOYEE MIGRATION</name>
+                    <department>400ENG</department>
+                    <emailAddress/>
+                  </buyer>
+                </department>
+                <department>
+                  <code>260PPU</code>
+                  <name>AS SSO Purchase Parts</name>
+                  <buyer>
+                    <code>ZZMIG    </code>
+                    <name>DUMMY EMPLOYEE MIGRATION</name>
+                    <department>400ENG</department>
+                    <emailAddress/>
+                  </buyer>
+                </department>
+              </departments>
+            </buyFrom>
+          </txBusinessPartner>
+        </DataArea>
+      </txShowResponse>
+    </txShowResponse>
+  </S:Body>
+</S:Envelope>

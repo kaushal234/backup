@@ -1,0 +1,18 @@
+{% extends 'quality/layout.html.twig' %}
+{% trans_default_domain 'calibration_tool' %}
+
+{% set tool_id = iri_id(tool) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+
+
+{% block content %}
+    {{ include('quality/calibrated_tools/tools/partial/_activation_form.html.twig', {
+        title: 'calibration_tool.title.edit'|trans,
+        form: form,
+        action: path('quality_calibrated_tools_activate', { id: tool_id}),
+        cancel_link: path('quality_calibrated_tools_home'),
+        tool: tool
+    }, with_context=false) }}
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'minutes_of_meeting/layout.html.twig' %}
+{% trans_default_domain 'meeting' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+{% form_theme simpleSearchForm 'form_theme_vertical.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'customer_relationship_team.fields.quick_access'|trans([], 'customer_relationship_team')}}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                            {{ form_start(idSearchForm, { action: path('meeting_home') }) }}
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        {{ form_widget(idSearchForm) }}
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                                    </div>
+                                </div>
+                            {{ form_end(idSearchForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5> {{ 'titles.quick_search'|trans({}, 'messages') }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                            {{ form_start(simpleSearchForm, { action: path('meeting_home') }) }}
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        {{ form_widget(simpleSearchForm) }}
+                                    </div>
+
+                                    <div class="col-md-2 ">
+                                        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                                    </div>
+                                </div>
+                            {{ form_end(simpleSearchForm) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'contacts.fields.id'|trans({},'contacts')|capitalize,
+                            link:{
+                                route: 'meeting_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        createdAt: {
+                            label: 'fields.date'|trans({}, 'messages')|capitalize,
+                            filters: ["date('Y-m-d')"]
+                        },
+                        status: {
+                            label: 'demo.fields.status'|trans({}, 'demo')|capitalize,
+                        },
+                        quick: {
+                            label: 'meeting.fields.quickMeeting'|trans|capitalize,
+                            boolean: {
+                                'true': '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                'false': '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        },
+                        title: {
+                            label: 'contacts.mail.subject'|trans({}, 'contacts')|capitalize,
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'meeting_show',
+                                params: {'id':'id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+                    },
+                    initialSorting: false,
+                    searchTable: true,
+                    search: false,
+                    title: title,
+                    data: meetings,
+                    pagination: false
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('partial/_footable.html.twig', {'selectors': ['#block_seq']}) }}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% set productTypes = [] %}
+<td>
+    <ul>
+    {% for productType in item.productTypes %}
+        <li>{{ productType.englishName }}</li>
+    {% endfor %}
+    </ul>
+</td>

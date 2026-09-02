@@ -1,0 +1,7 @@
+<td>
+    {% if isGrantedEdit %}
+        {{ form_widget(form['positionCategories'][item['@id']|iri_id]['name']) }}
+    {% else %}
+        {{ item.name }}
+    {% endif %}
+</td>

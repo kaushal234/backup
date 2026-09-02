@@ -1,0 +1,186 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ manual.equipment.serialNumber }} — {{ 'extranet.title.manual'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.manual'|trans,
+        hero_title: manual.equipment.serialNumber,
+        hero_sub: manual.equipment.product,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.fields.equipments'|trans, href: path('equipment:index') },
+            { label: manual.equipment.serialNumber, href: path('equipment:show', {id: manual.equipment.id}) },
+            { label: 'extranet.title.manual'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            <div class="row g-4 mb-4 et-tables">
+                <div class="col-12">
+                    <h2 class="section-title mb-3">{{ 'extranet.title.manual'|trans }}</h2>
+                    {% embed '_components/association_table.html.twig' with {
+                        associationData: {
+                            items: {
+                                status: {label: 'fields.status'|trans},
+                                model: {
+                                    label: 'display.table.vwc_wc.header.model'|trans,
+                                    properties: ['equipment.product']
+                                },
+                                description: {label: 'display.table.scar.headers.description'|trans},
+                                features: {
+                                    label: 'extranet.fields.features'|trans,
+                                    template: 'generic/_expandable_cell.html.twig',
+                                },
+                                language: {
+                                    label: 'fields.language'|trans|capitalize,
+                                    filters: 'upper'
+                                },
+                                createdAt: {
+                                    label: 'fields.created_at'|trans,
+                                    filters: 'date("Y-m-d")',
+                                },
+                            },
+                            title: 'extranet.title.manual' | trans,
+                            data: manual
+                        }
+                    } %}
+                    {% endembed %}
+                    <a href="{{ path('manual:download_chapter4', {id: manual.id}) }}" target="_blank"
+                       class="btn btn-outline btn-primary mt-3">
+                        {{ ux_icon('tabler:file-type-pdf', {height: '16px', width: '16px', 'aria-hidden': true}) }}
+                        {{ 'support.manuals.menu.chapter4_pdf_parts_manual'|trans({}, 'support') }}
+                    </a>
+                </div>
+            </div>
+
+            {% if documents is not empty %}
+                <h2 class="section-title mt-4 mb-3">{{ 'support.manual_documents.title'|trans({}, 'support') }}</h2>
+                <h2 class="section-title mb-3">{{ 'support.manual_documents.manual_section_title'|trans({}, 'support')|upper }}</h2>
+            {% else %}
+                <p class="text-muted">{{ 'support.manual_documents.no_result'|trans({}, 'support') }}</p>
+            {% endif %}
+
+            {% if documents is not empty %}
+            <div data-controller="document-filter">
+                <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center gap-2 py-2">
+                        {{ ux_icon('tabler:filter', {height: '18px', width: '18px', 'aria-hidden': true}) }}
+                        <h3 class="fs-6 fw-semibold mb-0">{{ 'button.filters'|trans|capitalize }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="filter-factory-number" class="form-label small text-muted mb-1">
+                                    {{ 'support.manual_document_parts.fields.part_number'|trans({}, 'support') }}
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ ux_icon('tabler:search', {height: '16px', width: '16px', 'aria-hidden': true}) }}</span>
+                                    <input type="text" id="filter-factory-number" class="form-control"
+                                           data-document-filter-target="factory"
+                                           data-action="input->document-filter#filter"
+                                           placeholder="{{ 'support.manual_document_parts.fields.part_number'|trans({}, 'support') }}">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="filter-description" class="form-label small text-muted mb-1">
+                                    {{ 'display.table.scar.headers.description'|trans }}
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ ux_icon('tabler:search', {height: '16px', width: '16px', 'aria-hidden': true}) }}</span>
+                                    <input type="text" id="filter-description" class="form-control"
+                                           data-document-filter-target="description"
+                                           data-action="input->document-filter#filter"
+                                           placeholder="{{ 'display.table.scar.headers.description'|trans }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% set partsDiagramAlreadyShown = false %}
+            {% for key, documentData in documents %}
+                {% if partsDiagramAlreadyShown is same as false and documentData[0].type is same as 'PARTS DIAGRAM' %}
+                    {% set partsDiagramAlreadyShown = true %}
+                    <h2 class="section-title mt-4 mb-3">{{ 'support.manual_documents.parts_diagram_title'|trans({}, 'support')|upper }}</h2>
+                {% endif %}
+                <div class="row g-4 mb-4 et-tables">
+                    <div class="col-12">
+                        {% set reportTableTitle = key|length > 0 ? ('support.manual_documents.categories.'~key)|trans({}, 'support') : ('support.manual_documents.categories.unknown'|trans({}, 'support')) %}
+                        {% set columns = {
+                            position: {
+                                label: 'menu.directory_position.title'|trans,
+                            },
+                            factoryNumber: {
+                                label: 'support.manual_document_parts.fields.part_number'|trans({}, 'support'),
+                                class: 'js-doc-factory',
+                            },
+                            revision: {
+                                label: 'manufacturing.bill_of_materials.headers.revision'|trans,
+                            },
+                            type: {
+                                label: 'display.table.vwc.headers.type'|trans,
+                            },
+                            category: {
+                                properties: ['category.name'],
+                                label: 'fields.category'|trans,
+                            },
+                            description: {
+                                label: 'display.table.scar.headers.description'|trans,
+                                class: 'js-doc-description',
+                            },
+                            otherDescription: {
+                                label: 'support.manual_documents.fields.other_description'|trans({}, 'support'),
+                            },
+                            filePath: {
+                                label: 'menu.pdf'|trans({}, 'messages')|capitalize,
+                                link:{
+                                    route: 'manual_document:download',
+                                    params: { id: 'id', fileId: 'document.id', extension: 'document.extension'},
+                                    content: '<button class="btn btn-sm btn-outline btn-primary">' ~ ux_icon('tabler:download', {height: '16px', width: '16px', 'aria-hidden': true}) ~'</button>',
+                                    target: '_blank'
+                                },
+                            },
+                            view: {
+                                label: 'menu.view'|trans({}, 'messages')|capitalize,
+                                link:{
+                                    route: 'manual_document:show',
+                                    params: { id: 'id'},
+                                    content: '<button class="btn btn-sm btn-outline btn-primary">' ~ ux_icon('tabler:eye', {height: '16px', width: '16px', 'aria-hidden': true}) ~'</button>',
+                                },
+                            }
+                        } %}
+                        {% if manual.language == 'ENGLISH' %}
+                            {# Removing element #}
+                            {% set columns = columns | filter((v, k) => k != 'otherDescription') %}
+                        {% endif %}
+
+                        {% embed '_components/report_table.html.twig' with {
+                            reportTable: {
+                                items: columns,
+                                title: reportTableTitle,
+                                data: documentData,
+                                initialSorting: 'id',
+                                pagination: false,
+                                search: false,
+                                totalNumber: false
+                            }
+                        } %}
+                        {% endembed %}
+                    </div>
+                </div>
+            {% endfor %}
+
+                <p class="text-muted d-none" data-document-filter-target="empty">
+                    {{ 'support.manual_documents.no_result'|trans({}, 'support') }}
+                </p>
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+</div>
+{% endblock %}

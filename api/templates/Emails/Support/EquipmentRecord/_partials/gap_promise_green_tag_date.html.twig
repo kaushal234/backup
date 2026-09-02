@@ -1,0 +1,3 @@
+<td>
+    <span style="color: {{ item.equipmentRecord.orderFactory.gapPromiseGreenTag > 0 ? 'red' : (item.equipmentRecord.orderFactory.gapPromiseGreenTag < 0 ? 'green' : 'black') }}">{{ item.equipmentRecord.orderFactory.gapPromiseGreenTag }} {{ 'days' | trans({}, 'messages') }}</span>
+</td>

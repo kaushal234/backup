@@ -1,0 +1,21 @@
+{% extends 'support/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:LegacyNavItem icon="material-symbols:home-outline-rounded"
+                            url="/en/private/product_support/index.ps.php?m[0]=equipment&m[1]=view&id={{ equipmentRecord.legacyId }}">
+            {{ 'support.nav_link.equipment_record'|trans({'%id%': equipmentRecord.legacyId}, 'support') }}
+        </twig:LegacyNavItem>
+        <twig:NavItem:Edit route="equipment_serials_edit" :routeParameters="{id: equipmentRecord.id}"/>
+        <twig:NavItem translationKey="support.nav_link.logs" domain="support" icon="mynaui:list"
+                      route="equipment_serials_logs" :routeParameters="{ id: equipmentRecord.id }"/>
+        <twig:LegacyNavItem translationKey="support.nav_link.user_guide" domain="support"
+                            icon="material-symbols:info-outline-rounded"
+                            url="/en/private/mis/mis.php?m%5B0%5D=help&m%5B1%5D=dms&id=6832"/>
+        {% if equipmentRecord is defined %}
+            <twig:NavItem translationKey="support.nav_link.cancel" domain="support" icon="mdi:ban"
+                          route="equipment_serials_show" :routeParameters="{id: equipmentRecord.id}"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

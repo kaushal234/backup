@@ -1,0 +1,10 @@
+{% if item.positionLevels is empty %}
+    {% set positionLevel = 'ALL EMPLOYEES' %}
+{% elseif item.positionLevels | length == 1 %}
+    {% set positionLevel = 'EXECUTIVES ONLY' %}
+{% else %}
+    {% set positionLevel = 'MANAGERS AND EXECUTIVES ONLY' %}
+{% endif %}
+<td>
+    {{ positionLevel }}
+</td>

@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ 'menu.aircraft_compatibility.title' | trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    {% if aircraftCompatibility is defined %}
+        <twig:NavBar:Container>
+            <twig:NavItem:Add route="aircraft_compatibility_add"
+                              :security="is_granted('FEATURE_CREATE_AIRCRAFT_COMPATIBILITY') or is_granted('MOO_AC')"/>
+            <twig:NavItem translationKey="aircraft_compatibility.nav_link.aircraft" domain="aircraft_compatibility"
+                          icon="tabler:plane" route="aircraft_home"/>
+            <twig:NavItem:Edit route="aircraft_compatibility_edit" :routeParameters="{id: aircraftCompatibility.id}"
+                               :security="is_granted('FEATURE_CREATE_AIRCRAFT_COMPATIBILITY') or is_granted('MOO_AC')"/>
+            <twig:NavItem translationKey="aircraft_compatibility.nav_link.add_file" domain="aircraft_compatibility"
+                          icon="bitcoin-icons:plus-filled"
+                          route="aircraft_compatibility_add_file" :routeParameters="{id: aircraftCompatibility.id}"
+                          :security="is_granted('FEATURE_CREATE_AIRCRAFT_COMPATIBILITY') or is_granted('MOO_AC')"/>
+            <twig:NavItem:Delete route="aircraft_compatibility_add"
+                                 :security="is_granted('FEATURE_CREATE_AIRCRAFT_COMPATIBILITY') or is_granted('MOO_AC')"/>
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

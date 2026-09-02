@@ -1,0 +1,33 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.request_for_quotations'|trans }}{% endblock %}
+
+{% block main %}
+    {{ include('_components/report_table.html.twig', {
+        reportTable: {
+            items: {
+                id: {
+                    label: 'display.table.rfq.headers.id'|trans,
+                    link:{
+                        route: 'request-for-quotation:show',
+                        params: {id: 'id', erp: 'erp'},
+                    },
+                },
+                erp: {label: 'display.table.rfq.headers.erp'|trans},
+                supplierNumber: {label: 'display.table.rfq.headers.supplier_number'|trans},
+                buyer: {
+                    label: 'display.table.rfq.headers.buyer'|trans,
+                    template: 'request-for-quotation/components/datatable/buyer.html.twig'
+                },
+                returnDate: {label: 'display.table.rfq.headers.return_date'|trans},
+                status: {
+                    label: 'display.table.rfq.headers.status'|trans,
+                    template: 'request-for-quotation/components/datatable/status.html.twig'
+                },
+            },
+            title: 'display.table.rfq.caption.title'|trans,
+            id: 'request-for-quotation-table',
+            data: requests,
+        }
+    }, with_context = false) }}
+{% endblock %}

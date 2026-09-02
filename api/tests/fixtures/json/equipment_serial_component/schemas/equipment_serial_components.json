@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/equipment_serial_components"},
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/equipment_serial_components/\\d+$"
+            },            "@type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name",
+            "id"
+          ]
+        }
+      ],
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

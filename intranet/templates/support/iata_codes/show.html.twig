@@ -1,0 +1,62 @@
+{% extends 'support/iata_codes/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-6">
+    {{ include('helper/_association_table.html.twig', {
+        'associationData': {
+            'items': {
+                '@id': {label: 'Iri'},
+                code: {label: 'support.iata.fields.code'|trans|capitalize},
+                type: {label: 'support.iata.fields.type'|trans|capitalize},
+                name: {label: 'support.iata.fields.name'|trans|capitalize},
+                country: {
+                    label: 'support.iata.fields.country'|trans|capitalize,
+                    properties: ['country.name'],
+                },
+                cityName: {label: 'support.iata.fields.city_name'|trans|capitalize},
+                cityCode3: {label: 'support.iata.fields.city_code'|trans|capitalize},
+                source: {label: 'support.iata.fields.source'|trans|capitalize},
+                legacyId: {label: 'Legacy Id'},
+            },
+            'title': 'support.iata.title'|trans,
+            'data': iataCode},
+    }, with_context = false) }}
+    </div>
+    {% if iataCode.type is same as 'Airport' %}
+    <div class="col-lg-6 mb-4">
+        <div id="map" class="h-100 w-100"></div>
+    </div>
+    {% endif %}
+</div>
+
+    {% if is_granted('FEATURE_IATA_CODE_WRITE') %}
+        <div class="ibox-content">
+            <div class="logs-block" data-resource="{{ iataCode['@id'] }}" data-show-comment-form="true"></div>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        const globalAirport = {{ iataCode.toArray|json_encode|raw }};
+    </script>
+
+    {{ encore_entry_script_tags('iataMap') }}
+{% endblock %}
+

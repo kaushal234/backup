@@ -1,0 +1,18 @@
+App\Entity\Module\ChangeLog:
+    change_log_1:
+        module: '@module_fixed_1'
+        author: '@user_dev'
+        date: <( new \DateTime("2023-06-01"))>
+        message: Yet another fix
+        ticket: 1000666
+        hash: ich
+        type: fix
+
+    change_log_{2..4}:
+        module: '@module_fixed_<current()>'
+        author: '@user_basic'
+        date: <dateTimeBetween('-60 days', '-30 days')>
+        message: Message
+        ticket: <numberBetween(2000000, 3000000)>
+        hash: hash<current()>
+        type: <randomElement(['fix', 'feat', 'chore', 'refactor'])>

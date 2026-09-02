@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": { "type": "string" },
+    "@type": { "type": "string" },
+    "shortDescription": { "type": ["string", "null"] },
+    "description": { "type": ["string", "null"] },
+    "startDate": { "type": ["string", "null"] },
+    "expirationDate": { "type": ["string", "null"] },
+    "jurisdiction": { "type": ["string", "null"] },
+    "value": { "type": ["integer", "null"] },
+    "currency": { "type": ["string", "null"] },
+    "renewalPeriod": { "type": ["integer", "null"] },
+    "renewalUnit": { "type": ["string", "null"] },
+    "message": { "type": ["string", "null"] },
+    "parties": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "properties": {
+          "@type": { "type": "string" },
+          "partyName": { "type": "string" },
+          "partyRole": { "type": "string" }
+        },
+        "required": ["partyName", "partyRole"]
+      }
+    }
+  },
+  "required": [
+    "shortDescription", "description",
+    "startDate", "expirationDate",
+    "jurisdiction", "value", "currency",
+    "renewalPeriod", "renewalUnit",
+    "parties", "message"
+  ]
+}

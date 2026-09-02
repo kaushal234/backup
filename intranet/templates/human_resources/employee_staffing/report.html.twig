@@ -1,0 +1,364 @@
+{% extends 'human_resources/employee_staffing/layout.html.twig' %}
+{% trans_default_domain 'employee_staffing' %}
+
+{% macro coloredText(value) %}
+    {% if value != 0 %}{{ value > 0 ? 'text-red' : 'text-black' }}{% endif %}
+{% endmacro %}
+
+{% block bodyClass %}mini-navbar{% endblock %}
+
+{% set directCounts = {direct: 0, indirect: 0} %}
+{% set categoryTypeCounts = {} %}
+{% set totals = {
+    correction: 0,
+    correctedTotal: 0,
+    budget: 0,
+    reforecast: 0,
+    previousYearCorrectedTotal: 0,
+    versusPreviousYear: 0,
+    versusBudget: 0,
+    versusReforecast: 0,
+} %}
+
+{% for category in positionCategories %}
+    {% set direct = category.directHeadcount is same as(true) %}
+    {% set countKey = direct ? 'direct' : 'indirect' %}
+    {% set directCounts = directCounts|merge({(countKey): directCounts[countKey] + 1 }) %}
+    {% set categoryKey = category.positionCategoryType.name ~ countKey %}
+
+    {% set categoryTypeCounts = categoryTypeCounts|merge({
+        (categoryKey): (categoryTypeCounts[categoryKey]|default(0)) + 1
+    }) %}
+{% endfor %}
+
+{% set showLogs = report.metadata.scope|default('') == 'BusinessUnit' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'employee_staffing.title'|trans }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-6">
+                    {{ form_start(filterForm) }}
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_widget(filterForm.entity) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_widget(filterForm.snapshot) }}
+                                {{ form_widget(filterForm.categorized) }}
+                                {{ form_widget(filterForm.contractType) }}
+                                {{ form_widget(filterForm.positionCategory) }}
+                            </div>
+                            <div class="col-md-2">
+                                {{ form_widget(filterForm.submit) }}
+                            </div>
+                            {% if is_granted('FEATURE_EMPLOYEE_STAFFING_REPORT') %}
+                                <div class="col-md-2">
+                                    {{ form_widget(filterForm.submitRegionalResultsReview) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {{ form_end(filterForm) }}
+                    </div>
+                </div>
+                <hr>
+
+                {% if report.metadata.scope|default('') is not same as ('BusinessUnit') %}
+                    <p><strong>{{ 'employee_staffing.business_units_list'|trans }}:</strong>
+                        {% for businessUnit in report.metadata.businessUnits|sort((a, b) => a.name <=> b.name) %}
+                            <a href="{{ path('human_resources_employee_staffing_home', {entity: businessUnit['@id']}) }}">{{ businessUnit.name }}</a>{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    </p>
+                    <hr>
+                {% endif %}
+
+                {% if editable %}
+                    {{ form_start(form, { action: path('human_resources_employee_staffing_home', {entity: entity}) }) }}
+                    {{ form_errors(form) }}
+                {% endif %}
+                <div class=" table-rotated-headers">
+                    <table class="table matrix-table matrix-table-no-hover tooltip-container table-responsive">
+                        <thead>
+                        <tr>
+                            <th colspan="3"></th>
+                            {% for title, total in report.yTotals %}
+                                <th class="top-label text-grey"><div><span>{{ title }}</span></div></th>
+                            {% endfor %}
+                            <th class="top-label"><div><span>{{ 'employee_staffing.headers.total'|trans }}</span></div></th>
+                            <th class="top-label text-grey"><div><span>{{ 'employee_staffing.headers.correction'|trans }}</span></div></th>
+                            <th class="top-label text-grey not-rotated" style="min-width: 30vw"><div><span>{{ 'employee_staffing.headers.comment'|trans }}</span></div></th>
+                            <th class="top-label"><div><span>{{ 'employee_staffing.headers.total_corrected'|trans }}</span></div></th>
+                            <th class="top-label text-grey"><div><span>{{ 'employee_staffing.headers.y-1'|trans }}</span></div></th>
+                            <th class="top-label text-grey"><div><span>{{ 'employee_staffing.headers.budget_y'|trans }}</span></div></th>
+                            <th class="top-label text-grey"><div><span>{{ 'employee_staffing.headers.reforecast_y'|trans }}</span></div></th>
+                            <th class="top-label text-grey"><div><span>{{ 'employee_staffing.headers.versus_y-1'|trans }}</span></div></th>
+                            <th class="top-label text-grey"><div><span>{{ 'employee_staffing.headers.versus_budget'|trans }}</span></div></th>
+                            <th class="top-label text-grey"><div><span>{{ 'employee_staffing.headers.versus_reforecast'|trans }}</span></div></th>
+                            {% if showLogs is same as(true) %}
+                                <th></th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for category in positionCategories %}
+                            <tr>
+                                {% set direct = category.directHeadcount is same as(true) %}
+                                {% set countKey = direct ? 'direct' : 'indirect' %}
+                                {% set categoryKey = category.positionCategoryType.name ~ countKey %}
+
+                                {% if directCounts[countKey] is not same as(false)  %}
+                                    <th class="vertical" rowspan="{{ directCounts[countKey] }}"><div>{{ countKey }}</div></th>
+                                    {% set directCounts = directCounts|merge({(countKey): false }) %}
+                                {% endif %}
+
+                                {% if categoryTypeCounts[categoryKey] is not same as(false)  %}
+                                    <th rowspan="{{ categoryTypeCounts[categoryKey] }}" style="width: 150px"><div>{{ category.positionCategoryType.name }}</div></th>
+                                    {% set categoryTypeCounts = categoryTypeCounts|merge({(categoryKey): false }) %}
+                                {% endif %}
+
+                                <th>{{ category.name }}</th>
+                                {% for contractType, total in report.yTotals %}
+                                    <td>
+                                        {% set value = report.rows[category.name][contractType].value|default(0) %}
+                                        {% if value > 0 %}
+                                            <a href="{{ path('human_resources_employee_staffing_home', {categorized: true, positionCategory: report.metadata.xIris[category.name], contractType: report.metadata.yIris[contractType], entity: entity}) }}">
+                                                {{ value|number_format(1, '.', ' ') }}
+                                            </a>
+                                        {% else %}
+                                            {{ value|number_format(1, '.', ' ') }}
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                                <td class="total">
+                                    {% if (report.xTotals[category.name]|default(0)) > 0 %}
+                                        <a href="{{ path('human_resources_employee_staffing_home', {categorized: true, positionCategory: report.metadata.xIris[category.name], entity: entity}) }}">
+                                            {{ report.xTotals[category.name]|number_format(1, '.', ' ') }}
+                                        </a>
+                                    {% else %}
+                                        {{ report.xTotals[category.name]|default(0)|number_format(1, '.', ' ') }}
+                                    {% endif %}
+                                </td>
+
+                                {% set totals = totals|merge({correction: totals.correction + report.metadata.classifications[category.name].correction|default(0)}) %}
+                                <td class="text-end matrix-input" style="width: 35px">
+                                    {% if editable and form['positionClassifications'][category.getIriId()]['correction'] is defined %}
+                                        {{ form_widget(form['positionClassifications'][category.getIriId()]['positionCategory'])}}
+                                        {{ form_widget(form['positionClassifications'][category.getIriId()]['correction']) }}
+                                    {% else %}
+                                        {{ report.metadata.classifications[category.name].correction|default(0)|number_format(1, '.', ' ') }}
+                                    {% endif %}
+                                </td>
+
+                                {% set comments = report.metadata.classifications[category.name].comments|default([]) %}
+                                {% set commentsCount = comments|length %}
+                                <td class="text-start matrix-input"
+                                        {% if commentsCount > 1 and editable == false %}
+                                            {% set tooltipContent = '' %}
+                                            {% for comment in comments %}
+                                                {% set tooltipContent = tooltipContent ~ comment ~ '<br>' %}
+                                            {% endfor %}
+                                            data-toggle="tooltip" data-placement="start" data-html="true" title="{{ tooltipContent }}"
+                                        {% endif %}
+                                >
+                                    {% if commentsCount > 0 and editable == false %}
+                                        <small>
+                                            {{ comments[0] }}
+                                            {% if commentsCount > 1 %}
+                                                <span class="badge bg-primary float-end">+{{ commentsCount - 1 }}</span>
+                                            {% endif %}
+                                        </small>
+                                    {% endif %}
+                                    {% if editable and form['positionClassifications'][category.getIriId()]['comment'] is defined %}
+                                        {{ form_widget(form['positionClassifications'][category.getIriId()]['comment']) }}
+                                    {% else %}
+                                        {{ report.metadata.classifications[category.name].comment|default('') }}
+                                    {% endif %}
+                                </td>
+
+                                {% set correctedTotal = (report.xTotals[category.name]|default(0)) + (report.metadata.classifications[category.name].correction|default(0)) %}
+                                {% set totals = totals|merge({correctedTotal: totals.correctedTotal + correctedTotal}) %}
+                                <td class="text-end total">{{ correctedTotal|number_format(1, '.', ' ') }}</td>
+
+                                {% set totals = totals|merge({previousYearCorrectedTotal: totals.previousYearCorrectedTotal + report.metadata.classifications[category.name].previousYearCorrectedTotal|default(0)}) %}
+                                <td class="text-end primary">{{ report.metadata.classifications[category.name].previousYearCorrectedTotal|default(0)|number_format(1, '.', ' ') }}</td>
+
+                                {% set totals = totals|merge({budget: totals.budget + report.metadata.classifications[category.name].budget|default(0)}) %}
+                                <td class="text-end table-success matrix-input" style="width: 40px">
+                                    {% if editable and form['positionClassifications'][category.getIriId()]['budget'] is defined %}
+                                        {{ form_widget(form['positionClassifications'][category.getIriId()]['budget']) }}
+                                    {% else %}
+                                        {{ report.metadata.classifications[category.name].budget|default(0)|number_format(1, '.', ' ') }}
+                                    {% endif %}
+                                </td>
+
+                                {% set totals = totals|merge({reforecast: totals.reforecast + report.metadata.classifications[category.name].reforecast|default(0)|number_format(1, '.', ' ')}) %}
+                                <td class="text-end table-success matrix-input" style="width: 40px">
+                                    {% if editable and form['positionClassifications'][category.getIriId()]['reforecast'] is defined %}
+                                        {{ form_widget(form['positionClassifications'][category.getIriId()]['reforecast']) }}
+                                    {% else %}
+                                        {{ report.metadata.classifications[category.name].reforecast|default(0)|number_format(1, '.', ' ') }}
+                                    {% endif %}
+                                </td>
+
+                                {% set versusPreviousYear = (report.xTotals[category.name]|default(0)) + (report.metadata.classifications[category.name].correction|default(0)) - (report.metadata.classifications[category.name].previousYearCorrectedTotal|default(0)) %}
+                                {% set totals = totals|merge({versusPreviousYear: totals.versusPreviousYear + versusPreviousYear}) %}
+                                <td class="text-end {{ _self.coloredText(versusPreviousYear) }}">{{ versusPreviousYear|number_format(1, '.', ' ') }}</td>
+
+                                {% set versusBudget = (report.xTotals[category.name]|default(0)) + (report.metadata.classifications[category.name].correction|default(0)) - (report.metadata.classifications[category.name].budget|default(0)) %}
+                                {% set totals = totals|merge({versusBudget: totals.versusBudget + versusBudget}) %}
+                                <td class="text-end {{ _self.coloredText(versusBudget) }}">{{ versusBudget|number_format(1, '.', ' ') }}</td>
+
+                                {% set versusReforecast = (report.xTotals[category.name]|default(0)) + (report.metadata.classifications[category.name].correction|default(0)) - (report.metadata.classifications[category.name].reforecast|default(0)) %}
+                                {% set totals = totals|merge({versusReforecast: totals.versusReforecast + versusReforecast}) %}
+                                <td class="text-end {{ _self.coloredText(versusReforecast) }}">{{ versusReforecast|number_format(1, '.', ' ') }}</td>
+
+                                {% if showLogs is same as(true) %}
+                                    {% if report.metadata.classifications[category.name].iris|default([])|length == 1 %}
+                                        {{ include('partial/cells/_activity.html.twig', {
+                                            item: {'@id': report.metadata.classifications[category.name].iris[0]},
+                                            title: category.name,
+                                            class: 'text-start',
+                                        }) }}
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        {% if report.metadata.uncategorized|default([]) is not empty %}
+                            <tr>
+                                <th colspan="2" class="error"></th>
+                                <th class="error">{{ 'employee_staffing.headers.uncategorized'|trans }} <i class="fa fa-fw fa-exclamation"></i></th>
+                                {% set total = 0 %}
+                                {% set tooltipContent = '' %}
+                                {% for businessUnit in report.metadata.uncategorized %}
+                                    {% set total = total + businessUnit.count %}
+                                    {% set tooltipContent = tooltipContent ~ businessUnit.name ~ ': ' ~ businessUnit.count ~ '<br>' %}
+                                {% endfor %}
+                                <td colspan="{{ report.yTotals|length + 1 }}" class="error" data-toggle="tooltip" data-placement="top" data-bs-html="true" title="{{ tooltipContent }}">
+                                    <b>{% if total > 0 %}<a class="text-white" href="{{ path('human_resources_employee_staffing_home', {categorized: false, entity: entity}) }}">{{ total }}</a>{% else %}{{ total }}{% endif %}</b>  <i class="fa fa-fw fa-info-circle"></i>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td class="total"></td>
+                                <td class="primary"></td>
+                                <td class="table-success"></td>
+                                <td class="table-success"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                {% if showLogs is same as(true) %}
+                                    <td></td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th colspan="3" class="th-total">Totals</th>
+                            {% for key, total in report.yTotals %}
+                                <td>
+                                    {% if total > 0 %}
+                                        <a href="{{ path('human_resources_employee_staffing_home', {categorized: true, contractType: report.metadata.yIris[key], entity: entity}) }}">{{ total|number_format(1, '.', ' ') }}</a>
+                                    {% else %}
+                                        {{ total|number_format(1, '.', ' ') }}
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                            <td class="total">
+                                {% if report.total > 0 %}
+                                    <a href="{{ path('human_resources_employee_staffing_home', {categorized: true, entity: entity}) }}">{{ report.total|number_format(1, '.', ' ') }}</a>
+                                {% else %}
+                                    {{ report.total|number_format(1, '.', ' ') }}
+                                {% endif %}
+                            </td>
+                            <td>{{ totals.correction|number_format(1, '.', ' ') }}</td>
+                            <td></td>
+                            <td class="text-end total">{{ totals.correctedTotal|number_format(1, '.', ' ') }}</td>
+                            <td class="text-end primary">{{ totals.previousYearCorrectedTotal|number_format(1, '.', ' ') }}</td>
+                            <td class="text-end table-success">{{ totals.budget|number_format(1, '.', ' ') }}</td>
+                            <td class="text-end table-success">{{ totals.reforecast|number_format(1, '.', ' ') }}</td>
+                            <td class="text-end">{{ totals.versusPreviousYear|number_format(1, '.', ' ') }}</td>
+                            <td class="text-end">{{ totals.versusBudget|number_format(1, '.', ' ') }}</td>
+                            <td class="text-end">{{ totals.versusReforecast|number_format(1, '.', ' ') }}</td>
+                            {% if showLogs is same as(true) %}
+                                <td></td>
+                            {% endif %}
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <p class="small">{{ 'employee_staffing.report_info' | trans }}</p>
+
+                </div>
+                {% if editable %}
+                    <div class="row">
+                        <div class="col-md-12 text-end">
+                            {{ form_row(form.submit) }}
+                        </div>
+                        {{ form_rest(form) }}
+                    </div>
+                    {{ form_end(form) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if people|length > 0 %}
+        <div class="row">
+            {% embed 'helper/_report_table.html.twig' with {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'directory.location.fields.id'|trans({}, 'directory')|upper,
+                            link: {
+                                route: 'directory_people_show',
+                                params: {id: '@id'},
+                            },
+                        },
+                        lastname: {
+                            label: 'directory.people.csv.headers.lastname'|trans({}, 'directory')|capitalize,
+                        },
+                        firstname: {
+                            label: 'directory.people.csv.headers.firstname'|trans({}, 'directory')|capitalize,
+                        },
+                        position: {
+                            label: 'directory.people.fields.position'|trans({}, 'directory')|capitalize,
+                            properties: ['position.description'],
+                        },
+                        contractType: {
+                            label: 'directory.people.fields.contract_type'|trans({}, 'directory')|capitalize,
+                            properties: ['contractType.name'],
+                        },
+                        coefficient: {
+                            label: 'directory.people.fields.coefficient'|trans({}, 'directory')|capitalize,
+                        },
+                    },
+                    title: 'directory.people.list.filtered_people' |trans({}, 'directory'),
+                    data: people,
+                    initialSorting: false
+                }
+            } %}
+                {% block card_header %}
+                    <div class="ibox-title">
+                        <h5>{{ table.title|raw }}</h5>
+                        {% block card_header_after %}
+                            <div class="ibox-tools">
+                                {{ form_start(downloadForm) }}
+                                {{ form_end(downloadForm) }}
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,80 @@
+App\Entity\Support\ManualDocument:
+    manual_document_1:
+        id: 1
+        manual: '@manual_1'
+        position: 2
+        factoryNumber: "fn-000001"
+        revision: "A"
+        category: '@manual_document_category_1'
+        type: "PARTS DIAGRAM"
+        description: "REAR HITCH ASSY,STANDARD"
+        otherDescription: <paragraph(10)>
+        createdAt: <dateTimeBetween('-2 months', 'now')>
+        updatedAt: <dateTimeBetween('-2 days', 'now')>
+        createdBy: '@user_basic'
+        updatedBy: '@user_basic'
+        legacyId (unique): <numberBetween(1,999999)>
+
+    manual_document_2:
+        id: 2
+        manual: '@manual_1'
+        position: 1
+        factoryNumber: "fn-000002"
+        revision: "B"
+        category: '@manual_document_category_2'
+        type: "PARTS DIAGRAM"
+        description: "INSTRUMENT PANEL"
+        otherDescription: <paragraph(10)>
+        createdAt: <dateTimeBetween('-2 months', 'now')>
+        updatedAt: <dateTimeBetween('-2 days', 'now')>
+        createdBy: '@user_basic'
+        updatedBy: '@user_basic'
+        legacyId (unique): <numberBetween(1,999999)>
+
+    manual_document_3:
+        id: 3
+        manual: '@manual_2'
+        position: 14
+        factoryNumber: "007"
+        revision: "D"
+        category: '@manual_document_category_8'
+        type: "PARTS DIAGRAM"
+        description: "DOOR ASSEMBLY"
+        otherDescription: <paragraph(10)>
+        createdAt: <dateTimeBetween('-2 months', 'now')>
+        updatedAt: <dateTimeBetween('-2 days', 'now')>
+        createdBy: '@user_basic'
+        updatedBy: '@user_basic'
+        legacyId (unique): <numberBetween(1,999999)>
+
+    manual_document_4:
+        id: 4
+        manual: '@manual_2'
+        position: 1
+        factoryNumber: "fn-000002"
+        revision: "B"
+        category: '@manual_document_category_2'
+        type: "PARTS DIAGRAM"
+        description: "INSTRUMENT PANEL"
+        otherDescription: <paragraph(10)>
+        createdAt: <dateTimeBetween('-2 months', 'now')>
+        updatedAt: <dateTimeBetween('-2 days', 'now')>
+        createdBy: '@user_basic'
+        updatedBy: '@user_basic'
+        legacyId (unique): <numberBetween(1,999999)>
+
+    manual_document_5:
+        id: 5
+        manual: '@manual_unauthorized_extranet'
+        position: 1
+        factoryNumber: "fn-000002"
+        revision: "F"
+        category: '@manual_document_category_2'
+        type: "PARTS DIAGRAM"
+        description: "INSTRUMENT PANEL"
+        otherDescription: <paragraph(10)>
+        createdAt: <dateTimeBetween('-2 months', 'now')>
+        updatedAt: <dateTimeBetween('-2 days', 'now')>
+        createdBy: '@user_basic'
+        updatedBy: '@user_basic'
+        legacyId (unique): <numberBetween(1,999999)>

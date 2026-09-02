@@ -1,0 +1,12 @@
+{% extends 'service/layout.html.twig' %}
+
+{% block title %}{{ 'intervention.title.menu' | trans({}, 'customer_service_record') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="menu.customer_service_record.title" domain="messages"
+                      icon="material-symbols:home-outline-rounded" route="customer_service_record_home"/>
+        <twig:NavItem translationKey="menu.intervention.title" domain="messages"
+                      icon="material-symbols:home-outline-rounded" route="intervention_home"/>
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% trans_default_domain 'contacts' %}
+<td>
+    <table>
+        <tbody>
+        <tr>
+            <th>{{ 'contacts.fields.address_street_1'|trans|capitalize }}</th>
+            <td>{{ item.address.street1 }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_street_2'|trans|capitalize }}</th>
+            <td>{{ item.address.street2 }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_town'|trans|capitalize }}</th>
+            <td>{{ item.address.town }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_postal_code'|trans|capitalize }}</th>
+            <td>{{ item.address.postalCode }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_city'|trans|capitalize }}</th>
+            <td>{{ item.address.city }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_state'|trans|capitalize }}</th>
+            <td>{{ item.address.state }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.country'|trans|capitalize }}</th>
+            {% if item.extranetUserProfile.country is not null %}
+                <td>{{ item.extranetUserProfile.country.name }}</td>
+            {% endif %}
+        </tr>
+        </tbody>
+    </table>
+</td>

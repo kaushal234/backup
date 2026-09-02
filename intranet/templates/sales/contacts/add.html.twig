@@ -1,0 +1,13 @@
+{% extends 'sales/contacts/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/contacts/partial/_form_add.html.twig', {
+        title: 'contacts.forms.title.add'|trans,
+        form: form,
+        action: path('sales_contact_add'),
+        cancel_link: path('sales_contact_home')
+    }, with_context=false) }}
+{% endblock %}

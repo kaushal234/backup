@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales_areas$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:search": {
+      "type": "object"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales_areas/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "asm": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "country": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"pattern": "^/countries/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {"type": "integer"},
+              "name": {"type": "string"},
+              "isoCode2": {"type": "string"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "name",
+              "isoCode2"
+            ],
+            "additionalProperties": false
+          },
+          "sso": {
+            "$ref": "../../directory_location/schemas/directory_location_public_with_network.json"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "country",
+          "sso",
+          "asm"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:member"
+  ]
+}

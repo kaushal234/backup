@@ -1,0 +1,93 @@
+{% extends 'sales/layout.html.twig' %}
+
+{% block title %}{{ parent() }} \ {{ 'sales_forecasts.title' | trans({}, 'sales_forecasts') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.sfr" domain="sales_forecasts"
+                      icon="solar:copy-outline"
+                      route="sales_forecasts_home"/>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.fcr" domain="sales_forecasts"
+                      icon="solar:copy-outline"
+                      route="forecast_closures_home"/>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.cpr" domain="sales_forecasts"
+                      icon="solar:copy-outline"
+                      route="competitor_pricings_home"/>
+        <twig:Dropdown translationKey="sales_forecasts.nav_link.dashboard" domain="sales_forecasts">
+            <twig:NavItem translationKey="sales_forecasts.nav_link.general_dashboard" domain="sales_forecasts"
+                          icon="material-symbols:home-outline-rounded" route="sales_forecasts_dashboard"/>
+            <twig:NavItem translationKey="sales_forecasts.nav_link.asm_dashboard" domain="sales_forecasts"
+                          icon="material-symbols:home-outline-rounded" route="sales_forecasts_dashboard_asm"/>
+            <twig:NavItem translationKey="sales_forecasts.nav_link.asm_dashboard" domain="sales_forecasts"
+                          icon="material-symbols:home-outline-rounded" route="sales_forecasts_dashboard_sso"
+                          :security="is_granted('FEATURE_SALES_FORECAST_VALORIZATION_READ')"/>
+        </twig:Dropdown>
+        <twig:Dropdown translationKey="sales_forecasts.nav_link.reports" domain="sales_forecasts">
+            <twig:NavItem translationKey="sales_forecasts.nav_link.valuation_per_customer" domain="sales_forecasts"
+                          icon="mdi-light:chart-line" route="sales_forecasts_dashboard_customer"/>
+            <twig:NavItem translationKey="sales_forecasts.nav_link.valuation_per_sso_per_week" domain="sales_forecasts"
+                          icon="mdi-light:chart-line" route="sales_forecasts_report_per_week"/>
+            <twig:NavItem translationKey="sales_forecasts.nav_link.quantity_of_sfr_per_sso_per_week"
+                          domain="sales_forecasts" icon="carbon:summary-kpi"
+                          route="sales_forecasts_report_quantity_per_period" :routeParameters="{period: 'week'}"/>
+            <twig:NavItem translationKey="sales_forecasts.nav_link.quantity_of_sfr_per_sso_per_mounth"
+                          domain="sales_forecasts" icon="carbon:summary-kpi"
+                          route="sales_forecasts_report_quantity_per_period" :routeParameters="{period: 'month'}"/>
+        </twig:Dropdown>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.my_sfr" domain="sales_forecasts" icon="mynaui:list"
+                      route="sales_forecasts_home"/>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.my_area_sfr" domain="sales_forecasts" icon="mynaui:list"
+                      route="sales_forecasts_my_area"/>
+        <twig:NavItem:Search route="sales_forecasts_list" :routeParameters="{search: true}"/>
+        <twig:NavItem translationKey="sales_forecasts.nav_link.cash_forecast" domain="sales_forecasts" icon="bi:eye"
+                      route="legacy_sales" :routeParameters="{m: ['sfr', 'cash']}"/>
+        <twig:Dropdown translationKey="sales_forecasts.nav_link.sfr_actions" domain="sales_forecasts">
+            <twig:NavItem translationKey="sales_forecasts.nav_link.transfer" domain="sales_forecasts"
+                          icon="bi:arrow-left-right" route="sales_forecasts_transfer"
+                          :security="is_granted('FEATURE_SALES_FORECAST_TRANSFER')"/>
+            <twig:NavItem translationKey="sales_forecasts.nav_link.export" domain="sales_forecasts"
+                          icon="material-symbols:download-rounded" route="sales_forecasts_export"/>
+            <twig:NavItem translationKey="sales_forecasts.nav_link.submit_sfr" domain="sales_forecasts"
+                          icon="bitcoin-icons:plus-filled" route="sales_forecasts_add"
+                          :security="is_granted('FEATURE_SALES_FORECAST_CREATE')"/>
+            {% if salesForecast is defined %}
+                <twig:NavItem:AddLink route="legacy_common"
+                                      :routeParameters="{m: ['links', 'form', 'newLink'], module: 'SFR2', parent_id: salesForecast.id}"/>
+                <twig:NavItem:NewTask route="legacy_calendar"
+                                      :routeParameters="{m: ['tasks', 'form', 'newTask'], module: 'SFR', parent_id: salesForecast.legacyId}"/>
+                <twig:NavItem:Edit route="sales_forecasts_edit" :routeParameters="{id: salesForecast.id}"
+                                   :security="is_granted('SALES_FORECAST_EDIT_VOTER', salesForecast['@id']) or is_granted('MOO_SFR', salesForecast['@id'])"/>
+                <twig:NavItem translationKey="sales_forecasts.nav_link.close_sfr" domain="sales_forecasts"
+                              icon="material-symbols:close-rounded" route="sales_forecasts_close"
+                              :routeParameters="{id: salesForecast.id}"
+                              :security="salesForecast.status is same as('BUDGET') or salesForecast.status is same as('DELAYED') or salesForecast.status is same as('IN_PROGRESS')" class="action-danger"/>
+                <twig:NavItem:Delete route="sales_forecasts_delete" :routeParameters="{id: salesForecast.id}"
+                                     :security="is_granted('FEATURE_SALES_FORECAST_ADMIN_EDIT', salesForecast['@id']) or is_granted('MOO_SFR', salesForecast['@id'])"/>
+            {% endif %}
+        </twig:Dropdown>
+        {% if military is defined %}
+            <twig:NavItem translationKey="sales_forecasts.nav_link.military" domain="sales_forecasts"
+                          icon="la:fighter-jet" route="sales_forecasts_dashboard" :routeParameters="{military: true}"/>
+        {% endif %}
+        {% if salesForecasts is defined %}
+            <twig:Dropdown translationKey="sales_forecasts.nav_link.sales_forecast_records_actions"
+                           domain="sales_forecasts">
+                {% if filters is not defined %}
+                    {% set filters = {} %}
+                {% endif %}
+                <twig:NavItem translationKey="sales_forecasts.nav_link.normal" domain="sales_forecasts"
+                              icon="tabler:report"
+                              route="sales_forecasts_home" :routeParameters="filters"
+                              class="{% if type is defined and type == 'normal' %}disabled{% endif %}"/>
+                <twig:NavItem translationKey="sales_forecasts.nav_link.calendar" domain="sales_forecasts"
+                              icon="mdi-light:calendar"
+                              route="sales_forecasts_list_gantt" :routeParameters="filters"
+                              class="{% if type is defined and type == 'gantt' %}disabled{% endif %}"/>
+                <twig:NavItem translationKey="sales_forecasts.nav_link.quick_edit" domain="sales_forecasts"
+                              icon="material-symbols:edit-outline-rounded"
+                              route="sales_forecasts_list_quick_edit" :routeParameters="filters"
+                              class="{% if type is defined and type == 'quick-edit' %}disabled{% endif %}"/>
+            </twig:Dropdown>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

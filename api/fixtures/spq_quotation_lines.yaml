@@ -1,0 +1,360 @@
+App\Entity\SPQ\QuotationLine:
+    # /parts/quotation_lines/1..100
+    quotation_line_{0..99}:
+        id: <($current + 1)>
+        position: <current()>
+        status: <randomElement(['PENDING', 'QUOTED', 'CANCELLED', 'LOST'])>
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_<numberBetween(0,19)>'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/101
+    quotation_line_100:
+        id: 101
+        position: 1
+        status: QUOTED
+        partNumber: 7300001
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: 15
+        totalPrice: 75
+        currency: EUR
+        quantity: 5
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_20'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/101
+    quotation_line_101:
+        id: 102
+        position: 2
+        status: DELETED
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: EUR
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_20'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/103
+    quotation_line_102:
+        id: 103
+        position: 3
+        status: PENDING
+        partNumber: 7400180
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: EUR
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_20'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/104
+    quotation_line_103:
+        id: 104
+        position: 4
+        status: QUOTED
+        partNumber: 7400181
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: EUR
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_20'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/105
+    quotation_line_104:
+        id: 105
+        position: 1
+        status: PENDING
+        partNumber: TRANSPORT SPR' # Need a cost ite
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_23'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/106
+    quotation_line_105:
+        id: 106
+        position: 1
+        status: PENDING
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_24'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/107
+    quotation_line_106:
+        id: 107
+        position: 2
+        status: PENDING
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_24'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/108
+    quotation_line_107:
+        id: 108
+        position: 1
+        status: QUOTED
+        partNumber: 7400180
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_25'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/109
+    quotation_line_108:
+        id: 109
+        position: 1
+        status: QUOTED
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_26'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/110
+    quotation_line_109:
+        id: 110
+        position: 2
+        status: QUOTED
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_26'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/111
+    quotation_line_110:
+        id: 111
+        position: 2
+        status: PENDING
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_27'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/112
+    quotation_line_111:
+        id: 112
+        position: 2
+        status: LOST
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_27'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/113
+    quotation_line_112:
+        id: 113
+        position: 2
+        status: PENDING
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTimeBetween( '8 days ago', 'now')>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_28'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/114
+    quotation_line_113:
+        id: 114
+        position: 2
+        status: PENDING
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_24'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/115
+    quotation_line_114:
+        id: 115
+        position: 1
+        status: PENDING
+        partNumber: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_29'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/116
+    quotation_line_115:
+        id: 116
+        position: 1
+        status: QUOTED
+        partNumber: <numberBetween(1102320,7400001)>
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: <randomFloat(2, 0.57)>
+        totalPrice: <randomFloat(2, 0.57)>
+        currency: <randomElement(['EUR', 'USD'])>
+        quantity: <randomFloat(2, 0.57)>
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_30'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: <randomElement(['Purchased', 'Manufactured', 'Cost'])>
+
+    # /parts/quotation_lines/117
+    quotation_line_116:
+        id: 117
+        position: 5
+        status: QUOTED
+        partNumber: '!TEMP1433' #item without standard cost
+        displayedPartNumber: 15%? <numberBetween(800000,819000)>
+        description: <sentence()>
+        unitBasePrice: 40
+        totalPrice: 80
+        currency: EUR
+        quantity: 2
+        leadtime: <numberBetween(0,60)>
+        createdAt: <dateTime()>
+        quotedAt: <dateTimeInInterval(@self->createdAt, '+ 4 days')>
+        quotation: '@quotation_20'
+        salesUnit: EA
+        weight: <randomFloat(2, 0.57)>
+        itemType: Purchased

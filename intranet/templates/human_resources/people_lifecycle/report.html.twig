@@ -1,0 +1,68 @@
+{% extends 'human_resources/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+
+{% block content %}
+    {% if showAccessWarning|default(false) %}
+        <div class="alert alert-info">
+            {{ 'human_resources.leavers.access_filtered_warning'|trans }}
+        </div>
+    {% endif %}
+    {{ data_table(peopleListDatatable) }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            async function handleClick(e) {
+                e.preventDefault();
+
+                const button = this;
+                const url = button.dataset.url;
+                const confirmHtml = button.dataset.confirm || 'Are you sure?';
+                const confirmMessage = (new DOMParser()).parseFromString(confirmHtml, 'text/html').body.textContent || confirmHtml;
+
+                if (!confirm(confirmMessage)) {
+                    return;
+                }
+
+                button.classList.add('disabled');
+                button.setAttribute('aria-disabled', 'true');
+
+                const td = button.closest('td');
+                const finalStatus = button.dataset.finalStatus;
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({})
+                    });
+
+                    const data = await response.json();
+                    if (response.ok && data.status === 'success') {
+                        td.innerHTML = `<span class="btn btn-default btn-xs">${finalStatus === 'confirmed' ? 'Confirmed' : 'Refused'}</span>`;
+                    } else if (response.status === 403) {
+                        td.innerHTML = `<span class="text-danger">${data.message}</span>`;
+                    } else {
+                        td.innerHTML = `<span class="text-danger">An error occurred. Please contact support.</span>`;
+                    }
+                } catch (error) {
+                    td.innerHTML = `<span class="text-danger">An unexpected error occurred. Please contact support.</span>`;
+                }
+            }
+
+            document.querySelectorAll('.js-access-action').forEach(button => {
+                button.removeEventListener('click', handleClick);
+                button.addEventListener('click', handleClick);
+            });
+        });
+    </script>
+{% endblock %}

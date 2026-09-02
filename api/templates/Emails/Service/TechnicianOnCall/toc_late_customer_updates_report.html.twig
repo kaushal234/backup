@@ -1,0 +1,15 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        <p>{{ 'toc.message.toc_late_customer_updates_report'|trans|nl2br }}</p>
+
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_late_customer_updates_table.html.twig', {
+            tocs: tocs,
+            lastExternalLogAtByTocId: lastExternalLogAtByTocId,
+            daysSinceLastExternalLogByTocId: daysSinceLastExternalLogByTocId,
+        }, with_context = false) }}
+    </div>
+{% endblock %}

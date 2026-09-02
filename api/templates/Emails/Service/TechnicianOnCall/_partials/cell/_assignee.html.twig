@@ -1,0 +1,13 @@
+<td>
+        {% if item.assignee %}
+        <p>
+                {{ item.assignee.firstname }} {{ item.assignee.lastname }}
+        </p>
+        <div>
+                {{ item.assignee.email }}
+        </div>
+        <div>
+                {{ include('Emails/Service/TechnicianOnCall/_partials/cell/_phones.html.twig', {'phone_list': item.assignee.phones}) }}
+        </div>
+        {% endif %}
+</td>

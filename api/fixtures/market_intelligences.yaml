@@ -1,0 +1,52 @@
+App\Entity\Sales\MarketIntelligence\MarketIntelligence:
+  # sales/market_intelligences/1
+  mim_ymathy:
+    id: 1
+    legacyId: 10001
+    type: '@mim_type_pricing'
+    poster: '@user_superuser'
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    shortDescription: 'MIM for Mimy Mathy'
+    description: "Ceci est un MIM pour s'informer sur Mimy Mathy"
+    marketIntelligencesLinked:
+      - '@mim_marceau'
+      - '@monsieur_mim'
+    customers:
+      - '@customer_a_boire'
+      - '@customer_asm_transferred'
+      - '@customer_noire'
+    competitors:
+      - '@competitor_1'
+    productTypes:
+      - '@catalog_product_type_1'
+    suppliers:
+      - 'AMAZONAIR'
+    divisions:
+      - '@division_by_zero'
+
+  # sales/market_intelligences/2
+  mim_marceau:
+    id: 2
+    legacyId: 10002
+    type: '@mim_type_technical'
+    poster: '@user_asm'
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    shortDescription: 'MIM for le Mime Marceau'
+    description: "Ceci est un MIM pour s'informer sur le Mime Marceau"
+    competitors:
+      - '@competitor_1'
+      - '@competitor_2'
+
+  # sales/market_intelligences/3
+  monsieur_mim:
+    id: 3
+    legacyId: 10003
+    type: '@mim_type_rumor'
+    poster: '@user_hr'
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    shortDescription: 'MIM for le pokémon Monsieur Mime'
+    description: "Ceci est un MIM pour s'informer sur le pokémon Monsieur Mime"
+    product_types:
+      - '@catalog_product_type_1'
+    positionLevels:
+      - '@level_STEERING'

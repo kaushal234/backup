@@ -1,0 +1,17 @@
+{% extends 'materials/evendors_news/layout.html.twig' %}
+{% trans_default_domain 'news' %}
+
+{% set news_id = iri_id(evendorsNews) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('materials/evendors_news/partials/_form.html.twig', {
+        title: 'evendors_news.edit.title'|trans,
+        fileInfo: 'evendors_news.edit.fileInfo'|trans,
+        form: form,
+        action: path('evendors_news_edit', { id: news_id}),
+        cancel_link: path('evendors_news_home'),
+        id: news_id
+    }, with_context=true) }}
+{% endblock %}

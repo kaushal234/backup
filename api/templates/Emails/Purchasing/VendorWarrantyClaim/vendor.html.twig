@@ -1,0 +1,14 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {% set evendorsUrl = vendorWarrantyClaim.nonConformity is defined ? 'evendors_vwc_ncr' : 'evendors_vwc_wc' %}
+    <row>
+        <columns>
+            <p>{{ ('vwc.vendor.created') | trans }}</p>
+            <hr>
+            <a href="{{ url(evendorsUrl, { id: id }) }}">{{ 'vwc.comment.please_login' | trans({'%id%': id}) }}</a>
+
+        </columns>
+    </row>
+{% endblock %}

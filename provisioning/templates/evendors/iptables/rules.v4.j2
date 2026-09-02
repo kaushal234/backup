@@ -1,0 +1,52 @@
+# {{ ansible_managed }}
+*filter
+
+# default policy on all chains, drop
+-P INPUT DROP
+-P FORWARD DROP
+-P OUTPUT DROP
+
+# Accept local traffic
+-A INPUT -i lo -j ACCEPT
+-A OUTPUT -o lo -j ACCEPT
+
+# keep established connections
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# SSH - in and out
+-A INPUT -p tcp --dport 22 -j ACCEPT
+-A OUTPUT -p tcp --dport 22 -j ACCEPT
+
+# ICMP (Ping)
+-A INPUT -p icmp -j ACCEPT
+-A OUTPUT -p icmp -j ACCEPT
+
+# Redis and redis sentinel
+-A INPUT -p tcp --dport 6379 -j ACCEPT
+-A OUTPUT -p tcp --dport 6379 -j ACCEPT
+-A INPUT -p tcp --dport 26379 -j ACCEPT
+-A OUTPUT -p tcp --dport 26379 -j ACCEPT
+
+# DNS - in and out
+-A OUTPUT -p tcp --dport 53 -j ACCEPT
+-A OUTPUT -p udp --dport 53 -j ACCEPT
+
+# NTP
+-A OUTPUT -p udp --dport 123 -j ACCEPT
+
+# HTTP + HTTPS Out
+-A OUTPUT -p tcp --dport 80 -j ACCEPT
+-A OUTPUT -p tcp --dport 443 -j ACCEPT
+
+# HTTP + HTTPS In
+-A INPUT -p tcp --dport 80 -j ACCEPT
+-A INPUT -p tcp --dport 443 -j ACCEPT
+
+# SNMP
+-A INPUT -p udp --dport 161 -j ACCEPT
+
+# Auditbeat
+-A OUTPUT -p tcp --dport 1802 -j ACCEPT
+
+COMMIT

@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "pattern": "^/contexts/Project$"
+    },
+    "@id": {
+      "pattern": "^/mis/projects/\\d+$"
+    },
+    "@type": {
+      "pattern": "^Project$"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "teamsLink": {
+      "type": ["string", "null"]
+    },
+    "description": {
+      "type": "string"
+    },
+    "region": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "pattern": "^/regions/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "module": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "pattern": "^/modules/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "operationalOwner": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "../../../directory_people/schemas/directory_people_public_photo.json"
+            }
+          ]
+        },
+        "keyUser": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "../../../directory_people/schemas/directory_people_public_photo.json"
+            }
+          ]
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "operationalOwner",
+        "keyUser"
+      ],
+      "additionalProperties": false
+    },
+    "indicesFactor": {
+      "type": "string"
+    },
+    "projectManager": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "../../../directory_people/schemas/directory_people_public_photo.json"
+        }
+      ]
+    },
+    "moduleKeyUsers": {"type": "array"},
+    "misOwner": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "../../../directory_people/schemas/directory_people_public_photo.json"
+        }
+      ]
+    },
+    "misMembers": {"type": "array"},
+    "createdAt": {
+      "type": "string"
+    },
+    "startedAt": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "revisedEstimatedHours": {
+      "type": ["integer", "null"]
+    },
+    "conclusion": {
+      "type": ["string", "null"]
+    },
+    "confidential": {"type": "boolean"},
+    "files": {
+      "oneOf" : [
+        {"type": "null"},
+        {
+          "type": "array",
+          "items": {"$ref" :  "../../../shared/schemas/file.json"}
+        }
+      ]
+    },
+    "estimatedHours": {"type": "integer"},
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"type": "string"},
+          "@type": {"pattern": "^Phase$"},
+          "number": {"type": "integer"},
+          "estimatedClosureAt": {"type": "string"},
+          "estimatedHours": {"type":  "integer"},
+          "revisedEstimatedHours": {"type":  ["integer", "null"]},
+          "revisedClosureAt": {"type": ["null", "string"]},
+          "tasks": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        },
+        "required": ["@id", "@type", "number", "estimatedClosureAt", "revisedClosureAt", "estimatedHours", "revisedEstimatedHours", "tasks"],
+        "additionalProperties": false
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"type": "string"},
+          "@type": {"type": "string"},
+          "name": {"type": "string"}
+        },
+        "required": ["@id", "@type", "name"],
+        "additionalProperties": false
+      }
+    },
+    "activePhase": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"type": "string"},
+        "@type": {"pattern": "^Phase$"},
+        "number": {"type": "integer"},
+        "estimatedClosureAt": {"type": "string"},
+        "estimatedHours": {"type":  "integer"},
+        "revisedEstimatedHours": {"type":  ["integer", "null"]},
+        "revisedClosureAt": {"type": ["null", "string"]},
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["@id", "@type", "number", "estimatedClosureAt", "revisedClosureAt", "estimatedHours", "revisedEstimatedHours", "tasks"],
+      "additionalProperties": false
+    },
+    "dueDate": {
+      "type": ["string", "null"]
+    },
+    "revisedDueDate": {
+      "type": ["string", "null"]
+    },
+    "activePhaseEstimatedClosureAt": {
+      "type": ["string", "null"]
+    },
+    "activePhaseRevisedClosureAt": {
+      "type": ["string", "null"]
+    },
+    "lastComment": {
+      "type": ["string", "null"]
+    },
+    "lastCommentedAt": {
+      "type": ["string", "null"]
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "name",
+    "teamsLink",
+    "description",
+    "region",
+    "module",
+    "indicesFactor",
+    "projectManager",
+    "misOwner",
+    "createdAt",
+    "misMembers",
+    "moduleKeyUsers",
+    "startedAt",
+    "confidential",
+    "files",
+    "estimatedHours",
+    "status",
+    "revisedEstimatedHours",
+    "phases",
+    "conclusion",
+    "tags",
+    "activePhase",
+    "lastComment",
+    "lastCommentedAt"
+  ],
+  "additionalProperties": false
+}

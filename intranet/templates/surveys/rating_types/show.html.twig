@@ -1,0 +1,64 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% block title %}{{ parent() }} \ {{ 'group.page_titles.list' | trans }} \ {{ 'menu.view' | trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>{{ ratingType.description | u.truncate (150) }}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox-content m-b-xs">
+                <dl class="dl-horizontal small">
+                    <dt>{{ 'general_fields.description' | trans | capitalize }}</dt>
+                    <dd>{{ ratingType.description }}</dd>
+                    <dt>{{ 'rating_type.fields.min' | trans | capitalize }}</dt>
+                    <dd>{{ ratingType.min }}</dd>
+                    <dt>{{ 'rating_type.fields.minLabel' | trans | capitalize }}</dt>
+                    <dd>{{ ratingType.minLabel }}</dd>
+                    <dt>{{ 'rating_type.fields.max' | trans | capitalize }}</dt>
+                    <dd>{{ ratingType.max }}</dd>
+                    <dt>{{ 'rating_type.fields.maxLabel' | trans | capitalize }}</dt>
+                    <dd>{{ ratingType.maxLabel }}</dd>
+                </dl>
+            </div>
+        </div>
+        {% if ratingType.survey is defined %}
+            <div class="col-lg-4">
+                <div class="ibox-content m-b-xs">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% set survey = ratingType.survey %}
+                            <h3>{{ survey.name | u.truncate(50) | capitalize }}
+                                {% if is_granted('FEATURE_SURVEY_VIEW') %}
+                                    <a class="btn btn-sm btn-primary float-end" href="{{ path('surveys_show', { id: iri_id(survey) }) }}">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                {% endif %}
+                            </h3>
+                            <p class="small">{{ survey.description }}</p>
+                            <dl class="dl-horizontal small float-end">
+                                {% if survey.expirationDate is not same as(null) %}
+                                    <dt>{{ 'survey.fields.expirationDate' | trans | capitalize }}</dt>
+                                    <dd>{{ survey.expirationDate | format_datetime('medium', 'none') }}</dd>
+                                {% endif %}
+                                <dt>{{ 'general_fields.createdAt' | trans | capitalize }}</dt>
+                                <dd>{{ survey.createdAt | format_datetime('medium', 'none') }}</dd>
+                                <dt>{{ 'general_fields.createdBy' | trans | capitalize }}</dt>
+                                <dd>
+                                    <a href="{{ path('directory_people_show', {'id': iri_id(survey.createdBy)}) }}">
+                                        {{ survey.createdBy.firstname ~ ' ' ~ survey.createdBy.lastname }} <br/>
+                                        {{ survey.createdBy.email }}
+                                    </a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

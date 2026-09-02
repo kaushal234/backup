@@ -1,0 +1,10 @@
+App\Entity\Sales\ProductCertificate:
+    product_certificate_{1..10}:
+      id: <current()>
+      product: '@catalog_product_<($current)>'
+      emissionRating: '@emission_rating_2'
+      expectedAt: <dateTimeBetween('now', '+30 days')>
+      expiredAt: <dateTimeBetween('+30 days', '+90 days')>
+      factory: '@location_factory'
+      announcementCertificateNumber: 'TEST NUMBER'
+      description: 'Ceci est une description'

@@ -1,0 +1,457 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/surveys/campaigns/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "string"
+    },
+    "results": {
+      "type": "array"
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "@id": {"pattern": "^/surveys/models/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "additionalItems": false,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/surveys/items/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              },
+              "group": {
+                "type": ["object", "null"],
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {"pattern": "^/surveys/groups/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "createdBy": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "@id": {"pattern": "^/people/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "displayName": {
+                        "type": "string"
+                      },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "username",
+                      "displayName",
+                      "firstname",
+                      "lastname",
+                      "email",
+                      "id"
+                    ]
+                  },
+                  "updatedBy": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "@id": {"pattern": "^/people/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "displayName": {
+                        "type": "string"
+                      },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "username",
+                      "displayName",
+                      "firstname",
+                      "lastname",
+                      "email",
+                      "id"
+                    ]
+                  },
+                  "createdAt": {
+                    "type": "string"
+                  },
+                  "updatedAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name",
+                  "createdBy",
+                  "updatedBy",
+                  "createdAt",
+                  "updatedAt"
+                ]
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "createdBy": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {"pattern": "^/people/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "username",
+                  "displayName",
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "id"
+                ]
+              },
+              "updatedBy": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {"pattern": "^/people/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "username",
+                  "displayName",
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "id"
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "description",
+              "group",
+              "createdAt",
+              "updatedAt",
+              "createdBy",
+              "updatedBy"
+            ]
+          }
+        },
+        "ratingTypes": {
+          "type": "array",
+          "additionalItems": false,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/surveys/rating_types/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "min": {
+                "type": "integer"
+              },
+              "max": {
+                "type": "integer"
+              },
+              "minLabel": {
+                "type": "string"
+              },
+              "maxLabel": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "min",
+              "max",
+              "minLabel",
+              "maxLabel",
+              "description"
+            ]
+          }
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "@id": {
+              "type": "string"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "username",
+            "displayName",
+            "firstname",
+            "lastname",
+            "email",
+            "id"
+          ]
+        },
+        "updatedBy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/people/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "username",
+            "displayName",
+            "firstname",
+            "lastname",
+            "email",
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "id",
+        "name",
+        "description",
+        "expirationDate",
+        "items",
+        "ratingTypes",
+        "createdAt",
+        "updatedAt",
+        "createdBy",
+        "updatedBy"
+      ]
+    },
+    "createdBy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "@id": {"pattern": "^/people/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "username",
+        "displayName",
+        "firstname",
+        "lastname",
+        "email",
+        "id"
+      ]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "sentAt": {
+      "type": "null"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "description",
+    "model",
+    "createdBy",
+    "createdAt",
+    "sentAt"
+  ]
+}

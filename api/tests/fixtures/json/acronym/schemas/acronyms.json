@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/acronyms"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/acronyms/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "acronym": {
+            "type": "string"
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "description": {
+            "type": ["string", "null"]
+          },
+          "url": {
+            "type": ["string", "null"]
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/acronym_categories/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "legacyId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "acronym",
+          "shortDescription",
+          "url",
+          "description",
+          "categories",
+          "legacyId"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

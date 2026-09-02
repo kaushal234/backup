@@ -1,0 +1,143 @@
+App\Entity\Parts\TOCSparePartsRequest:
+  #/parts/spare_parts_requests/1
+  #/parts/toc_spare_parts_requests/1
+  spr_toc:
+    technicianOnCall: '@toc_with_spr'
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    poster: '@user_spm'
+    status: !php/const App\Entity\Parts\SparePartsRequest::STATUS_PENDING
+    activity: !php/const App\Entity\Parts\SparePartsRequest::ACTIVITY_COMMISSIONING
+    type: 'Payable Services'
+    factory: '@location_factory'
+    erpLocation: '@location_factory'
+    sph: '@location_parts_2'
+    sso: '@location_sso'
+    shippingOrigin: '@location_sso'
+    estimatedShippingDate: <dateTimeBetween('+5 days', '+10 days')>
+    notes: just a note
+    deliveryNotes: just a delivery note
+    salesOrder: 9696969
+    customer: '@customer_a_boire'
+    airport: '@airport_teumanto'
+    deliveryAddress: '@delivery_address_1'
+    equipmentRecords:
+      - '@equipment_record_remi'
+  #/parts/toc_spare_parts_requests/1
+  spr_toc_closed:
+    technicianOnCall: '@toc_with_spr_closed'
+    createdAt: <dateTimeBetween()>
+    poster: '@user_spm'
+    status: !php/const App\Entity\Parts\SparePartsRequest::STATUS_SHIPPED
+    activity: !php/const App\Entity\Parts\SparePartsRequest::ACTIVITY_COMMISSIONING
+    type: 'Payable Services'
+    factory: '@location_factory'
+    erpLocation: '@location_factory'
+    sph: '@location_parts_2'
+    sso: '@location_sso'
+    shippingOrigin: '@location_sso'
+    estimatedShippingDate: <dateTimeBetween()>
+    notes: just a note
+    deliveryNotes: just a delivery note
+    salesOrder: 9696969
+    customer: '@customer_a_boire'
+    airport: '@airport_teumanto'
+    deliveryAddress: '@delivery_address_1'
+    equipmentRecords:
+      - '@equipment_record_remi'
+
+App\Entity\Parts\SBSparePartsRequest:
+  #/parts/spare_parts_requests/2
+  #/parts/sb_spare_parts_requests/2
+  spr_sb:
+    sbId: 58
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    poster: '@user_spm'
+    status: !php/const App\Entity\Parts\SparePartsRequest::STATUS_PENDING
+    activity: !php/const App\Entity\Parts\SparePartsRequest::ACTIVITY_COMMISSIONING
+    type: 'Payable Services'
+    factory: '@location_factory'
+    erpLocation: '@location_factory'
+    sph: '@location_parts_2'
+    sso: '@location_sso'
+    shippingOrigin: '@location_sso'
+    estimatedShippingDate: <dateTimeBetween('+5 days', '+10 days')>
+    notes: just a note
+    salesOrder: PV0000011
+    customer: '@customer_a_boire'
+    airport: '@airport_teumanto'
+    deliveryAddress: '@delivery_address_1'
+    equipmentRecords:
+      - '@equipment_record_remi'
+  #/parts/spare_parts_requests/3
+  #/parts/sb_spare_parts_requests/3
+  spr_sb_2:
+    sbId: 58
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    poster: '@user_spm'
+    status: !php/const App\Entity\Parts\SparePartsRequest::STATUS_SHIPPED
+    activity: !php/const App\Entity\Parts\SparePartsRequest::ACTIVITY_COMMISSIONING
+    type: 'Payable Services'
+    factory: '@location_factory'
+    erpLocation: '@location_factory'
+    sph: '@location_parts_2'
+    sso: '@location_sso'
+    shippingOrigin: '@location_sso'
+    estimatedShippingDate: <dateTimeBetween('+5 days', '+10 days')>
+    notes: just a note
+    salesOrder: 9696969
+    customer: '@customer_a_boire'
+    airport: '@airport_teumanto'
+    deliveryAddress: '@delivery_address_1'
+    equipmentRecords:
+      - '@equipment_record_remi'
+  #/parts/spare_parts_requests/4
+  #/parts/sb_spare_parts_requests/4
+  spr_sb_3:
+    sbId: 58
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    poster: '@user_spm'
+    status: !php/const App\Entity\Parts\SparePartsRequest::STATUS_PENDING
+    activity: !php/const App\Entity\Parts\SparePartsRequest::ACTIVITY_COMMISSIONING
+    type: 'Payable Services'
+    factory: '@location_factory'
+    erpLocation: '@location_factory'
+    sph: '@location_parts_2'
+    sso: '@location_sso'
+    shippingOrigin: '@location_sso'
+    estimatedShippingDate: <dateTimeBetween('+5 days', '+10 days')>
+    notes: just a note
+    salesOrder: 9696969
+    customer: '@customer_a_boire'
+    airport: '@airport_teumanto'
+    deliveryAddress: '@delivery_address_1'
+    equipmentRecords:
+      - '@equipment_record_remi'
+
+App\Entity\Parts\SparePartsRequestDeliveryAddress:
+  #/parts/spare_parts_requests_delivery_addresses/1
+  delivery_address_1:
+    id: 1
+    contact: "@extranet_user_fix"
+    firstname: Michel
+    lastname: Delpech
+    company: creole
+    phone: +33 6 10 20 30 40,
+    address: <entityAddress()>
+    airport: '@airport_teumanto'
+    createdAt: <dateTimeBetween('-60 days', '-30 days')>
+    lastUsedAt: <dateTimeBetween('-29 days', '-10 days')>
+    poster: '@user_spm'
+
+  #/parts/spare_parts_requests_delivery_addresses/2
+  delivery_address_2:
+    id: 2
+    contact: "@extranet_user_fix"
+    firstname: Luc
+    lastname: Arne
+    company: null
+    phone: +33 6 10 20 30 40,
+    address: <entityAddress()>
+    airport: '@airport_teumanto'
+    createdAt: <dateTimeBetween('-60 days', '-30 days')>
+    lastUsedAt: <dateTimeBetween('-29 days', '-10 days')>
+    poster: '@user_spm'

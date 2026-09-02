@@ -1,0 +1,1187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/people/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "alternateEmail": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "enableAt": {
+      "type": ["string", "null"]
+    },
+    "nickname": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "jobTitle": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "@id": {
+            "pattern": "^/phones/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "type",
+          "number"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "photo": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "../../shared/schemas/file_light.json"
+        }
+      ]
+    },
+    "address": {
+      "type": "object",
+      "$ref": "../../shared/schemas/address_with_country.json"
+    },
+    "erpLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "erpIdentifier": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "windowsLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "businessUnit": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {"pattern": "^/business_units/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "domain": {
+          "type": ["string", "null"]
+        },
+        "location": {
+          "type": ["object", "null"],
+          "properties": {
+            "@id": {"pattern": "^/locations/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "address": {
+              "type": "object"
+            },
+            "publicWebsite": {
+              "type": ["string", "null"]
+            },
+            "currency": {
+              "oneOf": [
+                { "type": "null" },
+                { "type": "object" }
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name",
+            "legacyId",
+            "address",
+            "currency",
+            "publicWebsite"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId",
+        "domain",
+        "location"
+      ],
+      "additionalProperties": false
+    },
+    "legalEntity": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {"pattern": "^/business_units/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "domain": {
+          "type": ["string", "null"]
+        },
+        "location": {
+          "type": ["object", "null"],
+          "properties": {
+            "@id": {"pattern": "^/locations/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "address": {
+              "type": "object"
+            },
+            "currency": {
+              "oneOf": [
+                { "type": "null" },
+                { "type": "object" }
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name",
+            "legacyId",
+            "address",
+            "currency"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId",
+        "domain",
+        "location"
+      ],
+      "additionalProperties": false
+    },
+    "position": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {"pattern": "^/positions/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code": {"type": "string"},
+        "level": {
+          "type": "object",
+          "properties": {
+            "@id": {"type": "string"},
+            "@type": {"type": "string"},
+            "label": {"type": "string"}
+          },
+          "required": [
+            "@id",
+            "@type",
+            "label"
+          ],
+          "additionalProperties": false
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "divisionGroups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/division_groups/\\d+$"},
+              "@type": {"type": "string"},
+              "division": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/divisions/\\d+$"},
+                  "@type": {"type": "string"},
+                  "name": {"type":  "string"},
+                  "legacyId": {"type": "integer"}
+                },
+                "required": ["@id", "@type", "name"],
+                "additionalProperties": false
+              },
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {"pattern": "^/groups/\\d+$"},
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "legacyId"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "description",
+        "legacyId",
+        "divisionGroups",
+        "level",
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    "acls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/acls/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "standard": {
+            "type": "boolean"
+          },
+          "expiredAt": {
+            "type": ["string", "null"]
+          },
+          "group": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/groups/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "location": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/locations/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "publicWebsite": {
+                "type": ["string", "null"]
+              },
+              "currency": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "type": "object" }
+                ]
+              },
+              "address": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId",
+              "currency",
+              "address",
+              "publicWebsite"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "legacyId",
+          "group",
+          "location",
+          "standard",
+          "expiredAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "department": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {
+          "pattern": "^/departments/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "supervisor": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/people/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "alternateEmail": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "enableAt": {
+              "type": ["string", "null"]
+            },
+            "nickname": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "jobTitle": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "phones": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "object"
+                ],
+                "properties": {
+                  "@id": {
+                    "pattern": "^/phones/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "type",
+                  "number"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            },
+            "photo": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "address": {
+              "type": "object",
+              "$ref": "../../shared/schemas/address_with_country.json"
+            },
+            "erpLogin": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "erpIdentifier": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "windowsLogin": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "businessUnit": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "@id": {
+                  "pattern": "^/business_units/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "location",
+                "domain",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            },
+            "position": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "@id": {
+                  "pattern": "^/positions/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "level": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "code",
+                "description",
+                "level",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            },
+            "acls": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/acls/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "standard": {
+                    "type": "boolean"
+                  },
+                  "expiredAt": {
+                    "type": ["string", "null"]
+                  },
+                  "group": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/groups/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "legacyId": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name",
+                      "legacyId"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "location": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "@id": {"pattern": "^/locations/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "legacyId": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name",
+                      "legacyId"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "legacyId",
+                  "group",
+                  "location",
+                  "standard",
+                  "expiredAt"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "department": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "@id": {
+                  "type": "string"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            },
+            "locale": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "username": {
+              "type": "string"
+            },
+            "hidden": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "passwordUpdatedAt": {
+              "type": "string"
+            },
+            "lastLogin": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "createdAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "updatedAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "disabledAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "plannedDisableAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "passwordExpirationDate": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "contractType": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/contract_types/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "id",
+                    "name",
+                    "description"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "coefficient": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "gender": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "premise": {
+              "oneOf": [
+                { "type": "null" },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "@type": {
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "name": {
+                      "maxLength": 10,
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "object",
+                      "$ref": "../../shared/schemas/address_with_country.json"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "@id": {
+                            "pattern": "^/premise_tags/\\d+$"
+                          },
+                          "@type": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name"
+                        ],
+                        "minItems": 1,
+                        "additionalProperties": false
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "address",
+                    "tags",
+                    "count"
+                  ]
+                }
+              ]
+            },
+            "closestAirport": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "mentor": {
+              "oneOf": [{"$ref": "directory_people_mentor.json"}, { "type": "null" }]
+            },
+            "mentees": {
+              "type": "array",
+              "items": {
+                "oneOf": [{"$ref": "directory_people_mentor.json"}, { "type": "string" }]
+              }
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "firstname",
+            "lastname",
+            "email",
+            "alternateEmail",
+            "nickname",
+            "jobTitle",
+            "phones",
+            "photo",
+            "address",
+            "erpLogin",
+            "erpIdentifier",
+            "windowsLogin",
+            "businessUnit",
+            "position",
+            "department",
+            "locale",
+            "legacyId",
+            "username",
+            "hidden",
+            "disabled",
+            "passwordUpdatedAt",
+            "lastLogin",
+            "createdAt",
+            "updatedAt",
+            "disabledAt",
+            "plannedDisableAt",
+            "passwordExpirationDate",
+            "gender",
+            "premise",
+            "closestAirport",
+            "acls"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "locale": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "username": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "lastLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "updatedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "disabledAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plannedDisableAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "passwordUpdatedAt": {
+      "type": "string"
+    },
+    "passwordExpirationDate": {
+      "type": "string"
+    },
+    "contractType": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/contract_types/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "name",
+            "description"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "coefficient": {
+      "type": ["integer", "null"]
+    },
+    "gender": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "premise": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "@type": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 10,
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object",
+              "$ref": "../../shared/schemas/address_with_country.json"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "@id": {
+                    "pattern": "^/premise_tags/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ],
+                "minItems": 1,
+                "additionalProperties": false
+              }
+            },
+            "count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name",
+            "address",
+            "tags",
+            "count"
+          ]
+        }
+      ]
+    },
+    "closestAirport": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "mentor": {
+      "oneOf": [{ "$ref": "directory_people_mentor.json"}, {"type": "null"}]
+    },
+    "mentees": {
+      "type": "array",
+      "items": {
+        "$ref": "directory_people_mentor.json"
+      }
+    },
+    "enableAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "firstname",
+    "lastname",
+    "email",
+    "alternateEmail",
+    "nickname",
+    "jobTitle",
+    "phones",
+    "photo",
+    "address",
+    "erpLogin",
+    "erpIdentifier",
+    "windowsLogin",
+    "businessUnit",
+    "legalEntity",
+    "position",
+    "department",
+    "supervisor",
+    "locale",
+    "legacyId",
+    "enableAt",
+    "username",
+    "hidden",
+    "disabled",
+    "lastLogin",
+    "createdAt",
+    "updatedAt",
+    "disabledAt",
+    "plannedDisableAt",
+    "passwordUpdatedAt",
+    "passwordExpirationDate",
+    "gender",
+    "premise",
+    "closestAirport",
+    "enableAt"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,123 @@
+{% trans_default_domain 'task' %}
+
+<div class="row g-4">
+    <div class="{{ form is not null ? 'col-12' : 'col-xl-4 col-lg-5' }}">
+        <div class="d-flex flex-column h-100">
+            <div class="bg-white rounded-3 border p-4 shadow-sm">
+                <div class="d-flex justify-content-between align-items-start border-bottom pb-2 mb-3">
+                    <h3 class="fw-bold mb-0">{{ item.shortDescription | raw }}</h3>
+                </div>
+
+                {% set data = {
+                    createdAt: {
+                        label: 'task.fields.created_at' | trans,
+                        filters: 'date("Y-m-d")',
+                    },
+                    startedAt: {
+                        label: 'task.fields.started_date' | trans,
+                        filters: 'date("Y-m-d")',
+                        preserveNull: true
+                    },
+                    dueDate: {
+                        label: 'task.fields.due_date' | trans,
+                        filters: 'date("Y-m-d")',
+                    },
+                    rescheduleDate: {
+                        label: 'task.fields.reschedule_date' | trans,
+                        filters: 'date("Y-m-d")',
+                        preserveNull: true
+                    },
+                    escalationTrigger: {
+                        properties: ['escalationTrigger', 'escalationTriggerUnit'],
+                        label: 'task.fields.escalation_trigger' | trans
+                    },
+                    id: {
+                        label: 'ID#'
+                    },
+                    referenceId: {
+                        label: 'task.fields.reference_id' | trans,
+                        template: 'task/partial/cell/_link.html.twig',
+                    },
+                    location: {
+                        label: 'task.fields.location' | trans,
+                        properties: ['location.name'],
+                    },
+                    recipients: {
+                        label: 'task.fields.ccs' | trans,
+                        template: 'task/partial/cell/_recipients.html.twig',
+                        templateParams: {
+                            recipients : task.recipients
+                        }
+                    },
+                } %}
+                {% if task.status is same as('CLOSED') %}
+                    {% set data = data | merge ({
+                        closedAt: {
+                            label:'task.fields.closed_at' | trans,
+                            filters: 'date("Y-m-d")',
+                        },
+                    }) %}
+                {% endif %}
+                {% if task['@type'] is same as('PartNumberTask') %}
+                    {% set data = data|merge({
+                        partNumber: {
+                            label: 'fields.part_number'|trans({}, 'messages'),
+                        },
+                    }) %}
+                {% endif %}
+                {{ include('helper/_association_table.html.twig', {
+                    associationData: {
+                        items: data,
+                        data: task,
+                        card: false,
+                        hideTitle: true
+                    }
+                }, with_context  = false) }}
+
+                <div class="text-break p-3 bg-light rounded-3 mb-3">
+                    {{ item.description | raw }}
+                </div>
+
+                {% if task['@type'] == 'RenewGuestUser' and task.status == 'PENDING' %}
+                    {% form_theme renewGuestUserForm.renewalDurationMonths 'form_theme_vertical.html.twig' %}
+                    {{ form_start(renewGuestUserForm) }}
+                    <div class="row">
+                        <div class="col-6">{{ form_row(renewGuestUserForm.renewalDurationMonths) }}</div>
+                        <div class="col-6">
+                            <label class="col-form-label">&nbsp;</label>
+                            <div class="d-flex gap-2 justify-content-end align-items-end">
+                                {{ form_widget(renewGuestUserForm.renewalYes) }}
+                                {{ form_widget(renewGuestUserForm.renewalNo) }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(renewGuestUserForm) }}
+                {% elseif task['@type'] == 'RenewGuestUser' and task.status == 'CLOSED' %}
+                    <div class="d-flex justify-content-center">
+                        {{ 'renew_guest_user.renewal_decision'|trans }}: {{ task.renewalDecision }}
+                    </div>
+                {% endif %}
+                <div class="d-flex justify-content-center">
+                    <div class="{{ form is not null ? 'col-6' : 'col-12' }}">
+                        {% if item.files is not null and item.files|length > 0 %}
+                            {{ component('Swiper', {
+                                files: item.files,
+                                uploadUri: upload_uri,
+                                fileRouteBuilder: (file) => file['@type'] == 'TaskFile'
+                                ? path('task_files_show', { taskId: item.iriId, id: file.id })
+                                : path('download_comment_file', { id: file.commentId, fileId: file.id })
+                            }) }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if form is null %}
+        <div class="col-xl-8 col-lg-7 border-start-lg">
+            <div class="d-flex flex-column h-100">
+                {{ include('task/partial/_comment.html.twig', {comments: comments}) }}
+            </div>
+        </div>
+    {% endif %}
+</div>

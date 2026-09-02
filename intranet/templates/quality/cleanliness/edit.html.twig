@@ -1,0 +1,17 @@
+{% extends 'quality/cleanliness/layout.html.twig' %}
+
+{% trans_default_domain 'cleanliness' %}
+
+{% set cleanliness_id = iri_id(cleanliness) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('quality/cleanliness/partial/_form.html.twig', {
+        title: 'cleanliness.title.edit'|trans,
+        form: form,
+        id: cleanliness,
+        action: path('location_cleanliness_edit', {id: cleanliness_id}),
+        cancel_link: path('location_cleanliness_home')
+    }, with_context=false) }}
+{% endblock %}

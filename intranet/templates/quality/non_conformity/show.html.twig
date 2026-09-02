@@ -1,0 +1,54 @@
+{% extends 'quality/non_conformity/layout.html.twig' %}
+{% trans_default_domain 'non_conformity' %}
+
+{% block title %}{{ parent() }}NCR#{{ nonConformity.id }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    {{ include('helper/_tabs.html.twig', {
+        tabsData: {
+            tabs: {
+                details: {
+                    defaultTab: true,
+                    label: 'contacts.menu.detail'|trans({}, 'contacts'),
+                    template: 'quality/non_conformity/partial/tabs/_details_tab.html.twig',
+                    templateParams: {form_er: form_er},
+                },
+                actionCon: {
+                    label: 'non_conformity.title.action_conclusion'|trans,
+                    template: 'quality/non_conformity/partial/tabs/_actions_tab.html.twig',
+                },
+                costs: {
+                    label: 'non_conformity.title.costs'|trans,
+                    template: 'quality/non_conformity/partial/tabs/_costs_tab.html.twig',
+                },
+                files: {
+                    label: 'menu.files' | trans({}, 'messages') | capitalize,
+                    template: 'quality/non_conformity/partial/tabs/_files_tab.html.twig',
+                    templateParams: {form_files: form_files},
+                    badge: filesBadgeCount,
+                },
+                ncrLinks: {
+                    label: 'menu.links' | trans({}, 'messages') | capitalize,
+                    template: 'generic/_links.html.twig',
+                    templateParams: { module: 'NCR', legacy: false }
+                },
+                tasks: {
+                    label: 'menu.people.tasks' | trans({}, 'messages') | capitalize,
+                    template: 'quality/non_conformity/partial/tabs/_tasks_tab.html.twig',
+                },
+                ncrLogs: {
+                    label: 'menu.logs' | trans({}, 'messages') | capitalize,
+                    template: 'generic/_logs.html.twig',
+                    templateParams: {addComment: true}
+                },
+            },
+            data: nonConformity,
+            link: app.request.query.get('tab'),
+        },
+    }, with_context = false) }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

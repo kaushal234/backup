@@ -1,0 +1,169 @@
+contacts:
+    extranet_user: eContact
+    make_selection: Make your selection...
+    last10: Last 10 eContacts Created
+    nav_link:
+        add_role: Add role
+        archive_account: Archive account
+        disable_account: Disable account
+        confirmation_email: Confirmation email
+        crt_and_roles: CRT and roles
+        disable_extranet_access: Disable extranet access
+        e_contact_actions: Econtact actions
+        e_contact_roles: Econtact roles
+        shadow: Shadow
+        submit_extranet_request: Submit extranet request
+        unused_accounts: Unused accounts
+    message:
+        error: No eContact found...
+    fields:
+        id: ID
+        userid: Username
+        lastname: Lastname
+        firstname: Firstname
+        phone: Phones
+        department: Department
+        customer: Customer
+        roles: Roles
+        extranet_acess: Extranet Access
+        eparts_access: eParts Access
+        name: Name
+        address_street_1: Street 1
+        address_street_2: Street 2
+        address_town: Town
+        address_postal_code: Postal Code
+        address_city: City
+        address_state: State
+        address: Address
+        country: Country
+        gender: Gender
+        division: Division
+        job_title: Job Title
+        language: Language
+        email: Email
+        counter: Connection counter
+        last_login: Last Login
+        is_enable: Is Enable ?
+        shipping_address: Shipping Address
+        company: ERP Company Name
+        shipping_account: Shipping Account Number
+        carrier_name: Customer Carrier Name
+        requestor: Requestor Number
+        employee: Employee Number
+        note: Note
+        erp_location: ERP Location
+        last_seq: Last Sequences Opened for Extranet Users
+        general: General
+        connection: Connection Details
+        misc: Misc Details
+        legacy_id: Legacy ID
+        t_cuno: Cuno
+        t_cdel: cDel
+        archived: Archived
+        sales_representative: Sales Representative
+        parts_representative: Parts Representative
+        extranet_user_profile: eContact Profile
+        type: Type
+        crt: CRT
+        partsLocation: Parts Location
+        serviceLocation: Service Location
+        service_representative: Service Representative
+        legacy_address: Legacy Address
+        legacy_shipping_address: Legacy Shipping Address
+        active: ACTIVE
+        inactive: INACTIVE
+        disabled: DISABLED
+        warning_no_role: Add Role to enable
+        enabled: ENABLED
+        contact_status: Contact Status
+        archived_accounts: Archived Accounts
+        members: Members
+        sequence: Sequence
+        delivery_addresses: Delivery Addresses
+        download_vcard: Download Vcard
+        is_gift_accepted: Gift accepted
+        gift_refused_reason: Gift refused reason
+        role: Role
+    title: eContact
+    vendor_users_title: Vendors Users
+    menu:
+        add: New eContact
+        edit: Edit
+        crt_roles: CRT and Roles
+        delete: Delete
+        add_crt_roles: Add Role
+        contacts: eContact List
+        email: Confirmation Email
+        shadow: Shadow
+        detail: Details
+        unused_accounts: Unused Accounts
+        roles: eContact Roles
+        extranet_request: Submit Extranet Request
+        disable_extranet_access: Disable Extranet Access
+        archive_account: Archive Account
+    detail: eContact Details
+    mail:
+        subject: Subject
+        optional_message: Optional Message
+        cc: cc
+        bcc: bcc
+        to: to
+        title: Send access confirmation email for %firstname%, %lastname%
+        header: |
+            Dear %gender% %firstname% %lastname%,
+
+            Your application for a TLD Extranet Site account has been authorized.
+
+            Your username is: %username%
+        footer: |
+            To access the partners site use the following url %extranet_url% or go through the 'login' page on our main website https://www.tld-group.com
+            Please note that at on your first login you will be requested to update your account password with a password of your choice.
+            If you require any assistance or have any questions regarding our website please don't hesitate to contact us.
+
+            Best regards.
+            %user_lastname%, %user_firstname%
+            %user_location%
+            %user_email%
+        password: The password is hidden here but will be in clear in the email.
+    messages:
+        error:
+            edit: The eContact couldn't be edited.
+            permission: You don't have permissions to do this.
+            request: Something went wrong and the extranet request could not be submitted
+            delete: Something went wrong and the extranet user could not be deleted
+            mail: Error when sending mail
+        success:
+            edit: The eContact has been successfully edited
+            mail: The email has been sent correctly
+            email: The email has been sent correctly
+            add: The eContact \#%id% has been successfully created
+            request: Extranet request has been successfully created
+            delete:  eContact has been successfully deleted
+        form:
+            not_submitted: At least one field should be submitted
+    search: Search
+    more: More
+    forms:
+        title:
+            edit: Edit
+            add: Add
+        general: General
+        access_settings: Access Settings
+        optional_fields: Optional Fields
+        phone_advise: Please use phone international format, you can find prefixes in the country list
+    acls:
+        messages:
+            success:
+                delete: The role for this extranet user has been removed on the CRT
+            error:
+                delete: The role could not be deleted
+        forms:
+            fields:
+                role: Role
+            title:
+                edit: Edit CRT Role
+
+    text:
+        no_crt: If your customer is not listed, it means that no CRT has been created for this customer.
+        create_crt: Please click here to create the missing CRT.
+

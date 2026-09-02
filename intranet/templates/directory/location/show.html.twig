@@ -1,0 +1,100 @@
+{% extends 'directory/location/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set location_id = iri_id(location) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'directory.location.title.view' |trans,
+                    items: {
+                        id: { label: 'directory.location.name' |trans | capitalize },
+                        name: { label: 'fields.name'|trans({}, 'messages') | capitalize },
+                        company: { label: 'directory.location.fields.company' |trans | capitalize },
+                        erp: { label: 'directory.location.fields.erp' |trans | upper },
+                        currency: {
+                            label: 'directory.location.fields.currency' | trans| capitalize,
+                            properties: ['currency.name'],
+                            preserveNull: true
+                        },
+                        capability: {
+                            label: 'directory.location_capability.name' | trans | capitalize,
+                            template: 'directory/location/partial/cells/_capability.html.twig',
+                        },
+                        contact: {
+                            label: 'directory.location_contact.name' | trans | capitalize,
+                            template: 'directory/location/partial/cells/_contact.html.twig',
+                        },
+                        state: {
+                            label: 'directory.location_state.name' | trans | capitalize,
+                            template: 'directory/location/partial/cells/_state.html.twig',
+                        },
+                        address: {
+                            label: 'address.name'|trans([], 'messages')|capitalize,
+                            template: 'partial/_address_table.html.twig',
+                        },
+                        domain: { label: 'directory.location.fields.domain' |trans | capitalize },
+                        publicWebsite: { label: 'directory.location.fields.public_website' |trans | capitalize },
+                        internalNetworkAddress: { label: 'directory.location.fields.internalNetworkAddress' |trans | capitalize },
+                        businessUnit: {
+                            label: 'directory.location.fields.businessUnit' | trans| upper,
+                            properties: ['businessUnit.name'],
+                            link:{
+                                route: 'directory_business_units_show',
+                                params: {'id':'businessUnit.@id'},
+                            }
+                        },
+                        network: {
+                            label: 'directory.location.fields.network' | trans| capitalize,
+                            properties: ['network.name']
+                        },
+                        juridicalLocation: {
+                            label: 'directory.location.fields.juridicalLocation' | trans| capitalize,
+                            properties: ['juridicalLocation.name'],
+                            link:{
+                                route: 'directory_locations_show',
+                                params: {'id':'juridicalLocation.@id'},
+                            }
+                        },
+                        representative: {
+                            label: 'directory.location.fields.representative' | trans | capitalize,
+                            properties: ['representative.firstname', 'representative.lastname'],
+                            link: {
+                                'route': 'directory_people_show',
+                                'params': {'id':'representative.@id'}
+                            }
+                        },
+                        timeZone: { label: 'directory.location.fields.timeZone' |trans | capitalize },
+                        erpSoftware: { label: 'directory.location.fields.erp_software' |trans }
+                    },
+                    data: location
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+    <div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'menu.logs'|trans({}, 'messages') }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="logs-block" data-resource="{{ location['@id'] }}"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        {{ 'toc.message.toc_csr_created.content'|trans({
+            '%technician%': leader,
+            '%airport%': technicianOnCall.airport.code ~ ' - ' ~ technicianOnCall.airport.name,
+            '%customer%': technicianOnCall.customer.name,
+            '%mainContact%': technicianOnCall.mainContact ? technicianOnCall.mainContact.lastname ~ ', ' ~ technicianOnCall.mainContact.firstname : '-',
+            '%id%': technicianOnCall.id,
+            '%model%': technicianOnCall.equipmentRecord ? technicianOnCall.equipmentRecord.model : '',
+            '%description%': technicianOnCall.title,
+            '%datePlanned%': intervention.plannedAt|date('Y-m-d'),
+            '%customerServiceRecordId%': customerServiceRecord.id,
+            '%url%': url('customer_service_record', { 'id': customerServiceRecord.id })
+        })|raw|nl2br }}
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_internal.html.twig') }}
+    </div>
+{% endblock %}

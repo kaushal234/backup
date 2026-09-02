@@ -1,0 +1,43 @@
+{% trans_default_domain 'mis_project' %}
+
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+<div class="row mt-2 mb-2">
+    <div class="col-md-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ ('mis_project.fields.' ~ title) | trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="row  d-flex">
+                    {% if form.status is defined %}
+                        <div class="col-sm-12 col-lg-8">
+                            {{ form_row(form.status) }}
+                        </div>
+                    {% endif %}
+                    <div class="col-sm-12 col-lg-4">
+                        {{ form_row(form.file) }}
+                    </div>
+                    <div class="col-sm-12 col-lg-8">
+                        {% if form.comment is defined %}
+                            {{ form_row(form.comment) }}
+                        {% endif %}
+                        {% if form.conclusion is defined %}
+                            {{ form_row(form.conclusion) }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    {{ form_row(form.submit) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>

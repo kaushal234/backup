@@ -1,0 +1,30 @@
+{% trans_default_domain 'messages' %}
+
+{% if address is not null -%}
+    <div class="row">
+        <div class="col-sm-3">{{ 'address.fields.street1'|trans }}</div>
+        <div class="col-sm-9">{{ address.street1 }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">{{ 'address.fields.street2'|trans }}</div>
+        <div class="col-sm-9">{{ address.street2 }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">{{ 'address.fields.postal_code'|trans }}</div>
+        <div class="col-sm-9">{{ address.postalCode }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">{{ 'address.fields.city'|trans }}</div>
+        <div class="col-sm-9">{{ address.city }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">{{ 'address.fields.state'|trans }}</div>
+        <div class="col-sm-9">{{ address.state }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">{{ 'address.fields.country'|trans }}</div>
+        <div class="col-sm-9">{{ address.country|country }}</div>
+    </div>
+{%- else -%}
+    -
+{%- endif %}

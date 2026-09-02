@@ -1,0 +1,112 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/maintenance_contracts/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "string"
+    },
+    "expirationDate": {
+      "type": "string"
+    },
+    "equipmentRecords": {
+      "type": "array",
+      "items": {
+        "$ref": "../../equipment_record/schemas/equipment_record.json"
+      },
+      "minItems": 1
+    },
+    "endUserRepresentatives": {
+      "type": "array",
+      "items": {
+        "$ref": "../../directory_people/schemas/directory_people_public.json"
+      },
+      "minItems": 1
+    },
+    "buyerRepresentatives": {
+      "type": "array",
+      "items": {
+        "$ref": "../../directory_people/schemas/directory_people_public.json"
+      },
+      "minItems": 1
+    },
+    "representative": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "description": {
+      "type": "string"
+    },
+    "endUser": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/customers/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "buyer": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/customers/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "createdAt",
+    "startDate",
+    "expirationDate",
+    "equipmentRecords",
+    "endUserRepresentatives",
+    "buyerRepresentatives",
+    "representative",
+    "description",
+    "endUser",
+    "buyer"
+  ]
+}

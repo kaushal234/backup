@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "definitions": {
+        "Printer.jsonld-printer": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/support/manual_printers/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "companyName": {
+                    "type": "string"
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "prints": {
+                    "type": "array",
+                    "items": {
+                        "oneOf": [
+                            {"type":  "string"},
+                            {"$ref": "../../manual_prints/schemas/manual_print_public.json"}
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "id",
+                "companyName",
+                "firstname",
+                "lastname",
+                "email",
+                "prints"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Printer.jsonld-printer"
+            }
+        }
+    },
+    "required": [
+        "@context",
+        "@id",
+        "@type",
+        "hydra:member"
+    ]
+}

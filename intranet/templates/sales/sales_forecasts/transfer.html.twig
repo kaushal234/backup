@@ -1,0 +1,21 @@
+{% extends 'sales/sales_forecasts/layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+<div>
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>{{ 'menu.transfer' | trans({}, 'messages') }}</h5>
+        </div>
+        <div class="ibox-content" id="sfr-form">
+            {{ include('sales/sales_forecasts/partial/_form_transfer.html.twig', {
+                form: form,
+                action: path('sales_forecasts_transfer'),
+                cancel_link: path('sales_forecasts_home')
+            }, with_context=false) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

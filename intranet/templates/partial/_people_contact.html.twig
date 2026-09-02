@@ -1,0 +1,40 @@
+{% trans_default_domain 'directory' %}
+
+<div class="{{ entryClass|default('col-lg-4') }}">
+    <div class="contact-box">
+        <a href="{{ path('directory_people_show', {id: iri_id(entry)}) }}">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="text-center">
+                        {% if entry.photo is not empty %}
+                            <img class="m-t-xs img-fluid"
+                                 src="{{ asset(upload_uri ~ '/' ~ entry.photo.filePath) }}?width=64">
+                        {% else %}
+                            <img class="m-t-xs img-fluid" src="/shared/no_photo.jpg">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-8 hover-container">
+                    {% if entry.disabled %}
+                        {% if entry.disabledAt is defined and entry.disabledAt is not null %}
+                            <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_leave'|trans }}</span>
+                            <div class="people-date">
+                                {{ 'directory.people.fields.disabled_at'|trans }} : {{ entry.disabledAt|date('d/m/Y') }}
+                            </div>
+                        {% endif %}
+                        {% if entry.enableAt is defined and entry.enableAt is not null %}
+                            <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_come'|trans }}</span>
+                            <div class="people-date">
+                                {{ 'directory.people.fields.enabled_on'|trans }} : {{ entry.enableAt|date('d/m/Y') }}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <h3><strong>{{ entry.lastname }} {{ entry.firstname }}</strong></h3>
+                    <p>{% if entry.businessUnit is not empty %}{{ entry.businessUnit.name }}{% else %}-{% endif %}</p>
+                    <p class="m-t-xs font-bold">{{ entry.jobTitle }}</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="module.nav_link.specification" domain="mis_modules" icon="bi:eye" route="specification_show" :routeParameters="{moduleId: specification.module.id, id: specification.id}"/>
+    </twig:NavBar:Container>
+{% endblock %}

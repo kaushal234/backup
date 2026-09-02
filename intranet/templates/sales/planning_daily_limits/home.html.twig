@@ -1,0 +1,54 @@
+{% extends 'sales/equipment_shipping_records/layout.html.twig' %}
+{% trans_default_domain 'equipment_shipping_record' %}
+
+{% set items = {
+    factory: {
+        label:'fields.factory'|trans([], 'messages')|capitalize,
+        properties: ['factory.name']
+    },
+    days: { label: 'planning_daily_limit.limit'|trans()|capitalize },
+    comment: { label: 'demo.fields.comment'|trans({}, 'demo')|capitalize }
+} %}
+
+{% if is_granted("FEATURE_PLANNING_DAILY_LIMIT_WRITE") %}
+    {% set items = items | merge (
+        {
+            edit: {
+                label: 'menu.edit'|trans({}, 'messages')|capitalize,
+                link:{
+                    route: 'planning_daily_limit_edit',
+                    content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                    params: {'id':'@id'},
+                },
+                sortable: false,
+                class: 'text-center'
+            },
+            delete: {
+                label: 'button.delete'|trans([], 'messages')|capitalize,
+                link: {
+                    route: 'planning_daily_limit_delete',
+                    content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                    params: {'id':'@id'},
+                },
+                sortable: false,
+                class : 'text-end'
+            }
+        }
+    ) %}
+{% endif %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+                    {{ include('helper/_report_table.html.twig', {
+                        reportTable: {
+                            items: items,
+                            title: 'planning_daily_limit.title'|trans|capitalize,
+                            data: planningDailyLimits,
+                            search: false,
+                            pagination: false
+                        }
+                    }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

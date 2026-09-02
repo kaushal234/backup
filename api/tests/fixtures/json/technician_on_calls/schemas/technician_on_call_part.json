@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/TechnicianOnCallPart.jsonld-toc.write",
+  "definitions": {
+    "TechnicianOnCallPart.jsonld-toc.write": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "partNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vendorPartNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "serialNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deletedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "createdBy": {
+          "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+        },
+        "defective": {
+          "type": "boolean"
+        },
+        "replacement": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "boolean"}
+          ]
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "partNumber",
+        "vendorPartNumber",
+        "serialNumber",
+        "description",
+        "quantity",
+        "defective",
+        "replacement",
+        "comment"
+      ]
+    }
+  }
+}

@@ -1,0 +1,68 @@
+App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord:
+  #/equipment_shipping_records/1
+  equipment_shipping_record_1:
+    id: 1
+    sso: '@location_sso'
+    customer: '@customer_a_boire'
+    incoterm: '@incoterm_EXW'
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    status: SHIPPED
+    loadingPlace: The load place is in SSO
+    departurePlace: The departure is at the AIRPORT of COU-A
+    arrivalPlace: COU-B
+    modality: AIR
+    notes: the package has les cramptés
+    carrier: '@freight_forwarder_1'
+    forwarder: '@freight_forwarder_2'
+    legacyId (unique): 99
+
+  #/equipment_shipping_records/2
+  equipment_shipping_record_2:
+    id: 2
+    sso: '@location_sso'
+    customer: '@customer_noire'
+    incoterm: '@incoterm_EXW'
+    createdAt: <dateTimeBetween('-1 months', 'now')>
+    status: CLOSED
+    loadingPlace: The load place is in SSO or not
+    departurePlace: The departure is at the AIRPORT of COU-A or not
+    arrivalPlace: COU-B COU-C
+    modality: AIR
+    notes: the package has les cramptés  or not
+    carrier: '@freight_forwarder_1'
+    forwarder: '@freight_forwarder_2'
+    legacyId (unique): <numberBetween(1,999999)>
+
+  #/equipment_shipping_records/3
+  equipment_shipping_record_deleted:
+    id: 3
+    sso: '@location_sso'
+    customer: '@customer_noire'
+    incoterm: '@incoterm_EXW'
+    createdAt: <dateTimeBetween('-1 months', 'now')>
+    status: PENDING
+    loadingPlace: The load place is in SSO or not
+    departurePlace: The departure is at the AIRPORT of COU-A or not
+    arrivalPlace: COU-B COU-C
+    modality: AIR
+    notes: the package has les cramptés  or not
+    carrier: '@freight_forwarder_1'
+    forwarder: '@freight_forwarder_2'
+    legacyId (unique): <numberBetween(1,999999)>
+
+  #/equipment_shipping_records/4
+  equipment_shipping_record_4:
+    id: 4
+    sso: '@location_sso'
+    customer: '@customer_a_boire'
+    incoterm: '@incoterm_EXW'
+    createdAt: <dateTimeBetween('-1 months', 'now')>
+    status: PENDING
+    loadingPlace: The load place is in SSO or not
+    departurePlace: The departure is at the AIRPORT of COU-A or not
+    arrivalPlace: COU-B COU-C
+    modality: AIR
+    notes: the package has les cramptés  or not
+    carrier: '@freight_forwarder_1'
+    forwarder: '@freight_forwarder_2'
+    legacyId (unique): <numberBetween(1,999999)>

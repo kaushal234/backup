@@ -1,0 +1,4 @@
+<td>
+    {{ item.status | replace({'_': '&nbsp;'}) | raw }} <br>
+    <a href="{{ path('sales_forecasts_show', {id: item.id}) }}">{{ item.id }}</a>
+</td>

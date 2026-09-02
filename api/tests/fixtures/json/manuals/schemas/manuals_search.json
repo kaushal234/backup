@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/support/manuals"},
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "properties": {
+            "@context": {
+              "type": "string"
+            },
+            "@id": {"pattern": "^/support/manuals/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "description": {
+              "type": ["string", "null"]
+            },
+            "language": {
+              "type": ["string", "null"]
+            },
+            "status": {
+              "type": ["string", "null"]
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "description",
+            "language",
+            "status",
+            "createdAt",
+            "id"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

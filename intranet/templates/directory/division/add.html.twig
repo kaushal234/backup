@@ -1,0 +1,15 @@
+{% extends 'directory/division/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.division.title.add'|trans|capitalize }}</h3>
+
+    {{ include('directory/division/partial/_form.html.twig', {
+        form: form,
+        action: path('directory_divisions_add'),
+        cancel_link: path('directory_divisions_home')
+    }, with_context=false) }}
+
+{% endblock %}

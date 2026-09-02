@@ -1,0 +1,10 @@
+{% trans_default_domain 'support' %}
+
+{% block content %}
+    <div style="text-align: center">
+        <img src="{{ qrCodeData }}" alt="QR Code" width="300" height="300">
+        {% if manual.equipmentRecord is defined and manual.equipmentRecord is not null and manual.equipmentRecord.serialNumber is not null %}
+            <h3>ER : {{ manual.equipmentRecord.serialNumber }}</h3>
+        {% endif %}
+    </div>
+{% endblock content %}

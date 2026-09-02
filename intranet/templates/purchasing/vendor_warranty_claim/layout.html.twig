@@ -1,0 +1,52 @@
+{% extends 'purchasing/layout.html.twig' %}
+{% trans_default_domain 'vendor_warranty_claim' %}
+{% block title %}{{ parent() }}\{{ 'vendor_warranty_claim.title.vwc'|trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Reports route="vendor_warranty_claim_report"/>
+        <twig:NavItem translationKey="vendor_warranty_claim.nav_link.vwc_thresholds" domain="vendor_warranty_claim"
+                      icon="line-md:link" route="vendor_warranty_claim_thresholds"/>
+        <twig:NavItem translationKey="vendor_warranty_claim.nav_link.matrix" domain="vendor_warranty_claim"
+                      icon="tabler:matrix" route="vendor_warranty_claim_matrix"/>
+        {% if vendorWarrantyClaim is defined %}
+            <twig:NavItem:Details route="vendor_warranty_claim_show" :routeParameters="{id: vendorWarrantyClaim.id}"/>
+            <twig:NavItem:Delete route="vendor_warranty_claim_delete" :routeParameters="{id: vendorWarrantyClaim.id}"
+                                 :security=" is_granted('FEATURE_VENDOR_WARRANTY_CLAIM_DELETE')"/>
+            {% if status_form is defined %}
+                <twig:Dropdown translationKey="vendor_warranty_claim.nav_link.change_status"
+                               domain="vendor_warranty_claim">
+                    {{ form_start(status_form) }}
+                    {{ form_widget(status_form.status) }}
+                    {{ form_end(status_form) }}
+                </twig:Dropdown>
+            {% endif %}
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if vendorWarrantyClaim is defined %}
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem translationKey="vendor_warranty_claim.nav_link.internal_note" domain="vendor_warranty_claim"
+                          icon="mynaui:envelope" route="vendor_warranty_claim_internal_note"
+                          :routeParameters="{id: vendorWarrantyClaim.id}"/>
+            <twig:NavItem translationKey="vendor_warranty_claim.nav_link.email_vendor" domain="vendor_warranty_claim"
+                          icon="mynaui:envelope" route="vendor_warranty_claim_email_vendor"
+                          :routeParameters="{id: vendorWarrantyClaim.id}"/>
+            <twig:NavItem translationKey="vendor_warranty_claim.nav_link.edit_parts" domain="vendor_warranty_claim"
+                          icon="teenyicons:basket-plus-outline" route="vendor_warranty_claim_admin_parts"
+                          :routeParameters="{id: vendorWarrantyClaim.id}"
+                          :security="is_granted('VENDOR_WARRANTY_CLAIM_VOTER', vendorWarrantyClaim['@id'])"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'VWC', parent_id: vendorWarrantyClaim.id}"/>
+            <twig:NavItem:Edit route="vendor_warranty_claim_edit" :routeParameters="{id: vendorWarrantyClaim.id}"
+                               :security="is_granted('VENDOR_WARRANTY_CLAIM_VOTER', vendorWarrantyClaim['@id'])"/>
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

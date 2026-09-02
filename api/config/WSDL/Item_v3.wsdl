@@ -1,0 +1,2970 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:bo="http://www.infor.com/businessinterface/Item_v3" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.infor.com/businessinterface/Item_v3" name="Item_v3">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.infor.com/businessinterface/Item_v3">
+			<xsd:complexType name="ChangeRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="baseUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tccpcp" minOccurs="0"/>
+											<xsd:element name="defaultBOMBatchSizeQuantityValue" type="bo:tiqbm1" minOccurs="0"/>
+											<xsd:element name="derivedFromItem" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="description" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="bo:tcdsca">
+															<xsd:attribute name="languageID" type="xsd:string" use="optional"/>
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="environmentalCompliance" type="bo:tcenvc" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="firstAllowedOrderDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="generalSearchKey1" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="generalSearchKey2" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+											<xsd:element name="itemGroup" type="bo:tccitg" minOccurs="0"/>
+											<xsd:element name="itemSignal" type="bo:tccsig" minOccurs="0"/>
+											<xsd:element name="itemType" type="bo:tckitm" minOccurs="0"/>
+											<xsd:element name="itemTypeSpecification" type="bo:tcitmt_mandatory" minOccurs="0"/>
+											<xsd:element name="lastAllowedOrderDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="locationSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="manufacturer" type="bo:tcmcs.cmnf" minOccurs="0"/>
+											<xsd:element name="material" type="bo:tcdscb" minOccurs="0"/>
+											<xsd:element name="orderPolicy" type="bo:tcopol" minOccurs="0"/>
+											<xsd:element name="productType" type="bo:tcctyp" minOccurs="0"/>
+											<xsd:element name="productionSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="purchaseSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="revisionControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="salesSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="selectionCode" type="bo:tccsel" minOccurs="0"/>
+											<xsd:element name="serviceSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="size" type="bo:tcdscc" minOccurs="0"/>
+											<xsd:element name="standard" type="bo:tcdscb" minOccurs="0"/>
+											<xsd:element name="weightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="weightValue" type="bo:tcwght" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="Feature" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="featureCode" type="bo:tccpft_mandatory" minOccurs="0"/>
+														<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="effectivePeriod" minOccurs="0">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+			<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="featureValueDomain" type="bo:tcopvd_mandatory" minOccurs="0"/>
+														<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+														<xsd:element name="featureValue" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="featureValueCode" type="bo:tccopt_mandatory" minOccurs="0"/>
+			<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+			<xsd:element name="effectivePeriod" minOccurs="0">
+					<xsd:complexType>
+							<xsd:sequence>
+									<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+									<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+							</xsd:sequence>
+					</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+	</xsd:sequence>
+	<xsd:attribute name="actionType" type="bo:actionType" use="optional" default="change"/>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+													<xsd:attribute name="actionType" type="bo:actionType" use="optional" default="change"/>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ChangeResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="costComponent" type="bo:tccpcp" minOccurs="0"/>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+											<xsd:element name="itemTypeSpecification" type="bo:tcitmt_mandatory" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="Feature" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="featureCode" type="bo:tccpft_mandatory" minOccurs="0"/>
+														<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="effectivePeriod" minOccurs="0">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+			<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="featureValueDomain" type="bo:tcopvd_mandatory" minOccurs="0"/>
+														<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+														<xsd:element name="featureValue" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="featureValueCode" type="bo:tccopt_mandatory" minOccurs="0"/>
+			<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+			<xsd:element name="effectivePeriod" minOccurs="0">
+					<xsd:complexType>
+							<xsd:sequence>
+									<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+									<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+							</xsd:sequence>
+					</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CreateRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="baseUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tccpcp" minOccurs="0"/>
+											<xsd:element name="defaultBOMBatchSizeQuantityValue" type="bo:tiqbm1" minOccurs="0"/>
+											<xsd:element name="derivedFromItem" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="description" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="bo:tcdsca">
+															<xsd:attribute name="languageID" type="xsd:string" use="optional"/>
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="environmentalCompliance" type="bo:tcenvc" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="firstAllowedOrderDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="generalSearchKey1" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="generalSearchKey2" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+											<xsd:element name="itemGroup" type="bo:tccitg" minOccurs="1"/>
+											<xsd:element name="itemSignal" type="bo:tccsig" minOccurs="0"/>
+											<xsd:element name="itemType" type="bo:tckitm" minOccurs="1"/>
+											<xsd:element name="itemTypeSpecification" type="bo:tcitmt_mandatory" minOccurs="0"/>
+											<xsd:element name="lastAllowedOrderDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="locationSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="manufacturer" type="bo:tcmcs.cmnf" minOccurs="0"/>
+											<xsd:element name="material" type="bo:tcdscb" minOccurs="0"/>
+											<xsd:element name="orderPolicy" type="bo:tcopol" minOccurs="0"/>
+											<xsd:element name="productType" type="bo:tcctyp" minOccurs="0"/>
+											<xsd:element name="productionSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="purchaseSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="revisionControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="salesSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="selectionCode" type="bo:tccsel" minOccurs="0"/>
+											<xsd:element name="serviceSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="size" type="bo:tcdscc" minOccurs="0"/>
+											<xsd:element name="standard" type="bo:tcdscb" minOccurs="0"/>
+											<xsd:element name="weightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="weightValue" type="bo:tcwght" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="Feature" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="featureCode" type="bo:tccpft_mandatory" minOccurs="0"/>
+														<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="effectivePeriod" minOccurs="0">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+			<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="featureValueDomain" type="bo:tcopvd_mandatory" minOccurs="0"/>
+														<xsd:element name="featureValue" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="featureValueCode" type="bo:tccopt_mandatory" minOccurs="0"/>
+			<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+			<xsd:element name="effectivePeriod" minOccurs="0">
+					<xsd:complexType>
+							<xsd:sequence>
+									<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+									<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+							</xsd:sequence>
+					</xsd:complexType>
+			</xsd:element>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CreateResponseType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="costComponent" type="bo:tccpcp" minOccurs="0"/>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+											<xsd:element name="itemTypeSpecification" type="bo:tcitmt_mandatory" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CreateRefRequestType">
+				<xsd:sequence>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CreateRefResponseType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="referenceID" type="xsd:string"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeleteRefRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="referenceID" type="xsd:string"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeleteRefResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ListRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="suppressDefaultLanguageBehavior" type="xsd:boolean" minOccurs="0"/>
+								<xsd:element name="maxNumberOfObjects" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorID" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorFetchSize" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="paging" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ListResponseType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="iteratorID" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="iteratorFetchSize" type="xsd:long" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="EANCode" type="bo:tccean" minOccurs="0"/>
+											<xsd:element name="assayedItemIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="baseUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="baseUOMDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="blanketAgreement" type="bo:tcrefa" minOccurs="0"/>
+											<xsd:element name="carrier" type="bo:tccfrw" minOccurs="0"/>
+											<xsd:element name="carrierDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="combinationCode" type="bo:fmfmd.ccmb" minOccurs="0"/>
+											<xsd:element name="combinationCodeDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="configurationControlledIndicator" type="bo:tsmdm.cctr" minOccurs="0"/>
+											<xsd:element name="Configurable" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="consignmentPriorityIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="contractDiscountScheme" type="bo:tsctm.ccds" minOccurs="0"/>
+											<xsd:element name="contractDiscountSchemeDescription" type="bo:tsmdm.desc" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tccpcp" minOccurs="0"/>
+											<xsd:element name="costComponentDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInItemCurrencyCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="costPriceInItemCurrencyCurrencyDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInItemCurrencyUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costPriceInItemCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="costPriceInRefCurrencyCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="costPriceInRefCurrencyCurrencyDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInRefCurrencyUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costPriceInRefCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency1Currency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency1CurrencyDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency1UOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency1Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency2Currency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency2CurrencyDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency2UOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency2Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="countryOfOrigin" type="bo:tcccty" minOccurs="0"/>
+											<xsd:element name="countryOfOriginDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="coveredByContract" type="bo:tscfg.cvco" minOccurs="0"/>
+											<xsd:element name="defaultBOMBatchSizeQuantityUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultBOMBatchSizeQuantityValue" type="bo:tiqbm1" minOccurs="0"/>
+											<xsd:element name="defaultLotSizeMultiplier" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultMaximumInventoryLevelUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultMaximumInventoryLevelValue" type="bo:tcqiv1" minOccurs="0"/>
+											<xsd:element name="defaultMaximumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultMaximumLotSizeValue" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultMinimumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultMinimumLotSizeValue" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultMinimumOrderInterval" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="defaultOrderingFillToMaximumInventory" type="bo:tctope_mandatory" minOccurs="0"/>
+											<xsd:element name="defaultReorderPointUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultReorderPointValue" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultRoutingBatchSizeQuantityUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultRoutingBatchSizeQuantityValue" type="bo:tiqro1" minOccurs="0"/>
+											<xsd:element name="defaultSafetyStockUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultSafetyStockValue" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultSafetyTime" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="defaultWarehouse" type="bo:tccwar" minOccurs="0"/>
+											<xsd:element name="defaultWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="DefaultWarehouseAddress" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="DefaultWarehouseAddressName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="deliveryType" type="bo:tsmdm.dltp" minOccurs="0"/>
+											<xsd:element name="deliveryTypeShopMaintenance" type="bo:tswcs.dltp" minOccurs="0"/>
+											<xsd:element name="depth" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="depthUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="derivedFromItem" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="description" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="bo:tcdsca">
+															<xsd:attribute name="languageID" type="xsd:string" use="optional"/>
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="environmentalCompliance" type="bo:tcenvc" minOccurs="0"/>
+											<xsd:element name="estCostPriceInItemCurInSalesUOMCurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estCostPriceInItemCurInSalesUOMCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estCostPriceInItemCurInSalesUOMUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estCostPriceInItemCurInSalesUOMValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyCurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyCurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1CurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1Currency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1UOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2CurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2Currency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2UOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="firstAllowedOrderDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="freightClass" type="bo:fmfmd.frcl" minOccurs="0"/>
+											<xsd:element name="freightClassDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="freightDepthUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightDepthValue" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="freightFloorSpaceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightFloorSpaceValue" type="bo:tcflsp" minOccurs="0"/>
+											<xsd:element name="freightHeightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightHeightValue" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="freightServiceLevel" type="bo:tcmcs.serv" minOccurs="0"/>
+											<xsd:element name="freightServiceLevelDescription" type="bo:tcmcs.serv" minOccurs="0"/>
+											<xsd:element name="freightVolumeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightVolumeValue" type="bo:tcvolm" minOccurs="0"/>
+											<xsd:element name="freightWeightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightWeightValue" type="bo:tcwght" minOccurs="0"/>
+											<xsd:element name="freightWidthUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightWidthValue" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="generalSearchKey1" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="generalSearchKey2" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="handlingUnitIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="handlingUnitVersionControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="hazardousMaterialIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="hazardousMaterialRiskClass" type="bo:whwmd.risk" minOccurs="0"/>
+											<xsd:element name="height" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="heightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="installationGroup" type="bo:tscfg.sigr" minOccurs="0"/>
+											<xsd:element name="installationGroupDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="itemGroup" type="bo:tccitg" minOccurs="0"/>
+											<xsd:element name="itemGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="ItemPicture" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="itemSignal" type="bo:tccsig" minOccurs="0"/>
+											<xsd:element name="itemSignalDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="itemType" type="bo:tckitm" minOccurs="0"/>
+											<xsd:element name="itemTypeSpecification" type="bo:tcitmt_mandatory" minOccurs="0"/>
+											<xsd:element name="lastAllowedOrderDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="lastChangeDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="lifeCycle" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="locationControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="locationSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="lotControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="lotTrackingIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="maintenanceCycle" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="manufacturer" type="bo:tcmcs.cmnf" minOccurs="0"/>
+											<xsd:element name="manufacturerDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="material" type="bo:tcdscb" minOccurs="0"/>
+											<xsd:element name="maximumInventoryUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="maximumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="measurement" type="bo:tsmdm.cmea" minOccurs="0"/>
+											<xsd:element name="measurementDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="minimumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="orderPolicy" type="bo:tcopol" minOccurs="0"/>
+											<xsd:element name="orderingSystem" type="bo:tcosys" minOccurs="0"/>
+											<xsd:element name="outboundMethod" type="bo:tcobpr" minOccurs="0"/>
+											<xsd:element name="picture" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="UUID" type="xsd:string" minOccurs="0"/>
+														<xsd:element name="StandardUUID" type="xsd:string" minOccurs="0"/>
+														<xsd:element name="LastModificationDate" type="xsd:string" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="plannedByAPS" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="printSerialNumberOnShipReportsIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="productClass" type="bo:tcmcs.cpcl" minOccurs="0"/>
+											<xsd:element name="productClassDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="productLine" type="bo:tcmcs.cpln" minOccurs="0"/>
+											<xsd:element name="productLineDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="productType" type="bo:tcctyp" minOccurs="0"/>
+											<xsd:element name="productTypeDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="productionLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="productionSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="project" type="bo:tccprj" minOccurs="0"/>
+											<xsd:element name="projectDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="projectReferenceDate" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+											<xsd:element name="projectStatus" type="bo:tcpsts" minOccurs="0"/>
+											<xsd:element name="purchasePriceCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="purchasePriceCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="purchasePriceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="purchasePriceValue" type="bo:tcprip" minOccurs="0"/>
+											<xsd:element name="purchaseSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="purchaseSupplyTime" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="purchaseUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="IsItemPurchaseDataPresent" type="xsd:boolean" minOccurs="0"/>
+											<xsd:element name="PurchaseBuyFromBP" type="bo:tccom.bpid" minOccurs="0"/>
+											<xsd:element name="PurchaseBuyFromBPDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="PurchaseBuyer" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="PurchaseBuyerDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="PurchaseWarehouse" type="bo:tccwar" minOccurs="0"/>
+											<xsd:element name="PurchaseWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="PurchaseWarehouseAddress" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="PurchaseWarehouseAddressName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="IsPurchaseReleaseToWarehouse" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="reorderPointUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="repairWarrantyDuration" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="repairableIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="revisionControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="safetyStockUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="salesCommissionGroup" type="bo:tdcms.cmgp" minOccurs="0"/>
+											<xsd:element name="salesCommissionGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="salesPriceCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="salesPriceCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="salesPriceInSalesUOMCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="salesPriceInSalesUOMCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="salesPriceInSalesUOMUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="salesPriceInSalesUOMValue" type="bo:tcpric" minOccurs="0"/>
+											<xsd:element name="salesPriceLowerMargin" type="bo:tcprcg" minOccurs="0"/>
+											<xsd:element name="salesPriceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="salesPriceUpperMargin" type="bo:tcprcg" minOccurs="0"/>
+											<xsd:element name="salesPriceValue" type="bo:tcpric" minOccurs="0"/>
+											<xsd:element name="salesRebateGroup" type="bo:tdcms.cmgp" minOccurs="0"/>
+											<xsd:element name="salesRebateGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="salesSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="salesUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="selectionCode" type="bo:tccsel" minOccurs="0"/>
+											<xsd:element name="selectionCodeDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="serialControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="serialInInventoryIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="serialIssueInServiceIndicator" type="bo:tcynna" minOccurs="0"/>
+											<xsd:element name="serialNumberEntryDuringAsBuiltIndicator" type="bo:tcynna" minOccurs="0"/>
+											<xsd:element name="serialNumberEntryDuringReceiptIndicator" type="bo:tcynna" minOccurs="0"/>
+											<xsd:element name="serialTrackingIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="serviceDepartment" type="bo:tccwoc" minOccurs="0"/>
+											<xsd:element name="serviceDepartmentDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="serviceItemGroup" type="bo:tsmdm.csgr" minOccurs="0"/>
+											<xsd:element name="serviceItemGroupDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="serviceItemIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="serviceKitType" type="bo:tsmdm.ckgr" minOccurs="0"/>
+											<xsd:element name="serviceKitTypeDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="serviceSalesPriceCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="serviceSalesPriceCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="serviceSalesPriceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="serviceSalesPriceValue" type="bo:tcpric" minOccurs="0"/>
+											<xsd:element name="serviceSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="serviceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="serviceUOMDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="shelfLife" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="size" type="bo:tcdscc" minOccurs="0"/>
+											<xsd:element name="stackFactor" type="bo:fmstck" minOccurs="0"/>
+											<xsd:element name="standard" type="bo:tcdscb" minOccurs="0"/>
+											<xsd:element name="subcontractor" type="bo:tccom.bpid" minOccurs="0"/>
+											<xsd:element name="subcontractorDescription" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="suggestedRetailPriceCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="suggestedRetailPriceCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="suggestedRetailPriceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="suggestedRetailPriceValue" type="bo:tcpric" minOccurs="0"/>
+											<xsd:element name="taxCode" type="bo:tccvat" minOccurs="0"/>
+											<xsd:element name="transportMeansGroup" type="bo:fmfmd.cmtg" minOccurs="0"/>
+											<xsd:element name="transportMeansGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="transportType" type="bo:fmfmd.ttyp" minOccurs="0"/>
+											<xsd:element name="transportTypeDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="warranty" type="bo:tscfg.cwte" minOccurs="0"/>
+											<xsd:element name="warrantyDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="weightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="weightValue" type="bo:tcwght" minOccurs="0"/>
+											<xsd:element name="widthUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="widthValue" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="MandatoryProjectPeg" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="AlternativeItem" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="alternativeItemCode" type="bo:tcitem" minOccurs="0"/>
+														<xsd:element name="alternativeItemEffectivePeriodFrom" type="bo:tcefex.date" minOccurs="0"/>
+														<xsd:element name="alternativeItemEffectivePeriodTo" type="bo:tcefex.date" minOccurs="0"/>
+														<xsd:element name="alternativeItemIsInterchangeable" type="bo:tcyesno" minOccurs="0"/>
+														<xsd:element name="alternativeItemIsReplacement" type="bo:tcyesno" minOccurs="0"/>
+														<xsd:element name="alternativeItemPriority" type="bo:tccpri" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Location" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="inboundLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="lotSizeMultiplier" type="bo:tcqiv3" minOccurs="0"/>
+														<xsd:element name="maximumInventoryLevelValue" type="bo:tcqiv1" minOccurs="0"/>
+														<xsd:element name="maximumLotSizeQuantityValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="minimumLotSizeQuantityValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="minimumOrderInterval" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="orderingFillToMaximumInventoryIndicator" type="bo:tcyesno" minOccurs="0"/>
+														<xsd:element name="outboundLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="reorderPointValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="safetyStockValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="safetyTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="warehouse" type="bo:tccwar" minOccurs="0"/>
+														<xsd:element name="warehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="warehouseType" type="bo:tctypw" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="PlanLocation" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="CTPTimeFence" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="defaultSupplySource" type="bo:cprpd.sour" minOccurs="0"/>
+														<xsd:element name="dependentDemandForecastIndicator" type="bo:cpcom.yeno" minOccurs="0"/>
+														<xsd:element name="extraLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="forecastTimeFence" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="orderHorizon" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationInboundLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationLotSizeMultiplier" type="bo:tcqiv3" minOccurs="0"/>
+														<xsd:element name="planLocationMaximumInventoryLevelValue" type="bo:tcqiv1" minOccurs="0"/>
+														<xsd:element name="planLocationMaximumLotSizeValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="planLocationMinimumLotSizeValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="planLocationMinimumOrderInterval" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationOrderingFillToMaximumInvInd" type="bo:tcyesno" minOccurs="0"/>
+														<xsd:element name="planLocationOutboundLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationReorderPointValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="planLocationSafetyStockValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="planLocationSafetyTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationWarehouse" type="bo:tccwar" minOccurs="0"/>
+														<xsd:element name="planLocationWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="planLocationWarehouseType" type="bo:tctypw" minOccurs="0"/>
+														<xsd:element name="planner" type="bo:tcemno" minOccurs="0"/>
+														<xsd:element name="plannerName" type="bo:tcnama" minOccurs="0"/>
+														<xsd:element name="planningHorizon" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="timeFence" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="warehouseCluster" type="bo:tcemm.clus" minOccurs="0"/>
+														<xsd:element name="planLocationMaximumInventoryLevelUOM" type="bo:tccuni" minOccurs="0"/>
+														<xsd:element name="planLocationMaximumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+														<xsd:element name="planLocationMinimumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+														<xsd:element name="planLocationReorderPointUOM" type="bo:tccuni" minOccurs="0"/>
+														<xsd:element name="planLocationSafetyStockUOM" type="bo:tccuni" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Feature" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="featureCode" type="bo:tccpft_mandatory" minOccurs="0"/>
+														<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="effectivePeriod" minOccurs="0">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+			<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="featureValueDomain" type="bo:tcopvd_mandatory" minOccurs="0"/>
+														<xsd:element name="featureValue" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="featureValueCode" type="bo:tccopt_mandatory" minOccurs="0"/>
+			<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+			<xsd:element name="effectivePeriod" minOccurs="0">
+					<xsd:complexType>
+							<xsd:sequence>
+									<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+									<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+							</xsd:sequence>
+					</xsd:complexType>
+			</xsd:element>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Sites" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="Site" type="bo:tcsite" minOccurs="0"/>
+														<xsd:element name="SiteDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SiteDefaultWarehouse" type="bo:tccwar" minOccurs="0"/>
+														<xsd:element name="SiteDefaultWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SiteDefaultWarehouseAddress" type="bo:tccom.cadr" minOccurs="0"/>
+														<xsd:element name="SiteDefaultWarehouseAddressName" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SitePurchaseWarehouse" type="bo:tccwar" minOccurs="0"/>
+														<xsd:element name="SitePurchaseWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SitePurchaseWarehouseAddress" type="bo:tccom.cadr" minOccurs="0"/>
+														<xsd:element name="SitePurchaseWarehouseAddressName" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SiteIsPurchaseReleaseToWarehouse" type="bo:tcyesno" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ShowRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="suppressDefaultLanguageBehavior" type="xsd:boolean" minOccurs="0"/>
+								<xsd:element name="createRef" type="xsd:boolean" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="1">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="1" maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ShowResponseType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="referenceID" type="xsd:string"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="EANCode" type="bo:tccean" minOccurs="0"/>
+											<xsd:element name="assayedItemIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="baseUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="baseUOMDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="blanketAgreement" type="bo:tcrefa" minOccurs="0"/>
+											<xsd:element name="carrier" type="bo:tccfrw" minOccurs="0"/>
+											<xsd:element name="carrierDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="combinationCode" type="bo:fmfmd.ccmb" minOccurs="0"/>
+											<xsd:element name="combinationCodeDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="configurationControlledIndicator" type="bo:tsmdm.cctr" minOccurs="0"/>
+											<xsd:element name="Configurable" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="consignmentPriorityIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="contractDiscountScheme" type="bo:tsctm.ccds" minOccurs="0"/>
+											<xsd:element name="contractDiscountSchemeDescription" type="bo:tsmdm.desc" minOccurs="0"/>
+											<xsd:element name="costComponent" type="bo:tccpcp" minOccurs="0"/>
+											<xsd:element name="costComponentDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInItemCurrencyCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="costPriceInItemCurrencyCurrencyDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInItemCurrencyUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costPriceInItemCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="costPriceInRefCurrencyCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="costPriceInRefCurrencyCurrencyDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInRefCurrencyUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costPriceInRefCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency1Currency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency1CurrencyDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency1UOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency1Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency2Currency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency2CurrencyDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency2UOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="costPriceInRepCurrency2Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="countryOfOrigin" type="bo:tcccty" minOccurs="0"/>
+											<xsd:element name="countryOfOriginDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="coveredByContract" type="bo:tscfg.cvco" minOccurs="0"/>
+											<xsd:element name="defaultBOMBatchSizeQuantityUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultBOMBatchSizeQuantityValue" type="bo:tiqbm1" minOccurs="0"/>
+											<xsd:element name="defaultLotSizeMultiplier" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultMaximumInventoryLevelUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultMaximumInventoryLevelValue" type="bo:tcqiv1" minOccurs="0"/>
+											<xsd:element name="defaultMaximumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultMaximumLotSizeValue" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultMinimumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultMinimumLotSizeValue" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultMinimumOrderInterval" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="defaultOrderingFillToMaximumInventory" type="bo:tctope_mandatory" minOccurs="0"/>
+											<xsd:element name="defaultReorderPointUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultReorderPointValue" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultRoutingBatchSizeQuantityUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultRoutingBatchSizeQuantityValue" type="bo:tiqro1" minOccurs="0"/>
+											<xsd:element name="defaultSafetyStockUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="defaultSafetyStockValue" type="bo:tcqiv2" minOccurs="0"/>
+											<xsd:element name="defaultSafetyTime" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="defaultWarehouse" type="bo:tccwar" minOccurs="0"/>
+											<xsd:element name="defaultWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="DefaultWarehouseAddress" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="DefaultWarehouseAddressName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="deliveryType" type="bo:tsmdm.dltp" minOccurs="0"/>
+											<xsd:element name="deliveryTypeShopMaintenance" type="bo:tswcs.dltp" minOccurs="0"/>
+											<xsd:element name="depth" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="depthUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="derivedFromItem" type="bo:tcitem" minOccurs="0"/>
+											<xsd:element name="description" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="bo:tcdsca">
+															<xsd:attribute name="languageID" type="xsd:string" use="optional"/>
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="environmentalCompliance" type="bo:tcenvc" minOccurs="0"/>
+											<xsd:element name="estCostPriceInItemCurInSalesUOMCurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estCostPriceInItemCurInSalesUOMCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estCostPriceInItemCurInSalesUOMUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estCostPriceInItemCurInSalesUOMValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyCurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInItemCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyCurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRefCurrencyValue" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1CurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1Currency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1UOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency1Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2CurDesc" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2Currency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2UOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="estimatedCostPriceInRepCurrency2Value" type="bo:tccopr" minOccurs="0"/>
+											<xsd:element name="firstAllowedOrderDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="freightClass" type="bo:fmfmd.frcl" minOccurs="0"/>
+											<xsd:element name="freightClassDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="freightDepthUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightDepthValue" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="freightFloorSpaceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightFloorSpaceValue" type="bo:tcflsp" minOccurs="0"/>
+											<xsd:element name="freightHeightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightHeightValue" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="freightServiceLevel" type="bo:tcmcs.serv" minOccurs="0"/>
+											<xsd:element name="freightServiceLevelDescription" type="bo:tcmcs.serv" minOccurs="0"/>
+											<xsd:element name="freightVolumeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightVolumeValue" type="bo:tcvolm" minOccurs="0"/>
+											<xsd:element name="freightWeightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightWeightValue" type="bo:tcwght" minOccurs="0"/>
+											<xsd:element name="freightWidthUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="freightWidthValue" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="generalSearchKey1" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="generalSearchKey2" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="handlingUnitIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="handlingUnitVersionControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="hazardousMaterialIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="hazardousMaterialRiskClass" type="bo:whwmd.risk" minOccurs="0"/>
+											<xsd:element name="height" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="heightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="installationGroup" type="bo:tscfg.sigr" minOccurs="0"/>
+											<xsd:element name="installationGroupDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+											<xsd:element name="itemGroup" type="bo:tccitg" minOccurs="0"/>
+											<xsd:element name="itemGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="ItemPicture" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="itemSignal" type="bo:tccsig" minOccurs="0"/>
+											<xsd:element name="itemSignalDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="itemType" type="bo:tckitm" minOccurs="0"/>
+											<xsd:element name="itemTypeSpecification" type="bo:tcitmt_mandatory" minOccurs="0"/>
+											<xsd:element name="lastAllowedOrderDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="lastChangeDate" type="bo:tcdate" minOccurs="0"/>
+											<xsd:element name="lifeCycle" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="locationControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="locationSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="lotControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="lotTrackingIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="maintenanceCycle" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="manufacturer" type="bo:tcmcs.cmnf" minOccurs="0"/>
+											<xsd:element name="manufacturerDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="material" type="bo:tcdscb" minOccurs="0"/>
+											<xsd:element name="maximumInventoryUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="maximumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="measurement" type="bo:tsmdm.cmea" minOccurs="0"/>
+											<xsd:element name="measurementDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="minimumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="orderPolicy" type="bo:tcopol" minOccurs="0"/>
+											<xsd:element name="orderingSystem" type="bo:tcosys" minOccurs="0"/>
+											<xsd:element name="outboundMethod" type="bo:tcobpr" minOccurs="0"/>
+											<xsd:element name="picture" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="UUID" type="xsd:string" minOccurs="0"/>
+														<xsd:element name="StandardUUID" type="xsd:string" minOccurs="0"/>
+														<xsd:element name="LastModificationDate" type="xsd:string" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="plannedByAPS" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="printSerialNumberOnShipReportsIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="productClass" type="bo:tcmcs.cpcl" minOccurs="0"/>
+											<xsd:element name="productClassDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="productLine" type="bo:tcmcs.cpln" minOccurs="0"/>
+											<xsd:element name="productLineDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="productType" type="bo:tcctyp" minOccurs="0"/>
+											<xsd:element name="productTypeDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="productionLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="productionSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="project" type="bo:tccprj" minOccurs="0"/>
+											<xsd:element name="projectDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="projectReferenceDate" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+											<xsd:element name="projectStatus" type="bo:tcpsts" minOccurs="0"/>
+											<xsd:element name="purchasePriceCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="purchasePriceCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="purchasePriceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="purchasePriceValue" type="bo:tcprip" minOccurs="0"/>
+											<xsd:element name="purchaseSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="purchaseSupplyTime" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="purchaseUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="IsItemPurchaseDataPresent" type="xsd:boolean" minOccurs="0"/>
+											<xsd:element name="PurchaseBuyFromBP" type="bo:tccom.bpid" minOccurs="0"/>
+											<xsd:element name="PurchaseBuyFromBPDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="PurchaseBuyer" type="bo:tcemno" minOccurs="0"/>
+											<xsd:element name="PurchaseBuyerDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="PurchaseWarehouse" type="bo:tccwar" minOccurs="0"/>
+											<xsd:element name="PurchaseWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="PurchaseWarehouseAddress" type="bo:tccom.cadr" minOccurs="0"/>
+											<xsd:element name="PurchaseWarehouseAddressName" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="IsPurchaseReleaseToWarehouse" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="reorderPointUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="repairWarrantyDuration" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="repairableIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="revisionControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="safetyStockUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="salesCommissionGroup" type="bo:tdcms.cmgp" minOccurs="0"/>
+											<xsd:element name="salesCommissionGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="salesPriceCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="salesPriceCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="salesPriceInSalesUOMCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="salesPriceInSalesUOMCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="salesPriceInSalesUOMUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="salesPriceInSalesUOMValue" type="bo:tcpric" minOccurs="0"/>
+											<xsd:element name="salesPriceLowerMargin" type="bo:tcprcg" minOccurs="0"/>
+											<xsd:element name="salesPriceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="salesPriceUpperMargin" type="bo:tcprcg" minOccurs="0"/>
+											<xsd:element name="salesPriceValue" type="bo:tcpric" minOccurs="0"/>
+											<xsd:element name="salesRebateGroup" type="bo:tdcms.cmgp" minOccurs="0"/>
+											<xsd:element name="salesRebateGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="salesSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="salesUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="selectionCode" type="bo:tccsel" minOccurs="0"/>
+											<xsd:element name="selectionCodeDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="serialControlIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="serialInInventoryIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="serialIssueInServiceIndicator" type="bo:tcynna" minOccurs="0"/>
+											<xsd:element name="serialNumberEntryDuringAsBuiltIndicator" type="bo:tcynna" minOccurs="0"/>
+											<xsd:element name="serialNumberEntryDuringReceiptIndicator" type="bo:tcynna" minOccurs="0"/>
+											<xsd:element name="serialTrackingIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="serviceDepartment" type="bo:tccwoc" minOccurs="0"/>
+											<xsd:element name="serviceDepartmentDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="serviceItemGroup" type="bo:tsmdm.csgr" minOccurs="0"/>
+											<xsd:element name="serviceItemGroupDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="serviceItemIndicator" type="bo:tcyesno" minOccurs="0"/>
+											<xsd:element name="serviceKitType" type="bo:tsmdm.ckgr" minOccurs="0"/>
+											<xsd:element name="serviceKitTypeDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="serviceSalesPriceCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="serviceSalesPriceCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="serviceSalesPriceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="serviceSalesPriceValue" type="bo:tcpric" minOccurs="0"/>
+											<xsd:element name="serviceSearchKey" type="bo:tcmcs.str16" minOccurs="0"/>
+											<xsd:element name="serviceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="serviceUOMDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="shelfLife" type="bo:tcmcs.st24" minOccurs="0"/>
+											<xsd:element name="size" type="bo:tcdscc" minOccurs="0"/>
+											<xsd:element name="stackFactor" type="bo:fmstck" minOccurs="0"/>
+											<xsd:element name="standard" type="bo:tcdscb" minOccurs="0"/>
+											<xsd:element name="subcontractor" type="bo:tccom.bpid" minOccurs="0"/>
+											<xsd:element name="subcontractorDescription" type="bo:tcnama" minOccurs="0"/>
+											<xsd:element name="suggestedRetailPriceCurrency" type="bo:tcccur" minOccurs="0"/>
+											<xsd:element name="suggestedRetailPriceCurrencyDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="suggestedRetailPriceUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="suggestedRetailPriceValue" type="bo:tcpric" minOccurs="0"/>
+											<xsd:element name="taxCode" type="bo:tccvat" minOccurs="0"/>
+											<xsd:element name="transportMeansGroup" type="bo:fmfmd.cmtg" minOccurs="0"/>
+											<xsd:element name="transportMeansGroupDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="transportType" type="bo:fmfmd.ttyp" minOccurs="0"/>
+											<xsd:element name="transportTypeDescription" type="bo:tcdsca" minOccurs="0"/>
+											<xsd:element name="warranty" type="bo:tscfg.cwte" minOccurs="0"/>
+											<xsd:element name="warrantyDescription" type="bo:tsmdm.dsca" minOccurs="0"/>
+											<xsd:element name="weightUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="weightValue" type="bo:tcwght" minOccurs="0"/>
+											<xsd:element name="widthUOM" type="bo:tccuni" minOccurs="0"/>
+											<xsd:element name="widthValue" type="bo:tcleng" minOccurs="0"/>
+											<xsd:element name="UserArea" type="xsd:anyType" minOccurs="0"/>
+											<xsd:element name="AlternativeItem" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="alternativeItemCode" type="bo:tcitem" minOccurs="0"/>
+														<xsd:element name="alternativeItemEffectivePeriodFrom" type="bo:tcefex.date" minOccurs="0"/>
+														<xsd:element name="alternativeItemEffectivePeriodTo" type="bo:tcefex.date" minOccurs="0"/>
+														<xsd:element name="alternativeItemIsInterchangeable" type="bo:tcyesno" minOccurs="0"/>
+														<xsd:element name="alternativeItemIsReplacement" type="bo:tcyesno" minOccurs="0"/>
+														<xsd:element name="alternativeItemPriority" type="bo:tccpri" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Location" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="inboundLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="lotSizeMultiplier" type="bo:tcqiv3" minOccurs="0"/>
+														<xsd:element name="maximumInventoryLevelValue" type="bo:tcqiv1" minOccurs="0"/>
+														<xsd:element name="maximumLotSizeQuantityValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="minimumLotSizeQuantityValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="minimumOrderInterval" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="orderingFillToMaximumInventoryIndicator" type="bo:tcyesno" minOccurs="0"/>
+														<xsd:element name="outboundLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="reorderPointValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="safetyStockValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="safetyTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="warehouse" type="bo:tccwar" minOccurs="0"/>
+														<xsd:element name="warehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="warehouseType" type="bo:tctypw" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="PlanLocation" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="CTPTimeFence" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="defaultSupplySource" type="bo:cprpd.sour" minOccurs="0"/>
+														<xsd:element name="dependentDemandForecastIndicator" type="bo:cpcom.yeno" minOccurs="0"/>
+														<xsd:element name="extraLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="forecastTimeFence" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="orderHorizon" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationInboundLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationLotSizeMultiplier" type="bo:tcqiv3" minOccurs="0"/>
+														<xsd:element name="planLocationMaximumInventoryLevelValue" type="bo:tcqiv1" minOccurs="0"/>
+														<xsd:element name="planLocationMaximumLotSizeValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="planLocationMinimumLotSizeValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="planLocationMinimumOrderInterval" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationOrderingFillToMaximumInvInd" type="bo:tcyesno" minOccurs="0"/>
+														<xsd:element name="planLocationOutboundLeadTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationReorderPointValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="planLocationSafetyStockValue" type="bo:tcqiv2" minOccurs="0"/>
+														<xsd:element name="planLocationSafetyTime" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="planLocationWarehouse" type="bo:tccwar" minOccurs="0"/>
+														<xsd:element name="planLocationWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="planLocationWarehouseType" type="bo:tctypw" minOccurs="0"/>
+														<xsd:element name="planner" type="bo:tcemno" minOccurs="0"/>
+														<xsd:element name="plannerName" type="bo:tcnama" minOccurs="0"/>
+														<xsd:element name="planningHorizon" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="timeFence" type="bo:tcmcs.st24" minOccurs="0"/>
+														<xsd:element name="warehouseCluster" type="bo:tcemm.clus" minOccurs="0"/>
+														<xsd:element name="planLocationMaximumInventoryLevelUOM" type="bo:tccuni" minOccurs="0"/>
+														<xsd:element name="planLocationMaximumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+														<xsd:element name="planLocationMinimumLotSizeUOM" type="bo:tccuni" minOccurs="0"/>
+														<xsd:element name="planLocationReorderPointUOM" type="bo:tccuni" minOccurs="0"/>
+														<xsd:element name="planLocationSafetyStockUOM" type="bo:tccuni" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Feature" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="featureCode" type="bo:tccpft_mandatory" minOccurs="0"/>
+														<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="effectivePeriod" minOccurs="0">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+			<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="featureValueDomain" type="bo:tcopvd_mandatory" minOccurs="0"/>
+														<xsd:element name="featureValue" minOccurs="0" maxOccurs="unbounded">
+															<xsd:complexType>
+	<xsd:sequence>
+			<xsd:element name="featureValueCode" type="bo:tccopt_mandatory" minOccurs="0"/>
+			<xsd:element name="description" type="bo:tcdsca" minOccurs="0"/>
+			<xsd:element name="effectivePeriod" minOccurs="0">
+					<xsd:complexType>
+							<xsd:sequence>
+									<xsd:element name="from" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+									<xsd:element name="to" type="xsd:dateTime" nillable="true" minOccurs="0"/>
+							</xsd:sequence>
+					</xsd:complexType>
+			</xsd:element>
+	</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Sites" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="Site" type="bo:tcsite" minOccurs="0"/>
+														<xsd:element name="SiteDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SiteDefaultWarehouse" type="bo:tccwar" minOccurs="0"/>
+														<xsd:element name="SiteDefaultWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SiteDefaultWarehouseAddress" type="bo:tccom.cadr" minOccurs="0"/>
+														<xsd:element name="SiteDefaultWarehouseAddressName" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SitePurchaseWarehouse" type="bo:tccwar" minOccurs="0"/>
+														<xsd:element name="SitePurchaseWarehouseDescription" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SitePurchaseWarehouseAddress" type="bo:tccom.cadr" minOccurs="0"/>
+														<xsd:element name="SitePurchaseWarehouseAddressName" type="bo:tcdsca" minOccurs="0"/>
+														<xsd:element name="SiteIsPurchaseReleaseToWarehouse" type="bo:tcyesno" minOccurs="0"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CheckStructureRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CheckStructureResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeleteRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="DataArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Item_v3" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="itemCode" type="bo:tcitem" minOccurs="1"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeleteResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="SubscribeEventRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="eventAction" minOccurs="0" maxOccurs="unbounded">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="50"/>
+											<xsd:pattern value="[a-zA-Z][\w_\.]*"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="eventConsumer" minOccurs="1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="50"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="destination" minOccurs="0" maxOccurs="1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="256"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="SubscribeEventResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="UnSubscribeEventRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="processingScope" type="bo:processingScope" default="request" minOccurs="0"/>
+								<xsd:element name="SuppressNillable" type="xsd:boolean" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="UnSubscribeEventResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="SubscribeListRequestType">
+				<xsd:sequence>
+					<xsd:element name="ControlArea" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Selection" type="bo:SelectionType" minOccurs="0"/>
+								<xsd:element name="Filter" type="bo:FilterType" minOccurs="0"/>
+								<xsd:element name="sortingExpression" type="xsd:string" minOccurs="0"/>
+								<xsd:element name="languageID" type="xsd:language" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element name="maxNumberOfObjects" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="eventBatchSize" type="xsd:long" minOccurs="0"/>
+								<xsd:element name="eventConsumer" minOccurs="1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="50"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="destination" minOccurs="0" maxOccurs="1">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="256"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="SubscribeListResponseType">
+				<xsd:sequence>
+					<xsd:element name="InformationArea" type="bo:InformationArea" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ActivationType">
+				<xsd:sequence>
+					<xsd:element name="username" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="password" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="company" type="xsd:int" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="Activation" type="bo:ActivationType"/>
+			<xsd:element name="Result" type="bo:Message"/>
+			<xsd:complexType name="InformationArea">
+				<xsd:sequence>
+					<xsd:element name="Message" maxOccurs="unbounded" type="bo:InformationMessage"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Message">
+				<xsd:sequence>
+					<xsd:element name="messageIndex" type="xsd:integer" minOccurs="0"/>
+					<xsd:element name="messageCode" type="xsd:string"/>
+					<xsd:element name="messageType">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="Error"/>
+								<xsd:enumeration value="Warning"/>
+								<xsd:enumeration value="Information"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="messageText" type="xsd:string"/>
+					<xsd:element name="messageSource" type="xsd:string"/>
+					<xsd:element name="MessageDetails" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Message" maxOccurs="unbounded" type="bo:DetailMessage"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="messageCorrectiveAction" type="xsd:string" minOccurs="0"/>
+					<xsd:choice>
+						<xsd:element name="messageAdditionalHelpText" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="messageAdditionalHelpURI" type="xsd:anyURI" minOccurs="0"/>
+					</xsd:choice>
+					<xsd:element name="MessageReference" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="messageReferenceType" type="xsd:string"/>
+								<xsd:element name="messageReferenceInfo" type="xsd:anyType"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DetailMessage">
+				<xsd:complexContent>
+					<xsd:extension base="bo:Message">
+						<xsd:attribute name="ID" type="xsd:ID" use="optional"/>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="InformationMessage">
+				<xsd:complexContent>
+					<xsd:extension base="bo:Message">
+						<xsd:attribute name="ID" type="xsd:ID" use="required"/>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="FilterType">
+				<xsd:choice>
+					<xsd:element name="LogicalExpression" type="bo:LogicalExpressionType"/>
+					<xsd:element name="ComparisonExpression" type="bo:ComparisonExpressionType"/>
+				</xsd:choice>
+			</xsd:complexType>
+			<xsd:complexType name="LogicalExpressionType">
+				<xsd:sequence>
+					<xsd:element name="logicalOperator">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="or"/>
+								<xsd:enumeration value="and"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:choice minOccurs="2" maxOccurs="unbounded">
+						<xsd:element maxOccurs="unbounded" name="LogicalExpression" type="bo:LogicalExpressionType"/>
+						<xsd:element maxOccurs="unbounded" name="ComparisonExpression" type="bo:ComparisonExpressionType"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ComparisonExpressionType">
+				<xsd:sequence>
+					<xsd:element name="comparisonOperator">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="le"/>
+								<xsd:enumeration value="lt"/>
+								<xsd:enumeration value="ge"/>
+								<xsd:enumeration value="gt"/>
+								<xsd:enumeration value="ne"/>
+								<xsd:enumeration value="eq"/>
+								<xsd:enumeration value="like"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:choice minOccurs="2" maxOccurs="2">
+						<xsd:element name="attributeName" type="bo:filterAttributeListDT"/>
+						<xsd:element name="emptyValue" type="bo:EmptyValueType"/>
+						<xsd:element name="instanceValue" type="xsd:string"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="EmptyValueType"/>
+			<xsd:simpleType name="filterAttributeListDT">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Item_v3.EANCode"/>
+					<xsd:enumeration value="Item_v3.assayedItemIndicator"/>
+					<xsd:enumeration value="Item_v3.baseUOM"/>
+					<xsd:enumeration value="Item_v3.baseUOMDescription"/>
+					<xsd:enumeration value="Item_v3.blanketAgreement"/>
+					<xsd:enumeration value="Item_v3.carrier"/>
+					<xsd:enumeration value="Item_v3.carrierDescription"/>
+					<xsd:enumeration value="Item_v3.combinationCode"/>
+					<xsd:enumeration value="Item_v3.combinationCodeDescription"/>
+					<xsd:enumeration value="Item_v3.configurationControlledIndicator"/>
+					<xsd:enumeration value="Item_v3.Configurable"/>
+					<xsd:enumeration value="Item_v3.consignmentPriorityIndicator"/>
+					<xsd:enumeration value="Item_v3.contractDiscountScheme"/>
+					<xsd:enumeration value="Item_v3.contractDiscountSchemeDescription"/>
+					<xsd:enumeration value="Item_v3.costComponent"/>
+					<xsd:enumeration value="Item_v3.costComponentDescription"/>
+					<xsd:enumeration value="Item_v3.costPriceInItemCurrencyCurrency"/>
+					<xsd:enumeration value="Item_v3.costPriceInItemCurrencyCurrencyDesc"/>
+					<xsd:enumeration value="Item_v3.costPriceInItemCurrencyUOM"/>
+					<xsd:enumeration value="Item_v3.costPriceInItemCurrencyValue"/>
+					<xsd:enumeration value="Item_v3.costPriceInRefCurrencyCurrency"/>
+					<xsd:enumeration value="Item_v3.costPriceInRefCurrencyCurrencyDesc"/>
+					<xsd:enumeration value="Item_v3.costPriceInRefCurrencyUOM"/>
+					<xsd:enumeration value="Item_v3.costPriceInRefCurrencyValue"/>
+					<xsd:enumeration value="Item_v3.costPriceInRepCurrency1Currency"/>
+					<xsd:enumeration value="Item_v3.costPriceInRepCurrency1CurrencyDesc"/>
+					<xsd:enumeration value="Item_v3.costPriceInRepCurrency1UOM"/>
+					<xsd:enumeration value="Item_v3.costPriceInRepCurrency1Value"/>
+					<xsd:enumeration value="Item_v3.costPriceInRepCurrency2Currency"/>
+					<xsd:enumeration value="Item_v3.costPriceInRepCurrency2CurrencyDesc"/>
+					<xsd:enumeration value="Item_v3.costPriceInRepCurrency2UOM"/>
+					<xsd:enumeration value="Item_v3.costPriceInRepCurrency2Value"/>
+					<xsd:enumeration value="Item_v3.countryOfOrigin"/>
+					<xsd:enumeration value="Item_v3.countryOfOriginDescription"/>
+					<xsd:enumeration value="Item_v3.coveredByContract"/>
+					<xsd:enumeration value="Item_v3.defaultBOMBatchSizeQuantityUOM"/>
+					<xsd:enumeration value="Item_v3.defaultBOMBatchSizeQuantityValue"/>
+					<xsd:enumeration value="Item_v3.defaultLotSizeMultiplier"/>
+					<xsd:enumeration value="Item_v3.defaultMaximumInventoryLevelUOM"/>
+					<xsd:enumeration value="Item_v3.defaultMaximumInventoryLevelValue"/>
+					<xsd:enumeration value="Item_v3.defaultMaximumLotSizeUOM"/>
+					<xsd:enumeration value="Item_v3.defaultMaximumLotSizeValue"/>
+					<xsd:enumeration value="Item_v3.defaultMinimumLotSizeUOM"/>
+					<xsd:enumeration value="Item_v3.defaultMinimumLotSizeValue"/>
+					<xsd:enumeration value="Item_v3.defaultMinimumOrderInterval"/>
+					<xsd:enumeration value="Item_v3.defaultOrderingFillToMaximumInventory"/>
+					<xsd:enumeration value="Item_v3.defaultReorderPointUOM"/>
+					<xsd:enumeration value="Item_v3.defaultReorderPointValue"/>
+					<xsd:enumeration value="Item_v3.defaultRoutingBatchSizeQuantityUOM"/>
+					<xsd:enumeration value="Item_v3.defaultRoutingBatchSizeQuantityValue"/>
+					<xsd:enumeration value="Item_v3.defaultSafetyStockUOM"/>
+					<xsd:enumeration value="Item_v3.defaultSafetyStockValue"/>
+					<xsd:enumeration value="Item_v3.defaultSafetyTime"/>
+					<xsd:enumeration value="Item_v3.defaultWarehouse"/>
+					<xsd:enumeration value="Item_v3.defaultWarehouseDescription"/>
+					<xsd:enumeration value="Item_v3.DefaultWarehouseAddress"/>
+					<xsd:enumeration value="Item_v3.DefaultWarehouseAddressName"/>
+					<xsd:enumeration value="Item_v3.deliveryType"/>
+					<xsd:enumeration value="Item_v3.deliveryTypeShopMaintenance"/>
+					<xsd:enumeration value="Item_v3.depth"/>
+					<xsd:enumeration value="Item_v3.depthUOM"/>
+					<xsd:enumeration value="Item_v3.derivedFromItem"/>
+					<xsd:enumeration value="Item_v3.description"/>
+					<xsd:enumeration value="Item_v3.description.languageID"/>
+					<xsd:enumeration value="Item_v3.environmentalCompliance"/>
+					<xsd:enumeration value="Item_v3.estCostPriceInItemCurInSalesUOMCurDesc"/>
+					<xsd:enumeration value="Item_v3.estCostPriceInItemCurInSalesUOMCurrency"/>
+					<xsd:enumeration value="Item_v3.estCostPriceInItemCurInSalesUOMUOM"/>
+					<xsd:enumeration value="Item_v3.estCostPriceInItemCurInSalesUOMValue"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInItemCurrencyCurDesc"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInItemCurrencyCurrency"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInItemCurrencyUOM"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInItemCurrencyValue"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRefCurrencyCurDesc"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRefCurrencyCurrency"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRefCurrencyUOM"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRefCurrencyValue"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency1CurDesc"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency1Currency"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency1UOM"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency1Value"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency2CurDesc"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency2Currency"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency2UOM"/>
+					<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency2Value"/>
+					<xsd:enumeration value="Item_v3.firstAllowedOrderDate"/>
+					<xsd:enumeration value="Item_v3.freightClass"/>
+					<xsd:enumeration value="Item_v3.freightClassDescription"/>
+					<xsd:enumeration value="Item_v3.freightDepthUOM"/>
+					<xsd:enumeration value="Item_v3.freightDepthValue"/>
+					<xsd:enumeration value="Item_v3.freightFloorSpaceUOM"/>
+					<xsd:enumeration value="Item_v3.freightFloorSpaceValue"/>
+					<xsd:enumeration value="Item_v3.freightHeightUOM"/>
+					<xsd:enumeration value="Item_v3.freightHeightValue"/>
+					<xsd:enumeration value="Item_v3.freightServiceLevel"/>
+					<xsd:enumeration value="Item_v3.freightServiceLevelDescription"/>
+					<xsd:enumeration value="Item_v3.freightVolumeUOM"/>
+					<xsd:enumeration value="Item_v3.freightVolumeValue"/>
+					<xsd:enumeration value="Item_v3.freightWeightUOM"/>
+					<xsd:enumeration value="Item_v3.freightWeightValue"/>
+					<xsd:enumeration value="Item_v3.freightWidthUOM"/>
+					<xsd:enumeration value="Item_v3.freightWidthValue"/>
+					<xsd:enumeration value="Item_v3.generalSearchKey1"/>
+					<xsd:enumeration value="Item_v3.generalSearchKey2"/>
+					<xsd:enumeration value="Item_v3.handlingUnitIndicator"/>
+					<xsd:enumeration value="Item_v3.handlingUnitVersionControlIndicator"/>
+					<xsd:enumeration value="Item_v3.hazardousMaterialIndicator"/>
+					<xsd:enumeration value="Item_v3.hazardousMaterialRiskClass"/>
+					<xsd:enumeration value="Item_v3.height"/>
+					<xsd:enumeration value="Item_v3.heightUOM"/>
+					<xsd:enumeration value="Item_v3.installationGroup"/>
+					<xsd:enumeration value="Item_v3.installationGroupDescription"/>
+					<xsd:enumeration value="Item_v3.itemCode"/>
+					<xsd:enumeration value="Item_v3.itemGroup"/>
+					<xsd:enumeration value="Item_v3.itemGroupDescription"/>
+					<xsd:enumeration value="Item_v3.ItemPicture"/>
+					<xsd:enumeration value="Item_v3.itemSignal"/>
+					<xsd:enumeration value="Item_v3.itemSignalDescription"/>
+					<xsd:enumeration value="Item_v3.itemType"/>
+					<xsd:enumeration value="Item_v3.itemTypeSpecification"/>
+					<xsd:enumeration value="Item_v3.lastAllowedOrderDate"/>
+					<xsd:enumeration value="Item_v3.lastChangeDate"/>
+					<xsd:enumeration value="Item_v3.lifeCycle"/>
+					<xsd:enumeration value="Item_v3.locationControlIndicator"/>
+					<xsd:enumeration value="Item_v3.locationSearchKey"/>
+					<xsd:enumeration value="Item_v3.lotControlIndicator"/>
+					<xsd:enumeration value="Item_v3.lotTrackingIndicator"/>
+					<xsd:enumeration value="Item_v3.maintenanceCycle"/>
+					<xsd:enumeration value="Item_v3.manufacturer"/>
+					<xsd:enumeration value="Item_v3.manufacturerDescription"/>
+					<xsd:enumeration value="Item_v3.material"/>
+					<xsd:enumeration value="Item_v3.maximumInventoryUOM"/>
+					<xsd:enumeration value="Item_v3.maximumLotSizeUOM"/>
+					<xsd:enumeration value="Item_v3.measurement"/>
+					<xsd:enumeration value="Item_v3.measurementDescription"/>
+					<xsd:enumeration value="Item_v3.minimumLotSizeUOM"/>
+					<xsd:enumeration value="Item_v3.orderPolicy"/>
+					<xsd:enumeration value="Item_v3.orderingSystem"/>
+					<xsd:enumeration value="Item_v3.outboundMethod"/>
+					<xsd:enumeration value="Item_v3.picture.UUID"/>
+					<xsd:enumeration value="Item_v3.picture.StandardUUID"/>
+					<xsd:enumeration value="Item_v3.picture.LastModificationDate"/>
+					<xsd:enumeration value="Item_v3.planLocationMaximumInventoryLevelUOM"/>
+					<xsd:enumeration value="Item_v3.planLocationMaximumLotSizeUOM"/>
+					<xsd:enumeration value="Item_v3.planLocationMinimumLotSizeUOM"/>
+					<xsd:enumeration value="Item_v3.planLocationReorderPointUOM"/>
+					<xsd:enumeration value="Item_v3.planLocationSafetyStockUOM"/>
+					<xsd:enumeration value="Item_v3.plannedByAPS"/>
+					<xsd:enumeration value="Item_v3.printSerialNumberOnShipReportsIndicator"/>
+					<xsd:enumeration value="Item_v3.productClass"/>
+					<xsd:enumeration value="Item_v3.productClassDescription"/>
+					<xsd:enumeration value="Item_v3.productLine"/>
+					<xsd:enumeration value="Item_v3.productLineDescription"/>
+					<xsd:enumeration value="Item_v3.productType"/>
+					<xsd:enumeration value="Item_v3.productTypeDescription"/>
+					<xsd:enumeration value="Item_v3.productionLeadTime"/>
+					<xsd:enumeration value="Item_v3.productionSearchKey"/>
+					<xsd:enumeration value="Item_v3.project"/>
+					<xsd:enumeration value="Item_v3.projectDescription"/>
+					<xsd:enumeration value="Item_v3.projectReferenceDate"/>
+					<xsd:enumeration value="Item_v3.projectStatus"/>
+					<xsd:enumeration value="Item_v3.purchasePriceCurrency"/>
+					<xsd:enumeration value="Item_v3.purchasePriceCurrencyDescription"/>
+					<xsd:enumeration value="Item_v3.purchasePriceUOM"/>
+					<xsd:enumeration value="Item_v3.purchasePriceValue"/>
+					<xsd:enumeration value="Item_v3.purchaseSearchKey"/>
+					<xsd:enumeration value="Item_v3.purchaseSupplyTime"/>
+					<xsd:enumeration value="Item_v3.purchaseUOM"/>
+					<xsd:enumeration value="Item_v3.IsItemPurchaseDataPresent"/>
+					<xsd:enumeration value="Item_v3.PurchaseBuyFromBP"/>
+					<xsd:enumeration value="Item_v3.PurchaseBuyFromBPDescription"/>
+					<xsd:enumeration value="Item_v3.PurchaseBuyer"/>
+					<xsd:enumeration value="Item_v3.PurchaseBuyerDescription"/>
+					<xsd:enumeration value="Item_v3.PurchaseWarehouse"/>
+					<xsd:enumeration value="Item_v3.PurchaseWarehouseDescription"/>
+					<xsd:enumeration value="Item_v3.PurchaseWarehouseAddress"/>
+					<xsd:enumeration value="Item_v3.PurchaseWarehouseAddressName"/>
+					<xsd:enumeration value="Item_v3.IsPurchaseReleaseToWarehouse"/>
+					<xsd:enumeration value="Item_v3.reorderPointUOM"/>
+					<xsd:enumeration value="Item_v3.repairWarrantyDuration"/>
+					<xsd:enumeration value="Item_v3.repairableIndicator"/>
+					<xsd:enumeration value="Item_v3.revisionControlIndicator"/>
+					<xsd:enumeration value="Item_v3.safetyStockUOM"/>
+					<xsd:enumeration value="Item_v3.salesCommissionGroup"/>
+					<xsd:enumeration value="Item_v3.salesCommissionGroupDescription"/>
+					<xsd:enumeration value="Item_v3.salesPriceCurrency"/>
+					<xsd:enumeration value="Item_v3.salesPriceCurrencyDescription"/>
+					<xsd:enumeration value="Item_v3.salesPriceInSalesUOMCurrency"/>
+					<xsd:enumeration value="Item_v3.salesPriceInSalesUOMCurrencyDescription"/>
+					<xsd:enumeration value="Item_v3.salesPriceInSalesUOMUOM"/>
+					<xsd:enumeration value="Item_v3.salesPriceInSalesUOMValue"/>
+					<xsd:enumeration value="Item_v3.salesPriceLowerMargin"/>
+					<xsd:enumeration value="Item_v3.salesPriceUOM"/>
+					<xsd:enumeration value="Item_v3.salesPriceUpperMargin"/>
+					<xsd:enumeration value="Item_v3.salesPriceValue"/>
+					<xsd:enumeration value="Item_v3.salesRebateGroup"/>
+					<xsd:enumeration value="Item_v3.salesRebateGroupDescription"/>
+					<xsd:enumeration value="Item_v3.salesSearchKey"/>
+					<xsd:enumeration value="Item_v3.salesUOM"/>
+					<xsd:enumeration value="Item_v3.selectionCode"/>
+					<xsd:enumeration value="Item_v3.selectionCodeDescription"/>
+					<xsd:enumeration value="Item_v3.serialControlIndicator"/>
+					<xsd:enumeration value="Item_v3.serialInInventoryIndicator"/>
+					<xsd:enumeration value="Item_v3.serialIssueInServiceIndicator"/>
+					<xsd:enumeration value="Item_v3.serialNumberEntryDuringAsBuiltIndicator"/>
+					<xsd:enumeration value="Item_v3.serialNumberEntryDuringReceiptIndicator"/>
+					<xsd:enumeration value="Item_v3.serialTrackingIndicator"/>
+					<xsd:enumeration value="Item_v3.serviceDepartment"/>
+					<xsd:enumeration value="Item_v3.serviceDepartmentDescription"/>
+					<xsd:enumeration value="Item_v3.serviceItemGroup"/>
+					<xsd:enumeration value="Item_v3.serviceItemGroupDescription"/>
+					<xsd:enumeration value="Item_v3.serviceItemIndicator"/>
+					<xsd:enumeration value="Item_v3.serviceKitType"/>
+					<xsd:enumeration value="Item_v3.serviceKitTypeDescription"/>
+					<xsd:enumeration value="Item_v3.serviceSalesPriceCurrency"/>
+					<xsd:enumeration value="Item_v3.serviceSalesPriceCurrencyDescription"/>
+					<xsd:enumeration value="Item_v3.serviceSalesPriceUOM"/>
+					<xsd:enumeration value="Item_v3.serviceSalesPriceValue"/>
+					<xsd:enumeration value="Item_v3.serviceSearchKey"/>
+					<xsd:enumeration value="Item_v3.serviceUOM"/>
+					<xsd:enumeration value="Item_v3.serviceUOMDescription"/>
+					<xsd:enumeration value="Item_v3.shelfLife"/>
+					<xsd:enumeration value="Item_v3.size"/>
+					<xsd:enumeration value="Item_v3.stackFactor"/>
+					<xsd:enumeration value="Item_v3.standard"/>
+					<xsd:enumeration value="Item_v3.subcontractor"/>
+					<xsd:enumeration value="Item_v3.subcontractorDescription"/>
+					<xsd:enumeration value="Item_v3.suggestedRetailPriceCurrency"/>
+					<xsd:enumeration value="Item_v3.suggestedRetailPriceCurrencyDescription"/>
+					<xsd:enumeration value="Item_v3.suggestedRetailPriceUOM"/>
+					<xsd:enumeration value="Item_v3.suggestedRetailPriceValue"/>
+					<xsd:enumeration value="Item_v3.taxCode"/>
+					<xsd:enumeration value="Item_v3.transportMeansGroup"/>
+					<xsd:enumeration value="Item_v3.transportMeansGroupDescription"/>
+					<xsd:enumeration value="Item_v3.transportType"/>
+					<xsd:enumeration value="Item_v3.transportTypeDescription"/>
+					<xsd:enumeration value="Item_v3.warranty"/>
+					<xsd:enumeration value="Item_v3.warrantyDescription"/>
+					<xsd:enumeration value="Item_v3.weightUOM"/>
+					<xsd:enumeration value="Item_v3.weightValue"/>
+					<xsd:enumeration value="Item_v3.widthUOM"/>
+					<xsd:enumeration value="Item_v3.widthValue"/>
+					<xsd:enumeration value="Item_v3.UserArea"/>
+					<xsd:enumeration value="Item_v3.MandatoryProjectPeg"/>
+					<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemCode"/>
+					<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemEffectivePeriodFrom"/>
+					<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemEffectivePeriodTo"/>
+					<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemIsInterchangeable"/>
+					<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemIsReplacement"/>
+					<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemPriority"/>
+					<xsd:enumeration value="Item_v3.AlternativeItem.UserArea"/>
+					<xsd:enumeration value="Item_v3.Location.inboundLeadTime"/>
+					<xsd:enumeration value="Item_v3.Location.lotSizeMultiplier"/>
+					<xsd:enumeration value="Item_v3.Location.maximumInventoryLevelValue"/>
+					<xsd:enumeration value="Item_v3.Location.maximumLotSizeQuantityValue"/>
+					<xsd:enumeration value="Item_v3.Location.minimumLotSizeQuantityValue"/>
+					<xsd:enumeration value="Item_v3.Location.minimumOrderInterval"/>
+					<xsd:enumeration value="Item_v3.Location.orderingFillToMaximumInventoryIndicator"/>
+					<xsd:enumeration value="Item_v3.Location.outboundLeadTime"/>
+					<xsd:enumeration value="Item_v3.Location.reorderPointValue"/>
+					<xsd:enumeration value="Item_v3.Location.safetyStockValue"/>
+					<xsd:enumeration value="Item_v3.Location.safetyTime"/>
+					<xsd:enumeration value="Item_v3.Location.warehouse"/>
+					<xsd:enumeration value="Item_v3.Location.warehouseDescription"/>
+					<xsd:enumeration value="Item_v3.Location.warehouseType"/>
+					<xsd:enumeration value="Item_v3.Location.UserArea"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.CTPTimeFence"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.defaultSupplySource"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.dependentDemandForecastIndicator"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.extraLeadTime"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.forecastTimeFence"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.orderHorizon"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationInboundLeadTime"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationLotSizeMultiplier"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationMaximumInventoryLevelValue"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationMaximumLotSizeValue"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationMinimumLotSizeValue"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationMinimumOrderInterval"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationOrderingFillToMaximumInvInd"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationOutboundLeadTime"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationReorderPointValue"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationSafetyStockValue"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationSafetyTime"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationWarehouse"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationWarehouseDescription"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationWarehouseType"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planner"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.plannerName"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planningHorizon"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.timeFence"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.warehouseCluster"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationMaximumInventoryLevelUOM"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationMaximumLotSizeUOM"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationMinimumLotSizeUOM"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationReorderPointUOM"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.planLocationSafetyStockUOM"/>
+					<xsd:enumeration value="Item_v3.PlanLocation.UserArea"/>
+					<xsd:enumeration value="Item_v3.Feature.featureCode"/>
+					<xsd:enumeration value="Item_v3.Feature.description"/>
+					<xsd:enumeration value="Item_v3.Feature.effectivePeriod.from"/>
+					<xsd:enumeration value="Item_v3.Feature.effectivePeriod.to"/>
+					<xsd:enumeration value="Item_v3.Feature.featureValueDomain"/>
+					<xsd:enumeration value="Item_v3.Feature.UserArea"/>
+					<xsd:enumeration value="Item_v3.Feature.featureValue.featureValueCode"/>
+					<xsd:enumeration value="Item_v3.Feature.featureValue.description"/>
+					<xsd:enumeration value="Item_v3.Feature.featureValue.effectivePeriod.from"/>
+					<xsd:enumeration value="Item_v3.Feature.featureValue.effectivePeriod.to"/>
+					<xsd:enumeration value="Item_v3.Feature.featureValue.UserArea"/>
+					<xsd:enumeration value="Item_v3.Sites.Site"/>
+					<xsd:enumeration value="Item_v3.Sites.SiteDescription"/>
+					<xsd:enumeration value="Item_v3.Sites.SiteDefaultWarehouse"/>
+					<xsd:enumeration value="Item_v3.Sites.SiteDefaultWarehouseDescription"/>
+					<xsd:enumeration value="Item_v3.Sites.SiteDefaultWarehouseAddress"/>
+					<xsd:enumeration value="Item_v3.Sites.SiteDefaultWarehouseAddressName"/>
+					<xsd:enumeration value="Item_v3.Sites.SitePurchaseWarehouse"/>
+					<xsd:enumeration value="Item_v3.Sites.SitePurchaseWarehouseDescription"/>
+					<xsd:enumeration value="Item_v3.Sites.SitePurchaseWarehouseAddress"/>
+					<xsd:enumeration value="Item_v3.Sites.SitePurchaseWarehouseAddressName"/>
+					<xsd:enumeration value="Item_v3.Sites.SiteIsPurchaseReleaseToWarehouse"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="SelectionType">
+				<xsd:sequence>
+					<xsd:element name="selectionAttribute" maxOccurs="unbounded">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="*"/>
+								<xsd:enumeration value="Item_v3.*"/>
+								<xsd:enumeration value="Item_v3.EANCode"/>
+								<xsd:enumeration value="Item_v3.assayedItemIndicator"/>
+								<xsd:enumeration value="Item_v3.baseUOM"/>
+								<xsd:enumeration value="Item_v3.baseUOMDescription"/>
+								<xsd:enumeration value="Item_v3.blanketAgreement"/>
+								<xsd:enumeration value="Item_v3.carrier"/>
+								<xsd:enumeration value="Item_v3.carrierDescription"/>
+								<xsd:enumeration value="Item_v3.combinationCode"/>
+								<xsd:enumeration value="Item_v3.combinationCodeDescription"/>
+								<xsd:enumeration value="Item_v3.configurationControlledIndicator"/>
+								<xsd:enumeration value="Item_v3.Configurable"/>
+								<xsd:enumeration value="Item_v3.consignmentPriorityIndicator"/>
+								<xsd:enumeration value="Item_v3.contractDiscountScheme"/>
+								<xsd:enumeration value="Item_v3.contractDiscountSchemeDescription"/>
+								<xsd:enumeration value="Item_v3.costComponent"/>
+								<xsd:enumeration value="Item_v3.costComponentDescription"/>
+								<xsd:enumeration value="Item_v3.costPriceInItemCurrencyCurrency"/>
+								<xsd:enumeration value="Item_v3.costPriceInItemCurrencyCurrencyDesc"/>
+								<xsd:enumeration value="Item_v3.costPriceInItemCurrencyUOM"/>
+								<xsd:enumeration value="Item_v3.costPriceInItemCurrencyValue"/>
+								<xsd:enumeration value="Item_v3.costPriceInRefCurrencyCurrency"/>
+								<xsd:enumeration value="Item_v3.costPriceInRefCurrencyCurrencyDesc"/>
+								<xsd:enumeration value="Item_v3.costPriceInRefCurrencyUOM"/>
+								<xsd:enumeration value="Item_v3.costPriceInRefCurrencyValue"/>
+								<xsd:enumeration value="Item_v3.costPriceInRepCurrency1Currency"/>
+								<xsd:enumeration value="Item_v3.costPriceInRepCurrency1CurrencyDesc"/>
+								<xsd:enumeration value="Item_v3.costPriceInRepCurrency1UOM"/>
+								<xsd:enumeration value="Item_v3.costPriceInRepCurrency1Value"/>
+								<xsd:enumeration value="Item_v3.costPriceInRepCurrency2Currency"/>
+								<xsd:enumeration value="Item_v3.costPriceInRepCurrency2CurrencyDesc"/>
+								<xsd:enumeration value="Item_v3.costPriceInRepCurrency2UOM"/>
+								<xsd:enumeration value="Item_v3.costPriceInRepCurrency2Value"/>
+								<xsd:enumeration value="Item_v3.countryOfOrigin"/>
+								<xsd:enumeration value="Item_v3.countryOfOriginDescription"/>
+								<xsd:enumeration value="Item_v3.coveredByContract"/>
+								<xsd:enumeration value="Item_v3.defaultBOMBatchSizeQuantityUOM"/>
+								<xsd:enumeration value="Item_v3.defaultBOMBatchSizeQuantityValue"/>
+								<xsd:enumeration value="Item_v3.defaultLotSizeMultiplier"/>
+								<xsd:enumeration value="Item_v3.defaultMaximumInventoryLevelUOM"/>
+								<xsd:enumeration value="Item_v3.defaultMaximumInventoryLevelValue"/>
+								<xsd:enumeration value="Item_v3.defaultMaximumLotSizeUOM"/>
+								<xsd:enumeration value="Item_v3.defaultMaximumLotSizeValue"/>
+								<xsd:enumeration value="Item_v3.defaultMinimumLotSizeUOM"/>
+								<xsd:enumeration value="Item_v3.defaultMinimumLotSizeValue"/>
+								<xsd:enumeration value="Item_v3.defaultMinimumOrderInterval"/>
+								<xsd:enumeration value="Item_v3.defaultOrderingFillToMaximumInventory"/>
+								<xsd:enumeration value="Item_v3.defaultReorderPointUOM"/>
+								<xsd:enumeration value="Item_v3.defaultReorderPointValue"/>
+								<xsd:enumeration value="Item_v3.defaultRoutingBatchSizeQuantityUOM"/>
+								<xsd:enumeration value="Item_v3.defaultRoutingBatchSizeQuantityValue"/>
+								<xsd:enumeration value="Item_v3.defaultSafetyStockUOM"/>
+								<xsd:enumeration value="Item_v3.defaultSafetyStockValue"/>
+								<xsd:enumeration value="Item_v3.defaultSafetyTime"/>
+								<xsd:enumeration value="Item_v3.defaultWarehouse"/>
+								<xsd:enumeration value="Item_v3.defaultWarehouseDescription"/>
+								<xsd:enumeration value="Item_v3.DefaultWarehouseAddress"/>
+								<xsd:enumeration value="Item_v3.DefaultWarehouseAddressName"/>
+								<xsd:enumeration value="Item_v3.deliveryType"/>
+								<xsd:enumeration value="Item_v3.deliveryTypeShopMaintenance"/>
+								<xsd:enumeration value="Item_v3.depth"/>
+								<xsd:enumeration value="Item_v3.depthUOM"/>
+								<xsd:enumeration value="Item_v3.derivedFromItem"/>
+								<xsd:enumeration value="Item_v3.description"/>
+								<xsd:enumeration value="Item_v3.environmentalCompliance"/>
+								<xsd:enumeration value="Item_v3.estCostPriceInItemCurInSalesUOMCurDesc"/>
+								<xsd:enumeration value="Item_v3.estCostPriceInItemCurInSalesUOMCurrency"/>
+								<xsd:enumeration value="Item_v3.estCostPriceInItemCurInSalesUOMUOM"/>
+								<xsd:enumeration value="Item_v3.estCostPriceInItemCurInSalesUOMValue"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInItemCurrencyCurDesc"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInItemCurrencyCurrency"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInItemCurrencyUOM"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInItemCurrencyValue"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRefCurrencyCurDesc"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRefCurrencyCurrency"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRefCurrencyUOM"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRefCurrencyValue"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency1CurDesc"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency1Currency"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency1UOM"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency1Value"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency2CurDesc"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency2Currency"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency2UOM"/>
+								<xsd:enumeration value="Item_v3.estimatedCostPriceInRepCurrency2Value"/>
+								<xsd:enumeration value="Item_v3.firstAllowedOrderDate"/>
+								<xsd:enumeration value="Item_v3.freightClass"/>
+								<xsd:enumeration value="Item_v3.freightClassDescription"/>
+								<xsd:enumeration value="Item_v3.freightDepthUOM"/>
+								<xsd:enumeration value="Item_v3.freightDepthValue"/>
+								<xsd:enumeration value="Item_v3.freightFloorSpaceUOM"/>
+								<xsd:enumeration value="Item_v3.freightFloorSpaceValue"/>
+								<xsd:enumeration value="Item_v3.freightHeightUOM"/>
+								<xsd:enumeration value="Item_v3.freightHeightValue"/>
+								<xsd:enumeration value="Item_v3.freightServiceLevel"/>
+								<xsd:enumeration value="Item_v3.freightServiceLevelDescription"/>
+								<xsd:enumeration value="Item_v3.freightVolumeUOM"/>
+								<xsd:enumeration value="Item_v3.freightVolumeValue"/>
+								<xsd:enumeration value="Item_v3.freightWeightUOM"/>
+								<xsd:enumeration value="Item_v3.freightWeightValue"/>
+								<xsd:enumeration value="Item_v3.freightWidthUOM"/>
+								<xsd:enumeration value="Item_v3.freightWidthValue"/>
+								<xsd:enumeration value="Item_v3.generalSearchKey1"/>
+								<xsd:enumeration value="Item_v3.generalSearchKey2"/>
+								<xsd:enumeration value="Item_v3.handlingUnitIndicator"/>
+								<xsd:enumeration value="Item_v3.handlingUnitVersionControlIndicator"/>
+								<xsd:enumeration value="Item_v3.hazardousMaterialIndicator"/>
+								<xsd:enumeration value="Item_v3.hazardousMaterialRiskClass"/>
+								<xsd:enumeration value="Item_v3.height"/>
+								<xsd:enumeration value="Item_v3.heightUOM"/>
+								<xsd:enumeration value="Item_v3.installationGroup"/>
+								<xsd:enumeration value="Item_v3.installationGroupDescription"/>
+								<xsd:enumeration value="Item_v3.itemCode"/>
+								<xsd:enumeration value="Item_v3.itemGroup"/>
+								<xsd:enumeration value="Item_v3.itemGroupDescription"/>
+								<xsd:enumeration value="Item_v3.ItemPicture"/>
+								<xsd:enumeration value="Item_v3.itemSignal"/>
+								<xsd:enumeration value="Item_v3.itemSignalDescription"/>
+								<xsd:enumeration value="Item_v3.itemType"/>
+								<xsd:enumeration value="Item_v3.itemTypeSpecification"/>
+								<xsd:enumeration value="Item_v3.lastAllowedOrderDate"/>
+								<xsd:enumeration value="Item_v3.lastChangeDate"/>
+								<xsd:enumeration value="Item_v3.lifeCycle"/>
+								<xsd:enumeration value="Item_v3.locationControlIndicator"/>
+								<xsd:enumeration value="Item_v3.locationSearchKey"/>
+								<xsd:enumeration value="Item_v3.lotControlIndicator"/>
+								<xsd:enumeration value="Item_v3.lotTrackingIndicator"/>
+								<xsd:enumeration value="Item_v3.maintenanceCycle"/>
+								<xsd:enumeration value="Item_v3.manufacturer"/>
+								<xsd:enumeration value="Item_v3.manufacturerDescription"/>
+								<xsd:enumeration value="Item_v3.material"/>
+								<xsd:enumeration value="Item_v3.maximumInventoryUOM"/>
+								<xsd:enumeration value="Item_v3.maximumLotSizeUOM"/>
+								<xsd:enumeration value="Item_v3.measurement"/>
+								<xsd:enumeration value="Item_v3.measurementDescription"/>
+								<xsd:enumeration value="Item_v3.minimumLotSizeUOM"/>
+								<xsd:enumeration value="Item_v3.orderPolicy"/>
+								<xsd:enumeration value="Item_v3.orderingSystem"/>
+								<xsd:enumeration value="Item_v3.outboundMethod"/>
+								<xsd:enumeration value="Item_v3.picture.*"/>
+								<xsd:enumeration value="Item_v3.picture.UUID"/>
+								<xsd:enumeration value="Item_v3.picture.StandardUUID"/>
+								<xsd:enumeration value="Item_v3.picture.LastModificationDate"/>
+								<xsd:enumeration value="Item_v3.planLocationMaximumInventoryLevelUOM"/>
+								<xsd:enumeration value="Item_v3.planLocationMaximumLotSizeUOM"/>
+								<xsd:enumeration value="Item_v3.planLocationMinimumLotSizeUOM"/>
+								<xsd:enumeration value="Item_v3.planLocationReorderPointUOM"/>
+								<xsd:enumeration value="Item_v3.planLocationSafetyStockUOM"/>
+								<xsd:enumeration value="Item_v3.plannedByAPS"/>
+								<xsd:enumeration value="Item_v3.printSerialNumberOnShipReportsIndicator"/>
+								<xsd:enumeration value="Item_v3.productClass"/>
+								<xsd:enumeration value="Item_v3.productClassDescription"/>
+								<xsd:enumeration value="Item_v3.productLine"/>
+								<xsd:enumeration value="Item_v3.productLineDescription"/>
+								<xsd:enumeration value="Item_v3.productType"/>
+								<xsd:enumeration value="Item_v3.productTypeDescription"/>
+								<xsd:enumeration value="Item_v3.productionLeadTime"/>
+								<xsd:enumeration value="Item_v3.productionSearchKey"/>
+								<xsd:enumeration value="Item_v3.project"/>
+								<xsd:enumeration value="Item_v3.projectDescription"/>
+								<xsd:enumeration value="Item_v3.projectReferenceDate"/>
+								<xsd:enumeration value="Item_v3.projectStatus"/>
+								<xsd:enumeration value="Item_v3.purchasePriceCurrency"/>
+								<xsd:enumeration value="Item_v3.purchasePriceCurrencyDescription"/>
+								<xsd:enumeration value="Item_v3.purchasePriceUOM"/>
+								<xsd:enumeration value="Item_v3.purchasePriceValue"/>
+								<xsd:enumeration value="Item_v3.purchaseSearchKey"/>
+								<xsd:enumeration value="Item_v3.purchaseSupplyTime"/>
+								<xsd:enumeration value="Item_v3.purchaseUOM"/>
+								<xsd:enumeration value="Item_v3.IsItemPurchaseDataPresent"/>
+								<xsd:enumeration value="Item_v3.PurchaseBuyFromBP"/>
+								<xsd:enumeration value="Item_v3.PurchaseBuyFromBPDescription"/>
+								<xsd:enumeration value="Item_v3.PurchaseBuyer"/>
+								<xsd:enumeration value="Item_v3.PurchaseBuyerDescription"/>
+								<xsd:enumeration value="Item_v3.PurchaseWarehouse"/>
+								<xsd:enumeration value="Item_v3.PurchaseWarehouseDescription"/>
+								<xsd:enumeration value="Item_v3.PurchaseWarehouseAddress"/>
+								<xsd:enumeration value="Item_v3.PurchaseWarehouseAddressName"/>
+								<xsd:enumeration value="Item_v3.IsPurchaseReleaseToWarehouse"/>
+								<xsd:enumeration value="Item_v3.reorderPointUOM"/>
+								<xsd:enumeration value="Item_v3.repairWarrantyDuration"/>
+								<xsd:enumeration value="Item_v3.repairableIndicator"/>
+								<xsd:enumeration value="Item_v3.revisionControlIndicator"/>
+								<xsd:enumeration value="Item_v3.safetyStockUOM"/>
+								<xsd:enumeration value="Item_v3.salesCommissionGroup"/>
+								<xsd:enumeration value="Item_v3.salesCommissionGroupDescription"/>
+								<xsd:enumeration value="Item_v3.salesPriceCurrency"/>
+								<xsd:enumeration value="Item_v3.salesPriceCurrencyDescription"/>
+								<xsd:enumeration value="Item_v3.salesPriceInSalesUOMCurrency"/>
+								<xsd:enumeration value="Item_v3.salesPriceInSalesUOMCurrencyDescription"/>
+								<xsd:enumeration value="Item_v3.salesPriceInSalesUOMUOM"/>
+								<xsd:enumeration value="Item_v3.salesPriceInSalesUOMValue"/>
+								<xsd:enumeration value="Item_v3.salesPriceLowerMargin"/>
+								<xsd:enumeration value="Item_v3.salesPriceUOM"/>
+								<xsd:enumeration value="Item_v3.salesPriceUpperMargin"/>
+								<xsd:enumeration value="Item_v3.salesPriceValue"/>
+								<xsd:enumeration value="Item_v3.salesRebateGroup"/>
+								<xsd:enumeration value="Item_v3.salesRebateGroupDescription"/>
+								<xsd:enumeration value="Item_v3.salesSearchKey"/>
+								<xsd:enumeration value="Item_v3.salesUOM"/>
+								<xsd:enumeration value="Item_v3.selectionCode"/>
+								<xsd:enumeration value="Item_v3.selectionCodeDescription"/>
+								<xsd:enumeration value="Item_v3.serialControlIndicator"/>
+								<xsd:enumeration value="Item_v3.serialInInventoryIndicator"/>
+								<xsd:enumeration value="Item_v3.serialIssueInServiceIndicator"/>
+								<xsd:enumeration value="Item_v3.serialNumberEntryDuringAsBuiltIndicator"/>
+								<xsd:enumeration value="Item_v3.serialNumberEntryDuringReceiptIndicator"/>
+								<xsd:enumeration value="Item_v3.serialTrackingIndicator"/>
+								<xsd:enumeration value="Item_v3.serviceDepartment"/>
+								<xsd:enumeration value="Item_v3.serviceDepartmentDescription"/>
+								<xsd:enumeration value="Item_v3.serviceItemGroup"/>
+								<xsd:enumeration value="Item_v3.serviceItemGroupDescription"/>
+								<xsd:enumeration value="Item_v3.serviceItemIndicator"/>
+								<xsd:enumeration value="Item_v3.serviceKitType"/>
+								<xsd:enumeration value="Item_v3.serviceKitTypeDescription"/>
+								<xsd:enumeration value="Item_v3.serviceSalesPriceCurrency"/>
+								<xsd:enumeration value="Item_v3.serviceSalesPriceCurrencyDescription"/>
+								<xsd:enumeration value="Item_v3.serviceSalesPriceUOM"/>
+								<xsd:enumeration value="Item_v3.serviceSalesPriceValue"/>
+								<xsd:enumeration value="Item_v3.serviceSearchKey"/>
+								<xsd:enumeration value="Item_v3.serviceUOM"/>
+								<xsd:enumeration value="Item_v3.serviceUOMDescription"/>
+								<xsd:enumeration value="Item_v3.shelfLife"/>
+								<xsd:enumeration value="Item_v3.size"/>
+								<xsd:enumeration value="Item_v3.stackFactor"/>
+								<xsd:enumeration value="Item_v3.standard"/>
+								<xsd:enumeration value="Item_v3.subcontractor"/>
+								<xsd:enumeration value="Item_v3.subcontractorDescription"/>
+								<xsd:enumeration value="Item_v3.suggestedRetailPriceCurrency"/>
+								<xsd:enumeration value="Item_v3.suggestedRetailPriceCurrencyDescription"/>
+								<xsd:enumeration value="Item_v3.suggestedRetailPriceUOM"/>
+								<xsd:enumeration value="Item_v3.suggestedRetailPriceValue"/>
+								<xsd:enumeration value="Item_v3.taxCode"/>
+								<xsd:enumeration value="Item_v3.transportMeansGroup"/>
+								<xsd:enumeration value="Item_v3.transportMeansGroupDescription"/>
+								<xsd:enumeration value="Item_v3.transportType"/>
+								<xsd:enumeration value="Item_v3.transportTypeDescription"/>
+								<xsd:enumeration value="Item_v3.warranty"/>
+								<xsd:enumeration value="Item_v3.warrantyDescription"/>
+								<xsd:enumeration value="Item_v3.weightUOM"/>
+								<xsd:enumeration value="Item_v3.weightValue"/>
+								<xsd:enumeration value="Item_v3.widthUOM"/>
+								<xsd:enumeration value="Item_v3.widthValue"/>
+								<xsd:enumeration value="Item_v3.UserArea"/>
+								<xsd:enumeration value="Item_v3.MandatoryProjectPeg"/>
+								<xsd:enumeration value="Item_v3.AlternativeItem.*"/>
+								<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemCode"/>
+								<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemEffectivePeriodFrom"/>
+								<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemEffectivePeriodTo"/>
+								<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemIsInterchangeable"/>
+								<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemIsReplacement"/>
+								<xsd:enumeration value="Item_v3.AlternativeItem.alternativeItemPriority"/>
+								<xsd:enumeration value="Item_v3.AlternativeItem.UserArea"/>
+								<xsd:enumeration value="Item_v3.Location.*"/>
+								<xsd:enumeration value="Item_v3.Location.inboundLeadTime"/>
+								<xsd:enumeration value="Item_v3.Location.lotSizeMultiplier"/>
+								<xsd:enumeration value="Item_v3.Location.maximumInventoryLevelValue"/>
+								<xsd:enumeration value="Item_v3.Location.maximumLotSizeQuantityValue"/>
+								<xsd:enumeration value="Item_v3.Location.minimumLotSizeQuantityValue"/>
+								<xsd:enumeration value="Item_v3.Location.minimumOrderInterval"/>
+								<xsd:enumeration value="Item_v3.Location.orderingFillToMaximumInventoryIndicator"/>
+								<xsd:enumeration value="Item_v3.Location.outboundLeadTime"/>
+								<xsd:enumeration value="Item_v3.Location.reorderPointValue"/>
+								<xsd:enumeration value="Item_v3.Location.safetyStockValue"/>
+								<xsd:enumeration value="Item_v3.Location.safetyTime"/>
+								<xsd:enumeration value="Item_v3.Location.warehouse"/>
+								<xsd:enumeration value="Item_v3.Location.warehouseDescription"/>
+								<xsd:enumeration value="Item_v3.Location.warehouseType"/>
+								<xsd:enumeration value="Item_v3.Location.UserArea"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.*"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.CTPTimeFence"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.defaultSupplySource"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.dependentDemandForecastIndicator"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.extraLeadTime"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.forecastTimeFence"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.orderHorizon"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationInboundLeadTime"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationLotSizeMultiplier"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationMaximumInventoryLevelValue"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationMaximumLotSizeValue"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationMinimumLotSizeValue"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationMinimumOrderInterval"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationOrderingFillToMaximumInvInd"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationOutboundLeadTime"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationReorderPointValue"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationSafetyStockValue"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationSafetyTime"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationWarehouse"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationWarehouseDescription"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationWarehouseType"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planner"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.plannerName"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planningHorizon"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.timeFence"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.warehouseCluster"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationMaximumInventoryLevelUOM"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationMaximumLotSizeUOM"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationMinimumLotSizeUOM"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationReorderPointUOM"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.planLocationSafetyStockUOM"/>
+								<xsd:enumeration value="Item_v3.PlanLocation.UserArea"/>
+								<xsd:enumeration value="Item_v3.Feature.*"/>
+								<xsd:enumeration value="Item_v3.Feature.featureCode"/>
+								<xsd:enumeration value="Item_v3.Feature.description"/>
+								<xsd:enumeration value="Item_v3.Feature.effectivePeriod.*"/>
+								<xsd:enumeration value="Item_v3.Feature.effectivePeriod.from"/>
+								<xsd:enumeration value="Item_v3.Feature.effectivePeriod.to"/>
+								<xsd:enumeration value="Item_v3.Feature.featureValueDomain"/>
+								<xsd:enumeration value="Item_v3.Feature.UserArea"/>
+								<xsd:enumeration value="Item_v3.Feature.featureValue.*"/>
+								<xsd:enumeration value="Item_v3.Feature.featureValue.featureValueCode"/>
+								<xsd:enumeration value="Item_v3.Feature.featureValue.description"/>
+								<xsd:enumeration value="Item_v3.Feature.featureValue.effectivePeriod.*"/>
+								<xsd:enumeration value="Item_v3.Feature.featureValue.effectivePeriod.from"/>
+								<xsd:enumeration value="Item_v3.Feature.featureValue.effectivePeriod.to"/>
+								<xsd:enumeration value="Item_v3.Feature.featureValue.UserArea"/>
+								<xsd:enumeration value="Item_v3.Sites.*"/>
+								<xsd:enumeration value="Item_v3.Sites.Site"/>
+								<xsd:enumeration value="Item_v3.Sites.SiteDescription"/>
+								<xsd:enumeration value="Item_v3.Sites.SiteDefaultWarehouse"/>
+								<xsd:enumeration value="Item_v3.Sites.SiteDefaultWarehouseDescription"/>
+								<xsd:enumeration value="Item_v3.Sites.SiteDefaultWarehouseAddress"/>
+								<xsd:enumeration value="Item_v3.Sites.SiteDefaultWarehouseAddressName"/>
+								<xsd:enumeration value="Item_v3.Sites.SitePurchaseWarehouse"/>
+								<xsd:enumeration value="Item_v3.Sites.SitePurchaseWarehouseDescription"/>
+								<xsd:enumeration value="Item_v3.Sites.SitePurchaseWarehouseAddress"/>
+								<xsd:enumeration value="Item_v3.Sites.SitePurchaseWarehouseAddressName"/>
+								<xsd:enumeration value="Item_v3.Sites.SiteIsPurchaseReleaseToWarehouse"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="processingScope">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="not_applicable"/>
+					<xsd:enumeration value="request"/>
+					<xsd:enumeration value="business_entity"/>
+					<xsd:enumeration value="business_entity_component"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="actionType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="create"/>
+					<xsd:enumeration value="createOrChange"/>
+					<xsd:enumeration value="change"/>
+					<xsd:enumeration value="delete"/>
+					<xsd:enumeration value="unchanged"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccuni">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccpcp">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="8"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tiqbm1">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcitem">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="47"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcdsca">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcenvc">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="not.appl"/>
+					<xsd:enumeration value="not.valid"/>
+					<xsd:enumeration value="compliant"/>
+					<xsd:enumeration value="compl.except"/>
+					<xsd:enumeration value="not.compl"/>
+					<xsd:enumeration value="cond.fail"/>
+					<xsd:enumeration value="part.fail"/>
+					<xsd:enumeration value="not.rele"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccopr">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcdate">
+				<xsd:restriction base="xsd:dateTime">
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.str16">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="16"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccitg">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccsig">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tckitm">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="purchase"/>
+					<xsd:enumeration value="manufacture"/>
+					<xsd:enumeration value="generic.obs"/>
+					<xsd:enumeration value="cost.obs"/>
+					<xsd:enumeration value="service.obs"/>
+					<xsd:enumeration value="subcontract.obs"/>
+					<xsd:enumeration value="list.obs"/>
+					<xsd:enumeration value="tool.obs"/>
+					<xsd:enumeration value="equipment.obs"/>
+					<xsd:enumeration value="engineering.obs"/>
+					<xsd:enumeration value="product"/>
+					<xsd:enumeration value="rental.prod"/>
+					<xsd:enumeration value="tool"/>
+					<xsd:enumeration value="equipment"/>
+					<xsd:enumeration value="subcontracting"/>
+					<xsd:enumeration value="cost"/>
+					<xsd:enumeration value="service"/>
+					<xsd:enumeration value="generic"/>
+					<xsd:enumeration value="engineering"/>
+					<xsd:enumeration value="list"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcitmt_mandatory">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="not.applicable"/>
+					<xsd:enumeration value="tool"/>
+					<xsd:enumeration value="kit"/>
+					<xsd:enumeration value="option"/>
+					<xsd:enumeration value="menu"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.cmnf">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcdscb">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcopol">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="on.order"/>
+					<xsd:enumeration value="anonymous"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcctyp">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcyesno">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="yes"/>
+					<xsd:enumeration value="no"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccsel">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcdscc">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcwght">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccpft_mandatory">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="8"/>
+					<xsd:minLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcopvd_mandatory">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="string"/>
+					<xsd:enumeration value="long"/>
+					<xsd:enumeration value="double"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccopt_mandatory">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="8"/>
+					<xsd:minLength value="1"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccean">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="14"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcrefa">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccfrw">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="fmfmd.ccmb">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.cctr">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="serialized"/>
+					<xsd:enumeration value="anonymous"/>
+					<xsd:enumeration value="consumable"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsctm.ccds">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.desc">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcccur">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcccty">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tscfg.cvco">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="covered"/>
+					<xsd:enumeration value="covdef"/>
+					<xsd:enumeration value="notcover"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcqiv2">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcqiv1">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.st24">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="24"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tctope_mandatory">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="hours"/>
+					<xsd:enumeration value="days"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tiqro1">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccwar">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccom.cadr">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcnama">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="35"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.dltp">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="from.warh"/>
+					<xsd:enumeration value="from.warh.car"/>
+					<xsd:enumeration value="from.car"/>
+					<xsd:enumeration value="from.warh.trans"/>
+					<xsd:enumeration value="from.kit"/>
+					<xsd:enumeration value="from.serv.inv"/>
+					<xsd:enumeration value="from.dealer"/>
+					<xsd:enumeration value="purchase.order"/>
+					<xsd:enumeration value="field.purchase"/>
+					<xsd:enumeration value="to.scrap"/>
+					<xsd:enumeration value="to.warh"/>
+					<xsd:enumeration value="to.warh.trans"/>
+					<xsd:enumeration value="direct.delivery"/>
+					<xsd:enumeration value="direct.return"/>
+					<xsd:enumeration value="not.applicable"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tswcs.dltp">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="bench.stock"/>
+					<xsd:enumeration value="from.kit"/>
+					<xsd:enumeration value="from.warh"/>
+					<xsd:enumeration value="via.pur"/>
+					<xsd:enumeration value="to.warh"/>
+					<xsd:enumeration value="subcon.req"/>
+					<xsd:enumeration value="not.applicable"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcleng">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="fmfmd.frcl">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcflsp">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.serv">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcvolm">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="whwmd.risk">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="15"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tscfg.sigr">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.dsca">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="30"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.cmea">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcosys">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="sic"/>
+					<xsd:enumeration value="mps"/>
+					<xsd:enumeration value="fas"/>
+					<xsd:enumeration value="mnl"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcobpr">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="lifo"/>
+					<xsd:enumeration value="fifo"/>
+					<xsd:enumeration value="loca"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.cpcl">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcmcs.cpln">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccprj">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcpsts">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value=""/>
+					<xsd:enumeration value="active"/>
+					<xsd:enumeration value="archived"/>
+					<xsd:enumeration value="cancelled"/>
+					<xsd:enumeration value="closed"/>
+					<xsd:enumeration value="finished"/>
+					<xsd:enumeration value="free"/>
+					<xsd:enumeration value="simulation"/>
+					<xsd:enumeration value="to.be.closed"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcprip">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccom.bpid">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcemno">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tdcms.cmgp">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcpric">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcprcg">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="6"/>
+					<xsd:fractionDigits value="2"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcynna">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="yes"/>
+					<xsd:enumeration value="no"/>
+					<xsd:enumeration value="not.app"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccwoc">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.csgr">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="6"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tsmdm.ckgr">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="fmstck">
+				<xsd:restriction base="xsd:byte">
+					<xsd:totalDigits value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccvat">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="fmfmd.cmtg">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="fmfmd.ttyp">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tscfg.cwte">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="16"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcefex.date">
+				<xsd:restriction base="xsd:dateTime">
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tccpri">
+				<xsd:restriction base="xsd:byte">
+					<xsd:totalDigits value="1"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcqiv3">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="19"/>
+					<xsd:fractionDigits value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tctypw">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value=""/>
+					<xsd:enumeration value="consignment"/>
+					<xsd:enumeration value="consignment.own"/>
+					<xsd:enumeration value="normal"/>
+					<xsd:enumeration value="project"/>
+					<xsd:enumeration value="service"/>
+					<xsd:enumeration value="srv.cust.owned"/>
+					<xsd:enumeration value="srv.reject"/>
+					<xsd:enumeration value="wip"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="cprpd.sour">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="manpur"/>
+					<xsd:enumeration value="distribution"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="cpcom.yeno">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value=""/>
+					<xsd:enumeration value="yes"/>
+					<xsd:enumeration value="no"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcemm.clus">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="3"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="tcsite">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="9"/>
+					<xsd:pattern value=""/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ChangeRequest">
+		<wsdl:part name="ChangeRequest" type="bo:ChangeRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="ChangeResponse">
+		<wsdl:part name="ChangeResponse" type="bo:ChangeResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRequest">
+		<wsdl:part name="CreateRequest" type="bo:CreateRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="CreateResponse">
+		<wsdl:part name="CreateResponse" type="bo:CreateResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRefRequest">
+		<wsdl:part name="CreateRefRequest" type="bo:CreateRefRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="CreateRefResponse">
+		<wsdl:part name="CreateRefResponse" type="bo:CreateRefResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRefRequest">
+		<wsdl:part name="DeleteRefRequest" type="bo:DeleteRefRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRefResponse">
+		<wsdl:part name="DeleteRefResponse" type="bo:DeleteRefResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="ListRequest">
+		<wsdl:part name="ListRequest" type="bo:ListRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="ListResponse">
+		<wsdl:part name="ListResponse" type="bo:ListResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="ShowRequest">
+		<wsdl:part name="ShowRequest" type="bo:ShowRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="ShowResponse">
+		<wsdl:part name="ShowResponse" type="bo:ShowResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="CheckStructureRequest">
+		<wsdl:part name="CheckStructureRequest" type="bo:CheckStructureRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="CheckStructureResponse">
+		<wsdl:part name="CheckStructureResponse" type="bo:CheckStructureResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteRequest">
+		<wsdl:part name="DeleteRequest" type="bo:DeleteRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteResponse">
+		<wsdl:part name="DeleteResponse" type="bo:DeleteResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="SubscribeEventRequest">
+		<wsdl:part name="SubscribeEventRequest" type="bo:SubscribeEventRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="SubscribeEventResponse">
+		<wsdl:part name="SubscribeEventResponse" type="bo:SubscribeEventResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="UnSubscribeEventRequest">
+		<wsdl:part name="UnSubscribeEventRequest" type="bo:UnSubscribeEventRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="UnSubscribeEventResponse">
+		<wsdl:part name="UnSubscribeEventResponse" type="bo:UnSubscribeEventResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="SubscribeListRequest">
+		<wsdl:part name="SubscribeListRequest" type="bo:SubscribeListRequestType"/>
+	</wsdl:message>
+	<wsdl:message name="SubscribeListResponse">
+		<wsdl:part name="SubscribeListResponse" type="bo:SubscribeListResponseType"/>
+	</wsdl:message>
+	<wsdl:message name="Result">
+		<wsdl:part name="Result" element="bo:Result"/>
+	</wsdl:message>
+	<wsdl:message name="Header">
+		<wsdl:part name="Activation" element="bo:Activation"/>
+	</wsdl:message>
+	<wsdl:portType name="Item_v3">
+		<wsdl:operation name="Change">
+			<wsdl:input message="bo:ChangeRequest"/>
+			<wsdl:output message="bo:ChangeResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="Create">
+			<wsdl:input message="bo:CreateRequest"/>
+			<wsdl:output message="bo:CreateResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="CreateRef">
+			<wsdl:input message="bo:CreateRefRequest"/>
+			<wsdl:output message="bo:CreateRefResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteRef">
+			<wsdl:input message="bo:DeleteRefRequest"/>
+			<wsdl:output message="bo:DeleteRefResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="List">
+			<wsdl:input message="bo:ListRequest"/>
+			<wsdl:output message="bo:ListResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="Show">
+			<wsdl:input message="bo:ShowRequest"/>
+			<wsdl:output message="bo:ShowResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="CheckStructure">
+			<wsdl:input message="bo:CheckStructureRequest"/>
+			<wsdl:output message="bo:CheckStructureResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="Delete">
+			<wsdl:input message="bo:DeleteRequest"/>
+			<wsdl:output message="bo:DeleteResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="SubscribeEvent">
+			<wsdl:input message="bo:SubscribeEventRequest"/>
+			<wsdl:output message="bo:SubscribeEventResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="UnSubscribeEvent">
+			<wsdl:input message="bo:UnSubscribeEventRequest"/>
+			<wsdl:output message="bo:UnSubscribeEventResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+		<wsdl:operation name="SubscribeList">
+			<wsdl:input message="bo:SubscribeListRequest"/>
+			<wsdl:output message="bo:SubscribeListResponse"/>
+			<wsdl:fault name="FaultName" message="bo:Result"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Item_v3SoapBinding" type="bo:Item_v3">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="Change">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="Create">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="CreateRef">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteRef">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="List">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="Show">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="CheckStructure">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="Delete">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="SubscribeEvent">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="UnSubscribeEvent">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="SubscribeList">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+				<soap:header message="bo:Header" part="Activation" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.infor.com/businessinterface/Item_v3"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultName">
+				<soap:fault name="FaultName" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Item_v3Service">
+		<wsdl:port name="Item_v3SoapPort" binding="bo:Item_v3SoapBinding">
+			<soap:address location="https://mingle-ionapi.eu1.inforcloudsuite.com/TLD_TST/LN/c4ws/services/Item_v3"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

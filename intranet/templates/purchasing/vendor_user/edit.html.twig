@@ -1,0 +1,31 @@
+{% extends '/purchasing/vendor_user/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        {{ form_start(form, { action: path('vendor_users_edit', {id: vendorUser.getIriId()}) }) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins news-list-element">
+                    <div class="ibox-title">
+                        <h4>Edit</h4>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-6">
+                                {{ form_row(form.erpIdentifier) }}
+                                {{ form_row(form.firstname) }}
+                                {{ form_row(form.lastname) }}
+                                {{ form_row(form.email) }}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

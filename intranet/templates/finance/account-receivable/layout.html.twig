@@ -1,0 +1,21 @@
+{% extends 'finance/layout.html.twig' %}
+{% trans_default_domain 'account_receivable' %}
+
+{% block title %}{{ parent() }} \ {{ ('account_receivable.title'|trans) }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="account_receivable.nav_link.upload" domain="account_receivable"
+                      icon="material-symbols:download-rounded" route="account_receivable_upload"
+                      :security="is_granted('FEATURE_ACCOUNT_RECEIVABLES_WRITE')"/>
+        <twig:NavItem translationKey="account_receivable.nav_link.invoice_records" domain="account_receivable"
+                      icon="solar:book-linear" route="invoice_record_home"/>
+        <twig:NavItem:Search route="account_receivable_search"/>
+        <twig:NavItem translationKey="account_receivable.nav_link.my_tasks" domain="account_receivable"
+                      icon="mynaui:list" route="account_receivable_my_tasks"/>
+        {% if invoiceRecord is defined and invoiceRecord.iri is defined %}
+            <twig:NavItem:Edit route="invoice_record_edit" :routeParameters="{id: invoiceRecord.id}"
+                               :security="is_granted('INVOICE_RECORD_WRITE_VOTER', invoiceRecord.iri)"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

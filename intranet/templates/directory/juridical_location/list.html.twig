@@ -1,0 +1,28 @@
+{% extends 'directory/juridical_location/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10">
+            {{ include('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'items': {
+                        'name': {'label': 'directory.juridical_location.fields.name'|trans|capitalize},
+                        'view': {
+                            'label': 'menu.view'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'directory_juridical_locations_show',
+                                'params': {'id':'@id'},
+                                'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        },
+                    },
+                    'title': 'directory.juridical_location.title.list'|trans|capitalize,
+                    'data': juridical_locations
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

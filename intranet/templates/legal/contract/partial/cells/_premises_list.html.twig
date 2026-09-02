@@ -1,0 +1,5 @@
+<td>
+    {% for premise in premises %}
+        <a href="{{ path('directory_premise_show', {id: iri_id(premise)}) }}">{{ premise.name }}</a><br>
+    {% endfor %}
+</td>

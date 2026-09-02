@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/user_settings/\\d+$"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "settings": {"type": ["object", "array"]},
+    "name": {"type": "string"},
+    "user": {"type": "string"}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "settings",
+    "name",
+    "user"
+  ],
+  "additionalProperties": false
+}

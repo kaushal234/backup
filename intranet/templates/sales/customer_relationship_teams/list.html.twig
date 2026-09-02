@@ -1,0 +1,179 @@
+{% extends 'sales/customer_relationship_teams/layout.html.twig' %}
+{% trans_default_domain 'customer_relationship_team' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+{% form_theme legacyIdSearchForm 'form_theme_vertical.html.twig' %}
+{% form_theme search_form 'form_theme_vertical.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="text-capitalize">{{ 'customer_relationship_team.fields.quick_access'|trans }}</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_start(idSearchForm, { action: path('customer_relationship_team_home') }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(idSearchForm) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(idSearchForm) }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ form_start(legacyIdSearchForm, { action: path('customer_relationship_team_home') }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(legacyIdSearchForm) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(legacyIdSearchForm) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3 class="text-capitalize">{{ 'customer_relationship_team.search'|trans }}</h3>
+            <div >
+                <div>
+                    {{ form_start(search_form, { action: path('customer_relationship_team_home') }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(search_form) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(search_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('sales/customer_relationship_teams/partial/_form_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('customer_relationship_team_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    search: search_table,
+                    items: {
+                        id: {
+                            label: 'customer_relationship_team.fields.id'|trans|capitalize,
+                            link:{
+                                route: 'customer_relationship_team_show',
+                                params: {'id':'@id'},
+                            },
+                        },
+                        customerBusinessPartnerCode: {
+                            label: 'customer_relationship_team.fields.cuno'|trans
+                        },
+                        customer: {
+                            properties: ['customer.name'],
+                            label: 'customer_relationship_team.fields.customer'|trans,
+                            class: 'text-center',
+                            link: {
+                                route: 'sales_customers_show',
+                                params: {'id':'customer.@id'}
+                            }
+                        },
+                        salesRepresentative: {
+                            properties: ['salesRepresentative.lastname', 'salesRepresentative.firstname'],
+                            label: 'customer_relationship_team.fields.sales_representative' | trans | capitalize,
+                            class: 'text-center',
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'salesRepresentative.@id'}
+                            }
+                        },
+                        partsRepresentative: {
+                            'properties': ['partsRepresentative.lastname', 'partsRepresentative.firstname'],
+                            label: 'customer_relationship_team.fields.parts_representative' | trans | capitalize,
+                            class: 'text-center',
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'partsRepresentative.@id'}
+                            }
+                        },
+                        serviceRepresentative: {
+                            properties: ['serviceRepresentative.lastname', 'serviceRepresentative.firstname'],
+                            label: 'customer_relationship_team.fields.service_representative' | trans | capitalize,
+                            class: 'text-center',
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'serviceRepresentative.@id'}
+                            }
+                        },
+                        partsLocation: {
+                            'properties': ['partsLocation.name'],
+                            label: 'customer_relationship_team.fields.parts_location' | trans | capitalize,
+                            class: 'text-center',
+                            link: {
+                                route: 'directory_locations_show',
+                                params: {'id':'partsLocation.@id'}
+                            }
+                        },
+                        serviceLocation: {
+                            properties: ['serviceLocation.name'],
+                            label: 'customer_relationship_team.fields.service_location' | trans | capitalize,
+                            class: 'text-center',
+                            link: {
+                                route: 'directory_locations_show',
+                                params: {'id':'serviceLocation.@id'}
+                            }
+                        },
+                        erpLocation: {
+                            properties: ['erpLocation.name'],
+                            label: 'customer_relationship_team.fields.erp_location' | trans | capitalize,
+                            class: 'text-center',
+                            link: {
+                                route: 'directory_locations_show',
+                                params: {'id':'erpLocation.@id'}
+                            }
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'customer_relationship_team_show',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+                    },
+                    title: report_title|trans,
+                    data: customer_relationship_teams
+                }
+            }) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block form_label %}
+    {{ include('sales/partial/input_with_no_label.html.twig') }}
+{%- endblock form_label %}

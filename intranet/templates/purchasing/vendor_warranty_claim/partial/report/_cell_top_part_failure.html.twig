@@ -1,0 +1,4 @@
+{% set supplier = reportTable.extraParameters.supplierNumber|default('') %}
+<td>
+    <a href="{{ path('vendor_warranty_claim_home', { createdAfter: reportTable.extraParameters.twoYearsAgo, location: reportTable.extraParameters.location, partNumber: item.name, supplierNumber: supplier }) }}">{{ item.value }}</a>
+</td>

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "@id": {"pattern": "^/legacy/equipment_record_files"},
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "$ref": "equipment_record_file.json"
+            }
+        }
+    },
+    "required": ["hydra:member", "@id"]
+}

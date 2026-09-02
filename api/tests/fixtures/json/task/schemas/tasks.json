@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/tasks"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/(tasks|renew_guest_users|part_number_tasks)/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "module": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/modules/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "frontEndRoute": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "operationalOwner": {
+                "$ref": "../../directory_people/schemas/directory_people_public.json"
+              },
+              "shortDescription": {
+                "type": "string"
+              },
+              "migrated": {
+                "type": "boolean"
+              },
+              "disabledForTroubleTicket": {
+                "type": "boolean"
+              },
+              "keyUser": {
+                "type": [
+                  "null",
+                  "object"
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "frontEndRoute",
+              "name",
+              "operationalOwner",
+              "shortDescription",
+              "migrated",
+              "disabledForTroubleTicket",
+              "keyUser"
+            ],
+            "additionalProperties": false
+          },
+          "referenceId": {
+            "type": "integer"
+          },
+          "indiceFactor": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "startedAt": {
+            "type": "string"
+          },
+          "closedAt": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "dueDate": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "createdBy": {
+           "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "assignee": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "lastComment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "rescheduleDate": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "escalationDate": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "module",
+          "referenceId",
+          "indiceFactor",
+          "createdAt",
+          "startedAt",
+          "closedAt",
+          "dueDate",
+          "createdBy",
+          "assignee",
+          "shortDescription",
+          "description",
+          "lastComment",
+          "id",
+          "status",
+          "rescheduleDate",
+          "escalationDate"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "hydra:search": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ],
+  "additionalProperties": false
+}

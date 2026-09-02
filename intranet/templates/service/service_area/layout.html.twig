@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'service_area' %}
+
+{% set route = app.request.attributes.get('_route') %}
+
+{% block title %} {{ 'menu.service_areas.title' |trans({}, 'messages') }} {% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="service_area_add"/>
+    </twig:NavBar:Container>
+{% endblock %}

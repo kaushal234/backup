@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'qhse' %}
+
+{% block title %}{{ 'qhse.title' | trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="qhse.nav_link.list" domain="qhse" icon="mynaui:list" route="qhse_list"/>
+        <twig:NavItem translationKey="qhse.nav_link.benchmark_factory" domain="qhse" icon="ant-design:retweet-outlined" route="qhse_benchmark" :routeParameters="{type: 'factories'}"/>
+        <twig:NavItem translationKey="qhse.nav_link.benchmark_no_factory" domain="qhse" icon="ant-design:retweet-outlined" route="qhse_benchmark" :routeParameters="{type: 'non-factories'}"/>
+    </twig:NavBar:Container>
+{% endblock %}

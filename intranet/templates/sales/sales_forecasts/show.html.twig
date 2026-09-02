@@ -1,0 +1,62 @@
+{% extends 'sales/sales_forecasts/layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    {{ include('helper/_tabs.html.twig', {
+        tabsData: {
+            tabs: {
+                sfr: {
+                    defaultTab: true,
+                    label: 'sidebar.sales.sfr' | trans({}, 'sidebar'),
+                    template: 'sales/sales_forecasts/partial/tabs/_sfr_tab.html.twig',
+                    templateParams: {linkedSalesForecasts: linkedSalesForecasts, linkForm: linkForm, leadTime: leadTime, currency: currency, estimatedSaleDateForm: estimatedSaleDateForm}
+                },
+                sfrLogs: {
+                    label: 'menu.logs' | trans({}, 'messages') | capitalize,
+                    template: 'sales/sales_forecasts/partial/tabs/_logs.html.twig',
+                    templateParams: {hasFileUpload: true}
+                },
+                sfrLinks: {
+                    label: 'menu.links' | trans({}, 'messages') | capitalize,
+                    template: 'generic/_links.html.twig',
+                    templateParams: { module: 'SFR2', legacy: false }
+                },
+                tasks: {
+                    label: 'menu.people.tasks' | trans({}, 'messages') | capitalize,
+                    template: 'sales/sales_forecasts/partial/tabs/_tasks_tab.html.twig',
+                },
+                files: {
+                    label: 'menu.files' | trans({}, 'messages') | capitalize,
+                    template: 'sales/sales_forecasts/partial/tabs/_files_tab.html.twig',
+                    templateParams: {form: form},
+                    badge: salesForecast.salesForecastFiles | length,
+                },
+                fcr: {
+                    label: 'sidebar.sales.fcr' | trans([], 'sidebar'),
+                    template: 'sales/forecast_closures/partial/_table.html.twig',
+                    templateParams: {forecastClosures: forecastClosures, pagination: false},
+                    badge: forecastClosures | length,
+                },
+                cpr: {
+                    label: 'sidebar.sales.cpr' | trans([], 'sidebar'),
+                    template: 'sales/competitor_pricings/partial/_table.html.twig',
+                    templateParams: {competitorPricings: competitorPricings, pagination: false},
+                    badge: competitorPricings | length,
+                },
+                followers: {
+                    label: 'subscribers' | trans({}, 'messages'),
+                    template: 'sales/sales_forecasts/partial/tabs/_followers_tab.html.twig',
+                },
+            },
+            data: salesForecast,
+            link: app.request.query.get('tab'),
+        },
+    }, with_context = false) }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

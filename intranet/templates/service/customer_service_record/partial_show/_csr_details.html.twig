@@ -1,0 +1,28 @@
+{% trans_default_domain 'customer_service_record' %}
+{{ include('helper/_association_table.html.twig', {
+    associationData: {
+        items: {
+            hourMeterTransactions: {
+                label: 'csr.fields.hourmeter' | trans,
+                template: 'service/customer_service_record/partial_show/_hourmeter.html.twig',
+            },
+            createdAt: {
+                label: 'fields.created_at' | trans({}, 'messages')|capitalize,
+                filters: 'date("Y-m-d")',
+            },
+            createdBy: {
+                properties: ['createdBy.firstname', 'createdBy.lastname'],
+                label: 'fields.created_by' | trans({}, 'messages'),
+                link:{
+                    route: 'directory_people_show',
+                    params: {'id':'createdBy.@id'},
+                },
+            },
+            title: { label: 'display.table.document.headers.title' | trans({}, 'messages')},
+            description: { label: 'tasks.description' | trans({}, 'messages')},
+        },
+        title: 'csr.title.detail' | trans,
+        data: customerServiceRecord,
+        card: false,
+    }
+}, with_context = false) }}

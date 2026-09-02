@@ -1,0 +1,22 @@
+{% trans_default_domain 'trouble_ticket' %}
+
+{% set data = {
+    url: {
+        label: 'trouble_ticket.fields.url' | trans | capitalize,
+        template: 'mis/trouble_ticket/partial/cell/_link.html.twig',
+    },
+    referer: {
+        label: 'trouble_ticket.fields.referer' | trans | capitalize,
+        template: 'mis/trouble_ticket/partial/cell/_link.html.twig',
+    },
+    hostName: {
+        label: 'trouble_ticket.fields.hostname' | trans | capitalize},
+} %}
+{{ include('helper/_association_table.html.twig', {
+    associationData: {
+        items: data,
+        data: item,
+        card:false,
+        hideTilte: false
+    }
+}, with_context  = false) }}

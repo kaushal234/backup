@@ -1,0 +1,46 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% macro auditDayTime(auditLog) %}
+    {% if auditLog.days is same as 0 %}
+        {{ 'audit_log.hours'|trans({'%hours%': auditLog.h, '%minutes%': auditLog.i}, 'audit_log') }}
+    {% else %}
+        {{ 'audit_log.days'|trans({'%days%': auditLog.days, '%hours%': auditLog.h}, 'audit_log') }}
+    {% endif %}
+{% endmacro %}
+
+{% block content %}
+    {% for name, audit in audits %}
+    <div class="ibox-content">
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    createdAt: {
+                        label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                        filters: ['date("Y-m-d")']
+                    },
+                    createdBy: {
+                        label: 'fields.created_by'|trans({}, 'messages')|capitalize,
+                        properties: ['createdBy.lastname', 'createdBy.firstname']
+                    },
+                    value: {
+                        label: ('toc.fields.' ~ name)|trans,
+                        boolean: {
+                            false: '<div class="text-middle"><span class="d-none">1</span><i class="fa fa-circle text-danger"></i></div>',
+                            true: '<div class="text-middle"><span class="d-none">0</span><i class="fa fa-circle" style="color: #009639"></i></div>'
+                        }
+                    },
+                    time: {
+                        label: 'fields.solved_time'|trans({}, 'messages'),
+                        template: 'generic/partials/_time.html.twig'
+                    },
+                },
+                title: ('toc.audit.title.' ~ name)|trans|upper,
+                data: audit,
+                initialSorting: false,
+                search: false
+            }
+        }, with_context = false )}}
+    </div>
+    {% endfor %}
+{% endblock %}

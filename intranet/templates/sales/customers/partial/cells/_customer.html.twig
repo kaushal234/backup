@@ -1,0 +1,10 @@
+{% set customer = customerPath is defined ? item[customerPath] : item %}
+{% set params = {customer: customer, showApproved: showApproved is defined and showApproved is same as(true)} %}
+{% if maxLength is defined %}
+    {% set params = params|merge({maxLength: maxLength}) %}
+{% endif %}
+<td>
+    {% if customer is not same as(null) %}
+        {{ include('sales/customers/partial/_customer_with_status.html.twig', params, with_context=false) }}
+    {% endif %}
+</td>

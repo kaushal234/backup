@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": { "pattern": "^/contract/sub_categories/\\d+$" },
+    "@type": { "enum": ["SubCategory"] },
+    "id": { "type": "integer" },
+    "name": { "type": "string" },
+    "displayedName": { "type": "string" },
+    "isAllow": { "type": "boolean" },
+    "category": {
+      "type": "object",
+      "properties": {
+        "@id": { "pattern": "^/contract/categories/\\d+$" },
+        "@type": { "enum": ["Category"] },
+        "id": { "type": "integer" },
+        "name": { "type": "string" },
+        "displayedName": { "type": "string" }
+      },
+      "required": ["@id", "@type", "id", "name", "displayedName"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["@context", "@id", "@type", "id", "name", "category", "displayedName", "isAllow"],
+  "additionalProperties": false
+}

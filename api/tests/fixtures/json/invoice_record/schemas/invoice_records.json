@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/finance/invoice_records"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/finance/invoice_records/\\d+$"},
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "invoiceNumber": { "type": "string" },
+          "originalAmount": { "type": "number" },
+          "category": {"type": ["string", "null"]},
+          "expectedPaymentDate": {"type": ["string", "null"]},
+          "revisedDueDate": {"type": ["string", "null"]},
+          "lastComment": {"type": ["string", "null"]},
+          "customerErpReference": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/sales/customer_erp_references/\\d+$"},
+              "@type": {"type": "string"},
+              "id": {"type": "integer"},
+              "customerNumber": {"type": "string"},
+              "sso": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/locations/\\d+$"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "erp": {"type": ["integer", "null"]},
+                  "currency": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "object",
+                        "$ref": "../../finance_currency/schemas/currency.json"
+                      }
+                    ]
+                  }
+                },
+                "required": ["@id", "@type", "name", "erp", "currency"],
+                "additionalProperties": false
+              },
+              "customer": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/customers/\\d+$"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "status": {"type": "string"}
+                },
+                "required": ["@id", "@type", "name", "status"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["@id", "@type", "id", "customerNumber", "sso", "customer"]
+          },
+          "currency": {
+            "type": "object",
+            "$ref": "../../finance_currency/schemas/currency.json"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "originalAmount",
+          "category",
+          "expectedPaymentDate",
+          "revisedDueDate",
+          "customerErpReference",
+          "currency",
+          "invoiceNumber",
+          "lastComment"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

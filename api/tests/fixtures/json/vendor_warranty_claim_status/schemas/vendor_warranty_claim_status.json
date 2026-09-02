@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/purchasing/vendor_warranty_claim_statuses/\\d+$"},
+    "@type": {"type": "string"},
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+    "position": {"type": "integer"}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "name",
+    "description",
+    "position"
+  ],
+  "additionalProperties": false
+}

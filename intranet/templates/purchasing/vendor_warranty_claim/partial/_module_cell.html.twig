@@ -1,0 +1,10 @@
+<td>
+    {% if item['@type'] == 'NcrVendorWarrantyClaim' %}
+        <a target="_blank"
+           href="{{ path('non_conformity_show', {id: item.nonConformity.id}) }}">NCR#{{ item.nonConformity.id }}</a>
+    {% endif %}
+    {% if item['@type'] == 'WcVendorWarrantyClaim' %}
+        <a target="_blank" href="{{ path('legacy_product_support', {m: ['wc', 'view'], id: item.warrantyClaimId}) }}"
+           class="{{ class|default('') }}">WC#{{ item.warrantyClaimId }}</a>
+    {% endif %}
+</td>

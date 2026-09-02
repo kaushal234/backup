@@ -1,0 +1,15 @@
+{% form_theme form 'support/manual_document/partial/_form.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'support.manual_document_parts.collection'|trans({}, 'support')|capitalize }}</h5>
+            </div>
+            <div class="ibox-content">
+                {{ form_row(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

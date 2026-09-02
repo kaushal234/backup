@@ -1,0 +1,25 @@
+{% extends 'parts/spare_parts_requests/layout.html.twig' %}
+{% trans_default_domain 'spare_parts_request' %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+      window.SPR_APP_PROPS = {{ props|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'spare_parts_request' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'account_receivable' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'contacts' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'directory' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'shipping_quotation_request' }) }}"></script>
+{% endblock %}
+

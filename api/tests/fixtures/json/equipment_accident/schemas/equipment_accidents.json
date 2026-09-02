@@ -1,0 +1,60 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/equipment_accidents$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@id": {"pattern": "^/equipment_accidents/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "humanInjuries": {
+            "type": "boolean"
+          },
+          "planeDamages": {
+            "type": "boolean"
+          },
+          "environmentDamages": {
+            "type": "boolean"
+          },
+          "equipmentDamages": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "date",
+          "comment",
+          "humanInjuries",
+          "planeDamages",
+          "environmentDamages",
+          "equipmentDamages"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

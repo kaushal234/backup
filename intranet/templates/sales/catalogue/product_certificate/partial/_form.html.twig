@@ -1,0 +1,56 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{{ form_start(form, { action: action }) }}
+{{ form_errors(form) }}
+<div class="row">
+    <div class="animated">
+        <div class="mail-box-header clearfix">
+            <h2 class="float-sart">
+                {{ title }}
+            </h2>
+        </div>
+        <div class="mail-box">
+            <div class="mail-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        {{ form_row(form.product) }}
+                    </div>
+                    <div class="col-lg-3">
+                        {{ form_row(form.factory) }}
+                    </div>
+                    <div class="col-lg-3">
+                        {{ form_row(form.emissionRating) }}
+                    </div>
+                    <div class="col-lg-3">
+                        {{ form_row(form.testReportNumber) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        {{ form_row(form.expiredAt) }}
+                    </div>
+                    <div class="col-lg-3">
+                        {{ form_row(form.expectedAt) }}
+                    </div>
+                    <div class="col-lg-3">
+                        {{ form_row(form.engineeringActivityProcess) }}
+                    </div>
+                    <div class="col-lg-3">
+                        {{ form_row(form.announcementCertificateNumber) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form_row(form.url) }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form_row(form.description) }}
+                    </div>
+                </div>
+                {{ form_row(form.submit) }}
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

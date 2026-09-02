@@ -1,0 +1,6 @@
+<td>
+    {% if cell.value is not same as(0) %}
+        </span><i class="fa fa-circle text-danger"></i>
+        <p>{{ cell.value | number_format(0, '.', ' ') }} {{ currency.name }}</p>
+    {% endif %}
+</td>

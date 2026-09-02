@@ -1,0 +1,5 @@
+<td>
+    {% set formRow = form['modules'][item['@id']|iri_id]['typeDefaultAssignees'][type.id] %}
+        {{ form_row(formRow.typeIri) }}
+        {{ form_widget(formRow.defaultAssignee) }}
+</td>

@@ -1,0 +1,10 @@
+{% trans_default_domain 'messages' %}
+{% set cookie = 'ALVEST_STAGING' %}
+
+{% if app.request.cookies.has(cookie) %}
+    <nav class="env-banner">
+        <h3>
+            {{ 'cookies.ALVEST_STAGING.portal_warning'|trans }}
+        </h3>
+    </nav>
+{% endif %}

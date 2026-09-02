@@ -1,0 +1,104 @@
+@startuml
+
+hide empty fields
+hide empty methods
+
+namespace App {
+    namespace Entity {
+        namespace Materials\Warehouse {
+            class MonthlyActivities {
+               - int id
+               - \DateTimeInterface applicatedOn
+               - Location location
+               - int inboundLines
+               - int outboundLines
+               - int inboundHours
+               - int outboundHours
+               - int improductiveHours
+               - int excludedHours
+               + getInboundRate(): float
+               + getOutboundRate(): float
+               + getProductiveRatio(): float
+            }
+
+            class TasksMapping {
+               -int id
+               -Location location
+               -int[] inboundTasks
+               -int[] outboundTasks
+               -int[] administrativeTasks
+               -int[] excludedTasks
+               + getAllTasks(): array
+               + validate(): array
+            }
+        }
+
+         namespace Directory {
+            class Location
+         }
+
+        App.Entity.Materials\Warehouse.MonthlyActivities "Many" ---* "One" App.Entity.Directory.Location: to
+        App.Entity.Materials\Warehouse.TasksMapping "One" ---* "One" App.Entity.Directory.Location: to
+    }
+
+    namespace Command\Materials\Warehouse {
+        class SnapshotMonthlyActivitiesCommand {
+            # execute()
+        }
+    }
+
+    namespace Report\Handler {
+        namespace Materials\Warehouse {
+            class MonthlyActivitiesHandler implements App.Report\Handler.ReportHandlerInterface
+        }
+    }
+
+    namespace Manager\Materials\Warehouse {
+        class MonthlyActivitiesManager {
+            + recordMonthlyActivites(int erp, \DateTimeInterface applicatedOn): void
+        }
+    }
+
+    namespace Security\Voter {
+        abstract class AbstractVoter extends vendor.Voter
+
+        namespace Materials\Warehouse {
+            class TasksMappingVoter extends App.Security\Voter.AbstractVoter
+        }
+    }
+
+
+
+    namespace Repository\Directory {
+        class LocationRepository
+    }
+
+    namespace Baan\Repository\Materials\Warehouse {
+        class MonthlyActivitiesRepository {
+            - getMonthlyActivities(int erp, \DateTimeInterface $applicatedOn): MonthlyActivities
+        }
+    }
+}
+
+
+
+namespace vendor {
+    interface EntityManagerInterface
+    interface BaanEntityManagerInterface
+    interface CollectionDataProviderInterface
+    interface IriConverterInterface
+    abstract class Voter implements VoterInterface
+}
+
+App.Baan\Repository\Materials\Warehouse.MonthlyActivitiesRepository <|.. vendor.BaanEntityManagerInterface : to get connection
+App.Baan\Repository\Materials\Warehouse.MonthlyActivitiesRepository <|.. vendor.CollectionDataProviderInterface : to get TasksMapping
+App.Report\Handler.Materials\Warehouse.MonthlyActivitiesHandler <|.. vendor.CollectionDataProviderInterface
+App.Manager\Materials\Warehouse.MonthlyActivitiesManager <|.. vendor.EntityManagerInterface: to save the records
+App.Manager\Materials\Warehouse.MonthlyActivitiesManager <|.. App.Baan\Repository\Materials\Warehouse.MonthlyActivitiesRepository
+App.Baan\Repository\Materials\Warehouse.MonthlyActivitiesRepository ...|> App.Entity.Materials\Warehouse.MonthlyActivities : instantiate
+App.Command\Materials\Warehouse.SnapshotMonthlyActivitiesCommand <|.. App.Manager\Materials\Warehouse.MonthlyActivitiesManager
+App.Command\Materials\Warehouse.SnapshotMonthlyActivitiesCommand <|.. vendor.CollectionDataProviderInterface
+App.Command\Materials\Warehouse.SnapshotMonthlyActivitiesCommand <|.. vendor.IriConverterInterface
+App.Command\Materials\Warehouse.SnapshotMonthlyActivitiesCommand <|.. App.Repository\Directory.LocationRepository
+
+@enduml

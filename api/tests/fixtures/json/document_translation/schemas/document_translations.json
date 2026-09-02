@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/document_translations"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/document_translations/\\d"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "estimatedSeconds": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "targetLang": {
+            "type": "string"
+          },
+          "formality": {
+            "type": "string"
+          },
+          "size": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "filename": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "errorMessage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "@type",
+          "@id",
+          "id",
+          "estimatedSeconds",
+          "targetLang",
+          "size",
+          "filename",
+          "status",
+          "createdAt",
+          "errorMessage"
+        ]
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

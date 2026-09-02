@@ -1,0 +1,359 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/Inventory.jsonld-inventory",
+    "definitions": {
+        "Inventory.jsonld-inventory": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/inventories/project=;item=.*$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "project": {
+                    "type": "string"
+                },
+                "siteItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteItem.jsonld-inventory"
+                    },
+                    "minItems": 1
+                },
+                "item": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "unitOfMeasure": {
+                    "type": "string"
+                },
+                "productLine": {
+                    "type": "string"
+                },
+                "productClass": {
+                    "oneOf": [
+                        {"type": "null"},
+                        {
+                            "type": "object",
+                            "properties": {
+                                "code": {"type": "string"},
+                                "name": {"type": "string"}
+                            }
+                        }
+                    ]
+                },
+                "multiplier": {
+                    "type": ["number", "null"]
+                },
+                "pmoc": {
+                    "type": "string"
+                },
+                "priceBook": {
+                    "type": "string"
+                },
+                "priceBookLines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/priceBookLines.jsonld-inventory"
+                    }
+                },
+                "pictures": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Picture.jsonld-inventory"
+                    }
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "project",
+                "item",
+                "description",
+                "unitOfMeasure",
+                "productLine",
+                "productClass",
+                "siteItems",
+                "priceBookLines",
+                "pictures"
+            ],
+            "additionalProperties": false
+        },
+        "priceBookLines.jsonld-inventory": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "@id": {"pattern": "^_:\\d+$"}
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                },
+                "currency": {
+                    "type": "string"
+                },
+                "effectiveDate": {
+                    "type": "string"
+                },
+                "expiryDate": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "value",
+                "currency",
+                "effectiveDate",
+                "expiryDate"
+            ],
+            "additionalProperties": false
+        },
+        "SiteItem.jsonld-inventory": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "@id": {"pattern": "^_:\\d+$"}
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "site": {
+                    "type": "string"
+                },
+                "leadtime": {
+                    "type": "string"
+                },
+                "codeSignal": {
+                    "type": "string"
+                },
+                "weight": {
+                    "type": "number"
+                },
+                "weightUnitOfMeasure": {
+                    "type": "string"
+                },
+                "textItem": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TextItem.jsonld-inventory"
+                        },
+                        "null"
+                    ]
+                },
+                "warehouses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Warehouse.jsonld-inventory"
+                    }
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "site",
+                "leadtime",
+                "codeSignal",
+                "weight",
+                "textItem",
+                "warehouses",
+                "weightUnitOfMeasure"
+            ],
+            "additionalProperties": false
+        },
+        "TextItem.jsonld-inventory": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "@id": {"pattern": "^_:\\d+$"}
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "site": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "code",
+                "date",
+                "site",
+                "text"
+            ],
+            "additionalProperties": false
+        },
+        "Warehouse.jsonld-inventory": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "@id": {"pattern": "^_:\\d+$"}
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "reorderPoint": {
+                    "type": "number"
+                },
+                "safetyStock": {
+                    "type": "number"
+                },
+                "itemSafety": {
+                    "type": "number"
+                },
+                "inventoryOnHand": {
+                    "type": "number"
+                },
+                "inventoryOnOrder": {
+                    "type": "number"
+                },
+                "allocated": {
+                    "type": "number"
+                },
+                "available": {
+                    "type": "number"
+                },
+                "purchaseCurrency": {
+                    "type": "string"
+                },
+                "purchasePrice": {
+                    "type": "number"
+                },
+                "lastPurchasePriceDate": {
+                    "type": ["string", "null"]
+                },
+                "standardCurrency": {
+                    "type": "string"
+                },
+                "standardCost": {
+                    "type": "number"
+                },
+                "includeInEnterprisePlanning": {"type": "boolean"}
+            },
+            "required": [
+                "@id",
+                "@type",
+                "code",
+                "name",
+                "reorderPoint",
+                "safetyStock",
+                "itemSafety",
+                "inventoryOnHand",
+                "inventoryOnOrder",
+                "allocated",
+                "available",
+                "purchaseCurrency",
+                "purchasePrice",
+                "lastPurchasePriceDate",
+                "standardCurrency",
+                "standardCost",
+                "includeInEnterprisePlanning"
+            ],
+            "additionalProperties": false
+        },
+        "Picture.jsonld-inventory": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "@id": {"pattern": "^_:\\d+$"}
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "key": {
+                    "type": "integer"
+                },
+                "uri": {
+                    "type": "string"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "extension": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "key",
+                "uri",
+                "filename",
+                "extension",
+                "size"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

@@ -1,0 +1,71 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.purchase_orders'|trans }}{% endblock %}
+
+{% block main %}
+    <div class="d-flex justify-content-end">
+        <div class="mb-3">
+            <div>
+            {% include 'purchase-order/components/buttons/report_button.html.twig' with { titleButton: 'purchase_order.report.button.reportFromTwoYears'|trans, after: 'now'|date_modify('-2 Years')|date('Y-01-01 00:00:00'), before: 'now'|date_modify("-2 Years")|date('Y-12-31 23:59:59') } %}
+            {% include 'purchase-order/components/buttons/report_button.html.twig' with { titleButton: 'purchase_order.report.button.reportFromOneYear'|trans, after: 'now'|date_modify("-1 Years")|date('Y-01-01 00:00:00'), before: 'now'|date_modify("-1 Years")|date('Y-12-31 23:59:59') } %}
+            {% include 'purchase-order/components/buttons/report_button.html.twig' with { titleButton: 'purchase_order.report.button.reportFromBeginningYear'|trans, after: 'now'|date('Y-01-01 00:00:00'), before: 'now'|date('Y-m-d H:i:s') } %}
+            </div>
+            <div class="mt-2">
+            <a href="{{ path('purchase-order:download:all') }}"
+               class="btn btn-outline-primary float-end">{{ 'display.table.mrp.caption.download_xlsx'|trans }}</a>
+            </div>
+        </div>
+    </div>
+
+    {% embed '_components/report_table.html.twig' with {
+        reportTable: {
+
+            items: {
+                id: {
+                    label: 'display.table.purchase_order.headers.id'|trans,
+                    link:{
+                        route: 'purchase-order:show',
+                        params: {id: 'id', erp: 'erp'},
+                    },
+                },
+                erp: {
+                    label: 'display.table.purchase_order.headers.erp'|trans,
+                    template: '_components/datatable/company.html.twig',
+                },
+                supplierNumber: {label: 'display.table.purchase_order.headers.supplier_number'|trans},
+                orderDate: {
+                    label: 'display.table.purchase_order.headers.order_date'|trans,
+                    filters: 'date("Y-m-d")',
+                },
+                referenceA: {label: 'display.table.purchase_order.headers.reference_a'|trans},
+                referenceB: {label: 'display.table.purchase_order.headers.reference_b'|trans},
+                lines: {
+                    label: 'display.table.purchase_order.headers.lines_count'|trans,
+                    template: 'purchase-order/components/datatable/lines_quantity.html.twig',
+                    filters: 'length',
+                },
+                status: {
+                    label: 'display.table.purchase_order.headers.confirmation_status'|trans,
+                    template: 'purchase-order/components/datatable/confirmation_status.html.twig',
+                },
+                deliveryStatus: {
+                    label: 'display.table.purchase_order.headers.delivery_status'|trans,
+                    template: 'purchase-order/components/datatable/delivery_status.html.twig',
+                },
+            },
+            title: 'display.table.purchase_order.caption.title'|trans,
+            id: 'purchase-orders-table',
+            state: state,
+            data: orders,
+        }
+    } %}
+        {% block table_content %}
+            <tbody hidden="hidden">
+            {% for item in table.data %}
+                {{ block('table_row') }}
+            {% endfor %}
+            </tbody>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+

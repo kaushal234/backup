@@ -1,0 +1,48 @@
+security:
+  password_hashers:
+    ApiBundle\Model\User: sha512
+
+  providers:
+    users:
+      id: ApiBundle\Security\Core\Authentication\UserProvider
+
+  firewalls:
+    # disables authentication for assets and the profiler, adapt it according to your needs
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images)/
+      security: false
+
+    main:
+      logout:
+        path: /logout
+        target: /login
+        delete_cookies: ['settings']
+      lazy: true
+      access_denied_handler: AppBundle\Security\Authorization\AccessDeniedHandler
+      entry_point: App\Security\FormAuthenticator
+      custom_authenticators:
+        - App\Security\FormAuthenticator
+        - App\Security\SwitchUserAuthenticator
+        - App\Security\AlvestAuthenticator
+        - App\Security\SageAuthenticator
+
+  access_control:
+    - { path: ^/check, roles: PUBLIC_ACCESS, ips: [127.0.0.1, ::1, '%env(TRUSTED_PROXIES)%'] }
+    - { path: ^/(login$|sage-login$|sso-login$|alvest-login$|forgot-password$|reset-password-confirmation/.*|public/.*), roles: PUBLIC_ACCESS }
+    - { path: ^/sales_service/toc/pull\.php, roles: PUBLIC_ACCESS }
+    - { path: ^/sales_service/questionaire/admin, roles: ROLE_QUESTIONNAIRE }
+    - { path: ^/(account/change-password|$), roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/_fragment, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/inc_sf/block_(events|people|factory)\.inc\.php, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/directory(/organisation/?|/people/?|/?$), roles: INTRANET_ACCESS_LIGHT }
+#     to open access to factory photos and people photos
+    - { path: ^/uploads/, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/account/account.php, roles: INTRANET_ACCESS }
+    - { path: ^/account, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/acronyms, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/corporate, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/wms, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/bundles, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/translations, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/news, roles: INTRANET_ACCESS_LIGHT }
+    - { path: ^/, roles: INTRANET_ACCESS }

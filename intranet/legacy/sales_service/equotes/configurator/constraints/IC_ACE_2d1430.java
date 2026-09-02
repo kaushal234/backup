@@ -1,0 +1,508 @@
+package com.fullscope.configurator.constraints;
+
+import com.fullscope.configurator.ItemConstraints;
+import com.fullscope.configurator.ConstraintIF;
+import com.fullscope.configurator.ConstrFunctions;
+
+public class IC_ACE_2d1430 extends ItemConstraints {
+
+  public IC_ACE_2d1430() {
+    super();
+  }
+
+  public static class c_f001 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_DOORCOL = features.get("DOORCOL").getString();
+      String f_CAB = features.get("CAB").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_DOORCOL = "";
+      if( (f_CAB.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("DOORCOL").set(f_DOORCOL);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f002 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_CABBUMP = features.get("CABBUMP").getString();
+      String f_CAB = features.get("CAB").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_CABBUMP = "";
+      if( (f_CAB.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("CABBUMP").set(f_CABBUMP);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f003 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_HOODSTR = features.get("HOODSTR").getString();
+      String f_CAB = features.get("CAB").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_HOODSTR = "";
+      if( (f_CAB.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("HOODSTR").set(f_HOODSTR);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f004 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_WBTYPE = features.get("WBTYPE").getString();
+      String f_WBSRVC = features.get("WBSRVC").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_WBTYPE = "";
+      if( (f_WBSRVC.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("WBTYPE").set(f_WBTYPE);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f005 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_LIFTBUMP = features.get("LIFTBUMP").getString();
+      String f_WBTYPE = features.get("WBTYPE").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_LIFTBUMP = "";
+      if( (f_WBTYPE.compareTo("LIFT") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("LIFTBUMP").set(f_LIFTBUMP);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f006 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_XTRFLOOD = features.get("XTRFLOOD").getString();
+      String f_WBSRVC = features.get("WBSRVC").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_XTRFLOOD = "";
+      if( (f_WBSRVC.compareTo("N") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("XTRFLOOD").set(f_XTRFLOOD);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f007 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_MIRROR = features.get("MIRROR").getString();
+      String f_CAB = features.get("CAB").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_MIRROR = "";
+      if( (f_CAB.compareTo("N") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("MIRROR").set(f_MIRROR);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f008 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_BTYPE = features.get("BTYPE").getString();
+      String f_BEACON = features.get("BEACON").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_BTYPE = "";
+      if( (f_BEACON.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("BTYPE").set(f_BTYPE);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f009 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_BCOLOR = features.get("BCOLOR").getString();
+      String f_BEACON = features.get("BEACON").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_BCOLOR = "";
+      if( (f_BEACON.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("BCOLOR").set(f_BCOLOR);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f010 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_COLDVOLT = features.get("COLDVOLT").getString();
+      String f_COLDPKG = features.get("COLDPKG").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_COLDVOLT = "";
+      if( (f_COLDPKG.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("COLDVOLT").set(f_COLDVOLT);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f011 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_BHTRVOLT = features.get("BHTRVOLT").getString();
+      String f_BLKHTR = features.get("BLKHTR").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_BHTRVOLT = "";
+      if( (f_BLKHTR.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("BHTRVOLT").set(f_BHTRVOLT);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+      int s_validate = globals.getInteger("validate");
+      String s_message = globals.getString("message");
+
+      String f_COLDVOLT = features.get("COLDVOLT").getString();
+      String f_BHTRVOLT = features.get("BHTRVOLT").getString();
+
+      if( (((((f_COLDVOLT.compareTo("110") == 0)) && ((f_BHTRVOLT.compareTo("110") == 0)))) || ((((f_COLDVOLT.compareTo("220") == 0)) && ((f_BHTRVOLT.compareTo("220") == 0))))) ) {
+        s_validate = 1;
+      }
+      else {
+        s_validate = 0;
+        s_message = "Cold weather package and engine block heater must be the\nsame voltage";
+      }
+
+      globals.set("validate", s_validate);
+      globals.set("message", s_message);
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f012 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_FUELHTR = features.get("FUELHTR").getString();
+      String f_ENGINE = features.get("ENGINE").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_FUELHTR = "";
+      if( (f_ENGINE.compareTo("IZ") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("FUELHTR").set(f_FUELHTR);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f013 implements ConstraintIF {
+    public void beforeInput() {
+      int s_input = globals.getInteger("input");
+      int s_display = globals.getInteger("display");
+
+      String f_TOWTYPE = features.get("TOWTYPE").getString();
+      String f_TOWPKG = features.get("TOWPKG").getString();
+
+      s_display = 0;
+      s_input = 0;
+      f_TOWTYPE = "";
+      if( (f_TOWPKG.compareTo("Y") == 0) ) {
+        s_display = 1;
+        s_input = 1;
+      }
+
+      features.get("TOWTYPE").set(f_TOWTYPE);
+      globals.set("input", s_input);
+      globals.set("display", s_display);
+    }
+
+    public void validation() {
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f014 implements ConstraintIF {
+    public void beforeInput() {
+    }
+
+    public void validation() {
+      String s_message = globals.getString("message");
+
+      String f_LANG = features.get("LANG").getString();
+
+      if( (f_LANG.compareTo("ZZZ") == 0) ) {
+        s_message = "LANG";
+      }
+
+      globals.set("message", s_message);
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_f015 implements ConstraintIF {
+    public void beforeInput() {
+    }
+
+    public void validation() {
+      String s_message = globals.getString("message");
+
+      s_message = "PAINT";
+
+      globals.set("message", s_message);
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_i001 implements ConstraintIF {
+    public void beforeInput() {
+    }
+
+    public void validation() {
+      int s_validate = globals.getInteger("validate");
+
+      String f_ENGINE = features.get("ENGINE").getString();
+
+      if( !((f_ENGINE.compareTo("FORD") == 0)) ) {
+        s_validate = 0;
+      }
+
+      globals.set("validate", s_validate);
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_i002 implements ConstraintIF {
+    public void beforeInput() {
+    }
+
+    public void validation() {
+      int s_validate = globals.getInteger("validate");
+
+      String f_ENGINE = features.get("ENGINE").getString();
+
+      if( !((f_ENGINE.compareTo("IZ") == 0)) ) {
+        s_validate = 0;
+      }
+
+      globals.set("validate", s_validate);
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_m001 implements ConstraintIF {
+    public void beforeInput() {
+    }
+
+    public void validation() {
+      int s_validate = globals.getInteger("validate");
+
+      String f_ENGINE = features.get("ENGINE").getString();
+
+      if( !((f_ENGINE.compareTo("IZ") == 0)) ) {
+        s_validate = 0;
+      }
+
+      globals.set("validate", s_validate);
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+
+  public static class c_m002 implements ConstraintIF {
+    public void beforeInput() {
+    }
+
+    public void validation() {
+      int s_validate = globals.getInteger("validate");
+
+      String f_ENGINE = features.get("ENGINE").getString();
+
+      if( !((f_ENGINE.compareTo("FORD") == 0)) ) {
+        s_validate = 0;
+      }
+
+      globals.set("validate", s_validate);
+    }
+
+    public void parameterSubstitution() {
+    }
+  }
+}

@@ -1,0 +1,69 @@
+App\Entity\Support\Manual:
+  # /support/manuals/1
+  manual_1:
+    id: 1
+    equipmentRecord: '@equipment_record_1'
+    equipmentSerial: '@equipment_serial_1'
+    description: "precise description of this manual"
+    features: "full list of features of this manual"
+    language: "en"
+    status: <randomElement(['PRELIMINARY', 'RELEASED'])>
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    updatedAt: <dateTimeBetween('-2 days', 'now')>
+    createdBy: '@user_basic'
+    updatedBy: '@user_basic'
+    documents:
+      - '@manual_document_1'
+      - '@manual_document_2'
+
+  # /support/manuals/2
+  manual_2:
+    id: 2
+    equipmentRecord: '@equipment_record_2'
+    equipmentSerial: '@equipment_serial_2'
+    description: "precise description of this manual"
+    features: "full list of features of this manual"
+    language: "en"
+    status: RELEASED
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    updatedAt: <dateTimeBetween('-2 days', 'now')>
+    createdBy: '@user_basic'
+    updatedBy: '@user_basic'
+
+  # /support/manuals/3
+  manual_standalone:
+    id: 3
+    description: "precise description of this standalone manual"
+    features: "full list of features of this standalone manual"
+    language: "en"
+    status: RELEASED
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    updatedAt: <dateTimeBetween('-2 days', 'now')>
+    createdBy: '@user_basic'
+    updatedBy: '@user_basic'
+
+  # /support/manuals/4
+  manual_unauthorized_extranet:
+    id: 4
+    equipmentRecord: '@equipment_record_remi'
+    equipmentSerial: '@equipment_serial_4'
+    description: "precise description of this manual"
+    features: "full list of features of this manual"
+    language: "en"
+    status: RELEASED
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    updatedAt: <dateTimeBetween('-2 days', 'now')>
+    createdBy: '@user_basic'
+    updatedBy: '@user_basic'
+
+  # /support/manuals/5
+  manual_no_equipment_record:
+    id: 5
+    description: "precise description of this manual with no equipment record"
+    features: "full list of features of this standalone manual"
+    language: "en"
+    status: RELEASED
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    updatedAt: <dateTimeBetween('-2 days', 'now')>
+    createdBy: '@user_basic'
+    updatedBy: '@user_basic'

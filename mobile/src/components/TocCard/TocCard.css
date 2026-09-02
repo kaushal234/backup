@@ -1,0 +1,109 @@
+.cui .toc_card__wrapper {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: var(--cui-card-border-radius);
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.cui .toc_card__wrapper div:first-child {
+  flex: 1;
+}
+
+.cui .toc_card__wrapper .toc_card__first_row_right .MuiChip-root {
+  flex: 0;
+}
+
+.cui .toc__card_details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.cui .toc__card_details > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cui .toc_card__image_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cui .toc_card__left_section {
+  display: flex;
+  flex-direction: column;
+}
+
+.cui .toc_card__left_section .cui_one_line.MuiTypography-button {
+  text-transform: none;
+}
+
+.cui .toc_card__image {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--mui-shape-borderRadius);
+  border: 1px solid var(--mui-palette-divider);
+  object-fit: cover;
+}
+
+.cui .toc_card__no_image_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--mui-shape-borderRadius);
+  border: 1px solid var(--mui-palette-divider);
+}
+
+.cui .toc_card__first_row {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  justify-content: center;
+  column-gap: 8px;
+  margin-bottom: 4px;
+}
+
+.cui .toc_card__first_row span,
+.cui .toc_card__first_row h6 {
+  margin: 0;
+}
+
+.cui .toc_card__first_row .toc_card__first_row_mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.cui .toc_card__first_row_right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cui .toc_card__middle_row {
+  display: flex;
+  gap: 16px;
+}
+
+.cui .toc_card__outdated {
+  box-shadow: 0px 2px 1px -1px rgba(255, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(255, 0, 0, 0.14), 0px 1px 3px 0px rgba(255, 0, 0, 0.12);
+  border: 1px solid rgb(255, 0, 0, 0.3);
+}
+
+.cui .toc_card__first_row_right .MuiChip-sizeSmall {
+  flex: 0 1;
+}
+
+.cui .toc_card_description_wrapper ul {
+  margin: 0;
+}
+
+.cui .toc_card__first_row_left {
+  white-space: nowrap;
+}

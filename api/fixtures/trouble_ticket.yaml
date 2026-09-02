@@ -1,0 +1,93 @@
+App\Entity\MIS\TroubleTicket\TroubleTicket:
+  tts_1:
+    createdBy: '@user_asm'
+    shortDescription: Just a short description
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis tempus tortor. Morbi a rutrum mi. Etiam efficitur eu quam lobortis dictum. Nam tincidunt bibendum nunc. Cras eget dignissim turpis, et semper turpis. Fusce rutrum eros augue, iaculis ultrices diam consequat dapibus.
+    module: '@module_er'
+    dueDate: <dateTimeBetween('+3 months', '+6 months')>
+    type: '@type_incident_2'
+    indiceFactor: IF 1000
+    supportLevel: '@support_level_3'
+    legacyId: 1
+
+  tts_2:
+    createdBy: '@user_psm'
+    status: 'SOLVED'
+    closedAt: <dateTimeBetween('-10 days', '-5 days')>
+    shortDescription: Just a short description by PSM
+    description: It does not work
+    module: '@module_er'
+    dueDate: <dateTimeBetween('+3 months', '+6 months')>
+    type: '@type_incident_2'
+    indiceFactor: IF 1000
+    additionalOwners:
+      - "@user_psa"
+    legacyId: 2
+
+  tts_3:
+    createdBy: '@user_qam'
+    assignee: "@user_hr"
+    shortDescription: Just a second short description
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis tempus tortor. Morbi a rutrum mi. Etiam efficitur eu quam lobortis dictum. Nam tincidunt bibendum nunc. Cras eget dignissim turpis, et semper turpis. Fusce rutrum eros augue, iaculis ultrices diam consequat dapibus.
+    module: '@module_fixed_5'
+    dueDate: <dateTimeBetween('+3 months', '+6 months')>
+    type: '@type_request_3'
+    legacyId: 3
+
+  tts_4:
+    createdBy: '@user_qam'
+    status: 'SOLVED'
+    shortDescription: This ticket is closed since more than a month
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis tempus tortor. Morbi a rutrum mi. Etiam efficitur eu quam lobortis dictum. Nam tincidunt bibendum nunc. Cras eget dignissim turpis, et semper turpis. Fusce rutrum eros augue, iaculis ultrices diam consequat dapibus.
+    module: '@module_fixed_5'
+    dueDate: <dateTimeBetween('+3 months', '+6 months')>
+    type: '@type_request_3'
+    closedAt: <dateTimeBetween('-6 months', '-3 months')>
+    legacyId: 4
+
+  tts_5:
+    createdBy: '@user_qam'
+    assignee: '@user_basic'
+    status: 'PENDING'
+    shortDescription: This ticket is closed since more than a month
+    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis tempus tortor. Morbi a rutrum mi. Etiam efficitur eu quam lobortis dictum. Nam tincidunt bibendum nunc. Cras eget dignissim turpis, et semper turpis. Fusce rutrum eros augue, iaculis ultrices diam consequat dapibus.
+    module: '@module_fixed_5'
+    dueDate: <dateTimeBetween('+3 months', '+6 months')>
+    type: '@type_request_3'
+    closedAt: <dateTimeBetween('-6 months', '-3 months')>
+    legacyId: 4
+
+  tts_transferred:
+    createdBy: '@user_transferred'
+    status : 'PENDING'
+    assignee: '@user_transferred'
+    misAssignee: '@user_transferred'
+    shortDescription: transferred
+    description: transferred
+    module: '@module_fixed_5'
+    dueDate: <dateTimeBetween('+3 months', '+6 months')>
+    type: '@type_request_3'
+    legacyId: 5
+
+  tts_not_transferred:
+    createdBy: '@user_basic'
+    status : 'SOLVED'
+    assignee: '@user_transferred'
+    misAssignee: '@user_transferred'
+    shortDescription: not transferred
+    description: not transferred
+    module: '@module_fixed_5'
+    dueDate: <dateTimeBetween('+3 months', '+6 months')>
+    type: '@type_request_3'
+    legacyId: 6
+
+  tts_pending_moo_gku_to_pending:
+    createdBy: '@user_basic'
+    status: 'PENDING MOO/GKU'
+    assignee: '@user_transferred'
+    shortDescription: transfer to mis by mis
+    description: transfer to mis by mis
+    module: '@module_fixed_5'
+    dueDate: <dateTimeBetween('+3 months', '+6 months')>
+    type: '@type_request_3'
+    legacyId: 7

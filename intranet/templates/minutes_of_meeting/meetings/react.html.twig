@@ -1,0 +1,24 @@
+{% extends 'minutes_of_meeting/layout.html.twig' %}
+{% trans_default_domain 'meeting' %}
+
+{% block title %}{{ parent() }}\{{ (meeting is not empty ? 'menu.edit' : 'menu.add')|trans([], 'messages') | capitalize }}{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+      window.MOM_APP_PROPS = {{ props|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'meeting' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'market_intelligence' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'directory' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

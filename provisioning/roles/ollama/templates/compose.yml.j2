@@ -1,0 +1,14 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: {{ ollama_container_name }}
+    restart: unless-stopped
+    entrypoint: ["/entrypoint.sh"]
+    ports:
+      - "{{ ollama_internal_host }}:{{ ollama_internal_port }}:11434"
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh:ro
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:

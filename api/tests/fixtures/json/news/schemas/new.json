@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/news/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "banner": {
+      "type": "boolean"
+    },
+    "bannerText": {
+      "type": ["string", "null"]
+    },
+    "division": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../directory_division/schemas/directory_division.json" }
+      ]
+    },
+    "premise": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "@type": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 10,
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object",
+              "$ref": "../../shared/schemas/address_with_country.json"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "@id": {
+                    "pattern": "^/premise_tags/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ],
+                "minItems": 1,
+                "additionalProperties": false
+              }
+            },
+            "supportTeam": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string"}
+              ]
+            },
+            "count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name",
+            "address",
+            "tags",
+            "count",
+            "supportTeam"
+          ]
+        }
+      ]
+    },
+    "department": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../directory_department/schemas/directory_department.json" }
+      ]
+    },
+    "category": {
+      "type": ["object", "null"]
+    },
+    "contentShort": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array"
+    },
+    "majorIncident": {
+      "type": "boolean"
+    },
+    "people": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/people/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "firstname",
+        "lastname",
+        "email",
+        "legacyId",
+        "username"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "legacyId",
+    "title",
+    "content",
+    "date",
+    "category",
+    "people",
+    "contentShort",
+    "files",
+    "premise",
+    "division",
+    "department",
+    "banner",
+    "bannerText",
+    "majorIncident"
+  ],
+  "additionalProperties": false
+}

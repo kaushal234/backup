@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ 'power_bi_report.title'|trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="power_bi_report_add" :security="is_granted('FEATURE_POWER_BI_REPORT_CREATE')"/>
+        {% if report.id is defined %}
+            <twig:NavItem:Delete route="power_bi_report_delete" :routeParameters="{id: report.id}"
+                                 :security="is_granted('FEATURE_POWER_BI_REPORT_DELETE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

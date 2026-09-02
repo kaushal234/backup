@@ -1,0 +1,31 @@
+.table-header-rotated {
+  border-collapse: collapse;
+  .csstransforms & td {
+    width: 30px;
+  }
+  .no-csstransforms & th {
+    padding: 5px 10px;
+  }
+  th {
+
+    &:not(.rotate) > div {
+      position: relative;
+      bottom: -50px;
+    }
+
+    background-color: transparent;
+    color: black;
+
+    &.rotate {
+      font-size: 11px;
+      width: 50px;
+      height: 140px;
+      white-space: nowrap;
+
+      > div {
+        transform: translate(10px, 51px) rotate(315deg);
+        width: 30px;
+      }
+    }
+  }
+}

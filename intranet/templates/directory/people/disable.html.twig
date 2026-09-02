@@ -1,0 +1,23 @@
+{% extends 'directory/people/layout_people.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set people_id = iri_id(people) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.people.disable'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.people.title.disable'|trans }}</h3>
+
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <table>
+            {{ form_rest(form) }}
+            <tr>
+                <td valign="top" align="end">&nbsp;</td>
+                <td valign="top" align="start">
+                    <button type="submit">{{ 'button.submit'|trans([], 'messages') }}</button>
+                </td>
+            </tr>
+        </table>
+    {{ form_end(form) }}
+{% endblock %}

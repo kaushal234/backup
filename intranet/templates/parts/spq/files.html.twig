@@ -1,0 +1,58 @@
+{% extends 'parts/spq/layout.html.twig' %}
+{% trans_default_domain "spq" %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div id="spq-attached-file-uploader" class="m-b-lg"></div>
+    {% set lang = quotation.language|lower %}
+    <div class="row">
+        <div class="col-md-6">
+            {{ include('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'items': {
+                        'filePath': {
+                            'label': 'menu.files'|trans({}, 'messages')|capitalize,
+                            'filters' : 'split("-")|last',
+                            'link':{
+                                'route': 'spq_quotation_files_show',
+                                'params': {
+                                    'id': 'id'
+                                },
+                                'fixedParams': {
+                                    'quotationId': quotation.id,
+                                    'fileType': 'quotation_files'
+                                }
+                            },
+                        },
+                        'size': {
+                            'label': 'size'|trans({}, 'messages')|capitalize,
+                            'filters' : 'readable_filesize'
+                        },
+                        'poster': {
+                            'label': 'spq.quotations.fields.quoter'|trans|capitalize,
+                            'properties': ['poster.lastname', 'poster.firstname'],
+                            'link':{
+                                'route': 'directory_people_show',
+                                'params': {'id': 'poster.@id'}
+                            },
+                        },
+                        'createdAt': {
+                            'label': 'spq.quotations.fields.created_at'|trans|capitalize,
+                            'filters': 'date("Y-m-d H:i:s")'
+                        },
+                    },
+                    'title': 'spq.quotations.fields.files.quotation_files'|trans,
+                    'data': quotation.quotationFiles,
+                    'search': false,
+                    'pagination': false,
+                    initialSorting: 'createdAt'
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-6" id="attachedFiles">
+            {{ include('parts/spq/files_ajax.html.twig', {quotation: quotation}) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,347 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/orders/\\d+(|/status)$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "enteredAt": {
+      "type": "string"
+    },
+    "closedAt": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "sso": {
+      "$ref": "../../../directory_location/schemas/directory_location_public.json"
+    },
+    "juridicalLocation": {
+      "$ref": "../../../directory_juridical_location/schemas/directory_juridical_location_public.json"
+    },
+    "asm": {
+      "$ref": "../../../directory_people/schemas/directory_people_public.json"
+    },
+    "equoteId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "buyer": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/customers/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "country": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          ]
+        },
+        "customerTypes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/customer_types/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name",
+          "legacyId",
+          "country",
+          "customerTypes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "contact": {
+      "oneOf": [
+        {"type":  "null"},
+        {"type":  "object"}
+      ]
+    },
+    "endUser": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/customers/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "country": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          ]
+        },
+        "customerTypes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/customer_types/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "id",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name",
+          "legacyId",
+          "country",
+          "customerTypes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "salesAgent": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/sales/customers/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "country": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                      "name"
+                  ]
+                }
+              ]
+            },
+            "customerTypes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/customer_types/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name",
+                  "id",
+                  "legacyId"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name",
+            "country",
+            "legacyId",
+            "customerTypes"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "customerName": {
+      "type": "string"
+    },
+    "newCustomer": {
+      "type": "boolean"
+    },
+    "baanOrderNumbers": {
+      "type": "array",
+      "uniqueItems": true
+    },
+    "lines": {
+      "type": "array"
+    },
+    "customerPurchaseOrders": {
+      "type": "array",
+      "uniqueItems": true
+    },
+    "xmlSource": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "note": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "../../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "inforLnBusinessPartnerCode": {
+      "type": ["null", "string"]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "sso",
+    "juridicalLocation",
+    "inforLnBusinessPartnerCode",
+    "enteredAt",
+    "closedAt",
+    "status",
+    "equoteId",
+    "baanOrderNumbers",
+    "asm",
+    "buyer",
+    "contact",
+    "endUser",
+    "customerName",
+    "newCustomer",
+    "salesAgent",
+    "customerPurchaseOrders",
+    "xmlSource",
+    "files",
+    "note",
+    "legacyId"
+  ],
+  "additionalProperties": false
+}

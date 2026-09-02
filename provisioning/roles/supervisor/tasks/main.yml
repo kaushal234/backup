@@ -1,0 +1,47 @@
+- name: Install supervisor
+  ansible.builtin.apt:
+    name: supervisor
+    state: present
+    update_cache: true
+
+- name: Ensure supervisor log directory exists
+  ansible.builtin.file:
+    path: "{{ supervisor_log_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Deploy supervisord.conf
+  ansible.builtin.template:
+    src: supervisord.conf.j2
+    dest: "{{ supervisor_config_path }}/supervisord.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart supervisor
+
+- name: Deploy present program configs
+  ansible.builtin.template:
+    src: program.conf.j2
+    dest: "{{ supervisor_config_path }}/conf.d/{{ item.name }}.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ supervisor_programs }}"
+  when: item.state == 'present'
+  notify: Restart supervisor
+
+- name: Remove absent program configs
+  ansible.builtin.file:
+    path: "{{ supervisor_config_path }}/conf.d/{{ item.name }}.conf"
+    state: absent
+  loop: "{{ supervisor_programs }}"
+  when: item.state == 'absent'
+  notify: Restart supervisor
+
+- name: Ensure supervisor service is started and enabled
+  ansible.builtin.service:
+    name: supervisor
+    state: "{{ 'started' if supervisor_started else 'stopped' }}"
+    enabled: "{{ supervisor_enabled }}"

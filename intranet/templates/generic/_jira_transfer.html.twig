@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Transfer to JIRA</h5>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.type) }}
+                        {{ form_row(form.priority) }}
+                        {{ form_row(form.summary) }}
+                        {{ form_row(form.description) }}
+                        <div class="text-end">
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>

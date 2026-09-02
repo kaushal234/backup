@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/business_units$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/business_units/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "domain": {
+            "type": ["string", "null"]
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "region": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"pattern": "^/regions/\\d+$"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "legacyId": {"type": "integer"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "disabled": {"type": "boolean"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "legacyId",
+          "name",
+          "domain",
+          "region"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:member"
+  ]
+}

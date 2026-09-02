@@ -1,0 +1,79 @@
+{% extends 'sales/contacts/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% use 'partial/_paginated_list.html.twig' %}
+
+{% block list_header %}
+<div class="paginatedList">
+    {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    search_table: true,
+                    pagination: 20,
+                    items: {
+                        '@id': {
+                            label: 'contacts.fields.id'|trans|capitalize,
+                            link:{
+                                route: 'sales_contact_show',
+                                params: {'id':'@id'},
+                            },
+                            filters: 'iri_id',
+                            sortable: 'numeric'
+                        },
+                        username: {
+                            label: 'contacts.fields.userid'|trans|capitalize,
+                        },
+                        name: {
+                            properties: ['lastname', 'firstname'],
+                            label: 'contacts.fields.name'|trans|capitalize
+                        },
+                        department: {
+                            properties: ['extranetUserProfile.department'],
+                            label: 'contacts.fields.department'|trans,
+                        },
+                        phone: {
+                            properties: ['extranetUserProfile.phones.0.type','extranetUserProfile.phones.0.number'],
+                            glue : ' : ',
+                            label: 'contacts.fields.phone'|trans,
+                        },
+                        customer: {
+                            properties: ['extranetUserProfile.customer.name'],
+                            label: 'contacts.fields.customer'|trans,
+                            link: {
+                                route: 'sales_customers_show',
+                                params: {'id':'extranetUserProfile.customer.@id'}
+                            }
+                        },
+                        extranetUserAcls: {
+                            label: 'contacts.menu.crt_roles' |trans,
+                            template: 'sales/contacts/partial/cells/_xu_role.html.twig',
+                        },
+                        disabled: {
+                            label: 'contacts.fields.extranet_acess' | trans,
+                            boolean: {
+                                false: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                true: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        },
+                        epartsAccess: {
+                            label: 'contacts.fields.eparts_access'|trans,
+                            boolean: {
+                                true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        }
+                    },
+                    title: 'contacts.menu.unused_accounts'|trans,
+                    data: extranetUserUnused,
+                    initialSorting: true
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/exchange_rates$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "applicatedOn",
+          "type",
+          "rate",
+          "currency",
+          "legacyId"
+        ],
+        "properties": {
+          "@id": {"pattern": "^/exchange_rates/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "applicatedOn": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "rate": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "object",
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "name",
+              "legacyId"
+            ],
+            "properties": {
+              "@id": {"pattern": "^/finance/currencies/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          },
+          "legacyId": {
+            "type": "integer"
+          }
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

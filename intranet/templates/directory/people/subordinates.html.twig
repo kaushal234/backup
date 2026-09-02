@@ -1,0 +1,20 @@
+{% extends 'directory/people/layout_people.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+    {% if (subordinates|length) > 0 %}
+            {% for subordinate in subordinates %}
+                {{ include('partial/_people_contact.html.twig', {
+                    entry: subordinate,
+                }, with_context=false) }}
+                {% if (loop.index % 3) == 0 %} </div><div class="row">{% endif %}
+            {% endfor %}
+    {% else %}
+        {{ 'directory.people.search.no_result'|trans|capitalize }}
+    {% endif %}
+    </div>
+{% endblock %}
+

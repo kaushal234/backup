@@ -1,0 +1,3 @@
+<td>
+    {% if item[key] is defined and item[key] is not null %}{{ item[key]|date(dateFormat|default('Y-m-d')) }}{% endif %}
+</td>

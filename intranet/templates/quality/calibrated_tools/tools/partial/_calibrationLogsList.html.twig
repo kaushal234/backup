@@ -1,0 +1,77 @@
+{% trans_default_domain 'calibration_log' %}
+<table class="footable table table-hover table-bordered toggle-arrow-tiny">
+    <thead>
+        <tr>
+            <th class="text-center">{{ 'calibration_log.fields.startDate' | trans | title }}</th>
+            <th class="text-center">{{ 'calibration_log.fields.endDate' | trans | title }}</th>
+            <th class="text-center">{{ 'calibration_tool.fields.calibrationDate' | trans([], 'calibration_tool') | title }}</th>
+            <th class="text-center" data-sort-ignore="true" >{{ 'calibration_tool.fields.certificationFile' | trans([], 'calibration_tool') | title }}</th>
+            <th class="text-center">{{ 'calibration_log.fields.status' | trans | title }}</th>
+            <th class="text-center" data-sort-ignore="true" >{{ 'out_of_tolerance_form.title.show' | trans([], 'out_of_tolerance_form') }}</th>
+            <th class="text-center" data-sort-ignore="true"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in tool.calibrationLogs|reverse %}
+            <tr>
+                <td class="text-center">
+                    {% if log.startDate is not null %}
+                        {{ log.startDate | format_datetime }}
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {% if log.endDate is not null %}
+                        {{ log.endDate | format_datetime }}
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {% if log.calibrationDate is not null %}
+                        {{ log.calibrationDate | format_datetime("medium", "none") }}
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {% if log.certificate is not empty %}
+                        <a class="btn btn-sm btn-primary" href="{{ path('quality_calibrated_tools_showFile', { 'id': iri_id(log), 'fileId': log.certificate.id }) }}" target="_blank">
+                            <i class="fa fa-certificate"></i>
+                        </a>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {% if log.outOfToleranceForm is not null and  log.outOfToleranceForm.status is not empty %}
+                        <span class="{{  log.outOfToleranceForm.status | status_label }}">
+                        {{ log.outOfToleranceForm.status }}
+                    </span>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {% if log.outOfToleranceForm is not empty %}
+                        <a href="{{ path('quality_calibrated_otf_show', { id: iri_id(log.outOfToleranceForm)}) }}" class="btn btn-sm btn-primary" target="_blank">
+                            <i class="far fa-eye"></i>
+                        </a>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {% if is_granted('FEATURE_TOOL_WRITE') and loop.index == 1 and log.calibrationDate is not null %}
+                        <a href="{{ path('quality_calibrated_tools_delete_log', {
+                            'id': iri_id(log),
+                            'toolId': iri_id(tool)
+                        }) }}" class="btn btn-sm btn-danger" id="delete-log">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    {% else %}
+                        <a href="#" class="btn btn-sm btn-secondary disabled" title="{{ 'security.warning.access_denied' | trans([], 'messages') }}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="12">
+            <p class="text-end">{{ 'helper.recordsTotalNumber' | trans([], 'messages') }}: <strong>{{ tool.calibrationLogs | length }}</strong></p>
+        </td>
+    </tr>
+    </tfoot>
+</table>

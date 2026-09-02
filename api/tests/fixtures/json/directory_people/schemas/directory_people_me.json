@@ -1,0 +1,326 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/people/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "alternateEmail": {
+      "type": ["string","null"]
+    },
+    "nickname": {
+      "type": ["string","null"]
+    },
+    "jobTitle": {
+      "type": ["string","null"]
+    },
+    "premise": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^/premises/\\d+$"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/premises/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "longitude": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "address": {
+              "type": "array"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "count": {
+              "type": "integer"
+            },
+            "supportTeam": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "name",
+            "description",
+            "address",
+            "tags",
+            "count",
+            "latitude",
+            "longitude",
+            "supportTeam"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "type": ["object"],
+        "properties": {
+          "@id": {"pattern": "^/people/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "type",
+          "number"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "photo": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../shared/schemas/file_light.json" }
+      ]
+    },
+    "address": {
+      "type": "object",
+      "$ref": "../../shared/schemas/address_with_country.json"
+    },
+    "erpLogin": {
+      "type": ["string","null"]
+    },
+    "erpIdentifier": {
+      "type": ["string","null"]
+    },
+    "windowsLogin": {
+      "type": ["string","null"]
+    },
+    "businessUnit": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/business_units/\\d+$"},
+        "@type": {"type": "string"},
+        "location": {"type": ["object", "null"]},
+        "name": {"type": "string"},
+        "domain": {"type": ["string", "null"]},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "location",
+        "name",
+        "domain",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "legalEntity": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/business_units/\\d+$"},
+        "@type": {"type": "string"},
+        "location": {"type": ["object", "null"]},
+        "name": {"type": "string"},
+        "domain": {"type": ["string", "null"]},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "location",
+        "name",
+        "domain",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "position": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/positions/\\d+$"},
+        "@type": {"type": "string"},
+        "code": {"type": "string"},
+        "description": {"type": ["string", "null"]},
+        "level": {"type": ["object", "null"]},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "code",
+        "description",
+        "level",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "department": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/departments/\\d+$"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "locale": {
+      "type": ["string","null"]
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "username": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "passwordUpdatedAt": {
+      "type": "string"
+    },
+    "passwordExpirationDate": {
+      "type": "string"
+    },
+    "erp": {
+      "type": ["integer", "null"]
+    },
+    "timeZone": {
+      "type": ["string", "null"]
+    },
+    "locationCapabilities": {
+      "type": "object",
+      "properties": {
+        "sso": {
+          "type": "boolean"
+        },
+        "factory": {
+          "type": "boolean"
+        },
+        "warehouse": {
+          "type": "boolean"
+        },
+        "sparePartsHub": {
+          "type": "boolean"
+        },
+        "serviceHub": {
+          "type": "boolean"
+        },
+        "headQuarter": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "sso",
+        "factory",
+        "warehouse",
+        "sparePartsHub",
+        "headQuarter"
+      ],
+      "additionalProperties": false
+    },
+    "gender": {
+      "type": ["string", "null"]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "firstname",
+    "lastname",
+    "email",
+    "alternateEmail",
+    "nickname",
+    "jobTitle",
+    "phones",
+    "photo",
+    "address",
+    "erpLogin",
+    "erpIdentifier",
+    "windowsLogin",
+    "businessUnit",
+    "legalEntity",
+    "position",
+    "department",
+    "locale",
+    "legacyId",
+    "username",
+    "hidden",
+    "disabled",
+    "passwordUpdatedAt",
+    "passwordExpirationDate",
+    "erp",
+    "timeZone",
+    "locationCapabilities",
+    "gender",
+    "premise"
+  ],
+  "additionalProperties": false
+}

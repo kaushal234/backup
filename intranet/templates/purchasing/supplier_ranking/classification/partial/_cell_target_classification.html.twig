@@ -1,0 +1,5 @@
+<td>
+    {% for classification in item.targetClassifications %}
+        {{ classification.name }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</td>

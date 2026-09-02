@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {"pattern": "/contexts/[a-zA-Z]+File"},
+    "@id": {"pattern": "^/[a-z_\/]+_files/\\d+$"},
+    "@type": { "type": "string" },
+    "id": { "type": "integer" },
+    "poster": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../directory_people/schemas/directory_people.json" },
+        { "$ref": "../../directory_people/schemas/directory_people_list.json" },
+        { "$ref": "../../directory_people/schemas/directory_people_public.json" },
+        { "$ref": "../../directory_people/schemas/directory_people_public_photo.json" }
+      ]
+    },
+    "filePath": { "type": "string" },
+    "createdAt": { "type": "string" },
+    "description": { "type": ["string","null"] },
+    "sha": { "type": "string" },
+    "mimeType": { "type": "string" },
+    "extension": { "type": "string" },
+    "size": { "type": "integer" },
+    "public": { "type": "boolean" }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "poster",
+    "filePath",
+    "createdAt",
+    "description",
+    "sha",
+    "mimeType",
+    "extension",
+    "size",
+    "public"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,46 @@
+{% extends 'sales/sales_forecasts/layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block content %}
+    <div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'menu.edit' | trans({}, 'messages') }}</h5>
+            </div>
+            <div class="ibox-content" id="sfr-form">
+                {{ include('sales/sales_forecasts/partial/_form_edit.html.twig', {
+                    form: form,
+                    linkedSalesForecasts: linkedSalesForecasts,
+                    action: path('sales_forecasts_edit', {id: salesForecast.id}),
+                    cancel_link: path('sales_forecasts_home')
+                }, with_context=false) }}
+            </div>
+        </div>
+    </div>
+    {% if linkedSalesForecasts |length > 0 %}
+        {{ include('sales/sales_forecasts/partial/_sfr_linked.html.twig') }}
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        window.onload = function() {
+            elem = $('#sales_forecasts_form_synchronized')
+
+            if (elem.is(":checked")) {
+                $('#sfr-form .unsynchronized').hide()
+            }
+
+            elem.click(function () {
+                $('#sfr-form .unsynchronized').each(function () {
+                    parentElement = $(this).closest('.form-control')
+                    console.log(parentElement)
+                    parentElement.toggle()
+                })
+
+            })
+        }
+    </script>
+{% endblock %}

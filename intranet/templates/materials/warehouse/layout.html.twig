@@ -1,0 +1,14 @@
+{% extends 'materials/layout.html.twig' %}
+{% trans_default_domain 'materials' %}
+
+{% block title %}{{ parent() }}\{{ 'sidebar.materials.warehouse' | trans({}, 'sidebar') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="warehouse_tasks_mapping_add" :security="is_granted('TASKS_MAPPING_WRITE_VOTER')"/>
+        <twig:NavItem translationKey="materials.nav_link.home" domain="materials" icon="material-symbols:home-outline-rounded" route="legacy_manufacturing_whse"/>
+        <twig:NavItem translationKey="materials.nav_link.reports" domain="materials" icon="tabler:report" route="legacy_manufacturing_whse" :routeParameters="{m: ['reports']}"/>
+        <twig:NavItem translationKey="materials.nav_link.inventory_sequences" domain="materials" icon="material-symbols:factory-outline-rounded" route="legacy_manufacturing_whse" :routeParameters="{m: ['invseq']}"/>
+        <twig:NavItem translationKey="materials.nav_link.tasks_mappings" domain="materials" icon="material-symbols:task-outline-rounded" route="warehouse_tasks_mapping_home"/>
+    </twig:NavBar:Container>
+{% endblock %}

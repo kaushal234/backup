@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "@id": {"pattern": "^/quality/calibrated_tools/tool_types/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "@context": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tools": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "toolsCount": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "@context",
+    "id",
+    "description",
+    "toolsCount"
+  ],
+  "additionalProperties": false
+}

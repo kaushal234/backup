@@ -1,0 +1,221 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [ "hydra:member", "@id" ],
+  "properties": {
+    "@id": {"pattern": "^/buyers$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/people/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "nickname": {
+            "type": ["string","null"]
+          },
+          "jobTitle": {
+            "type": ["string","null"]
+          },
+          "photo": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../shared/schemas/file_light.json" }
+            ]
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "passwordUpdatedAt": {
+            "type": "string"
+          },
+          "enableAt": {
+            "type": ["string", "null"]
+          },
+          "disabledAt": {
+            "type": ["string", "null"]
+          },
+          "plannedDisableAt": {
+            "type": ["string", "null"]
+          },
+          "passwordExpirationDate": {
+            "type": "string"
+          },
+          "phones": {
+            "type": "array"
+          },
+          "alternateEmail":  {
+            "type": ["null", "string"]
+          },
+          "erpIdentifier": {
+            "type":  ["null", "string"]
+          },
+          "erpLogin":  {
+            "type":  ["null", "string"]
+          },
+          "windowsLogin": {
+            "type":  ["null", "string"]
+          },
+          "position":  {
+            "type":  ["null", "string"]
+          },
+          "department": {
+            "type":  ["null", "string"]
+          },
+          "supervisor":  {
+            "type":  ["null", "string"]
+          },
+          "locale": {
+            "type":  ["null", "string"]
+          },
+          "premise":  {
+            "type":  [
+              "object",
+              "null"
+            ]
+          },
+          "closestAirport": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "gender": {
+            "type":  ["null", "string"]
+          },
+          "businessUnit": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "currency": {
+                "type": ["string", "null"]
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "region": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "legacyId",
+              "name",
+              "domain",
+              "region"
+            ]
+          },
+          "legalEntity": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "currency": {
+                "type": ["string", "null"]
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "region": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "legacyId",
+              "name",
+              "domain",
+              "region"
+            ]
+          },
+          "contractType": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/contract_types/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "description": { "type": "string" }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "name",
+                  "description"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "coefficient": {
+            "type": ["integer", "null"]
+          },
+          "mentor": {
+            "type": ["object", "null"]
+          },
+          "mentees": {
+            "type": "array",
+            "items": {
+              "oneOf": [{"type": "object"}, { "type": "string" }]
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "firstname",
+          "lastname",
+          "email",
+          "nickname",
+          "jobTitle",
+          "photo",
+          "legacyId",
+          "username",
+          "hidden",
+          "disabled",
+          "disabledAt",
+          "plannedDisableAt",
+          "enableAt",
+          "passwordUpdatedAt",
+          "passwordExpirationDate",
+          "premise"
+        ],
+        "additionalProperties": false
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  }
+}

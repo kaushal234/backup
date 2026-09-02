@@ -1,0 +1,53 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <p>
+        {{ 'equipment_shipping_record.pick_up_date.updated.message'|trans({
+            '%serialNumber%': equipmentShippingRecordLine.equipmentRecord.serialNumber
+        }) }}
+        <a href="{{ path('equipment_shipping_record', { id: equipmentShippingRecordLine.equipmentShippingRecord.id }) }}"> ESR#{{ equipmentShippingRecordLine.equipmentShippingRecord.id }}</a>
+    </p>
+
+    {% if changes.estimatedPickUpDate is defined %}
+        <p>
+            {{ 'equipment_shipping_record.pick_up_date.estimated.previous'|trans }}:
+            {{ changes.estimatedPickUpDate.old
+            ? changes.estimatedPickUpDate.old|date('Y-m-d')
+            : 'generic.not_available'|trans
+            }}
+            <br>
+            {{ 'equipment_shipping_record.pick_up_date.estimated.new'|trans }}:
+            {{ changes.estimatedPickUpDate.new
+            ? changes.estimatedPickUpDate.new|date('Y-m-d')
+            : 'generic.not_available'|trans
+            }}
+        </p>
+    {% endif %}
+
+    {% if changes.estimatedPickUpDateConfirmation is defined %}
+    <p>
+        {{ 'equipment_shipping_record.pick_up_date.confirmation.previous'|trans }}:
+        {{ changes.estimatedPickUpDateConfirmation.old
+        ? 'shipping_quotation_request.fields.yes'|trans
+        : 'shipping_quotation_request.fields.no'|trans
+        }}
+        <br>
+        {{ 'equipment_shipping_record.pick_up_date.confirmation.new'|trans }}:
+        {{ changes.estimatedPickUpDateConfirmation.new
+        ? 'shipping_quotation_request.fields.yes'|trans
+        : 'shipping_quotation_request.fields.no'|trans
+        }}
+    </p>
+    {% endif %}
+
+    {% include 'Emails/Sales/EquipmentShippingRecord/_partials/_lines_table.html.twig' with {
+        equipmentShippingRecord: equipmentShippingRecordLine.equipmentShippingRecord
+    } only %}
+
+{% endblock %}

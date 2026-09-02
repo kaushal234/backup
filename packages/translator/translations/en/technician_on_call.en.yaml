@@ -1,0 +1,511 @@
+toc:
+  page_title: Service/TOC
+  module: TOC
+  comments: Comments
+  ai:
+    search_prompt: 'Find other technician on calls related to TOC #%id%. Look at its symptoms, root cause and solution, then search for technician on calls dealing with similar problems and list them.'
+    summary_prompt: 'Summarize technician on call #%id%'
+  action:
+    add_file: Add File
+    add_comment_file: Add Comment/File
+  card:
+    toc: TOC#
+    factory_flag: Factory Flag
+    factory_flag_on: ON
+    factory_flag_off: OFF
+    factory_flag_time: Total FF time on
+    time_nmc: Time NMC
+    model: Model
+    serial_number: Serial Number
+    customer_asset_number: Customer Asset Number
+    airport: Airport
+    csr: CSR
+    buyer: Buyer (From ER)
+    end_user: End User (From ER)
+    maintainer: Maintainer (From ER)
+    green_tag_date: GT Date
+    commissioning_date: Com. Date
+    ship_date: Ship Date
+    factory: Factory
+    emission_rating: Emission Rating
+    customer: Customer (From TOC)
+    indice_factor: IF
+    warranty: Warranty
+  title:
+    main: Technician On Call
+    information: General information
+    customer_information: Customer Information
+    add: Add a new TOC
+    edit: Edit a TOC
+    mail: Send Email
+    detail: TOC Details
+    duplicate:
+      button: Duplicate
+      source_toc_data: "Data duplicated from TOC #%id%"
+      select_equipment_record: Select Equipment Record(s) you want to open the same TOC on
+    change_status: Change Status To
+    files: Files
+    main_file: Main File
+    contacts: Contacts
+    csr: Technician Requested
+    csr_helper: When you activate this button, you will create a CSR (Customer Service Request) to send a techncian on Site. By default the technician name is the same as the TOC Poster but you can change the name for someone else that will be in charge. The planned date will be TODAY DATE, but you can also override the date.
+    delete_part: Delete Part
+    customer_service_records: CSRs
+    sb: Compulsory SB
+    late: Late TOC Updates
+    last: Most recent TOC's created
+    survey:
+      title: Survey
+      title_list: Technician On Call Surveys
+      note: Note
+      comment: How could we have done better?
+    csr_files: CSR Files
+    defective_parts: Faulty parts
+    spr_parts: Parts ordered through SPR
+    spr_deleted_parts: Deleted parts from the SPR
+    information_parts: Additional parts for information - sourced locally or "To Quote"
+  button:
+    ai_search: Search With AI
+    ai_summary: Summarize With AI
+    in_progress: IN PROGRESS
+    solved: SOLVED
+    closed: CLOSED
+    suspended: SUSPENDED
+    create_toc: Create TOC
+    create_csr: Create CSR
+    parts:
+      show_form: Add parts for information
+      hide_form: Hide Information Form
+      create_spr: + Add ticked parts to SPR
+      edit: Edit Part
+      create: Create Part
+    history: History
+    pdc:  Generate PDC
+    reports: Reports
+    toc_actions: TOC actions
+    task: Task
+    smw: KPI
+    survey:
+      list: Surveys
+      create: Create Survey
+      edit: Edit Survey
+    dashboard: My Dashboard
+    subscriptions: My Subscriptions
+    subscription_remove: Remove
+    order_spr: Order parts through SPR
+    report: Report
+  fields:
+    title: Short Description
+    recent_comments: Recent Comments
+    recent_comments_title: 'Last comments on TOC#%id%'
+    indice_factor:
+      label: IFactor
+      tooltip: |
+        Importance Factor (IF) meaning
+
+        IF=1: Administrative action, parts request, simple technical question
+        IF=10: Regular operations, technical troubleshooting, requires TLD technician
+        IF=100: Severe technical issues requiring Customer Service Manager (CSM) and/or Sales and Service Director (SSD) attention or factory support
+        IF=1000: Crisis management; either one of the following: accident, endangering life and/or destroying equipment, severe negative impact on commercial relationship or severe alteration of TLD image.
+    description: Problem Description
+    error_codes:
+      label: Error Codes
+      tooltip: |
+        If applicable record the error code(s) mentioned on the unit display.
+        If multiple, separate codes by a comma.
+    airport: Airport
+    unit_operational_status: Unit Operational Status
+    unit_operational_status_short: Unit Status
+    technician_on_call_type: Who pays
+    service_technician: Service Technician
+    service_activity: Service Activity
+    sales_organisation_service: Service SSO
+    customer: Customer
+    assignee: Assignee
+    tags:
+      label: Tags
+      placeholder: Involves ...
+    estimated_hours: Estimated Hours
+    symptoms: Symptoms (title)
+    rootCause: Root Cause
+    solution: Solution
+    status: Status
+    factoryFlag: Factory Flag
+    factory_flag_open: Request Factory Flag
+    factory_flag_close: Close Factory Flag
+    third_party_name:
+      label: Third party
+      tooltip: |
+        This field is to record the name of the SERVICE PROVIDER you are using to solve this TOC.
+        It is a way to identify TOC's that were subcontracted to a 3rd party (you plan to receive an invoice from them).
+        This field is NOT to record a Supplier name that  comes to fix a unit under their warranty coverage.
+    third_party_ref:
+      label: Third Party Ref
+      tooltip: |
+        This field is to record the 3rd party work order number or reference number in order to be able to retrieve the TOC number when you receive the 3rd party invoice.
+        If the 3rd party reference is completed, the 3rd party name is mandatory, cannot stay blank
+    third_party_job_description: Third Party Job Description
+    third_party_hours: Third Party Hours
+    parts:
+      title: Parts
+      part_number: Part Number
+      vendor_part_number: Vendor Part Number
+      serial_number: Serial Number
+      description: Description
+      quantity: Quantity
+      qty: Qty
+      comment: Comment
+      supplier_replaces: Supplier Replaces
+      customer_replaces: Customer Replaces
+      defective: Defective
+      quotation_required: Quotation Required
+      spare_parts_request: SPR
+      replacement: Replacement
+      tracking_number: Tracking number
+    main_contact:
+      placeholder: Select a contact or type to search
+      label: Main Contact
+      tooltip: |
+        If your contact does not appear in drop down list it means your contact is not linked to the customer name selected in the TOC and/or your contact does not have Role_ST, or role fl_NOT_TOC assigned. 
+        Solution : change customer name when creating the TOC or update eContact to give him role_ST.
+    contacts:
+      label: Other Contacts
+      placeholder: Select contacts or type to search
+    serialNumber: Customer Asset Number
+    last_update: Last Update
+    model: Model SN
+    open_days: Open Days
+    days_without_activity: Without activities
+    survey:
+      title: Survey
+      execution: Execution
+      responsiveness: Responsiveness
+      communication: Communication
+      attitude: Attitude
+      total: Total
+    solved_at: Solved at
+    confidential:
+      label: Confidential
+      tooltip: Disables emails to customers and the TOC cannot be seen on Extranet
+    confidential_reason:
+      label: Reason of confidentiality change
+      placeholder: Please explain why you want to change the confidentiality of this TOC
+      autofill_commissioning: "Customer notification is disabled by default due to the Activity Type (Commissioning)."
+    technician: Technician
+    hour_meter:
+      last_known_value: Last hours
+      tooltip: |
+        Enter the unit’s hour meter reading, which represents the total utilization time.
+        This is the duration the machine has been powered on with the ignition (IGN) active (or switch / button is turned on).
+        The value is displayed either on the unit’s screen or on a basic gauge.
+    product: Product
+    er_type: ER Type
+    emission_rating: Emission Rating
+    originalSymptoms: Original Symptoms
+    originalRootCause: Original Root Cause
+    originalSolution: Original Solution
+  messages:
+    success:
+      created: "The TOC #%id% has been successfully created. You can now add Files to it"
+      updated: "The TOC #%id% has been successfully updated."
+      duplicate: "%count% TOC created"
+      delete: TOC has been successfully deleted.
+      status: "The status has been successfully updated to %status%"
+    errors:
+      sso_mismatch: |
+        The selected Service SSO does not match the Service SSO of the ER (Equipment Record).
+        Continuing will update the Service SSO of the ER.
+      airport_mismatch: |
+        The selected Airport does not match the Airport of the ER (Equipment Record).
+        Continuing will update the Airport of the ER.
+      customer_asset_mismatch: |
+        The Customer Serial Number does not match the "Customer Asset#" of the ER (Equipment Record).
+        Continuing will update the "Customer Asset#" of the ER.
+      creation: Creation Failed
+      edition: Edition Failed
+      delete: Something went wrong and the TOC could not be deleted.
+      no_files: No files found
+      equipment_record: Serial Number is mandatory
+      airport: An airport is mandatory
+      sales_organisation_service: Service SSO is mandatory
+      assignee: Assignee is mandatory
+      technician_on_call_type: Defining Who pays is mandatory
+      service_activity: Service Activity is mandatory
+      unit_operational_status: Unit Operational Status Activity is mandatory
+      title: Title is mandatory
+      short: This value is too short. It should have 12 characters or more.
+      hour_meter_min_value: "Cannot be under last known (%minValue%)"
+      hour_meter: Hour meter is mandatory
+      description: Description is mandatory
+      main_contact: Main Contact is mandatory
+      customer:  Customer is mandatory
+      indice_factor: IF 1 can be selected only when the Unit Operational Status is MCF.
+      csr_exist: You cannot create new CSR, this TOC already have some. Since the TOC migration, it is no longer possible to create multiple CSRs for the same TOC. If multiple interventions need to be carried out, they must be managed within the CSR.
+      not_allowed_csr_creation: |
+        Your current position does not allow you to create a CSR.
+        
+        If a technician is needed, you can ask to somebody related to the 'Service' department.
+      parts:
+        part_number: You must define at least one of part number or vendor part number field
+        part_number_space: The Part Number field must not contain any spaces.
+      factory_flag_on_close: Factory Flag cannot be added on a CLOSED TOC
+      main_contact_not_allowed: "%extranetUser% is not allowed as Contact for this TOC :
+                            not linked to the customer"
+      contact_not_allowed: "%extranetUser% is not allowed as Contact for this TOC :
+                            not linked to the selected Equipment Record"
+      contact_disabled: "%extranetUser% is disabled. Cannot be added as Contact"
+      serials: At least one of the fields EquipmentRecord or Serial must be filled in
+      third_party_name_required_with_third_party_ref: Third party name is required when a third party reference is provided
+      warranty_open: Who pays cannot be changed. A WC always open for this TOC.
+      survey_creation: TOC must be SOLVED or CLOSED to create a Survey.
+      no_survey: No Survey found for this TOC
+      error_survey_task: 'The bad survey task and email cannot be generated for this survey as no EVP has been found.'
+      no_evp: No EVP found for this survey
+      commissioning_must_be_confidential: A TOC with Commissioning activity must be confidential.
+    information:
+      delete_part: Are you sure you want to delete this part ?
+      to_many-csr: Please be careful — you currently have multiple CSRs open for this TOC. There should be only one CSR per TOC, with all related interventions managed within that single CSR.
+      latest:  Wonderful, you have no TOC assigned
+      late:  Wonderful, no TOC with late comment
+      outdated_tooltip: "TOC outdated: %daysWithoutActivity% days without activity / %iFactor%"
+      csr_files: "The linked CSRs include associated documentation. These files are available in the CSR section. Please refer to the links below."
+      parts_count_tooltip: "%tocPartsCount% TOC Parts + %sprPartsCount% SPR Parts"
+      delete_spr: To DELETE a part, click on the SPR number and DELETE from SPR module.
+      order_spr_disabled: SPR cannot be opened on a TOC of type Not Defined Yet.
+    help:
+      add_main_file: Click here to add a Main File
+      add_files: You can add files to the TOC with the Drop Zone on this page
+      create_contact: Create a new Contact
+      assignee: Start typing on your name to change the assignee
+      technician: Start typing on your name to change the technician
+      factory_flag_recently_closed: "Open TOCs (assigned to you) with a factory flag response within the last 4 days"
+      customer: By default, the customer name is END USER of the ER, you can change it in case it is the Maintainer that is calling you to report the claim for example
+      latest: TOCs sorted by the most recent on top
+      late: |
+        TOC's sorted by the oldest TOC log. Click on the icon to see more than 5 TOC's.
+        This is considering all LOGS : internal and external, sorted by the oldest log update.
+      translation: You are seeing automatically translated text. Click here to see the original text.
+      status_definitions: |
+        PENDING = Your service ticket has been successfully created, and a technician will be assigned shortly to begin the investigation.
+        IN PROGRESS = Your service ticket is currently being investigated by our technical team. Diagnostic and resolution activities are underway.
+        SUSPENDED = Your service ticket is temporarily on hold pending additional actions or information. This status may apply when access to the equipment is unavailable or when a solution has been implemented and requires a monitoring period before further action.
+        SOLVED = A solution has been identified and implemented. The reported issue has been resolved.
+        CLOSED = After the problem is SOLVED, the solution has been reviewed and validated by our Service team. The ticket is formally closed.
+      serialNumber: |
+        IMPORTANT to KNOW :
+        1) if you enter the T number in "Serial number" field and you record an ASSET NUMBER on the "Customer Asset Number" field, this information will be updated in ER MODULE automatically
+        2) if you create a TOC with no "Serial number" (SN is left empty) you MUST record an ASSET NUMBER in "Customer Asset Number" field to give an identifier to the equipment
+      length: To secure a good translation, do not use abbreviation and your description must be minimum 12 characters
+    security:
+      factory_flag_open: You do not have permissions to open Factory Flag
+      factory_flag_close: You do not have permissions to close Factory Flag
+    warning:
+      comment: Customer sees this text, mind your wording. Do not use words such as "Fire, Explosion, extreme, etc..."
+      wording: |
+        You are about to create a TOC. Some of the information below could be shared and seen by our customers. Please mind your wording.
+        Do not use words such as "Fire, Explosion, extreme, etc..."
+  tags:
+    ibs: Involves iBS
+    ihs: Involves iHS/ipHS
+    link: Involves LINK
+    apu_off: Involves APU-OFF
+  filters:
+    id: TOC Number
+    type: Who is paying
+    sso : Sales Organisation
+    ssoService : Service SSO
+    location : Manufacturer Location
+    by_airport: By Airport
+    from: From
+    to: To
+    late: Late (> 5 days)
+    survey: With survey ?
+    toc_parts: TOC Parts
+    spr_parts: SPR Parts
+    actor: Assignee or Technician
+  files:
+    add_main_file: Add Main File (1 picture only)
+    change_main_file: Change the Main File
+    add_files: Add more files (Pictures, Video, PDF...)
+  comment:
+    type:
+      internal_with_notification: Internal with Notification
+      internal: Internal
+      external: External
+    creation: '
+      <strong>TOC has been created</strong> <br/>
+      <strong>Creation date :</strong> %creation_date% <br/>
+      <strong>Created by :</strong> %created_by% <br/>
+    '
+    change: '<strong>TOC has been updated</strong>'
+    title: '<strong>Title has change from :</strong> %old% <strong>to</strong> %value%'
+    description: '<strong>Description has change from :</strong>  %old% <strong>to</strong> %value%'
+    status: '<strong>Status has change from :</strong>  %old% <strong>to</strong> %value%'
+    automatic_factory_flag: '<strong>Factory Flag automatically opened because the TOC has been set to IF 1000.</strong>'
+  transition:
+    guard:
+      to_closed: A CSR is already open.
+      solved_with_factory_support: TOC should not be SOLVED, the Factory Flag is still open.
+      solved_with_warranty: TOC should not be SOLVED, the warranty is always open.
+      closed_to_in_progress: You are not authorized to reopen a TOC. Please contact your CSM to perform this action.
+  badge:
+    factory_flag_open: FF - Open
+    factory_flag_close: FF - Close
+    confidential_open: Confidential - Open
+    confidential_close: Confidential - Close
+    public: This comment was sent by email to the customer's contact(s) selected in the TOC, it is also visible from the EXTRANET portal
+  table:
+    create_spr: Create SPR
+  replacement:
+    supplier: Supplier
+    customer: Customer
+    quotation: Quotation
+  audit:
+    title:
+      status: Status Log
+      factoryFlag: Factory Flag Log
+      originalSymptoms: History of original Symptoms
+      originalRootCause: History of original Root Cause
+      originalSolution: History of original Solution
+  modal:
+    service_bulletin:
+      id: ID
+      header: Service Bulletins
+      status: Status
+      description: Description
+  type:
+    not_define_yet: Not Defined Yet
+    customer: Customer (Payable Service)
+    sso: SSO (Sales Concession)
+    factory: Factory (Warranty)
+  status:
+    modal:
+      title: Update Status
+      status: Status
+      reason: Reason
+      symptoms: Symptoms
+      root_cause: Root Cause
+      solution: Solution
+      submit: Submit
+      no_parts: No Parts Found
+      help: Generate Using ALVI
+      third_party_job_description: Third Party Job Description
+      third_party_hours: Third Party Hours
+    section:
+      title: Change Status
+      update_button: Update Status
+      warning: This TOC can't be solved as there are pending CSRs. Please close all CSRs first.
+      error:
+        access: Your current position does not allow you to update status of a TOC.
+  dashboard:
+    1000: TOC 1000
+    in_progress: TOC IN PROGRESS
+    suspended: TOC SUSPENDED
+    waiting_factory: TOC WAITING FACTORY
+    factory_flag_recently_closed: Factory Flag (FF) RECENTLY ANSWERED
+  report:
+    by_indice_factor: TOC Count by SSO with Importance Factor (IF)
+    by_status: TOC Count by SSO with Status
+    by_factory: TOC IN PROGRESS & SUSPENDED with Factory Support Required
+    quantity_by_month: Quantity of TOC Open and Solved per Month
+    closure_time:
+      title: TOC dispatch by range of closure time
+      delay: Solved In
+      delay_categories:
+        less_than_7: Under 7 days
+        between_7_and_14: 7 to 14 days
+        between_14_and_21: 14 to 21 days
+        more_than_21: More than 21
+      numberOfTechnicianOnCalls: Number of TOCs
+      percentRemoteSolved: "% Solved Remotely"
+      deltaWithYear: Delta versus 12 month moving average
+    tir:
+      title: TOC Immediate Ratio (TIR) evolution
+      subtitle: |
+        Measure every month each Service department reactivity in service (value in Percentage) <br/>
+        SUM all TOC solved in less than 48 hours during the month DIVIDED by the total Number of TOC solved of the same month MULTIPLIED by 100
+      y: Percent
+    tat:
+      title: TOC Average Time (TAT) evolution
+      subtitle: |
+        Measure Service department efficiency through the average time to SOLVE TOC (value in DAYS) <br/>
+        For a specific month, SUM the time in days of all SOLVED TOC during that month DIVIDED by the Number of TOC solved of that same month
+      y: Days
+    oldest:
+      title: TOC Oldest (TOL)
+      subtitle: |
+        Alerts about the oldest customer support issue not solved yet (value in DAYS) <br/>
+        Get the list of TOC NOT SOLVED before the specified month AND take the bigger number of days opened until the end of this specified month
+      y: Days
+    backlog:
+      title: TOC Backlog Evolution
+      y: Number of TOCs
+    troubleshooting:
+      title: ALL
+      y: Number of Troubleshooting TOCs
+      without_csr: TOC Solved or Closed without CSR
+      with_csr: TOC Solved or Closed with CSR
+    spare_part_request:
+      title: ALL
+      y: Number of TOCs with Spare Part Request
+      without_spr: TOC without SPR
+      with_spr: TOC with SPR
+    spare_part_request_dispatch_time:
+      title: Quantity of TOC solved with SPR shipped, Quantity of day to dispatch parts
+    operate:
+      title: ALL
+      y: Number of TOCs
+      without_csr: TOC Solved Remotly
+      one_intervention: TOC Solved with 1 CSR intervention
+      two_interventions: TOC Solved with 2 CSR interventions
+      more_than_two_interventions: TOC Solved with interventions > 2
+    interventions_by_model: Type of Unit's models for CSR with multiple interventions
+    factory_flag_by_model: Quantity of Factory flag raised
+    survey:
+        title: Survey average rating
+  excel:
+    id: ID
+    created_at: Creation Date
+    sales_organisation_service: SSO Service
+    assignee: Assignee
+    technician: Technician
+    status: Status
+    service_activity: Service Activity
+    who_pays: Who Pays
+    indice_factor: IF
+    unit_status: Unit Operational Status
+    model: Model
+    sn: SN
+    main_contact: Main Contact
+    title: Title
+    last_update: Last Update
+    factory_flag: FF
+    create_by: Created By
+    airport: Airport Code
+    customer: TOC's Customer
+    open_days: Open Days
+    without_activity_days: Days without activity
+    csr_list: CSR No.
+    spr_number: Number of SPR
+    factory_name: Factory
+    solved_at: Date Solved
+    days_to_solved: Days to solved
+    factory_flag_history: FF History
+    hourmeter: Hourmeter
+    parts_list: TOC Parts
+    spr_list: SPR Parts
+    warranty_legacy_id: WC No.
+    third_party_name: Third Party
+    buyer: Customer BUYER
+    end_user: Customer END USER
+    customer_asset_number: Customer Asset Number
+    role:
+      buyer: "ER's Buyer"
+      end_user: "ER's End User"
+      maintainer: "ER's Maintainer"
+  task:
+    survey:
+      not_perfect:
+        message: "Tasks, New: #%id% opened for %assignee% by %assignor%"
+  gallery:
+    main_file: Main file

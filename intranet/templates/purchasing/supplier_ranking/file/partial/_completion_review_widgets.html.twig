@@ -1,0 +1,26 @@
+<div class="col-6">
+    <div class="widget bg-body">
+        <div class="row">
+            <div class="col-4">
+                <i class="fa fa-calendar-check fa-3x"></i>
+            </div>
+            <div class="col-8 text-end">
+                <span>{{ 'fields.total_completion_rate'|trans({}, 'supplier_ranking') }}</span>
+                <h3 class="font-bold">{{ totalCompletionRate|number_format(2) }} %</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-6">
+    <div class="widget bg-body">
+        <div class="row">
+            <div class="col-4">
+                <i class="fa fa-calendar-check fa-3x"></i>
+            </div>
+            <div class="col-8 text-end">
+                <span>{{ 'fields.mandatory_completion_rate'|trans({}, 'supplier_ranking') }}</span>
+                <h3 class="font-bold">{{ mandatoryCompletionRate|number_format(2) }} %</h3>
+            </div>
+        </div>
+    </div>
+</div>

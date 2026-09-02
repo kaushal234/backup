@@ -1,0 +1,21 @@
+framework:
+  workflows:
+    meeting:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\MinutesOfMeeting\Meeting
+      initial_marking: !php/const App\Entity\MinutesOfMeeting\Meeting::OPEN
+      places:
+        - !php/const App\Entity\MinutesOfMeeting\Meeting::OPEN
+        - !php/const App\Entity\MinutesOfMeeting\Meeting::RELEASED
+        - !php/const App\Entity\MinutesOfMeeting\Meeting::CLOSED
+      transitions:
+        to_released:
+          from: !php/const App\Entity\MinutesOfMeeting\Meeting::OPEN
+          to: !php/const App\Entity\MinutesOfMeeting\Meeting::RELEASED
+        to_closed:
+          from: !php/const App\Entity\MinutesOfMeeting\Meeting::RELEASED
+          to: !php/const App\Entity\MinutesOfMeeting\Meeting::CLOSED

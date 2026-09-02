@@ -1,0 +1,18 @@
+{% extends 'Emails/layout.html.twig' %}
+
+{% block content %}
+    <container>
+        {% block header %}
+            {% include 'Emails/Evendors/_partials/header.html.twig' %}
+            <row id="hero">
+                <columns>
+                    {% block banner %}
+                        <img class="banner" src="https://www.tld-gse.com/shared/emails/banner-1.jpg">
+                    {% endblock %}
+                </columns>
+            </row>
+        {% endblock %}
+
+        {% block body %}{% endblock %}
+    </container>
+{% endblock %}

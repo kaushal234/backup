@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/position_levels/\\d+$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "label": {"type": "string"}
+  },
+  "required": ["@id", "@context", "@type", "id", "label"],
+  "additionalProperties": false
+}

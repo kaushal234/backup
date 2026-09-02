@@ -1,0 +1,43 @@
+.cui .confirmation_popup__comment_wrapper .MuiPaper-root {
+  display: flex;
+  justify-content: flex-start;
+  gap: 24px;
+  width: 100%;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: var(--cui-card-border-radius);
+}
+
+.cui .confirmation_popup__comment_wrapper > div {
+  width: 100%;
+}
+
+.cui .confirmation_popup__submit_button {
+  width: 100%;
+}
+
+.cui .confirmation_popup__heading {
+  margin: 0;
+}
+
+.cui .confirmation_popup__button_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 60%;
+  margin-left: auto;
+}
+
+.cui .confirmation_popup__sub_description {
+  white-space: pre-wrap;
+}
+
+.cui .confirmation_popup__warning {
+  color: var(--mui-palette-error-main);
+}
+
+.cui.dark .confirmation_popup__button_wrapper .MuiButton-root {
+  color: var(--mui-palette-primary-contrastText);
+  background-color: var(--mui-palette-primary-main);
+}

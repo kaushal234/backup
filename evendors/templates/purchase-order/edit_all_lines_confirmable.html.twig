@@ -1,0 +1,146 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.purchase_order'|trans }}{% endblock %}
+
+{% block main %}
+    {{ form_start(ordersForm, { 'attr': {'class': 'p-0'} }) }}
+    {% embed '_components/report_table.html.twig' with {
+        reportTable: {
+            items: {
+                erp: {
+                    label: 'display.table.purchase_order.headers.erp'|trans,
+                    template: '_components/datatable/company.html.twig',
+                },
+                purchaseOrderIdentifier: {
+                    label: 'display.table.purchase_order.headers.id'|trans,
+                    link:{
+                        route: 'purchase-order:show',
+                        params: {id: 'purchaseOrderIdentifier'},
+                    },
+                },
+                lineIdentifier: {
+                    label: 'display.table.purchase_order_line.headers.item'|trans,
+                    template: 'purchase-order/components/datatable/line_identifier.html.twig',
+                },
+                partNumber: {
+                    label: 'display.table.purchase_order_line.headers.part'|trans,
+                    template: 'purchase-order/components/datatable/part_number.html.twig',
+                },
+                supplierItemCode: {
+                    label: 'display.table.purchase_order.headers.supplier_item_code'|trans,
+                    template: 'purchase-order/components/datatable/supplier_item_code.html.twig',
+                },
+                description: {
+                    label: 'display.table.purchase_order_line.headers.description'|trans,
+                    template: 'purchase-order/components/datatable/recurrent_information.html.twig',
+                },
+                revision: {
+                    label: 'display.table.purchase_order_line.headers.revision_header'|trans,
+                    template: 'purchase-order/components/datatable/line_revision.html.twig',
+                    filters: "default('generic.not_available')|trans",
+                    templateParams: {expiryDateProperty: 'revisionExpiryDate'}
+                },
+                quantity: {
+                    label: 'display.table.purchase_order_line.headers.quantity_or_back_order'|trans,
+                    template: 'purchase-order/components/datatable/ordered_quantity.html.twig'
+                },
+                plannedDeliveryDate: {
+                    label: 'display.table.purchase_order_line.headers.delivery_date'|trans,
+                    template: 'purchase-order/components/datatable/line_delivery_date.html.twig'
+                },
+                rescheduledDeliveryDate: {
+                    label: 'display.table.purchase_order_line.headers.rescheduled_delivery_date'|trans,
+                    template: 'purchase-order/components/datatable/line_rescheduled_delivery_date.html.twig'
+                },
+                confirmedSupplierDate: {
+                    label: 'display.table.purchase_order_line.headers.confirmed_delivery_date'|trans,
+                    template: 'purchase-order/components/datatable/confirmedDeliveryDateFormFieldFromOrder.html.twig',
+                    templateParams: {
+                        property: 'confirmedSupplierDate',
+                        preserveNull: true
+
+                    }
+                },
+                price:{
+                    label: 'display.table.purchase_order_line.headers.price'|trans,
+                    template: 'purchase-order/components/datatable/price.html.twig',
+                },
+                lineTexts: {
+                    label: 'display.table.purchase_order_line.headers.comment'|trans,
+                    template: 'purchase-order/components/modal/line_comment.html.twig',
+                },
+                lineState: {
+                    label: 'display.table.purchase_order_line.headers.lineState'|trans,
+                    template: 'purchase-order/components/datatable/line_state.html.twig',
+                },
+                status: {
+                    label: 'display.table.purchase_order_line.headers.status'|trans,
+                    template: 'purchase-order/components/datatable/line_status.html.twig'
+                },
+                supplierNumber: {
+                    label: 'display.table.purchase_order.headers.supplier_number'|trans,
+                },
+            },
+            title: 'display.table.purchase_order.caption.all_lines'|trans,
+            id: 'purchase-orders-lines-table',
+            state: state,
+            data: orders,
+        }
+    } %}
+
+        {% block table_content %}
+            <tbody hidden="hidden">
+            {% for item in table.data %}
+                {{ block('table_row') }}
+            {% endfor %}
+            </tbody>
+        {% endblock %}
+        
+        {% block table_row %}
+            {% set order = item %}
+            {% for line in item.lines %}
+                <tr {% if table.tooltip is defined %}
+                        {% if table.tooltip.nested is defined and table.tooltip.nested == true %}
+                            {% set tooltipProperty = parse_nested(line, table.tooltip.property) %}
+                        {% else %}
+                            {% set tooltipProperty = line[table.tooltip.property]  %}
+                        {% endif %}
+                        {% set tooltipPlacement = table.tooltip.placement|default('top') %}
+                        {% if tooltipProperty is defined and tooltipPlacement is defined %}
+                            data-toggle="tooltip" data-placement="{{ tooltipPlacement }}" title="{{ tooltipProperty }}"
+                        {% endif %}
+                    {% endif %}>
+                    {% for key, itemProperty in table.items %}
+                        {% with {reportItem: itemProperty} %}
+                            {{ block('reset_item') }}
+                        {% endwith %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        {% endblock %}
+
+        {% block reset_item %}
+            {% set item = line %}
+            {{ block('table_cell') }}
+        {% endblock %}
+
+        {% block table_footer %}
+            <tfoot class="visually">
+            <tr>
+                {% for key, item in table.items %}
+                    {% if key == 'confirmedSupplierDate' %}
+                        <th class="" data-toggle="true" tabindex="0" aria-controls="purchase-orders-table" rowspan="1"
+                            colspan="1">
+                            {% include 'purchase-order/components/modal/confirme_all_delivery_dates.html.twig' %}
+                        </th>
+                    {% else %}
+                        <th>
+                        </th>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            </tfoot>
+        {% endblock %}
+    {% endembed %}
+    {{ form_end(ordersForm) }}
+{% endblock %}

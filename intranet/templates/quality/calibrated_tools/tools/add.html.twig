@@ -1,0 +1,13 @@
+{% extends 'quality/layout.html.twig' %}
+{% trans_default_domain 'calibration_tool' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('quality/calibrated_tools/tools/partial/_form.html.twig', {
+        title: 'calibration_tool.title.add'|trans,
+        form: form,
+        action: path('quality_calibrated_tools_add'),
+        cancel_link: path('quality_calibrated_tools_home')
+    }, with_context=false) }}
+{% endblock %}

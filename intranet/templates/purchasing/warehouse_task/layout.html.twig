@@ -1,0 +1,14 @@
+{% extends 'purchasing/layout.html.twig' %}
+{% trans_default_domain 'task' %}
+{% block title %}{{ 'warehouse_task.title_edit'|trans({}, 'task') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add
+                route="warehouse_task_home"
+                translationKey="mis_project.nav_link.add_task"
+                domain="mis_project"
+        />
+        <twig:NavItem:Search route="task_search"/>
+    </twig:NavBar:Container>
+{% endblock %}

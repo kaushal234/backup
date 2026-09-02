@@ -1,0 +1,22 @@
+{% props technicianOnCall %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% if technicianOnCall.numberOfCustomerServiceRecordFiles > 0 %}
+    <div class="alert alert-info text-center" role="alert">
+        {{ 'toc.messages.information.csr_files'|trans }}
+        <ul class="list-unstyled">
+            {% for customerServiceRecord in technicianOnCall.customerServiceRecords %}
+                {% if customerServiceRecord.files|length > 0 %}
+                    <li>
+                        <a href="{{ path('customer_service_record_show', {id: customerServiceRecord.id}) }}">
+                            CSR #{{ customerServiceRecord.id }}
+                            ({{ customerServiceRecord.files|length }}
+                            {{ customerServiceRecord.files|length > 1 ? "menu.files"|trans({}, "messages")|capitalize : "menu.file"|trans({}, "messages") }}
+                            )
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

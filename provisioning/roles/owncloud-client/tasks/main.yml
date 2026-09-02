@@ -1,0 +1,36 @@
+- name: Add our owncloud server to known_hosts file
+  become: true
+  ansible.builtin.known_hosts:
+    name: "{{ owncloud.host }}"
+    key: "|1|jlrBGIZS8sfyoKUPpxh0bYxU1iY=|uDrRUfGCFb5pb/Il5FaxO14gtfQ= ssh-dss AAAAB3NzaC1kc3MAAACBAL2xikYxykzxjHdrHe/
+    wAplxl/6o5ADjQ+i1lgXN/Hg9EDlSaHV4ZkmrsIiMWJOHw0rfcYjiH5QlI2TL4MopBQre1xvUPinmi948Y5Fxkl8KTEECHtCMDuVG/85slr7pvVUNZ
+    08AoTR1jthccg3Jz0UY0BZXIRnoxfLLhXYq8+MHAAAAFQCgjY90UCp5L0VclEabm4jm+Z5WmQAAAIEAqIZ1pInpf/Kqoopj7mT/zovQxjyNLRsuu5
+    BTld22kyRgAbqzMtXXJal2RBCO4V6aSN7G45brrr/5R7IxTIgPd9xXq2QAuw2zSpwDHuLmc9F6/VbVa7XOaExuAOGOs/MDzJCRfs9GtDCz8MxnWCMK
+    cDGyidsicrCNxXASMh5pVB0AAACATDjXLcflP6JbN4OHpukCCRLAzgTrN/ss53+zbfRiiTYqY7hqnrvaovGKheVNZXx0YuZSol8iaAyHb0S/UQ0673
+    1ZBjJQscTbheNW2lhiktUjK94XobUDs6iK2wFhXMhg65Ru5iWB9fhUbfuEigx7vp+jfE6eZP+uVRlb+Rhdswk="
+    path: "{{ monorepo_path }}/.ssh/known_hosts"
+    state: present
+
+- name: Change known_hosts ownership
+  become: true
+  ansible.builtin.file:
+    path: "{{ monorepo_path }}/.ssh/known_hosts"
+    owner: deployer
+    group: php_executor
+    mode: '0600'
+
+- name: Place private key for owncloud
+  become: true
+  ansible.builtin.copy:
+    src: templates/owncloud
+    dest: "{{ monorepo_path }}/.ssh/owncloud"
+    mode: '0600'
+    owner: deployer
+    group: php_executor
+
+- name: Ensure rsync is installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - rsync
+    state: present

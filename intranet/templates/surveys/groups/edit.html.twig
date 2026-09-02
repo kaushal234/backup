@@ -1,0 +1,20 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% set survey_id = iri_id(survey) %}
+
+{% block title %}{{ parent() }} \ {{ group.name | u.truncate(40) }} \ {{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            {{ include('surveys/groups/partial/_form.html.twig', {
+                title: 'group.page_titles.edit'|trans,
+                form: form,
+                action: path('survey_groups_edit', { id: survey_id, groupId: iri_id(group) }),
+                cancel_link: path('survey_groups_index', {id: survey_id})
+                })
+            }}
+        </div>
+    </div>
+{% endblock %}

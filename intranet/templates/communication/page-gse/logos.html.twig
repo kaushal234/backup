@@ -1,0 +1,18 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'Page logo': {
+                'jpg': 'page/logos/PAGE Logo JPG.jpg',
+                'eps': 'page/logos/PAGE Logo EPS.eps',
+                'png': 'page/logos/PAGE Logo PNG.png',
+            },
+            'Page Logo Large': {
+                'jpg': 'PAGE GSE Large BW.jpg',
+            }
+        },
+    }) }}
+{% endblock %}

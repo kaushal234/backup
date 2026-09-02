@@ -1,0 +1,338 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/service/(technician_on_call_|default_|commissioning_|service_bulletin_|)customer_service_records"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/service/(technician_on_call_|default_|commissioning_|service_bulletin_|)customer_service_records/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "legacyId": {"type": "integer"},
+          "title": {"type": "string"},
+          "description": {"type": "string"},
+          "createdAt": {"type": "string"},
+          "completedAt": {"type": ["string", "null"]},
+          "status": {"type": "string"},
+          "type" : {"type": "string"},
+          "files": {
+            "oneOf" : [
+              {"type": "null"},
+              {
+                "files" : {"$ref" :  "../../shared/schemas/file.json"}
+              }
+            ]
+          },
+          "airport": {"$ref": "../../iata_code/schemas/iata_code.json"},
+          "interventions": {"type" :  "array", "items": {"$ref": "interventions.json"}},
+          "openIntervention": {
+            "oneOf": [
+              {"type" :  "null"},
+              {"type": "object",
+              "properties": {
+                "@id": {"pattern": "^/service/interventions/\\d+$"},
+                "@type": {"type": "string"},
+                "plannedBy" : {"oneOf": [{"type": "null"},{"$ref": "../../directory_people/schemas/directory_people_public.json"}]},
+                "plannedAt": {"type": ["string", "null"]},
+                "status" : {"type": "string"},
+                "leader": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {"pattern": "^/people/\\d+$"},
+                    "username": {"type": "string"},
+                    "email": {"type": "string"},
+                    "legacyId": {"type": "integer"},
+                    "firstname": {"type": "string"},
+                    "lastname": {"type": "string"}
+                  }
+                }
+              }
+            }],
+            "required": [
+              "@id",
+              "@type",
+              "plannedBy",
+              "plannedAt",
+              "leader",
+              "status"
+            ]
+          },
+          "toContinue": {"type": "boolean"},
+          "close": {"type": "boolean"},
+          "closed": {"type": "boolean"},
+          "equipmentRecord": {
+            "@type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/equipment_records/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "serialNumber": {
+                "type": "string"
+              },
+              "buyer": {
+                "@type": "object",
+                "properties": {
+                  "@id": {
+                    "pattern": "^/sales/customers/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ]
+              },
+              "endUser": {
+                "@type": "object",
+                "properties": {
+                  "@id": {
+                    "pattern": "^/sales/customers/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "legacyId": {"type": "integer"}
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name",
+                  "legacyId"
+                ],
+                "additionalProperties": false
+              },
+              "customerSerialNumber": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "model": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "product": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "pattern": "^/sales/products/\\d+$"
+                      },
+                      "@type": {
+                        "type": "string"
+                      },
+                      "family": {
+                        "type": "object",
+                        "properties": {
+                          "@id": {
+                            "pattern": "^/sales/product_families/\\d+$"
+                          },
+                          "@type": {
+                            "type": "string"
+                          },
+                          "productType": {
+                            "type": "object",
+                            "properties": {
+                              "@id": {
+                                "pattern": "^/sales/product_types/\\d+$"
+                              },
+                              "@type": {
+                                "type": "string"
+                              },
+                              "englishName": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "@id",
+                              "@type",
+                              "englishName"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "productType"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "family"
+                    ]
+                  }
+                ]
+              },
+              "location": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "dateShipped": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "dateCommissioned": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "manufacturerLocation": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "pattern": "^/locations/\\d+$"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "erp": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "@type": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type"
+                    ]
+                  }
+                ]
+              },
+              "salesOrganisation": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "pattern": "^/locations/\\d+$"
+                      },
+                      "@type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "erp": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+          "plannedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ratingResult": {"type": ["string", "null"]},
+          "serviceBulletinLegacyId": {"type": ["integer", "null"]},
+          "serviceBulletinLinesLegacyId": {"type": ["integer", "null"]},
+          "tocLegacyId": {"type": ["integer", "null"]},
+          "technicianOnCall": {
+            "oneOf": [
+              {"type": ["string", "null"]},
+              {"type":  "object",
+                "properties": {
+                  "@id": {"pattern": "^/service/technician_on_calls/\\d+$"},
+                  "@type": {"type": "string"},
+                  "legacyId": {"type": "integer"}
+                },
+                "required": ["@id", "@type", "legacyId"]
+              }
+            ]
+          }
+
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "createdAt",
+          "completedAt",
+          "title",
+          "description",
+          "airport",
+          "equipmentRecord",
+          "createdBy",
+          "status",
+          "plannedAt",
+          "interventions",
+          "openIntervention",
+          "toContinue",
+          "close",
+          "closed",
+          "legacyId",
+          "type",
+          "files"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

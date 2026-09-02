@@ -1,0 +1,12 @@
+{% extends 'mis/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block title %} Power BI AES Maintenance {% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <iframe width="1080" height="760" src="https://app.powerbi.com/reportEmbed?reportId={{ id }}&autoAuth=true" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
+
+{% endblock %}

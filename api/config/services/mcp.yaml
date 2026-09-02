@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  mcp.azure_provider:
+    class: TheNetworg\OAuth2\Client\Provider\Azure
+    arguments:
+      - clientId: '%env(ALVEST_AZURE_CLIENT_ID)%'
+        defaultEndPointVersion: '2.0'
+        tenant: '%env(ALVEST_AZURE_TENANT_ID)%'
+
+  TheNetworg\OAuth2\Client\Provider\Azure $mcpAzureProvider: '@mcp.azure_provider'

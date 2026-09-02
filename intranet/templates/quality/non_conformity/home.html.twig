@@ -1,0 +1,75 @@
+{% extends 'quality/non_conformity/layout.html.twig' %}
+{% trans_default_domain 'non_conformity' %}
+{% form_theme form_id 'form_theme_vertical.html.twig' %}
+{% form_theme form_search 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row" style="gap: 5rem">
+        <div class="col-md-4">
+            <h3 class="text-capitalize">{{ 'customer_relationship_team.fields.quick_access'|trans([], 'customer_relationship_team') }}</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_start(form_id, { action: path('non_conformity_home') }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(form_id) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(form_id) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h3>{{ 'contacts.search'|trans({}, 'contacts')|capitalize }}</h3>
+                {{ form_start(form_search, { action: path('non_conformity_home') }) }}
+                <div class="row">
+                    <div class="col-sm-10">
+                        {{ form_widget(form_search) }}
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                    </div>
+                </div>
+                {{ form_end(form_search) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ data_table(nonConformityDatatable) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins {% if filtered %}collapsed{% endif %}">
+                <div class="ibox-title">
+                    <h5>{{ 'non_conformity.report.by_status_by_location'|trans }}</h5>
+                    <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: byStatusByLocation,
+                        link: {
+                            route: 'non_conformity_home',
+                            xParam: 'filter_non_conformity[location][value]',
+                            yParam: 'filter_non_conformity[status][value][]',
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

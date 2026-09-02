@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/acronym_categories/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "@context": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "acronyms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "acronyms"
+  ],
+  "additionalProperties": false
+}

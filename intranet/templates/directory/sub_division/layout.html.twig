@@ -1,0 +1,18 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'directory.sub_division.name'|trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="directory_sub_divisions_add"
+                          :security="is_granted('FEATURE_DIVISION_WRITE') or is_granted('MOO_DIR')"/>
+        {% if subDivision.iriId is defined %}
+            <twig:NavItem:Edit route="directory_sub_divisions_edit" :routeParameters="{ id: subDivision.iriId }"
+                               :security="is_granted('FEATURE_DIVISION_WRITE') or is_granted('MOO_SFR')"/>
+            <twig:NavItem:Delete route="directory_sub_divisions_delete"
+                                 :routeParameters="{ id: subDivision.iriId, '_token': csrf_token('delete_division') }"
+                                 :security="is_granted('FEATURE_DIVISION_WRITE') or is_granted('MOO_SFR')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'manufacturing/layout.html.twig' %}
+{% trans_default_domain 'manufacturing' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:LegacyNavItem translationKey="manufacturing.nav_link.home" domain="manufacturing" url="/en/private/manufacturing/index.php?m[0]=pi"/>
+    </twig:NavBar:Container>
+{% endblock %}

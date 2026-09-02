@@ -1,0 +1,59 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "technician_on_call" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        contact: {
+                            properties: ['technicianOnCall.mainContact.lastname', 'technicianOnCall.mainContact.firstname'],
+                            label: 'toc.fields.main_contact.label' | trans|capitalize,
+                        },
+                        email: {
+                            properties: ['technicianOnCall.mainContact.email'],
+                            label: 'extranet.fields.email' | trans({}, 'messages'),
+                        },
+                        execution: {
+                            label: 'toc.fields.survey.execution'|trans
+                        },
+                        responsiveness: {
+                            label: 'toc.fields.survey.responsiveness'|trans
+                        },
+                        communication: {
+                            label: 'toc.fields.survey.communication'|trans
+                        },
+                        attitude: {
+                            label: 'toc.fields.survey.attitude'|trans
+                        },
+                        comment: {
+                            label: 'fields.comment'|trans({}, 'messages')
+                        },
+                    },
+                    data: survey,
+                    title: 'toc.message.survey.header'|trans({}, 'emails')
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+    <row>
+        <columns>
+			{{ 'toc.message.link'|trans({'%id%': survey.technicianOnCall.id}, 'emails') }}
+			&nbsp;—&nbsp;
+			<a href="{{ path('technician_on_call', {id: survey.technicianOnCall.id }) }}">
+				{{ 'toc.message.intranet'|trans({}, 'emails') }}
+			</a>
+			&nbsp;|&nbsp;
+			<a href="{{ path('mobile_technician_on_call', {id: survey.technicianOnCall.id }) }}">
+				{{ 'toc.message.mobile'|trans({}, 'emails') }}
+			</a>
+		</columns>
+    </row>
+    <row>
+        <columns>
+            {{ include('Emails/Service/TechnicianOnCall/_partials/_toc.html.twig', {technicianOnCall: survey.technicianOnCall}) }}
+        </columns>
+    </row>
+{% endblock %}

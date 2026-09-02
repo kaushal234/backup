@@ -1,0 +1,56 @@
+{% trans_default_domain "technician_on_call" %}
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: {
+            createdAt: {
+                label: 'fields.created_at' | trans({}, 'messages')|capitalize,
+                filters: 'date("Y-m-d")',
+            },
+            createdBy: {
+                label: 'fields.created_by' | trans({}, 'messages'),
+                template: 'Emails/Service/TechnicianOnCall/_partials/cell/_created_by.html.twig',
+            },
+            assignee: {
+                label: 'tasks.assignee' | trans({}, 'messages'),
+                template: 'Emails/Service/TechnicianOnCall/_partials/cell/_assignee.html.twig',
+            },
+            technician: {
+                label: 'toc.fields.technician' | trans({}, 'technician_on_call'),
+                template: 'Emails/Service/TechnicianOnCall/_partials/cell/_technician.html.twig',
+            },
+            title: { label: 'display.table.document.headers.title' | trans({}, 'messages')},
+            description: { label: 'tasks.description' | trans({}, 'messages')},
+            serialNumber: { label: 'Customer Serial number / asset' },
+            equipmentRecord : {
+                label: 'crab.fields.equipment_record' | trans({}, 'crab'),
+                properties: ['equipmentRecord.serialNumber'],
+            },
+            status: { label: 'demo.fields.status' | trans({}, 'emails')},
+            salesOrganisationService : {
+                label: 'demo.fields.sso' | trans({}, 'emails'),
+                properties: ['salesOrganisationService.name'],
+            },
+            errorCodes: { label: 'toc.fields.error_codes.label' | trans},
+            customer: {
+                label:'demo.fields.customer' | trans({}, 'demo'),
+                properties: ['customer.name'],
+            },
+            hourmeter: {
+                label:'toc.excel.hourmeter' | trans,
+            },
+            serviceActivity: {
+                label:'toc.excel.service_activity' | trans,
+                properties: ['serviceActivity.name'],
+            },
+            technicianOnCallType: {
+                label:'toc.fields.technician_on_call_type' | trans,
+                properties: ['technicianOnCallType.name'],
+            },
+            indiceFactor: {
+                label:'toc.card.indice_factor' | trans,
+            },
+        },
+        data: technicianOnCall,
+        title: 'toc.title.detail' | trans
+    },
+}, with_context = false) }}

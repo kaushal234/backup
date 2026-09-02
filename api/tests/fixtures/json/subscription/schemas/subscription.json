@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/subscriptions/\\d+$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "resource": {"type": "string"},
+    "resourceId": {"type": "integer"},
+    "module": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "frontEndRoute": {"type": ["string", "null"]}
+          },
+          "required": ["name", "frontEndRoute"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "shortDescription": {"type":  ["string", "null"]},
+    "user": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+    "createdAt": {"type": "string"}
+  },
+  "required": [
+    "@id",
+    "@context",
+    "@type",
+    "user",
+    "createdAt",
+    "resource",
+    "resourceId",
+    "module",
+    "shortDescription"
+  ],
+  "additionalProperties": false
+}

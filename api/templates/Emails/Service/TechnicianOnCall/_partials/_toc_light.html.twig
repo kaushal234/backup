@@ -1,0 +1,20 @@
+{% trans_default_domain "technician_on_call" %}
+<div style="padding-left: 3px;">
+    <h5>{{ 'toc.module'|trans }}</h5>
+    <table border="1" cellpadding="5" cellspacing="0" width="100%" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+        {% if technicianOnCall.equipmentRecord is not null %}
+        <tr>
+            <th align="left" style="background-color: #1a3aa5;border: 1px solid #ddd; padding: 8px; color: #FFFFFF;">{{ 'fields.factory' | trans({}, 'messages') | capitalize }}</th>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ technicianOnCall.equipmentRecord.manufacturerLocation.name }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th align="left" style="background-color: #1a3aa5;border: 1px solid #ddd; padding: 8px; color: #FFFFFF;">{{ 'fields.title' | trans({}, 'messages') | capitalize }}</th>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ technicianOnCall.title }}</td>
+        </tr>
+        <tr>
+            <th align="left" style="background-color: #1a3aa5;border: 1px solid #ddd; padding: 8px; color: #FFFFFF;">{{ 'fields.description' | trans({}, 'messages') }}</th>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ technicianOnCall.description|raw|nl2br }}</td>
+        </tr>
+    </table>
+</div>

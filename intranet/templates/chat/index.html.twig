@@ -1,0 +1,187 @@
+{% extends 'chat/layout.html.twig' %}
+{% trans_default_domain 'ai' %}
+
+{% block chat_main %}
+    <div class="d-flex justify-content-end align-items-start gap-3 p-3">
+        <a
+                href="{{ full_url('portal_dms') }}index.php?m[0]=view&id=8305"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="d-inline-flex flex-column align-items-center gap-1 text-decoration-none"
+                style="color: #024f9e"
+        >
+            <span class="d-flex align-items-center justify-content-center" style="height: 2.25rem">
+                <i class="fa fa-book fa-2x"></i>
+            </span>
+            <span class="small lh-1">DMS 8305</span>
+        </a>
+        <button
+                type="button"
+                class="d-inline-flex flex-column align-items-center gap-1 text-decoration-none border-0 bg-transparent p-0"
+                style="color: #024f9e"
+                data-bs-toggle="modal"
+                data-bs-target="#copilotModal"
+        >
+            <span class="d-flex align-items-center justify-content-center" style="height: 2.25rem">
+                <i class="fa-brands fa-microsoft fa-2x"></i>
+            </span>
+            <span class="small lh-1">Copilot</span>
+        </button>
+        <button
+                type="button"
+                class="d-inline-flex flex-column align-items-center gap-1 text-decoration-none border-0 bg-transparent p-0"
+                style="color: #024f9e"
+                data-bs-toggle="modal"
+                data-bs-target="#deeplModal"
+        >
+            <span class="d-flex align-items-center justify-content-center" style="height: 2.25rem">
+                <i class="fa fa-language fa-2x"></i>
+            </span>
+            <span class="small lh-1">DeepL</span>
+        </button>
+        <a
+                href={{ path('translator_documents') }}
+                class="d-inline-flex flex-column align-items-center gap-1 text-decoration-none"
+                style="color: #024f9e"
+        >
+            <span class="d-flex align-items-center justify-content-center" style="height: 2.25rem">
+                <i class="fa fa-file-arrow-up fa-2x"></i>
+            </span>
+            <span class="small lh-1">File Translation</span>
+        </a>
+    </div>
+
+    <section
+            class="d-flex flex-grow-1 align-items-center justify-content-center px-4 pb-5"
+            data-controller="chat-home"
+            data-chat-home-create-url-value="{{ path('chat_create_conversation') }}"
+    >
+        <div class="w-100 chat-home-container">
+            <div class="d-flex align-items-center justify-content-center gap-3 mb-4">
+                {{ ux_icon('alvi:logo', { class: 'chat-home-icon' }) }}
+                <h1 class="h2 mb-0">{{ 'ai.title.help' | trans }}</h1>
+            </div>
+
+            <form data-action="submit->chat-home#startConversation">
+                <div data-chat-home-target="filePreview" class="chat-file-preview d-none mb-2">
+                    <i class="fa fa-file"></i>
+                    <span data-chat-home-target="fileName" class="chat-file-name"></span>
+                    <button type="button" class="chat-file-remove" data-action="chat-home#removeFile">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="chat-composer-input-wrapper">
+                    <label class="chat-attach-btn" title="{{ 'ai.fields.attach' | trans }}">
+                        <i class="fa fa-plus"></i>
+                        <input type="file" name="file" data-chat-home-target="file" data-action="change->chat-home#fileChanged" class="d-none">
+                    </label>
+
+                    <textarea
+                            data-chat-home-target="input"
+                            data-action="keydown->chat-home#handleKeydown input->chat-home#autoResize"
+                            class="form-control chat-composer-input"
+                            rows="1"
+                            placeholder="{{ 'ai.fields.placeholder' | trans }}"
+                    ></textarea>
+
+                    <button type="submit" class="chat-send-btn">
+                        <i class="fa fa-arrow-up"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div
+            class="modal fade"
+            id="copilotModal"
+            tabindex="-1"
+            aria-labelledby="copilotModalLabel"
+            aria-hidden="true"
+            data-controller="ai-service-modal"
+            data-ai-service-modal-url-value="https://copilot.microsoft.com/"
+    >
+        <twig:Modal title="{{ 'ai.copilot_modal.title' | trans({}, 'ai') }}" onlyDialog>
+            <twig:block name="content">
+                <div
+                        data-ai-service-modal-target="message"
+                        data-message="{{ 'ai.copilot_modal.message' | trans({}, 'ai') | e('html_attr') }}"
+                ></div>
+                <div class="form-check mt-3">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="copilotCertify"
+                            data-ai-service-modal-target="certify"
+                            data-action="change->ai-service-modal#toggle"
+                    >
+                    <label class="form-check-label" for="copilotCertify">
+                        {{ 'ai.copilot_modal.certify' | trans({}, 'ai') }}
+                    </label>
+                </div>
+            </twig:block>
+            <twig:block name="footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {{ 'ai.copilot_modal.cancel' | trans({}, 'ai') }}
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-primary"
+                        disabled
+                        data-ai-service-modal-target="confirm"
+                        data-action="ai-service-modal#open"
+                        data-bs-dismiss="modal"
+                >
+                    {{ 'ai.copilot_modal.confirm' | trans({}, 'ai') }}
+                </button>
+            </twig:block>
+        </twig:Modal>
+    </div>
+
+    <div
+            class="modal fade"
+            id="deeplModal"
+            tabindex="-1"
+            aria-labelledby="deeplModalLabel"
+            aria-hidden="true"
+            data-controller="ai-service-modal"
+            data-ai-service-modal-url-value="https://www.deepl.com/fr/translator"
+    >
+        <twig:Modal title="{{ 'ai.deepl_modal.title' | trans({}, 'ai') }}" onlyDialog>
+            <twig:block name="content">
+                <div
+                        data-ai-service-modal-target="message"
+                        data-message="{{ 'ai.deepl_modal.message' | trans({}, 'ai') | e('html_attr') }}"
+                ></div>
+                <div class="form-check mt-3">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="deeplCertify"
+                            data-ai-service-modal-target="certify"
+                            data-action="change->ai-service-modal#toggle"
+                    >
+                    <label class="form-check-label" for="deeplCertify">
+                        {{ 'ai.deepl_modal.certify' | trans({}, 'ai') }}
+                    </label>
+                </div>
+            </twig:block>
+            <twig:block name="footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {{ 'ai.copilot_modal.cancel' | trans({}, 'ai') }}
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-primary"
+                        disabled
+                        data-ai-service-modal-target="confirm"
+                        data-action="ai-service-modal#open"
+                        data-bs-dismiss="modal"
+                >
+                    {{ 'ai.deepl_modal.confirm' | trans({}, 'ai') }}
+                </button>
+            </twig:block>
+        </twig:Modal>
+    </div>
+{% endblock %}

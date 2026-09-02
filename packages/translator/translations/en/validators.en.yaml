@@ -1,0 +1,68 @@
+delete:
+  confirm: You must check the box to confirm deletion.
+email: This is not a valid email.
+image: This is not a valid image.
+
+not_blank: This cannot be blank.
+invalid_number_of_days: The number provided is not a valid number of days .
+invalid_training_attendees_count: You must either select some guests or fill some emails.
+
+survey:
+  answers:
+    duplicate_item: Multiple answers on the same item with the same rating type are not allowed.
+  comments:
+    duplicate_item: Multiple comments on the same item are not allowed.
+manual:
+  document:
+    empty: No document found. The Manual should contain 1 or more.
+
+violations: Fields %fields% of your account are not correctly configured
+
+people:
+  mentor_required_for_position: A mentor is required for the selected position.
+  has_role: This technician is not available.
+
+technician_on_call:
+  customer_service_record:
+    creation: You cannot add CSR to a CLOSED TOC
+    already_exist: You cannot create new CSR, this TOC already have some. Since the TOC migration, it is no longer possible to create multiple CSRs for the same TOC. If multiple interventions need to be carried out, they must be managed within the CSR.
+  messages:
+    errors:
+      equipment_record_retired: Cannot create a TOC on a retired Equipment Record
+      equipment_record_not_shipped: Cannot create a TOC on an Equipment Record that has not been shipped yet
+      third_party_name_required_with_third_party: Third party name is required when a third party reference is provided
+  spare_parts_request:
+    type: An SPR cannot be opened on a TOC of type Not Define Yet
+  defective_parts:
+    not_close: Faulty parts can only be added when the TOC is solved or closed.
+    not_link: The linked spare parts request must belong to the same technician on call intervention.
+    duplicate_part: This part number ({{ value }}) has already been added for this technician on call.
+customer_service_record:
+  technician_on_call:
+    already_exist: TOC selected is already linked to a CSR
+extranet:
+  error:
+    airport: |
+      Airport is not a valid value.
+    equipment: |
+      Serial Number is not a valid value.
+    equipment_record: |
+      Serial Number is not a valid value.
+    toc_title: |
+      Title : This value should not be blank.
+    description: |
+      Description: This value should not be blank.
+    error_codes: |
+      Error Codes: This value should not be blank.
+    hour_meter: |
+      Hour meter : This value should not be blank.
+    indice_factor: |
+      I Factor : This value should not be blank.
+    service_activity: |
+      Service Activity : This value should not be blank.
+    unit_operational_status: |
+      Unit Operational Status : This value should not be blank.
+crab:
+  messages:
+    errors:
+      equipment_record_shipped: Cannot create a CRAB on an Equipment Record that has been already shipped.

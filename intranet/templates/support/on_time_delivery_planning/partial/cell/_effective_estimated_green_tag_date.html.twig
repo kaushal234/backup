@@ -1,0 +1,10 @@
+<td {% if itemProperty.class is defined %} class="{{ itemProperty.class }}" {% endif %}>
+    {% set workOrder = item.workOrder|default(null)|trim %}
+    {% set factoryPromisedDeliveryDate = item.orderFactory.factoryPromisedDeliveryDate is defined ? item.orderFactory.factoryPromisedDeliveryDate : null %}
+    {% if workOrder is empty and factoryPromisedDeliveryDate is not null %}
+        {% set value = factoryPromisedDeliveryDate %}
+    {% else %}
+        {% set value = item.estimatedGreenTagDate|default(null) %}
+    {% endif %}
+    {{ value is not null ? value|date('Y-m-d') : '' }}
+</td>

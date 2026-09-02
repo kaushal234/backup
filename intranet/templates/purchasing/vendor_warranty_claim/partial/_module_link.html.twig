@@ -1,0 +1,9 @@
+{% if row.data['@type'] == 'NcrVendorWarrantyClaim' %}
+    <a target="_blank"
+       href="{{ path('non_conformity_show', {id: row.data.nonConformity.id}) }}">NCR#{{ row.data.nonConformity.id }}</a>
+{% endif %}
+{% if row.data['@type'] == 'WcVendorWarrantyClaim' %}
+    <a target="_blank"
+       href="{{ path('legacy_product_support', {m: ['wc', 'view'], id: row.data.warrantyClaimId}) }}"
+       class="{{ class|default('') }}">WC#{{ row.data.warrantyClaimId }}</a>
+{% endif %}

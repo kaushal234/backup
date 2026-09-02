@@ -1,0 +1,119 @@
+{% set isUnassignedUser = subordinate == 'unassigned' %}
+{% set userKey = isUnassignedUser ? 'unassigned' :  subordinate %}
+{% set today = 'now'|date %}
+
+<div class="row pb-1">
+    <div class="col-md-12 m-0">
+        {% embed 'helper/_ibox.html.twig' with {
+            title: 'planner.title.current_week'|trans({
+                '%from%': today|date_modify('monday this week')|date('d/m'),
+                '%to%': today|date_modify('sunday this week')|date('d/m'),
+                '%week%':  today|date('W'),
+            }, 'customer_service_record'),
+            options: {
+                collapsable: false
+            }
+        } %}
+            {% block card_class %}{{ parent() }} planner-current-week-box{% endblock %}
+            {% block card_content %}
+                <div class="row row-cols-md-2 p-0 gy-md-3 rounded-0 planner-container" data-week="current">
+                    {% if currentWeek[userKey] is defined %}
+                        {% for customerServiceRecord in currentWeek[userKey] %}
+                            {% include 'service/customer_service_record/partial_planner/_csr_card.html.twig' with {'customerServiceRecord': customerServiceRecord} %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endblock card_content %}
+        {% endembed %}
+    </div>
+    <div class="col-md-12">
+        {% embed 'helper/_ibox.html.twig' with {
+            title: 'planner.title.other_week'|trans({
+                '%from%': today|date_modify('monday next week')|date('d/m'),
+                '%to%': today|date_modify('sunday next week')|date('d/m'),
+                '%week%':  today|date_modify('next week')|date('W'),
+            }, 'customer_service_record'),
+            options: {
+                collapsable: false
+            }
+        } %}
+            {% block card_content %}
+                <div class="row row-cols-md-2 p-0 gy-md-3 rounded-0 planner-container" data-week="next">
+                    {% if nextWeek[userKey] is defined %}
+                        {% for customerServiceRecord in nextWeek[userKey] %}
+                            {% include 'service/customer_service_record/partial_planner/_csr_card.html.twig' with {'customerServiceRecord': customerServiceRecord} %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endblock card_content %}
+        {% endembed %}
+    </div>
+</div>
+<div class="row pt-1">
+    <div class="col-md-4">
+        {% embed 'helper/_ibox.html.twig' with {
+            title: 'planner.title.other_week'|trans({
+                '%from%': today|date_modify('monday this week +2 weeks')|date('d/m'),
+                '%to%': today|date_modify('sunday this week +2 weeks')|date('d/m'),
+                '%week%':  today|date_modify('+2 week')|date('W'),
+            }, 'customer_service_record'),
+            options: {
+                collapsable: false
+            }
+        } %}
+            {% block card_content %}
+                <div class="row row-cols-md-1 p-0 gy-md-3 rounded-0 planner-container" data-week="in-two">
+                    {% if secondWeek[userKey] is defined %}
+                        {% for customerServiceRecord in secondWeek[userKey] %}
+                            {% include 'service/customer_service_record/partial_planner/_csr_card.html.twig' with {'customerServiceRecord': customerServiceRecord} %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endblock card_content %}
+        {% endembed %}
+    </div>
+    <div class="col-md-4">
+        {% embed 'helper/_ibox.html.twig' with {
+            title: 'planner.title.other_week'|trans({
+                '%from%': today|date_modify('monday this week +3 weeks')|date('d/m'),
+                '%to%': today|date_modify('sunday this week +3 weeks')|date('d/m'),
+                '%week%':  today|date_modify('+3 week')|date('W'),
+            }, 'customer_service_record'),
+            options: {
+                collapsable: false
+            }
+        } %}
+            {% block card_content %}
+                <div class="row row-cols-md-1 p-0 gy-md-3 rounded-0 planner-container" data-week="in-three">
+                    {% if thirdWeek[userKey] is defined %}
+                        {% for customerServiceRecord in thirdWeek[userKey] %}
+                            {% include 'service/customer_service_record/partial_planner/_csr_card.html.twig' with {'customerServiceRecord': customerServiceRecord} %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endblock card_content %}
+        {% endembed %}
+    </div>
+    <div class="col-md-4">
+        {% embed 'helper/_ibox.html.twig' with {
+            title: 'planner.title.other_week'|trans({
+                '%from%': today|date_modify('monday this week +4 weeks')|date('d/m'),
+                '%to%': today|date_modify('sunday this week +4 weeks')|date('d/m'),
+                '%week%':  today|date_modify('+4 week')|date('W'),
+            }, 'customer_service_record'),
+            options: {
+                collapsable: false
+            }
+        } %}
+            {% block card_content %}
+                <div class="row row-cols-md-1 p-0 gy-md-3 rounded-0 planner-container" data-week="in-four">
+                    {% if fourthWeek[userKey] is defined %}
+                        {% for customerServiceRecord in fourthWeek[userKey] %}
+                            {% include 'service/customer_service_record/partial_planner/_csr_card.html.twig' with {'customerServiceRecord': customerServiceRecord} %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endblock card_content %}
+        {% endembed %}
+    </div>
+</div>

@@ -1,0 +1,259 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "pattern": "^/contexts/Project$"
+    },
+    "@id": {
+      "pattern": "^/mis/projects$"
+    },
+    "@type": {
+      "pattern": "^hydra:Collection$"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/mis/projects/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "teamsLink": {
+            "type": ["string", "null"]
+          },
+          "region": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/regions/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ],
+            "additionalProperties": false
+          },
+          "module": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/modules/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "operationalOwner": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "../../../directory_people/schemas/directory_people_public.json"
+                  }
+                ]
+              },
+              "keyUser": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "../../../directory_people/schemas/directory_people_public.json"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "operationalOwner",
+              "keyUser"
+            ],
+            "additionalProperties": false
+          },
+          "indicesFactor": {
+            "type": "string"
+          },
+          "projectManager": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "../../../directory_people/schemas/directory_people_public.json"
+              }
+            ]
+          },
+          "misOwner": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "../../../directory_people/schemas/directory_people_public.json"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "startedAt": {
+            "type": "string"
+          },
+          "confidential": {"type": "boolean"},
+          "estimatedHours": {"type": "integer"},
+          "revisedEstimatedHours": {"type": ["integer", "null"]},
+          "status": {
+            "type": "string"
+          },
+          "phases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"type": "string"},
+                "@type": {"pattern": "^Phase$"},
+                "number": {"type": "integer"},
+                "estimatedClosureAt": {"type": "string"},
+                "estimatedHours": {"type":  "integer"},
+                "revisedEstimatedHours": {"type":  ["integer", "null"]},
+                "revisedClosureAt": {"type": ["null", "string"]},
+                "tasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"type": "string"},
+                      "@type": {"type": "string"},
+                      "status": {"type": "string"}
+                    },
+                    "required": ["@id", "@type", "status"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["@id", "@type", "number", "estimatedClosureAt", "revisedClosureAt", "estimatedHours", "revisedEstimatedHours", "tasks"],
+              "additionalProperties": false
+            }
+          },
+          "activePhase": {
+              "type": ["object", "null"],
+              "properties": {
+                "@id": {"type": "string"},
+                "@type": {"pattern": "^Phase$"},
+                "number": {"type": "integer"},
+                "estimatedClosureAt": {"type": "string"},
+                "estimatedHours": {"type":  "integer"},
+                "revisedEstimatedHours": {"type":  ["integer", "null"]},
+                "revisedClosureAt": {"type": ["null", "string"]},
+                "tasks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"type": "string"},
+                      "@type": {"type": "string"},
+                      "status": {"type": "string"}
+                    },
+                    "required": ["@id", "@type", "status"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["@id", "@type", "number", "estimatedClosureAt", "revisedClosureAt", "estimatedHours", "revisedEstimatedHours", "tasks"],
+              "additionalProperties": false
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"type": "string"},
+                "@type": {"type": "string"},
+                "name": {"type": "string"}
+              },
+              "required": ["@id", "@type", "name"],
+              "additionalProperties": false
+            }
+          },
+          "dueDate": {
+            "type": ["string", "null"]
+          },
+          "revisedDueDate": {
+            "type": ["string", "null"]
+          },
+          "activePhaseEstimatedClosureAt": {
+            "type": ["string", "null"]
+          },
+          "activePhaseRevisedClosureAt": {
+            "type": ["string", "null"]
+          },
+          "lastComment": {
+            "type": ["string", "null"]
+          },
+          "lastCommentedAt": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "teamsLink",
+          "region",
+          "module",
+          "indicesFactor",
+          "projectManager",
+          "misOwner",
+          "createdAt",
+          "startedAt",
+          "confidential",
+          "estimatedHours",
+          "revisedEstimatedHours",
+          "status",
+          "phases",
+          "activePhase",
+          "tags",
+          "lastComment",
+          "lastCommentedAt"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member"
+  ]
+}

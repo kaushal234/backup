@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Specification of {{ moduleName }}{% endblock %}
+{% block content %}
+        <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.SPECIFICATION_APP_PROPS = {{ props|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'mis' }) }}"></script>
+{% endblock %}

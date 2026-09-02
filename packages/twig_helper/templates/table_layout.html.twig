@@ -1,0 +1,208 @@
+{% extends '@AlvestTwigHelper/table_layout_base.html.twig' %}
+
+{% set options = {
+    card: true
+} %}
+{% if table.options is defined %}
+    {% set options = options|merge(table.options) %}
+{% endif %}
+
+{% block card_class %}card{% endblock %}
+{% block card_body_class %}card-body{% endblock %}
+{% block table_class %}table table-hover{% endblock %}
+{% block column_default_class %}{% endblock %}
+
+{% set card_attr = {} %}
+{% set card_body_attr = {} %}
+{% set table_attr = {} %}
+{% set column_attr = {} %}
+
+{% block card %}
+    {% set card_attr = card_attr|merge({class: block('card_class')|trim}) %}
+    <div{% with {attr: card_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{ block('card_header') }}
+        {{ block('card_content') }}
+    </div>
+{% endblock %}
+
+{% block card_header %}
+    <div class="card-header">
+        {{ table.title|raw }}
+        {% block card_header_after %}{% endblock %}
+    </div>
+{% endblock card_header %}
+
+{% block card_content %}
+    {% set countElements = table.data|length %}
+    {% if table.data.count is defined %}
+        {% set countElements = table.data.count %}
+    {% endif %}
+    {% set sluggifiedTitle = table.title|default('table')|striptags|replace({' ': '', '&nbsp;': '', '.' : '', ',': ''}) %}
+    {% set card_body_attr = card_body_attr|merge({class: block('card_body_class')|trim}) %}
+    <div{% with {attr: card_body_attr} %}{{ block('attributes') }}{% endwith %}>
+        {% if countElements == 0 %}
+            {{ block('table_no_results') }}
+        {% else %}
+            {% if table.search is not defined or table.search != false %}
+                {{ block('table_search') }}
+            {% endif %}
+            {{ block('table') }}
+            {% if table.pagination is defined and table.pagination.paginationUrl is defined %}
+                {{ block('pagination') }}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock card_content %}
+
+{% block table %}
+    {% if table.id is defined %}
+        {% set table_attr = table_attr|merge({id: table.id}) %}
+    {% endif %}
+    {% if table.state is defined %}
+        {% set table_attr = table_attr|merge({'data-state': table.state}) %}
+    {% endif %}
+    {% set table_attr = table_attr|merge({class: block('table_class')|trim}) %}
+        <table{% with {attr: table_attr} %}{{ block('attributes') }}{% endwith %}>
+            {{ block('table_header') }}
+            {{ block('table_content') }}
+            {{ block('table_footer') }}
+        </table>
+{% endblock %}
+
+{% block table_search %}
+    {% set searchText = block('table_search_text') %}
+    <input type="text" class="form-control" id="filter-{{ sluggifiedTitle }}" placeholder="{{ searchText }}">
+{% endblock %}
+
+{% block table_search_text %}{{ 'alvest.twig_helper.table.search'|trans }}{% endblock %}
+
+{% block table_header %}
+    <thead>
+        <tr>
+            {% for key, item in table.items %}
+                {{ block('table_column') }}
+            {% endfor %}
+        </tr>
+    </thead>
+{% endblock table_header %}
+
+{% block table_content %}
+    <tbody>
+        {% for item in table.data %}
+            {{ block('table_row') }}
+        {% endfor %}
+    </tbody>
+{% endblock %}
+
+{% block table_footer %}
+    {% if table.totalNumber is not defined or table.totalNumber != false %}
+        <tfoot>
+            <tr>
+                <td colspan="{{ table.items|length }}">
+                    <p class="text-end">{{ 'helper.recordsTotalNumber'|trans }}: <strong>{{ table.data|length }}</strong></p>
+                    <ul class="hide-if-no-paging pagination float-end"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    {% endif %}
+{% endblock table_footer %}
+
+{% block table_column %}
+    {% set column_attr = column_attr|merge({class: block('column_default_class')|trim}) %}
+    <th{% with {attr: column_attr} %}{{ block('attributes') }}{% endwith %}>{{ item.label|raw }}</th>
+{% endblock table_column %}
+
+{% block table_row %}
+    <tr>
+        {% for key, itemProperty in table.items %}
+            {{ block('table_cell') }}
+        {% endfor %}
+    </tr>
+{% endblock table_row %}
+
+{% block table_cell %}
+    <td>
+        {% if attribute(item, key) is defined %}
+            {% set value = attribute(item, key) %}
+            {% if value is not iterable %}
+                {{ value|raw }}
+            {% endif %}
+        {% endif %}
+    </td>
+{% endblock %}
+
+{% block table_no_results %}
+    {% set noResults = block('table_no_results_text') %}
+    <p>{{ noResults }}</p>
+{% endblock %}
+
+{% block table_no_results_text %}{{ 'alvest.twig_helper.table.no_results'|trans }}{% endblock %}
+
+{% block pagination %}
+    {% set extremePagesLimit = 3 %}
+    {% set nearbyPagesLimit = 5 %}
+    {% set currentPage = table.pagination.currentPage is defined ? table.pagination.currentPage : 1 %}
+    {% set paginationUrl = table.pagination.paginationUrl %}
+    {% set entries = table.data %}
+
+    <nav>
+        <ul class="pagination">
+            {% if currentPage > 1 %}
+                <li><a href="{{ path(paginationUrl.route, paginationUrl.parameters|merge({ page: currentPage-1 })) }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+
+                {% for i in range(1, extremePagesLimit) %}
+                    {% if ( i < currentPage - nearbyPagesLimit ) %}
+                        <li><a href="{{ path(paginationUrl.route, paginationUrl.parameters|merge({ page: i })) }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if extremePagesLimit + 1 < currentPage - nearbyPagesLimit %}
+                    <li><span class="sep-dots">...</span></li>
+                {% endif %}
+
+                {% for i in range(currentPage-nearbyPagesLimit, currentPage-1) %}
+                    {% if ( i > 0 ) %}
+                        <li><a href="{{ path(paginationUrl.route, paginationUrl.parameters|merge({ page: i })) }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if (currentPage != 1) or entries.pagination.hasNextPage %}
+                <li class="active"><a href="{{ path(paginationUrl.route, paginationUrl.parameters|merge({ page: currentPage })) }}">{{ currentPage }}</a></li>
+            {% endif %}
+
+            {% if entries.pagination.hasNextPage %}
+                {% for i in range(currentPage+1, currentPage + nearbyPagesLimit) %}
+                    {% if ( i <= entries.pagination.estimatedNumberOfPages ) %}
+                        <li><a href="{{ path(paginationUrl.route, paginationUrl.parameters|merge({ page: i })) }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if  (entries.pagination.estimatedNumberOfPages - extremePagesLimit) > (currentPage + nearbyPagesLimit) %}
+                    <li><span class="sep-dots">...</span></li>
+                {% endif %}
+
+                {% for i in range(entries.pagination.estimatedNumberOfPages - extremePagesLimit+1, entries.pagination.estimatedNumberOfPages) %}
+                    {% if ( i > currentPage + nearbyPagesLimit ) %}
+                        <li><a href="{{ path(paginationUrl.route, paginationUrl.parameters|merge({ page: i })) }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                <li><a href="{{ path(paginationUrl.route, paginationUrl.parameters|merge({ page: currentPage + 1 })) }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block attributes %}
+    {% for attrname, attrvalue in attr %}
+        {{ " " }}
+        {% if attrname in ['placeholder', 'title'] %}
+            {{ attrname }}="{{ translation_domain is same as(false) or attrvalue is null ? attrvalue : attrvalue|trans(attr_translation_parameters, translation_domain) }}"
+        {% elseif attrvalue is same as(true) %}
+            {{ attrname }}="{{ attrname }}"
+        {% elseif attrvalue is not same as(false) %}
+            {{ attrname }}="{{ attrvalue }}"
+        {% endif %}
+    {% endfor %}
+{% endblock attributes %}

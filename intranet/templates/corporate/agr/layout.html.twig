@@ -1,0 +1,20 @@
+{% extends 'corporate/layout.html.twig' %}
+{% trans_default_domain 'corporate' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.agr.title'|trans([], 'messages') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Search route="acronyms_search"/>
+        <twig:NavItem translationKey="corporate.nav_link.download_list" domain="corporate" route="acronyms_download"
+                      icon="material-symbols:download-rounded"/>
+        <twig:NavItem:Add route="acronyms_add"
+                          :security="is_granted('ACL_ROLE_CEO') or is_granted('ACL_ROLE_COO') or is_granted('ACL_ROLE_CMO') or is_granted('ACL_SUPERUSER')"/>
+        {% if acronym_id is defined %}
+            {% if is_granted('ACL_ROLE_CEO') or is_granted('ACL_ROLE_COO') or is_granted('ACL_ROLE_CMO') or is_granted('ACL_SUPERUSER') %}
+                <twig:NavItem:Edit route="acronyms_edit" :routeParameters="{ id: acronym_id }"/>
+                <twig:NavItem:Delete route="acronyms_delete" :routeParameters="{ id: acronym_id }"/>
+            {% endif %}
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

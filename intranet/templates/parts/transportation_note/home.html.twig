@@ -1,0 +1,48 @@
+{% extends 'parts/transportation_note/layout.html.twig' %}
+
+{% block content %}
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                country: {
+                    label: 'address.fields.country'|trans|capitalize,
+                    properties: ['country.name']
+                },
+                updatedAt: {
+                    label: 'fields.updated_at'|trans|capitalize,
+                    filters: 'date("Y-m-d H:i:s")'
+                },
+                note: {
+                    label: 'fields.note'|trans|capitalize,
+                    filters: 'nl2br'
+                },
+                view: {
+                    label: 'menu.view'|trans|capitalize,
+                    link:{
+                        route: 'parts_transportation_note_show',
+                        params: {'id':'@id'},
+                        content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+                edit: {
+                    label: 'menu.edit'|trans|capitalize,
+                    link:{
+                        route: 'parts_transportation_note_edit',
+                        params: {'id':'@id'},
+                        content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+            },
+            title: 'Transportation Note',
+            data: notes,
+            search: true,
+            pagination: 5,
+            initialSorting: false,
+        }
+    }, with_context = false )}}
+{% endblock %}
+

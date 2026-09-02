@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    {% if evendorsNews|length %}
+        {% include '_components/news.html.twig' with evendorsNews %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col">
+            <div id="purchase_orders_stats" data-action="{{ path('purchase-order:statistics') }}">
+                {% include 'purchase-order/purchase_order_statistics.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+    {% if supplierRankingCharts %}
+        <div class="row">
+            <div class="col">
+                <div class="display-card">
+                    <div class="card-body py-2 px-1">
+                        {% if supplierRankingCharts|length > 1 %}
+                            <select id="supplier_ranking_chart_select" name="supplier_ranking_chart_select" class="form-select">
+                                {% for supplierRankingChart in supplierRankingCharts %}
+                                    <option value="{{ supplierRankingChart.supplierRanking.id }}">{{ supplierRankingChart.supplierRanking.supplier.name }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+
+                        {% for supplierRankingChart in supplierRankingCharts %}
+                            <div id="supplier_ranking_chart_{{ supplierRankingChart.supplierRanking.id }}" {% if not loop.first %}style="display: none"{% endif%} data-options="{{ supplierRankingChart.chart|json_encode }}" class="highcharts"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% for representative in representatives %}
+        {% if loop.index0 is divisible by 2 %}
+            <div class="row">
+        {% endif %}
+        <div class="col">
+            {% embed '_components/association_table.html.twig' with {
+                associationData: {
+                    items: {
+                        regionName: {
+                            label: 'display.table.representative.headers.division'|trans,
+                            properties: ['businessUnit.region.name']
+                        },
+                        businessUnit: {
+                            label: 'display.table.representative.headers.business_unit'|trans,
+                            properties: ['businessUnit.name']
+                        },
+                        departement: {
+                            label: 'display.table.representative.headers.department'|trans,
+                            properties: ['department.name']
+                        },
+                        jobTitle: {
+                            label: 'display.table.representative.headers.title'|trans,
+                        },
+                        email: {
+                            label: 'display.table.representative.headers.email'|trans,
+                        },
+                        phones: {
+                            label: 'display.table.representative.headers.phones'|trans,
+                            template: '_components/datatable/phones.html.twig'
+                        },
+                        address: {
+                            label: 'address'|trans,
+                            properties: ['address.firstLine', 'address.secondLine', 'address.zipCode', 'address.city', 'address.state', 'address.country']
+                        },
+                    },
+                    data: representative
+                }
+            } %}
+                {% block card_header %}
+                    <div class="card-header border-bottom border-1 border-dark py-2 px-1">
+                        <div class="row">
+                            <div class="col">
+                                <img class="w-50 h-auto m-auto"
+                                     src="{{ representative.photo ? path('people-photo', {id: representative.id, fileId: representative.photo.id}) : asset('images/no_photo_catalogue.png') }}"
+                                     draggable="false"/>
+                            </div>
+                            <div class="col">
+                                <h3 class="fs-5 ps-2 text-dark my-1">{{ representative.firstname }} {{ representative.lastname }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        </div>
+        {% if loop.index0 is not divisible by 2 %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('javascript/purchase-orders/statistics.js') }}"></script>
+{% endblock %}

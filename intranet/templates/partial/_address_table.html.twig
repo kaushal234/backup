@@ -1,0 +1,36 @@
+{% trans_default_domain 'messages' %}
+{% set address = item is defined ? item.address : address %}
+{% if address is not null -%}
+    <td>
+        <table>
+            <tbody>
+            <tr>
+                <th>{{ 'address.fields.street1'|trans|capitalize }}</th>
+                <td>{{ address.street1 }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'address.fields.street2'|trans|capitalize }}</th>
+                <td>{{ address.street2 }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'address.fields.postal_code'|trans|capitalize }}</th>
+                <td>{{ address.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'address.fields.city'|trans|capitalize }}</th>
+                <td>{{ address.city }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'address.fields.state'|trans|capitalize }}</th>
+                <td>{{ address.state }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'address.fields.country'|trans|capitalize }}</th>
+                <td>{{ address.country|country }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+{%- else -%}
+    -
+{%- endif %}

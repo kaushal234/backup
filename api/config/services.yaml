@@ -1,0 +1,426 @@
+imports:
+    - { resource: services/ }
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    env(SURVEY_HOST): ''
+    env(GRPBAANAPP_IP): '10.0.200.2'
+    locale: en
+    erps: [250, 300, 400, 410, 420, 500, 510, 520, 540, 600, 610, 620, 640, 660, 680, 700]
+    .container.dumper.inline_class_loader: true
+    legacy.upload_dir: '%env(resolve:UPLOAD_DIR)%'
+    intranet.root_url: 'https://www.tld-gse.com/en/private'
+    extranet.root_url: 'https://extranet.tld-gse.com'
+    evendor.root_url: 'https://evendors.tld-gse.com'
+    notify_mail_sender: noreply@tld-gse.com
+    survey.host: '%env(resolve:SURVEY_HOST)%'
+    jwt_token_ttl: 86400
+    ews.host: '%env(key:host:url:MAILER_DSN)%'
+    ews.user: '%env(key:user:url:MAILER_DSN)%'
+    ews.pass: '%env(key:pass:url:MAILER_DSN)%'
+    strs_pdf.path: '%env(resolve:STRS_PDF_PATH)%'
+    print.server.host: '%env(resolve:key:host:url:PRINT_SERVER_HOST)%:%env(resolve:key:port:url:PRINT_SERVER_HOST)%'
+    ion.client_id: '%env(string:ION_CLIENT_ID)%'
+    ion.client_secret: '%env(string:ION_CLIENT_SECRET)%'
+    ion.url_access_token: '%env(string:ION_URL_ACCESS_TOKEN)%'
+    ion.username: '%env(string:ION_USERNAME)%'
+    ion.password: '%env(string:ION_PASSWORD)%'
+    mount.directory: '%env(resolve:MOUNT_DIRECTORY)%'
+    vault.parts.images.path: '%env(string:VAULT_PARTS_IMAGES_PATH)%'
+    ion.environment: '%env(string:ION_ENVIRONMENT)%'
+    ion.company: '%env(int:ION_COMPANY)%'
+    sage.mtype: '%env(string:SAGE_MTYPE)%'
+    sage.cid: '%env(string:SAGE_CID)%'
+    sage.secret: '%env(string:SAGE_SECRET)%'
+    sageparts_p21.consumer_key: '%env(string:SAGEPARTS_P21_CONSUMER_KEY)%'
+    # Only the compute warehouse is a single, app-wide value: database/schema/role
+    # depend on the data being queried and are configured per provider instead
+    # (see App\Snowflake\QueryBuilder::useConnection()).
+    snowflake.warehouse: '%env(string:SNOWFLAKE_WAREHOUSE)%'
+
+# This is a fix for a phpstan "bug"
+# see https://github.com/phpstan/phpstan/issues/6075#issuecomment-1002966187
+when@test:
+    parameters:
+        .container.dumper.inline_class_loader: false
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $decoder: '@serializer.encoder.json'
+            $csvEncoder: '@serializer.encoder.csv'
+            $wordpressConnection: '@doctrine.dbal.wordpress_connection'
+            $legacyConnection: '@doctrine.dbal.legacy_connection'
+            $pdfFormatter: '@app.pdf.formatter'
+            $pdfFileFormatter: '@app.pdf.file_formatter'
+            $itemNormalizer: "@api_platform.jsonld.normalizer.item"
+            $filterLocator: '@api_platform.filter_locator'
+            int $defaultItemsPerPage: '%api_platform.collection.pagination.items_per_page%'
+            $exchangeWebServiceClient: '@app.exchange_web_service.client'
+            $fileAdapterContextProviders: !tagged_locator { tag: 'app.filesystem_context_provider', default_index_method: 'getClass'}
+            $genericManager: '@app.transfer.manager.generic'
+            $customerRepresentativeManager: '@app.transfer.manager.customer_representative'
+            $serviceRepresentativeManager: '@app.transfer.manager.service_representative'
+            $partsRepresentativeManager: '@app.transfer.manager.parts_representative'
+            $salesRepresentativeManager: '@app.transfer.manager.sales_representative'
+            string $printServerHost: '%print.server.host%'
+            string $legacyUploadDir: '%legacy.upload_dir%'
+            string $projectDir: '%kernel.project_dir%'
+            string $mountDirectory: '%mount.directory%'
+            string $ionEnvironment: '%ion.environment%'
+            int $ionCompany: '%ion.company%'
+            $ionRequestLogger: '@monolog.logger.ion_request'
+            $deeplRequestLogger: '@monolog.logger.deepl_request'
+            $timekeepingRequestLogger: '@monolog.logger.timekeeping_request'
+            $javeloRequestLogger: '@monolog.logger.javelo_request'
+            $moduloRequestLogger: '@monolog.logger.modulo_request'
+            $agileRequestLogger: '@monolog.logger.agile_request'
+            $linkRequestLogger: '@monolog.logger.link_request'
+            $alviLogger: '@monolog.logger.alvi'
+            $mcpLogger: '@monolog.logger.mcp'
+            string $temporaryFolder: '%kernel.cache_dir%'
+            string $sageMType : '%sage.mtype%'
+            string $sageCID : '%sage.cid%'
+            string $sageSecret : '%sage.secret%'
+            string $sagePartsConsumerKey: '%sageparts_p21.consumer_key%'
+            string $snowflakeWarehouse: '%snowflake.warehouse%'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/EventListener/'
+            - '../src/ION/EventListener/'
+            - '../src/Mailer/'
+            - '../src/Notification/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+            - '../src/LegacyBundle/'
+            - '../src/Alice/'
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    ApiPlatform\Symfony\Action\DocumentationAction:
+        alias: 'api_platform.action.documentation'
+        public: true
+
+    LegacyBundle\Controller\:
+        resource: '../src/LegacyBundle/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    _instanceof:
+        App\DeletionVoter\DeletionVoterInterface:
+            tags: ['app.deletion_voter']
+        App\FileSystem\Persistence\ContextProviders\FileAdapterContextProviderInterface:
+            tags: ['app.filesystem_context_provider']
+        App\FileSystem\Zip\ContextProviders\ZipAdapterContextProviderInterface:
+            tags: ['app.filesystem_zip_context_provider']
+        App\Security\JWT\PayloadGenerator\PayloadGeneratorInterface:
+            tags: ['app.security.payload_generator']
+        App\Client\Parser\SoapCallRuleApplierInterface:
+            tags: ['app.soap_call_rule_applier']
+
+    App\Emailable\EmailMetadataFactory:
+        calls:
+            - registerAdapter: ['App\Emailable\Adapter\EmailableNewsAdapter']
+            - registerAdapter: ['App\Emailable\Adapter\EmailableToolAdapter']
+
+    App\Controller\Sales\CustomerTransferController:
+        arguments:
+            $transferManager: '@app.transfer.manager.customer'
+
+    App\Controller\Sales\SalesForecast\SalesForecastTransferController:
+        arguments:
+            $transferManager: '@app.transfer.manager.sfr'
+
+    App\Controller\Directory\PremiseTransferController:
+        arguments:
+            $transferManager: '@app.transfer.manager.premise'
+
+    App\Controller\Purchasing\ExpertiseLevelTransferController:
+        arguments:
+            $transferManager: '@app.transfer.manager.expertise_level'
+
+    App\Controller\Purchasing\ClassificationTransferController:
+        arguments:
+            $transferManager: '@app.transfer.manager.classification'
+
+    App\Controller\Purchasing\FileCategoryTransferController:
+        arguments:
+            $transferManager: '@app.transfer.manager.file_category'
+
+    App\Doctrine\ORM\Extension\SalesForecastExtension:
+        tags:
+            - {name: api_platform.doctrine.orm.query_extension.collection, priority: -63 }
+
+    App\Doctrine\ORM\Extension\MarketIntelligenceExtension:
+        tags:
+            - {name: api_platform.doctrine.orm.query_extension.collection, priority: -63 }
+            - {name: api_platform.doctrine.orm.query_extension.item, priority: -63 }
+
+    App\Formatter\Snappy\Formatter:
+        abstract: true
+
+    App\Formatter\Snappy\AdapterFactory\:
+        resource: '../src/Formatter/Snappy/AdapterFactory'
+        tags: ['app.formatter']
+
+    app.pdf.formatter:
+        class: App\Formatter\Snappy\Formatter
+        arguments:
+            $converter: '@knp_snappy.pdf'
+            $adapters: !tagged_iterator app.formatter
+
+    app.pdf.file_formatter:
+        class: App\Formatter\Snappy\FileFormatter
+        arguments:
+            $formatter: '@app.pdf.formatter'
+
+    app.adapter.file:
+        class: App\FileSystem\AdapterFactory
+        arguments:
+            $adapterContextProviders: !tagged_locator { tag: 'app.filesystem_context_provider', default_index_method: 'getClass' }
+
+    app.adapter.zip:
+        class: App\FileSystem\AdapterFactory
+        arguments:
+            $adapterContextProviders: !tagged_locator { tag: 'app.filesystem_zip_context_provider', default_index_method: 'getClass' }
+
+    App\FileSystem\Zip\ZipManagerFactory:
+        arguments:
+            $adapterFactory: '@app.adapter.zip'
+
+    App\FileSystem\Persistence\PersistableFileManagerFactory:
+        arguments:
+            $adapterFactory: '@app.adapter.file'
+
+    App\Factory\VaultFileFactory:
+        arguments:
+            $adapterFactory: '@app.adapter.file'
+
+    App\Identifier\Normalizer\StringDenormalizer:
+        tags:
+            - api_platform.identifier.denormalizer
+
+    App\Serializer\ContextBuilder\EntityContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+        decoration_priority: -1
+
+    App\Serializer\ContextBuilder\ExtranetUserContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\MaintenanceContractContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\CountryContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\ExtranetUserPasswordContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\SalesOrderContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\SalesForecastContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\DemoContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\FirstArticleQualificationContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\ProductContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\PeoplePartialUpdateContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\PeopleContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\ReportContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\CustomerContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\InvoiceRecordContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\EquipmentRecordContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\SparePartsRequestContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\UploadFileContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\Quality\NonConformityContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\FileContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\SupplierCorrectiveActionRequestContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\VendorWarrantyClaimContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\ION\Serializer\ContextBuilder\MainLogicalExpressionContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\DerogationContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\CrabContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\MIS\TroubleTicketContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\MIS\ProjectContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\VendorUserContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\Sales\MarketIntelligence\MarketIntelligenceContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\Purchasing\SupplierRanking\SupplierRankingContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Serializer\ContextBuilder\Service\CustomerServiceRecordContextBuilder:
+        decorates: 'api_platform.serializer.context_builder'
+
+    App\Report\Handler\:
+        resource : '../src/Report/Handler/'
+        tags: ['app.report.handler']
+
+    App\Report\ReportGenerator:
+        calls:
+            - setHandlers:  [!tagged_iterator app.report.handler]
+
+    App\Doctrine\EventListener\PublishedSurveyTokenListener:
+      tags: [{ name: doctrine.orm.entity_listener, lazy: true }]
+
+    app.exchange_web_service.client:
+        class: jamesiarmes\PhpEws\Client
+        arguments:
+            $server: '%ews.host%'
+            $username: '%ews.user%'
+            $password: '%ews.pass%'
+            $version: !php/const jamesiarmes\PhpEws\Client::VERSION_2013_SP1
+
+    Intervention\Image\Drivers\Gd\Driver:
+        class: Intervention\Image\Drivers\Gd\Driver
+
+    Intervention\Image\ImageManager:
+        arguments:
+            $driver: '@Intervention\Image\Drivers\Gd\Driver'
+
+    ion.oauth.provider:
+        class: 'League\OAuth2\Client\Provider\GenericProvider'
+        bind:
+            $options: { clientId: '%ion.client_id%', clientSecret: '%ion.client_secret%', urlAuthorize: ~, urlAccessToken: '%ion.url_access_token%', urlResourceOwnerDetails: ~ }
+            $collaborators: { optionProvider: '@League\OAuth2\Client\OptionProvider\HttpBasicAuthOptionProvider' }
+
+    App\ION\Token\IONTokenProvider:
+        bind:
+            League\OAuth2\Client\Provider\GenericProvider: '@ion.oauth.provider'
+            string $ionUsername: '%ion.username%'
+            string $ionPassword: '%ion.password%'
+
+    League\OAuth2\Client\OptionProvider\HttpBasicAuthOptionProvider:
+
+    App\Manager\UserManager:
+        public: true
+
+    App\OpenApi\OpenApiFactory:
+        decorates: 'api_platform.openapi.factory'
+        arguments: [ '@App\OpenApi\OpenApiFactory.inner' ]
+        autoconfigure: false
+
+    App\Client\SoapClientFactoryInterface: '@App\Client\SoapClientFactory'
+
+    App\Security\JWT\JWTEncoder:
+        decorates: lexik_jwt_authentication.encoder.lcobucci
+        arguments:
+            $decoratedEncoder: '@App\Security\JWT\JWTEncoder.inner'
+
+    App\Security\JWT\PayloadGenerator\ChainPayloadGenerator:
+        arguments: [!tagged_iterator app.security.payload_generator]
+
+    App\Client\Parser\ChainSoapCallRuleApplier:
+        arguments:
+            $rulesApplier: !tagged_iterator app.soap_call_rule_applier
+
+    App\Security\JWT\PayloadGenerator\PayloadGeneratorInterface:
+        alias: App\Security\JWT\PayloadGenerator\ChainPayloadGenerator
+
+    App\Workflow\Handler\ChainWorkflowHandler:
+        arguments:
+            $workflowHandlers: !tagged_iterator app.workflow.handler
+
+    App\Agile\Factory\UserFactory:
+        public: true
+
+    App\Agile\UserComparator:
+        public: true
+
+    App\Agile\UserSyncContext:
+        public: true
+
+    app.inflector:
+        class: App\ApiPlatform\Inflector\EnglishInflector
+        arguments:
+            - '@api_platform.metadata.inflector'
+
+    App\Entity\ModuleName:
+
+    App\Link\QueryBuilder\GraphQLMutationBuilder:
+        arguments:
+            $transformers: !tagged_iterator  link.field_transformer
+
+    App\Link\DataTransformer\:
+        resource: '../src/Link/DataTransformer/'
+        tags: [ 'link.field_transformer' ]
+
+    App\FileSystem\Image\VaultPartImageFileProvider:
+        arguments:
+            $vaultPartsImagesPath: '%vault.parts.images.path%'
+
+    App\Mercure\TokenGenerator:
+        arguments:
+            $mercureJwtSecret: '%env(MERCURE_JWT_SECRET)%'
+
+    Smalot\PdfParser\Parser: ~
+
+    App\Security\McpAuthenticator:
+        arguments:
+            $allowedTenantId: '%env(resolve:ALVEST_AZURE_TENANT_ID)%'
+            $allowedCallerAppIds: '%env(csv:MCP_ALLOWED_CALLER_APP_IDS)%'
+            $allowedAudiences: '%env(csv:MCP_ALLOWED_CALLER_APP_IDS)%'
+
+    App\Http\Gitlab\GitlabGraphQlClient:
+        arguments:
+            $gitlabGraphQlClient: '@gitlab.graphql.client'
+            $projectPath: '%env(string:GITLAB_PROJECT_PATH)%'

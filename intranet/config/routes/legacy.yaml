@@ -1,0 +1,26 @@
+# Legacy routes (for redirect)
+legacy_identity:
+    path: /corporate/corporate_image/index.php
+    defaults:
+        _controller: 'FrameworkBundle:Redirect:redirect'
+        route: corporate_pages_identity
+        permanent: true
+
+# Legacy routes (for url generation)
+legacy_account_index:
+    path: /account/account.php
+
+legacy_manufacturing_whse:
+    path: /manufacturing/whse/dev.php
+
+legacy_downloads:
+    path: /downloads/downloads.php
+
+legacy_mis_admin:
+    path: /admin/index.html
+
+legacy_manufacturing_eng:
+    path: /manufacturing/eng/dev.php
+
+legacy_product_support:
+    path: /product_support/index.ps.php

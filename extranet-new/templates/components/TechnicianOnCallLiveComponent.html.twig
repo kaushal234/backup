@@ -1,0 +1,60 @@
+<twig:LiveForm
+    externalErrorMessage="{{ externalErrorMessage ?? null }}"
+    attributes="{{ attributes }}"
+>
+    {{ form_start(form, {
+        'attr': {
+            'data-model': 'norender|*',
+            'data-action': 'submit->live#action',
+            'data-live-action-param': 'save',
+        }
+    }) }}
+
+    {{ form_errors(form) }}
+
+    <div class="info-grid">
+
+        {# Equipment & request #}
+        <div class="info-card span-2">
+            <div class="info-head"><span class="ph-bar"></span><h3>{{ 'extranet.fields.equipment'|trans }}</h3></div>
+            <div class="info-body">
+                <div class="field-grid">
+                    <div class="field-block full" data-live-id="equipment-{{ initialFormData.equipment?.iri ?? 'empty' }}">
+                        {{ form_row(form.equipment, {
+                            'attr': {
+                                'data-action': 'autocomplete:change->live#update',
+                                'data-model': 'equipmentId',
+                            }
+                        }) }}
+                    </div>
+                    <div class="field-block">{{ form_row(form.errorCodes) }}</div>
+                    <div class="field-block">{{ form_row(form.hourMeter) }}</div>
+                    <div class="field-block" data-live-replace id="{{ random() }}">
+                        {{ form_row(form.airport) }}
+                    </div>
+                    <div class="field-block">{{ form_row(form.serviceActivity) }}</div>
+                    <div class="field-block">{{ form_row(form.unitOperationalStatus) }}</div>
+                </div>
+            </div>
+        </div>
+
+        {# Description #}
+        <div class="info-card span-2">
+            <div class="info-head"><span class="ph-bar"></span><h3>{{ 'toc.fields.description'|trans({}, 'technician_on_call') }}</h3></div>
+            <div class="info-body">
+                <div class="field-grid">
+                    <div class="field-block full">{{ form_row(form.originalTitle) }}</div>
+                    <div class="field-block full">{{ form_row(form.originalDescription) }}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="acct-savebar">
+        <a class="btn-outline-tld" href="{{ path('technician_on_call:index') }}">{{ 'menu.cancel'|trans|capitalize }}</a>
+        <button type="submit" class="btn-find">{{ 'extranet.form.create'|trans }}</button>
+    </div>
+
+    {{ form_end(form) }}
+</twig:LiveForm>

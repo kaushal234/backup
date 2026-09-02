@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/people/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "jobTitle": {
+      "type": ["string", "null"]
+    },
+    "businessUnit": {
+      "type": ["object", "string", "null"]
+    },
+    "position": {
+      "type": ["object", "string", "null"]
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "firstname",
+    "lastname",
+    "email",
+    "legacyId",
+    "jobTitle",
+    "businessUnit",
+    "position"
+  ],
+  "additionalProperties": false
+}

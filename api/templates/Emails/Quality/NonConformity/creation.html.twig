@@ -1,0 +1,13 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>{{ 'ncr.creation.message' | trans({'%id%': id}) }}</p>
+            <a target="_blank" href="{{ url('non_conformity', {id: nonConformity.id}) }}">NCR#{{ nonConformity.id }}</a>
+            <hr>
+            <p>{{ nonConformity.problem }}</p>
+        </columns>
+    </row>
+{% endblock %}

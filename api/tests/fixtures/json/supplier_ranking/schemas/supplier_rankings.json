@@ -1,0 +1,193 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "@context": {
+            "type": "string"
+        },
+        "@id": {
+            "pattern": "^/purchasing/supplier_ranking/supplier_rankings$"
+        },
+        "@type": {
+            "type": "string"
+        },
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "@context": {
+                        "type": "string"
+                    },
+                    "@id": {
+                        "pattern": "^/purchasing/supplier_ranking/supplier_rankings/\\d+$"
+                    },
+                    "@type": {
+                        "type": "string"
+                    },
+                    "supplier": {
+                        "type": ["object", "null"]
+                    },
+                    "classification": {
+                        "type": ["object", "null"],
+                        "properties": {
+                            "@id": {
+                                "pattern": "^/purchasing/supplier_ranking/classifications/\\d+$"
+                            },
+                            "@type": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "@id",
+                            "@type",
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "expertiseLevel": {
+                        "type": ["object", "null"],
+                        "properties": {
+                            "@id": {
+                                "pattern": "^/purchasing/supplier_ranking/expertise_levels/\\d+$"
+                            },
+                            "@type": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "@id",
+                            "@type",
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "lastReviewAt": {
+                        "type": ["string", "null"]
+                    },
+                    "lastReviewBy": {
+                        "type": ["object", "null"]
+                    },
+                    "lastScreeningAt": {
+                        "type": ["string", "null"]
+                    },
+                    "lastScreeningBy": {
+                        "type": ["object", "null"]
+                    },
+                    "revenue": {
+                        "type": ["number", "null"]
+                    },
+                    "notations": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "@type": {
+                                    "type": "string"
+                                },
+                                "criteria": {
+                                    "type": "object",
+                                    "properties": {
+                                        "@type": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "@id",
+                                        "@type",
+                                        "name"
+                                    ]
+                                },
+                                "notation": {
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "@id",
+                                "@type",
+                                "criteria",
+                                "notation"
+                            ]
+                        }
+                    },
+                    "supplierApproved": {
+                        "type": "boolean"
+                    },
+                    "files": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "@type": {
+                                    "type": "string"
+                                },
+                                "category": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "@id",
+                                        "@type",
+                                        "name"
+                                    ]
+                                },
+                                "expired": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "@id",
+                                "@type",
+                                "expired"
+                            ]
+                        }
+                    },
+                    "nextReviewAt": {
+                        "type": ["string", "null"]
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "disabledAt": {
+                        "type": ["string", "null"]
+                    }
+                },
+                "required": [
+                    "@id",
+                    "@type",
+                    "id",
+                    "notations",
+                    "supplierApproved",
+                    "disabledAt",
+                    "supplier"
+                ],
+                "additionalProperties": false
+            },
+            "minItems": 1
+        }
+    },
+    "required": [
+        "@context",
+        "@id",
+        "@type",
+        "hydra:member"
+    ]
+}

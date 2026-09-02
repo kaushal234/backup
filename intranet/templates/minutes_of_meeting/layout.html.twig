@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'meeting' %}
+
+{% block title %}MOM{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="meeting.nav_link.home" domain="meeting"
+                      icon="material-symbols:home-outline-rounded" route="meeting_home"/>
+        {% if meeting is defined and meeting['@id'] is defined %}
+            <twig:NavItem translationKey="meeting.nav_link.download_pdf" domain="meeting"
+                          icon="material-symbols:download-rounded" route="meeting_download_summary_pdf_file"
+                          :routeParameters="{meetingId: iri_id(meeting['@id'])}"/>
+            {% if meeting.status == 'OPEN' and is_granted('MEETING_WRITE_VOTER', meeting['@id']) %}
+                <twig:NavItem translationKey="meeting.nav_link.send_to_released_status" domain="meeting"
+                              icon="solar:play-outline" route="meeting_status"
+                              :routeParameters="{id: iri_id(meeting['@id']), status: 'RELEASED'}"/>
+            {% endif %}
+            <twig:Dropdown translationKey="meeting.nav_link.mom_actions" domain="meeting">
+                <twig:NavItem:Edit route="meeting_edit" :routeParameters="{id: iri_id(meeting['@id']) }"
+                                   :security="is_granted('MEETING_WRITE_VOTER', meeting['@id'])"/>
+                <twig:NavItem:Duplicate route="meeting_duplicate" :routeParameters="{id: iri_id(meeting['@id'])}"
+                                        :security="is_granted('MEETING_WRITE_VOTER', meeting['@id'])"/>
+                <twig:NavItem:Delete route="meeting_delete"
+                                     :routeParameters="{id: iri_id(meeting['@id']), '_token': csrf_token('delete_mom')}"
+                                     :security="is_granted('MEETING_WRITE_VOTER', meeting['@id'])"/>
+                {% if meeting.status == 'RELEASED' and is_granted('MEETING_WRITE_VOTER', meeting['@id']) %}
+                    <twig:NavItem translationKey="meeting.nav_link.close" domain="meeting"
+                                  icon="material-symbols:close-rounded" route="meeting_status"
+                                  :routeParameters="{id: iri_id(meeting['@id']), status: 'CLOSED'}"/>
+                {% endif %}
+                <twig:NavItem:AddLink route="legacy_common"
+                                      :routeParameters="{m: ['links', 'form', 'newLink'], module: 'MOM', parent_id: iri_id(meeting['@id'])}"/>
+                {% if meeting.status != 'CLOSED' and is_granted('MEETING_WRITE_VOTER', meeting['@id']) and meeting.quick == 0 %}
+                    <twig:NavItem:NewTask route="meeting_new_task"
+                                          :routeParameters="{id: iri_id(meeting['@id'])}"/>
+                {% endif %}
+            </twig:Dropdown>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+        <twig:NavBar:Container>
+        <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Search route="meeting_search"/>
+            <twig:NavItem:Add route="meeting_add"/>
+    {% if meeting is defined and meeting['@id'] is defined %}
+            <twig:NavItem:Edit route="meeting_edit" :routeParameters="{id: iri_id(meeting['@id']) }"
+                               :security="is_granted('MEETING_WRITE_VOTER', meeting['@id'])"/>
+            <twig:NavItem translationKey="meeting.nav_link.my_mom" domain="meeting"
+                          icon="material-symbols:folder-open-outline-rounded" route="meeting_search_my_mom"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{m: ['links', 'form', 'newLink'], module: 'MOM', parent_id: iri_id(meeting['@id'])}"/>
+    {% endif %}
+        </twig:NavBar:Container>
+{% endblock %}

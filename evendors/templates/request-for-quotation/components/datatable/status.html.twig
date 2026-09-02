@@ -1,0 +1,11 @@
+<td>
+    {% if item.status.value is same as 'New' %}
+        <span class="badge bg-secondary">{{ 'display.table.rfq.rows.status.new'|trans }}</span>
+    {% elseif item.status.value is same as 'Returned' %}
+        <span class="badge bg-info">{{ 'display.table.rfq.rows.status.returned'|trans }}</span>
+    {% elseif item.status.value is same as 'Printed' %}
+        <span class="badge bg-success">{{ 'display.table.rfq.rows.status.printed'|trans }}</span>
+    {% elseif item.status.value is same as 'Changed' %}
+        <span class="badge bg-warning">{{ 'display.table.rfq.rows.status.changed'|trans }}</span>
+    {% endif %}
+</td>

@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/ion/item_by_vendors/.+$"},
+    "@type": {"type": "string"},
+    "@context": {"type": "string"},
+    "item": {"type": "string"},
+    "references": {
+      "type": "array",
+      "properties": {
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "businessPartner": {
+          "type": "string"
+        },
+        "businessPartnerName": {
+          "type": "string"
+        },
+        "partNumber": {
+          "type": "string"
+        },
+        "itemDescription": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "businessPartner",
+        "businessPartnerName",
+        "partNumber",
+        "itemDescription"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "@context",
+    "item",
+    "references"
+  ],
+  "additionalProperties": false
+}

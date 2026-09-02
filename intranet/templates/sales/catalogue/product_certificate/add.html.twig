@@ -1,0 +1,12 @@
+{% extends 'sales/catalogue/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') | capitalize }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/catalogue/product_certificate/partial/_form.html.twig', {
+        title: 'catalogue.certificates.add.title'|trans,
+        form: form,
+        action: path('sales_product_certificates_add'),
+    }, with_context=false) }}
+{% endblock %}

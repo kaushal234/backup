@@ -1,0 +1,249 @@
+{% extends 'layout.html.twig' %}
+{% form_theme form 'form_theme_horizontal.html.twig' %}
+
+{% trans_default_domain 'quality_smw' %}
+
+{% block title %} {{ 'quality_smw.title.index' |trans }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="text-capitalize">{{ 'quality_smw.title.index'|trans }}</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_start(form, { action: path('smw_meeting', {module: 'quality'}) }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(form) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'button.submit'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="ibox float-e-margins col-md-8">
+            <div class="ibox-title">
+                <h5>{{ 'quality_smw.title.links'| trans }}</h5>
+                <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-page-size=20>
+                        <thead>
+                        <tr>
+                            <th>{{ 'quality_smw.fields.title'| trans }}</th>
+                            <th>{{ 'quality_smw.fields.description'| trans }}</th>
+                            <th>{{ 'quality_smw.fields.link'| trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'manufacturing_smw.fields.coo_qam_introduction'| trans({}, 'manufacturing_smw') }}</td>
+                                <td>{{ 'manufacturing_smw.fields.coo_qam_introduction_desc'| trans({}, 'manufacturing_smw') }}</td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'manufacturing_smw.fields.wc_1st_link'| trans({}, 'manufacturing_smw') }}</td>
+                                <td>{{ 'quality_smw.fields.manufacturing_qa'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_index', {m: ['kpi2'], bu: location.legacyId, graph: 'quality' }) }}#wc-average">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'manufacturing_smw.fields.wc_2nd_link'| trans({}, 'manufacturing_smw') }}</td>
+                                <td>{{ 'quality_smw.fields.manufacturing_bu'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_index', {m: ['kpi', 'buid', 'quality', ''], buid: location.legacyId }) }}#warranty-count">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.wc_3rd_link'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.warranty_link'| trans }}</td>
+                                <td><a href="{{ path('legacy_product_support', {m: ['wc', 'listing', 'advsearch'] }) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'engineering_smw.fields.wc_top'| trans({}, 'engineering_smw') }}</td>
+                                <td>{{ 'engineering_smw.fields.support_module'| trans({}, 'engineering_smw') }}</td>
+                                <td><a href="{{ path('legacy_product_support', {m: ['wc', 'reports', 'WCPNPareto']}) }}">
+                                        <span class="btn btn-warning btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.new_csr'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.commissioning_scores'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_index', {m: ['kpi2'], bu: location.legacyId, graph: 'Quality' }) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.csr'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.manufacturing_qa'| trans }}</td>
+                                <td>
+                                    {% set lastDay = 'now'|date_modify('-1 month')|date_modify('last day of this month') %}
+
+                                    <a href="{{ path('customer_service_record_report', {
+                                        'commissioning_customer_service_record_filter': {
+                                            'manufacturerLocation': location['@id'],
+                                            'completedAfter': 'now'|date_modify('-1 month')|date('m/01/Y'),
+                                            'completedBefore': lastDay|date('m/d/Y')
+                                        }
+                                    }) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.ncr_count_status'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.manufacturing_ncr'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_qa', {m: ['ncr']}) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                            <td>{{ 'quality_smw.fields.ncr_ltm_trend'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.manufacturing_ncr_open_close'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_index', {m: ['kpi', 'buid', 'quality'], buid: location.legacyId}) }}#ncr-open-close">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.ncr_top_suppliers'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.ncr_report'| trans }}</td>
+                                <td><a href="{{ path('non_conformity_report', {factory: location['@id']}) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.top_ncr_pn'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.top_ncr_pn_description'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('non_conformity_report_part') }}?location[]={{ location['@id']|url_encode }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.inventory.quarantine.title_quality'| trans([], 'quality_smw') }}</td>
+                                <td></td>
+                                <td>
+                                    <a href="{{ path('smw_power_bi_report', { id: '6.5', location: location.erp }) }}">
+                                        <span class="btn btn-green btn-sm">
+                                            <i class="far fa-eye fa-fw"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.supplier_ranking'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.manufacturing_supplier'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_pur', {m: ['vendors', 'comp-report'], erp: location.erp}) }}">
+                                        <span class="btn btn-warning btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.scar'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.manufacturing_scar'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('supplier_corrective_action_request_home', {
+                                        filter_supplier_corrective_action_request: {
+                                            factory: { value: location['@id'] },
+                                            status: { value:
+                                                [
+                                                    'PENDING',
+                                                    'VENDOR TO FILL FORM',
+                                                    'TLD TO REVIEW FORM',
+                                                    'VALIDATION',
+                                                    'COMMERCIAL AGREEMENT',
+                                                    'CANCEL'
+                                                ]
+                                            }
+                                        }
+                                    }) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.faq'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.faq_module'| trans }}</td>
+                                <td><a href="{{ path('first_article_qualifications_home') }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <td>{{ 'quality_smw.fields.crab_link'| trans([], 'quality_smw') }}</td>
+                            <td>{{ 'quality_smw.fields.manufacturing_crab_report'| trans([], 'quality_smw') }}</td>
+                            <td>
+                                <a href="{{ path('crab_report', {
+                                    'factory': location['@id'],
+                                    'createdAfter': ("now - 1 year")|date('m/d/Y'),
+                                    'createdBefore': "now"|date('m/d/Y'),
+                                }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="fa fa-eye fa-fw"></i></span>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.cpa_qc'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.cpa_qc_desc'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_qa', {m: ['cpa'] }) }}">
+                                        <span class="btn btn-green btn-sm"><i class="fa fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.cleanliness'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.cleanliness_link'| trans }}</td>
+                                <td>
+                                    <a href="{{ path('location_cleanliness_home', {
+                                        location: location['@id'],
+                                        'date-after': 'now'|date_modify('-13 months')|date('m/d/Y'),
+                                        'date-before': 'now'|date_modify('-1 month')|date('m/d/Y')
+                                    }) }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.esg_iso'| trans }}</td>
+                                <td></td>
+                                <td><span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span></td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'quality_smw.fields.dms'| trans }}</td>
+                                <td>{{ 'quality_smw.fields.dms_link'| trans }}</td>
+                                <td><a href="{{ path('legacy_manufacturing_qa', {m: ['reports', 'matrix', 'dmsKPI']})  }}">
+                                        <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

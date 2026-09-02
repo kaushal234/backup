@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "Contact.jsonld",
+  "type": "object",
+  "properties": {
+    "@id": {
+      "type": "string",
+      "pattern": "^/sales/extranet_users/\\d+$"
+    },
+    "id": {"type":  "integer"},
+    "@type": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "disabled": {"type":  "boolean"},
+    "phones": {
+      "type": "array",
+      "items": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "@id": {"pattern": "^/phones/\\d+$"},
+          "@type": {"type": "string"},
+          "type": {"type": "string"},
+          "number": {"type": "string"}
+        },
+        "required": ["@id", "@type", "type", "number"],
+        "additionalProperties": false
+      }
+    },
+    "extranetUserProfile": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/extranet_user_profiles/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "username",
+    "email",
+    "legacyId",
+    "firstname",
+    "lastname",
+    "disabled",
+    "phones",
+    "extranetUserProfile"
+  ],
+  "additionalProperties": false
+}

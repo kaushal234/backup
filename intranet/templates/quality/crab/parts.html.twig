@@ -1,0 +1,25 @@
+{% extends 'quality/crab/layout.html.twig' %}
+{% trans_default_domain 'crab' %}
+
+{% block title %}{{ parent() }}#{{ crab.id }}{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.CRAB_APP_PROPS = {{ props|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'spare_parts_request' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'directory' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'demo' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'market_intelligence' }) }}"></script>
+{% endblock %}
+

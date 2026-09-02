@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/quality/non_conformities"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/quality/non_conformities/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "status": {"type": "string"},
+          "createdAt": {"type": "string"},
+          "failureType": {"type": ["string", "null"]},
+          "reportedBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+          "location": {"$ref": "../../directory_location/schemas/directory_location_public.json"},
+          "shortDescription": {"type": "string"},
+          "problem": {"type": "string"},
+          "solution": {"type": ["string", "null"]},
+          "rush": {"type": "boolean"},
+          "responsibles": {
+            "type": "array",
+            "items": {
+              "$ref": "../../responsible/schemas/responsible.json"
+            }
+          },
+          "processes": {
+            "type": "array",
+            "items": {
+              "$ref": "../../process/schemas/process.json"
+              }
+            }
+          },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "status",
+          "createdAt",
+          "reportedBy",
+          "location",
+          "shortDescription",
+          "problem",
+          "processes",
+          "solution",
+          "failureType",
+          "responsibles"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

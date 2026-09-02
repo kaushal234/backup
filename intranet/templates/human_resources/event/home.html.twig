@@ -1,0 +1,78 @@
+{% extends 'human_resources/event/layout.html.twig' %}
+{% trans_default_domain 'events' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12 col-md-12 mb-2">
+            <div class="alert alert-warning mb-0" role="alert">
+                {{ 'events.warning_message' | trans }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ 'events.upcoming' | trans }}</h3>
+                </div>
+                <div class="card-body">
+                    {% for event in comingThisMonth %}
+                        <div class="row ps-2 pe-2">
+                            <div class="col-md-3 bg-success text-center rounded text-white">
+                                {% if event.startedAt == event.endedAt %}
+                                    <h1 class="m-2">{{ event.startedAt | date('D') }}</h1>
+                                    <h1 class="display-3 m-1">{{ event.startedAt | date('j') }}</h1>
+                                    <h1 class="m-2">{{ event.startedAt | date('F') }}</h1>
+                                {% else %}
+                                    <h1>{{ event.startedAt | date('D') }} {{ event.startedAt | date('j') }}</h1>
+                                    <h1 class="display-3 m-1">-</h1>
+                                    <h1>{{ event.endedAt | date('D') }} {{ event.endedAt | date('j') }}</h1>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-9">
+                                <h3>{{ event.name }} {{ country_to_flag(event.country.isoCode2) }}</h3>
+                                {% for location in event.concernedLocations %}
+                                    <a class="badge badge-primary">{{ location }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ 'events.upcoming_next' | trans }}</h3>
+                </div>
+                <div class="card-body">
+                    {% for event in comingNextMonth %}
+                        <div class="row ps-2 pe-2">
+                            <div class="col-md-3 bg-warning text-center rounded text-white">
+                                {% if event.startedAt == event.endedAt %}
+                                    <h1 class="m-2">{{ event.startedAt | date('D') }}</h1>
+                                    <h1 class="display-3 m-1">{{ event.startedAt | date('j') }}</h1>
+                                    <h1 class="m-2">{{ event.startedAt | date('F') }}</h1>
+                                {% else %}
+                                    <p>{{ event.startedAt | format_date('medium') }} / {{ event.endedAt | format_date('medium') }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-9">
+                                <h3>{{ event.name }} {{ country_to_flag(event.country.isoCode2) }}</h3>
+                                {% for location in event.concernedLocations %}
+                                    <a class="badge badge-primary">{{ location }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    {{ data_table(dataTable) }}
+{% endblock %}

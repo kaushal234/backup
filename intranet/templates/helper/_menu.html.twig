@@ -1,0 +1,72 @@
+{% set moduleDomain = app.request.attributes.get('_route_params')['moduleDomain'] | default(null) %}
+{% set domain = app.request.attributes.get('_route_params')['domain'] | default(null) %}
+{% for key, button in buttons | default([]) %}
+    {% set params = button.params | default([]) %}
+    {% set displayButton = button.security is not defined or (button.security is defined and button.security == true) %}
+    {% if displayButton %}
+        {% set count = button.count|default(null) %}
+        {% set class = null %}
+        {% set icon = button.icon|default(null) %}
+        {% set label = null %}
+        {% set labelParams = button.labelParams|default({}) %}
+        {% set buttonDomain = key in ['add', 'edit', 'delete'] ? 'messages' : button.domain | default(moduleDomain | default(domain)) %}
+        {% if key == 'add' %}
+            {% set class = 'info' %}
+            {% set icon = 'fa fa-plus' %}
+            {% set label = 'menu.add' %}
+        {% elseif key == 'edit' %}
+            {% set class = 'warning' %}
+            {% set icon = 'fa fa-pencil-alt' %}
+            {% set label = 'menu.edit' %}
+        {% elseif key == 'delete' %}
+            {% set class = 'danger' %}
+            {% set icon = 'fa fa-trash' %}
+            {% set label = 'menu.delete' %}
+        {% endif %}
+        {% if button.dropdown is defined and button.dropdown is same as (true) %}
+            <div class="dropdown d-inline-block">
+                <button class="btn btn-{{ class is not null ? class : button.class | default('primary') }} text-capitalize dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {% if button.icon is defined and button.icon is not null %}
+                        <i class="fa fa-{{ button.icon }}"></i>&nbsp;
+                    {% endif %}
+                    {{ button.label | trans(labelParams, buttonDomain) }}
+                </button>
+                <ul class="dropdown-menu">
+                    {% for item in button.items %}
+                        {% set itemDomain = item.domain | default(moduleDomain | default(domain)) %}
+                        {% set labelItemParams = item.labelParams|default({}) %}
+                        <li>
+                            <a href="{{ path(item.route, params) }}" class="dropdown-item m-0">
+                                {% if item.icon is defined and item.icon is not null %}
+                                    <i class="fa fa-{{ item.icon }}"></i>&nbsp;
+                                {% endif %}
+                                {{ (label is not null ? label : item.label) | trans(labelItemParams, itemDomain) }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <a
+                    href="{{ path(button.route, params) }}"
+                    class="btn btn-{{ class is not null ? class : button.class | default('primary') }} text-capitalize"
+                    {% if button.onClick is defined %}onClick="return confirm('{{ button.onClick.message }}');"{% endif %}
+                    {% if button.id is defined %}id="{{ button.id }}"{% endif %}
+                    {% if button.targetBlank is defined %}target="_blank"{% endif %}
+            >
+                {% if icon is not null %}
+                    <i class="fa fa-{{ icon }}"></i>&nbsp;
+                {% endif %}
+                {{ (label is not null ? label : button.label) | trans(labelParams, buttonDomain) }}
+                {% if count is not null %}
+                    <span style="color: rgb(25, 55, 157);" class="badge bg-white ms-1">{{ button.count }}</span>
+                {% endif %}
+            </a>
+        {% endif %}
+
+    {% endif %}
+    {% if button.lineBreak is defined and button.lineBreak == true %}
+        <br>
+    {% endif %}
+{% endfor %}
+

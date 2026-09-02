@@ -1,0 +1,202 @@
+{
+    "name": "tld/api",
+    "type": "project",
+    "description": "TLD API",
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../packages/twig_helper",
+            "options": {
+                "symlink": false
+            }
+        },
+        {
+            "type": "path",
+            "url": "../packages/translator",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "../packages/feature-doc",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "require": {
+        "php": ">=8.4.0",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-soap": "*",
+        "ext-zip": "*",
+        "alvest/feature-doc": "^1.0",
+        "alvest/translator": "^1.2",
+        "alvest/twig-helper": "^1.1",
+        "api-platform/core": "4.3.*",
+        "beberlei/doctrineextensions": "^1.5",
+        "cakephp/chronos": "^3.5.0",
+        "carbonphp/carbon-doctrine-types": "^3.2.0",
+        "chillerlan/php-qrcode": "^4.4.2",
+        "doctrine/common": "^3.5",
+        "doctrine/dbal": "4.0.*",
+        "doctrine/doctrine-bundle": "^2.19.0",
+        "doctrine/doctrine-migrations-bundle": "^3.7.0",
+        "doctrine/orm": "^3.6.7",
+        "egulias/email-validator": "^4.0.4",
+        "endroid/qr-code-bundle": "^6.1.0",
+        "gedmo/doctrine-extensions": "^3.22.0",
+        "intervention/image": "^4.1.5",
+        "javiereguiluz/easyslugger": "^1.0",
+        "knplabs/knp-snappy-bundle": "^1.10.6",
+        "lcobucci/jwt": "^5.6",
+        "league/oauth2-client": "^2.9.0",
+        "lexik/jwt-authentication-bundle": "^3.2.0",
+        "nelmio/cors-bundle": "^2.6.1",
+        "odolbeau/phone-number-bundle": "^4.2.5",
+        "php-ews/php-ews": "^1.0",
+        "phpdocumentor/reflection-docblock": "^4.0|^5.6.7",
+        "phpoffice/phpspreadsheet": "^1.30.6",
+        "phpoffice/phpword": "^1.4",
+        "setasign/fpdf": "^1.9",
+        "setasign/fpdi": "^2.6.8",
+        "smalot/pdfparser": "^2.12.5",
+        "spatie/holidays": "^1.24",
+        "stof/doctrine-extensions-bundle": "^1.15.3",
+        "symfony/ai-agent": "^0.11.0",
+        "symfony/ai-bundle": "^0.11.1",
+        "symfony/ai-chat": "^0.11.0",
+        "symfony/ai-mistral-platform": "^0.11.1",
+        "symfony/ai-ollama-platform": "^0.11.0",
+        "symfony/ai-qdrant-store": "^0.11.0",
+        "symfony/ai-store": "^0.11.0",
+        "symfony/asset": "^7.4.8",
+        "symfony/cache-contracts": "^3.7.1",
+        "symfony/console": "^7.4.16",
+        "symfony/dependency-injection": "^7.4.16",
+        "symfony/doctrine-messenger": "^7.4.15",
+        "symfony/dom-crawler": "^7.4.12",
+        "symfony/dotenv": "^7.4.15",
+        "symfony/event-dispatcher-contracts": "^3.7.1",
+        "symfony/expression-language": "^7.4.14",
+        "symfony/flex": "^2.11.0",
+        "symfony/form": "^7.4.16",
+        "symfony/framework-bundle": "^7.4.16",
+        "symfony/http-client": "^7.4.16",
+        "symfony/lock": "^7.4.16",
+        "symfony/mailer": "^7.4.15",
+        "symfony/mcp-bundle": "^0.11.0",
+        "symfony/mercure": "^0.7.2",
+        "symfony/mercure-bundle": "^0.4.3",
+        "symfony/messenger": "^7.4.15",
+        "symfony/monolog-bundle": "^3.11.2",
+        "symfony/object-mapper": "^7.4.16",
+        "symfony/property-access": "^7.4.16",
+        "symfony/property-info": "^7.4.16",
+        "symfony/runtime": "^7.4.14",
+        "symfony/security-bundle": "^7.4.15",
+        "symfony/serializer": "^7.4.16",
+        "symfony/service-contracts": "^3.7.1",
+        "symfony/stopwatch": "^7.4.8",
+        "symfony/string": "^7.4.15",
+        "symfony/translation": "^7.4.16",
+        "symfony/translation-contracts": "^3.7.1",
+        "symfony/twig-bundle": "^7.4.15",
+        "symfony/uid": "^7.4.9",
+        "symfony/validator": "^7.4.16",
+        "symfony/web-profiler-bundle": "^7.4.16",
+        "symfony/workflow": "^7.4.9",
+        "symfony/yaml": "^7.4.15",
+        "symfonycasts/reset-password-bundle": "^1.25",
+        "thenetworg/oauth2-azure": ">=2.2.6",
+        "twig/cssinliner-extra": "^3.26",
+        "twig/extra-bundle": "^3.24.0",
+        "twig/inky-extra": "^3.26",
+        "twig/intl-extra": "^3.26.0",
+        "twig/string-extra": "^3.24.0"
+    },
+    "require-dev": {
+        "behat/mink": ">=1.13",
+        "behat/mink-browserkit-driver": ">=2.3",
+        "doctrine/data-fixtures": "^1.8.2",
+        "friends-of-behat/mink-extension": "^2.7.5",
+        "friends-of-behat/symfony-extension": "^2.7.0",
+        "friendsofphp/php-cs-fixer": "^3.95.17",
+        "hautelook/alice-bundle": "^2.17.3",
+        "jangregor/phpstan-prophecy": "^2.3",
+        "php-parallel-lint/php-var-dump-check": "^0.5.0",
+        "phpspec/prophecy-phpunit": "^2.5.0",
+        "phpstan/phpstan": "^2.2.8",
+        "phpstan/phpstan-doctrine": "^2.0.28",
+        "phpstan/phpstan-phpunit": "^2.0.18",
+        "phpunit/phpunit": "^9.6.35",
+        "rector/rector": "^2.6.2",
+        "soyuka/contexts": "^3.3.13",
+        "symfony/debug-bundle": "^7.4.8",
+        "symfony/maker-bundle": "^1.67.0",
+        "symfony/phpunit-bridge": "^7.4.16",
+        "theofidry/alice-data-fixtures": "^1.11.0"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "endroid/installer": false,
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "bump-after-update": true
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "cs": "php-cs-fixer fix --no-interaction",
+        "cs-check": "php-cs-fixer fix --dry-run --diff --using-cache=no --config=.php-cs-fixer.php"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "^7.4.0",
+            "docker": false
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "LegacyBundle\\": "src/LegacyBundle",
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\LegacyBundle\\": "tests/LegacyBundle",
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "prefer-stable": true,
+    "replace": {
+        "symfony/polyfill-php56": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*"
+    }
+}

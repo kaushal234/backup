@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/plan_item_types/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "requestablePriorDelivery": {
+      "type": "boolean"
+    },
+    "requestableAtPurchaseOrder": {
+      "type": "boolean"
+    }
+
+  },
+  "required": [
+    "@id",
+    "@type",
+    "description",
+    "requestablePriorDelivery",
+    "requestableAtPurchaseOrder"
+  ],
+  "additionalProperties": false
+}

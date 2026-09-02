@@ -1,0 +1,12 @@
+{% extends 'sales/market_intelligence/layout.html.twig' %}
+{% trans_default_domain 'market_intelligence' %}
+
+{% block content %}
+    {{ include('sales/market_intelligence_type/partial/_form.html.twig', {
+        title: 'market_intelligence.types.add'|trans,
+        form: form,
+        action: path('market_intelligence_type_add'),
+        cancel_link: path('market_intelligence_type_home')
+    }, with_context=false) }}
+{% endblock %}
+

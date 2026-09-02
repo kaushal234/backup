@@ -1,0 +1,4 @@
+<td>
+    {% set fileRoute = item['@type'] == 'TroubleTicketFile' ? path('trouble_ticket_files_show', {troubleTicketId: troubleTicket.iriId, id: item.id}) : path('download_comment_file', {id: item.commentId, fileId: item.id}) %}
+    <a href="{{ fileRoute }}">{{ item.filePath }}</a><br>
+</td>

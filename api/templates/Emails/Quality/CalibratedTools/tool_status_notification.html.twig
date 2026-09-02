@@ -1,0 +1,16 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            {% for tool in tools %}
+                <li>The {{ tool.toolType.description }} <a href="{{ url('tools', { id: tool.id }) }}"> #{{tool.id}}</a> in the area <a href="{{ url('location_area', { id: tool.locationArea.id }) }}">"{{ tool.locationArea.name }}"</a> is now in status <b>"{{ tool.status }}"</b>.</li>
+            {% endfor %}
+        </columns>
+    </row>
+{% endblock %}

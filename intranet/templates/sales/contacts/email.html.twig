@@ -1,0 +1,46 @@
+{% extends 'sales/contacts/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {% set profile = extranetUser.extranetUserProfile %}
+    <div class="row">
+        <h3>{{ 'contacts.mail.title'|trans({'%firstname%': extranetUser.firstname, '%lastname%': extranetUser.lastname }) }}</h3>
+        <div class="col-md-6">
+            {% form_theme form 'form_theme_horizontal.html.twig' %}
+            {{ form_start(form) }}
+            {{ form_row(form.ccs) }}
+            {{ form_row(form.bccs) }}
+            {{ form_row(form.subject) }}
+            <div class="ibox-content">
+                <div>
+                    {{ 'contacts.mail.header'|trans({
+                        '%firstname%': extranetUser.firstname,
+                        '%lastname%': extranetUser.lastname,
+                        '%username%': extranetUser.username,
+                        '%gender%': extranetUser.gender})|nl2br }}
+                </div>
+                <b style="color: red">{{ 'contacts.mail.password'|trans }}</b>
+            </div>
+            <br>
+
+            {{ form_row(form.message) }}
+            <div class="ibox-content">
+                <div>
+                    {{ 'contacts.mail.footer'|trans({
+                        '%extranet_url%': extranet_root_url,
+                        '%user_firstname%': current_user.firstname,
+                        '%user_lastname%': current_user.lastname,
+                        '%user_email%': current_user.email,
+                        '%user_location%': current_user.businessUnit.name})|nl2br }}
+                </div>
+            </div>
+            <br>
+            <div>
+                <button type="submit" class="btn btn-primary float-end">Submit</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

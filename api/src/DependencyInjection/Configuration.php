@@ -1,0 +1,118 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\DependencyInjection;
+
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+
+class Configuration implements ConfigurationInterface
+{
+    public function getConfigTreeBuilder(): TreeBuilder
+    {
+        $treeBuilder = new TreeBuilder('ai');
+        $rootNode = $treeBuilder->getRootNode();
+
+        $rootNode
+            ->children()
+                ->arrayNode('entities')
+                    ->info('Business entities exposed to the AI agent: comments/related entities tools, semantic search results.')
+                    ->useAttributeAsKey('slug')
+                    ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('class')
+                                ->defaultNull()
+                                ->validate()
+                                    ->ifTrue(static fn ($class) => null !== $class && !class_exists($class) && !interface_exists($class))
+                                    ->thenInvalid('Class "%s" does not exist.')
+                                ->end()
+                            ->end()
+                            ->arrayNode('comments')
+                                ->info('Omit to skip the comment source. Either {type: default} or {type: legacy, legacy_module: <code>}.')
+                                ->children()
+                                    ->enumNode('type')
+                                        ->isRequired()
+                                        ->values(['default', 'legacy'])
+                                    ->end()
+                                    ->scalarNode('legacy_module')
+                                        ->defaultNull()
+                                    ->end()
+                                ->end()
+                                ->validate()
+                                    ->ifTrue(static fn ($v) => 'legacy' === $v['type'] && (null === $v['legacy_module'] || '' === $v['legacy_module']))
+                                    ->thenInvalid('comments.legacy_module is required when type is "legacy".')
+                                ->end()
+                            ->end()
+                            ->arrayNode('related_entities')
+                                ->info('Omit to skip the related-entity source.')
+                                ->children()
+                                    ->enumNode('parent_id')
+                                        ->isRequired()
+                                        ->values(['id', 'legacy_id'])
+                                    ->end()
+                                    ->scalarNode('module')
+                                        ->isRequired()
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                ->end()
+                            ->end()
+                            ->arrayNode('search')
+                                ->info('Modern (Doctrine-backed) search result. Requires class on the entity.')
+                                ->children()
+                                    ->scalarNode('src')
+                                        ->isRequired()
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                    ->arrayNode('fields')
+                                        ->prototype('scalar')->end()
+                                        ->requiresAtLeastOneElement()
+                                    ->end()
+                                    ->scalarNode('route')
+                                        ->isRequired()
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                ->end()
+                            ->end()
+                            ->arrayNode('legacy_search')
+                                ->info('Legacy-table search result. table defaults to the slug, route_parameter defaults to the slug.')
+                                ->children()
+                                    ->scalarNode('src')
+                                        ->isRequired()
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                    ->arrayNode('fields')
+                                        ->prototype('scalar')->end()
+                                        ->requiresAtLeastOneElement()
+                                    ->end()
+                                    ->scalarNode('table')
+                                        ->defaultNull()
+                                    ->end()
+                                    ->scalarNode('route')
+                                        ->isRequired()
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                    ->scalarNode('route_parameter')
+                                        ->defaultNull()
+                                    ->end()
+                                    ->booleanNode('route_with_no_params')
+                                        ->defaultFalse()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->validate()
+                            ->ifTrue(static fn ($v) => isset($v['search']) && null === $v['class'])
+                            ->thenInvalid('"search" requires a "class" on the entity.')
+                        ->end()
+                        ->validate()
+                            ->ifTrue(static fn ($v) => (isset($v['comments']) || isset($v['related_entities'])) && null === $v['class'])
+                            ->thenInvalid('"comments" and "related_entities" require a "class" on the entity.')
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
+        return $treeBuilder;
+    }
+}

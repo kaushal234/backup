@@ -1,0 +1,11 @@
+{% extends '/manufacturing/layout.html.twig' %}
+{% trans_default_domain 'manufacturing' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="manufacturing_family_home"/>
+        <twig:NavItem translationKey="manufacturing.nav_link.home" domain="manufacturing"
+                      icon="material-symbols:home-outline-rounded" route="manufacturing_family_add"
+                      :security="is_granted('FEATURE_MANUFACTURING_FAMILY_ADMIN')"/>
+    </twig:NavBar:Container>
+{% endblock %}

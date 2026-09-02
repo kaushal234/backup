@@ -1,0 +1,86 @@
+finance:
+    title: Finance
+    nav_link:
+        add_currency: Add currency
+        all_models: All models
+        home: Home
+    menu:
+        home: Home
+        account_payable: Account payable
+        finance_families: Finance Families
+        sales_activity:
+            title: Sales activity
+            booking: Booking
+            revenue: Revenue
+            backlog: Backlog
+        manufacturing_activity:
+            title: Sales activity
+            booking: Booking
+            revenue: Revenue
+            backlog: Backlog
+        sor_transactions: SOR Transactions
+        vat_invoice: VAT Invoice
+        reports: Reports
+        forex: Forex
+    finance_family:
+        title: Finance Families
+        name: Name
+        id: ID#
+        add:
+            success: Finance Family has been successfully added
+            title: Add Finance Family
+        edit:
+            success: Finance Family has been successfully edited
+            title: Edit Finance Family
+        delete:
+            success: Finance Family deleted successfully
+            error: This Finance Family can't be deleted as it is used by a Product/Family Pricing
+        information: Information
+        product_linked: Products Linked
+    family_pricing:
+        title: Family Pricings
+        finance_family: Finance Family (C11)
+        average_price: Average Price
+        average_margin: Average Margin
+        add:
+            success: Finance Family Pricing has been successfully added
+            title: Add Finance Family Pricing
+        edit:
+            success: Finance Family Pricing has been successfully edited
+            title: Edit Finance Family Pricing
+        delete:
+            success: Finance Family Pricing deleted successfully
+            error: Something went wrong and the Finance Family Pricing could not be deleted
+        main_information: Main Information
+        financial_information: Financial Information
+    suppliers_payment_terms:
+        titles:
+            SDP: Real payment terms in days / per month
+            amounts: Payment amounts / per month
+            kpi_extra: '{0} for ERP %erp% (in %currency%)|{1} for ERP %erp% (in %currency%) for supplier %supplier%|[2,Inf[ for ERP %erp% (in %currency%) for suppliers %supplier%'
+        fields:
+            payment_term: payment term
+            invoice_paid_date_from: invoice paid date from
+            invoice_paid_date_until:  invoice paid date until
+            exclude_sister_companies:  Exclude sister companies ?
+    approver:
+        assignor: Assignor
+        supplier: Supplier
+        supplier_name: Supplier Name
+        payment_blocked: Payment Blocked
+        analytical_dimension: Analytical Dimension
+        hometitle: Last Approvers
+        edit:
+            title: Edit the approver
+            success: The approver has been edited succesfully
+        add:
+            add_analytical_dimension: Add analytical dimension approver
+            add_supplier: Add supplier approvers
+            title: Add approver
+            success: The approver has been added succesfully
+        delete:
+            success: the approver has been deleted succesfully
+            fail: the deletion the approver has failed
+        search:
+            title: Filter Result
+

@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"type": "string"},
+    "@type": {"type": "string"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "iid": {"type": "integer"},
+          "title": {"type": "string"},
+          "web_url": {"type": "string"},
+          "merged_at": {"type": ["string", "null"]},
+          "updated_at": {"type": "string"},
+          "author": {"type": ["string", "null"]},
+          "approved": {"type": "boolean"},
+          "approvers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "iid",
+          "title",
+          "web_url",
+          "merged_at",
+          "updated_at",
+          "author",
+          "approved",
+          "approvers"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  "required": ["@context", "@id", "@type", "hydra:member"],
+  "additionalProperties": true
+}

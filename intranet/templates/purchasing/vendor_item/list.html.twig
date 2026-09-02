@@ -1,0 +1,50 @@
+{% extends '/purchasing/vendor_item/layout.html.twig' %}
+{% trans_default_domain 'purchasing_smw' %}
+{% form_theme vendorItemForm 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'purchasing_smw.vendor_item.xref'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="col-md-6">
+                        {{ form_start(vendorItemForm, { action: path('xref_home') }) }}
+                        <div class="row">
+                            <div class="col-sm-10">
+                                {{ form_widget(vendorItemForm) }}
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                            </div>
+                        </div>
+                        {{ form_end(vendorItemForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if vendorItem is not null %}
+        <div class="row">
+            <div class="col-lg-12">
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            itemDescription: { label: 'catalogue.family.description'|trans([], 'catalogue')|capitalize },
+                            partNumber: { label: 'wms.part_number.pn'|trans([], 'wms')|capitalize },
+                            businessPartner: { label: 'calibration_tool.fields.vendorId'|trans([], 'calibration_tool')|capitalize },
+                            businessPartnerName: { label: 'calibration_tool.fields.vendorName'|trans([], 'calibration_tool')|capitalize },
+                        },
+                        initialSorting: false,
+                        pagination: false,
+                        search: false,
+                        title: 'purchasing_smw.vendor_item.filter'|trans() ~ ' ' ~ vendorItem.item ,
+                        data: vendorItem.references,
+                    }
+                }, with_context = false) }}
+        </div>
+        </div>
+    {% endif %}
+{% endblock %}

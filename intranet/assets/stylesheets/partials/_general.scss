@@ -1,0 +1,88 @@
+@use "variables" as tldvars;
+
+body {
+  font-size: 13px;
+}
+
+.nav-header {
+  background: transparent;
+}
+
+/* WRAPPER-CONTENT */
+/* override padding theme */
+.wrapper-content {
+  padding: 5px 10px 40px;
+  position: relative;
+}
+
+/* TABLES */
+.ibox-title {
+  /* TITLE */
+  h5 {
+    font-size: 16px;
+  }
+}
+
+.ibox-content {
+  padding-bottom: 10px;
+}
+
+.img-fluid {
+  display:block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+a {
+  color: tldvars.$tldBlue;
+  text-decoration: none;
+}
+
+.text-green {
+  color: tldvars.$green;
+}
+
+textarea.vertical-textarea {
+  resize:vertical;
+  height:100px;
+}
+
+.people-popover {
+  --bs-popover-max-width: 450px;
+
+  .people-card {
+    margin-right: 15px;
+    text-align: center;
+
+    .rounded-circle {
+      height: 48px;
+      width: 48px;
+    }
+  }
+}
+
+.popover.popover-html {
+  --bs-popover-max-width: 600px;
+
+  .popover-body {
+    max-height: 300px;
+    overflow-y: auto;
+    white-space: normal;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.hover-container .people-date {
+  display: none;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 5px;
+}
+
+.hover-container:hover .people-date {
+  display: block;
+}

@@ -1,0 +1,13 @@
+{% extends 'sales/contacts/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/contacts/partial/_form.html.twig', {
+        title: 'contacts.forms.title.edit'|trans,
+        form: form,
+        extranet_user: extranetUser,
+        action: path('sales_contact_edit', {'id': extranetUser.iriId}),
+    }, with_context=false) }}
+{% endblock %}

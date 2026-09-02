@@ -1,0 +1,2503 @@
+App\Entity\Feature:
+    feature_test:
+        name: FEATURE_TEST
+        groups:
+          - "@group_ACL_AUTH_INTRANET"
+          - "@group_FORFEATURESONLY"
+          - "@group_FOR_PEOPLE_FILTER_WITH_FEATURE"
+
+    feature_business_unit_write:
+        name: FEATURE_BUSINESS_UNIT_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_groups_admin:
+        name: FEATURE_GROUPS_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_news_write:
+        name: FEATURE_NEWS_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_modules_write:
+        name: FEATURE_MODULE_WRITE
+        groups:
+          - "@group_GG_MIS"
+          - "@group_SUPERUSER"
+
+    feature_modules_disabled_trouble_ticket_write:
+        name: FEATURE_MODULE_DISABLED_TROUBLE_TICKET_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_MIS"
+
+    feature_modules_notification:
+        name: FEATURE_MODULES_NOTIFICATION
+        groups:
+            - "@group_ROLE_MISM"
+
+    feature_country_write:
+        name: FEATURE_COUNTRY_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_tool_write:
+        name: FEATURE_TOOL_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_QAM"
+          - "@group_ROLE_MPE"
+          - "@group_ROLE_QE"
+          - "@group_ROLE_PS"
+
+    feature_acronym_write:
+        name: FEATURE_ACRONYM_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_acl_write:
+        name: FEATURE_ACL_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_HR"
+          - "@group_GG_MIS"
+
+    feature_user_impersonate:
+        name: FEATURE_USER_IMPERSONATE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_people_write:
+        name: FEATURE_PEOPLE_WRITE
+        groups:
+          - "@group_ACL_AUTH_INTRANET"
+
+    feature_people_update:
+        name: FEATURE_PEOPLE_UPDATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_HR"
+          - "@group_GG_MIS"
+
+    feature_comment_write:
+        name: FEATURE_COMMENT_WRITE
+        groups:
+          - "@group_ACL_AUTH_INTRANET"
+
+    feature_department_write:
+        name: FEATURE_DEPARTMENT_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_position_delete:
+        name: FEATURE_POSITION_DELETE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_position_write:
+        name: FEATURE_POSITION_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_location_write:
+        name: FEATURE_LOCATION_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_juridical_location:
+        name: FEATURE_JURIDICAL_LOCATION
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_division_write:
+        name: FEATURE_DIVISION_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_sales_customer_create:
+        name: FEATURE_CUSTOMER_CREATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_SA"
+          - "@group_ROLE_ASM"
+          - "@group_GG_SALES"
+          - "@group_GG_SALES_AGENTS"
+          - "@group_GG_SUPPORT"
+          - "@group_GG_ADMIN"
+          - "@group_SALES_CUST_ADMIN"
+          - "@group_ROLE_SPM"
+          - "@group_ROLE_CEO"
+          - "@group_ROLE_GCEO"
+          - "@group_ROLE_SPH"
+          - "@group_GG_SALES"
+
+    feature_sales_customer_edit:
+        name: FEATURE_CUSTOMER_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_ASM"
+          - "@group_ROLE_SA"
+          - "@group_ROLE_SAM"
+          - "@group_ROLE_CEO"
+          - "@group_ROLE_GCEO"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_SPM"
+          - "@group_ROLE_CSD"
+
+    feature_cleanliness_write:
+        name: FEATURE_CLEANLINESS_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_QAM"
+          - "@group_ROLE_MPE"
+          - "@group_ROLE_COO"
+          - "@group_ROLE_CEO"
+          - "@group_ROLE_SPM"
+          - "@group_ROLE_PM"
+          - "@group_ROLE_CMO"
+          - "@group_ROLE_EVP"
+          - "@group_GG_HR"
+
+    feature_crt_write:
+        name: FEATURE_CUSTOMER_RELATIONSHIP_TEAM_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_SALES"
+          - "@group_GG_SALES_AGENTS"
+          - "@group_GG_PARTS"
+          - "@group_GG_SERVICE"
+
+    feature_survey_view:
+        name: FEATURE_SURVEY_VIEW
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GCOO"
+          - "@group_ROLE_GCEO"
+
+    feature_survey_write:
+        name: FEATURE_SURVEY_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_COO"
+          - "@group_ROLE_CEO"
+          - "@group_ROLE_GCOO"
+          - "@group_ROLE_GCEO"
+
+    feature_survey_delete:
+        name: FEATURE_SURVEY_DELETE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GCOO"
+          - "@group_ROLE_GCEO"
+
+    feature_survey_campaign_send:
+        name: FEATURE_SURVEY_CAMPAIGN_SEND
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GCOO"
+          - "@group_ROLE_GCEO"
+
+    feature_extranet_user_create:
+        name: FEATURE_EXTRANET_USER_CREATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_SERVICE"
+
+    feature_extranet_user_edit:
+        name: FEATURE_EXTRANET_USER_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_SERVICE"
+
+    feature_iata_code_write:
+        name: FEATURE_IATA_CODE_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_customer_files_read:
+        name: FEATURE_CUSTOMER_FILES_READ
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GCOO"
+          - "@group_ROLE_GCEO"
+          - "@group_ROLE_SPM"
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_FC"
+          - "@group_ROLE_LCM"
+
+    feature_customer_files_delete:
+        name: FEATURE_CUSTOMER_FILES_DELETE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_LCM"
+
+    feature_customer_delete:
+        name: FEATURE_CUSTOMER_DELETE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_SA"
+          - "@group_ROLE_GCEO"
+          - "@group_ROLE_CEO"
+
+    feature_country_asm_write:
+        name: FEATURE_COUNTRY_ASM_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_SA"
+
+    feature_maintenance_contract_write:
+        name: FEATURE_MAINTENANCE_CONTRACT_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_catalog_create:
+        name: FEATURE_CATALOG_CREATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_PSM"
+
+    feature_catalog_edit:
+        name: FEATURE_CATALOG_EDIT
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_catalog_download:
+        name: FEATURE_CATALOG_DOWNLOAD
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_PSM"
+          - "@group_ROLE_ASM"
+
+    feature_competitor_edit:
+        name: FEATURE_COMPETITOR_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GTD"
+          - "@group_ROLE_GCEO"
+
+    feature_competitor_delete:
+        name: FEATURE_COMPETITOR_DELETE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GTD"
+          - "@group_ROLE_GCEO"
+
+    feature_competitor_create:
+        name: FEATURE_COMPETITOR_CREATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GTD"
+          - "@group_ROLE_GCEO"
+
+    feature_sales_forecast_create:
+        name: FEATURE_SALES_FORECAST_CREATE
+        groups:
+          - "@group_ACL_AUTH_INTRANET"
+
+    feature_demo_create:
+        name: FEATURE_DEMO_CREATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_ASM"
+
+    feature_sales_forecast_admin_edit:
+        name: FEATURE_SALES_FORECAST_ADMIN_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CHAIRMAN"
+          - "@group_ROLE_GCH"
+          - "@group_ROLE_GCEO"
+          - "@group_ROLE_GCOO"
+          - "@group_ROLE_GTD"
+          - "@group_ROLE_CSD"
+          - "@group_ROLE_EVP"
+
+    feature_faq_create:
+        name: FEATURE_FAQ_CREATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CMO"
+          - "@group_ROLE_ENG"
+          - "@group_ROLE_BYR"
+          - "@group_ROLE_QE"
+          - "@group_ROLE_QAM"
+          - "@group_ROLE_FAQ"
+
+    feature_sales_forecast_restricted_edit:
+        name: FEATURE_SALES_FORECAST_RESTRICTED_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_ASM"
+
+    feature_sales_forecast_factory_edit:
+        name: FEATURE_SALES_FORECAST_FACTORY_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_PSM"
+          - "@group_ROLE_COO"
+          - "@group_ROLE_PSA"
+          - "@group_ROLE_PSE"
+
+    feature_sales_forecast_view_asm:
+        name: FEATURE_SALES_FORECAST_VIEW_ASM
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_ASM"
+
+    feature_sales_forecast_view_customer:
+        name: FEATURE_SALES_FORECAST_VIEW_CUSTOMER
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_ASM"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_FC"
+          - "@group_ROLE_SAM"
+          - "@group_ROLE_CEO"
+          - "@group_ROLE_CFO"
+
+    feature_sales_forecast_view_sso:
+        name: FEATURE_SALES_FORECAST_VIEW_SSO
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_FC"
+          - "@group_ROLE_SAM"
+          - "@group_ROLE_CEO"
+          - "@group_ROLE_CFO"
+
+    feature_sales_forecast_view_factory:
+        name: FEATURE_SALES_FORECAST_VIEW_FACTORY
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_COO"
+          - "@group_ROLE_PSM"
+          - "@group_ROLE_CEO"
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_EM"
+          - "@group_ROLE_MLM"
+          - "@group_ROLE_PM"
+          - "@group_ROLE_PSA"
+          - "@group_ROLE_PSE"
+
+    feature_sales_forecast_view_full:
+        name: FEATURE_SALES_FORECAST_VIEW_FULL
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CHAIRMAN"
+          - "@group_ROLE_GCH"
+          - "@group_ROLE_GCEO"
+          - "@group_ROLE_GTD"
+          - "@group_ROLE_CSD"
+
+    feature_sales_forecast_view_military:
+        name: FEATURE_SALES_FORECAST_VIEW_MILITARY
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_VPM"
+
+    feature_sales_forecast_force_status:
+        name: FEATURE_SALES_FORECAST_FORCE_STATUS
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+
+    feature_faq_delete:
+        name: FEATURE_FAQ_DELETE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CMO"
+
+    feature_plan_item_write:
+        name: FEATURE_FAQ_PLAN_WRITE
+        groups:
+          - "@group_ROLE_QAM"
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CMO"
+          - "@group_ROLE_COO"
+          - "@group_ROLE_QE"
+          - "@group_ROLE_FAQ"
+          - "@group_ROLE_BYR"
+
+    feature_plan_item_type_write:
+        name: FEATURE_FAQ_ITEM_TYPE_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CMO"
+
+    feature_plan_item_type_delete:
+        name: FEATURE_FAQ_ITEM_TYPE_DELETE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CMO"
+
+    feature_faq_buyer:
+        name: FEATURE_FAQ_BUYER
+        groups:
+          - "@group_ROLE_BYR"
+
+    feature_faq_delete_file:
+        name: FEATURE_FAQ_DELETE_FILE
+        groups:
+           - "@group_ROLE_QAM"
+           - "@group_SUPERUSER"
+           - "@group_ROLE_CMO"
+           - "@group_ROLE_COO"
+           - "@group_ROLE_QE"
+           - "@group_ROLE_FAQ"
+
+    feature_demo_edit:
+        name: FEATURE_DEMO_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_ASM"
+          - "@group_ROLE_SA"
+
+    feature_demo_file_delete:
+        name: FEATURE_DEMO_FILES_DELETE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_catalog_delete:
+        name: FEATURE_CATALOG_DELETE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_competitor_pricing_write:
+        name: FEATURE_COMPETITOR_PRICING_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_ASM"
+
+    feature_demo_delete:
+        name: FEATURE_DEMO_DELETE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_customer_file_upload:
+        name: FEATURE_CUSTOMER_FILES_UPLOAD
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_GCO"
+          - "@group_ROLE_SPM"
+          - "@group_ROLE_LCM"
+
+    feature_demo_admin:
+        name: FEATURE_DEMO_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+
+    feature_demo_status:
+        name: FEATURE_DEMO_STATUS
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_SAM"
+          - "@group_ROLE_SA"
+
+    feature_faq_plan_approval:
+        name: FEATURE_FAQ_PLAN_APPROVAL
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CMO"
+          - "@group_ROLE_QAM"
+
+    feature_finance_family_admin:
+        name: FEATURE_FINANCE_FAMILY_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_FC"
+          - "@group_ROLE_GTD"
+
+    feature_catalog_family_edit:
+        name: FEATURE_CATALOG_FAMILY_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_PSM"
+          - "@group_ROLE_PSA"
+          - "@group_ROLE_PSE"
+          - "@group_ROLE_CM"
+
+    feature_catalog_type_edit:
+        name: FEATURE_CATALOG_TYPE_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GTD"
+
+    feature_catalog_type_create:
+        name: FEATURE_CATALOG_TYPE_CREATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_GTD"
+
+    feature_finance_family_pricing_admin:
+        name: FEATURE_FINANCE_FAMILY_PRICING_ADMIN
+        groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_FC"
+
+    feature_finance_family_pricing_read:
+        name: FEATURE_FINANCE_FAMILY_PRICING_READ
+        groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_FC"
+        - "@group_ROLE_CMO"
+
+    feature_people_identity_update:
+        name: FEATURE_PEOPLE_IDENTITY_UPDATE
+        groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_HR"
+
+    feature_sales_order_read:
+        name: FEATURE_SALES_ORDER_READ
+        groups:
+        - '@group_SUPERUSER'
+        - '@group_ROLE_SA'
+        - '@group_ROLE_ASM'
+        - '@group_ROLE_CSD'
+
+    feature_sales_order_create:
+        name: FEATURE_SALES_ORDER_CREATE
+        groups:
+        - '@group_SUPERUSER'
+        - '@group_ROLE_SA'
+        - '@group_ROLE_ASM'
+
+    feature_sales_order_edit:
+        name: FEATURE_SALES_ORDER_EDIT
+        groups:
+        - '@group_SUPERUSER'
+        - '@group_ROLE_SA'
+
+    feature_sales_order_status_update:
+        name: FEATURE_SALES_ORDER_STATUS_UPDATE
+        groups:
+        - '@group_SUPERUSER'
+        - '@group_ROLE_SA'
+
+    feature_catalog_finance_admin:
+        name: FEATURE_CATALOG_FINANCE_ADMIN
+        groups:
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_FC"
+
+    feature_currency_write:
+        name: FEATURE_CURRENCY_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_exchange_rate_write:
+        name: FEATURE_EXCHANGE_RATE_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ERP_FOREX"
+
+    feature_finance_family_create:
+      name: FEATURE_FINANCE_FAMILY_CREATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_GTD"
+
+    feature_sfr_transfer:
+        name: FEATURE_SALES_FORECAST_TRANSFER
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+
+    feature_transportation_note_write:
+        name: FEATURE_TRANSPORTATION_NOTE_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_SPM"
+
+    feature_extranet_user_impersonate:
+        name: FEATURE_EXTRANET_USER_IMPERSONATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_SALES"
+          - "@group_GG_SERVICE"
+
+    feature_market_intelligence_admin:
+        name: FEATURE_MARKET_INTELLIGENCE_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_ADMIN"
+
+    feature_emission_rating_write:
+        name: FEATURE_EMISSION_RATING_WRITE
+        groups: ['@group_SUPERUSER']
+
+    feature_extranet_user_delete:
+        name: FEATURE_EXTRANET_USER_DELETE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_SAM"
+
+
+    feature_extranet_user_group_edit:
+        name: FEATURE_EXTRANET_USER_GROUP_EDIT
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_product_manufacturing_write:
+        name: FEATURE_PRODUCT_MANUFACTURING_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CMO"
+          - "@group_ROLE_FC"
+
+    feature_customer_admin:
+        name: FEATURE_CUSTOMER_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_LM"
+          - "@group_ROLE_SAM"
+
+    feature_meeting_read:
+        name: FEATURE_MEETING_READ
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_meeting_write:
+        name: FEATURE_MEETING_WRITE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_training_attendee_delete:
+        name: FEATURE_TRAINING_ATTENDEE_DELETE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_product_certificate_admin:
+        name: FEATURE_PRODUCT_CERTIFICATE_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EM"
+          - "@group_ROLE_TSM"
+
+    feature_sales_forecast_valorization_read:
+        name: FEATURE_SALES_FORECAST_VALORIZATION_READ
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_CEO"
+
+    feature_manufacturing_margin_create:
+        name: FEATURE_MANUFACTURING_MARGIN_CREATE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_ADMIN"
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_FC"
+          - "@group_ROLE_MPE"
+          - "@group_ROLE_PS"
+          - "@group_ROLE_PM"
+
+    feature_manufacturing_margin_view_edit:
+        name: FEATURE_MANUFACTURING_MARGIN_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_ADMIN"
+          - "@group_ROLE_CFO"
+
+    feature_manufacturing_margin_view_full:
+        name: FEATURE_MANUFACTURING_MARGIN_VIEW_FULL
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_ADMIN"
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_COO"
+          - "@group_ROLE_RCOO"
+          - "@group_ROLE_RCEO"
+          - "@group_ROLE_PM"
+          - "@group_ROLE_GTD"
+          - "@group_ROLE_CMO"
+
+    feature_manufacturing_margin_view_location:
+        name: FEATURE_MANUFACTURING_MARGIN_VIEW_LOCATION
+        groups:
+          - "@group_ROLE_PS"
+          - "@group_ROLE_FC"
+          - "@group_ROLE_MPE"
+          - "@group_ROLE_PSM"
+
+    feature_manufacturing_margin_delete:
+        name: FEATURE_MANUFACTURING_MARGIN_DELETE
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_customer_watch_list:
+        name: FEATURE_CUSTOMER_WATCH_LIST
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_EVP"
+          - "@group_ROLE_SA"
+          - "@group_ROLE_GCEO"
+          - "@group_ROLE_GCOO"
+          - "@group_ROLE_GCFO"
+          - "@group_ROLE_CHAIRMAN"
+          - "@group_ROLE_GCH"
+          - "@group_ROLE_RCEO"
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_FC"
+
+    feature_freight_forwarder_admin:
+        name: FEATURE_FREIGHT_FORWARDER_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_SA"
+          - "@group_ROLE_SAM"
+
+    feature_equipment_record_edit:
+      name: FEATURE_EQUIPMENT_RECORD_EDIT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CMO"
+
+    feature_equipment_serial_admin:
+      name: FEATURE_EQUIPMENT_SERIAL_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_ENG"
+        - "@group_GG_SUPPORT"
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_SPH"
+
+    feature_equipment_record_factory_edit:
+      name: FEATURE_EQUIPMENT_RECORD_FACTORY_EDIT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CMO"
+
+    feature_manufacturing_family_admin:
+        name: FEATURE_MANUFACTURING_FAMILY_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CMO"
+          - "@group_ROLE_COO"
+          - "@group_ROLE_MLM"
+          - "@group_ROLE_PM"
+
+    feature_job_write:
+        name: FEATURE_JOB_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_HR"
+
+    feature_product_standard_item:
+        name: FEATURE_PRODUCT_STANDARD_ITEM_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_PLANNER"
+          - "@group_ROLE_PM"
+          - "@group_ROLE_PSM"
+          - "@group_ROLE_MPE"
+          - "@group_ROLE_EM"
+
+    feature_supplier_payment_report_view:
+        name: FEATURE_SUPPLIER_PAYMENT_REPORT_VIEW
+        groups:
+          - "@group_SUPERUSER"
+
+    feature_account_receivable_write:
+        name: FEATURE_ACCOUNT_RECEIVABLES_WRITE
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_FC"
+          - "@group_ROLE_AR"
+
+    feature_account_receivable_view_full:
+        name: FEATURE_ACCOUNT_RECEIVABLES_VIEW_FULL
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_GG_EXCOM"
+
+    feature_account_receivable_view_sso:
+        name: FEATURE_ACCOUNT_RECEIVABLES_VIEW_SSO
+        groups:
+          - "@group_ROLE_SA"
+          - "@group_ROLE_SAM"
+          - "@group_ROLE_ASM"
+          - "@group_ROLE_AR"
+          - "@group_ROLE_FC"
+          - "@group_ROLE_AR_SPH"
+
+    feature_invoice_record_write_full:
+        name: FEATURE_INVOICE_RECORD_WRITE_FULL
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CFO"
+          - "@group_ROLE_EVP"
+
+    feature_invoice_record_write_sso:
+        name: FEATURE_INVOICE_RECORD_WRITE_SSO
+        groups:
+          - "@group_ROLE_SA"
+          - "@group_ROLE_SAM"
+          - "@group_ROLE_ASM"
+          - "@group_ROLE_AR"
+          - "@group_ROLE_AR_SPH"
+
+    feature_customer_finance_admin:
+        name: FEATURE_CUSTOMER_FINANCE_ADMIN
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_CFO"
+
+    feature_qhse_write:
+      name: FEATURE_QHSE_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_MPE"
+        - "@group_ROLE_COO"
+        - "@group_ROLE_CEO"
+        - "@group_ROLE_SPM"
+        - "@group_ROLE_PM"
+        - "@group_ROLE_CMO"
+        - "@group_ROLE_EVP"
+        - "@group_ROLE_QE"
+
+    feature_invoice_record_due_date_write:
+      name: FEATURE_INVOICE_RECORD_DUE_DATE_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_RCEO"
+
+    feature_invoice_record_due_date_write_sso:
+      name: FEATURE_INVOICE_RECORD_DUE_DATE_WRITE_SSO
+      groups:
+        - "@group_ROLE_AR"
+        - "@group_ROLE_FC"
+        - "@group_ROLE_SAM"
+
+    feature_lead_times_write:
+      name: FEATURE_LEAD_TIME_WRITE
+      groups:
+        - "@group_ROLE_COO"
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_PSM"
+
+    feature_lead_times_write_admin:
+      name: FEATURE_LEAD_TIME_WRITE_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_eparts_configuration_admin:
+      name: FEATURE_EPARTS_CONFIGURATION_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_survey_edit_admin:
+      name: FEATURE_SURVEY_EDIT_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_survey_delete_admin:
+      name: FEATURE_SURVEY_DELETE_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_position_category_write:
+      name: FEATURE_POSITION_CATEGORY_WRITE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_contract_type_admin:
+      name: FEATURE_CONTRACT_TYPE_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_GTCD"
+
+    feature_position_classification_write_full:
+      name: FEATURE_POSITION_CLASSIFICATION_WRITE_FULL
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_GTCD"
+
+    feature_position_classification_write_bu:
+      name: FEATURE_POSITION_CLASSIFICATION_WRITE_BU
+      groups:
+        - "@group_GG_HR"
+
+    feature_employee_staffing_report:
+      name: FEATURE_EMPLOYEE_STAFFING_REPORT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_HR"
+        - "@group_ROLE_GTCD"
+        - "@group_GG_EXCOM"
+        - "@group_ROLE_FC"
+
+    feature_courier_admin:
+      name: FEATURE_COURIER_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_SPM"
+
+    feature_tracking_write:
+      name: FEATURE_TRACKING_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_SPM"
+        - "@group_GG_PARTS"
+        - "@group_GG_SERVICE"
+        - "@group_GG_SUPPORT"
+        - "@group_GG_SERVICE_AGENTS"
+
+    feature_customer_type_write:
+      name: FEATURE_CUSTOMER_TYPE_WRITE
+      groups:
+         - "@group_SUPERUSER"
+
+    FEATURE_SPARE_PARTS_REQUESTS_CREATE:
+      name: FEATURE_SPARE_PARTS_REQUESTS_CREATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PARTS"
+        - "@group_GG_SERVICE"
+        - "@group_GG_PARTS_AGENTS"
+        - "@group_GG_SERVICE_AGENTS"
+
+    FEATURE_SPARE_PARTS_REQUESTS_FILE_UPLOAD:
+      name: FEATURE_SPARE_PARTS_REQUESTS_FILE_UPLOAD
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PARTS"
+        - "@group_GG_SERVICE"
+        - "@group_GG_PARTS_AGENTS"
+        - "@group_GG_SERVICE_AGENTS"
+
+    FEATURE_SPARE_PARTS_REQUESTS_FILE_DELETE:
+      name: FEATURE_SPARE_PARTS_REQUESTS_FILE_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PARTS"
+        - "@group_GG_SERVICE"
+        - "@group_GG_PARTS_AGENTS"
+        - "@group_GG_SERVICE_AGENTS"
+
+    FEATURE_SPARE_PARTS_REQUESTS_EDIT_PARTS:
+      name: FEATURE_SPARE_PARTS_REQUESTS_EDIT_PARTS
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PARTS"
+        - "@group_GG_SERVICE"
+        - "@group_GG_PARTS_AGENTS"
+        - "@group_GG_SERVICE_AGENTS"
+
+    FEATURE_SPARE_PARTS_REQUESTS_SHIPPED_TO_CLOSE:
+      name: FEATURE_SPARE_PARTS_REQUESTS_SHIPPED_TO_CLOSE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_AST"
+        - "@group_ROLE_CSM"
+        - "@group_GG_PARTS"
+        - "@group_GG_PARTS_AGENTS"
+
+    FEATURE_SPARE_PARTS_REQUESTS_EDIT_FULL:
+      name: FEATURE_SPARE_PARTS_REQUESTS_EDIT_FULL
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PARTS"
+        - "@group_GG_PARTS_AGENTS"
+
+    feature_premise_write:
+      name: FEATURE_PREMISE_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_HR"
+
+    FEATURE_DOWNLOAD_DIRECTORY_CONFIDENTIAL:
+      name: FEATURE_DOWNLOAD_DIRECTORY_CONFIDENTIAL
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_MIS"
+        - "@group_GG_HR"
+        - "@group_ROLE_LM"
+
+    FEATURE_DOWNLOAD_DIRECTORY:
+      name: FEATURE_DOWNLOAD_DIRECTORY
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_MIS"
+        - "@group_GG_HR"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_GTCD"
+        - "@group_ROLE_LM"
+        - "@group_ROLE_FCG"
+
+    feature_authorized_application_admin:
+      name: FEATURE_AUTHORIZED_APPLICATION_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_people_mentoring_view:
+      name: FEATURE_PEOPLE_MENTORING_VIEW
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_HR"
+        - "@group_GG_EXCOM"
+
+    feature_manual_admin:
+      name: FEATURE_MANUAL_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_ENG"
+        - "@group_GG_SUPPORT"
+        - "@group_GG_ADMIN"
+
+    feature_printer_write:
+      name: FEATURE_PRINTER_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+
+    feature_vendor_user_impersonate:
+      name: FEATURE_VENDOR_USER_IMPERSONATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PUR"
+        - "@group_GG_TRANSPORT"
+        - "@group_ROLE_SA"
+        - "@group_GG_PARTS"
+        - "@group_VENDORS"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QA"
+
+    feature_customer_status:
+      name: FEATURE_CUSTOMER_STATUS
+      groups:
+        - "@group_ROLE_SAM"
+
+    feature_shipped_sales_orders_notify:
+      name: FEATURE_SHIPPED_SALES_ORDERS_NOTIFY
+
+    feature_people_item_read:
+      name: FEATURE_PEOPLE_ITEM_READ
+
+    feature_non_conformity_edit:
+      name: FEATURE_NON_CONFORMITY_EDIT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PUR"
+        - "@group_ROLE_QAM"
+        - "@group_GG_ACCT"
+        - "@group_GG_QUALITY"
+        - "@group_GG_ADMIN"
+        - "@group_GG_PRODUCTION"
+
+    feature_non_conformity_delete:
+      name: FEATURE_NON_CONFORMITY_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+
+    feature_non_conformity_file_delete:
+      name: FEATURE_NON_CONFORMITY_FILE_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+
+    feature_non_conformity_status:
+      name: FEATURE_NON_CONFORMITY_STATUS
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+        - "@group_NCR"
+
+    feature_supplier_corrective_action_request_status_admin:
+      name: FEATURE_SCAR_STATUS_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_CEO"
+        - "@group_ROLE_COO"
+
+    feature_supplier_corrective_action_request_status:
+      name: FEATURE_SCAR_STATUS
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_QA"
+
+    feature_scar_comment:
+      name: FEATURE_SCAR_COMMENT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_ADMIN"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_RME"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_MLM"
+        - "@group_GG_PUR"
+
+    feature_supplier_corrective_action_request_file_delete:
+      name: FEATURE_SCAR_FILE_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_RME"
+
+    feature_supplier_corrective_action_request_edit_full:
+      name: FEATURE_SCAR_EDIT_FULL
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CEO"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_COO"
+
+    feature_supplier_corrective_action_request_delete:
+      name: FEATURE_SCAR_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_ADMIN"
+        - "@group_ROLE_QAM"
+
+    feature_supplier_corrective_action_request_delete_factory:
+      name: FEATURE_SCAR_DELETE_FACTORY
+      groups:
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+
+    feature_ncr_vendor_warranty_claim_create:
+      name: FEATURE_NCR_VENDOR_WARRANTY_CLAIM_CREATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_ADMIN"
+        - "@group_GG_QUALITY"
+        - "@group_ROLE_SPM"
+
+    feature_wc_vendor_warranty_claim_create:
+      name: FEATURE_WC_VENDOR_WARRANTY_CLAIM_CREATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_ADMIN"
+        - "@group_GG_SUPPORT"
+        - "@group_GG_PARTS"
+        - "@group_ROLE_RME"
+
+    feature_vendor_warranty_claim_edit:
+      name: FEATURE_VENDOR_WARRANTY_CLAIM_EDIT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PUR"
+        - "@group_GG_ACCT"
+        - "@group_GG_WAREHOUSE"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_RME"
+        - "@group_ROLE_QE"
+        - "@group_GG_QUALITY"
+
+    feature_vendor_warranty_claim_edit_finance:
+      name: FEATURE_VWC_EDIT_FINANCE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_AP"
+        - "@group_ROLE_FC"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_BYR"
+
+    feature_vendor_warranty_claim_delete:
+      name: FEATURE_VENDOR_WARRANTY_CLAIM_DELETE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_vendor_warranty_claim_file_delete:
+      name: FEATURE_VENDOR_WARRANTY_CLAIM_FILE_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PUR"
+        - "@group_GG_QUALITY"
+
+    feature_vendor_warranty_claim_edit_shipping:
+      name: FEATURE_VENDOR_WARRANTY_CLAIM_EDIT_SHIPPING
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_PUR"
+        - "@group_ROLE_QAM"
+        - "@group_GG_PARTS"
+        - "@group_GG_WAREHOUSE"
+
+    feature_non_quality_costs_admin:
+      name: FEATURE_NON_QUALITY_COSTS_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_MLM"
+
+    feature_vendor_warranty_claim_reopen:
+      name: FEATURE_VENDOR_WARRANTY_CLAIM_REOPEN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_SPM"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_COO"
+        - "@group_ROLE_CPO"
+
+    feature_vendor_warranty_claim_quality:
+      name: FEATURE_VENDOR_WARRANTY_CLAIM_QUALITY
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_non_conformity_edit_closed:
+      name: FEATURE_NON_CONFORMITY_EDIT_CLOSED
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_QA"
+
+    feature_non_conformity_file_change_visibility:
+      name: FEATURE_NON_CONFORMITY_FILE_CHANGE_VISIBILITY
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_QA"
+
+    feature_parts_dashboard_view:
+      name: FEATURE_PARTS_DASHBOARD_VIEW
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_ADMIN"
+        - "@group_GG_PARTS"
+        - "@group_GG_SUPPORT"
+        - "@group_GG_PUR"
+        - "@group_GG_SERVICE"
+        - "@group_GG_BOOST"
+        - "@group_GG_PARTS_AGENTS"
+        - "@group_ROLE_RME"
+        - "@group_GG_ENG"
+        - "@group_ROLE_FC"
+        - "@group_ROLE_ASM"
+        - "@group_ROLE_GL"
+        - "@group_ROLE_QAM"
+
+    feature_evendors_news_write:
+      name: FEATURE_EVENDORS_NEWS_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_BYR"
+
+    feature_subdivision_by_zero:
+      name: FEATURE_DIVISION_BY_ZERO
+
+    feature_parts_dashboard_full_view:
+      name: FEATURE_PARTS_DASHBOARD_FULL_VIEW
+
+    feature_timekeeping_close_transaction:
+      name: FEATURE_TIMEKEEPING_CLOSE_TRANSACTION
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PS"
+        - "@group_ROLE_PM"
+        - "@group_ROLE_MPE"
+        - "@group_PLANNER"
+
+    feature_esr_write:
+      name: FEATURE_ESR_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_SA"
+        - "@group_GG_TRANSPORT"
+        - "@group_GG_ADMIN"
+
+    feature_equipment_shipping_record_line_pick_up_confirmation:
+      name: FEATURE_EQUIPMENT_SHIPPING_RECORD_LINE_PICK_UP_CONFIRMATION
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_PSM"
+
+    feature_derogation_create:
+      name: FEATURE_DEROGATION_CREATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PM"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+        - "@group_ROLE_WS"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_EM"
+        - "@group_ROLE_GL"
+        - "@group_ROLE_PS"
+
+    feature_derogation_status_reopen:
+      name: FEATURE_DEROGATION_STATUS_REOPEN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+        - "@group_ROLE_PM"
+
+    feature_derogation_status_close:
+      name: FEATURE_DEROGATION_STATUS_CLOSE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_derogation_status_archived:
+      name: FEATURE_DEROGATION_STATUS_ARCHIVE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+
+    feature_derogation_due_date_admin:
+      name: FEATURE_DEROGATION_DUE_DATE_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+
+    feature_crab_edit :
+        name: FEATURE_CRAB_EDIT
+        groups:
+          - "@group_SUPERUSER"
+          - "@group_ROLE_QAM"
+          - "@group_GG_QUALITY"
+          - "@group_ROLE_ENG"
+
+    feature_crab_delete:
+      name: FEATURE_CRAB_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_crab_test_assy_delete:
+      name: FEATURE_CRAB_TEST_ASSY_DELETE
+      groups:
+        - "@group_ROLE_PS"
+        - "@group_ROLE_PM"
+
+    feature_crab_file_change_visibility:
+      name: FEATURE_CRAB_FILE_CHANGE_VISIBILITY
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_crab_file_delete:
+      name: FEATURE_CRAB_FILE_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_crab_fix_inspect:
+      name: FEATURE_CRAB_FIX_INSPECT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+        - "@group_ROLE_PM"
+        - "@group_ROLE_GL"
+        - "@group_ROLE_PS"
+
+    feature_crab_admin_part:
+      name: FEATURE_CRAB_ADMIN_PART
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+        - "@group_ROLE_PM"
+
+    feature_link_derogation:
+      name: FEATURE_LINK_DEROGATION
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_derogation_partial_update:
+      name: FEATURE_DEROGATION_PARTIAL_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_crab_edit_fix:
+      name: FEATURE_CRAB_EDIT_FIX
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+        - "@group_ROLE_PM"
+    feature_odp_edit_support:
+      name: FEATURE_ODP_EDIT_SUPPORT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+        - "@group_GG_SUPPORT"
+        - "@group_GG_TRANSPORT"
+
+    feature_crab_inspect_qa:
+      name: FEATURE_CRAB_INSPECT_QA
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_odp_edit_quality:
+      name: FEATURE_ODP_EDIT_QUALITY
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+
+    feature_odp_edit_admin:
+      name: FEATURE_ODP_EDIT_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_estimated_gt_date_equipment_record:
+      name: FEATURE_ESTIMATED_GT_DATE_EQUIPMENT_RECORD
+
+    feature_market_intelligence_type_write:
+      name: FEATURE_MARKET_INTELLIGENCE_TYPE_WRITE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_read:
+      name: FEATURE_SUPPLIER_RANKING_READ
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_BYR"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_QE"
+
+    feature_supplier_ranking_read_all:
+      name: FEATURE_SUPPLIER_RANKING_READ_ALL
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_BYR"
+        - "@group_ROLE_QAM"
+
+    feature_supplier_ranking_update:
+      name: FEATURE_SUPPLIER_RANKING_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_BYR"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_QAM"
+
+    feature_supplier_ranking_classification_create:
+      name: FEATURE_SUPPLIER_RANKING_CLASSIFICATION_CREATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_classification_read:
+      name: FEATURE_SUPPLIER_RANKING_CLASSIFICATION_READ
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_BYR"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_CFO"
+
+    feature_supplier_ranking_classification_update:
+      name: FEATURE_SUPPLIER_RANKING_CLASSIFICATION_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_classification_delete:
+      name: FEATURE_SUPPLIER_RANKING_CLASSIFICATION_DELETE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_expertise_level_create:
+      name: FEATURE_SUPPLIER_RANKING_EXPERTISE_LEVEL_CREATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_expertise_level_read:
+      name: FEATURE_SUPPLIER_RANKING_EXPERTISE_LEVEL_READ
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_BYR"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_CFO"
+
+    feature_supplier_ranking_expertise_level_update:
+      name: FEATURE_SUPPLIER_RANKING_EXPERTISE_LEVEL_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_expertise_level_delete:
+      name: FEATURE_SUPPLIER_RANKING_EXPERTISE_LEVEL_DELETE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_criteria_create:
+      name: FEATURE_SUPPLIER_RANKING_CRITERIA_CREATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_criteria_read:
+      name: FEATURE_SUPPLIER_RANKING_CRITERIA_READ
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_BYR"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_QAM"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_CFO"
+
+    feature_supplier_ranking_criteria_update:
+      name: FEATURE_SUPPLIER_RANKING_CRITERIA_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_criteria_delete:
+      name: FEATURE_SUPPLIER_RANKING_CRITERIA_DELETE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_threshold_create:
+      name: FEATURE_SUPPLIER_RANKING_THRESHOLD_CREATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_threshold_read:
+      name: FEATURE_SUPPLIER_RANKING_THRESHOLD_READ
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_threshold_update:
+      name: FEATURE_SUPPLIER_RANKING_THRESHOLD_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_threshold_delete:
+      name: FEATURE_SUPPLIER_RANKING_THRESHOLD_DELETE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_periodicity_create:
+      name: FEATURE_SUPPLIER_RANKING_PERIODICITY_CREATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_periodicity_read:
+      name: FEATURE_SUPPLIER_RANKING_PERIODICITY_READ
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_periodicity_update:
+      name: FEATURE_SUPPLIER_RANKING_PERIODICITY_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_periodicity_delete:
+      name: FEATURE_SUPPLIER_RANKING_PERIODICITY_DELETE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_supplier_ranking_admin:
+      name: FEATURE_SUPPLIER_RANKING_ADMIN
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_CFO"
+
+    feature_equipement_shipping_record_reopen:
+      name: FEATURE_EQUIPMENT_SHIPPING_RECORD_REOPEN
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_trouble_ticket_comment:
+      name: FEATURE_TROUBLE_TICKET_COMMENT
+      groups:
+        - "@group_GG_MIS"
+
+    feature_trouble_ticket_edit:
+      name: FEATURE_TROUBLE_TICKET_EDIT
+      groups:
+        - "@group_GG_MIS"
+        - "@group_ROLE_MISM"
+
+    feature_application_edit:
+      name: FEATURE_APPLICATION_EDIT
+      groups:
+        - "@group_ROLE_MISM"
+
+    feature_application_create:
+      name: FEATURE_APPLICATION_CREATE
+      groups:
+        - "@group_ROLE_MISM"
+
+    feature_default_type_assignee_batch:
+      name: FEATURE_TYPE_DEFAULT_ASSIGNEE_BATCH
+      groups:
+        - "@group_ROLE_MISM"
+
+    feature_trouble_ticket_upload_file:
+      name: FEATURE_TROUBLE_TICKET_UPLOAD_FILE
+      groups:
+        - "@group_GG_MIS"
+
+    feature_trouble_ticket_delete_file:
+      name: FEATURE_TROUBLE_TICKET_DELETE_FILE
+      groups:
+        - "@group_GG_MIS"
+
+    feature_trouble_ticket_status:
+      name: FEATURE_TROUBLE_TICKET_STATUS
+      groups:
+        - "@group_GG_MIS"
+
+    feature_trouble_ticket_transfer:
+      name: FEATURE_TROUBLE_TICKET_TRANSFER
+      groups:
+        - "@group_GG_MIS"
+
+    feature_demo_update_ast:
+      name: FEATURE_DEMO_UPDATE_AST
+      groups:
+        - "@group_ROLE_ASM"
+
+    feature_vendor_user_write:
+      name: FEATURE_VENDOR_USER_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_BYR"
+
+    feature_trouble_ticket_open_on_behalf:
+      name: FEATURE_TROUBLE_TICKET_OPEN_ON_BEHALF
+      groups:
+        - "@group_GG_MIS"
+
+    feature_negotiated_transfer_price_odp_xls:
+      name: FEATURE_NEGOTIATED_TRANSFER_PRICE_ODP_XLS
+      groups:
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSA"
+
+    feature_crab_edit_closed:
+      name: FEATURE_CRAB_EDIT_CLOSED
+      groups:
+        - "@group_ROLE_QAM"
+
+    feature_manufacturing_margin_edit_factory:
+      name: FEATURE_MANUFACTURING_MARGIN_EDIT_FACTORY
+      groups:
+        - "@group_ROLE_FC"
+
+    feature_purchase_order_statistic_view:
+      name: FEATURE_PURCHASE_ORDER_STATISTIC_VIEW
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_production_order_write:
+      name: FEATURE_PRODUCTION_ORDER_WRITE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_customer_service_record_edit :
+      name: FEATURE_CUSTOMER_SERVICE_RECORD_EDIT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_AST"
+        - "@group_ROLE_CSM"
+        - "@group_GG_SERVICE"
+        - "@group_ROLE_EVP"
+
+    feature_csr_file_change_visibility :
+      name: FEATURE_CSR_FILE_CHANGE_VISIBILITY
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_AST"
+        - "@group_ROLE_CSM"
+        - "@group_GG_SERVICE"
+        - "@group_ROLE_EVP"
+
+    feature_customer_service_record_create :
+      name: FEATURE_CUSTOMER_SERVICE_RECORD_CREATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_AST"
+        - "@group_ROLE_CSM"
+        - "@group_GG_SERVICE"
+        - "@group_ROLE_EVP"
+
+    feature_customer_service_record_delete :
+      name: FEATURE_CUSTOMER_SERVICE_RECORD_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CSM"
+        - "@group_GG_SERVICE"
+        - "@group_ROLE_EVP"
+
+    feature_customer_service_record_close :
+      name: FEATURE_CUSTOMER_SERVICE_RECORD_CLOSE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CSM"
+
+    feature_customer_service_record_financial_step :
+      name: FEATURE_CUSTOMER_SERVICE_RECORD_FINANCIAL_STEP
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_CFO"
+        - "@group_GG_ACCT"
+        - "@group_ROLE_SA"
+        - "@group_ROLE_SAM"
+
+    feature_customer_service_record_planner :
+      name: FEATURE_CUSTOMER_SERVICE_RECORD_PLANNER
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_AST"
+        - "@group_ROLE_ASM"
+        - "@group_ROLE_CSM"
+        - "@group_GG_SERVICE"
+        - "@group_ROLE_EVP"
+
+    feature_specification_create:
+      name: FEATURE_SPECIFICATION_CREATE
+      groups:
+        - "@group_GG_MIS"
+        - "@group_ROLE_SPEC"
+
+    feature_specification_update_status:
+      name: FEATURE_SPECIFICATION_UPDATE_STATUS
+      groups:
+        - "@group_GG_MIS"
+
+    feature_user_story_create:
+      name: FEATURE_USER_STORY_CREATE
+      groups:
+        - "@group_GG_MIS"
+
+    feature_user_story_delete:
+      name: FEATURE_USER_STORY_DELETE
+      groups:
+        - "@group_GG_MIS"
+    feature_user_story_update_status:
+      name: FEATURE_USER_STORY_UPDATE_STATUS
+      groups:
+        - "@group_GG_MIS"
+
+    feature_trouble_ticket_add_to_user_story:
+      name: FEATURE_TROUBLE_TICKET_ADD_USER_STORY
+      groups:
+        - "@group_GG_MIS"
+        
+    feature_first_article_qualification_edit_qualified :
+      name: FEATURE_FIRST_ARTICLE_QUALIFICATION_EDIT_QUALIFIED
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_QAM"
+
+    feature_people_read:
+      name: FEATURE_PEOPLE_READ
+
+    feature_pre_delivery_inspection_write :
+      name: FEATURE_PRE_DELIVERY_INSPECTION_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_ASM"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+
+    feature_powerbi_finance_read:
+      name: FEATURE_POWERBI_FINANCE_READ
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_FC"
+        - "@group_ROLE_AP"
+
+    feature_powerbi_finance_production_logistic_coo_read:
+      name: FEATURE_POWERBI_FINANCE_PRODUCTION_LOGISTIC_COO_READ
+      groups:
+        - "@group_ROLE_FC"
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_PM"
+        - "@group_ROLE_PS"
+        - "@group_ROLE_BYR"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_COO"
+        - "@group_ROLE_AP"
+
+    feature_powerbi_finance_booking_read:
+      name: FEATURE_POWERBI_FINANCE_BOOKING_READ
+      groups:
+        - "@group_ROLE_FC"
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_PM"
+        - "@group_ROLE_PS"
+        - "@group_ROLE_BYR"
+        - "@group_ROLE_MLM"
+        - "@group_ROLE_COO"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_AP"
+
+    feature_powerbi_finance_sales_read:
+      name: FEATURE_POWERBI_FINANCE_SALES_READ
+      groups:
+        - "@group_ROLE_FC"
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_SA"
+        - "@group_ROLE_SAM"
+        - "@group_GG_SALES"
+        - "@group_ROLE_GCEO"
+        - "@group_ROLE_GCOO"
+        - "@group_ROLE_RCEO"
+        - "@group_ROLE_AP"
+
+    feature_planning_daily_limit_write:
+      name: FEATURE_PLANNING_DAILY_LIMIT_WRITE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_SAM"
+        - "@group_ROLE_SA"
+
+    feature_planning_daily_limit_read:
+      name: FEATURE_PLANNING_DAILY_LIMIT_READ
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_ASM"
+        - "@group_ROLE_COO"
+        - "@group_ROLE_TCOO"
+        - "@group_ROLE_RCEO"
+        - "@group_ROLE_EVP"
+
+    feature_sales_quote_write:
+      name: FEATURE_SALES_QUOTE_WRITE
+
+    feature_sales_catalog_family_add_dms:
+      name: FEATURE_CATALOG_FAMILY_ADD_DMS
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_PSE"
+
+    feature_sales_catalog_product_add_dms:
+      name: FEATURE_CATALOG_PRODUCT_ADD_DMS
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_PSE"
+
+    feature_holidays_admin:
+      name: FEATURE_HOLIDAYS_ADMIN
+      groups:
+        - "@group_HOLIDAYS"
+
+    feature_mis_project_write:
+      name: FEATURE_MIS_PROJECT_WRITE
+      groups:
+        - "@group_GG_MIS"
+        - "@group_ROLE_CIO"
+
+    feature_mis_project_file_upload:
+      name: FEATURE_MIS_PROJECT_FILE_UPLOAD
+      groups:
+        - "@group_GG_MIS"
+        - "@group_ROLE_CIO"
+
+    feature_mis_project_file_delete:
+      name: FEATURE_MIS_PROJECT_FILE_DELETE
+      groups:
+        - "@group_GG_MIS"
+        - "@group_ROLE_CIO"
+
+    feature_mis_project_file_change_visibility:
+      name: FEATURE_MIS_PROJECT_CHANGE_VISIBILITY
+      groups:
+        - "@group_GG_MIS"
+        - "@group_ROLE_CIO"
+
+    feature_mis_project_cio_edit:
+      name: FEATURE_MIS_PROJECT_CIO_EDIT
+      groups:
+        - "@group_ROLE_CIO"
+
+    feature_mis_project_read_confidential:
+      name: FEATURE_MIS_PROJECT_READ_CONFIDENTIAL
+      groups:
+        - "@group_ROLE_CIO"
+
+    feature_mis_project_close:
+      name: FEATURE_MIS_PROJECT_CLOSE
+      groups:
+        - "@group_ROLE_CIO"
+
+    feature_mis_project_file_download:
+      name: FEATURE_MIS_PROJECT_FILE_DOWNLOAD
+      groups:
+        - "@group_ROLE_CIO"
+
+    feature_task_write:
+      name: FEATURE_TASK_WRITE
+      groups:
+        - "@group_ROLE_CIO"
+        - "@group_GG_MIS"
+        - "@group_ROLE_MISM"
+
+    feature_task_transfer:
+      name: FEATURE_TASK_TRANSFER
+      groups:
+        - "@group_ROLE_CIO"
+        - "@group_GG_MIS"
+        - "@group_ROLE_MISM"
+        
+    feature_technician_on_call_edit :
+      name: FEATURE_TECHNICIAN_ON_CALL_EDIT
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_SERVICE"
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_EVP"
+        - "@group_ROLE_CSD"
+        - "@group_ROLE_AST"
+
+    feature_pictogram_read:
+      name: FEATURE_PICTOGRAM_READ
+      groups:
+        - "@group_ACL_AUTH_INTRANET"
+        - "@group_SUPERUSER"
+
+    feature_pictogram_category_read:
+      name: FEATURE_PICTOGRAM_CATEGORY_READ
+      groups:
+        - "@group_ACL_AUTH_INTRANET"
+        - "@group_SUPERUSER"
+
+    feature_pictogram_create:
+      name: FEATURE_PICTOGRAM_CREATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_ENG"
+    
+    feature_pictogram_update:
+      name: FEATURE_PICTOGRAM_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_ENG"
+
+    feature_pictogram_delete:
+      name: FEATURE_PICTOGRAM_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_ENG"
+    
+    feature_pictogram_category_create:
+      name: FEATURE_PICTOGRAM_CATEGORY_CREATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_ENG"
+
+    feature_pictogram_category_update:
+      name: FEATURE_PICTOGRAM_CATEGORY_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_ENG"
+
+    feature_pictogram_category_delete:
+      name: FEATURE_PICTOGRAM_CATEGORY_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_ENG"
+
+    feature_pause_unpause_task:
+      name: FEATURE_PAUSE_UNPAUSE_TASK
+      groups:
+        - "@group_GG_MIS"
+
+
+    feature_create_support_team:
+      name: FEATURE_CREATE_SUPPORT_TEAM
+      groups:
+        - "@group_ROLE_MISM"
+        - "@group_ROLE_CIO"
+
+    feature_delete_support_team:
+      name: FEATURE_DELETE_SUPPORT_TEAM
+      groups:
+        - "@group_ROLE_MISM"
+        - "@group_ROLE_CIO"
+
+    feature_edit_support_team:
+      name: FEATURE_EDIT_SUPPORT_TEAM
+      groups:
+        - "@group_ROLE_MISM"
+        - "@group_ROLE_CIO"
+        
+    feature_power_bi_report_read:
+      name: FEATURE_POWER_BI_REPORT_READ
+      groups:
+        - "@group_GG_MIS"
+        - "@group_ROLE_POWER_BI"
+        - "@group_SUPERUSER"
+
+    feature_power_bi_report_create:
+      name: FEATURE_POWER_BI_REPORT_CREATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_power_bi_report_update:
+      name: FEATURE_POWER_BI_REPORT_UPDATE
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_power_bi_report_delete:
+      name: FEATURE_POWER_BI_REPORT_DELETE
+      groups:
+        - "@group_SUPERUSER"
+
+# Contract features
+    feature_full_contract_access:
+      name: FEATURE_FULL_CONTRACT_ACCESS
+      groups:
+        - "@group_ROLE_CHAIRMAN"
+
+    feature_sub_category_building_contract_access:
+      name: FEATURE_SUB_CATEGORY_BUILDING_CONTRACT_ACCESS
+      groups:
+        - "@group_ROLE_LGS"
+        - "@group_ROLE_LGM"
+
+    feature_sub_category_building_contract_bu_access:
+      name: FEATURE_SUB_CATEGORY_BUILDING_CONTRACT_BU_ACCESS
+      groups:
+        - "@group_ROLE_LCM"
+
+    feature_sub_category_building_contract_bu_edit_access:
+      name: FEATURE_SUB_CATEGORY_BUILDING_CONTRACT_BU_EDIT_ACCESS
+      groups:
+        - "@group_ROLE_CFO"
+
+    feature_sub_category_car_contract_access:
+      name: FEATURE_SUB_CATEGORY_CAR_CONTRACT_ACCESS
+      groups:
+          - "@group_ROLE_LGS"
+          - "@group_ROLE_LGM"
+
+    feature_sub_category_car_contract_bu_access:
+      name: FEATURE_SUB_CATEGORY_CAR_CONTRACT_BU_ACCESS
+      groups:
+          - "@group_ROLE_LCM"
+
+    feature_sub_category_car_contract_bu_edit_access:
+      name: FEATURE_SUB_CATEGORY_CAR_CONTRACT_BU_EDIT_ACCESS
+      groups:
+          - "@group_ROLE_CFO"
+
+    feature_sub_category_worker_compensation_contract_access:
+        name: FEATURE_SUB_CATEGORY_WORKER_COMPENSATION_CONTRACT_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+            - "@group_ROLE_LGM"
+
+    feature_sub_category_worker_compensation_contract_bu_access:
+        name: FEATURE_SUB_CATEGORY_WORKER_COMPENSATION_CONTRACT_BU_ACCESS
+        groups:
+            - "@group_ROLE_LCM"
+
+    feature_sub_category_worker_compensation_contract_bu_edit_access:
+        name: FEATURE_SUB_CATEGORY_WORKER_COMPENSATION_CONTRACT_BU_EDIT_ACCESS
+        groups:
+            - "@group_ROLE_CFO"
+            - "@group_ROLE_HRM"
+
+    feature_sub_category_general_liability_contract_bu_access:
+        name: FEATURE_SUB_CATEGORY_GENERAL_LIABILITY_CONTRACT_BU_ACCESS
+        groups:
+            - "@group_ROLE_LCM"
+
+    feature_sub_category_aero_liability_contract_bu_access:
+        name: FEATURE_SUB_CATEGORY_AERO_LIABILITY_CONTRACT_BU_ACCESS
+        groups:
+            - "@group_ROLE_LCM"
+
+    feature_sub_category_do_contract_access:
+      name: FEATURE_SUB_CATEGORY_DO_CONTRACT_ACCESS
+      groups:
+            - "@group_ROLE_LGS"
+
+    feature_sub_category_general_liability_contract_access:
+        name: FEATURE_SUB_CATEGORY_GENERAL_LIABILITY_CONTRACT_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+            - "@group_ROLE_LGM"
+
+    feature_sub_category_aero_liability_contract_access:
+        name: FEATURE_SUB_CATEGORY_AERO_LIABILITY_CONTRACT_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+            - "@group_ROLE_LGM"
+
+    feature_sub_category_aero_liability_contract_access_business_unit:
+        name: FEATURE_SUB_CATEGORY_AERO_LIABILITY_CONTRACT_ACCESS_BUSINESS_UNIT
+        groups:
+            - "@group_ROLE_CFO"
+
+    feature_category_bank_contract_bu_access:
+        name: FEATURE_CATEGORY_BANK_CONTRACT_BU_ACCESS
+        groups:
+            - "@group_ROLE_CFO"
+            - "@group_ROLE_GTM"
+
+    feature_category_bank_contract_access:
+        name: FEATURE_CATEGORY_BANK_CONTRACT_ACCESS
+        groups:
+            - "@group_ROLE_GTD"
+
+    feature_category_bank_contract_read_access:
+        name: FEATURE_CATEGORY_BANK_CONTRACT_READ_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+
+    feature_category_it_contract_read_access:
+        name: FEATURE_CATEGORY_IT_CONTRACT_READ_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+
+    feature_category_customer_contract_read_access:
+        name: FEATURE_CATEGORY_CUSTOMER_CONTRACT_READ_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+
+    feature_category_ma_contract_edit_access:
+        name: FEATURE_CATEGORY_MA_CONTRACT_EDIT_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+
+    feature_category_real_estate_contract_access:
+        name: FEATURE_CATEGORY_REAL_ESTATE_CONTRACT_ACCESS
+        groups:
+            - "@group_ROLE_CFO"
+
+    feature_category_real_estate_contract_read_access:
+        name: FEATURE_CATEGORY_REAL_ESTATE_CONTRACT_READ_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+            - "@group_ROLE_LGM"
+
+    feature_category_real_estate_contract_bu_read_access:
+        name: FEATURE_CATEGORY_REAL_ESTATE_CONTRACT_BU_READ_ACCESS
+        groups:
+            - "@group_ROLE_LCM"
+            - "@group_ROLE_CFO"
+
+    feature_category_it_contract_access:
+        name: FEATURE_CATEGORY_IT_CONTRACT_ACCESS
+        groups:
+            - "@group_ROLE_CIO"
+
+    feature_category_it_contract_bu_access:
+        name: FEATURE_CATEGORY_IT_CONTRACT_BU_ACCESS
+        groups:
+            - "@group_ROLE_MISM"
+
+    feature_category_vendors_contract_read_access:
+        name: FEATURE_CATEGORY_VENDORS_CONTRACT_READ_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+
+    feature_category_vendors_contract_access:
+        name: FEATURE_CATEGORY_VENDORS_CONTRACT_ACCESS
+        groups:
+            - "@group_ROLE_MLM"
+            - "@group_ROLE_LGM"
+
+    feature_category_interco_contract_read_access:
+        name: FEATURE_CATEGORY_INTERCO_CONTRACT_ACCESS
+        groups:
+            - "@group_ROLE_LGS"
+
+    feature_category_interco_contract_bu_access:
+        name: FEATURE_CATEGORY_INTERCO_CONTRACT_BU_ACCESS
+        groups:
+            - "@group_ROLE_CFO"
+
+    feature_category_interco_contract_sub_access:
+        name: FEATURE_CATEGORY_INTERCO_CONTRACT_SUB_ACCESS
+        groups:
+            - "@group_ROLE_GTD"
+
+    feature_category_interco_contract_sub_bu_access:
+        name: FEATURE_CATEGORY_INTERCO_CONTRACT_SUB_BU_ACCESS
+        groups:
+            - "@group_ROLE_GTM"
+# End Contract feature
+
+    feature_synchronize_link_equipment_record:
+      name: FEATURE_SYNCHRONIZE_LINK_EQUIPMENT_RECORD
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_LINK_INSTALLER"
+        - "@group_LINK_ENGINEER"
+        - "@group_LINK_COMMISSIONING"
+
+    feature_write_supplier:
+      name: FEATURE_WRITE_SUPPLIER
+
+    feature_dms_view_all:
+      name: FEATURE_DMS_VIEW_ALL
+      groups:
+        - "@group_SUPERUSER"
+
+    feature_create_aircraft:
+      name: FEATURE_CREATE_AIRCRAFT
+      groups:
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_COO"
+
+    feature_edit_aircraft:
+      name: FEATURE_EDIT_AIRCRAFT
+      groups:
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_COO"
+
+    feature_delete_aircraft:
+      name: FEATURE_DELETE_AIRCRAFT
+      groups:
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_COO"
+
+    feature_create_aircraft_compatibility:
+      name: FEATURE_CREATE_AIRCRAFT_COMPATIBILITY
+      groups:
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_COO"
+
+    feature_edit_aircraft_compatibility:
+      name: FEATURE_EDIT_AIRCRAFT_COMPATIBILITY
+      groups:
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_COO"
+
+    feature_delete_aircraft_compatibility:
+      name: FEATURE_DELETE_AIRCRAFT_COMPATIBILITY
+      groups:
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_COO"
+
+    feature_read_gitlab_merge_request:
+      name: FEATURE_READ_GITLAB_MERGE_REQUEST
+      groups:
+        - "@group_ROLE_MISM"
+        - "@group_ROLE_DEV"
+        
+    feature_create_contact_campaign:
+      name: FEATURE_CREATE_CONTACT_CAMPAIGN
+      groups:
+        - "@group_ROLE_EVP"
+        - "@group_ROLE_CEO"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_COO"
+        - "@group_ROLE_SAM"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_CMO"
+        - "@group_ROLE_CIO"
+
+    feature_update_contact_campaign:
+      name: FEATURE_UPDATE_CONTACT_CAMPAIGN
+      groups:
+        - "@group_ROLE_EVP"
+        - "@group_ROLE_CEO"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_COO"
+        - "@group_ROLE_SAM"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_CMO"
+        - "@group_ROLE_CIO"
+
+    feature_create_task_verified_extranet_user:
+      name: FEATURE_CREATE_TASK_VERIFIED_EXTRANET_USER
+      groups:
+        - "@group_ROLE_EVP"
+        - "@group_ROLE_CEO"
+        - "@group_ROLE_CFO"
+        - "@group_ROLE_COO"
+        - "@group_ROLE_SAM"
+        - "@group_ROLE_CPO"
+        - "@group_ROLE_CMO"
+        - "@group_ROLE_CIO"
+
+    feature_filter_people_leaving:
+      name: FEATURE_FILTER_PEOPLE_LEAVING
+      groups:
+        - "@group_GG_MIS"
+        - "@group_GG_HR"
+        - "@group_SUPERUSER"
+
+    feature_filter_people_incoming:
+      name: FEATURE_FILTER_PEOPLE_INCOMING
+      groups:
+        - "@group_GG_MIS"
+        - "@group_GG_HR"
+        - "@group_SUPERUSER"
+
+    feature_non_conformity_partial_edit:
+      name: FEATURE_NON_CONFORMITY_PARTIAL_EDIT
+      groups:
+        - "@group_ROLE_ENG"
+
+    feature_vwc_file_change_visibility:
+      name: FEATURE_VWC_FILE_CHANGE_VISIBILITY
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_QA"
+        - "@group_ROLE_QE"
+        - "@group_ROLE_QAM"
+
+    feature_extranet_public:
+      name: FEATURE_EXTRANET_PUBLIC
+
+    feature_guest_user_update:
+      name: FEATURE_GUEST_USER_UPDATE
+      groups:
+        - "@group_GG_MIS"
+
+    feature_ai_log_history:
+      name: FEATURE_AI_LOG_HISTORY
+      groups:
+        - "@group_ROLE_MISM"
+        - "@group_ROLE_CIO"
+
+    feature_technician_on_call_open_factory_flag:
+      name: FEATURE_TECHNICIAN_ON_CALL_OPEN_FACTORY_FLAG
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_SERVICE"
+        - "@group_ROLE_AST"
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_EVP"
+        - "@group_ROLE_CSD"
+
+    feature_technician_on_call_close_factory_flag:
+      name: FEATURE_TECHNICIAN_ON_CALL_CLOSE_FACTORY_FLAG
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_GG_SERVICE"
+        - "@group_ROLE_AST"
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_EVP"
+        - "@group_ROLE_PSA"
+        - "@group_ROLE_PSE"
+        - "@group_ROLE_PSM"
+        - "@group_ROLE_RME"
+        - "@group_GG_ENG"
+        - "@group_ROLE_CSD"
+
+    feature_technician_on_call_suspended:
+      name: FEATURE_TECHNICIAN_ON_CALL_SUSPENDED
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_CSD"
+        - "@group_ROLE_AST"
+        - "@group_ROLE_CSA"
+        - "@group_ROLE_ASM"
+
+    feature_technician_on_call_closed:
+      name: FEATURE_TECHNICIAN_ON_CALL_CLOSED
+      groups:
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_EVP"
+        - "@group_ROLE_CSA"
+
+    feature_technician_on_call_survey:
+      name: FEATURE_TECHNICIAN_ON_CALL_SURVEY
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_CSD"
+
+    feature_technician_on_call_delete:
+      name: FEATURE_TECHNICIAN_ON_CALL_DELETE
+      groups:
+        - "@group_SUPERUSER"
+        - "@group_ROLE_CSM"
+
+    feature_change_log_edit:
+      name: FEATURE_CHANGE_LOG_EDIT
+      groups:
+        - "@group_ROLE_DEV"
+        - "@group_SUPERUSER"
+
+    feature_derogation_file_upload:
+      name: FEATURE_DEROGATION_FILE_UPLOAD
+      groups:
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_derogation_delete:
+      name: FEATURE_DEROGATION_DELETE
+      groups:
+        - "@group_ROLE_QAM"
+        - "@group_GG_QUALITY"
+
+    feature_reopen_technician_on_call:
+      name: FEATURE_REOPEN_TECHNICIAN_ON_CALL
+      groups:
+        - "@group_ROLE_CSM"
+        - "@group_ROLE_CSD"
+        - "@group_SUPERUSER"

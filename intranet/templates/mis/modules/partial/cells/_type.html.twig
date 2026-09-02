@@ -1,0 +1,9 @@
+<td>
+    {% if item['@type'] == 'Module' %}
+        <span class="label label-default">{{ 'mis.modules.fields.types.module'|trans({}, 'mis') }}</span>
+    {% elseif item['@type'] == 'Light' %}
+        <span class="label label-success">{{ 'mis.modules.fields.types.light'|trans({}, 'mis') }}</span>
+    {% elseif item['@type'] == 'Extended' %}
+        <span class="label label-warning">{{ 'mis.modules.fields.types.extended'|trans({}, 'mis') }}</span>
+    {% endif %}
+</td>

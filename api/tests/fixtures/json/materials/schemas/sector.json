@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/materials/warehouse/sectors/\\d+$"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "inboundRate": {
+      "type": ["integer", "null"]
+    },
+    "outboundRate": {
+      "type": ["integer", "null"]
+    },
+    "warehouseKeepers": {
+      "type": "array",
+      "items": {
+        "$ref": "../../directory_people/schemas/directory_people_public.json"
+      }
+    },
+    "location": {
+      "pattern": "^/locations/\\d+$"
+    },
+    "warehouseLocationsCount": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "name",
+    "inboundRate",
+    "outboundRate",
+    "warehouseKeepers",
+    "location",
+    "warehouseLocationsCount"
+  ]
+}

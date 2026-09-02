@@ -1,0 +1,124 @@
+imports:
+    - { resource: services/ }
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+    languages:
+        en: English
+        fr: Français
+        zh-CN: 简体中文
+    container.dumper.inline_class_loader: true
+    upload.uri: uploads
+    upload_dir: '%legacy.root_dir%/uploads'
+    # Path the app is mounted on (web server serves it from this sub-directory)
+    app.mount_path: '/en/private'
+    # Legacy parameters: Should be absolute and compatible with the parameter XSendFilePath defined in the vhost
+    legacy.root_dir: '/var/www/alvest-web-portals/current/intranet/legacy'
+    jira.url: '%env(JIRA_URL)%'
+    extranet.root_url: 'https://extranet.tld-gse.com'
+    api.uri: '%env(API_URI)%'
+    mercure.url: '%env(MERCURE_PUBLIC_URL)%'
+    env(TRUSTED_PROXIES): ''
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            string $uploadDir: '%upload_dir%'
+            string $mountPath: '%app.mount_path%'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+            - '../src/AppBundle/'
+            - '../src/ApiBundle/'
+            - '../src/ActivityBundle/'
+            - '../src/LegacyBundle/'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    AppBundle\Controller\:
+        resource: '../src/AppBundle/Controller/'
+        tags: ['controller.service_arguments']
+
+    ActivityBundle\Controller\:
+        resource: '../src/ActivityBundle/Controller/'
+        tags: ['controller.service_arguments']
+
+    LegacyBundle\Controller\:
+        resource: '../src/LegacyBundle/Controller/'
+        tags: ['controller.service_arguments']
+
+    AppBundle\Twig\Extension\:
+        resource: '../src/AppBundle/Twig/Extension/'
+
+    AppBundle\Command\:
+        resource: '../src/AppBundle/Command/'
+
+    AppBundle\Chart\:
+        resource: '../src/AppBundle/Chart/'
+
+    AppBundle\Chart\ChartBuilderFactory:
+        public: true
+
+    ActivityBundle\Twig\Extension\ActivityExtension:
+
+    alvest.twig_helper.twig.extension.nested_properties: '@AppBundle\Twig\Extension\NestedPropertiesExtension'
+
+    AppBundle\Form\DataTransformer\DatePickerModelTransformer:
+
+    ApiBundle\EventListener\LogoutListener:
+        tags:
+            - name: 'kernel.event_listener'
+              event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
+              method: onLogout
+              dispatcher: security.event_dispatcher.main
+
+    twig.legacy:
+        alias: Twig\Environment
+        public: true
+
+    security.authorization_checker.legacy:
+        alias: Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface
+        public: true
+
+    security.token_storage.legacy:
+        alias: Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
+        public: true
+
+    AppBundle\Configuration\ApiValueResolver:
+        tags:
+            - controller.targeted_value_resolver:
+                  name: 'api_object'
+
+    Kreyu\Bundle\DataTableBundle\Twig\DataTableExtension: ~
+
+    AppBundle\Twig\Components\:
+        resource: '../src/AppBundle/Twig/Components/*'
+
+    AppBundle\Subscription\:
+        resource: '../src/AppBundle/Subscription/'
+
+    AppBundle\Enum\SagePartsToolsEnum:
+        arguments:
+            $router: '@router'
+
+    Kreyu\Bundle\DataTableBundle\Filter\Type\ResolvedFilterTypeFactoryInterface:
+        alias: kreyu_data_table.filter.resolved_type_factory
+        public: false

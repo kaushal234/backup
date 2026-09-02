@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/support/equipment_record/(technician_on_call_|warranty_claim_|customer_service_record_|equipment_record_|service_contract_maintenance_|)hour_meter_transactions/\\d+$"},
+    "@type": {"type": "string"},
+    "hourMeter": {"type":  "integer"},
+    "legacyId": {"type":  "integer"}
+  },
+  "required": [
+    "@id",
+    "@type",
+    "hourMeter",
+    "legacyId"
+  ],
+  "additionalProperties": false
+}

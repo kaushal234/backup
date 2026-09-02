@@ -1,0 +1,10 @@
+App\Entity\Continent:
+    continent_1:
+        id: 1
+        isoCode2 (unique): 'IN'
+        name (unique): 'incontinent'
+
+    continent_{2..5}:
+        id: <current()>
+        isoCode2 (unique): <countryCode()>
+        name (unique): <word()>

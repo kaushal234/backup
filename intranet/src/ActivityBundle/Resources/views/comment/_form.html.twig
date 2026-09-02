@@ -1,0 +1,13 @@
+{% block content %}
+    <h3>Enter your comment</h3>
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            {% form_theme form 'form_theme_vertical.html.twig' %}
+            {{ form_start(form, { action: action }) }}
+            {{ form_errors(form) }}
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+            <span style="font-size:80%; color:#ed5565;">*</span><span style="font-size:80%;"> denotes required field</span>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% embed 'helper/_ibox.html.twig' with {
+    title: 'planner.title.pool'|trans({}, 'customer_service_record'),
+    options: {
+        collapsable: false
+    }
+} %}
+    {% block card_body_class %}{{ parent() }} pool-content scroll-container{% endblock %}
+    {% block card_content %}
+        <div class="row row-cols-md-1 g-md-3 p-0 rounded-0 planner-container" data-week="pool">
+            {% for customerServiceRecord in customerServiceRecords %}
+                {% include 'service/customer_service_record/partial_planner/_csr_card.html.twig' with {'customerServiceRecord': customerServiceRecord} %}
+            {% endfor %}
+        </div>
+    {% endblock card_content %}
+{% endembed %}

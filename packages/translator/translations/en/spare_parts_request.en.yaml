@@ -1,0 +1,137 @@
+spare_parts_request:
+  spr: SPR
+  latest: Latest Spare Parts Requests
+  filtered: Filtered Spare Parts Requests
+  sprs: Spare Parts Requests
+  add_parts: Add Parts
+  nav_link:
+    add_task: Add task
+    delivery_addresses: Delivery addresses
+    sb_id: SB#
+    toc_id: TOC#
+  menu:
+    back_to_toc: Back to TOC#%tocId%
+    back_to_sb: Back to SB#%sbId%
+    restore: Restore
+  home:
+    reports:
+      by_sph_warranty: SPR WC by SPH
+      by_sph: SPR non-WC by SPH
+      by_shipping_origin_warranty: SPR WC by Shipping Origin
+      by_shipping_origin: SPR non-WC by Shipping Origin
+  fields:
+    sph: SPH
+    shipping_origin: Shipping Origin
+    shipping_date: Shipping Date
+    estimated_shipping_date: Estimated Shipping Date
+    planned_delivery_date: Planned Delivery Date
+    notes: Notes
+    contact: Contact
+    activity: Activity
+    type: Type
+    part_number: Part Number
+    erp_location: ERP Location
+    unit_of_measure: UOM
+    parts: Parts
+    deleted_parts: Deleted parts
+    proof_of_delivery: Proof Of Delivery
+    proof_of_delivery_description: The SPR is shipped. You must provide a proof a delivery if you want to close it.
+    parent: Parent
+    delivery_address: Delivery Address
+    submit_new_delivery_address: Submit a new delivery address
+    existing_delivery_address: Chose an existing delivery address
+    new_delivery_address: New delivery address
+    delivery_notes: Delivery Notes
+    last_used_at: "Last used: %date%"
+    tracking: Tracking
+    files: SPR files
+    shipped_delay: Shipped Delay
+    resource_type: Resource Type
+    created_before: Created before
+    created_after: Created after
+  shipped_delay:
+    same_day: Same day
+    one_day: 1 Day
+    two_days: 2 Days
+    three_days: 3 Days
+    four_days: 4 Days
+    five_days: 5 Days
+    over: Over
+  sb:
+    er_involved: Equipment records involved
+  button:
+    move_to_another_spr: Move to this SPR
+    create_new_spr: Create a new SPR with selected parts
+  title:
+    links_of: Links of %module%#%parentId%
+    add_from_toc: Add from TOC
+    add_from_sb: Add from SB
+  status:
+    pending: PENDING
+    open: OPEN
+    shipped: SHIPPED
+    closed: CLOSED
+    manually_leave_PENDING: Mark as OPEN
+    manually_leave_PENDING_explanation: The SPR is automatically OPEN when a sales order is defined, please explain why you want to do it manually
+    manually_leave_OPEN: Mark as Shipped
+    manually_leave_OPEN_explanation: The SPR is automatically shipped when a tracking number has been submitted in the system, please provide an explanation when you do it manually
+    manually_leave_SHIPPED: Close
+    manually_leave_SHIPPED_explanation: Please provide an explanation if you don't upload a proof of delivery
+    manually_leave_comment: 'The SPR has been manually sent to the %status% status, the explanation was: "%comment%"'
+    send_to_shipped_warning: The SPR is automatically marked as shipped when a tracking number is submitted on the packing slip of the same Sales Order. Are you sure you want to manually change the status?
+    download_proof_of_delivery: Proof of Delivery
+  success:
+    edition: The SPR has been successfully saved
+    parts_move: The selected parts have been successfully moved
+    parts_move_new: The selected parts have been successfully moved to a new SPR
+    remove_part: The part has been successfully deleted
+    restore_part: The part has been successfully restored
+    send_to: The SPR status has been updated to %status%
+    combine: The SPRs were successfully combined
+  errors:
+    not_exist: 'SPR #%id% does not exist'
+    edition: Something went wrong when saving the SPR
+    parts_move: Something went wront when moving selected parts
+    toc_no_equipmentRecord: The TOC ER could not be found, please try again
+    toc_no_activity: The TOC activity could not be determined, please try again
+    sb_no_equipmentRecords: No SB ERs could be found, please try again
+    sb_no_factory: The factory of the SB could be found, please try again
+    sb_no_category: The category of the SB could be found, please try again
+    sb_no_decision: The decision of the SB could be found, please try again
+    er_no_airport: The airport of the ER could not be found, please try again
+    er_no_manufacturer_location: The manufacturer location of the ER could not be found, please try again
+    er_no_end_user: The end user of the ER could not be found, please try again
+    er_no_sales_organisation: The sales organisation of the ER could not be found, please try again
+    invalid_sph: |
+      Please Check: <br>
+      1) Sale Organization inside ER must be a SSO (not a factory) <br>
+      2) CRT must exist for %customer% with ERP location equals to SSO SERVICE of ER. <br>
+      3) CRT's PARTS LOCATION must be flag SPARE PARTS HUB in the setting.
+    unit_of_measure: The unit of measure is mandatory
+    part_number: The part number is mandatory
+    delivery_address: A delivery address must be selected or created
+    firstname: Firstname is mandatory
+    lastname: Lastname is mandatory
+    street1: Street1 is mandatory
+    postal_code: Postal code is mandatory
+    city: City is mandatory
+    telephone: Telephone is mandatory
+    country: Country is mandatory
+    company: Company is mandatory
+    part: At least one part must be entered
+    toc_no_type: The TOC type could not be determined, please try again
+    no_parts: No parts have found in the SB, please try again
+  edit_address: Edit Address
+  location_info: Please note that the ERP Location field is only here to search PN
+  combine:
+    title: Combine with other pending or open SPR from the same TOC or SB
+    button: Combine
+    min_message: Please select at least one SPR to combine
+    warning: All selected SPRs will be deleted after their parts and logs have been combined with the current SPR.
+  delivery_addresses:
+    fields:
+      last_used: Last Used
+      archived: Archived
+    actions:
+      activate: Activate
+      archive: Archive

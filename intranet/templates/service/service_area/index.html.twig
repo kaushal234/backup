@@ -1,0 +1,8 @@
+{% extends 'service/service_area/layout.html.twig' %}
+
+{% trans_default_domain 'service_area' %}
+
+{% block content %}
+    {{ data_table(serviceAreaDatatable) }}
+    {{ data_table(unassignedAirportsDatatable) }}
+{% endblock %}

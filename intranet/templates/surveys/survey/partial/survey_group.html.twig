@@ -1,0 +1,35 @@
+{% trans_default_domain 'surveys' %}
+
+{% set group_id = iri_id(group) %}
+
+<div class="p-w-xxs">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="row col-lg-12">
+                    <h4 class='font-bold'>{{ group.name}}</h4>
+                    {% if group.description is not same as(null) %}
+                        <p class="small">{{ group.description }}</p>
+                    {% endif %}
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-lg-1">
+            {% if is_granted('FEATURE_SURVEY_VIEW') %}
+                <a class="btn btn-sm btn-primary m-b-xs" href="{{ path('survey_groups_show', { id: survey_id, groupId: group_id}) }}">
+                    <i class="far fa-eye fa-fw"></i>
+                </a>
+            {% endif %}
+            {% if is_granted('FEATURE_SURVEY_WRITE') %}
+                <a class="btn btn-sm btn-warning m-b-xs" href="{{ path('survey_groups_edit', { id: survey_id, groupId: group_id}) }}">
+                    <i class="fa fa-pencil-alt fa-fw"></i>
+                </a>
+            {% endif %}
+            {% if is_granted('FEATURE_SURVEY_DELETE') %}
+                <a class="btn btn-sm btn-danger m-b-xs" onclick="return confirm('{{ 'messages.grid_delete_confirmation' | trans }}')" href="{{ path('survey_groups_delete', { id: survey_id, groupId: group_id }) }}">
+                    <i class="fa fa-trash fa-fw"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<hr/>

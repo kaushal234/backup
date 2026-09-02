@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/customized-bill-of-materials.manuals.jsonld",
+  "definitions": {
+    "customized-bill-of-materials.manuals.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ManualPart.jsonld"
+          }
+        },
+        "site": {
+          "type": "integer"
+        },
+        "project": {
+          "type": "string"
+        }
+      }
+    },
+    "ManualPart.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "partNumber": {
+          "type": "string"
+        },
+        "engineeringRevision": {
+          "type": "string"
+        },
+        "engineeringSignalCode": {
+          "type": "string"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "itemDescription": {
+          "type": "string"
+        },
+        "itemOtherDescription": {
+          "type": "string"
+        },
+        "signalCodeDescription": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ManualItem.jsonld"
+          }
+        }
+      }
+    },
+    "ManualItem.jsonld": {
+      "type": "object",
+      "properties": {
+        "@context": {
+          "readOnly": true,
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ],
+              "additionalProperties": true
+            }
+          ]
+        },
+        "@id": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "@type": {
+          "readOnly": true,
+          "type": "string"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "partNumber": {
+          "type": "string"
+        },
+        "itemDescription": {
+          "type": "string"
+        },
+        "itemOtherDescription": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "unitOfMeasure": {
+          "type": "string"
+        },
+        "pmoc": {
+          "type": "string"
+        },
+        "preventive": {
+          "type": "boolean"
+        },
+        "maintenance": {
+          "type": "boolean"
+        },
+        "overhaul": {
+          "type": "boolean"
+        },
+        "critical": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

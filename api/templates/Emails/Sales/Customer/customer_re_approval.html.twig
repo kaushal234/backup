@@ -1,0 +1,30 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'customer.re_approval.message' | trans({'%customer_name%': customer_name}) }}</p>
+            {{ include('Helpers/_association_table_raw.html.twig', {
+                associationData: {
+                    items: {
+                        id: {
+                            label: 'customer.edition.view_details' | trans({'%id%': id}),
+                            link: {
+                                'route': 'customer',
+                                'fixedParams': {'id': id}
+                            }
+                        },
+                        name: { label:'extranet_user.fields.name' | trans },
+                        status: { label:'sfr.fields.status' | trans},
+                    },
+                    data: customer_normalized,
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

@@ -1,0 +1,18 @@
+<script>
+    function subst()
+    {
+        var vars={};
+        var x = document.location.search.substring(1).split('&');
+        for (var i in x) {
+            var z=x[i].split('=',2);vars[z[0]] = decodeURI(z[1]);
+        }
+
+        var choices = ['topage','page','webpage','section','subsection','subsubsection'];
+        for (var j in choices) {
+            var y = document.getElementsByClassName(choices[j]);
+            for (var k=0; k<y.length; ++k) {
+                y[k].textContent = vars[choices[j]];
+            }
+        }
+    }
+</script>

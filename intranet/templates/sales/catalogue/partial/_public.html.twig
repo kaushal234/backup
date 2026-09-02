@@ -1,0 +1,11 @@
+{% trans_default_domain 'catalogue' %}
+{% set publicForTLD = item.publicForTLD ? 'success' : 'danger' %}
+{% set publicForAero = item.publicForAerospecialties ? 'success' : 'danger' %}
+{% set publicForSAS = item.publicForSAS ? 'success' : 'danger' %}
+{% set publicForSAS = item.publicForSAS ? 'success' : 'danger' %}
+
+<td>
+    <span class="badge text-bg-{{ publicForTLD }} ">{{ 'catalogue.type.public_tld' | trans }}</span>
+    <span class="badge text-bg-{{ publicForAero }} ">{{ 'catalogue.type.public_aero' | trans }}</span>
+    <span class="badge text-bg-{{ publicForSAS }} ">{{ 'catalogue.type.public_sas' | trans }}</span>
+</td>

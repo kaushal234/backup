@@ -1,0 +1,21 @@
+{% extends 'directory/position/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set position_id = iri_id(position) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {% embed 'helper/_ibox.html.twig' with {
+        title: 'directory.position.title.edit'|trans|capitalize,
+    } %}
+        {% block card_content %}
+            {{ include('directory/position/_form.html.twig', {
+                form: form,
+                action: path('directory_positions_edit', { id: position_id }),
+                cancel_link: path('directory_positions_show', { id: position_id }),
+                id: position_id
+            }, with_context=false) }}
+        {% endblock card_content %}
+    {% endembed %}
+{% endblock %}

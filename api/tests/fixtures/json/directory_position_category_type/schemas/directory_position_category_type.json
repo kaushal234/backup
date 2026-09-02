@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/position_category_types/\\d+$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "name": {"type": "string"}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "name"
+  ],
+  "additionalProperties": false
+}

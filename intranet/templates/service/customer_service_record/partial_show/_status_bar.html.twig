@@ -1,0 +1,11 @@
+{{ include('helper/_status_bar.html.twig', {
+    statuses: {
+        'PENDING': ['PENDING'],
+        'PLANNED': ['PLANNED'],
+        'ASSIGNED': ['ASSIGNED'],
+        'IN-PROGRESS': ['IN-PROGRESS'],
+        'COMPLETED': ['COMPLETED'],
+        'CLOSED': ['CLOSED'],
+    },
+    current: customerServiceRecord.status,
+}) }}

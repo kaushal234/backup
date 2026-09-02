@@ -1,0 +1,50 @@
+{% trans_default_domain 'messages' %}
+
+{% block list_pagination %}
+    {% apply spaceless %}
+        {% if entries.pagination is defined and entries.pagination.enabled %}
+            {{ include('partial/_pagination.html.twig', {
+                currentPage: currentPage is defined ? currentPage : 1,
+                paginationUrl: paginationUrl,
+                entries: entries
+            }) }}
+        {% endif %}
+    {% endapply %}
+{% endblock %}
+
+{% block list_header %}
+<div>
+    {% endblock %}
+
+    {% block list_footer %}
+</div>
+{% endblock %}
+
+{% block list_entry %}
+    <p>{{ entry }}</p>
+{% endblock %}
+
+{% block list_empty %}
+    <p><i>{{ noEntriesMessage }}</i></p>
+{% endblock %}
+
+{% block list %}
+    {% if entries|length == 0 and block('pagination') is defined %}
+        {{ block('pagination') }}
+    {% else %}
+
+        {% set currentPage = paginationUrl.parameters.page|default(1) %}
+
+        {{ block('list_pagination') }}
+        {{ block('list_header') }}
+        <div class="row">
+        {% for entry in entries %}
+            {{ block('list_entry') }}
+            {% if (loop.index % 4) == 0 %} </div><div class="row">{% endif %}
+        {% endfor %}
+        </div>
+
+        {{ block('list_footer') }}
+        {{ block('list_pagination') }}
+    {% endif %}
+{% endblock %}

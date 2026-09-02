@@ -1,0 +1,144 @@
+App\Entity\MinutesOfMeeting\Meeting:
+  # /minutes_of_meeting/meetings/1
+  meeting_1:
+      id: 1
+      confidential: false
+      status: OPEN
+      title: The spartan
+      description: Parody
+      location: SPARTA
+      quick: false
+      createdBy: '@user_asm'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      customers: ['@customer_noire']
+      competitors: ['@competitor_1']
+      customerContacts: ['@extranet_user_fix']
+      contacts: ['@meeting_contact_1']
+      productTypes: ['@catalog_product_type_1']
+      attendees: ['@user_ceo']
+      businessUnits: ['@business_unit_sso', '@business_unit_factory']
+      fullDescription: Fatal approches toi faut que je te parle
+      meetingDate: <dateTimeBetween('-30 days','-1 days')>
+
+  # /minutes_of_meeting/meetings/2
+  meeting_2:
+      id: 2
+      confidential: true
+      status: OPEN
+      title: Chuuuuuut
+      description: chuuuut
+      location: KGB
+      quick: false
+      customers: ['@customer_noire']
+      createdBy: '@user_ceo'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      attendees: ['@user_asm']
+      fullDescription: le silence est une vertu de petit homme
+      meetingDate: <dateTimeBetween('-30 days','-1 days')>
+
+  # /minutes_of_meeting/meetings/3
+  meeting_3:
+      id: 3
+      confidential: true
+      status: OPEN
+      title: Porque te vas
+      description: C comme si javais pris la mer
+      location: Canada
+      quick: false
+      createdBy: '@user_transferred'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      fullDescription: loin est la destination mais proche est le nez
+      meetingDate: <dateTimeBetween('-30 days','-1 days')>
+
+  # /minutes_of_meeting/meetings/4
+  meeting_4:
+      id: 4
+      confidential: true
+      status: RELEASED
+      title: Longue vie a Renai
+      description: Celine for ever
+      location: Montreal
+      quick: false
+      createdBy: '@user_transferred'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      fullDescription: pour voir a travers il faut gouter
+      meetingDate: <dateTimeBetween('-30 days','-1 days')>
+
+  # /minutes_of_meeting/meetings/5
+  meeting_5:
+      id: 5
+      confidential: true
+      status: CLOSED
+      title: Kammthar
+      description: C mon camion
+      location: Bretagne libre
+      quick: false
+      createdBy: '@user_transferred'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      fullDescription: un enfant grandi dans le neant
+      meetingDate: <dateTimeBetween('-30 days','-1 days')>
+
+  # /minutes_of_meeting/meetings/6
+  meeting_6:
+      id: 6
+      confidential: true
+      status: OPEN
+      title: Six
+      description: Qu'il soit en location
+      location: Dieu
+      quick: false
+      createdBy: '@user_basic'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      fullDescription: foule description
+      meetingDate: <dateTimeBetween('-30 days','-1 days')>
+
+App\Entity\MinutesOfMeeting\Contact:
+  # /minutes_of_meeting/contacts/1
+  meeting_contact_1:
+      id: 1
+      meeting: '@meeting_1'
+      firstName: Smith
+      lastName: Agent
+      phone: 666-6931-324
+      mail: agent.smith@matrix.com
+      company: Matrix
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+
+App\Entity\MinutesOfMeeting\Action:
+  # /minutes_of_meeting/actions/1
+  meeting_actions_1:
+      id: 1
+      meeting: '@meeting_2'
+      description: il jouait du piano debout
+      completed: true
+      assignee: '@user_basic'
+      createdBy: '@user_asm'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      task: 666
+      customer: '@customer_a_boire'
+
+  # /minutes_of_meeting/actions/2
+  meeting_actions_2:
+      id: 2
+      meeting: '@meeting_4'
+      description: la ziza je te veux
+      completed: false
+      assignee: '@user_transferred'
+      createdBy: '@user_transferred'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      task: 123
+
+  # /minutes_of_meeting/actions/3
+  meeting_actions_3:
+      id: 3
+      meeting: '@meeting_4'
+      description: SOS un terrien en detresse
+      completed: true
+      assignee: '@user_transferred'
+      createdBy: '@user_transferred'
+      createdAt: <dateTimeBetween('-30 days','-1 days')>
+      task: 149
+      closingComment: le job is done
+
+
+

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ equipment.serialNumber }} — {{ 'support.serials.title'|trans([], 'support') }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.customer_portal'|trans,
+        hero_title: equipment.serialNumber,
+        hero_sub: 'support.serials.title'|trans([], 'support'),
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.fields.equipments'|trans, href: path('equipment:index') },
+            { label: equipment.serialNumber, href: path('equipment:show', {id: equipment.id}) },
+            { label: 'support.serials.title'|trans([], 'support') }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="row g-4 mb-4 et-tables">
+                <div class="col-12">
+                    <h2 class="section-title mb-3">{{ 'support.serials.title'|trans([], 'support') }}</h2>
+                    {{ include('_components/report_table.html.twig', {
+                        reportTable: {
+                            items: {
+                                component: {
+                                    label: 'support.serials.fields.component' | trans([], 'support'),
+                                    properties: ['component.name']
+                                },
+                                model: {
+                                    label: 'support.manual.fields.model' | trans([], 'support'),
+                                },
+                                serial: {
+                                    label: 'support.serials.fields.serial' | trans([], 'support'),
+                                },
+                                brand: {
+                                    label: 'support.serials.fields.brand' | trans([], 'support'),
+                                },
+                            },
+                            title: '',
+                            data: equipmentSerials,
+                        }
+                    }, with_context = false) }}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

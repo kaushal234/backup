@@ -1,0 +1,11 @@
+{% trans_default_domain 'sales_customers' %}
+<td>
+    {% for representative in item.secondarySalesRepresentatives %}
+        <p>
+            <a href="{{ path('directory_people_show', {id: iri_id(representative.asm)}) }}">{{ representative.asm.lastname }} {{ representative.asm.firstname }}</a>
+            /
+            <a href="{{ path('directory_sub_divisions_show', {id: iri_id(representative.subDivision)}) }}">{{ representative.subDivision.name }}</a>
+        </p>
+        <br>
+    {% endfor %}
+</td>

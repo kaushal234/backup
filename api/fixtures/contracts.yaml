@@ -1,0 +1,520 @@
+App\Entity\Legal\Contract:
+  contract_cdd:
+    id: 1
+    shortDescription: CDD
+    description: CDD mais qui dure un peu plus longtemps
+    observationValue: Il va pas être payé très cher
+    observationTerm: Il va pas durer si longtemps finalement
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_bank'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_it:
+    id: 2
+    shortDescription: IT monitor
+    description: on veut 4 écrans
+    observationValue: bla
+    observationTerm: blabla
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_it'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_customer:
+    id: 3
+    shortDescription: Pitié pas trop cher
+    description: on veut de la qualité à pas cher et tout de suite
+    observationValue: bla
+    observationTerm: blabla
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_customer'
+    customers:
+      - '@customer_noire'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_ma:
+    id: 4
+    shortDescription: j'aime la galette
+    description: savez vous comment ?
+    observationValue: je l'aime bien faite
+    observationTerm: avec du beurre dedans
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_ma'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_real_estate:
+    id: 5
+    shortDescription: Yellow submarine
+    description: Je choisis la couleur de mon sous marin
+    observationValue: green
+    observationTerm: blue
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_real_estate'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_vendors:
+    id: 6
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_vendors'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_interco_cash:
+    id: 7
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_interco_cash'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_interco_service:
+    id: 8
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_interco_service'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_insurances_building:
+    id: 9
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_insurances_building'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_insurances_car:
+    id: 10
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_insurances_car'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_insurances_do:
+    id: 11
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_insurances_do'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_insurances_general:
+    id: 12
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_insurances_general'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_insurances_aero:
+    id: 13
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_insurances_aero'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'
+
+  contract_insurances_worker:
+    id: 14
+    shortDescription: Oui j'ai beau voir le ciel
+    description: l'oiseau, rien ne luit là haut
+    observationValue: je suis
+    observationTerm: blanc de peau
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    startDate: <dateTimeBetween('-30 days', 'now')>
+    indefinitePeriodType: false
+    automaticRenewal: false
+    renewalPeriod: 6
+    renewalUnit: MONTH
+    externalParty: employee
+    internalParty: [drh]
+    status: ACTIVE
+    createdBy: '@user_hr'
+    owner: '@user_hr'
+    value: 300000
+    currency: '@cur_USD'
+    subCategory: '@sub_category_insurances_worker'
+    businessUnits:
+      - '@tld_america'
+      - '@business_unit_sso'
+    divisions:
+      - '@division_by_zero'
+      - '@division_vision'
+    premises:
+      - '@premise_moa'
+      - '@premise_crap'
+    regions:
+      - '@region_by_zero'
+      - '@region_ALVEST'
+    jurisdiction: Paris
+    alvestSignatories:
+      - '@user_coo'
+      - '@user_cfo'

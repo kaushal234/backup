@@ -1,0 +1,66 @@
+{% extends 'sales/layout.html.twig' %}
+
+{% block title %}{{ parent() }} \ {{ 'equipment_shipping_record.title' | trans({}, 'equipment_shipping_record') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="equipment_shipping_record_add"/>
+        <twig:NavItem:Reports route="legacy_sales" :routeParameters="{m: ['esr', 'reports']}"/>
+        <twig:NavItem translationKey="equipment_shipping_record.nav_link.freight_forwarders"
+                      domain="equipment_shipping_record" icon="mdi-light:truck" route="freight_forwarders_home"/>
+        <twig:NavItem translationKey="equipment_shipping_record.nav_link.planning_daily_limit"
+                      domain="equipment_shipping_record" icon="mdi-light:calendar" route="planning_daily_limit_home"/>
+        <twig:NavItem translationKey="equipment_shipping_record.nav_link.planning"
+                      domain="equipment_shipping_record" icon="mdi-light:calendar"
+                      route="equipment_shipping_record_planning"/>
+        <twig:NavItem translationKey="equipment_shipping_record.nav_link.dashboard"
+                      domain="equipment_shipping_record" icon="mynaui:list"
+                      route="equipment_shipping_record_dashboard"/>
+        {% if  equipmentShippingRecord is defined %}
+            <twig:Dropdown translationKey="equipment_shipping_record.nav_link.equipment_shipping_record_actions"
+                           domain="equipment_shipping_record">
+                <twig:NavItem:Add translationKey="equipment_shipping_record.nav_link.equipment_shipping_record_actions"
+                                  domain="equipment_shipping_record" route="equipment_shipping_record_costs_add"
+                                  :routeParameters="{id: equipmentShippingRecord.id}"
+                                  :security="is_granted('FEATURE_ESR_WRITE')"/>
+                {% if equipmentShippingRecord.status != 'CLOSED' and is_granted('FEATURE_ESR_WRITE') %}
+                    <twig:NavItem:Edit route="equipment_shipping_record_edit"
+                                       :routeParameters="{id: equipmentShippingRecord.id}"/>
+                    <twig:NavItem:Delete route="equipment_shipping_record_delete"
+                                         :routeParameters="{id: equipmentShippingRecord.id}"/>
+                    {% if equipmentShippingRecord.status == 'PENDING' %}
+                        <twig:NavItem translationKey="equipment_shipping_record.nav_link.booked"
+                                      domain="equipment_shipping_record" icon="solar:book-linear"
+                                      route="equipment_shipping_record_status"
+                                      :routeParameters="{id: iri_id(equipmentShippingRecord['@id']), status: 'BOOKED'}"/>
+                    {% endif %}
+                    {% if equipmentShippingRecord.status == 'BOOKED' %}
+                        <twig:NavItem translationKey="equipment_shipping_record.nav_link.shipped"
+                                      domain="equipment_shipping_record" icon="mingcute:ship-line"
+                                      route="equipment_shipping_record_status"
+                                      :routeParameters="{id: iri_id(equipmentShippingRecord['@id']), status: 'SHIPPED'}"/>
+                    {% endif %}
+                    {% if equipmentShippingRecord.status == 'SHIPPED' %}
+                        <twig:NavItem translationKey="equipment_shipping_record.nav_link.closed"
+                                      domain="equipment_shipping_record" icon="material-symbols:check-rounded"
+                                      route="equipment_shipping_record_status"
+                                      :routeParameters="{id: iri_id(equipmentShippingRecord['@id']), status: 'CLOSED'}"/>
+                    {% endif %}
+                    {% if equipmentShippingRecord.status == 'CLOSED' %}
+                        <twig:NavItem translationKey="equipment_shipping_record.nav_link.shipped"
+                                      domain="equipment_shipping_record" icon="material-symbols:check-rounded"
+                                      route="equipment_shipping_record_status"
+                                      :routeParameters="{id: iri_id(equipmentShippingRecord['@id']), status: 'SHIPPED'}"
+                                      :security="is_granted('MOO_ESR') or is_granted('FEATURE_EQUIPMENT_SHIPPING_RECORD_REOPEN')"/>
+                    {% endif %}
+                {% endif %}
+            </twig:Dropdown>
+        {% endif %}
+        {% if planningDailyLimits is defined %}
+            <twig:NavItem:Add translationKey="equipment_shipping_record.nav_link.add_planning_daily_limits"
+                              domain="equipment_shipping_record"
+                              route="planning_daily_limit_add"
+                              :security="is_granted('FEATURE_PLANNING_DAILY_LIMIT_WRITE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

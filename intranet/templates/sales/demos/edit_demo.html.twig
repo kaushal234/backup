@@ -1,0 +1,13 @@
+{% extends 'sales/demos/layout.html.twig' %}
+{% trans_default_domain 'demo' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') | capitalize }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/demos/partial/_form.html.twig', {
+        title: 'demo.edit.title'|trans,
+        form: form,
+        action: path('demo_edit', {'id': demo.iriId}),
+        cancel_link: path('demo_show', {'id': demo.iriId})
+    }, with_context=false) }}
+{% endblock %}

@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/dms$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/dms/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "portal": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "confidential": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "title",
+          "subject",
+          "description",
+          "language",
+          "portal",
+          "type",
+          "createdAt",
+          "owner",
+          "legacyId",
+          "status",
+          "confidential"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["hydra:member", "@id"]
+}

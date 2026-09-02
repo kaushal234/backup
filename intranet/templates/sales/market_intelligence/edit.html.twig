@@ -1,0 +1,13 @@
+{% extends 'sales/market_intelligence/layout.html.twig' %}
+{% trans_default_domain 'market_intelligence' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') | capitalize }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/market_intelligence/partial/_form.html.twig', {
+        title: 'market_intelligence.edit.title'|trans,
+        form: form,
+        action: path('market_intelligence_edit', {'id': marketIntelligence.iriId}),
+        cancel_link: path('market_intelligence_show', {'id': marketIntelligence.iriId})
+    }, with_context=false) }}
+{% endblock %}

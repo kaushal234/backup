@@ -1,0 +1,31 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.documents'|trans }}{% endblock %}
+
+{% block main %}
+    {{ include('_components/report_table.html.twig', {
+        reportTable: {
+            items: {
+                legacyId: {label: 'display.table.document.headers.id'|trans},
+                title: {label: 'display.table.document.headers.title'|trans},
+                subject: {label: 'display.table.document.headers.subject'|trans},
+                type: {
+                    label: 'display.table.document.headers.type'|trans,
+                    filters: "default('display.table.document.rows.type.no_available')|trans"
+                },
+                language: {label: 'display.table.document.headers.language'|trans},
+                owner: {
+                    label: 'display.table.document.headers.owner'|trans,
+                    template: 'document/components/datatable/owner.html.twig'
+                },
+                download: {
+                    label: 'display.table.document.headers.download'|trans,
+                    template: 'document/components/datatable/download.html.twig'
+                },
+            },
+            title: 'display.table.document.caption.title'|trans,
+            id: 'documents-table',
+            data: documents,
+        }
+    }, with_context = false) }}
+{% endblock %}

@@ -1,0 +1,5 @@
+<td class="text-center">
+    {% if item.invoiceRecord is not same as(null) %}
+        {{ item.invoiceRecord.expectedPaymentDate | date("Y-m-d") }}
+    {% endif %}
+</td>

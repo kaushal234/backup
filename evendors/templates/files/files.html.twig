@@ -1,0 +1,30 @@
+{% set title = title | default('display.table.scar_files.caption.title') %}
+{% set fileRoute = fileRoute | default('file') %}
+<div class="row">
+    <div class="col">
+        {{ include('_components/report_table.html.twig', {
+            reportTable: {
+                items: {
+                    id: {label: 'display.table.scar_files.headers.id'|trans},
+                    description: {label: 'display.table.scar_files.headers.description'|trans},
+                    poster: {
+                        label: 'display.table.scar_files.headers.poster'|trans,
+                        template: 'supplier-corrective-action-request/components/datatable/poster.html.twig'
+                    },
+                    createdAt: {
+                        label: 'display.table.scar_files.headers.createdAt'|trans,
+                        filters: ['date']
+                    },
+                    download: {
+                        label: 'display.table.scar_files.headers.download'|trans,
+                        template: 'files/components/datatable/download.html.twig',
+                        templateParams: {iri: iri, fileRoute: fileRoute}
+                    },
+                },
+                title: title|trans,
+                id: 'scar-modules-files-table',
+                data: files
+            }
+        }, with_context = false) }}
+    </div>
+</div>

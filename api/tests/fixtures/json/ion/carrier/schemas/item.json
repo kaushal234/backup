@@ -1,0 +1,110 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/Carrier.jsonld-carrier_carrier.detail",
+    "definitions": {
+        "Carrier.jsonld-carrier_carrier.detail": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/carriers/\\w+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": ["string", "null"]
+                },
+                "buyFromBusinessPartner": {
+                    "$ref": "#/definitions/BusinessPartner.jsonld-carrier_carrier.detail"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "code",
+                "name",
+                "url",
+                "buyFromBusinessPartner"
+            ],
+            "additionalProperties": false
+        },
+        "BusinessPartner.jsonld-carrier_carrier.detail": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/business_partners/\\w+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "code",
+                "name",
+                "role",
+                "status",
+                "text"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'engineering_pictogram' %}
+
+{% block title %}{{ 'sidebar.engineering.title'|trans({}, 'sidebar') }} / {{ 'sidebar.engineering.pictograms'|trans({}, 'sidebar') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add translationKey="nav_link.add_pictogram" domain="engineering_pictogram" route="pictogram_add"
+                          :security="is_granted('FEATURE_PICTOGRAM_CREATE')"/>
+        {% if categoryDataTable is defined %}
+            <twig:NavItem:Add translationKey="nav_link.add_categories" domain="engineering_pictogram"
+                              route="pictogram_category_add"
+                              :security="is_granted('FEATURE_PICTOGRAM_CATEGORY_CREATE')"/>
+        {% endif %}
+        <twig:NavItem translationKey="nav_link.pictogram" domain="engineering_pictogram"
+                      icon="lucide:grip" route="pictogram_home" :security="is_granted('FEATURE_PICTOGRAM_READ')"/>
+        <twig:NavItem translationKey="nav_link.categories" domain="engineering_pictogram"
+                      icon="mynaui:list" route="pictogram_category_home"
+                      :security="is_granted('FEATURE_PICTOGRAM_CATEGORY_READ')"/>
+        {% if pictogram is defined %}
+            <twig:NavItem:Edit translationKey="nav_link.edit_pictogram" domain="engineering_pictogram"
+                               route="pictogram_edit" :routeParameters="{id: pictogram.id}"
+                               :security="is_granted('FEATURE_PICTOGRAM_UPDATE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

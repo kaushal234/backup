@@ -1,0 +1,25 @@
+- name: Playbook for extranet servers
+  hosts: extranet
+  roles:
+    - { role: shared-handlers, tags: [always] }
+    - { role: monitored-server, tags: [monitoring] }
+    - { role: iptables, tags: [security], vars: { iptables_rules_template: templates/extranet/iptables/rules.v4.j2 }}
+    - { role: utils, tags: [utils] }
+    - { role: geerlingguy.ntp, become: true, tags: [utils] }
+    - { role: code-host, tags: [web] }
+    - { role: cron, tags: [cron] }
+    - { role: git, tags: [web] }
+    - { role: geerlingguy.nginx, become: true, tags: [web, nginx] }
+    - { role: geerlingguy.php-versions, become: true, tags: [web, php, env] }
+    - { role: geerlingguy.php, become: true, tags: [web, php, env] }
+    - { role: logrotate, become: true, tags: [php] }
+    -
+      role: dotenv
+      tags: [env]
+      vars:
+        dotenv_template: "templates/extranet/.env.j2"
+        dotenv_path: "{{ monorepo_path }}/shared/extranet-new/.env"
+        dotenv_profile_filename: extranet_env
+    - { role: sentinel, tags: [sentinel] }
+    - { role: auditbeat, tags: [auditbeat] }
+    - { role: landscape, tags: [landscape] }

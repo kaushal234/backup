@@ -1,0 +1,76 @@
+{% trans_default_domain 'sales_forecasts' %}
+
+<div class="row">
+    <div class="col-xs-12" id="linked-sfr">
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    id: {
+                        label: '#',
+                        link:{
+                            route: 'sales_forecasts_show',
+                            params: {'id':'id'},
+                        },
+                        sortable: 'numeric'
+                    },
+                    status: {
+                        label: 'fields.status'|trans({}, 'messages')|capitalize
+                    },
+                    factory: {
+                        properties: ['factory.name'],
+                        label: 'fields.factory'|trans({}, 'messages')|capitalize,
+                        link:{
+                            route: 'directory_locations_show',
+                            params: {'id':'factory.@id'},
+                        }
+                    },
+                    model: {
+                        properties: ['product.name'],
+                        label: 'sales_forecasts.fields.product'|trans(),
+                        link:{
+                            route: 'sales_catalogue_product_show',
+                            params: {'id':'product.@id'},
+                        }
+                    },
+                    quantity: {
+                        label: 'fields.quantity'|trans({}, 'messages')
+                    },
+                    customerSuccessPercentage: {
+                        label: 'fields.customerSuccessPercentage'|trans({}, 'messages')
+                    },
+                    successPercentage: {
+                        label: 'fields.successPercentage'|trans({}, 'messages')
+                    },
+                    estimatedSaleDate: {
+                        label: 'fields.estimatedSaleDate'|trans({}, 'messages'),
+                        filters: 'date("m-Y")'
+                    },
+                    unlink: {
+                        label: 'sales_forecasts.actions.unlink'|trans|capitalize,
+                        link:{
+                            route: 'sales_forecasts_unlink',
+                            params: {id:'id'},
+                            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-unlink fa-fw"></i></span>',
+                        },
+                        sortable: false,
+                        class : 'text-end'
+                    },
+                    view: {
+                        label: 'menu.view'|trans([], 'messages')|capitalize,
+                        link:{
+                            route: 'forecast_closures_show',
+                            params: {id:'id'},
+                            content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                        },
+                        sortable: false,
+                        class : 'text-end'
+                    },
+                },
+                title: 'sales_forecasts.linked_sfr'|trans,
+                data: linkedSalesForecasts,
+                search: false,
+                pagination: false
+            }
+        }, with_context = false) }}
+    </div>
+</div>

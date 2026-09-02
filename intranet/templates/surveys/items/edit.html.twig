@@ -1,0 +1,22 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% set survey_id = iri_id(survey) %}
+
+{% block title %}
+    {{ parent() }} \ {{ item.description | u.truncate(100) }} \ {{ 'menu.edit' | trans({}, 'messages') }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            {{ include('surveys/items/partial/_form.html.twig', {
+                title: 'survey_items.page_titles.edit' | trans({'%name%': item.description}),
+                form: form,
+                action: path('survey_items_edit', { id: survey_id, itemId: iri_id(item) }),
+                cancel_link: path('survey_items_index', { id: survey_id })
+            }) }}
+        </div>
+    </div>
+
+{% endblock %}

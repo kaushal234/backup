@@ -1,0 +1,33 @@
+{% extends '/layout.html.twig' %}
+{% trans_default_domain 'sage_parts_tools' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            title: {
+                                label: 'sage_parts_tools.fields.title'|trans|capitalize,
+                                template: 'sage_parts_tools/partial/cell/_title.html.twig',
+                            },
+                            description: { label: 'sage_parts_tools.fields.description'|trans|capitalize },
+                            link: {
+                                label: '',
+                                template: 'sage_parts_tools/partial/cell/_link.html.twig',
+                            }
+                        },
+                        title: (('sidebar.ap_and_a.first_level.' ~ category)|trans([], 'sidebar')),
+                        data: tools,
+                        initialSorting: false
+                    }
+                }, with_context = false) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+{% endblock %}

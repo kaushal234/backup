@@ -1,0 +1,27 @@
+{% extends 'sales/forecast_closures/layout.html.twig' %}
+{% trans_default_domain 'forecast_closures' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-lg-9">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'sidebar.sales.fcr' | trans({}, 'sidebar') ~ '#' ~ forecastClosure.id ~ ' - ' ~ 'menu.edit' | trans({}, 'messages') }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ include('sales/forecast_closures/partial/_form.html.twig', {
+                        form: form,
+                        title: 'sidebar.sales.fcr' | trans({}, 'sidebar') ~'#'~ forecastClosure.id,
+                        action: path('forecast_closures_edit', {'id': forecastClosure.id}),
+                        cancel_link: path('forecast_closures_home')
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

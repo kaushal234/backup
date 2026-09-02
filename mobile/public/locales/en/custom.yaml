@@ -1,0 +1,1368 @@
+toc_id: Toc ID
+toc_error: Toc ID is required
+find_toc: Find Toc
+toc_file_error: File is required
+submit: Submit
+age: Age
+none: None
+ten: Ten
+twenty: Twenty
+thirty: Thirty
+open: Open
+firstname: First name
+lastname: Last name
+fullname: Full name
+tax_rate: Tax Rate
+year: Year
+country: Country
+birthday: Birthday
+actions: Actions
+delete: Delete
+toggle_admin: Toggle Admin
+duplicate_user: Duplicate User
+personal_info: Personal Info
+guardian_info: Guardian Info
+name: Name
+name_placeholder: Enter your full name
+age_placeholder: Enter your age
+next: Next
+guardian_name: Guardian Name
+guardian_name_placeholder: Enter your guardian's full name
+guardian_age: Guardian Age
+guardian_age_placeholder: Enter your guardian's age
+back: Back
+name_error: Name is required
+age_error: Age is required
+guardian_name_error: Guardian's name is required
+guardian_age_error: Guardian's age is required
+invalid_toc: Invalid Toc ID
+internet_error: Please connect to internet
+general_error: Something went wrong....
+sync_form: Form submitted successfully for sync
+upload_success: Upload Successful
+logout_success: Successfully logged out
+auth_error: Invalid User Credentials
+no_file_error: File Not Uploaded Yet
+offline_alert: You're offline
+id: ID
+status: Status
+shortDescription: Description
+dueDate: Due Date
+createdAt: Created At
+no_files: No Files Found
+file_not_found: file not found
+file_not_supported: file not supported
+search: Search
+no_toc_available: No TOC Available
+toc_get_all_api: TOC - Make Get All Call
+toc_get_api: TOC - Make Get Call
+toc_post_api: TOC - Make Post Call
+toc_put_api: TOC - Make Put Call
+toc_delete_api: TOC - Make Delete Call
+toc_eq_get_all_api: Equipment Record - Make Get All Call
+toc_eq_get_api: Equipment Record - Make Get Call
+toc_tag_get_all_api: TOC Tag - Make Get All Call
+toc_sa_get_all_api: Service Activity - Make Get All Call
+toc_type_get_all_api: TOC Type - Make Get All Call
+find_toc_placeholder: Find A TOC
+
+login:
+  email:
+    label: Email
+    placeholder: email@example.com
+    error:
+      required: Please enter a valid email address.
+  password:
+    label: Password
+    error:
+      required: Password must be at least 8 characters long.
+  remember_me: Remember me
+  submit: Sign In
+  azure: Login With Microsoft
+  toast:
+    success: Logged In Successfully
+
+drawer:
+  home: Home
+  toc:
+    home: TOC
+    filter: Filters
+    details: Details
+    create: New
+    update: Edit
+    search: AI Search
+  csr: CSR
+  manuals: Manuals
+  finder: Finder
+  upload: Upload
+  dropdown: Dropdown
+  table: Table
+  server_side_table: Server Side Table
+  stepper: Stepper
+  API: API
+  er:
+    home: Equipment Record
+    finder: Scan QR Code
+
+theme:
+  system: System
+  light: Light
+  dark: Dark
+
+language:
+  en: English
+  fr: French
+  zh: Chinese
+
+profile:
+  theme: Theme
+  language: Language
+  my_profile: My Profile
+  logout: Logout
+  settings: Settings
+
+home:
+  toc:
+    label: Toc ID
+    placeholder: Find a TOC
+    error: Toc ID is required
+  submit: Validate
+
+toc:
+  title: TOC
+  not_found: No TOC Available
+  filter:
+    heading: Filters
+    search:
+      placeholder: Find a TOC by ID
+      error:
+        required: Please enter a valid TOC ID.
+  sort:
+    airport_asc: Sort By Airport (A-Z)
+    airport_desc: Sort By Airport (Z-A)
+    ifactor_asc: Sort By IFactor (Low to High)
+    ifactor_desc: Sort By IFactor (High to Low)
+    created_asc: Sort By Created Date (Old to New)
+    created_desc: Sort By Created Date (New to Old)
+    updated_asc: Sort By Updated Date (Old to New)
+    updated_desc: Sort By Updated Date (New to Old)
+  type:
+    not_define_yet: Not Defined Yet
+    customer: Customer (Payable Service)
+    sso: SSO (Sales Concession)
+    factory: Factory (Warranty)
+
+common:
+  search_min_char: Type at least {{minChars}} to search
+  results: Results
+  no_match: No Match Found
+  error:
+    not_found: Item Not Found
+    internet_error: Please connect to internet
+    general_error: Something went wrong....
+  invalid_date: Please select a valid date.
+  invalid_date_future: Future dates are invalid, please choose again.
+  invalid_date_past: Past dates are invalid, please choose again.
+  file_size_error: "File size exceeds the maximum limit of {{size}} MB."
+  camera_requested: Please grant camera access to start scanning QR codes.
+  camera_denied: Oops! Camera access is denied. Please enable camera permissions and refresh the page.
+  access_denied: Access denied.
+  login_required: Please log in to access this page.
+  upload_image: Upload Image
+  upload_file: Upload File
+  ifactor:
+    if_1: Administrative action, Part number, simple technical question
+    if_10: Regular operations, technical troubleshooting, requires TLD technician
+    if_100: Severe technical issues requiring CSM and/or SSD attention or factory support
+    if_1000: "Crisis management: accident, endangering life and/or destroying equipment, severe impact on relationship or alteration of ALVEST image."
+  boolean:
+    yes: Yes
+    no: No
+  clear_filters: Reset Filters
+  loading: Loading...
+
+toc_search:
+  er_sn:
+    title: ER SN#
+    placeholder: Type to search an ER
+    options_placeholder: Please type the entire ER SN# to find a match
+  status:
+    title: Status
+    placeholder: Select Some Options
+  assignee:
+    title: Assignee
+    placeholder: Type to search an Assignee
+  unit_operational_status:
+    title: Unit Operational Status
+    placeholder: Select Some Options
+  payer:
+    title: Who Is Paying
+    placeholder: Select Some Options
+  service_activity:
+    title: Service Activity
+    placeholder: Select Some Options
+  ifactor:
+    title: IFactor
+    placeholder: Select Some Options
+  tags:
+    title: Tags
+    placeholder: Select Some Options
+  created_by:
+    title: Created By
+    placeholder: Type to search
+  created_after:
+    title: Created After
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+    error:
+      after_before: Please ensure the 'Created After' date is not after the 'Created Before' date.
+  created_before:
+    title: Created Before
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+  solved_after:
+    title: Solved After
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+    error:
+      after_before: Please ensure the 'Solved After' date is not after the 'Solved Before' date.
+  solved_before:
+    title: Solved Before
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+  sales_organisation:
+    title: Sales Organisation
+    placeholder: Select Some Options
+  service_organisation:
+    title: Service SSO
+    placeholder: Type to search Service SSO
+  manufacturer_location:
+    title: Manufacturer Location
+    placeholder: Select Some Options
+  equipment_type:
+    title: Equipment Type
+    placeholder: Type to search Equipment Type
+  models:
+    title: Models
+    placeholder: Type to search Models
+  airport:
+    title: Airport
+    placeholder: Type to search an Airport
+  late:
+    title: Late (> 5 days)
+    placeholder: Please Select An Option
+  factory_flag:
+    title: Factory Flag
+    placeholder: Please Select An Option
+  factory_flag_recently_closed:
+    title: Factory Flag Recently Closed
+    placeholder: Please Select An Option
+  survey:
+    title: With Survey
+    placeholder: Please Select An Option
+  buyer:
+    title: Buyer
+    placeholder: Type to search Buyer
+  country:
+    title: Country
+    placeholder: Type to search Country
+  toc_part:
+    title: TOC Part
+    placeholder: Type to search TOC Part
+  end_user:
+    title: End User
+    placeholder: Type to search End User
+  spr_part:
+    title: SPR Part
+    placeholder: Type to search SPR Part
+  maintainer:
+    title: Maintainer
+    placeholder: Type to search Maintainer
+  confidential:
+    title: Confidential
+    placeholder: Please Select An Option
+  title:
+    title: Short Description
+    placeholder: Type to search Short Description
+  technician:
+    title: Technician
+    placeholder: Type to search a Technician
+  error_codes:
+    title: Error Codes
+    placeholder: Type to search Error Codes
+  assignee_or_technician:
+    title: Assignee or Technician
+    placeholder: Type to search Assignee or Technician
+  validate: Submit
+
+toc_details:
+  tab:
+    description: Description
+    logs: Logs
+    files: Files
+  description:
+    model: Model
+    commissioned_at: Commissioned At
+    type: Type
+    airport: Airport
+    days_opened: Days Opened
+    unit_operational_status: Unit Operational Status
+    time_nmc: Time NMC
+    warranty: Warranty
+    factory_flag:
+      title: Factory Flag
+      value:
+        open: Opened
+        close: Closed
+    factory_time:
+      title: Total Factory Time
+    additional_info:
+      title: Additional Info
+      equipment_record: Serial Number
+      assignee: Assignee
+      technician: Technician
+      error_codes: Error Codes
+      service_activity: Service Activity
+      ifactor: IFactor
+      created_by: Created By
+      created_at: Created At
+      buyer: Buyer
+      end_user: End User
+      maintainer: Maintainer
+      hour_meter: Hour Meter
+      who_pays: Who Pays
+      manufacturing_location: Manufacturing Location
+      sso_organisation: SSO Organisation
+      sso_service: Service SSO
+      tags: Tags
+      csr: CSR
+      customer: Customer
+      third_party_name: Third Party
+      third_party_ref: Third Party Ref
+      serial_number: Customer Asset Number
+      confidential: Confidential
+      outdated: Outdated
+      emission_rating: Emission Rating
+    symptoms: Symptoms
+    root_cause: Root Cause
+    solution: Solution
+    third_party_job_description: Third Party Job Description
+    third_party_hours: Third Party Hours
+    service_bulletins:
+      title: Service Bulletins
+      value: View
+      confidential: Confidential
+    view: View
+    request: Request
+  files:
+    main_file: Main File
+  status_popup:
+    heading: Update Status
+    status:
+      title: Status
+      placeholder: Please Select Status
+      error:
+        required: Please select a valid Status.
+    symptoms:
+      title: Symptoms
+      sub_title: (Please update if necessary)
+      placeholder: Please Enter Your Symptoms
+      error:
+        required: Please enter valid Symptoms.
+    root_cause:
+      title: Root Cause
+      placeholder: Please Enter Your Root Cause
+      error:
+        required: Please enter a valid Root Cause.
+    solution:
+      title: Solution
+      placeholder: Please Enter Your Solution
+      error:
+        required: Please enter valid Solution.
+    reason:
+      title: Reason
+      placeholder: Please Enter Your Reason
+      error:
+        required: Please enter valid Reason.
+    third_party_job_description:
+      title: Third Party Job Description
+      placeholder: Please Enter Your Description
+      error:
+        required: Please enter valid Third Party Job Description.
+    third_party_hours:
+      title: Third Party Hours
+      placeholder: Please Enter Third Party Hours
+      error:
+        required: Please enter valid Third Party Hours.
+        zero: Please enter a value greater than 0.
+    submit: Submit
+    solved_warning: This TOC can't be solved as there are pending CSRs. Please close all CSRs first.
+    access_error: Your current position does not allow you to update status of a TOC.
+  contact:
+    title: Contacts
+    main_contact: Main Contact
+    other_contacts: Additional Contacts
+  csr:
+    title: Linked CSR
+    status:
+      open: Open
+      closed: Closed
+  factory_flag_popup:
+    heading: Update Factory Flag
+  unit_operational_status_popup:
+    heading: Update Unit Operational Status
+  links: 
+    title: Links
+
+confirmation_popup:
+  positive_button: Yes
+  negative_button: No
+
+breadcrumb:
+  home: Home
+  profile: Profile
+  extranet_user: Extranet User
+  er:
+    home: ER
+    finder: Search
+    details: Details
+    filters: Filters
+    manual:
+      home: Manual
+      document: Document
+  csr:
+    home: CSR
+    details: Details
+    filters: Filters
+    update: Edit
+    survey:
+      home: Survey
+  settings: Settings
+  toc:
+    home: TOC
+    details: Details
+    create: New
+    update: Edit
+    search: Search
+  toc_parts:
+    create: New Part
+    update: Edit Part
+  toc_spr:
+    create: New SPR
+    update: Edit SPR
+
+er_finder:
+  search:
+    placeholder: Find an ER by Serial Number
+    error: Please enter a valid Serial Number.
+  sub_heading_1: OR
+  sub_heading_2: Scan a QR Code
+
+er_filter:
+  er_sn:
+    title: ER SN#
+    placeholder: Type to search an ER
+    options_placeholder: Please type the entire ER SN# to find a match
+  equipment_type:
+    title: Equipment Type
+    placeholder: Type to search an equipment type
+  models:
+    title: Models
+    placeholder: Type to search a model
+  airport:
+    title: Airport
+    placeholder: Type to search an Airport
+  buyer:
+    title: Buyer
+    placeholder: Type to search a buyer
+  end_user:
+    title: End User
+    placeholder: Type to search an end user
+  maintainer:
+    title: Maintainer
+    placeholder: Type to search a maintainer
+  validate: Submit
+
+er_details:
+  heading: Details
+  create_toc: Create TOC
+  tab:
+    description: Description
+    manuals: Manuals
+    schematics: Schematics
+  description:
+    model: Model
+    commissioned_at: Commissioned At
+    type: Type
+    airport: Airport
+    hour_meter: Hour Meter
+    state: State
+    linked_open_toc: Opened TOC
+    linked_closed_toc: Closed TOC
+    additional_info:
+      title: Additional Info
+      serial_number: Serial Number
+      status: Status
+      emission_rating: Emission Rating
+      manufacturing_location: Manufacturing Location
+      ship_date: Ship Date
+      gt_date: GT Date
+      buyer: Buyer
+      end_user: End User
+    installed_options: Installed Options
+    dimensions:
+      title: Dimensions
+      length: Length (mm)
+      width: Width (mm)
+      height: Height (mm)
+      weight: Weight (kg)
+  manuals:
+    no_files: No Manuals Available
+  schematics:
+    no_files: No Schematic Diagrams Available
+    schematic_title: Schematic Diagrams
+    extra_schematic_title: Extra Schematic Diagrams
+    brand: Brand
+
+er_list:
+  not_found: No Equipment Record Available
+  sort:
+    serial_number_asc: Sort By Serial Number (A-Z)
+    serial_number_desc: Sort By Serial Number (Z-A)
+
+csr_list:
+  not_found: No CSR Available
+  sort:
+    airport_asc: Sort By Airport (A-Z)
+    airport_desc: Sort By Airport (Z-A)
+    created_asc: Sort By Created Date (Old to New)
+    created_desc: Sort By Created Date (New to Old)
+    updated_asc: Sort By Updated Date (Old to New)
+    updated_desc: Sort By Updated Date (New to Old)
+
+csr_details:
+  heading: Details
+  tab:
+    description: Description
+    logs: Logs
+    files: Files
+  description:
+    model: Model
+    commissioned_at: Commissioned At
+    airport: Airport
+    days_opened: Days Opened
+    serial_number: Serial Number
+    type: Type
+    factory_flag:
+      title: Factory Flag
+      value:
+        open: Opened
+        close: Closed
+    factory_time:
+      title: Total Factory Time
+    additional_info:
+      title: Additional Info
+      created_by: Created By
+      created_at: Created At
+      buyer: Buyer
+      end_user: End User
+      maintainer: Maintainer
+      hour_meter: Hour Meter
+      manufacturing_location: Manufacturing Location
+      sso_organisation: SSO Organisation
+      sso_service: Service SSO
+      planned_at: Planned At
+      toc: TOC
+    technician_info:
+      title: Technician Info
+      full_name: Full Name
+      email: Email
+    contact:
+      title: Contact
+  intervention: Intervention
+
+csr_filter:
+  heading: Filters
+  search:
+    placeholder: Find a CSR by ID
+    error:
+      required: Please enter a valid CSR ID.
+  er_sn:
+    title: ER SN#
+    placeholder: Type to search an ER
+    options_placeholder: Please type the entire ER SN# to find a match
+  status:
+    title: Status
+    placeholder: Select Some Options
+  created_by:
+    title: Created By
+    placeholder: Type to search
+  created_after:
+    title: Created After
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+    error:
+      after_before: Please ensure the 'Created After' date is not after the 'Created Before' date.
+  created_before:
+    title: Created Before
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+  sales_organisation:
+    title: Sales Organisation
+    placeholder: Please Select An Option
+  service_organisation:
+    title: Service SSO
+    placeholder: Type to search
+  manufacturer_location:
+    title: Manufacturer Location
+    placeholder: Please Select An Option
+  equipment_type:
+    title: Equipment Type
+    placeholder: Type to search
+  models:
+    title: Models
+    placeholder: Type to search
+  airport:
+    title: Airport
+    placeholder: Type to search an Airport
+  service_technician:
+    title: Service Technician
+    placeholder: Type to search
+  end_user:
+    title: End User
+    placeholder: Type to search
+  completed_after:
+    title: Completed After
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+    error:
+      after_before: Please ensure the 'Completed After' date is not after the 'Completed Before' date.
+  completed_before:
+    title: Completed Before
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+  closed_after:
+    title: Closed After
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+    error:
+      after_before: Please ensure the 'Closed After' date is not after the 'Closed Before' date.
+  closed_before:
+    title: Closed Before
+    placeholder: Please Select Date
+    hint: YYYY-MM-DD
+  country:
+    title: Country
+    placeholder: Select Some Options
+  discriminator:
+    title: CSR Type
+    placeholder: Select Some Options
+  validate: Submit
+
+files_preview:
+  sub_heading: All Files
+  comment_file: Comment File
+  regular_file: Regular File
+  no_files: No Files Available.
+  popup:
+    title: Add Files
+    file_name:
+      title: File Name
+      placeholder: Please enter a file name.
+    description:
+      title: Description
+      placeholder: Please enter a description.
+    file:
+      title: Files
+      error: Please select at least one file.
+    submit: Submit
+  offline: Files saved for later syncing.
+  delete: Deleted files will be removed after syncing.
+
+logs_preview:
+  heading: Add a Log
+  comment:
+    title: Log
+    flag_title: Open Factory Flag
+    placeholder: Add a log
+    error: Please enter a valid log.
+  file:
+    title: File
+    placeholder: Attach a file
+  type:
+    title: Type
+    option:
+      internal: Internal
+      external: External
+      internal_notification: Internal With Notification
+  factory_flag:
+    title:
+      open: Requires Factory Assistance
+      close: Close Factory Flag
+    option:
+      open: Open
+      close: Close
+    chip:
+      open: FF - Open
+      close: FF - Close
+  confidential:
+    chip:
+      open: Confidential - Open
+      close: Confidential - Close
+  submit:
+    title: Submit
+    factory_flag_open: Open Factory Flag
+    factory_flag_close: Close Factory Flag
+  confirmation:
+    title: Are you sure?
+    description: This information will be shared with the customer.
+  sub_heading: Discussion
+  no_comment: No logs yet. Start the conversation!
+  external: External
+  offline: Logs saved for later syncing.
+  flag_raised: Factory flag opened successfully.
+
+manual_details:
+  fields:
+    id: ID
+    legacy_id: Legacy ID
+    status: Status
+    model: Model
+    description: Description
+    features: Features
+    language: Language
+    created_at: Created At
+  files:
+    main_heading: Operation and Parts Manual
+    section:
+      manual: Manual Section
+      parts: Parts Diagram
+    fields:
+      position: Position
+      document_number: Document Number
+      factory_number: Factory Number
+      revision: Revision
+      type: Type
+      category: Category
+      description: Description
+      other_description: Other Description
+      actions: Actions
+    actions:
+      view: View
+      download: Download
+
+manual_document:
+  fields:
+    position: Position
+    document_number: Document Number
+    factory_number: Factory Number
+    revision: Revision
+    type: Type
+    category: Category
+    description: Description
+    other_description: Other Description
+  actions:
+    download: Download
+  parts_list:
+    title: Parts List
+    no_items: No Parts Available
+    fields:
+      position: Position
+      part_number: Part#
+      quantity: Quantity
+      unit: Unit
+      description: Description
+      other_description: Other Description
+      preventive: Preventive
+      maintenance: Maintenance
+      overhaul: Overhaul
+      critical: Critical
+
+profile_details:
+  fields:
+    business_unit: Business Unit
+    department: Department
+    position: Position
+    email: Email
+    premise: Premise
+    phones: Phones
+
+not_found:
+  title: 404 - Page Not Found
+  description: Sorry, the page you are looking for does not exist.
+  link: Go to Homepage
+
+toc_create:
+  heading: Add New TOC
+  toc_success: "TOC #{{tocId}} created successfully!"
+  csr_success: "CSR #{{csrId}} created successfully!"
+  files:
+    main_file:
+      title: Add main file (picture only)
+    sub_files:
+      title: Add more files (picture, video, pdf…)
+    success: Files uploaded successfully!
+    submit: Submit
+  offline: TOC saved for later syncing.
+
+toc_form:
+  er_sn:
+    title: Serial Number
+    placeholder: Type to search an Serial Number
+    error:
+      required: Please enter a valid Serial Number / Customer Asset Number.
+  serial_number:
+    title: Customer Asset Number
+    placeholder: Please Enter Customer Asset Number
+  main_contact:
+    title: Main Contact
+    placeholder: Please Select An Option
+    placeholder_er: Please Select An ER To Continue
+    error:
+      required: Please enter a valid main contact.
+  contacts:
+    title: Additional Contacts
+    placeholder: Select Some Options
+    placeholder_er: Please Select An ER To Continue
+  customer:
+    title: Customer
+    placeholder: Type to search a customer
+    error:
+      required: Please enter a valid customer.
+  airport:
+    title: Airport
+    placeholder: Type to search an Airport
+    error:
+      required: Please enter a valid airport.
+  service_organisation:
+    title: Service SSO
+    placeholder: Please Select An Option
+    error:
+      required: Please enter a valid service SSO.
+    warn:
+      sso_mismatch: The selected SSO does not match the service SSO of the ER. Continuing will update the Service SSO of the ER.
+  assignee:
+    title: Assignee
+    placeholder: Type to search an Assignee
+    error:
+      required: Please enter a valid assignee.
+  ifactor:
+    title: IFactor
+    placeholder: Please Select An Option
+    error:
+      required: Please enter a valid ifactor.
+      status: IF 1 can be selected only when the Unit Operational Status is MCF.
+  error_codes:
+    title: Error Codes
+    placeholder: Please Enter Your Error Code
+  payer:
+    title: Who Is Paying
+    placeholder: Please Select An Option
+    error:
+      required: Please enter a valid payer.
+  service_activity:
+    title: Service Activity
+    placeholder: Please Select An Option
+    error:
+      required: Please enter a valid service activity.
+  unit_operational_status:
+    title: Unit Operational Status
+    placeholder: Please Select An Option
+    error:
+      required: Please enter a valid unit operational status.
+  tags:
+    title: Tags
+    placeholder: Select Some Options
+  hour_meter:
+    title: Hour Meter
+    sub_title: Last Hours
+    placeholder: Please Enter Hour Meter
+    error:
+      min_value: Value must not be less than last hour.
+  third_party_name:
+    title: Third Party
+    placeholder: Please Enter Third Party
+    error:
+      required_with_ref: Third party name is required when a third party reference is provided
+  third_party_ref:
+    title: Third Party Ref
+    placeholder: Please Enter Third Party Ref
+  title:
+    title: Short Description
+    placeholder: Short Description (Visible to Customer)
+    error:
+      required: Please enter a valid short description.
+      min_chars: Please enter at least 12 characters.
+  description:
+    title: Problem Description
+    placeholder: Problem Description (Visible to Customer)
+    error:
+      required: Please enter a valid description.
+      min_chars: Please enter at least 12 characters.
+  technician:
+    title: Technician Requested?
+    title_helper: When you activate this button, you will create a CSR (Customer Service Request) to send a techncian on Site. By default the technician name is the same as the TOC Poster but you can change the name for someone else that will be in charge. The planned date will be TODAY DATE, but you can also override the date.
+  confidential:
+    title: Confidential
+  reason:
+    title: Reason
+    placeholder: Please Enter Reason
+    error:
+      required: Please enter a valid reason.
+    value:
+      default: Customer notification is disabled by default due to the Activity Type (Commissioning).
+  service_technician:
+    title: Service Technician
+    placeholder: Type to search an Service Technician
+    error:
+      required: Please enter a valid service technician.
+  planned_date:
+    title: "Planned Date"
+  new_technician:
+    title: Technician
+    placeholder: Type to search a Technician
+    error:
+      required: Please enter a valid technician.
+  submit: Submit
+  next: Next
+  new: New
+
+toc_update:
+  heading: Edit TOC
+  success: "TOC updated successfully!"
+  offline: TOC saved for later syncing.
+  delete:
+    confirmation:
+      title: Are you sure?
+      description: This action will permanently remove the part. This cannot be undone.
+    success: TOC deleted successfully.
+  error:
+    csr: "CSR is in an open state."
+    factory_flag: "Factory Flag is in an open state."
+
+settings:
+  heading: Settings
+  app:
+    title: App Version
+  reset:
+    title: Website Data
+    button: Reset
+    popup:
+      title: Are you sure?
+      description: This action will clear cookies, cache, and storage. This cannot be undone.
+  tts:
+    title: TTS
+    button: Open
+
+toc_parts:
+  heading: Parts
+  defective_parts: Faulty Parts
+  spr_heading: Spare Part Requests
+  deleted_spr_heading: Deleted Spare Part Requests
+  no_content: No Parts Available
+  no_spr_content: No SPR Available
+  no_deleted_spr_content: No Deleted SPR Available
+  add:
+    spr: Add SPR
+    parts: Add Parts
+  table:
+    part_number: Part Number
+    vendor_part_number: Vendor Part Number
+    serial_number: Serial Number
+    description: Part Description
+    quantity: Quantity
+    created_at: Created At
+    created_by: Created By
+    defective: Defective
+    supplier_replaces: Supplier Replaces
+    customer_replaces: Customer Replaces
+    quotation_required: Quotation Required
+    comment: Comment
+    actions: Actions
+  spr_table:
+    spr_parts: SPR Parts
+    description: Part Description
+    quantity: Quantity
+    created_at: Created At
+    created_by: Created By
+    spr: SPR
+    status: Status
+    comment: Comment
+    tracking_number: Tracking Number
+  defective_parts_table:
+    part_number: Part Number
+    description: Part Description
+    quantity: Quantity
+  replacement:
+    supplier: Supplier
+    customer: Customer
+    quotation: Quotation
+  delete:
+    confirmation:
+      title: Are you sure?
+      description: This action will permanently remove the part. This cannot be undone.
+    success: TOC Part deleted successfully.
+
+toc_parts_create:
+  heading: Add New TOC Part
+  toc_parts_success: "TOC Part created successfully!"
+  offline: TOC Parts for later syncing.
+
+toc_spr_create:
+  heading: Add New TOC SPR
+  success: TOC SPR created successfully!
+  offline: TOC SPR for later syncing.
+
+toc_spr_form:
+  parts:
+    title: Parts
+  part:
+    title: Part
+    part_number:
+      title: Part Number
+      placeholder: Please Enter Part Number
+      error:
+        required: Please enter a valid part number
+    quantity:
+      title: Quantity
+      placeholder: Please Enter Quantity
+      error:
+        required: Please enter a valid quantity
+        min: Please enter a quantity greater than 0
+    uom:
+      title: UOM
+      placeholder: Please Enter UOM
+      error:
+        required: Please enter a valid uom
+    comment:
+      title: Comment
+      placeholder: Please Enter Comment
+  address:
+    title: Address
+    type:
+      title: Type
+      placeholder: Please Select An Option
+      error:
+        required: Please select a valid type.
+      options:
+        existing: Existing Address
+        new: New Address
+    delivery_address:
+      title: Delivery Address
+      error:
+        required: Please select a valid delivery address.
+    econtact:
+      title: E-Contact
+      placeholder: Please Select An Option
+    airport:
+      title: Airport
+      placeholder: Type to search Airport
+    lastname:
+      title: Last Name
+      placeholder: Please Enter Last Name
+      error:
+        required: Please enter a valid last name
+    firstname:
+      title: First Name
+      placeholder: Please Enter First Name
+      error:
+        required: Please enter a valid first name
+    company:
+      title: Company
+      placeholder: Please Enter Company
+      error:
+        required: Please enter a valid company
+    street_1:
+      title: Street 1
+      placeholder: Please Enter Street 1
+      error:
+        required: Please enter a valid street 1
+    street_2:
+      title: Street 2
+      placeholder: Please Enter Street 2
+    telephone:
+      title: Telephone
+      placeholder: Please Enter Telephone
+      error:
+        required: Please enter a valid telephone
+    postal_code:
+      title: Postal Code
+      placeholder: Please Enter Postal Code
+      error:
+        required: Please enter a valid postal code
+    town:
+      title: Town
+      placeholder: Please Enter Town
+    city:
+      title: City
+      placeholder: Please Enter City
+      error:
+        required: Please enter a valid city
+    state:
+      title: State
+      placeholder: Please Enter State
+    country:
+      title: Country
+      placeholder: Type to search Country
+      error:
+        required: Please enter a valid country
+    delivery_notes:
+      title: Delivery Notes
+      placeholder: Please Enter Delivery Notes
+  submit: Submit
+
+toc_parts_form:
+  part_number:
+    title: Part Number
+    placeholder: Please Enter Part Number
+    error:
+      required: Please enter a valid part number or vendor part number.
+  vendor_part_number:
+    title: Vendor Part Number
+    placeholder: Please Enter Vendor Part Number
+  serial_number:
+    title: Serial Number
+    placeholder: Please Enter Serial Number
+  description:
+    title: Description
+    placeholder: Please Enter Description
+    error:
+      required: Please enter a valid description.
+  quantity:
+    title: Quantity
+    placeholder: Please Enter Quantity
+    error:
+      required: Please enter a valid quantity
+      min: Please enter a quantity greater than 0
+  comment:
+    title: Comment
+    placeholder: Please Enter Comment
+  defective:
+    title: Defective
+  replacement:
+    title: Replacement
+    placeholder: Please Select An Option
+  submit: Submit
+
+toc_parts_update:
+  heading: Edit TOC Part
+  not_found: TOC Part does not exist.
+  toc_parts_success: "TOC Part updated successfully!"
+  offline: TOC Parts for later syncing.
+
+toc_ai_search:
+  heading: TOC AI Search Tool
+  sub_heading: This is an experimental feature and may evolve over time. It actively scans the TOC to deliver the most accurate responses. Please enter the machine model number to improve response accuracy.
+  model:
+    title: Model
+    placeholder: Please Enter Model
+    error:
+      required: Please enter a valid model.
+  question:
+    title: Question
+    placeholder: Please Enter Your Question
+    error:
+      required: Please enter a valid question.
+  submit: Submit
+  result: Result
+  references: References
+  references_pre_text: TOC ID
+
+request_csr:
+  title: Request Technician
+  service_technician:
+    title: Service Technician
+    placeholder: Type to search an Service Technician
+    error:
+      required: Please enter a valid service technician.
+  planned_date:
+    title: "Planned Date"
+  submit: Submit
+  success: "TOC updated successfully!"
+  offline: TOC saved for later syncing.
+
+csr_update:
+  heading: Edit CSR
+  success: "CSR updated successfully!"
+  offline: CSR saved for later syncing.
+
+csr_form:
+  airport:
+    title: Airport
+    placeholder: Type to search an Airport
+    error:
+      required: Please enter a valid airport.
+  title:
+    title: Title
+    placeholder: Title (Visible to Customer)
+    error:
+      required: Please enter a valid title.
+  description:
+    title: Description
+    placeholder: Description (Internal Only)
+    error:
+      required: Please enter a valid description.
+  service_technician:
+    title: Service Technician
+    placeholder: Type to search an Service Technician
+    error:
+      required: Please enter a valid service technician.
+  planned_date:
+    title: "Planned Date"
+  status:
+    title: Status
+    placeholder: Please Select Status
+    error:
+      required: Please select a valid Status.
+  contact:
+    title: Contact
+    placeholder: Please Select Contact
+  submit: Submit
+
+intervention_popup:
+  heading: Intervention
+  status:
+    title: Status
+    placeholder: Please Select Status
+    error:
+      required: Please select a valid Status.
+  start_date:
+    title: Start Date
+    error:
+      required: Please select a valid Start Date.
+      after_before: Please ensure the Start Date is not after the End Date.
+  end_date:
+    title: End Date
+    error:
+      required: Please select a valid End Date.
+  hour_meter:
+    title: Hour Meter
+    sub_title: Last Hours
+    placeholder: Please Enter Hour Meter
+    error:
+      min_value: Value must not be less than last hour.
+  update_toc_status: Would you like to close the TOC?
+  submit: Submit
+  success: Intervention updated successfully!
+  offline: Intervention saved for later syncing.
+
+csr_status_popup:
+  heading: Update Status
+  status:
+    title: Status
+    placeholder: Please Select Status
+    error:
+      required: Please select a valid Status.
+  submit: Submit
+
+csr_survey_form:
+  heading: Survey
+  question_1:
+    question:
+      title: General Aspect Of The Unit As Presented On Site Rating
+      error:
+        required: Please Select An Option
+    comment:
+      title: General Aspect Of The Unit As Presented On Site Comments
+      placeholder: Please Enter Comment
+      error:
+        required: Please enter a valid comment
+  question_2:
+    question:
+      title: Conformity/Compliance With The Specifications (Including Options) Rating
+      error:
+        required: Please Select An Option
+    comment:
+      title: Conformity/Compliance With The Specifications (Including Options) Comment
+      placeholder: Please Enter Comment
+      error:
+        required: Please enter a valid comment
+  question_3:
+    question:
+      title: Unit Operational At First Start Rating
+      error:
+        required: Please Select An Option
+    comment:
+      title: Unit Operational At First Start Comment
+      placeholder: Please Enter Comment
+      error:
+        required: Please enter a valid comment
+  question_4:
+    question:
+      title: Shipping Damages
+      options:
+        no_damages: No Shipping Damages
+        transport: Pure Transportation Root Cause
+        factory: Due To Factory Lack Of Protection
+      error:
+        required: Please Select An Option
+    comment:
+      title: Shipping Damages Comment
+      placeholder: Please Enter Comment
+      error:
+        required: Please enter a valid comment
+  question_5:
+    question:
+      title: Is Unit Sending Data To LINK FMS ?
+    comment:
+      title: Comment
+      placeholder: Please Enter Comment
+
+csr_survey:
+  heading: Survey
+  submit: Submit
+
+contact_popup:
+  heading: Create New Contact
+  crt:
+    label: CRT
+    placeholder: Please Select An Option
+    error:
+      required: Please enter a valid CRT.
+  email:
+    label: Email Address
+    placeholder: Please Enter Email Address
+    error:
+      required: Please enter a valid email address.
+  lastname:
+    label: Last Name
+    placeholder: Please Enter Last Name
+    error:
+      required: Please enter a valid last name.
+  firstname:
+    label: First Name
+    placeholder: Please Enter First Name
+    error:
+      required: Please enter a valid first name.
+  division:
+    label: Division
+    placeholder: Please Enter Division
+    error:
+      required: Please enter a valid division.
+  department:
+    label: Department
+    placeholder: Please Enter Department
+    error:
+      required: Please enter a valid department.
+  job_title:
+    label: Job Title
+    placeholder: Please Enter Job Title
+    error:
+      required: Please enter a valid job title.
+  phone_number:
+    label: Phone Number
+    placeholder: Please Enter Phone Number
+    error:
+      required: Please enter a valid phone number.
+      format: Please enter a valid phone number in international format.
+  language:
+    label: Language
+    placeholder: Please Select An Option
+  country:
+    label: Country
+    placeholder: Type to search country
+    error:
+      required: Please enter a valid country.
+  submit: Submit
+  success: User Created Successfully
+  offline: User saved for later syncing.

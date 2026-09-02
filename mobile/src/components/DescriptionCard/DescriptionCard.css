@@ -1,0 +1,29 @@
+.cui .description_card__tile {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cui .description_card__tile .MuiTypography-root {
+  margin: 0;
+  text-align: center;
+}
+
+.cui .description_card__wrapper {
+  border-radius: var(--cui-card-border-radius);
+}
+
+.cui .description_card__wrapper_clicker {
+  cursor: pointer;
+}
+
+.cui .description_card__wrapper_clicker .description_card__value {
+  color: var(--mui-palette-primary-main);
+}
+
+.cui .description_card__wrapper_clicker:hover .description_card__value {
+  text-decoration-line: underline;
+  text-decoration-color: var(--Link-underlineColor);
+}

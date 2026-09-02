@@ -1,0 +1,28 @@
+{% extends 'mis/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+{% block title %}{{ parent() }}\Groups{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="mis_groups_add" :security="is_granted('FEATURE_MODULE_WRITE')"/>
+        {% if group is defined %}
+            <twig:NavItem:Edit route="mis_groups_edit" :routeParameters="{id: iri_id(group)}"
+                               :security="is_granted('FEATURE_GROUPS_ADMIN')"/>
+            <twig:NavItem:Delete route="mis_groups_delete" :routeParameters="{id: iri_id(group)}"
+                                 :security="is_granted('FEATURE_GROUPS_ADMIN')"/>
+            <twig:NavItem translationKey="mis.nav_link.members" domain="mis"
+                          icon="material-symbols:group-outline-rounded" route="mis_groups_people"
+                          :routeParameters="{id: iri_id(group)}" :security="is_granted('FEATURE_GROUPS_ADMIN')"/>
+            <twig:NavItem translationKey="mis.nav_link.back_to_group" domain="mis" route="mis_groups_show"
+                          icon="tabler:arrow-back"
+                          :routeParameters="{ id: iri_id(group) }" :security="is_granted('FEATURE_GROUPS_ADMIN')"/>
+            <twig:NavItem:CopyEmail translationKey="directory.people.list.copy_to_clipboard" domain="directory"
+                    icon="material-symbols:content-copy-outline"
+                    subject="{{ group['@id'] }}" type="group"
+                    :security="is_granted('FEATURE_GROUPS_ADMIN')"/>
+            <twig:NavItem translationKey="mis.nav_link.csv_version" domain="mis" route="mis_groups_people_download"
+                          icon="bi:filetype-csv"
+                          :routeParameters="{ id: iri_id(group) }"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

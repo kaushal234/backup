@@ -1,0 +1,15 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'trouble_ticket.message.auto_escalate' | trans({'%previous_assignee_fullname%': previous_assignee_fullname, '%assignee_fullname%': assignee_fullname}) }}</p>
+            <p><a href="{{ url('trouble_ticket', { 'id': troubleTicket.id }) }}">{{ 'trouble_ticket.message.generic' | trans }}</a></p>
+
+            {{ include('Emails/MIS/TroubleTicket/partial/_trouble_ticket.html.twig', {troubleTicket: troubleTicket}, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

@@ -1,0 +1,55 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    # Disable the exception listener in dev env
+    App\EventListener\ErrorListener:
+        calls:
+            - ['disable']
+
+    resolve_controller_name_subscriber:
+        class: 'stdClass'
+
+    App\DataCollector\ActivityCollector:
+        tags:
+            - name:     data_collector
+              template: 'DataCollector/alvest.html.twig'
+              id:       'app.activity_collector'
+
+    App\DataCollector\IONCollector:
+        tags:
+            - name:     data_collector
+              template: 'DataCollector/ion.html.twig'
+              id:       'app.ion_collector'
+
+    App\Client\DataCollector\SoapCollector:
+        tags:
+            - name:     data_collector
+              template: 'DataCollector/soap.html.twig'
+              id:       'app.soap_collector'
+
+    App\Client\EventListener\RequestListener:
+        tags:
+            - { name: kernel.event_subscriber}
+
+    # Disable the cache of SoapClient in dev env
+    App\Client\SoapClientFactory:
+        bind:
+            string $projectDir: '%kernel.project_dir%'
+        calls:
+            - [ 'disableCache' ]
+
+    App\Client\SoapClientFactoryProfiler:
+        decorates: App\Client\SoapClientFactory
+        arguments: ['@App\Client\SoapClientFactoryProfiler.inner', '@event_dispatcher']
+
+    App\Client\SoapClientFactoryInterface: '@App\Client\SoapClientFactoryProfiler'
+
+    App\Alice\Loader\CustomLoader:
+        decorates: 'fidry_alice_data_fixtures.loader.simple'
+        arguments:
+            - '@App\Alice\Loader\CustomLoader.inner'
+            - '@event_dispatcher'
+            - '@App\EventListener\AuditLogListener'

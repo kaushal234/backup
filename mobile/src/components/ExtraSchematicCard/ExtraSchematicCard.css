@@ -1,0 +1,78 @@
+.cui .extra_schematic_card__wrapper {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: var(--cui-card-border-radius);
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.cui .extra_schematic_card__wrapper div:first-child {
+  flex: 1;
+}
+
+.cui .extra_schematic_card__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.cui .extra_schematic_card__details > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cui .extra_schematic_card__left_section {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 56px);
+}
+
+.cui .extra_schematic_card__left_section .cui_one_line.MuiTypography-button {
+  text-transform: none;
+}
+
+.cui .extra_schematic_card__first_row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cui .extra_schematic_card__first_row > div,
+.cui .extra_schematic_card__first_row > span {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.cui .extra_schematic_card__first_row_mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cui .extra_schematic_card__first_row_right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cui .extra_schematic_card__section_wrapper {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.cui .extra_schematic_card__right_section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cui.light .extra_schematic_card__add_file {
+  background-color: var(--mui-palette-primary-main);
+}
+
+.cui.light .extra_schematic_card__add_file button {
+  color: white;
+}

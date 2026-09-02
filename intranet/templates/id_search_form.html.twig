@@ -1,0 +1,12 @@
+{% form_theme form_id 'form_theme_vertical.html.twig' %}
+
+{{ form_start(form_id) }}
+<div class="row">
+    <div class="col-sm-10">
+        {{ form_widget(form_id) }}
+    </div>
+    <div class="col-sm-2">
+        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+    </div>
+</div>
+{{ form_end(form_id) }}

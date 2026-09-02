@@ -1,0 +1,8 @@
+parameters:
+    security_user_provider_class: App\Test\Security\User\UserProvider
+
+services:
+    Symfony\Contracts\HttpClient\HttpClientInterface $internalApiClient:
+        class: Symfony\Component\HttpClient\MockHttpClient
+        arguments:
+          $responseFactory: '@App\Test\Sdk\Http\ClientResponseFactory'

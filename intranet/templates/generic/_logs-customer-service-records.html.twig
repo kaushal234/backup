@@ -1,0 +1,4 @@
+<div class="ibox-content">
+    {% set addComment = addComment is defined ? addComment : true %}
+    <div class="logs-customer-service-records" data-resource="{{ item['@id'] }}" {% if item2 is not null and item2 is not empty %} data-resource2="{{ item2[0]['@id'] }}" {% endif %} {% if addComment == true %}data-show-comment-form="true"{% endif %} data-file-upload="{{ hasFileUpload|default(false) }}" {% if hideComments|default(false) %}data-hide-comments{% endif %}></div>
+</div>

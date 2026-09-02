@@ -1,0 +1,62 @@
+{% extends 'quality/non_conformity/layout.html.twig' %}
+{% trans_default_domain 'non_conformity' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }} {{ 'non_conformity.title.part_most_ncr' | trans() | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-lg-4">
+                            {{ form_row(form.location) }}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ form_row(form.model) }}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ form_row(form.type) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            {{ form_row(form.createdAfter) }}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ form_row(form.createdBefore) }}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ form_row(form.limit) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <hr class="hr-line-dashed">
+                            <div class="float-end">
+                                <label class="col-form-label">&nbsp;</label>
+                                <button class="btn btn-primary" type="submit">{{ 'button.filter' | trans({}, 'messages') | upper }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form, {'render_rest': false}) }}
+                </div>
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+            <div class="row">
+                {% if (chartBuilder is defined and chartBuilder is not null) %}
+                    <div class="col-md-12 highcharts" data-options="{{ chartBuilder|json_encode }}"></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'Emails/layout.html.twig' %}
+
+{% block content %}
+    <container>
+        {% block header %}
+            {% include 'Emails/Extranet/_partials/header.html.twig' %}
+            <row id="hero">
+                <columns>
+                    {% block banner %}
+                        <h1 class="text-center">{{ 'security.login.extranet'|trans({}, 'messages') }}</h1>
+                    {% endblock %}
+                </columns>
+            </row>
+        {% endblock %}
+
+        {% block body %}{% endblock %}
+    </container>
+{% endblock %}

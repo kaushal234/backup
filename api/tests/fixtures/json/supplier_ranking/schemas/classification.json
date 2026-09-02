@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "@context": {
+            "type": "string"
+        },
+        "@id": {
+            "pattern": "^/purchasing/supplier_ranking/classifications/\\d+$"
+        },
+        "@type": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "description": {
+            "type": ["string", "null"]
+        },
+        "isSupplierApproved": {
+            "type": "boolean"
+        },
+        "color": {
+            "type": "string"
+        },
+        "workflowLevel": {
+            "type": ["number", "null"]
+        },
+        "targetClassifications": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "@id": {"pattern": "^/purchasing/supplier_ranking/classifications/\\d+$"},
+                    "@type": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "isSupplierApproved": {
+                        "type": "boolean"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "workflowLevel": {
+                        "type": ["number", "null"]
+                    }
+                },
+                "required": [
+                    "@id",
+                    "@type",
+                    "id",
+                    "name",
+                    "isSupplierApproved",
+                    "color"
+                ]
+            }
+        },
+        "id": {
+            "type": "integer"
+        }
+    },
+    "required": [
+        "@id",
+        "@type",
+        "id",
+        "name",
+        "description",
+        "isSupplierApproved",
+        "color"
+    ],
+    "additionalProperties": false
+}

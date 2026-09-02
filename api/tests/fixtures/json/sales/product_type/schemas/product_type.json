@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/product_types/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "publicForTLD": {
+      "type": "boolean"
+    },
+    "publicForAerospecialties": {
+      "type": "boolean"
+    },
+    "publicForSAS": {
+      "type": "boolean"
+    },
+    "frenchName": {
+      "type": ["string", "null"]
+    },
+    "englishName": {
+      "type": ["string", "null"]
+    },
+    "spanishName": {
+      "type": ["string", "null"]
+    },
+    "portugueseName": {
+      "type": ["string", "null"]
+    },
+    "chineseName": {
+      "type": ["string", "null"]
+    },
+    "japaneseName": {
+      "type": ["string", "null"]
+    },
+    "germanName": {
+      "type": ["string", "null"]
+    },
+    "russianName": {
+      "type": ["string", "null"]
+    },
+    "dms": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../../dms/schemas/dms.json"}
+      ]
+    },
+    "productFamilies": {
+      "type": ["array"]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "legacyId",
+    "publicForTLD",
+    "publicForAerospecialties",
+    "publicForSAS",
+    "frenchName",
+    "englishName",
+    "spanishName",
+    "portugueseName",
+    "chineseName",
+    "japaneseName",
+    "germanName",
+    "russianName",
+    "dms",
+    "productFamilies"
+  ],
+  "additionalProperties": false
+}

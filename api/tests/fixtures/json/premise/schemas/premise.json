@@ -1,0 +1,121 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/Premise.jsonld-premise",
+    "definitions": {
+        "Premise.jsonld-premise": {
+            "type": "object",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "maxLength": 10,
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "archived": {
+                    "type": "boolean"
+                },
+                "archivedAt": {
+                    "type": ["null", "string"]
+                },
+                "address": {
+                    "type": "object",
+                    "$ref": "../../shared/schemas/address_with_country.json"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "@id": {"pattern": "^/premise_tags/\\d+$"},
+                            "@type": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "@id",
+                            "@type",
+                            "name"
+                        ],
+                        "minItems": 1,
+                        "additionalProperties": false
+                    }
+                },
+                "latitude": {
+                    "type": ["number", "null"]
+                },
+                "longitude": {
+                    "type": ["number", "null"]
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "airport": {
+                    "oneOf": [
+                        {"type": "null"},
+                        { "$ref": "../../iata_code/schemas/iata_code.json" }
+                    ]
+                },
+                "supportTeam": {
+                    "oneOf": [
+                        {"type": "null"},
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@id": {
+                                    "pattern": "^/mis/support_teams/\\d+$"
+                                },
+                                "@type": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["@id", "@type", "id", "name"],
+                            "additionalProperties": false
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "@id",
+                "@context",
+                "@type",
+                "id",
+                "name",
+                "description",
+                "archived",
+                "archivedAt",
+                "address",
+                "tags",
+                "count",
+                "airport",
+                "latitude",
+                "longitude",
+                "supportTeam"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

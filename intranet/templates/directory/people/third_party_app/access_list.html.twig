@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-12">
+
+        {% set items = {
+            thirdPartyApp: {
+                label: 'mis.update_task.fields.module_name'|trans({}, 'mis'),
+                properties: ['thirdPartyApp.name'],
+            },
+            application: {
+                label: 'mis.modules.fields.application'|trans({}, 'mis'),
+                properties: ['thirdPartyApp.application.name']
+            },
+            admin: {
+                label: 'mis.admin'|trans({}, 'mis'),
+            },
+        } %}
+
+        {% if is_granted('FEATURE_MODULE_WRITE') %}
+            {% set items = items|merge({
+                delete: {
+                    label: 'menu.delete'|trans|capitalize,
+                    sortable: false,
+                    class: 'text-end',
+                    link: {
+                        route: 'directory_people_third_party_app_delete',
+                        params: {'memberId': '@id'},
+                        fixedParams: {'id': people.id, '_token': csrf_token('delete_application')},
+                        content: '<span class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i></span>',
+                        popup: {
+                            type: 'confirmation',
+                            title: 'Confirmation',
+                            message: 'Are you sure to delete ?',
+                        },
+                    },
+                },
+            }) %}
+        {% endif %}
+
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: items,
+                data: thirdAppAccessList,
+                initialSorting: false,
+                options: {
+                    card: false
+                }
+            }
+        }) }}
+    </div>
+</div>

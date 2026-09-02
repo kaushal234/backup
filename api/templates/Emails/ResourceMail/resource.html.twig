@@ -1,0 +1,36 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    {% if link %}
+    <row>
+        <columns>
+            {% if sender is defined %}
+                <p class="text-introduction">
+                    <b>{{ sender.lastname ~ ' ' ~ sender.firstname }}</b>
+
+                    {{ 'resource.introduction' | trans({}, 'emails') }}
+
+                    {% if note is not null %}
+                        {{ 'resource.with_note' | trans({'%note%': note}, 'emails') | raw }}
+                    {% endif %}
+                </p>
+            {% endif %}
+            <center><button class="tld-link-button" href="{{ link }}">{{ 'resource.link' | trans({}, 'emails') }}</button></center>
+        </columns>
+    </row>
+    {% endif %}
+    <row>
+        <columns>
+            {% for key, value in data %}
+                <p class="resource-property show-for-small hide-for-desktop"><strong>{{ key | trans({}, translation_domain, locale) }}:</strong></p>
+                {% if value is not empty %}
+                    {{ value | raw }}
+                {% else %}
+                    ~
+                {% endif %}
+                {% if not loop.last %}<hr>{% endif %}
+            {% endfor %}
+        </columns>
+    </row>
+{% endblock %}

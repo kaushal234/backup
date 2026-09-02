@@ -1,0 +1,7 @@
+<td>
+    {% if cell.value > 0 and columnFilters[cell.y] is defined %}
+        <a href="{{ path('on_time_delivery_planning_show', {'manufacturerLocation': location, 'model': cell.x}|merge(columnFilters[cell.y])) }}">{{ cell.value }}</a>
+    {% elseif cell.value > 0 %}
+        {{ cell.value }}
+    {% endif %}
+</td>

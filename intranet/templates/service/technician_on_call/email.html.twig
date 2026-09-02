@@ -1,0 +1,31 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'toc.title.mail' | trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {% form_theme form 'form_theme_horizontal.html.twig' %}
+                    {{ form_start(form) }}
+                    {{ form_row(form.to) }}
+                    {{ form_row(form.ccs) }}
+                    {{ form_row(form.bccs) }}
+                    {{ form_row(form.subject) }}
+
+                    {{ form_row(form.message) }}
+                    <br>
+                    {{ include('service/technician_on_call/partial/_toc_details.html.twig', { technicianOnCall: technicianOnCall }) }}
+                    <br>
+                    {{ form_row(form.submit) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

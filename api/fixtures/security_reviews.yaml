@@ -1,0 +1,12 @@
+App\Entity\Module\ThirdPartyApp\SecurityReview:
+  security_review_{1..10}:
+    id: <current()>
+    thirdPartyApp: '@third_party_app_extended'
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    createdBy: '@user_superuser'
+    securityLevel: '@security_level_csa_star'
+    securityLevelComment: <text()>
+    comment: <text()>
+    isPasswordPolicyApplied: true
+    isMFAAdminApplied: true
+    isMFAUserApplied: true

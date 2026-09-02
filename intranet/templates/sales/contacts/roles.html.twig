@@ -1,0 +1,48 @@
+{% extends 'sales/contacts/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    search: false,
+                    pagination: false,
+                    items: {
+                        '@id': {
+                            'label': 'contacts.fields.id'|trans|capitalize,
+                            'link':{
+                                'route': 'sales_contact_show',
+                                'params': {'id':'@id'},
+                            },
+                            'filters': 'iri_id',
+                            'sortable': 'numeric'
+                        },
+                        name: {
+                            label: 'contacts.fields.name'|trans|capitalize
+                        },
+                        description: {
+                            label: 'market_intelligence.fields.description'|trans({}, 'market_intelligence'),
+                        },
+                        members: {
+                            label: 'mis.menu.members'|trans([], 'mis')|capitalize,
+                            link:{
+                                route: 'sales_contact_roles_members',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="fa fa-users fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+
+                    },
+                    title: 'contacts.fields.roles'|trans,
+                    data: extranetUserGroups,
+                    initialSorting: false
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

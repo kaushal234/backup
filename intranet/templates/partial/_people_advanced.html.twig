@@ -1,0 +1,13 @@
+{% trans_default_domain 'directory' %}
+<div class="row m-b-sm">
+    <div class="col-sm-3">{{ 'directory.people.fields.windowsLogin'|trans }}</div>
+    <div class="col-sm-9">{{ entry.windowsLogin|default('-') }}</div>
+</div>
+<div class="row m-b-sm">
+    <div class="col-sm-3">{{ 'directory.people.fields.disabled'|trans|capitalize }}</div>
+    <div class="col-sm-9">{{ (entry.disabled ? 'yes'|trans([], 'messages') : 'no'|trans([], 'messages'))|capitalize }}</div>
+</div>
+<div class="row m-b-sm">
+    <div class="col-sm-3">{{ 'directory.people.fields.hidden'|trans|capitalize }}</div>
+    <div class="col-sm-9">{{ (entry.hidden ? 'yes'|trans([], 'messages') : 'no'|trans([], 'messages'))|capitalize }}</div>
+</div>

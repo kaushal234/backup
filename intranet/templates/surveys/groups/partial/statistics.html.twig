@@ -1,0 +1,63 @@
+{% trans_default_domain 'surveys' %}
+{% set total = collection | length %}
+{% set procent = 0 %}
+<div class="row">
+    <div class="col-lg-3">
+        {% if total > 0 %}
+            {% set procentSurveys = ((collection | countUnique('survey.@id')) / total) * 100 %}
+        {% else %}
+            {% set procentSurveys = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.groups.survey' | trans,
+            'procent': procentSurveys,
+            'value': collection | countUnique('survey.@id') | format_number,
+            'tooltip': 'statistics.groups.survey' | trans,
+            'color': 'danger'
+        }) }}
+    </div>
+
+    <div class="col-lg-3">
+        {% if total > 0 %}
+            {% set procentSurveys = ((collection | countUnique('createdBy.@id')) / total) * 100 %}
+        {% else %}
+            {% set procentSurveys = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.groups.createdBy' | trans,
+            'procent': procentSurveys,
+            'value': collection | countUnique('createdBy.@id') | format_number,
+            'color': 'danger'
+        }) }}
+    </div>
+
+    <div class="col-lg-3">
+        {% if total > 0 %}
+            {% set procentPublishedMonth = ((collection | countWithDateBetween('createdAt')) / total) * 100 %}
+        {% else %}
+            {% set procentPublishedMonth = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.created.month' | trans,
+            'procent': procentPublishedMonth,
+            'value': collection | countWithDateBetween('createdAt') | format_number,
+            'tooltip': 'statistics.items.created.month' | trans,
+            'color': 'info'
+        }) }}
+    </div>
+
+    <div class="col-lg-3">
+        {% if total > 0 %}
+            {% set procentPublishedYear = ((collection | countWithDateBetween('createdAt', date('-1 year'))) / total) * 100 %}
+        {% else %}
+            {% set procentPublishedYear = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.created.year' | trans,
+            'procent': procentPublishedYear,
+            'value': collection | countWithDateBetween('createdAt', date('-1 year')) | format_number ,
+            'tooltip': 'statistics.created.year' | trans,
+            'color': 'warning'
+        }) }}
+    </div>
+</div>

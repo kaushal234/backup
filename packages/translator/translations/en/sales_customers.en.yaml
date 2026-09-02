@@ -1,0 +1,158 @@
+customers:
+  title: Customers
+  last10: Last 10 customers created
+  make_selection: Make your selection...
+  nav_link:
+    add_customer_type: Add customer type
+    ccr: CCR
+    contacts: Contacts
+    create_new_crt_for_this_customer: Create new CRT for this customer
+    credit_limits_admin: Credit limits admin
+    credit_risk_watch_list: Credit risk watch list
+    customer_actions: Customer actions
+    customer_infos: Customer infos
+    customer_types: Customer types
+    customers: Customers
+    deactivate: Deactivate
+    download_all: Download all
+    email: Email
+    er: ER
+    export: Export
+    fcr: FCR
+    hierarchy: Hierarchy
+    invoices: Invoices
+    last_sequences_opened: Last sequences opened
+    mim: MIM
+    module: Module
+    mom: MOM
+    new_econtact: New econtact
+    packing_slips: Packing slips
+    sales_orders: Sales orders
+    sfr: SFR
+    sol: SOL
+    toc: TOC
+    transfer: Transfer
+    wc: WC
+    zip: Zip
+  menu:
+    report: Report
+    report_by_asm: Report by ASM
+    report_by_unassigned_asm: Report by unassigned ASM
+    sfr: SFR
+    toc: TOC
+    ccr: CCR
+    er: ER
+    fcr: FCR
+    mim: MIM
+    sol: SOL
+    wc: WC
+    mom: MOM
+    sales_orders: Sales Orders
+    invoices: Invoices
+    packing_slips: Packing Slips
+    email: Email
+    zip: Zip
+    hierarchy: Hierarchy
+    contacts: Contacts
+    download_all: Download all files
+    pcust_erp: pCust/Erp References
+    edit_credit_limits: Credit Limits Admin
+  fields:
+    title: Customer Details
+    id: Id
+    p_cust: PCUST
+    customer_erp_ref: PCUST/ERP References
+    address: Address
+    address_street_1: Address Street 1
+    address_street_2: Address Street 2
+    address_town: Town
+    address_postal_code: Postal Code
+    address_city: City
+    address_state: State
+    address_country: Country
+    parent_customer: Parent Customer
+    name: Name
+    short_name: Short name
+    infor_bp_code: Business Partner Code (LN)
+    phone: Phone
+    fax: Fax
+    hidden: Hidden
+    url: Url
+    type: Type
+    credit_limit: Credit Limit
+    status: Status
+    asm: ASM
+    no_asm: Unassigned ASM
+    no_crt: Without CRT
+    watch_list: Credit Risk Watch List
+    watch_list_reason: Specific terms and conditions applied to mitigate credit risk
+    watch_list_put: Put on watch list
+    watch_list_remove: Remove from watch list
+    watch_list_on: ON Watch list
+    watch_list_not_on: NOT on Watch list
+    children_customer: Children Customers
+    crt_linked: CRT Linked
+    legacyId: Legacy Id
+    sol_linked: '%number% Latest SOL'
+    er_linked: '%number% Latest ER'
+    fcr_linked: '%number% Latest FCR'
+    last_seq: Open SEQ eCustomer Approvals
+    hierarchy: Customer Hierarchy
+    file_upload: Upload a file
+    file_description: File description
+    files: Customer Files
+    created_at: Created at
+    is_contract: Contract file
+    seq: Sequences for this eCustomer
+    validation: Validation sequence
+    seq_validation: Change Customer status to PENDING and open a new validation SEQ
+    create_crt: Create a new CRT for this customer
+    seq_validation_error: The customer needs to be edited and its data fixed prior to create a validation SEQ
+    business_partner_codes_list: BP codes already linked to this customer
+    main_asm: Main Contact Point
+    contact_and_asm: Main Contact Point (ASM)
+    other_asms: Other Contact Points
+    easymile_jira_project_key: Tracteasy Jira Project
+    demos: " %number% latest DEMO"
+  messages:
+    success:
+      add: The customer %name% has been successfully created and a sequence has been assigned to you
+      edit: The customer %name% has been successfully edited
+      delete: The customer has been successfully deleted
+      transfer: The customer has been successfully transferred
+      file: The file has been successfully uploaded
+      file_description: The file description has been updated successfully
+      validate: The customer has been set to PENDING and a validation sequence has been successfully created
+      deactivate: The customer status has been set to NOT ACTIVE
+    more: More
+    error:
+        delete: Something went wrong and the customer could not be deleted
+        deactivate: Something went wrong and the customer status could not be set to NOT ACTIVE
+        contract_ai_analyze: The file has been uploaded, but the automatic contract creation failed. Please create the contract manually.
+  search: Search a customer
+  forms:
+    title:
+      add: Add a customer
+      edit: Edit a customer
+      transfer: Transfer a Customer
+      add_ref: Add pCust/ERP reference
+  email:
+    target: Select ERP Customer to email to...
+  zip:
+    target: Select ERP and Cuno...
+  export: Export
+  edit_file_description: Edit File Description
+  cus_erp:
+    delete:
+      success: The reference has been deleted successfully
+      error: Something went wrong and the reference could not be deleted
+customer_types:
+  title: Customer types
+  add: Add customer type
+  write:
+    title: Customer type edition
+    success: The customer type has been successfully saved
+  delete:
+    success: The customer type has been successfully deleted
+    fail: Something went wrong and the customer type could not be deleted
+

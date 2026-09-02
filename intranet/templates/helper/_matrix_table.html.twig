@@ -1,0 +1,7 @@
+{% extends '@AlvestTwigHelper/matrix_table_layout.html.twig' %}
+
+{% block table_class %}table matrix-table tooltip-container{% endblock %}
+
+{% block card %}
+    {{ block('table') }}
+{% endblock %}

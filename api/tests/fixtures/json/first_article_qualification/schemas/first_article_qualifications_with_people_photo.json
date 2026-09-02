@@ -1,0 +1,138 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/first_article_qualifications$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/quality/first_article_qualifications/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "location": {
+            "$ref": "../../directory_location/schemas/directory_location_public.json"
+          },
+          "supplierNumber": {
+            "type": "string"
+          },
+          "partNumbers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/quality/first_article_qualifications_part_numbers/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "supplierName": {
+            "type": "string"
+          },
+          "buyer": {
+            "oneOf": [
+              {"type": "null"},
+              { "$ref": "../../directory_people/schemas/directory_people_public_photo.json" }
+            ]
+          },
+          "poster": {
+            "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+          },
+          "owner": {
+            "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "completedAt": {
+            "type": ["string", "null"]
+          },
+          "planDefinitionCompletedAt": {
+            "type": ["string", "null"]
+          },
+          "planDefinitionDueDate": {
+            "type": "string"
+          },
+          "deliverablesDueDate": {
+            "type": ["string", "null"]
+          },
+          "dueDate": {
+            "type": "string"
+          },
+          "eap": {
+            "type": ["integer", "null"]
+          },
+          "iFactor": {
+            "type": ["string", "null"]
+          },
+          "meap": {
+            "type": ["integer", "null"]
+          },
+          "status": {
+            "type": "string"
+          },
+          "planApprovalStatus": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "location",
+          "partNumbers",
+          "supplierNumber",
+          "supplierName",
+          "buyer",
+          "poster",
+          "owner",
+          "createdAt",
+          "completedAt",
+          "planDefinitionCompletedAt",
+          "planDefinitionDueDate",
+          "deliverablesDueDate",
+          "dueDate",
+          "eap",
+          "meap",
+          "status",
+          "iFactor",
+          "planApprovalStatus"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}
+

@@ -1,0 +1,73 @@
+{#
+  pages/technical_services.html.twig — STATIC
+  Route: page:technical_services
+  Controller: App\Controller\StaticPageController::technicalServices
+  All four "Technical Services" menu links point here.
+  "Overhaul" links to the external AES partner site.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.menu.technical_services'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.technical_services'|trans,
+        hero_title: 'extranet.page.tech_services.title'|trans,
+        hero_sub: 'extranet.page.tech_services.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.menu.technical_services'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="section-head">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.page.tech_services.what'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.page.tech_services.offerings'|trans }}</h2>
+                </div>
+            </div>
+
+            <div class="train-list">
+                {% set services = [
+                    { name: 'extranet.page.tech_services.maintenance'|trans, sub: 'extranet.page.tech_services.maintenance_sub'|trans, action: null },
+                    { name: 'extranet.page.tech_services.install'|trans, sub: 'extranet.page.tech_services.install_sub'|trans, action: null },
+                    { name: 'extranet.page.tech_services.repair'|trans, sub: 'extranet.page.tech_services.repair_sub'|trans, action: null },
+                    { name: 'extranet.page.tech_services.overhaul'|trans, sub: 'extranet.page.tech_services.overhaul_sub'|trans, action: { label: 'extranet.page.tech_services.aes'|trans, href: 'https://www.aes-gse.com/our-services/refurbishment-services/', external: true } }
+                ] %}
+                {% for s in services %}
+                    <div class="train-row">
+                        <div class="train-ico">
+                            <svg width="24" height="24" viewBox="0 0 16 16" fill="none"><path d="M6.5 2.5a3.5 3.5 0 0 0 4.6 4.6l3.4 3.4-2 2-3.4-3.4A3.5 3.5 0 0 1 4.5 4.5l2 2 1.5-1.5-2-2Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="train-body">
+                            <h3 class="train-name">{{ s.name }}</h3>
+                            <p class="train-sub">{{ s.sub }}</p>
+                        </div>
+                        {% if s.action %}
+                            <a class="tele-cta primary" href="{{ s.action.href }}" {% if s.action.external %}target="_blank" rel="noopener"{% endif %} style="padding:.6rem 1rem;font-size:.85rem">
+                                {{ s.action.label }}
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            {# CTA #}
+            <div class="repairs-cta mt-5">
+                <div class="cta-text">
+                    <h3>{{ 'extranet.page.tech_services.cta_title'|trans }}</h3>
+                    <p>{{ 'extranet.page.tech_services.cta_sub'|trans }}</p>
+                </div>
+                <a class="btn-cta" href="{{ path('contact:index') }}?dept=service">
+                    {{ 'extranet.page.tech_services.cta_btn'|trans }}
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+App\Entity\Finance\FinanceFamilyPricing:
+  #/finance/finance_family_pricings/1
+  finance_family_pricing_1:
+    id: 1
+    finance_family: "@fonky_family"
+    sso: "@location_sso"
+    factory: "@location_factory"
+    averagePrice: 99
+    averageMargin: 20.8
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>
+
+  #/finance/finance_family_pricings/2
+  finance_family_pricing_2:
+    id: 2
+    finance_family: "@fonky_family"
+    sso: "@location_parts_2"
+    factory: "@location_factory"
+    averagePrice: 159
+    averageMargin: 10.5
+    updatedAt: <dateTimeBetween('-8 months','-7 months')>
+
+  #/finance/finance_family_pricings/3
+  finance_family_pricing_3:
+    id: 3
+    finance_family: "@fonky_family"
+    sso: "@location_sso"
+    factory: "@location_factory_2"
+    averagePrice: 999
+    averageMargin: 15.12
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>
+
+  #/finance/finance_family_pricings/4
+  finance_family_pricing_4:
+    id: 4
+    finance_family: "@fonky_family"
+    sso: "@location_404"
+    factory: "@location_factory"
+    averagePrice: 16900
+    averageMargin: 19.9
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>

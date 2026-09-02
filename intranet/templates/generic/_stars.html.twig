@@ -1,0 +1,9 @@
+<div class="text-warning">
+    {% for i in from..to %}
+        {% if i <= note %}
+            <i class="fa-solid fa-star"></i>
+        {% else %}
+            <i class="fa-regular fa-star"></i>
+        {% endif %}
+    {% endfor %}
+</div>

@@ -1,0 +1,7 @@
+<td>
+    {% if 'unconfirmed' in item.status %}
+        <span class="badge bg-danger">{{ 'display.table.purchase_order.rows.status.unconfirmed'|trans }}</span>
+    {% else %}
+        <span class="badge bg-success">{{ 'display.table.purchase_order.rows.status.confirmed'|trans }}</span>
+    {% endif %}
+</td>

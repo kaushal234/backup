@@ -1,0 +1,61 @@
+{% extends 'quality/layout.html.twig' %}
+
+{% block title %}{{ parent() }}\Calibrated Tools{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if toolTypes is defined %}
+            <twig:NavItem:Add translationKey="calibration_tool.nav_link.add_tool_types" domain="calibration_tool"
+                              route="quality_calibrated_tool_types_add" :security="is_granted('FEATURE_TOOL_WRITE')"/>
+        {% endif %}
+        {% if tools is defined %}
+            <twig:NavItem:Add translationKey="calibration_tool.nav_link.add_tools" domain="calibration_tool"
+                              route="quality_calibrated_tools_add" :security="is_granted('FEATURE_TOOL_WRITE')"/>
+        {% endif %}
+        <twig:NavItem:Search route="quality_calibrated_tools_home"/>
+        <twig:NavItem translationKey="calibration_tool.nav_link.location_areas" domain="calibration_tool"
+                      icon="mdi-light:map-marker" route="quality_location_areas_home"/>
+        <twig:NavItem translationKey="calibration_tool.nav_link.tool_types" domain="calibration_tool"
+                      icon="system-uicons:cubes"
+                      route="quality_calibrated_tool_types_home"/>
+        <twig:NavItem translationKey="calibration_tool.nav_link.out_of_tolerance_forms" domain="calibration_tool"
+                      icon="bi:eye"
+                      route="quality_calibrated_otf_home" :routeParameters="{order: {id: 'desc'}, page: 1}"/>
+        {% if tool is defined and tool_id is defined %}
+            <twig:Dropdown translationKey="calibration_tool.nav_link.tools_actions" domain="calibration_tool">
+                <twig:NavItem:Add route="quality_calibrated_tools_add" :security="is_granted('FEATURE_TOOL_WRITE')"/>
+                <twig:NavItem:Edit route="quality_calibrated_tools_edit" :routeParameters="{ id: tool_id }"
+                                   :security="is_granted('FEATURE_TOOL_WRITE')"/>
+                {% if tool_name is defined %}
+                    <twig:NavItem:Delete route="quality_calibrated_tools_delete" :routeParameters="{ id: tool_id }"
+                                         :security="is_granted('FEATURE_TOOL_WRITE')">
+                        {% block body %}
+                            {{ 'calibration_tool.messages.delete' | trans({ "%toolName%" : tool_name}, 'calibration_tool') }}
+                        {% endblock %}
+                    </twig:NavItem:Delete>
+                {% endif %}
+                <twig:NavItem translationKey="calibration_tool.nav_link.out_of_tolerance_forms_this_tool"
+                              domain="calibration_tool" icon="bi:eye" route="quality_calibrated_otf_home"
+                              :routeParameters="{out_of_tolerance_forms: {serialNumber: tool.serialNumber},order: {id: 'desc'},page: 1,tabActive: 'tool',}"/>
+            </twig:Dropdown>
+        {% endif %}
+        {% if toolType is defined %}
+            <twig:Dropdown translationKey="calibration_tool.nav_link.tool_type_actions" domain="calibration_tool">
+                <twig:NavItem:Add route="quality_calibrated_tool_types_add"
+                                  :security="is_granted('FEATURE_TOOL_WRITE')"/>
+                <twig:NavItem:Edit route="quality_calibrated_tool_types_edit" :routeParameters="{id: iri_id(toolType)}"
+                                   :security="is_granted('FEATURE_TOOL_WRITE')"/>
+                <twig:NavItem:Delete route="quality_calibrated_tools_delete" :routeParameters="{id: iri_id(toolType)}"
+                                    :security="is_granted('FEATURE_TOOL_WRITE') and toolType.tools | length <= 0">
+                    {% block body %}
+                        {{ 'tool_types.messages.delete' | trans({ "%toolType%" : toolType.description | u.truncate(200) }, 'tool_types') }}
+                    {% endblock %}
+                </twig:NavItem:Delete>
+            </twig:Dropdown>
+        {% endif %}
+        {% if otf is defined %}
+            <twig:NavItem:Edit route="quality_calibrated_otf_edit" :routeParameters="{id: otfIndex}"
+                               :security="is_granted('FEATURE_TOOL_WRITE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

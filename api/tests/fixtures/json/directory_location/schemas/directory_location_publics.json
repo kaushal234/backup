@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/locations$"},
+    "@type": {"type": "string"},
+    "hydra:totalItems": {"type": "integer"},
+    "hydra:search": {"type": "object"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/locations/\\d+$"},
+          "@type": {"type": "string"},
+          "legacyId": {"type": "integer"},
+          "name": {"type": "string"},
+          "erp": {"type": ["integer", "null"]}
+        },
+        "required": ["@id", "@type", "name", "erp"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["@context", "@id", "hydra:member"]
+}

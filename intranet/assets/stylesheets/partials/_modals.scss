@@ -1,0 +1,31 @@
+.sweet-overlay {
+  z-index: 9999;
+}
+
+.sweet-alert {
+  z-index: 10000;
+}
+
+.nav-item:has(.modal.show),
+.dropdown:has(.modal.show) {
+   z-index: 2050 !important;
+   position: relative;
+ }
+
+.dropdown:has(.modal.show) .dropdown-menu.show {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.nav-item:has(.modal.show) > .nav-link {
+  visibility: hidden;
+}
+
+.modal-90 {
+  --bs-modal-width: 90%;
+}
+
+.table-description-width {
+  min-width: 250px;
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/parts/quotation_lines$"},
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/parts/quotation_lines/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "quotedAt": {
+            "type": ["string", "null"]
+          },
+          "closedAt": {
+            "type": ["string", "null"]
+          },
+          "position": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "partNumber": {
+            "type": "string"
+          },
+          "displayedPartNumber": {
+            "type": ["string", "null"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "unitBasePrice": {
+            "type": "number"
+          },
+          "totalPrice": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "discount": {
+            "type": "number"
+          },
+          "tax": {
+            "type": "number"
+          },
+          "commission": {
+            "type": "number"
+          },
+          "leadtime": {
+            "type": "number"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "quotation": {
+            "type": "string"
+          },
+          "salesUnit": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "number"
+          },
+          "itemType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "createdAt",
+          "updatedAt",
+          "quotedAt",
+          "closedAt",
+          "position",
+          "status",
+          "partNumber",
+          "displayedPartNumber",
+          "description",
+          "unitBasePrice",
+          "totalPrice",
+          "currency",
+          "quantity",
+          "discount",
+          "tax",
+          "commission",
+          "leadtime",
+          "comment",
+          "quotation",
+          "salesUnit",
+          "weight"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

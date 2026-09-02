@@ -1,0 +1,7 @@
+<td style="{{ key == 'comment' ? 'width: 250px' : '' }}">
+    {% if isGrantedEditPermission %}
+        {{ form_widget(form['parts'][item['id']][key], {attr: attributes|default([])}) }}
+    {% else %}
+        {{ item[key] }}
+    {% endif %}
+</td>

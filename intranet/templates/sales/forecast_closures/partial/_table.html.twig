@@ -1,0 +1,125 @@
+{% trans_default_domain 'forecast_closures' %}
+
+{% if raw is defined and raw is same as(true) %}
+    {% set template = 'helper/_report_table_raw.html.twig' %}
+{% else %}
+    {% set template = 'helper/_report_table.html.twig' %}
+{% endif %}
+{{ include( template, {
+    reportTable: {
+        items: {
+            id: {
+                label: 'sidebar.sales.fcr'|trans({}, 'sidebar')~'#',
+                link:{
+                    route: 'forecast_closures_show',
+                    params: {'id':'@id'},
+                },
+                sortable: 'numeric'
+            },
+            createdAt: {
+                label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                filters: 'date("Y-m-d")',
+                class: 'nowrap'
+            },
+            salesForecast: {
+                properties: ['salesForecast.@id'],
+                label: 'sidebar.sales.sfr'|trans({}, 'sidebar')~'#',
+                link:{
+                    route: 'sales_forecasts_show',
+                    params: {'id':'salesForecast.@id'},
+                }
+            },
+            asm: {
+                properties: ['salesForecast.asm.lastname', 'salesForecast.asm.firstname'],
+                label: 'sales_forecasts.fields.asm'|trans({}, 'sales_forecasts')|capitalize,
+                link: {
+                    'route': 'directory_people_show',
+                    'params': {'id':'salesForecast.asm.@id'}
+                }
+            },
+            factory: {
+                properties: ['salesForecast.factory.name'],
+                label: 'fields.factory'|trans({}, 'messages')|capitalize,
+                link:{
+                    route: 'directory_locations_show',
+                    params: {'id':'salesForecast.factory.@id'},
+                },
+                class: 'nowrap'
+            },
+            sso: {
+                properties: ['salesForecast.sso.name'],
+                label: 'fields.sso'|trans({}, 'messages'),
+                link:{
+                    route: 'directory_locations_show',
+                    params: {'id':'salesForecast.sso.@id'},
+                },
+                class: 'nowrap'
+            },
+            buyer: {
+                properties: ['salesForecast.buyer.name'],
+                label: 'fields.buyer'|trans({}, 'messages'),
+                link:{
+                    route: 'sales_customers_show',
+                    params: {'id':'salesForecast.buyer.@id'},
+                }
+            },
+            endUser: {
+                properties: ['salesForecast.endUser.name'],
+                label: 'fields.end_user'|trans({}, 'messages'),
+                link:{
+                    route: 'sales_customers_show',
+                    params: {'id':'salesForecast.endUser.@id'},
+                }
+            },
+            winning: {
+                properties: ['competitor.name'],
+                label: 'forecast_closures.fields.winning_party'|trans({}, 'forecast_closures'),
+                template: 'sales/forecast_closures/partial/_winning_party.html.twig'
+            },
+            model: {
+                properties: ['salesForecast.product.name'],
+                label: 'sales_forecasts.fields.product'|trans({}, 'sales_forecasts'),
+                link:{
+                    route: 'sales_catalogue_product_show',
+                    params: {'id':'salesForecast.product.@id'},
+                },
+                class: 'nowrap'
+            },
+            quantity: {
+                properties: ['salesForecast.quantity'],
+                label: 'forecast_closures.fields.sfr_quantity'|trans()
+            },
+            orderedQuantity: {
+                label: 'forecast_closures.fields.quantity'|trans()
+            },
+            estimatedSaleDate: {
+                properties: ['salesForecast.estimatedSaleDate'],
+                label: 'forecast_closures.fields.sfr_date'|trans()|capitalize,
+                filters: 'date("Y-m")',
+                class: 'nowrap'
+            },
+            status: {
+                label: 'forecast_closures.fields.status'|trans()|capitalize
+            },
+            reason: {
+                label: 'forecast_closures.fields.reason'|trans()|capitalize,
+                template: 'sales/forecast_closures/partial/_status.html.twig'
+            },
+            view: {
+                label: 'menu.view'|trans([], 'messages')|capitalize,
+                link:{
+                    route: 'forecast_closures_show',
+                    params: {id:'@id'},
+                    content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                },
+                sortable: false,
+                class : 'text-end'
+            },
+        },
+        title: 'forecast_closures.title'|trans,
+        search: search is defined ? search : true,
+        data: forecastClosures,
+        initialSorting: false,
+        pagination: pagination is defined ? pagination : 20
+    }
+}, with_context = false) }}

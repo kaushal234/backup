@@ -1,0 +1,18 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'XOPS logo': {
+                'jpg': 'xops/logos/XOPS_BLUE_RED-CMYK.jpg',
+                'png': 'xops/logos/XOPS_BLUE_RED-RGB.png',
+                'eps': 'xops/logos/XOPS_BLUE_RED-CMYK.eps'
+            },
+            'XOPS arabian logo': {
+                'pdf': 'xops/logos/logo-XOPS-arabe[1].pdf',
+            },
+        },
+    }) }}
+{% endblock %}

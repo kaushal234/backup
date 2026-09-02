@@ -1,0 +1,201 @@
+{% trans_default_domain 'mis_project' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        id: {
+                            label: 'mis_project.fields.id' | trans,
+                        },
+                        name: {
+                            label: 'mis_project.fields.name' | trans,
+                        },
+                        teamsLink: {
+                            label: 'mis_project.fields.teams_link' | trans,
+                            template: 'mis/project/partial/cell/_teams_link.html.twig',
+                            templateParams: {
+                                teamsLink : project.teamsLink
+                            },
+                        },
+                        status: {
+                            label: 'mis_project.fields.status' | trans,
+                        },
+                        description: {
+                            label: 'mis_project.fields.description' | trans,
+                        },
+                        conclusion: {
+                            label: 'mis_project.fields.conclusion' | trans,
+                            preserveNull: false
+                        },
+                        module: {
+                            label: 'mis_project.fields.module' | trans,
+                            properties: ['module.name'],
+                            link: {
+                                route: 'mis_modules_show',
+                                params: {'id':'module.@id'}
+                            }
+                        },
+                        region: {
+                            label: 'mis_project.fields.region' | trans,
+                            properties: ['region.name'],
+                            link: {
+                                route: 'directory_regions_show',
+                                params: {'id':'region.@id'}
+                            }
+                        },
+                        indicesFactor: {
+                            label: 'mis_project.fields.indices_factor' | trans,
+                        },
+                        projectManager: {
+                            label: 'mis_project.fields.project_manager' | trans,
+                            properties: ['projectManager.firstname', 'projectManager.lastname'],
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'projectManager.@id'}
+                            }
+                        },
+                        misOwner: {
+                            label: 'mis_project.fields.mis_owner' | trans,
+                            properties: ['misOwner.firstname', 'misOwner.lastname'],
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'misOwner.@id'}
+                            }
+                        },
+                        tags: {
+                            label: 'fields.tags' | trans({}, 'messages'),
+                            template: 'mis/project/partial/cell/_tags.html.twig',
+                        },
+                        createdAt: {
+                            label: 'mis_project.fields.created_at' | trans,
+                            filters: 'date("Y-m-d")',
+                        },
+                        startedAt: {
+                            label: 'mis_project.fields.started_at' | trans,
+                            filters: 'date("Y-m-d")',
+                        },
+                        estimatedHours: {
+                            label: 'mis_project.fields.estimated_hours' | trans,
+                        },
+                        revisedEstimatedHours: {
+                            label: 'mis_project.fields.revised_estimated_hours' | trans,
+                        },
+                        confidential: {
+                            label: 'mis_project.fields.confidential' | trans,
+                            boolean: {
+                                true: '<button type="button" class="btn btn-green btn-sm">Yes</button>',
+                                false: '<button type="button" class="btn btn-danger btn-sm">No</button>'
+                            },
+                        },
+                        moduleKeyUsers: {
+                            label: 'mis_project.fields.module_key_users' | trans,
+                            template: 'mis/project/partial/cell/_module_key_users.html.twig',
+                            templateParams: {
+                                moduleKeyUsers : project.moduleKeyUsers
+                            },
+                        },
+                    },
+                    title: 'Project',
+                    data: project
+                },
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-4">
+            <h2>Timeline</h2>
+            <div class="row">
+                <section class="py-2">
+                    <ul class="timeline">
+                        {% for phase in project.phases %}
+                            <li class="timeline-item mb-3">
+                                <div class="card">
+                                    <div class="card-body py-1">
+                                        <h3 class="fw-bold">{{ 'mis_project.fields.phase' | trans }} {{ phase.number }}</h3>
+                                        <h4>{{ ('mis_project.fields.phase_description_' ~ phase.number) | trans }}</h4>
+                                        <p class="text-muted mb-2 fw-bold">{{ 'mis_project.fields.completion_date' | trans }}</p>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="text-muted {% if phase.revisedClosureAt is not null %}text-decoration-line-through{% endif %}">
+                                                    {{ 'mis_project.fields.estimated' | trans }}: {{ phase.estimatedClosureAt | date('Y-m-d') }}
+                                                </p>
+                                            </div>
+                                            {% if phase.revisedClosureAt is not null %}
+                                                <div class="col-6">
+                                                    {{ 'mis_project.fields.revised' | trans }}: {{ phase.revisedClosureAt | date('Y-m-d') }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <p class="text-muted mb-2 fw-bold">{{ 'mis_project.fields.hours' | trans }}</p>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="text-muted {% if phase.revisedEstimatedHours is not null %}text-decoration-line-through{% endif %}">
+                                                    {{ 'mis_project.fields.estimated' | trans }}: {{ phase.estimatedHours }}
+                                                </p>
+                                            </div>
+                                            {% if phase.revisedEstimatedHours is not null %}
+                                                <div class="col-6">
+                                                    {{ 'mis_project.fields.revised' | trans }}: {{ phase.revisedEstimatedHours }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+    {% if comments | length > 0 %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title p-2">
+                        <h2>Comments</h2>
+                    </div>
+                    <div class="card-body bg-light">
+                        {% for comment in comments %}
+                            <div class="container">
+                                <div class="row d-flex {% if comment.user is not null and comment.user['@id'] == app.user.iriId %}flex-row-reverse{% else %}flex-row{% endif %}">
+                                    <div class="col-md-8">
+                                        <div class="mb-4 d-flex {% if comment.user is not null and comment.user['@id'] == app.user.iriId %}flex-end{% else %}flex-start{% endif %}">
+                                            {% if comment.user is not null and comment.user.photo is not null %}
+                                                <img class="rounded-circle shadow-1-strong me-3" style="max-width: 64px; max-height: 64px"
+                                                     src="{{ asset(upload_uri ~ '/' ~ comment.user.photo.filePath) }}">
+                                            {% else %}
+                                                <img class="rounded-circle shadow-1-strong me-3" style="max-width: 64px; max-height: 64px" src="/shared/no_photo.jpg">
+                                            {% endif %}
+                                            <div class="card w-100">
+                                                <div class="card-body p-3">
+                                                    <div>
+                                                        <h5>{% if comment .user is not null %}{{ comment.user.firstname }} {{ comment.user.lastname }}{% else %}MIS{% endif %}</h5>
+                                                        <p class="small">{{ comment.createdAt | date('Y-m-d - H:i:s') }}</p>
+                                                        <p>{{ comment.message | raw}}</p>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                {% if comment.files is not empty %}
+                                                                    {% for file in comment.files %}
+                                                                        <a class="me-2" href="{{ path('download_comment_file', {'id':iri_id(comment) ,'fileId': iri_id(file)}) }}" target="_blank">
+                                                                            <i class="fa fa-file-download fa-3x" style="color:black"></i>
+                                                                        </a>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

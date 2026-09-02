@@ -1,0 +1,18 @@
+{% extends 'directory/division/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% set id = iri_id(division) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.division.title.edit'|trans([], 'directory')|capitalize }}</h3>
+
+    {{ include('directory/division/partial/_form.html.twig', {
+        form: form,
+        action: path('directory_divisions_edit', { id: id }),
+        cancel_link: path('directory_divisions_show', { id: id }),
+        id: id
+    }, with_context=false) }}
+{% endblock %}

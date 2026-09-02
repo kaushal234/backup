@@ -1,0 +1,120 @@
+{% extends 'support/manual/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-8">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'support.manual.title'|trans,
+                    items: {
+                        id: {
+                            label: 'support.manuals.fields.id'|trans|capitalize,
+                        },
+                        status: {
+                            label: 'support.manual.fields.status'|trans|capitalize,
+                        },
+                        model: {
+                            properties: ['equipmentRecord.model'],
+                            label: 'support.manual.fields.model'|trans|capitalize,
+                        },
+                        description: {
+                            label: 'support.manuals.fields.description'|trans|capitalize,
+                        },
+                        features: {
+                            label: 'support.manuals.fields.features'|trans|capitalize,
+                        },
+                        language: {
+                            label: 'support.manual.fields.language'|trans|capitalize,
+                        }
+                    },
+                    data: manual
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+    <hr>
+    <h1>{{ 'support.manual_document_parts.rpsl'|trans }}</h1>
+    <br>
+
+    <div class="row" >
+        {% if formFilters is defined %}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('support/manual/partial/_form_filters_rspl.html.twig', {
+                        form: formFilters,
+                    }) }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        document: {
+                            properties: ['document.category.name'],
+                            label: 'support.manual_documents.fields.category'|trans({}, 'support'),
+                        },
+                        partNumber: {
+                            label: 'support.manual_document_parts.fields.part_number'|trans({}, 'support'),
+                        },
+                        quantity: {
+                            label: 'support.manual_document_parts.fields.quantity'|trans({}, 'support'),
+                        },
+                        description: {
+                            label: 'support.manual_documents.fields.description'|trans({}, 'support')|capitalize,
+                        },
+                        otherDescription: {
+                            label: 'support.manual_documents.fields.other_description'|trans({}, 'support')|capitalize,
+                        },
+                        preventive: {
+                            label: 'support.manual_document_parts.fields.preventive'|trans({}, 'support')|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        },
+                        maintenance: {
+                            label: 'support.manual_document_parts.fields.maintenance'|trans({}, 'support')|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        },
+                        overhaul: {
+                            label: 'support.manual_document_parts.fields.overhaul'|trans({}, 'support')|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        },
+                        critical: {
+                            label: 'support.manual_document_parts.fields.critical'|trans({}, 'support')|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        }
+                    },
+                    title: 'support.manual_document_parts.title'|trans(),
+                    data: parts,
+                    initialSorting: 'category',
+                    pagination: false,
+                    search: true
+                }
+            }, with_context = false )}}
+        </div>
+    </div>
+{% endblock content %}

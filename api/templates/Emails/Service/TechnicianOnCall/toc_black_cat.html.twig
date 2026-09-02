@@ -1,0 +1,24 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        <p>{{ 'toc.message.toc_black_cat'|trans({
+                '%id%': technicianOnCall.id,
+            })|nl2br }}
+        </p>
+        <hr>
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_internal.html.twig') }}
+        <div style="display: flex; justify-content: flex-start;">
+            <div>
+                {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_details.html.twig', {technicianOnCall: technicianOnCall}) }}
+            </div>
+            {% if technicianOnCall.equipmentRecord is not null %}
+                <div style="margin-left: 16px;">
+                    {{ include('Emails/Service/TechnicianOnCall/_partials/_equipment_record_details.html.twig', {technicianOnCall: technicianOnCall}) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

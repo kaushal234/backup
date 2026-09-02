@@ -1,0 +1,89 @@
+{% extends 'parts/spare_parts_requests/layout.html.twig' %}
+{% trans_default_domain 'spare_parts_request' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spare_parts_request.home.reports.by_sph_warranty'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: bySphWarranty,
+                        headers: { columns: ['PENDING', 'OPEN', 'SHIPPED', 'CLOSED'] },
+                        link: {
+                            route: 'spare_parts_request_list',
+                            xParam: 'filter_spare_parts_request[sph][value]',
+                            yParam: 'filter_spare_parts_request[status][value]',
+                            additionalParams: {'filter_spare_parts_request[type][value]': ['Warranty']},
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spare_parts_request.home.reports.by_shipping_origin_warranty'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: byShippingOriginWarranty,
+                        headers: { columns: ['PENDING', 'OPEN', 'SHIPPED', 'CLOSED'] },
+                        link: {
+                            route: 'spare_parts_request_list',
+                            xParam: 'filter_spare_parts_request[shippingOrigin][value]',
+                            yParam: 'filter_spare_parts_request[status][value]',
+                            additionalParams: {'filter_spare_parts_request[type][value]': ['Warranty']},
+                        },
+                        hideTotals: 'y',
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spare_parts_request.home.reports.by_sph'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: bySph,
+                        headers: { columns: ['PENDING', 'OPEN', 'SHIPPED', 'CLOSED'] },
+                        link: {
+                            route: 'spare_parts_request_list',
+                            xParam: 'filter_spare_parts_request[sph][value]',
+                            yParam: 'filter_spare_parts_request[status][value]',
+                            additionalParams: {'filter_spare_parts_request[type][value]': ['Factory', 'SSO', 'Not Defined Yet', 'Payable Services']},
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spare_parts_request.home.reports.by_shipping_origin'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: byShippingOrigin,
+                        headers: { columns: ['PENDING', 'OPEN', 'SHIPPED', 'CLOSED'] },
+                        link: {
+                            route: 'spare_parts_request_list',
+                            xParam: 'filter_spare_parts_request[shippingOrigin][value]',
+                            yParam: 'filter_spare_parts_request[status][value]',
+                            additionalParams: {'filter_spare_parts_request[type][value]': ['Factory', 'SSO', 'Not Defined Yet', 'Payable Services']},
+                        },
+                        hideTotals: 'y',
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

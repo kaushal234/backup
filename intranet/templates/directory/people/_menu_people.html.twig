@@ -1,0 +1,123 @@
+<br />
+{{ include('helper/_menu.html.twig', {buttons: {
+    vcard: {
+        route: 'directory_people_vcard',
+        params: {id: iri_id(people)},
+        icon: 'download',
+        label: 'Vcard',
+    },
+    tasks: {
+        route: 'legacy_directory_index',
+        params: {m: ['people', 'view', 'seqAndUserTask'], id: people.legacyId },
+        label: 'menu.people.user_seq_and_tasks',
+        domain: 'messages',
+    },
+    teamMembers: {
+        route: 'directory_people_team_members',
+        params: { id: iri_id(people['@id']) },
+        icon: 'users',
+        label: 'menu.people.subordinates',
+        domain: 'messages',
+    },
+    mentoring: {
+        route: 'directory_people_mentoring',
+        params: { id: iri_id(people['@id']) },
+        icon: 'users',
+        label: 'menu.people.mentoring',
+        domain: 'messages',
+    },
+    sfr: {
+        route: 'sales_forecasts_dashboard_asm',
+        params: { asm: people['@id'] },
+        label: 'SFR',
+        security: is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_ADMIN') or is_granted('ACL_ROLE_SA') or is_granted('ACL_ROLE_EVP') or (people.supervisor is not null and app.user.id == iri_id(people.supervisor['@id']))
+    },
+    edit: {
+        route: 'directory_people_edit',
+        params: { id: iri_id(people['@id']) },
+        security: is_granted('FEATURE_PEOPLE_UPDATE_VOTER', people['@id'])
+    },
+}}) }}
+{% if is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_MIS') or is_granted('ACL_GG_ADMIN') %}
+    <br />
+    <a class="btn btn-primary" href="/en/private/mis/mis.php?m[0]=inventory&m[1]=reports&m[2]=byUserID&id={{  people.legacyId }}"><i class="fa fa-laptop"></i>&nbsp;IT Equipment</a>
+    <a class="btn btn-primary text-capitalize" href="/en/private/calendar/calendar.php?m[0]=tasks&m[1]=taskList&m[2]=byUser&userid={{ people.legacyId }}"><i class="far fa-calendar-alt"></i>&nbsp;{{ 'menu.people.tasks'|trans }}</a>
+{% endif %}
+{{ include('helper/_menu.html.twig', {buttons: {
+    groups: {
+        route: 'directory_people_acls',
+        params: { id: iri_id(people) },
+        label: 'menu.people.groups',
+        security: is_granted('FEATURE_PEOPLE_ACL_VOTER', people['@id']) or is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_MIS') or is_granted('MOO'),
+        domain: 'messages',
+    },
+    thirdPartyApp: {
+        route: 'directory_people_third_party_app',
+        params: { id: iri_id(people) },
+        label: 'mis.third_party_apps'|trans({}, 'mis'),
+        domain: 'messages',
+    },
+    password: {
+        route: 'directory_people_define_password',
+        params: { id: iri_id(people['@id']) },
+        label: 'Set Password',
+        security: is_granted('PEOPLE_PARTIAL_UPDATE_VOTER', people['@id']) or is_granted('ACL_SUPERUSER'),
+        class: 'warning',
+    },
+    logs: {
+        route: 'directory_people_logs',
+        params: { id: iri_id(people['@id']) },
+        label: 'menu.people.logs',
+        security: is_granted('ACL_SUPERUSER'),
+        domain: 'messages',
+    },
+    activity: {
+        route: 'directory_people_activity',
+        params: { id: iri_id(people['@id']) },
+        label: 'directory.people.activity.button',
+        security: is_granted('ACL_SUPERUSER'),
+        domain: 'directory',
+    },
+    aiHistory: {
+        route: 'ai_log_history',
+        params: { id: iri_id(people['@id']) },
+        label: 'menu.people.ai_history',
+        security: is_granted('FEATURE_AI_LOG_HISTORY'),
+        domain: 'messages',
+    },
+    duplicate: {
+        route: 'directory_people_duplicate',
+        params: { id: iri_id(people['@id']) },
+        label: 'Duplicate',
+        security: is_granted('ACL_SUPERUSER'),
+        class: 'danger',
+    },
+}}) }}
+{% if is_granted('ACL_SUPERUSER') %}
+    <a class="btn btn-danger" href="?_switch_to={{ people['@id'] }}&_username={{ people['username'] }}"><i class="fa fa-user-secret"></i>&nbsp;Impersonate</a>
+{% endif %}
+{{ include('helper/_menu.html.twig', {buttons: {
+    transfer: {
+        route: 'legacy_directory_index',
+        params: { m: ['people', 'view', 'transferDisable'], id: people.legacyId },
+        label: 'Transfer & disable',
+        security: is_granted('ACL_SUPERUSER'),
+        class: 'danger',
+    },
+    crt: {
+        route: 'directory_people_transfer_crt',
+        params: { id: iri_id(people['@id']) },
+        label: 'Transfer CRT\'s',
+        security: is_granted('FEATURE_PEOPLE_UPDATE'),
+        class: 'danger',
+    },
+    editMyAccount: {
+        route: 'account_edit',
+        params: { id: iri_id(people['@id']) },
+        label: 'menu.edit_my_account',
+        domain: 'messages',
+        security: app.user.id is same as(iri_id(people['@id'])),
+        class: 'warning',
+    },
+}}) }}
+

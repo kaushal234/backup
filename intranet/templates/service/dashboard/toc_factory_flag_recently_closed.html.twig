@@ -1,0 +1,22 @@
+{% trans_default_domain 'technician_on_call' %}
+
+<div class="alert alert-light rounded-0 text-center align-content-center m-0 shadow position-relative">
+    <div class="m-0 p-0 d-flex justify-content-center gap-2">
+        <h3 class="m-0">{{ 'toc.dashboard.factory_flag_recently_closed'|trans }}</h3>
+        <span
+            class="translate-middle-y"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="{{ 'toc.messages.help.factory_flag_recently_closed'|trans }}"
+        >{{ ux_icon('fa7-solid:circle-info', { width: '15', height: '15' }) }}</span>
+    </div>
+    <span class="fs-4">
+        <a href="{{ datatable_link('technician_on_call_search', 'technician_on_call', {
+            'status': ['IN_PROGRESS', 'SUSPENDED'],
+            'actor': users is defined and users is not empty ? users : [app.user.iriId],
+            'factoryFlagRecentlyClosed': true
+        }) }}">
+                {{ technicianOnCalls|length }}
+            </a>
+    </span>
+</div>

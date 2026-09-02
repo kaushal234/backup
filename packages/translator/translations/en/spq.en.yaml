@@ -1,0 +1,165 @@
+spq:
+    title: Spare Parts Quotations
+    nav_link:
+      home: Home
+      logs: Logs
+      quotations: Quotations
+      reports: Reports
+      spq_one: SPQ1
+      tasks: Tasks
+    menu:
+        dashboard: Dashboard
+        quotations: Quotations
+        reports: Reports
+        kpi: KPI
+        home: Home
+        files: Files
+        edit_header: Edit header
+        edit_lines: Edit lines
+        edit_status: Edit Status
+    quotations:
+        fields:
+            quotation: Quotation
+            status: status
+            quoter: quoter
+            poster: poster
+            customer:
+              title: customer
+              purchase_order: Purchase order
+              name: Company
+              contact_name: Contact name
+              contact_email: Contact email
+            cuno: CUNO
+            sph: SPH
+            created_at: Created at
+            closed_at: Closed at
+            submitted_at: Submitted at
+            received_at: Received at
+            total_including_taxes: Total Incl.
+            total_excluding_taxes: Total Excl.
+            currency: Currency
+            expired_at: Expired at
+            suspended_at: Suspended at
+            part_number: Part Number
+            payableService: Payable service
+
+            files:
+              quotation_files: Quotation Files
+              attached_files: Attached Files
+            general:
+              title: General
+              opened_date: Date opened
+              sales_rep: Owner
+              request_type: Request type
+              status: Status
+              total_including_taxes: Total including taxes
+              total_excluding_taxes: Total excluding taxes
+              received_date: Request Received date
+              suspended_date: Suspended date
+              submitted_date: Submitted date
+              closed_date: Closed date
+              sales_order: Sales order
+              ship: Shipped complete
+              comment: Internal Comment
+              header_text: Header text
+            people:
+              title: People associated
+              poster: Poster
+              source: Source
+            quotation_line:
+              title: Quotation Lines
+              position: Line
+              item: Item
+              displayed_item: Displayed Item
+              description: Description
+              quantity: Qty
+              leadtime: Lead Time
+              commission: Commission
+              discount: Discount
+              tax: Tax
+              unit_base_price: Unit Price
+              comment : Comment
+              total_price: Total
+              type: Type
+              weight: Weight
+              country_of_origin: Country
+              commodity_code: Code
+              status: Quotation line status
+            terms:
+              title: Terms
+              payment_terms: Payment terms
+              delivery_terms: Delivery terms
+              currency: Currency
+              expiration_date: Expiration date
+              forwarding_agent: Carrier
+            address:
+              invoice: Invoice Address
+              delivery: Delivery Address
+              name: Name
+              address: Address
+              city: City
+              country: Country
+    dashboard:
+        last_10_quotations: Last 10 quotations
+        my_quotations_by_sph_by_status: My quotations by SPH by Status
+        quotations_by_sph_by_status: Quotations by SPH by Status
+    form:
+        make_selection: Make your selection...
+        by_id: Quotation by ID
+        by_id_placeholder: '#'
+        created_at_after: created after
+        created_at_before: created before
+        submitted_at_after: submitted after
+        submitted_at_before: submitted before
+        closed_at_after: closed after
+        closed_at_before: closed before
+    kpi:
+        titles:
+            qir: Quote Immediate fill Rate
+            atq: Average Time to Quote
+            cat: Customer Answer Time
+            scr: Sales Conversion Rate
+            wr: Win Rate
+            quotationsNumber: Quotations Number
+            quotationLinesNumber: Quotation Lines Number
+        definitions:
+            qir: |
+                Percentage of quotations submitted in less than 24 hours from the creation date.
+
+                Number of quotation where the difference between submission and creation is less than 24 hours in a month divided by the number of quotations submitted in this month.
+            atq: |
+                Average number of days between quotation's reception and submission.
+
+                Sum of the differences between reception and submission dates in a month divided by the number of quotations submitted in this month.
+            cat: |
+                Average number of days between quotation's submission and closing.
+
+                Sum of the differences between submission and closing dates in a month divided by the number of quotations closed in this month.
+            scr: |
+                SRCV
+                ====
+                Percentage of quotations' lines value sold.
+
+                Sum all SOLD quotations' lines amount converted in USD in a month devided by the sum of quotations' lines amount created in this month.
+
+                SRCL
+                ====
+                Percentage of quotations' lines sold.
+
+                Number of SOLD quotations' lines in a month devided by the number of quotations' lines created in this month.
+            wr: |
+                WRV
+                =====
+                Percentage of quotations' lines value sold.
+
+                Sum all SOLD quotations' lines amount converted in USD in a month devided by the sum of quotations' lines amount closed in this month.
+
+                WRL
+                =====
+                Percentage of quotations' lines sold.
+
+                Number of SOLD quotations' lines in a month devided by the number of quotations' lines closed in this month.
+            quotationsNumber: |
+                Number of quotations received per month.
+            quotationLinesNumber: |
+                Number of quotations' lines received per month.

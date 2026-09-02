@@ -1,0 +1,33 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+
+    app.security.voters.feature_voter:
+        class: AppBundle\Security\Voter\LazyRoleVoter
+        arguments:
+            $roleProvider: '@AppBundle\Security\RoleProvider\FeatureProvider'
+            $prefix: 'FEATURE_'
+
+    app.security.voters.acl_voter:
+        class: AppBundle\Security\Voter\LazyRoleVoter
+        arguments:
+            $roleProvider: '@AppBundle\Security\RoleProvider\AclProvider'
+            $prefix: 'ACL_'
+
+    app.security.voters.location_voter:
+        class: AppBundle\Security\Voter\LazyRoleVoter
+        arguments:
+            $roleProvider: '@AppBundle\Security\RoleProvider\LocationProvider'
+            $prefix: 'LOCATION_'
+
+    AppBundle\Security\Voter\AccessVoter:
+        lazy: true
+
+    AppBundle\Security\Voter\AccessLightVoter:
+        lazy: true
+
+    ApiBundle\Security\Voter\ApiVoter:
+
+    AppBundle\Security\Voter\Service\AreaServiceTechnicianDashboardVoter:
+    AppBundle\Security\Voter\Service\CustomerServiceManagerDashboardVoter:

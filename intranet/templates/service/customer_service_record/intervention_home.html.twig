@@ -1,0 +1,74 @@
+{% extends 'service/customer_service_record/intervention_layout.html.twig' %}
+{% trans_default_domain 'customer_service_record' %}
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-9">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'csr.fields.id'|trans|capitalize,
+                        },
+                        customerServiceRecord: {
+                            label: 'intervention.fields.csr_id'|trans|capitalize,
+                            filters: 'iri_id'
+                        },
+                        startedAt: {
+                            label: 'intervention.fields.start_date'|trans,
+                            filters: 'date("Y-m-d H:i:s")',
+                            preserveNull: true
+                        },
+                        endedAt: {
+                            label: 'intervention.fields.end_date'|trans|capitalize,
+                            filters: 'date("Y-m-d H:i:s")',
+                            preserveNull: true
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                'route': 'intervention_show',
+                                'params': {'id':'@id'},
+                                'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+                        delete: {
+                            label: 'menu.delete'|trans|capitalize,
+                            sortable: false,
+                            class: 'text-end',
+                            link: {
+                                route: 'intervention_delete',
+                                params: {'id': '@id'},
+                                fixedParams: {'_token': csrf_token('intervention_delete')},
+                                content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                                popup: {
+                                    type: 'confirmation',
+                                    title: 'Confirmation',
+                                    message: 'Are you sure to delete ?',
+                                },
+                            },
+                        },
+                    },
+                    initialSorting: false,
+                    title: 'Report table'|trans,
+                    data: interventions,
+                }
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'csr.title.add' | trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

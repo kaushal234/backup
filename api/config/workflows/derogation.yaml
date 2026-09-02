@@ -1,0 +1,35 @@
+framework:
+  workflows:
+    derogation:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\Quality\Derogation
+      initial_marking: !php/const App\Entity\Quality\Derogation::OPEN
+      places:
+        - !php/const App\Entity\Quality\Derogation::OPEN
+        - !php/const App\Entity\Quality\Derogation::DENIED
+        - !php/const App\Entity\Quality\Derogation::ACCEPTED
+        - !php/const App\Entity\Quality\Derogation::ARCHIVED
+      transitions:
+        to_denied:
+          guard: "is_granted('FEATURE_DEROGATION_STATUS_CLOSE')"
+          from: !php/const App\Entity\Quality\Derogation::OPEN
+          to: !php/const App\Entity\Quality\Derogation::DENIED
+        to_accepted:
+          guard: "is_granted('FEATURE_DEROGATION_STATUS_CLOSE')"
+          from: !php/const App\Entity\Quality\Derogation::OPEN
+          to: !php/const App\Entity\Quality\Derogation::ACCEPTED
+        to_open:
+          guard: "is_granted('FEATURE_DEROGATION_STATUS_REOPEN')"
+          from: !php/const App\Entity\Quality\Derogation::DENIED
+          to: !php/const App\Entity\Quality\Derogation::OPEN
+        to_archived:
+          guard: "is_granted('FEATURE_DEROGATION_STATUS_ARCHIVE')"
+          from:
+            - !php/const App\Entity\Quality\Derogation::DENIED
+            - !php/const App\Entity\Quality\Derogation::OPEN
+            - !php/const App\Entity\Quality\Derogation::ACCEPTED
+          to: !php/const App\Entity\Quality\Derogation::ARCHIVED

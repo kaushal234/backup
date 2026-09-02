@@ -1,0 +1,31 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+
+    <row>
+
+        <h3>{{ 'javelo.mails.group_missing.title'|trans({})|title }}</h3>
+
+        <p>{{ 'javelo.mails.group_missing.intro'|trans({}) }}</p>
+
+        {% for division, groups in missingGroupsByDivision %}
+            <h4>{{ division }}</h4>
+            <ul>
+                {% for groupName, businessUnit in groups %}
+                    <li>{{ 'javelo.mails.group_missing.item'|trans({
+                            '%groupName%': groupName,
+                            '%businessUnit%': businessUnit,
+                        }) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+
+        <p>{{ 'javelo.mails.group_missing.outro'|trans({}) }}</p>
+
+    </row>
+
+{% endblock %}

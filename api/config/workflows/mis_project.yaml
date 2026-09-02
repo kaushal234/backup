@@ -1,0 +1,65 @@
+framework:
+  workflows:
+    mis_project:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\MIS\Project\Project
+      initial_marking: !php/const App\Entity\MIS\Project\Project::PENDING
+      places:
+        - !php/const App\Entity\MIS\Project\Project::PENDING
+        - !php/const App\Entity\MIS\Project\Project::PHASE_0
+        - !php/const App\Entity\MIS\Project\Project::PHASE_1
+        - !php/const App\Entity\MIS\Project\Project::PHASE_2
+        - !php/const App\Entity\MIS\Project\Project::PHASE_3
+        - !php/const App\Entity\MIS\Project\Project::PHASE_4
+        - !php/const App\Entity\MIS\Project\Project::CANCELLED
+        - !php/const App\Entity\MIS\Project\Project::CLOSED
+      transitions:
+        to_pending:
+          from: !php/const App\Entity\MIS\Project\Project::PHASE_0
+          to: !php/const App\Entity\MIS\Project\Project::PENDING
+        to_phase0:
+          from:
+            - !php/const App\Entity\MIS\Project\Project::PENDING
+            - !php/const App\Entity\MIS\Project\Project::PHASE_1
+            - !php/const App\Entity\MIS\Project\Project::CANCELLED
+          to: !php/const App\Entity\MIS\Project\Project::PHASE_0
+        to_phase1:
+          from:
+            - !php/const App\Entity\MIS\Project\Project::PHASE_0
+            - !php/const App\Entity\MIS\Project\Project::PHASE_2
+            - !php/const App\Entity\MIS\Project\Project::CANCELLED
+          to: !php/const App\Entity\MIS\Project\Project::PHASE_1
+        to_phase2:
+          from:
+            - !php/const App\Entity\MIS\Project\Project::PHASE_1
+            - !php/const App\Entity\MIS\Project\Project::PHASE_3
+            - !php/const App\Entity\MIS\Project\Project::CANCELLED
+          to: !php/const App\Entity\MIS\Project\Project::PHASE_2
+        to_phase3:
+          from:
+            - !php/const App\Entity\MIS\Project\Project::PHASE_2
+            - !php/const App\Entity\MIS\Project\Project::PHASE_4
+            - !php/const App\Entity\MIS\Project\Project::CANCELLED
+          to: !php/const App\Entity\MIS\Project\Project::PHASE_3
+        to_phase4:
+          from:
+            - !php/const App\Entity\MIS\Project\Project::PHASE_3
+            - !php/const App\Entity\MIS\Project\Project::CANCELLED
+          to: !php/const App\Entity\MIS\Project\Project::PHASE_4
+        to_cancelled:
+          from:
+            - !php/const App\Entity\MIS\Project\Project::PENDING
+            - !php/const App\Entity\MIS\Project\Project::PHASE_0
+            - !php/const App\Entity\MIS\Project\Project::PHASE_1
+            - !php/const App\Entity\MIS\Project\Project::PHASE_2
+            - !php/const App\Entity\MIS\Project\Project::PHASE_3
+            - !php/const App\Entity\MIS\Project\Project::PHASE_4
+          to: !php/const App\Entity\MIS\Project\Project::CANCELLED
+        to_close:
+          from:
+            - !php/const App\Entity\MIS\Project\Project::PHASE_4
+          to: !php/const App\Entity\MIS\Project\Project::CLOSED

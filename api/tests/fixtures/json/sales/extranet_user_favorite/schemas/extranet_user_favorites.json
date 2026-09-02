@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/extranet_user_favorites$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/extranet_user_favorites/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "extranetUser": {
+            "type": "object"
+          },
+          "aeroUsername": {
+            "type": ["string", "null"]
+          },
+          "partNumber": {
+            "type": ["string", "null"]
+          },
+          "description": {
+            "type": ["string", "null"]
+          },
+          "legacyId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "extranetUser",
+          "aeroUsername",
+          "partNumber",
+          "description",
+          "legacyId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "minItems": 1
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

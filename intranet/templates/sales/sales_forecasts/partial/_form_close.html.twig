@@ -1,0 +1,42 @@
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+
+    {{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        {% for forecastClosure in form.forecastClosures %}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">{{ form_row(forecastClosure.status) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"> {{form_row(forecastClosure.orderedQuantity) }}</div>
+                            <div class="col-md-6">{{ form_row(forecastClosure.reason) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{{ form_row(forecastClosure.price) }}</div>
+                            <div class="col-md-4">{{ form_row(forecastClosure.currency) }}</div>
+                            <div class="col-md-4">{{ form_row(forecastClosure.competitor) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">{{ form_row(forecastClosure.comment) }}</div>
+                            <div class="col-md-12">{{ form_widget(forecastClosure.file) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+    {{ form_row(form.submit) }}
+
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+
+{% endblock %}

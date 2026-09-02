@@ -1,0 +1,299 @@
+services:
+  api:
+    #image: nginx:1.18.0
+    build:
+      context: .
+      dockerfile: docker/images/multistage/nginx/Dockerfile
+      target: dev
+    links:
+      - php-api
+    volumes:
+      - .:/srv
+      - ./intranet:/intranet
+      - ./api/var/cache:/srv/api/var/cache:rw
+      - ./docker/images/multistage/api/default.conf:/etc/nginx/conf.d/default.conf
+
+  php-api:
+    #image: alvestfr/api-dev
+    build:
+      context: .
+      dockerfile: docker/images/multistage/api/Dockerfile
+      target: dev
+    restart: on-failure
+    depends_on:
+      - mariadb
+      - smtp
+      - ollama
+    volumes:
+      - .:/srv
+      - ./api/var/cache:/srv/api/var/cache:rw
+      - ~/.ssh/:/home/user/.ssh/
+      - ~/.composer/:/home/user/.composer/
+      - ~/.config/composer/:/var/www/.composer/
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
+      - COMPOSER_CACHE_DIR=/home/user/.composer
+      - APP_ENV=dev
+      - APP_DEBUG=1
+      - XDEBUG=0
+      - MERCURE_URL=http://mercure/.well-known/mercure
+      - MERCURE_PUBLIC_URL=http://localhost:1337/.well-known/mercure
+      - MERCURE_JWT_SECRET=!ChangeThisMercureHubJWTSecretKey!
+
+  haproxy:
+    image: haproxy:2.4.24-alpine
+    volumes:
+      - ./docker/config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./docker/certs:/certs:rw
+      - ./provisioning/roles/haproxy/templates/maintenance.http:/maintenance/maintenance.http:ro
+    links:
+      - gse
+      - redis-master
+      - redis-slave
+    depends_on:
+      - gse
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
+      - "8085:8085"
+      - "8404:8404"
+
+  gse:
+    #image: alvestfr/gse-dev
+    build:
+      context: .
+      dockerfile: docker/images/multistage/gse/Dockerfile
+      target: dev
+    depends_on:
+      - mariadb
+      - smtp
+      - redis-sentinel
+    volumes:
+      - .:/srv/alvest-web-portals
+      - ./intranet/legacy/templates_c:/srv/alvest-web-portals/intranet/legacy/templates_c
+      - ./shopfloor/templates_c:/srv/alvest-web-portals/shopfloor/templates_c
+      - ./shared/inc/templates_c:/srv/alvest-web-portals/shared/inc/templates_c
+      - ./docker/config/gse-php.ini:/usr/local/etc/php/php.ini
+      - ./docker/certs/localCA.crt:/usr/local/share/ca-certificates/localCA.crt
+      - ~/.composer/:/home/user/.composer/
+      - ~/.config/composer/:/var/www/.composer/
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
+      - COMPOSER_CACHE_DIR=/home/user/.composer
+      - APP_ENV=dev
+      - XDEBUG=0
+      - NODE_OPTIONS=--openssl-legacy-provider
+
+  evendors:
+    image: nginx:1.21.6
+    links:
+      - evendors-php
+    volumes:
+      - .:/srv
+      - ./docker/images/multistage/evendors/default.conf:/etc/nginx/conf.d/default.conf
+
+  evendors-php:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/evendors/Dockerfile
+      target: dev
+    restart: on-failure
+    depends_on:
+      - mariadb
+    volumes:
+      - .:/srv
+      - ~/.composer/:/home/user/.composer/
+      - ~/.config/composer/:/var/www/.composer/
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
+      - COMPOSER_CACHE_DIR=/home/user/.composer
+      - APP_ENV=dev
+      - APP_DEBUG=1
+      - XDEBUG=0
+
+  extranet:
+    image: nginx:1.21.6
+    links:
+      - extranet-php
+    volumes:
+      - .:/srv
+      - ./docker/images/multistage/extranet/default.conf:/etc/nginx/conf.d/default.conf
+
+  extranet-php:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/extranet/Dockerfile
+      target: dev
+    restart: on-failure
+    volumes:
+      - .:/srv
+      - ~/.composer/:/home/user/.composer/
+      - ~/.config/composer/:/var/www/.composer/
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
+      - COMPOSER_CACHE_DIR=/home/user/.composer
+      - APP_ENV=dev
+      - APP_DEBUG=1
+      - XDEBUG=0
+
+  mariadb:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/mariadb/Dockerfile
+      target: dev
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - ./docker/data/mariadb:/var/lib/mysql
+      - ./docker/config/mariadb.cnf:/etc/mysql/mariadb.conf.d/99-server.cnf:ro
+      - ./docker/import:/srv/import
+    ports:
+      - "3306:3306"
+
+  smtp:
+    # Pinned: 3.x's web UI doesn't work behind a reverse-proxy subpath yet
+    # (staging serves it under /maildev/) - see provisioning/roles/mailcatcher.
+    image: maildev/maildev:2.2.1
+    command: --web 80 --smtp 25 --hide-extensions STARTTLS
+    ports:
+      - "8025:80"
+
+  powerbi:
+    image: nginx
+    links:
+      - powerbi-js
+    volumes:
+      - .:/srv
+      - ./docker/images/multistage/powerbi/default.conf:/etc/nginx/conf.d/default.conf
+
+  powerbi-js:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/powerbi/Dockerfile
+    restart: on-failure
+    volumes:
+      - ./powerbi:/srv/powerbi
+    ports:
+      - "9500:9500"
+
+  mobile:
+    image: nginx
+    links:
+      - mobile-react
+    volumes:
+      - .:/srv
+      - ./docker/images/multistage/mobile/default.conf:/etc/nginx/conf.d/default.conf
+
+  mobile-react:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/mobile/Dockerfile
+    restart: on-failure
+    volumes:
+      - ./mobile:/srv/mobile
+    ports:
+      - "3000:3000"
+
+  mobile-cypress:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/cypress/Dockerfile
+    depends_on:
+      - mobile-react
+    volumes:
+      - ./mobile:/srv/mobile
+    network_mode: host
+    shm_size: 2gb
+
+  redis-master:
+    image: redis:6.0.5-alpine3.12
+
+  redis-slave:
+    image: redis:6.0.5-alpine3.12
+    command: redis-server --slaveof redis-master 6379
+    links:
+      - redis-master
+
+  redis-sentinel:
+    image: bitnamisecure/redis-sentinel
+    environment:
+      - REDIS_MASTER_HOST=redis-master
+      - REDIS_MASTER_SET=mymaster
+    links:
+      - redis-master
+      - redis-slave
+
+  provisioning:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/provisioning/Dockerfile
+      target: dev
+    restart: on-failure
+    volumes:
+      - ./provisioning:/provisioning
+      - ~/.ssh/:/root/.ssh/
+
+  deployer:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/deploy/Dockerfile
+      target: dev
+    restart: on-failure
+    volumes:
+      - .:/srv
+
+  twig-helper-test-api:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/packages/api/Dockerfile
+      target: dev
+    profiles:
+      - donotstart
+    restart: on-failure
+    volumes:
+      - .:/srv
+
+  selenium:
+    image: selenium/standalone-chromium:147.0
+    shm_size: 2gb
+    profiles:
+      - donotstart
+    environment:
+      - SE_SESSION_REQUEST_TIMEOUT=10
+      - SE_SESSION_RETRY_INTERVAL=2
+    ports:
+      - "4444:4444"
+      - "5900:5900"
+      - "7900:7900"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  ollama:
+    build:
+      context: .
+      dockerfile: docker/images/multistage/ollama/Dockerfile
+    container_name: ollama
+    restart: unless-stopped
+    volumes:
+      - ./docker/data/ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+
+  mercure:
+    image: dunglas/mercure
+    container_name: mercure
+    restart: unless-stopped
+    ports:
+      - "1337:80"
+    environment:
+      SERVER_NAME: ':80'
+      MERCURE_PUBLISHER_JWT_KEY: '!ChangeThisMercureHubJWTSecretKey!'
+      MERCURE_SUBSCRIBER_JWT_KEY: '!ChangeThisMercureHubJWTSecretKey!'
+      MERCURE_EXTRA_DIRECTIVES: |
+        cors_origins *
+        anonymous

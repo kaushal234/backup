@@ -1,0 +1,138 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/change_logs/\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "module": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "pattern": "^/modules/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "specification": {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "type": "string"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": ["@id", "@type", "id"]
+        },
+        "status": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "operationalOwner": {
+          "$ref": "../../directory_people/schemas/directory_people_public.json"
+        },
+        "shortDescription": {
+          "type": "string"
+        },
+        "fullDescription": {
+          "type": "string"
+        },
+        "dmsProcedureId": {
+          "type": "integer"
+        },
+        "dmsHelpId": {
+          "type": "integer"
+        },
+        "legacyLoc": {
+          "type": "integer"
+        },
+        "migrationCurrentStep": {
+          "type": ["integer", "null"]
+        },
+        "migrationEstimatedHours": {
+          "type": "integer"
+        },
+        "migrated": {
+          "type": "boolean"
+        },
+        "disabledForTroubleTicket": {
+          "type": "boolean"
+        },
+        "department": {
+          "type": ["string", "null"]
+        },
+        "notificationColor": {
+          "type": ["string", "null"]
+        },
+        "keyUser": {
+          "type": ["string", "null"]
+        },
+        "application": {
+          "type": "string"
+        },
+        "misRelative": {
+          "type": "boolean"
+        },
+        "notifyOperationalOwner": {
+          "type": "boolean"
+        },
+        "notifyKeyUser": {
+          "type": "boolean"
+        },
+        "typeDefaultAssignees": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "status",
+        "id",
+        "name",
+        "operationalOwner"
+      ]
+    },
+    "author": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "date": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "ticket": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "module",
+    "author",
+    "date",
+    "message",
+    "ticket",
+    "type"
+  ]
+}

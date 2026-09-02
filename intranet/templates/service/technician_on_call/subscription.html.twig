@@ -1,0 +1,46 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% block content %}
+    <twig:SubscriptionComponent key="toc.subscriptions">
+        <div class="row">
+            <div class="col-md-12">
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            id: {
+                                label: 'display.table.scar.headers.id'|trans([], 'messages')|capitalize,
+                                link: {
+                                    route: 'technician_on_calls_show',
+                                    params: {'id': '@id'},
+                                },
+                                sortable: false,
+                            },
+                            indiceFactor: {
+                                label: 'toc.card.indice_factor'|trans({}, 'technician_on_call')
+                            },
+                            status: {
+                                label: 'toc.fields.status'|trans({}, 'technician_on_call'),
+                            },
+                            product: {
+                                properties: ['equipmentRecord.product.family.productType.englishName'],
+                                label: 'toc.fields.product'|trans({}, 'technician_on_call'),
+                            },
+                            serialNumber: {
+                                properties: ['equipmentRecord.serialNumber'],
+                                label: 'demo.fields.er_serial_number'|trans([], 'demo'),
+                            },
+                            createdAt: {
+                                label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                                filters: 'date("Y-m-d")',
+                            },
+                        },
+                        title: 'TOC',
+                        data: items,
+                        initialSorting: false
+                    }
+                }, with_context = false) }}
+            </div>
+        </div>
+    </twig:SubscriptionComponent>
+{% endblock %}

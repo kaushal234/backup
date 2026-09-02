@@ -1,0 +1,55 @@
+{#
+  Catalogue — Level 2: Product Families
+  Route: catalogue:product_families (App\Controller\Catalogue\ShowProductFamiliesController)
+  Vars : productType (.id, .englishName, .productFamilies[])
+         each family: .id, .name, .dms  (NB: family .dms is the id directly,
+         unlike productType.dms.id at level 1 — kept faithful to the original)
+
+  Restyled from templates/catalogue/product_families.html.twig.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.title.catalogue'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    <section class="page-hero">
+        <div class="page-hero-pattern"></div>
+        <div class="container-fluid px-4 position-relative" style="z-index:2">
+            <nav class="page-crumbs" aria-label="breadcrumb">
+                <a href="{{ path('index') }}">{{ 'header.menu.home'|trans }}</a>
+                <span class="sep">/</span>
+                <a href="{{ path('catalogue:index') }}">{{ 'extranet.menu.catalogue'|trans }}</a>
+                <span class="sep">/</span>
+                <span class="current">{{ productType.englishName }}</span>
+            </nav>
+            <h1 class="page-hero-title">{{ productType.englishName }}</h1>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="cat-grid">
+                {% for productFamily in productType.productFamilies %}
+                    <a class="cat-card" href="{{ path('catalogue:product_family', {id: productFamily.id}) }}">
+                        <div class="cat-media">
+                            {% if productFamily.dms is not null %}
+                                <img src="{{ absolute_url('https://www.tld-gse.com/en/private/public/dms.php?id=' ~ productFamily.dms) }}"
+                                     alt="{{ productFamily.name }}" loading="lazy">
+                            {% else %}
+                                <img src="{{ asset('images/no_photo_catalogue.png') }}" alt="{{ productFamily.name }}" loading="lazy">
+                            {% endif %}
+                        </div>
+                        <div class="cat-foot">
+                            <h3 class="cat-name">{{ productFamily.name }}</h3>
+                            <svg class="cat-arrow" width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

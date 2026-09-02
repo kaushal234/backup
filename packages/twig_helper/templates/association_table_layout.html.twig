@@ -1,0 +1,104 @@
+{% extends '@AlvestTwigHelper/table_layout.html.twig' %}
+
+{% set table = associationData %}
+
+{% block table_first_column_tag %}th{% endblock %}
+
+{% block table_search %}{% endblock %}
+
+{% block table_content %}
+    {% set column_attr = column_attr|merge({class: block('column_default_class')|trim}) %}
+    <tbody>
+    {% for key, item in table.items %}
+        {{ block('table_row') }}
+    {% endfor %}
+    </tbody>
+{% endblock %}
+
+{% block table_row %}
+    {% if item.hideNull is not defined or item.hideNull is not same as(true) or attribute(table.data, key) is not same as(null) %}
+        <tr class="back-to-line">
+            <{{ block('table_first_column_tag') }} {% with {attr: column_attr} %}{{ block('attributes') }}{% endwith %} {% if table.rowHeaderWidth is defined %}style="width:{{ table.rowHeaderWidth }};"{% endif %}>{{ item.label|raw }}</{{ block('table_first_column_tag') }}>
+            {% if item.template is defined %}
+                {% set templateParams = { 'item': table.data, 'reportItem': item, 'key': key } %}
+                {% if item.templateParams is defined %}
+                    {% set templateParams = templateParams | merge(item.templateParams) %}
+                {% endif %}
+                {{ include(item.template, templateParams, with_context=true) }}
+            {% else %}
+                <td {% if item.class is defined %} class="{{ item.class }}" {% endif %}>
+                    {% if attribute(table.data, key) is defined or item.properties is defined %}
+                        {% if item.properties is defined and item.properties is iterable %}
+                            {% set value = [] %}
+                            {% for propertyPath in item.properties %}
+                                {% set propValue = parse_nested(table.data, propertyPath) %}
+                                {% if loop.index == 1 and loop.last and (propValue is same as(true) or propValue is same as(false)) %}
+                                    {% if item.boolean is defined %}
+                                        {% set value = propValue ? item.boolean.true : item.boolean.false %}
+                                    {% else %}
+                                        {% set value = (propValue ? 'yes' : 'no')|trans([], 'messages') %}
+                                    {% endif %}
+                                {% elseif propValue is not same as(null) %}
+                                    {% set value = value | merge([propValue]) %}
+                                {% endif %}
+                            {% endfor %}
+                            {% set value = value|length > 0 ? value | join(item.glue|default('&nbsp;')) : null %}
+                            {#is boolean#}
+                        {% elseif attribute(table.data, key) is same as(true) or attribute(table.data, key) is same as(false) %}
+                            {% if item.boolean is defined %}
+                                {% set value = attribute(table.data, key) ? item.boolean.true : item.boolean.false %}
+                            {% else %}
+                                {% set value = (attribute(table.data, key) ? 'yes' : 'no')|trans([], 'messages') %}
+                            {% endif %}
+                        {% else %}
+                            {% set value = attribute(table.data, key) %}
+                        {% endif %}
+                    {% else %}
+                        {% set value = null %}
+                    {% endif %}
+
+                    {% if item.filters is defined and (item.preserveNull is not defined or item.preserveNull is not same as(true) or value is not same as(null)) %}
+                        {% set value = value|filters(item.filters) %}
+                    {% endif %}
+                    {% if item.link is defined %}
+                        {% set preparedParams = {} %}
+                        {% set validParams = true %}
+
+                        {% if item.link.params is defined %}
+                            {% for param, propertyPath in item.link.params %}
+                                {% set forceIri = item.link.forceIri is defined ? item.link.forceIri : false %}
+                                {% set propValue = parse_nested(table.data, propertyPath, forceIri) %}
+                                {% if propValue is null %}
+                                    {% set validParams = false %}
+                                {% else %}
+                                    {% set preparedParams = preparedParams | merge({(param): propValue}) %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if item.link.fixedParams is defined %}
+                            {% set preparedParams = preparedParams | merge(item.link.fixedParams) %}
+                        {% endif %}
+
+                        {% if validParams is same as(true) %}
+                            <a href="{{ path(item.link.route, preparedParams) }}"
+                                    {% if item.link.popup is defined %} onclick="return confirm('{{ item.link.popup.message }}');" {% endif %}
+                                    {% if item.link.target is defined %} target="{{ item.link.target }}" {% endif %}>
+                                {% if item.link.content is defined %}
+                                    {{ item.link.content|raw }}
+                                {% else %}
+                                    {{ value | raw}}
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        {{ value | raw | nl2br }}
+                    {% endif %}
+                </td>
+            {% endif %}
+        </tr>
+    {% endif %}
+{% endblock %}
+
+{% block table_header %}{% endblock table_header %}
+{% block table_footer %}{% endblock table_footer %}

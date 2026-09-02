@@ -1,0 +1,49 @@
+parameters:
+    someCategory: ['Assy', 'Test', 'QA', 'PDI']
+
+App\Entity\Quality\Crab:
+    crab_1:
+        id: 1
+        createdAt: "<dateTimeThisYear()>"
+        status: TO-FIX
+        description: <paragraph(2)>
+        category: "<randomElement($someCategory)>"
+        department: "@department_paint"
+        equipmentRecord: '@equipment_record_green_tag'
+        code: '@crab_code_1'
+        createdBy: '@user_superuser'
+        legacyId: 10003
+        firstArticleQualification: '@faq_1'
+
+    crab_2:
+        id: 2
+        createdAt: "<dateTimeThisYear()>"
+        updatedAt: "<dateTimeThisMonth()>"
+        fixedAt: "<dateTimeThisMonth()>"
+        inspectedAt: "<dateTimeThisMonth()>"
+        status: CLOSED
+        description: <paragraph(2)>
+        fixingComments: <sentence(2)>
+        inspectingComments: <sentence(2)>
+        category: "<randomElement($someCategory)>"
+        department: '@department_purchasing'
+        equipmentRecord: '@equipment_record_green_tag'
+        code: '@crab_code_2'
+        createdBy: '@user_superuser'
+        fixedBy: '@user_hr'
+        inspectedBy: '@user_basic'
+        legacyId: 10004
+        derogation: '@derogation_1'
+
+    crab_for_derogation_accepted:
+        id: 3
+        createdAt: "<dateTimeThisYear()>"
+        status: TO-FIX
+        description: <paragraph(2)>
+        category: "<randomElement($someCategory)>"
+        department: '@department_purchasing'
+        equipmentRecord: '@equipment_record_green_tag'
+        code: '@crab_code_2'
+        createdBy: '@user_superuser'
+        legacyId: 10005
+

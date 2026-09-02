@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_brand_guidelines.html.twig', {
+        guidelines: {
+            'AERO Brand Guidelines': {
+                'pdf': 'aero_specialties/brand_guidelines/AERO Brand Guideline.pdf',
+            }
+        }
+    }) }}
+{% endblock %}

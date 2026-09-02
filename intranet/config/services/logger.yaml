@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Monolog\Formatter\LogstashFormatter:
+    arguments:
+      - 'intranet'
+
+  Symfony\Bridge\Monolog\Processor\WebProcessor:
+    tags:
+      - { name: monolog.processor }
+
+  Symfony\Bridge\Monolog\Processor\TokenProcessor:
+    tags:
+      - { name: monolog.processor }
+
+  Symfony\Bridge\Monolog\Processor\RouteProcessor:
+    tags:
+      - { name: monolog.processor }
+
+  AppBundle\Monolog\Processor\ModuleProcessor:
+    tags:
+      - { name: monolog.processor }

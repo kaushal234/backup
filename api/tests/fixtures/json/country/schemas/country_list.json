@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/countries/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "isoCode2": {
+      "type": "string"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "name",
+    "isoCode2",
+    "legacyId"
+  ]
+}

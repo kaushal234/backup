@@ -1,0 +1,75 @@
+<div class="row mb-2 pe-2">
+    <div class="pe-0 d-flex flex-column gap-3">
+        <div class="bg-body rounded h-100 m-0 p-2">
+            {% if comments | length > 0 %}
+                {% for comment in comments %}
+                    {% set isCurrentUser = comment.user is not null and comment.user['@id'] == app.user.iriId %}
+                    <div class="container">
+                        <div class="row d-flex {{ isCurrentUser ? 'flex-row-reverse' : 'flex-row' }}">
+                            <div class="col-md-8">
+                                <div class="mb-4 d-flex {{ isCurrentUser ? 'flex-end flex-row-reverse' : 'flex-start' }}">
+                                    {% if comment.user is not null and comment.user.photo is not null %}
+                                        <img class="rounded-circle shadow-1-strong mx-3 flex-shrink-0" alt=""
+                                             style="width: 40px; height: 40px; object-fit: cover;"
+                                             src="{{ asset(upload_uri ~ '/' ~ comment.user.photo.filePath) }}"
+                                             data-bs-toggle="tooltip" data-bs-placement="top"
+                                             title="{% if comment.metadata.recipients is defined %}{{ 'task.message.people_notified'|trans({}, 'task') }}: {{ comment.metadata.recipients|join(', ') }}{% endif %}">
+                                    {% else %}
+                                        <img class="rounded-circle shadow-1-strong mx-3 flex-shrink-0" alt=""
+                                             style="width: 40px; height: 40px; object-fit: cover;"
+                                             src="/shared/no_photo.jpg"
+                                             data-bs-toggle="tooltip" data-bs-placement="top"
+                                             title="{% if comment.metadata.recipients is defined %}{{ 'task.message.people_notified'|trans({}, 'task') }}: {{ comment.metadata.recipients|join(', ') }}{% endif %}">
+                                    {% endif %}
+                                    <div class="d-flex flex-column" style="min-width: 0; flex: 1;">
+                                        <div class="card border-0" style="min-width: 0; flex: 1;">
+                                            <div class="card-body px-3 py-2 rounded-1"
+                                                 style="{{ isCurrentUser ? 'background-color: #f7f9ff' : 'background-color: #d6e2ff' }}; word-wrap: break-word; overflow-wrap: break-word;">
+                                                <p class="m-0 p-0"
+                                                   style="word-break: break-word;">{{ comment.message | raw }}</p>
+                                                {% if comment.files is not empty %}
+                                                    <div class="mt-2 pt-2 d-flex flex-wrap gap-2"
+                                                         style="border-top: 1px solid rgba(0,0,0,0.1);">
+                                                        {% for file in comment.files %}
+                                                            <a href="{{ path('download_comment_file', {'id': iri_id(comment), 'fileId': iri_id(file)}) }}"
+                                                               target="_blank"
+                                                               class="d-inline-flex align-items-center gap-1 text-decoration-none px-2 py-1 rounded"
+                                                               style="background-color: rgba(0,0,0,0.07); color: inherit; font-size: 0.8rem; max-width: 160px;">
+                                                                <i class="fa fa-file"
+                                                                   style="font-size: 0.85rem; flex-shrink: 0;"></i>
+                                                                <span class="text-truncate">{{ 'task.fields.file'|trans({}, 'task') }}</span>
+                                                                <i class="fa fa-download"
+                                                                   style="font-size: 0.75rem; flex-shrink: 0; opacity: 0.7;"></i>
+                                                            </a>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <p class="small m-0 {{ isCurrentUser ? 'text-end' : 'text-start' }}">
+                                            {{ comment.createdAt | date('Y-m-d - H:i:s') }} -
+                                            {% if comment.user is not null %}
+                                                {{ comment.user.firstname }} {{ comment.user.lastname }}
+                                            {% else %}
+                                                MIS
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="p-2 d-flex align-items-start gap-2 my-3 chat-item">
+                    <div>
+                        <div class="chat-message py-2 px-3 bg-warning-subtle rounded">
+                            {{ 'task.message.no_comment'|trans({}, 'task') }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

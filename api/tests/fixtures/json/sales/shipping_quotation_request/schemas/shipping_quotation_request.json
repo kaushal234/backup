@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": {"pattern": "^/sales/shipping_quotation_requests/\\d+$"},
+    "@type": { "type": "string" },
+    "id": { "type": "integer" },
+    "counter": { "type": "integer" },
+    "sso": { "$ref": "../../../directory_location/schemas/directory_location_public.json" },
+    "createdBy": {"$ref": "../../../directory_people/schemas/directory_people_list.json"},
+    "incoterms": { "type": "string" },
+    "incoLocation": { "type": "string" },
+    "type": { "type": "string" },
+    "answerDeadline": { "type": "string" },
+    "note": { "type": ["string", "null"] },
+    "status": { "type": "string" },
+    "shippingQuotationRequestLines": {
+      "type": "array",
+      "items": { "$ref": "../../shipping_quotation_request_line/schemas/shipping_quotation_request_line.json" }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "../../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "sso",
+    "createdBy",
+    "incoterms",
+    "incoLocation",
+    "type",
+    "answerDeadline",
+    "note",
+    "status",
+    "shippingQuotationRequestLines",
+    "counter",
+    "files"
+  ],
+  "additionalProperties": false
+}

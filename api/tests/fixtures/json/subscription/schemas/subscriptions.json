@@ -1,0 +1,114 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/subscriptions$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:search": {
+      "type": "object"
+    },
+    "hydra:view": {
+      "type": "object"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/subscriptions/\\d+$"},
+          "@type": {"type": "string"},
+          "resource": {"type": "string"},
+          "resourceId": {"type": "integer"},
+          "module": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "frontEndRoute": {"type": ["string", "null"]}
+              },
+                "required": ["name", "frontEndRoute"],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "shortDescription": {"type":  ["string", "null"]},
+          "user": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/(people|(sales/extranet_)?users)/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              },
+              "photo": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "../../shared/schemas/file_light.json" }
+                ]
+              },
+              "passwordExpirationDate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "email",
+              "username"
+            ],
+            "additionalProperties": false
+          },
+          "createdAt": {"type": "string"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "user",
+          "createdAt",
+          "resource",
+          "resourceId",
+          "module",
+          "shortDescription"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:totalItems",
+    "hydra:search",
+    "hydra:member"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": { "pattern": "^/estimated_green_tag_quantity_reports$" },
+    "@type": { "const": "hydra:Collection" },
+    "hydra:totalItems": { "type": "integer" },
+    "hydra:search": {
+      "type": "object"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "pattern": "^/estimated_green_tag_quantity_reports/\\d+$" },
+          "@type": { "const": "EstimatedGreenTagQuantityReport" },
+          "id": { "type": "integer" },
+          "day": { "type": "string", "format": "date-time" },
+          "manufacturerLocation": { "type": "string", "pattern": "^/locations/\\d+$" },
+          "equipmentRecords": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "day",
+          "equipmentRecords",
+          "manufacturerLocation"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ],
+  "additionalProperties": false
+}

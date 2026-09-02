@@ -1,0 +1,22 @@
+{% extends 'task/layout.html.twig' %}
+{% trans_default_domain 'task' %}
+
+{% block title %} {{ ('menu.' ~ type)| trans({}, 'messages') | capitalize }} {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.TASK_APP_PROPS = {{ initialState|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'task' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'mis' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'mis/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block title %}{{ parent() }}\Modules{% endblock %}
+
+{% block breadcrumb_links %}
+    <li class="breadcrumb-item">
+        <a href="{{ path('mis_modules_home') }}" {% if app.request.attributes.get('_route') == 'mis_modules_home' %} style="font-weight: bold;"{% endif %}>
+            {{ 'mis.modules.title'|trans }}
+        </a>
+    </li>
+{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="mis_modules_add" :security="is_granted('FEATURE_MODULE_WRITE')"/>
+        <twig:NavItem translationKey="module.nav_link.trouble_ticket" icon="mdi:ticket-outline"
+                      route="trouble_ticket_home"/>
+        <twig:NavItem:Edit translationKey="module.nav_link.admin" domain="mis_modules"
+                           route="mis_modules_admin_default_assignees"
+                           :security="is_granted('FEATURE_TYPE_DEFAULT_ASSIGNEE_BATCH')"/>
+        {% if module is defined %}
+            <twig:NavItem translationKey="module.nav_link.related_tts" icon="mynaui:list" route="legacy_calendar"
+                          :routeParameters="{m: ['tasks', 'taskList', 'byIntranetModule'], module: module.name}"/>
+            {% if accountReviews is defined %}
+                <twig:NavItem translationKey="mis.nav_link.record_review" domain="mis"
+                              icon="bitcoin-icons:plus-filled"
+                              route="mis_modules_account_review_add" :routeParameters="{moduleId: module.id}"/>
+            {% endif %}
+            {% if securityReviews is defined %}
+                <twig:NavItem translationKey="mis.nav_link.record_review" domain="mis"
+                              icon="bitcoin-icons:plus-filled"
+                              route="mis_modules_security_review_add" :routeParameters="{moduleId: module.id}"/>
+            {% endif %}
+            {% if module.application.id is defined %}
+                <twig:NavItem translationKey="module.nav_link.application" icon="mynaui:list"
+                              route="mis_application_show"
+                              :routeParameters="{id: module.application.id}"/>
+            {% endif %}
+            <twig:Dropdown translationKey="module.nav_link.module_actions">
+                {% if module.id is defined and module.id is not null %}
+                    <twig:NavItem:Edit route="mis_modules_edit" :routeParameters="{id: id}"
+                                       :security="is_granted('FEATURE_MODULE_WRITE')"/>
+                {% endif %}
+                {% if module['@type'] == 'Module' %}
+                    {% if module.specification.id is defined %}
+                        <twig:NavItem translationKey="module.nav_link.specification" icon="bi:eye"
+                                      route="specification_show"
+                                      :routeParameters="{moduleId: module.id, id: module.specification.id}"/>
+                    {% else %}
+                        <twig:NavItem translationKey="module.nav_link.add_specification"
+                                      icon="bitcoin-icons:plus-filled"
+                                      route="specification_add"
+                                      :routeParameters="{moduleId: module.id}"
+                                      :security="is_granted('FEATURE_SPECIFICATION_CREATE') or (is_granted('MOO_' ~ module.name) or is_granted('MKU_' ~ module.name) or is_granted('LKU_' ~ module.name))"/>
+                    {% endif %}
+                {% endif %}
+                {% if module['@type'] == 'Module' %}
+                    <twig:NavItem:Modal translationKey="module.nav_link.modal.module_to_light.button"
+                                        icon="ant-design:retweet-outlined"
+                                        route="mis_modules_convert_third_party_app_light"
+                                        :routeParameters="{id: module.id}"
+                                        :security="is_granted('FEATURE_MODULE_WRITE')"
+                                        id="convertToLight"
+                                        title="module.nav_link.modal.module_to_light.button"
+                                        body="module.nav_link.modal.module_to_light.body"
+                                        leftButtonText="module.nav_link.modal.left_button"
+                                        rightButtonText="module.nav_link.modal.right_button"/>
+                {% elseif module['@type'] == 'Light' %}
+                    <twig:NavItem:Modal translationKey="module.nav_link.modal.light_to_extended.button"
+                                        icon="ant-design:retweet-outlined"
+                                        route="mis_modules_convert_third_party_app_light"
+                                        :routeParameters="{id: module.id}"
+                                        :security="is_granted('FEATURE_MODULE_WRITE')"
+                                        id="convertToLight"
+                                        title="module.nav_link.modal.light_to_extended.button"
+                                        body="module.nav_link.modal.light_to_extended.body"
+                                        leftButtonText="module.nav_link.modal.left_button"
+                                        rightButtonText="module.nav_link.modal.right_button"/>
+                {% elseif module['@type'] == 'Extended' %}
+                    <twig:NavItem:Modal translationKey="module.nav_link.modal.extended_to_light.button"
+                                        icon="ant-design:retweet-outlined"
+                                        route="mis_modules_convert_third_party_app_light"
+                                        :routeParameters="{id: module.id}"
+                                        :security="is_granted('FEATURE_MODULE_WRITE')"
+                                        id="convertToLight"
+                                        title="module.nav_link.modal.extended_to_light.button"
+                                        leftButtonText="module.nav_link.modal.left_button"
+                                        rightButtonText="module.nav_link.modal.right_button">
+                        {% block body %}
+                            {{ 'module.nav_link.modal.extended_to_light.body'|trans({}, 'mis_modules')|raw }}
+                        {% endblock %}
+                    </twig:NavItem:Modal>
+                    {% if module['@type'] == 'Extended' %}
+                        <twig:NavItem translationKey="module.nav_link.see_module" domain="mis_modules"
+                                      icon="streamline-plump:module" route="mis_modules_show"
+                                      :routeParameters="{id: module.id}"/>
+                        <twig:NavItem translationKey="module.nav_link.add_administrator" domain="mis_modules"
+                                      icon="bitcoin-icons:plus-filled"
+                                      route="mis_third_party_app_admin_add" :routeParameters="{id: module.id}"
+                                      :security="is_granted('FEATURE_MODULE_WRITE') or is_granted('FEATURE_THIRD_PARTY_APP_ADMIN_VOTER', '/modules/' ~ module.id)"/>
+                    {% endif %}
+                {% endif %}
+            </twig:Dropdown>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if module.id is defined and module.id is not null %}
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Edit route="mis_modules_edit" :routeParameters="{id: id}"
+                               :security="is_granted('FEATURE_MODULE_WRITE')"/>
+            {% if module['@type'] == 'Light' or module['@type'] == 'Extended' %}
+                <twig:NavItem translationKey="module.nav_link.account_reviews" icon="material-symbols:check-rounded"
+                              route="mis_modules_account_review_index" :routeParameters="{moduleId: module.id}"
+                              :security="is_granted('FEATURE_MODULE_WRITE') or is_granted('FEATURE_THIRD_PARTY_APP_ADMIN_VOTER', '/modules/' ~ module.id)"/>
+                <twig:NavItem translationKey="module.nav_link.security_reviews" icon="material-symbols:check-rounded"
+                              route="mis_modules_security_review_index" :routeParameters="{moduleId: module.id}"
+                              :security="is_granted('FEATURE_MODULE_WRITE') or is_granted('FEATURE_THIRD_PARTY_APP_ADMIN_VOTER', '/modules/' ~ module.id)"/>
+            {% endif %}
+            {% if module['@type'] == 'Extended' %}
+                <twig:NavItem translationKey="module.nav_link.members" icon="mdi:user-outline"
+                              route="mis_third_party_app_members" :routeParameters="{id: module.id}"/>
+                <twig:NavItem translationKey="module.nav_link.update_tasks" icon="mynaui:list"
+                              route="mis_third_party_app_update_tasks" :routeParameters="{id: module.id}"
+                              :security="is_granted('FEATURE_MODULE_WRITE') or is_granted('FEATURE_THIRD_PARTY_APP_ADMIN_VOTER', '/modules/' ~ module.id)"/>
+            {% endif %}
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

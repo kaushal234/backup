@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_email_signatures.html.twig', {
+        signatures: {
+            'Alvest Email Signature': {
+                'docx': 'alvest/email_signatures/ALVEST EMAIL SIGNATURE TEMPLATE.docx',
+            }
+        }
+    }) }}
+{% endblock %}

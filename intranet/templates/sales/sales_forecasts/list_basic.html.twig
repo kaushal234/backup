@@ -1,0 +1,11 @@
+{% extends 'sales/sales_forecasts/list_layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block sales_forecast_list %}
+    {{ data_table(salesForecastsDataTable) }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

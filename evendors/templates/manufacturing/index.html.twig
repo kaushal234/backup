@@ -1,0 +1,74 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'manufacturing.bill_of_materials.caption.title'|trans({partNumber: billOfMaterials.partNumber}) }}{% endblock %}
+
+{% macro recursiveItems(billOfMaterials) %}
+    {% import _self as self %}
+
+    {% for child in billOfMaterials.children %}
+        <tr>
+            <td>{{ child.level + 1 }}</td>
+            <td>
+                {% for i in 1..(5*(child.level+1)) %}
+                    &nbsp;
+                {% endfor %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dot" viewBox="0 0 16 16">
+                    <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                </svg>
+                <a href="{{ path('manufacturing:bill-of-material:drawing', {site: child.site ,item: child.partNumber, effectiveDate: child.effectiveDate}) }}">
+                    {{ child.partNumber }}
+                </a>
+            </td>
+            <td>{{ child.description }}</td>
+            <td>{{ child.quantity }}</td>
+            <td>{{ child.unitOfMeasure }}</td>
+            <td>{{ child.revision }}</td>
+            {% include '_components/datatable/item_status.html.twig' with {item: child} %}
+        </tr>
+
+        {{ self.recursiveItems(child) }}
+    {% endfor %}
+{% endmacro %}
+
+{% from _self import recursiveItems %}
+
+{% block main %}
+    <div class="row">
+        <div class="col">
+            <h3>{{ 'manufacturing.bill_of_materials.caption.header' | trans({partNumber: billOfMaterials.partNumber, site: billOfMaterials.site, date: billOfMaterials.effectiveDate|date('Y-m-d')}) }}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table mb-0 border-dark border-start-0">
+                <thead>
+                    <tr>
+                        <td>{{ 'manufacturing.bill_of_materials.headers.level' | trans }}</td>
+                        <td>{{ 'manufacturing.bill_of_materials.headers.part_number' | trans }}</td>
+                        <td>{{ 'manufacturing.bill_of_materials.headers.description' | trans }}</td>
+                        <td>{{ 'manufacturing.bill_of_materials.headers.quantity' | trans }}</td>
+                        <td>{{ 'manufacturing.bill_of_materials.headers.unit_of_measure' | trans }}</td>
+                        <td>{{ 'manufacturing.bill_of_materials.headers.revision' | trans }}</td>
+                        <td>{{ 'manufacturing.bill_of_materials.headers.status' | trans }}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>
+                            <a href="{{ path('manufacturing:bill-of-material:drawing', {site: billOfMaterials.site ,item: billOfMaterials.partNumber, effectiveDate: billOfMaterials.effectiveDate}) }}">
+                                {{ billOfMaterials.partNumber }}
+                            </a>
+                        </td>
+                        <td>{{ billOfMaterials.description }}</td>
+                        <td>{{ billOfMaterials.quantity }}</td>
+                        <td>{{ billOfMaterials.unitOfMeasure }}</td>
+                        <td>{{ billOfMaterials.revision }}</td>
+                        {% include '_components/datatable/item_status.html.twig' with {item: billOfMaterials} %}
+                    </tr>
+                    {{ recursiveItems(billOfMaterials) }}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

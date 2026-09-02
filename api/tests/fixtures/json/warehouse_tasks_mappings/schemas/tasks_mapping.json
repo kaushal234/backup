@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "location",
+    "inboundTasks",
+    "outboundTasks",
+    "administrativeTasks",
+    "excludedTasks"
+    ],
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"type": "string", "pattern": "^/materials/warehouse/tasks_mappings/\\d+$"},
+    "@type": {"type": "string", "pattern": "^TasksMapping$"},
+    "id": { "type": "integer"},
+    "location": {"$ref": "../../directory_location/schemas/directory_location_public.json"},
+    "inboundTasks": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "\\d{1,4}"
+      }
+    },
+    "outboundTasks": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items":  {
+        "type": "string",
+        "pattern": "\\d{1,4}"
+      }
+    },
+    "administrativeTasks": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items":  {
+        "type": "string",
+        "pattern": "\\d{1,4}"
+      }
+    },
+    "excludedTasks": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items":  {
+        "type": "string",
+        "pattern": "\\d{1,4}"
+      }
+    }
+  }
+}

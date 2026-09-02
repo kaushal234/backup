@@ -1,0 +1,71 @@
+{% if item.demandType == 'GRANT_ACCESS' %}
+    <span>
+        <a href="#"
+           class="btn btn-info btn-sm js-access-action"
+           data-url="{{ path('directory_people_third_party_app_grant_access_accepted_ajax', {
+               updateTaskId: item.id,
+               moduleId: item.thirdPartyApp.id
+           }) }}"
+           data-confirm="{{ 'mis.update_task.confirm_modal.grant_confirmed.target.message'|trans({
+               userLastname: item.user.lastname|capitalize,
+               userFirstname: item.user.firstname,
+               moduleName: item.thirdPartyApp.name
+           }, 'mis') }}"
+           data-success-message="{{ 'mis.update_task.success.grant_access_accepted'|trans({}, 'mis') }}"
+           data-final-status="confirmed"><i class="fa fa-check"></i>{{ 'mis.update_task.confirm_modal.grant_confirmed.button'|trans({}, 'mis') }}
+        </a>
+    </span>
+    <span>
+        <a href="#"
+           class="btn btn-danger btn-sm js-access-action"
+           data-url="{{ path('directory_people_third_party_app_grant_access_denied_ajax', {
+               updateTaskId: item.id,
+               moduleId: item.thirdPartyApp.id
+           }) }}"
+           data-confirm="{{ 'mis.update_task.confirm_modal.grant_denied.target.message'|trans({
+               userLastname: item.user.lastname|capitalize,
+               userFirstname: item.user.firstname,
+               moduleName: item.thirdPartyApp.name
+           }, 'mis') }}"
+           data-success-message="{{ 'mis.update_task.success.grant_access_denied'|trans({}, 'mis') }}"
+           data-final-status="refused"><i class="fa fa-times"></i>{{ 'Denied'|trans({}, 'mis') }}
+        </a>
+    </span>
+{% elseif item.demandType == 'REMOVE_ACCESS' %}
+    <span>
+        <a href="#"
+           class="btn btn-info btn-sm js-access-action"
+           data-url="{{ path('directory_people_third_party_app_remove_access_accepted_ajax', {
+               updateTaskId: item.id,
+               moduleId: item.thirdPartyApp.id
+           }) }}"
+           data-confirm="{{ 'mis.update_task.confirm_modal.remove_confirmed.target.message'|trans({
+               userLastname: item.user.lastname|capitalize,
+               userFirstname: item.user.firstname,
+               moduleName: item.thirdPartyApp.name
+           }, 'mis') }}"
+           data-success-message="{{ 'mis.update_task.success.remove_access_accepted'|trans({}, 'mis') }}"
+           data-final-status="confirmed">
+            <i class="fa fa-check"></i>
+            {{ 'Confirmed'|trans({}, 'mis') }}
+        </a>
+    </span>
+    <span>
+        <a href="#"
+           class="btn btn-danger btn-sm js-access-action"
+           data-url="{{ path('directory_people_third_party_app_remove_access_denied_ajax', {
+               updateTaskId: item.id,
+               moduleId: item.thirdPartyApp.id
+           }) }}"
+           data-confirm="{{ 'mis.update_task.confirm_modal.remove_denied.target.message'|trans({
+               userLastname: item.user.lastname|capitalize,
+               userFirstname: item.user.firstname,
+               moduleName: item.thirdPartyApp.name
+           }, 'mis') }}"
+           data-success-message="{{ 'mis.update_task.success.remove_access_denied'|trans({}, 'mis') }}"
+           data-final-status="refused">
+            <i class="fa fa-times"></i>
+            {{ 'Denied'|trans({}, 'mis') }}
+        </a>
+    </span>
+{% endif %}

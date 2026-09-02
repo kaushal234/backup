@@ -1,0 +1,87 @@
+<div{{ attributes }}>
+    <div class="live-loader">
+        <div class="live-loader__spinner">
+            <twig:UX:Icon name="svg-spinners:ring-resize" width="36" height="36" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>{{ 'service_area.fields.countries'|trans({}, 'service') }}</label>
+        {{ form_widget(form.countries, {
+            'attr': {
+                'data-model': 'form.countries',
+            }
+        }) }}
+    </div>
+
+    <div class="mb-3">
+        <strong>{{ selectedAirports|length }} {{ 'service_area.fields.selected_airports'|trans({}, 'service') }}</strong>
+    </div>
+
+    {% set grouped = this.airportsGroupedByCountry %}
+    {% set effectiveActiveTab = (activeTab is not null and grouped[activeTab] is defined) ? activeTab : grouped|keys|first %}
+
+    {% if grouped|length > 0 %}
+        <ul class="nav nav-tabs" role="tablist">
+            {% for countryName, airports in grouped %}
+                <li class="nav-item" role="presentation">
+                    <button
+                            class="nav-link{% if countryName == effectiveActiveTab %} active{% endif %}"
+                            id="tab-{{ countryName|slug }}"
+                            type="button"
+                            role="tab"
+                            data-action="live#action"
+                            data-live-action-param="setActiveTab"
+                            data-live-country-name-param="{{ countryName }}"
+                    >
+                        {{ countryName == 'Other' ? 'service_area.fields.unknown_country'|trans({}, 'service') : countryName }} ({{ airports|length }})
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content border border-top-0 p-3 mb-2" style="max-height: 400px; overflow-y: auto;">
+            {% for countryName, airports in grouped %}
+                <div
+                        class="tab-pane{% if countryName == effectiveActiveTab %} show active{% endif %}"
+                        id="panel-{{ countryName|slug }}"
+                        role="tabpanel"
+                >
+                    <div class="form-check mb-2 border-bottom pb-2">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="check-all-{{ countryName|slug }}"
+                                {% if this.areAllAirportsSelected(airports) %}checked{% endif %}
+                                data-action="live#action"
+                                data-live-action-param="toggleAllAirports"
+                                data-live-airport-iris-param="{{ airports|map(a => a['@id'])|json_encode }}"
+                                data-live-checked-param="{{ this.areAllAirportsSelected(airports) ? 'false' : 'true' }}"
+                        >
+                        <label class="form-check-label fw-bold" for="check-all-{{ countryName|slug }}">
+                            {{ 'service_area.actions.toggle_all'|trans({}, 'service') }}
+                        </label>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-2">
+                        {% for airport in airports %}
+                            <div class="col">
+                                <div class="form-check">
+                                    <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            name="service_area[airports][]"
+                                            value="{{ airport['@id'] }}"
+                                            id="airport_{{ airport.id }}"
+                                            {% if airport['@id'] in selectedAirports %}checked{% endif %}
+                                            data-model="selectedAirports[]"
+                                    >
+                                    <label class="form-check-label" for="airport_{{ airport.id }}">{{ airport.code }} - {{ airport.cityName }}</label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

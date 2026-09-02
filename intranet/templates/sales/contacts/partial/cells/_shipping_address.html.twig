@@ -1,0 +1,39 @@
+{% trans_default_domain 'contacts' %}
+<td>
+    <table>
+        <tbody>
+        <tr>
+            <th>{{ 'contacts.fields.address_street_1'|trans|capitalize }}</th>
+            <td>{{ item.extranetUserProfile.shippingAddress.street1 }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_street_2'|trans|capitalize }}</th>
+            <td>{{ item.extranetUserProfile.shippingAddress.street2 }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_town'|trans|capitalize }}</th>
+            <td>{{ item.extranetUserProfile.shippingAddress.town }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_postal_code'|trans|capitalize }}</th>
+            <td>{{ item.extranetUserProfile.shippingAddress.postalCode }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_city'|trans|capitalize }}</th>
+            <td>{{ item.extranetUserProfile.shippingAddress.city }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.address_state'|trans|capitalize }}</th>
+            <td>{{ item.extranetUserProfile.shippingAddress.state }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'contacts.fields.country'|trans|capitalize }}</th>
+            <td>{{ item.extranetUserProfile.shippingAddress.country }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'fields.airport'|trans({}, 'messages') }}</th>
+            <td>{% if item.extranetUserProfile.airport %}{{ item.extranetUserProfile.airport.code }} - {{ item.extranetUserProfile.airport.cityName }}{% endif %}</td>
+        </tr>
+        </tbody>
+    </table>
+</td>

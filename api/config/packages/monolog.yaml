@@ -1,0 +1,157 @@
+monolog:
+    channels: [deprecation, deepl_request, timekeeping_request, javelo_request, modulo_request, agile_request, ion_request, link_request, mcp, alvi]
+    handlers:
+        deprecation:
+            type: rotating_file
+            channels: [deprecation]
+            path: "%kernel.logs_dir%/%kernel.environment%.deprecations.log"
+            max_files: 30
+        ion_request:
+            type: rotating_file
+            max_files: 10
+            path: "%kernel.logs_dir%/%kernel.environment%.ion-requests.log"
+            level: debug
+            channels: [ion_request]
+        deepl_request:
+            type: rotating_file
+            max_files: 5
+            path: "%kernel.logs_dir%/%kernel.environment%.deepl-requests.log"
+            level: debug
+            channels: [ deepl_request ]
+        timekeeping_request:
+            type: rotating_file
+            max_files: 5
+            path: "%kernel.logs_dir%/%kernel.environment%.timekeeping-requests.log"
+            level: debug
+            channels: [ timekeeping_request ]
+        javelo_request:
+            type: rotating_file
+            max_files: 5
+            path: "%kernel.logs_dir%/%kernel.environment%.javelo-requests.log"
+            level: debug
+            channels: [ javelo_request ]
+        agile_request:
+            type: rotating_file
+            max_files: 5
+            path: "%kernel.logs_dir%/%kernel.environment%.agile-requests.log"
+            level: debug
+            channels: [ agile_request ]
+        modulo_request:
+            type: rotating_file
+            max_files: 5
+            path: "%kernel.logs_dir%/%kernel.environment%.modulo-requests.log"
+            level: debug
+            channels: [ modulo_request ]
+        link_request:
+            type: rotating_file
+            max_files: 5
+            path: "%kernel.logs_dir%/%kernel.environment%.link-requests.log"
+            level: debug
+            channels: [ link_request ]
+        mcp:
+          type: rotating_file
+          max_files: 5
+          path: "%kernel.logs_dir%/%kernel.environment%.mcp.log"
+          level: info
+          channels: [ mcp ]
+        alvi:
+          type: rotating_file
+          max_files: 5
+          path: "%kernel.logs_dir%/%kernel.environment%.alvi.log"
+          level: debug
+          channels: [ alvi ]
+
+when@dev:
+    monolog:
+        handlers:
+            main:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.log"
+                level: debug
+                channels: ["!event", "!deepl_request", "!timekeeping_request", "!javelo_request",  "!agile_request", "!ion_request", "!link_request", "!mcp", "!alvi"]
+            console:
+                type: console
+                process_psr_3_messages: false
+                channels: ["!event", "!doctrine", "!console", "!deepl_request", "!timekeeping_request", "!javelo_request", "!agile_request", "!ion_request", "!link_request", "!mcp", "!alvi"]
+        channels: [emails]
+
+when@test:
+    monolog:
+        handlers:
+            main:
+                type: fingers_crossed
+                action_level: error
+                handler: nested
+                excluded_http_codes: [404, 405]
+                channels: ["!event"]
+            nested:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.log"
+                level: debug
+                channels: ["!event", "!deepl_request", "!timekeeping_request", "!javelo_request", "!modulo_request", "!agile_request", "!ion_request", "!link_request", "!alvi"]
+        channels: [emails]
+
+when@prod:
+    services:
+        App\Monolog\Processor\TruncateCriticalAlertProcessor:
+            tags:
+                - { name: monolog.processor, handler: symfony_critical }
+    monolog:
+        handlers:
+            main:
+                type: fingers_crossed
+                action_level: error
+                handler: nested
+                excluded_http_codes: [404, 405]
+                buffer_size: 50 # How many messages should be saved? Prevent memory leaks
+                channels: ["!deepl_request", "!timekeeping_request", "!javelo_request", "!modulo_request", "!agile_request", "!ion_request", "!link_request", "!mcp", "!alvi"]
+            nested:
+                type:  rotating_file
+                path:  "%kernel.logs_dir%/%kernel.environment%.log"
+                max_files: 30
+                level: debug
+                channels: ["!deepl_request", "!timekeeping_request", "!javelo_request", "!modulo_request", "!agile_request", "!ion_request", "!link_request", "!mcp", "!alvi"]
+            console:
+                type: console
+                process_psr_3_messages: false
+                channels: ["!event", "!doctrine", "!deepl_request", "!timekeeping_request", "!javelo_request", "!modulo_request", "!agile_request", "!ion_request", "!link_request", "!mcp", "!alvi"]
+            main_critical:
+                type:         fingers_crossed
+                action_level: critical
+                handler:      deduplicated_critical
+                channels: ["!deepl_request", "!timekeeping_request", "!javelo_request", "!modulo_request", "!agile_request", "!ion_request", "!link_request", "!mcp", "!alvi"]
+            deduplicated_critical:
+                type:    deduplication
+                handler: grouped_critical
+                channels: ["!deepl_request", "!timekeeping_request", "!javelo_request", "!modulo_request", "!agile_request", "!ion_request", "!link_request", "!mcp", "!alvi"]
+            grouped_critical:
+                type:    group
+                members: [symfony_critical]
+                channels: ["!deepl_request", "!timekeeping_request", "!javelo_request", "!modulo_request", "!agile_request", "!ion_request", "!link_request", "!mcp", "!alvi"]
+            symfony_critical:
+                type: symfony_mailer
+                from_email: 'noreply@tld-gse.com'
+                to_email: 'devteam@tld-america.com'
+                subject: 'An Error Occurred on API server - %%message%%'
+                level: debug
+                formatter: monolog.formatter.html
+                content_type: text/html
+            emails:
+                level: debug
+                type: rotating_file
+                max_files: 30
+                path: '%kernel.logs_dir%/emails.log'
+                channels: [emails]
+            main_elastic:
+                type: fingers_crossed
+                action_level: error
+                handler: elastic
+                excluded_http_codes: [ 404, 405 ]
+                buffer_size: 50 # How many messages should be saved? Prevent memory leaks
+            elastic:
+                type: rotating_file
+                max_files: 2
+                path: "%kernel.logs_dir%/elastic.log"
+                formatter: Monolog\Formatter\LogstashFormatter
+                level: error
+        channels: [emails]

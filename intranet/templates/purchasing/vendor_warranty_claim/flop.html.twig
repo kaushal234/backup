@@ -1,0 +1,59 @@
+{% extends 'purchasing/vendor_warranty_claim/layout.html.twig' %}
+{% trans_default_domain 'vendor_warranty_claim' %}
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+
+{% block content %}
+	<div class="row mt-2">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>{{ 'vendor_warranty_claim.title.vwc_review'|trans}}</h5>
+			</div>
+			<div class="ibox-content">
+				{{ form_start(form) }}
+				{{ form_errors(form) }}
+				<div class="row">
+					<div class="col-md-4">
+						{{ form_row(form.location) }}
+					</div>
+					<div class="col-md-4">
+						{{ form_row(form.createdAt) }}
+					</div>
+					<div class="col-md-4">
+						{{ form_row(form.status) }}
+					</div>
+				</div>
+				<div class="row">
+					{{ form_row(form.submit) }}
+					{{ form_rest(form) }}
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if isFormSubmitted %}
+		<div>
+			{{ include('helper/_report_table.html.twig', {
+				reportTable: {
+					data: data,
+					pagination: false,
+					search: false,
+					initialSorting: false,
+					title: 'titles.search_result' | trans({}, 'messages') | capitalize,
+					items : {
+						supplierName: { 
+							label: 'vendor_warranty_claim.fields.supplier_name'|trans({}, 'vendor_warranty_claim'),
+							template: '/purchasing/vendor_warranty_claim/partial/_cell_supplier_name_link.html.twig',
+						},
+						supplierNumber: { 
+							label: 'vendor_warranty_claim.fields.supplier_number' | trans({}, 'vendor_warranty_claim'),
+							template: '/purchasing/vendor_warranty_claim/partial/_cell_supplier_number_link.html.twig',
+						},
+						value: {
+							label: 'vendor_warranty_claim.fields.vwc_count'|trans({}, 'vendor_warranty_claim'),
+						},
+					}
+				}
+			}, with_context=false) }}
+		</div>
+	{% endif %}
+{% endblock %}

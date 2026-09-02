@@ -1,0 +1,17 @@
+{% extends 'directory/department/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set department_id = iri_id(department) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.department.title.edit'|trans([], 'directory')|capitalize }}</h3>
+
+    {{ include('directory/department/_form.html.twig', {
+        form: form,
+        action: path('directory_departments_edit', { id: department_id }),
+        cancel_link: path('directory_departments_show', { id: department_id }),
+        id: department_id
+    }, with_context=false) }}
+{% endblock %}

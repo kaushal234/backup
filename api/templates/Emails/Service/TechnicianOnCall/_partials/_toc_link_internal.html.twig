@@ -1,0 +1,14 @@
+{% trans_default_domain "emails" %}
+<p>
+	<span>
+		{{ 'toc.message.footer'|trans }}
+		&nbsp;—&nbsp;
+		<a href="{{ path('technician_on_call', {id: technicianOnCall.id }) }}">
+			{{ 'toc.message.intranet'|trans }}
+		</a>
+		&nbsp;|&nbsp;
+		<a href="{{ path('mobile_technician_on_call', {id: technicianOnCall.id }) }}">
+			{{ 'toc.message.mobile'|trans }}
+		</a>
+	</span>
+</p>

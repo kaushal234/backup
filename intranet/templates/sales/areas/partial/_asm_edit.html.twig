@@ -1,0 +1,8 @@
+<td>
+    {% set names = [] %}
+    {% for asm in item.asms %}
+        {% set names = names|merge([asm.lastname ~ ' ' ~ asm.firstname]) %}
+    {% endfor %}
+    {% set names = names | join(', ') %}
+    <p title="{{ names }}">{{ names | u.truncate(100) }}</p>
+</td>

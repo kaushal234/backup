@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'contact_campaign.title.contact_campaign_edit' | trans({}, 'contact_campaign') }}{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'contact_campaign' }) }}"></script>
+{% endblock %}

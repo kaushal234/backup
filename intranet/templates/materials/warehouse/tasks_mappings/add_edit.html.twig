@@ -1,0 +1,56 @@
+{% extends 'materials/warehouse/tasks_mappings/layout.html.twig' %}
+
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="mail-box-header clearfix">
+                <h2>{{ ('materials.tasks_mappings.titles.'~(mapping.id is defined ? 'edit' : 'add'))|trans({}, 'materials')|capitalize }}</h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.location) }}
+                </div>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.inboundTasks, {attr: {class: 'no-labels'}, force_error: true}) }}
+                </div>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.administrativeTasks, {attr: {class: 'no-labels'}, force_error: true}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="mail-box-header clearfix">
+                <h2>&nbsp;</h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.outboundTasks, {attr: {class: 'no-labels'}, force_error: true}) }}
+                </div>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.excludedTasks, {attr: {class: 'no-labels'}, force_error: true}) }}
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages')|capitalize }}</button>
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .no-labels label { display: none }
+    </style>
+{% endblock %}

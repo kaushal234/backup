@@ -1,0 +1,27 @@
+title: Time keeping
+
+form:
+  user_id: User ID
+  transaction_type: Transaction Type
+  transaction_types:
+    please_choose: Please choose a type
+    start_direct_single: START-DIRECT-SINGLE
+    start_indirect: START-INDIRECT
+    end_all: END-ALL
+  order: Order
+  operation: Operation
+  task: Task
+  comment: Comment
+  go_to_shopfloor: Got to shopfloor
+  submit: Submit
+
+time_keeping:
+  transaction_posted: 'Transaction posted :'
+  success_transaction_direct_message: 'Employee %employeeNumber% %firstname% %lastname%, transaction type %transactionType%, Order %productionOrder%, Operation %operationNumber%, Status %status%'
+  success_transaction_indirect_message: 'Employee %employeeNumber% %firstname% %lastname%, transaction type %transactionType%, Task %task%, Status %status%'
+  error_transaction_message: The timekeeping transaction could not be posted, please fix error and retry or contact MIS
+
+violations:
+  transaction:
+    direct: You must provide valid order and operation numbers for DIRECT transaction.
+    indirect: You must provide a valide task number for INDIRECT transaction.

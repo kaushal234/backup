@@ -1,0 +1,20 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <p>{{ 'manufacturing.equipment_record.green_tag_date.message'|trans({
+                '%serialNumber%': equipmentRecord.serialNumber|default(''),
+                '%model%': equipmentRecord.model|default(''),
+                '%customerName%': equipmentRecord.endUser.name|default(''),
+                '%project%': equipmentRecord.project|default(''),
+                '%workOrder%': equipmentRecord.workOrder|default(''),
+            }, 'emails')|nl2br }}</p>
+        <p>{{ 'manufacturing.equipment_record.estimated_green_tag_date.update_estimated_gt'|trans({
+                '%newEstimatedGreenTagDate%': equipmentRecord.estimatedGreenTagDate | date('Y-m-d'),
+                '%previousEstimatedGreenTagDate%': previousEstimatedGreenTagDate,
+            }, 'emails')|nl2br }}</p>
+        <p>{{ 'print.comment'|trans|capitalize }} : {{ equipmentRecord.odpComment|default('') }}</p>
+    </row>
+{% endblock %}

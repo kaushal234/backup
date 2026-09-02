@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/extranet_users$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/extranet_users/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "passwordExpirationDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "username",
+          "firstname",
+          "lastname",
+          "passwordExpirationDate"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "minItems": 1
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

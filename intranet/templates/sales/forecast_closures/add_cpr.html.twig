@@ -1,0 +1,181 @@
+{% extends 'sales/forecast_closures/layout.html.twig' %}
+{% trans_default_domain 'forecast_closures' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-lg-8">
+            <div class="ibox float-e-margins">
+                <h3 style="color: red">
+                    {{ 'forecast_closures.info_cpr' | trans }}
+                    <br />
+                    <a href="{{ path('sales_forecasts_add_cpr', {id: salesForecast.id, finish: true}) }}">{{ 'forecast_closures.finish' | trans | capitalize }}</a>
+                </h3>
+                <div class="ibox-title">
+                    <h5>{{ 'sidebar.sales.sfr' | trans({}, 'sidebar') ~ '#' ~ salesForecast.iriId ~ ' - ' ~ 'forecast_closures.title_cpr_form' | trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {% if form is not defined %}
+                        {% form_theme fcrForm 'form_theme_vertical.html.twig' %}
+
+                        {{ form_start(fcrForm) }}
+                        {{ form_errors(fcrForm) }}
+
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <div class="form-control">
+                                    {{ form_widget(fcrForm) }}
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div>
+                                    <button type="submit" class="btn btn-info" id="sfr_amount_submit"> {{ 'button.submit' | trans({}, 'messages') }}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{ form_rest(fcrForm) }}
+                        {{ form_end(fcrForm) }}
+                    {% else %}
+                        {{ include('sales/competitor_pricings/partial/_form.html.twig', {
+                            form: form,
+                            action: path('sales_forecasts_add_cpr', {id: salesForecast.id, forecast_closure: forecastClosure.id}),
+                        }, with_context=false) }}
+
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if form is defined %}
+            <div class="col-md-12 col-lg-4">
+                {{ include('helper/_association_table.html.twig', {
+                    associationData: {
+                        items: {
+                            '@id': {
+                                label: 'sidebar.sales.fcr'|trans({}, 'sidebar')~'#',
+                                filters: 'iri_id',
+                                link:{
+                                    route: 'forecast_closures_show',
+                                    params: {'id':'@id'},
+                                }
+                            },
+                            salesForecast: {
+                                properties: ['salesForecast.@id'],
+                                label: 'sidebar.sales.sfr'|trans({}, 'sidebar')~'#',
+                                link:{
+                                    route: 'sales_forecasts_show',
+                                    params: {'id':'salesForecast.@id'},
+                                }
+                            },
+                            buyer: {
+                                properties: ['salesForecast.buyer.name'],
+                                label: 'fields.buyer'|trans({}, 'messages'),
+                                link:{
+                                    route: 'sales_customers_show',
+                                    params: {'id':'salesForecast.buyer.@id'},
+                                }
+                            },
+                            endUser: {
+                                properties: ['salesForecast.endUser.name'],
+                                label: 'fields.end_user'|trans({}, 'messages'),
+                                link:{
+                                    route: 'sales_customers_show',
+                                    params: {'id':'salesForecast.endUser.@id'},
+                                }
+                            },
+                            country: {
+                                properties: ['salesForecast.buyer.country.name'],
+                                label: 'address.fields.country'|trans({}, 'messages')|capitalize
+                            },
+                            winning: {
+                                properties: ['competitor.name'],
+                                label: 'forecast_closures.fields.winning_party'|trans({}, 'forecast_closures'),
+                                template: 'sales/forecast_closures/partial/_winning_party.html.twig'
+                            },
+                            model: {
+                                properties: ['salesForecast.product.name'],
+                                label: 'sales_forecasts.fields.product'|trans({}, 'sales_forecasts'),
+                                link:{
+                                    route: 'sales_catalogue_product_show',
+                                    params: {'id':'salesForecast.product.@id'},
+                                }
+                            },
+                            orderedQuantity: {
+                                label: 'forecast_closures.fields.quantity'|trans
+                            },
+                            quantity: {
+                                properties: ['salesForecast.quantity'],
+                                label: 'forecast_closures.fields.sfr_quantity'|trans
+                            },
+                            price: {
+                                label: 'forecast_closures.fields.price'|trans,
+                                filters: ['number_format(2)']
+                            },
+                            currency: {
+                                properties: ['currency.name'],
+                                label: 'competitor_pricings.fields.currency'|trans({}, 'competitor_pricings'),
+                            },
+                            equoteId: {
+                                properties: ['salesForecast.equoteId'],
+                                label: 'sales_forecasts.fields.equote'|trans({}, 'sales_forecasts')
+                            },
+                            asm: {
+                                properties: ['salesForecast.asm.lastname', 'salesForecast.asm.firstname'],
+                                label: 'sales_forecasts.fields.asm'|trans({}, 'sales_forecasts')|capitalize,
+                                link: {
+                                    'route': 'directory_people_show',
+                                    'params': {'id':'salesForecast.asm.@id'}
+                                }
+                            },
+                            factory: {
+                                properties: ['salesForecast.factory.name'],
+                                label: 'fields.factory'|trans({}, 'messages')|capitalize,
+                                link:{
+                                    route: 'directory_locations_show',
+                                    params: {'id':'salesForecast.factory.@id'},
+                                }
+                            },
+                            sso: {
+                                properties: ['salesForecast.sso.name'],
+                                label: 'fields.sso'|trans({}, 'messages'),
+                                link:{
+                                    route: 'directory_locations_show',
+                                    params: {'id':'salesForecast.sso.@id'},
+                                }
+                            },
+                            status: {
+                                label: 'forecast_closures.fields.fcr_status'|trans
+                            },
+                            sfrStatus: {
+                                properties: ['salesForecast.status'],
+                                label: 'forecast_closures.fields.sfr_status'|trans
+                            },
+                            sfrCreationDate: {
+                                properties: ['salesForecast.createdAt'],
+                                label: 'forecast_closures.fields.sfr_date_creation'|trans,
+                                filters: 'date("Y-m-d H:i:s")'
+                            },
+                            sfrClosureDate: {
+                                properties: ['salesForecast.closedAt'],
+                                label: 'forecast_closures.fields.sfr_date_closure'|trans,
+                                filters: 'date("Y-m-d H:i:s")'
+                            },
+                            estimatedSaleDate: {
+                                properties: ['salesForecast.estimatedSaleDate'],
+                                label: 'forecast_closures.fields.sfr_date'|trans,
+                                filters: 'date("Y-m")'
+                            },
+                            reason: {
+                                label: 'forecast_closures.fields.reason'|trans|capitalize,
+                                template: 'sales/forecast_closures/partial/_status.html.twig'
+                            },
+                        },
+                        title: 'sidebar.sales.fcr'|trans({}, 'sidebar') ~ '#' ~ forecastClosure.id,
+                        data: forecastClosure
+                    },
+                }, with_context = false) }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+

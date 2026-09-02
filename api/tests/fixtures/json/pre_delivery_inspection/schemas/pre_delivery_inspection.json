@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/pre_delivery_inspections/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "equipmentRecord": {
+      "oneOf" : [
+        {"type":  "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id":{"pattern": "^/equipment_records/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {"type": "integer"},
+            "buyer": {
+              "oneOf": [
+                {"type": "string"},
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "@id": {"pattern": "^/sales/customers/\\d+$"},
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "legacyId"
+                  ]
+                }
+              ]
+            },
+            "endUser": {
+              "oneOf": [
+                {"type": "string"},
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "@id": {"pattern": "^/sales/customers/\\d+$"},
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "legacyId"
+                  ]
+                }
+              ]
+            },
+            "customerSerialNumber": {
+              "type": ["string", "null"]
+            },
+            "dateShipped": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "format": "date-time"}
+              ]
+            },
+            "estimatedGreenTagDate": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "format": "date-time"}
+              ]
+            },
+            "odpComment": {
+              "oneOf": [{"type": "string"}, {"type": "null"}]
+            },
+            "manufacturerLocation": {"oneOf": [{"type": "string"}, {"type": "null"}]},
+            "salesOrganisation": {"oneOf": [{"type": "string"}, {"type": "null"}]},
+            "salesOrganisationService": {"oneOf": [{"type": "string"}, {"type": "null"}]},
+            "greenTagDate": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "format": "date-time"}
+              ]
+            },
+            "deliveredCountry": null,
+            "workOrder": {"oneOf": [{"type": "string"}, {"type": "null"}]},
+            "firstGreenTagDate": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "format": "date-time"}
+              ]
+            },
+            "yellowTagDate": {
+              "oneOf": [
+                {"type": "null"},
+                {"type": "string", "format": "date-time"}
+              ]
+            },
+            "light": {"type":  "boolean"},
+            "lastPreDeliveryInspection": {"oneOf": [{"type": "string"}, {"type": "null"}]}
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "buyer",
+            "endUser"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "plannedAt": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "format": "date-time"}
+      ]
+    },
+    "id": {"type": "integer"},
+    "createdAt": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "format": "date-time"}
+      ]
+    },
+    "createdBy": {"type": "string"},
+    "status": {"type": "string"}
+  },
+  "required": [
+    "@id",
+    "@type",
+    "equipmentRecord",
+    "plannedAt",
+    "id",
+    "createdBy",
+    "status"
+  ]
+}

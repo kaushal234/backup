@@ -1,0 +1,55 @@
+{#
+  pages/parts_terms_conditions.html.twig — STATIC
+  Route: page:parts_terms
+  Controller: App\Controller\StaticPageController::partsTerms
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.menu.parts_terms'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.parts_support'|trans,
+        hero_title: 'extranet.page.parts_terms.title'|trans,
+        hero_sub: 'extranet.page.parts_terms.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.menu.parts_support'|trans },
+            { label: 'extranet.page.parts_terms.title'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="section-head">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.page.public_documents'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.page.available_downloads'|trans }}</h2>
+                </div>
+            </div>
+
+            <div class="dochub">
+                <ul class="doc-list">
+                    {% for doc in [
+                        { id: 5005, title: 'Spare Parts — General Terms & Conditions of Sale', ref: 'DMS 5158' }
+                    ] %}
+                        <a class="doc-row" href="{{ path('document:download', {id: doc.id}) }}" target="_blank" rel="noopener">
+                            <span class="doc-ico is-pdf">PDF</span>
+                            <span>
+                                <span class="doc-title">{{ doc.title }}</span>
+                                <span class="doc-sub">{{ doc.ref }} · EN · PDF</span>
+                            </span>
+                            <span></span>
+                            <span class="dl-btn">
+                                <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M3 13h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                {{ 'display.table.document.rows.download.link_text'|trans }}
+                            </span>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

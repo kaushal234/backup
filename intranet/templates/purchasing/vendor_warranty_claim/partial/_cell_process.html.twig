@@ -1,0 +1,5 @@
+<td>
+    {% for process in item.processes %}
+        {{ process.category }} - {{ process.description }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</td>

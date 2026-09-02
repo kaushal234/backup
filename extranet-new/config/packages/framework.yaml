@@ -1,0 +1,58 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%env(APP_SECRET)%'
+
+    # Note that the session will be started ONLY if you read or write from it.
+    session:
+        handler_id: null
+        cookie_secure: auto
+        cookie_samesite: lax
+        storage_factory_id: session.storage.factory.native
+        gc_probability: 1
+        gc_divisor: 100
+
+    php_errors:
+        log: true
+
+    http_client:
+        scoped_clients:
+            internal.api.client:
+                base_uri: '%env(INTERNAL_API_ENDPOINT)%'
+                headers:
+                    Accept: 'application/ld+json'
+                    Content-Type: 'application/ld+json'
+
+    trusted_proxies: '%env(TRUSTED_PROXIES)%'
+    trusted_headers: [ 'x-forwarded-for', 'x-forwarded-proto', 'x-forwarded-port', 'x-forwarded-host' ]
+
+when@dev:
+    framework:
+        http_client:
+            scoped_clients:
+                internal.api.client:
+                    base_uri: '%env(INTERNAL_API_ENDPOINT)%'
+                    verify_peer: false
+        validation:
+            not_compromised_password: false
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
+        http_client:
+            scoped_clients:
+                internal.api.client:
+                    base_uri: '%env(INTERNAL_API_ENDPOINT)%'
+                    verify_peer: false
+
+when@panther:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
+        http_client:
+            scoped_clients:
+                internal.api.client:
+                    base_uri: '%env(INTERNAL_API_ENDPOINT)%'
+                    verify_peer: false

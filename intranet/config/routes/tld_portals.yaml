@@ -1,0 +1,55 @@
+gitlab_merge_request:
+  path: '/devteam/alvest-web-portals/-/merge_requests/{iid}'
+  host: 'gitlab.alvest.fr'
+  schemes: [ 'https' ]
+
+portal_dms:
+    path: ''
+    host: dms.tld-group.com
+    schemes: https
+
+portal_extranet:
+    path: /extranet/
+    host: www.tld-gse.com
+    schemes: https
+
+portal_evendor:
+    path: ''
+    host: evendors.tld-gse.com
+    schemes: https
+
+portal_evendor_impersonate:
+    path: 'impersonate'
+    host: evendors.tld-gse.com
+    schemes: https
+
+portal_extranet_impersonate:
+  path: 'impersonate'
+  host: extranet.tld-gse.com
+  schemes: https
+
+when@dev:
+    portal_evendor_impersonate:
+        path: 'impersonate'
+        host: localhost:8081
+        schemes: https
+
+    portal_extranet_impersonate:
+        path: 'impersonate'
+        host: localhost:8084
+        schemes: https
+
+portal_shopfloor:
+    path: ''
+    host: shopfloor.tld-america.com
+    schemes: http
+
+portal_tldgroup:
+    path: ''
+    host: www.tld-group.com
+    schemes: https
+
+portal_machinescloud:
+    path: ''
+    host: www.linkfms.com/fms/html5/index.html#/login
+    schemes: https

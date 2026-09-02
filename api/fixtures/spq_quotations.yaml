@@ -1,0 +1,407 @@
+App\Entity\SPQ\Quotation:
+    # /parts/quotations/1
+    quotation_0:
+        id: 1
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        poster: '@user_basic'
+        source: '@user_superuser'
+        quoter: '@user_hr'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: PENDING
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+
+    # /parts/quotations/2..20
+    quotation_{1..19}:
+        id: <($current + 1)>
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        poster: '@user_<numberBetween(0,10)>'
+        quoter: '@self->poster'
+        source: '15%? @user_5'
+        sph: '@location_<numberBetween(3,5)>' #2 is deleted
+        rfq: 30%? <sentence()>
+        baanCustomerNumber: <bothify('??####')>
+        baanCustomerName: "<word()>"
+        baanSalesOrder: 20%? <numberBetween(1,999999)>
+        status: <randomElement(['PENDING', 'SUBMITTED_FULL', 'LOST', 'ORDERED_FULL'])>
+        requestType: '@spq_request_type_<numberBetween(0,3)>'
+        customerName: 30%? <name()>
+        contactEmails: <email()>
+        shippedComplete: <boolean()>
+        paymentTerms: <lexify('???')>
+        deliveryAddressBaanId: <bothify('###')>
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: <bothify('###')>
+        billingAddress: <entityBaanAddress()>
+        language: <randomElement(['EN', 'FR', 'ZH'])>
+        incoterms: <lexify('???')>
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+
+    # /parts/quotations/21
+    quotation_20:
+        id: 21
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        poster: '@user_basic'
+        source: '@user_superuser'
+        sph: "@location_parts_2" # We need the erp 540 to trigger validation error in SPQ
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: PENDING
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: EUR
+
+    # /parts/quotations/22
+    quotation_21:
+        id: 22
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        submittedAt: <dateTimeBetween( '6 days ago', 'now')>
+        firstSubmittedAt: '@self->submittedAt'
+        suspendedAt: <dateTimeBetween( '6 days ago', 'now')>
+        poster: '@user_basic'
+        source: '@user_superuser'
+        quoter: '@user_transferred'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: SUBMITTED_PARTIAL
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+
+    # /parts/quotations/23
+    quotation_22:
+        id: 23
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        poster: '@user_basic'
+        source: '@user_superuser'
+        quoter: '@user_superuser'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: PENDING
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+
+    # /parts/quotations/24
+    quotation_23:
+        id: 24
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        poster: '@user_parts'
+        source: '@user_parts'
+        quoter: '@user_parts'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: AF1000
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: PENDING
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+
+    # /parts/quotations/25
+    quotation_24:
+        id: 25
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        poster: '@user_basic'
+        source: '@user_superuser'
+        quoter: '@user_superuser'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: PENDING
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+
+    # /parts/quotations/26
+    quotation_25:
+        id: 26
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        submittedAt: <dateTimeBetween( '6 days ago', 'now')>
+        firstSubmittedAt: '@self->submittedAt'
+        poster: '@user_basic'
+        source: '@user_superuser'
+        quoter: '@user_superuser'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: SUBMITTED_FULL
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+        customerPurchaseOrder: orderNumber
+
+    # /parts/quotations/27
+    quotation_26:
+        id: 27
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        submittedAt: <dateTimeBetween( '6 days ago', 'now')>
+        firstSubmittedAt: '@self->submittedAt'
+        poster: '@user_basic'
+        source: '@user_superuser'
+        quoter: '@user_superuser'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: SUBMITTED_PARTIAL
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+        customerPurchaseOrder: otherOrderNumber
+
+    # /parts/quotations/28
+    quotation_27:
+        id: 28
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        submittedAt: <dateTimeBetween( '6 days ago', 'now')>
+        firstSubmittedAt: '@self->submittedAt'
+        poster: '@user_basic'
+        source: '@user_superuser'
+        quoter: '@user_superuser'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: PENDING
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+        customerPurchaseOrder: yetAnotherOrderNumber
+
+    # /parts/quotations/29
+    quotation_28:
+        id: 29
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        closedAt: <dateTime()>
+        submittedAt: <dateTimeBetween( '6 days ago', 'now')>
+        firstSubmittedAt: '@self->submittedAt'
+        poster: '@user_basic'
+        source: '@user_superuser'
+        quoter: '@user_superuser'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: "SUSPENDED"
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+        customerPurchaseOrder: yetAnotherOrderNumberToBeDefined
+
+    # /parts/quotations/30
+    quotation_29:
+        id: 30
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        poster: '@user_parts'
+        source: '@user_parts'
+        quoter: '@user_parts'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: AF1000
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: PENDING
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+
+    # /parts/quotations/31
+    quotation_30:
+        id: 31
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        poster: '@user_parts'
+        source: '@user_parts'
+        quoter: '@user_parts'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: AF1000
+        baanCustomerName: CUSTOMER SIMPSON
+        baanSalesOrder: 1547
+        status: SUBMITTED_FULL_REVISED
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>
+
+    # /parts/quotations/32
+    quotation_31:
+        id: 32
+        createdAt: <dateTimeBetween('30 days ago', '2 days ago')>
+        receivedAt: <dateTimeBetween('100 days ago', '40 days ago')>
+        expiredAt: <dateTimeBetween('now', '+ 60 days')>
+        submittedAt: <dateTimeBetween( '6 days ago', 'now')>
+        firstSubmittedAt: '@self->submittedAt'
+        poster: '@user_basic'
+        source: '@user_superuser'
+        sph: '@location_fixedToFalse'
+        rfq: multi word rfq
+        baanCustomerNumber: CU0001
+        baanCustomerName: CUSTOMER SIMPSON
+        status: PENDING
+        requestType: '@spq_request_type_0'
+        customerName: Quemoi
+        contactEmails: 'une@dres.se;uneautre@dres.se'
+        shippedComplete: false
+        paymentTerms: '010'
+        deliveryAddressBaanId: '020'
+        deliveryAddress: <entityBaanAddress()>
+        billingAddressBaanId: '030'
+        billingAddress: <entityBaanAddress()>
+        language: EN
+        incoterms: EXW
+        currency: <randomElement(['EUR', 'USD', 'RMB'])>

@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use Alvest\FeatureDoc\Validator\FeatureDocValidator;
+
+$autoloadCandidates = [
+    // When running from within the package itself (dev)
+    __DIR__.'/../vendor/autoload.php',
+
+    // When installed in a project (vendor/bin -> vendor/alvest/feature-doc/bin)
+    __DIR__.'/../../../autoload.php',
+
+    // When executed via a symlink / path repo, try CWD vendor (common in CI)
+    getcwd().'/vendor/autoload.php',
+];
+
+$autoload = null;
+foreach ($autoloadCandidates as $candidate) {
+    if (is_file($candidate)) {
+        $autoload = $candidate;
+        break;
+    }
+}
+
+if (null === $autoload) {
+    fwrite(STDERR, "Error: could not locate Composer autoload.php\n");
+    fwrite(STDERR, "Tried:\n - ".implode("\n - ", $autoloadCandidates)."\n");
+    exit(2);
+}
+
+require $autoload;
+
+exit((new FeatureDocValidator())->run($argv[1] ?? null, STDOUT, STDERR));

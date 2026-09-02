@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/features/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "@context": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "groups": {
+      "type": "array",
+      "item": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/groups/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "legacyId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name",
+          "legacyId"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "@context",
+    "id",
+    "name",
+    "groups"
+  ],
+  "additionalProperties": false
+}

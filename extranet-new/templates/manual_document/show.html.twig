@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ manualDocument.manual.equipment.serialNumber }} — {{ 'extranet.title.manual_document'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.manual_document'|trans,
+        hero_title: manualDocument.manual.equipment.serialNumber,
+        hero_sub: manualDocument.manual.equipment.product,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.fields.equipments'|trans, href: path('equipment:index') },
+            { label: manualDocument.manual.equipment.serialNumber, href: path('equipment:show', {id: manualDocument.manual.equipment.id}) },
+            { label: 'extranet.title.manual'|trans, href: path('manual:show', {id: manualDocument.manual.id}) },
+            { label: 'extranet.title.manual_document'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            <div class="row g-4 mb-4 et-tables">
+                <div class="col-12 col-lg-6">
+                    <h2 class="section-title mb-3">{{ 'extranet.title.manual_document_details'|trans }}</h2>
+                    {% embed '_components/association_table.html.twig' with {
+                        associationData: {
+                            items: {
+                                position: {label: 'menu.directory_position.title'|trans},
+                                revision: {label: 'manufacturing.bill_of_materials.headers.revision'|trans},
+                                type: {label: 'display.table.vwc.headers.type'|trans,},
+                                category: {
+                                    properties: ['category.name'],
+                                    label: 'fields.category'|trans,
+                                },
+                                description: {label: 'display.table.scar.headers.description'|trans},
+                                otherDescription: {label: 'support.manual_documents.fields.other_description'|trans({}, 'support')},
+                            },
+                            title: 'extranet.title.manual_document_details' | trans,
+                            data: manualDocument
+                        }
+                    } %}
+                    {% endembed %}
+                </div>
+                <div class="col-12 col-lg-6">
+                    <h2 class="section-title mb-3">{{ 'extranet.title.file_attached'|trans }}</h2>
+                    {% embed '_components/association_table.html.twig' with {
+                        associationData: {
+                            items: {
+                                filePath: {
+                                    label: 'menu.file'|trans({}, 'messages')|capitalize,
+                                    link:{
+                                        route: 'manual_document:download',
+                                        params: { fileId: 'id', extension: 'extension'},
+                                        fixedParams: { id: manualDocument.id },
+                                        content: '<button class="btn btn-sm btn-outline btn-primary">' ~ ux_icon('tabler:download', {height: '16px', width: '16px', 'aria-hidden': true}) ~'</button>',
+                                        target: '_blank'
+                                    },
+                                },
+                                createdAt: {
+                                    label: 'fields.created_at'|trans,
+                                    filters: 'date("Y-m-d")',
+                                },
+                                size: {
+                                    label: 'size'|trans({}, 'messages')|trans|capitalize,
+                                    filters : 'readable_filesize'
+                                },
+                            },
+                            title: 'extranet.title.file_attached' | trans,
+                            data: manualDocument.document
+                        }
+                    } %}
+                    {% endembed %}
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4 et-tables">
+                <div class="col-12">
+                    <h2 class="section-title mb-3">{{ 'display.table.vwc_parts.caption.title'|trans }}</h2>
+                    {% set columns = {
+                        position: {label: 'menu.directory_position.title'|trans},
+                        partNumber: {label: 'display.table.mrp.headers.part_number'|trans|capitalize},
+                        quantity: {label: 'fields.quantity'|trans},
+                        unitOfMeasure: {label: 'display.table.rfq_lines.headers.unit_of_measure'|trans,},
+                        description: {label: 'display.table.scar.headers.description'|trans},
+                        otherDescription: {label: 'support.manual_documents.fields.other_description'|trans({}, 'support')},
+                        preventive: {
+                            label: 'support.manual_document_parts.fields.preventive'|trans({}, 'support')|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span> <i class="fa fa-check text-info">' ~ ux_icon('material-symbols:check-rounded', {height: '20px', width: '20px', 'aria-hidden': true}) ~ '</i>',
+                                false: '<span class="d-none">0</span>' ~ ux_icon('material-symbols:horizontal-rule', {height: '10px', width: '10px', 'aria-hidden': true})
+                            }
+                        },
+                        maintenance: {
+                            label: 'support.manual_document_parts.fields.maintenance'|trans({}, 'support')|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span> <i class="fa fa-check text-info">' ~ ux_icon('material-symbols:check-rounded', {height: '20px', width: '20px', 'aria-hidden': true}) ~ '</i>',
+                                false: '<span class="d-none">0</span>' ~ ux_icon('material-symbols:horizontal-rule', {height: '10px', width: '10px', 'aria-hidden': true})
+                            }
+                        },
+                        overhaul: {
+                            label: 'support.manual_document_parts.fields.overhaul'|trans({}, 'support')|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span> <i class="fa fa-check text-info">' ~ ux_icon('material-symbols:check-rounded', {height: '20px', width: '20px', 'aria-hidden': true}) ~ '</i>',
+                                false: '<span class="d-none">0</span>' ~ ux_icon('material-symbols:horizontal-rule', {height: '10px', width: '10px', 'aria-hidden': true})
+                            }
+                        },
+                        critical: {
+                            label: 'support.manual_document_parts.fields.critical'|trans({}, 'support')|capitalize,
+                            boolean: {
+                                true: '<span class="d-none">1</span> <i class="fa fa-check text-info">' ~ ux_icon('material-symbols:check-rounded', {height: '20px', width: '20px', 'aria-hidden': true}) ~ '</i>',
+                                false: '<span class="d-none">0</span>' ~ ux_icon('material-symbols:horizontal-rule', {height: '10px', width: '10px', 'aria-hidden': true})
+                            }
+                        }
+                    } %}
+                    {% embed '_components/report_table.html.twig' with {
+                        reportTable: {
+                            items: columns,
+                            title: 'display.table.vwc_parts.caption.title' | trans,
+                            data: manualDocument.parts,
+                            pagination: false,
+                        }
+                    } %}
+                    {% endembed %}
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+{% endblock %}

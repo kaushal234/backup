@@ -1,0 +1,31 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        <h5>{{ 'toc.message.toc_created_by_people_internal'|trans({
+                '%id%': technicianOnCall.id,
+                '%unitOperationalStatus%': technicianOnCall.unitOperationalStatus.name,
+                '%indiceFactor%': technicianOnCall.indiceFactor
+            }) }}
+        </h5>
+        <p>{{ 'toc.message.airport'|trans({
+                '%apc%': technicianOnCall.airport.code,
+                '%country%': technicianOnCall.airport.country?.name
+            }) }}
+        </p>
+        <hr>
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_internal.html.twig') }}
+        <div style="display: flex; justify-content: flex-start;">
+            <div>
+                {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_details.html.twig', {technicianOnCall: technicianOnCall}) }}
+            </div>
+            {% if technicianOnCall.equipmentRecord is not null %}
+                <div style="margin-left: 16px;">
+                    {{ include('Emails/Service/TechnicianOnCall/_partials/_equipment_record_details.html.twig', {technicianOnCall: technicianOnCall}) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

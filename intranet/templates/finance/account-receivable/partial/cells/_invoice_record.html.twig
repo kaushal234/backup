@@ -1,0 +1,7 @@
+<td class="text-center">
+    {% if item.invoiceRecord is not same as(null) %}
+        <a href="{{ path('account_receivable_show', {id: item.id}) }}"><span class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></span></a>
+    {% else %}
+        <a href="{{ path('account_receivable_show', {id: item.id}) }}"><span class="btn btn-info btn-sm"><i class="fa fa-plus"></i>&nbsp;{{ 'account_receivable.invoice_record.add.title' | trans({}, 'account_receivable') }}</span></a>
+    {% endif %}
+</td>

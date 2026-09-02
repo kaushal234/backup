@@ -1,0 +1,102 @@
+{% extends 'directory/position_category/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set isGrantedEdit = is_granted('POSITION_CATEGORY_WRITE_VOTER') %}
+
+{% block content %}
+    {% if isGrantedEdit %}
+        {{ form_start(form, { action: path('position_categories_home') }) }}
+        {{ form_errors(form) }}
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            {% set items = {
+                name: {
+                    label: 'fields.name'|trans({}, 'messages')|capitalize,
+                    template: '/directory/position_category/partial/_form_cell_name.html.twig',
+                    templateParams: {'form': form, isGrantedEdit: isGrantedEdit },
+                },
+                description: {
+                    label: 'directory.position.fields.description'|trans|capitalize,
+                    template: '/directory/position_category/partial/_form_cell_description.html.twig',
+                    templateParams: {'form': form, isGrantedEdit: isGrantedEdit},
+                },
+                directHeadcount: {
+                    label: 'directory.position_categories.direct_headcount'|trans|capitalize,
+                    template: '/directory/position_category/partial/_form_cell_direct_headcount.html.twig',
+                    templateParams: {'form': form, isGrantedEdit: isGrantedEdit},
+                },
+                positionCategoryType: {
+                    label: 'directory.position_category_types.singular'|trans,
+                    template: '/directory/position_category/partial/_form_cell_type.html.twig',
+                    templateParams: {'form': form, isGrantedEdit: isGrantedEdit},
+                },
+            } %}
+
+            {% for division in divisions %}
+                {% set acronym = '' %}
+                {% for word in division.name|split(' ') %}
+                    {% set acronym = acronym~(word|first) %}
+                {% endfor %}
+                {% set items = items|merge({
+                    ('division_'~division.id): {
+                        label: acronym,
+                        template: 'directory/position_category/partial/_form_cell_divisions.html.twig',
+                        templateParams: {
+                            form: form,
+                            isGrantedEdit: isGrantedEdit,
+                            division: division,
+                        },
+                    }
+                }) %}
+            {% endfor %}
+
+            {% set items = items|merge({
+                logs: {
+                    label: 'activity.log.name'|trans({}, 'messages'),
+                    template: 'partial/cells/_activity.html.twig',
+                },
+                delete: {
+                    label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                    sortable: false,
+                    class: 'text-end',
+                    link: {
+                        route: 'position_category_delete',
+                        params: {'id': 'id'},
+                        fixedParams: {'_token': csrf_token('delete_position_category')},
+                        content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                        popup: {
+                            type: 'confirmation',
+                            title: 'Confirmation',
+                            message: 'Are you sure to delete?',
+                        },
+                    },
+                },
+            }) %}
+
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: items,
+                initialSorting: false,
+                title: 'directory.position_categories.name' | trans,
+                data: positionCategories,
+                pagination: false,
+            }
+        }, with_context = false) }}
+        </div>
+    </div>
+    {% if isGrantedEdit %}
+        <div class="row">
+            <div class="col-md-12 text-end">
+                {{ form_row(form.submit) }}
+            </div>
+            {{ form_rest(form) }}
+        </div>
+    {{ form_end(form) }}
+    {% endif %}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

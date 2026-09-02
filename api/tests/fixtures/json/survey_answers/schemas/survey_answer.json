@@ -1,0 +1,50 @@
+{
+    "type": "object",
+    "properties": {
+        "@context" : {"type": "string"},
+        "@id": {"pattern": "^/surveys/answers/\\d+$"},
+        "@type"    : {"type": "string"},
+        "createdAt": {"type": "string"},
+        "updatedAt": {"type": "string"},
+        "value"    : {"type": "integer"},
+        "item": {
+            "type": [ "object", "null"],
+            "properties": {
+                "@id": {"pattern": "^/surveys/items/\\d+$"},
+                "@type"    : {"type": "string"},
+                "createdAt": {"type": "string"},
+                "updatedAt": {"type": "string"},
+                "createdBy": {
+                    "type": "object",
+                    "properties": {
+                        "@id": {"pattern": "^/people/\\d+$"},
+                        "@type"    : { "type": "string"},
+                        "firstname": { "type": "string"},
+                        "lastname" : { "type": "string"},
+                        "email"    : { "type": "string"},
+                        "username" : { "type": "string"}
+                    },
+                    "required": ["@id", "@type", "firstname", "lastname", "email", "username"],
+                    "additionalProperties": false
+                },
+                "updatedBy": {
+                    "type": ["object", "null"],
+                    "properties": {
+                        "@id": {"pattern": "^/people/\\d+$"},
+                        "@type"    : {"type": "string"},
+                        "firstname": {"type": "string"},
+                        "lastname" : {"type": "string"},
+                        "email"    : {"type": "string"},
+                        "username" : {"type": "string"}
+                    },
+                    "required": ["@id", "@type", "firstname", "lastname", "email", "username"],
+                    "additionalProperties": false
+                }
+            },
+            "required": [ "@id", "@type", "createdAt", "updatedAt", "createdBy", "updatedBy" ]
+        },
+        "ratingType": { "type": ["string", "null"] }
+    },
+    "required": [ "@context", "@id", "@type", "value", "item", "createdAt", "updatedAt" ],
+    "additionalProperties": false
+}

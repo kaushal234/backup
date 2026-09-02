@@ -1,0 +1,91 @@
+{% extends 'purchasing/vendor_warranty_claim/layout.html.twig' %}
+{% trans_default_domain 'vendor_warranty_claim' %}
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+
+{% block title %}{{ parent() }}#{{ vendorWarrantyClaim.id }}\{{ 'menu.edit'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'vendor_warranty_claim.title.edit' | trans({'%id%': vendorWarrantyClaim.id})}}</h5>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.scarRequested) }}
+                        {{ form_row(form.supplierCorrectiveActionRequest) }}
+                    </div>
+                    {% if form.mainFile is defined %}
+                        <div class="col-md-3">
+                            {{ form_row(form.mainFile) }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(form.location) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.assignee) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.type) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.supplierNumber) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ form_row(form.supplierShipperName) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.requestedCreditAmount) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.actualCreditAmount) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.requestedSupplierAction) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.costBreakdown) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.supplierStockVerified) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.tldStockVerified) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.issueOrigin) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.correctiveAction) }}
+                    </div>
+                </div>
+                {{ form_row(form.submit) }}
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('purchasing/vendor_warranty_claim/partial/js/_form_action.html.twig', {form: 'vendor_warranty_claim_edit'}) }}
+{% endblock %}

@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "@id": {"pattern": "^/quality/cleanliness/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "@context": {
+      "type": "string"
+    },
+    "location": {
+      "type": ["object", "null"]
+    },
+    "rating": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "string"
+    },
+    "user": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "@id",
+    "@type",
+    "@context",
+    "location",
+    "rating",
+    "date",
+    "user"
+  ],
+  "additionalProperties": false
+}

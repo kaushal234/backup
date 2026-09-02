@@ -1,0 +1,36 @@
+{% extends 'parts/layout.html.twig' %}
+
+{% trans_default_domain 'parts' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                name: {'label': 'directory.location.fields.name'|trans({}, 'directory')|capitalize},
+                company: {'label': 'directory.location.fields.company'|trans({}, 'directory')|capitalize},
+                network: {properties:['network.name'], 'label': 'directory.location.fields.company'|trans({}, 'directory')|capitalize},
+                erp: {
+                    'label': 'directory.location.fields.erp'|trans({}, 'directory')|capitalize,
+                    'sortable': 'numeric'
+                },
+                download: {
+                    label: 'menu.download' | trans([], 'messages') | capitalize,
+                    link:{
+                        route: 'sph_export_prices',
+                        params: { 'erp':'erp' },
+                        content: '<span class="btn btn-success btn-sm"><i class="fa fa-file-csv fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                }
+            },
+            title: 'parts.reports.mip_export'|trans,
+            data: sparePartsHubs,
+            pagination: false,
+            initialSorting: 'erp'
+        }
+    }, with_context = false) }}
+{% endblock %}
+

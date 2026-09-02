@@ -1,0 +1,22 @@
+{% extends 'support/iata_codes/layout.html.twig' %}
+{% block content %}
+    <div class="row">
+        {% form_theme form 'form_theme_vertical.html.twig' %}
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'titles.addition'|trans([], 'messages')|capitalize }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <div class="text-end">
+                        <button type="submit"
+                                class="btn btn-primary text-capitalize">{{ 'button.submit'|trans }}</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+@startuml
+
+namespace App {
+    namespace  Entity {
+        namespace Materials {
+            class OutboundRequest {
+                - int $id
+                - int productionOrder
+                - int operation
+                - string status
+                - ?\DateTimeInterface $createdAt
+                - ?\DateTimeInterface $requestedCreateAt
+                - ?\DateTimeInterface $requestedToBeDeliveredAt
+                - ?\DateTimeInterface $baanOperationStartingDate
+                - ?PickingGroup $pickingGroup
+                - People $poster
+                - project
+                - Location $location
+                - lien ER ?
+'                - slot
+            }
+
+            class PickingGroup {
+                - int $id
+'                - string status ?
+                - ?\DateTimeInterface $deliveryPlannedAt
+                - OutboundRequest[] outboundRequests
+            }
+
+            class Picking {
+                - int $id
+                - string status
+                - PickingGroup $pickingGroup
+                - Sector[] sectors
+                - People $poster
+                - ?\DateTimeInterface $createdAt
+            }
+        }
+
+         namespace Directory {
+            class People extends User
+
+            class Location
+        }
+    }
+}
+
+App.Entity.Materials.Picking "Many" --o "One" App.Entity.Materials.PickingGroup: to
+App.Entity.Materials.OutboundRequest "Many" --o "One" App.Entity.Materials.PickingGroup: to
+App.Entity.Materials.OutboundRequest "Many" --o "One" App.Entity.Directory.People: to
+App.Entity.Materials.OutboundRequest "Many" --o "One" App.Entity.Directory.Location: to
+
+@enduml

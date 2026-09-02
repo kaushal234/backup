@@ -1,0 +1,10 @@
+{% extends 'directory/people/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+ <div class="row">
+  <div class="col-md-12">
+   {{ data_table(peopleListDatatable) }}
+  </div>
+ </div>
+{% endblock %}

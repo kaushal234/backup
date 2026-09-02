@@ -1,0 +1,71 @@
+<script type="text/javascript">
+  var subMenus = []
+
+  subMenus[0] = "&nbsp;"
+  // a>=20 -> right side
+  {% set mis = include('menu/partial/mis.submenu.html.twig') %}
+  subMenus[20] = '{{ mis|e('js') }}'
+  {% set manufacturing = include('menu/partial/manufacturing.submenu.html.twig') %}
+  subMenus[21] = '{{ manufacturing|e('js') }}'
+  {% set support = include('menu/partial/support.submenu.html.twig') %}
+  subMenus[22] = '{{ support|e('js') }}'
+  {% set service = include('menu/partial/support.service.html.twig') %}
+  subMenus[23] = '{{ service|e('js') }}'
+  function setSubMenu(a)
+  {
+      document.getElementById('divSubMenu').innerHTML = subMenus[a];
+      if(a >= 20){
+          document.getElementById('divSubMenu').align = 'end';
+      }else if(a >=10){
+          document.getElementById('divSubMenu').align = 'center';
+      }else{
+          document.getElementById('divSubMenu').align = 'start';
+      }
+  }
+</script>
+
+<div align="center">
+    <table width="800" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="smalltext">
+                <img height="67" width="760" src="/shared/banners/intranet_header.png" border="0" alt="TLD INTRANET"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <div>
+                    <a href="{{ path('home') }}" onMouseOver="setSubMenu(0)" title="{{ 'menu.homepage' | trans({}, 'messages') | legacy_encode | raw }}" >{{ 'menu.home' | trans({}, 'messages') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('acronyms_home') }}" title="{{ 'corporate.acronyms.glossary' | trans({}, 'corporate') | legacy_encode | raw }}">{{ 'menu.agr.title' | trans({}, 'messages') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('account_home') }}" onMouseOver="setSubMenu(0)" title="{{ 'topbar.my_account' | trans({}, 'topbar') | legacy_encode | raw }}" >{{ 'topbar.account' | trans({}, 'topbar') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('legacy_calendar') }}" title="{{ 'topbar.calendar' | trans({}, 'topbar') | legacy_encode | raw }}" onMouseOver="setSubMenu(0)">{{ 'topbar.calendar' | trans({}, 'topbar') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('directory_index') }}" onMouseOver="setSubMenu(0)" title="{{ 'sidebar.hr.directory.title' | trans({}, 'sidebar') | legacy_encode | raw }}" >{{ 'sidebar.hr.directory.title' | trans({}, 'sidebar') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('corporate_pages_main') }}" onMouseOver="setSubMenu(0)" title="{{ 'topbar.corporate' | trans({}, 'topbar') | legacy_encode | raw }}" >{{ 'topbar.corporate' | trans({}, 'topbar') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('news_index') }}"  title="{{ 'news.name' | trans({}, 'news') | legacy_encode | raw }}" onMouseOver="setSubMenu(0)">{{ 'news.name' | trans({}, 'news') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('legacy_finance') }}" title="{{ 'sidebar.finance.title' | trans({}, 'sidebar') | legacy_encode | raw }}" onMouseOver="setSubMenu(0)">{{ 'sidebar.finance.title' | trans({}, 'sidebar') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('legacy_sales') }}" title="{{ 'sidebar.sales.title' | trans({}, 'sidebar') | legacy_encode | raw }}" onMouseOver="setSubMenu(0)">{{ 'sidebar.sales.title' | trans({}, 'sidebar') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('legacy_parts_parts') }}" title="{{ 'sidebar.parts.title' | trans({}, 'sidebar') | legacy_encode | raw }}" onMouseOver="setSubMenu(0)">{{ 'sidebar.parts.title_short' | trans({}, 'sidebar') | escape | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('legacy_product_support') }}" title="{{ 'sidebar.product_support.title' | trans({}, 'sidebar') | legacy_encode | raw }}" onMouseOver="setSubMenu(22)">{{ 'support.title' | trans({}, 'support') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('legacy_service') }}" title="{{ 'sidebar.service.title' | trans({}, 'sidebar') | legacy_encode | raw }}" onMouseOver="setSubMenu(23)">{{ 'sidebar.service.title' | trans({}, 'sidebar') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('legacy_manufacturing_index') }}" title="{{ 'sidebar.manufacturing.title' | trans({}, 'sidebar') | legacy_encode | raw }}" onMouseOver="setSubMenu(21)">{{ 'sidebar.manufacturing.title_short' | trans({}, 'sidebar') | legacy_encode | raw }}</a>&nbsp;|&nbsp;
+                    <a href="{{ path('legacy_mis') }}" title="{{ 'mis.title' | trans({}, 'mis') | legacy_encode | raw }}" onMouseOver="setSubMenu(20)">{{ 'mis.title' | trans({}, 'mis') | legacy_encode | raw }}</a>
+                </div>
+                <hr>
+                <div align="center" id="divSubMenu" class="m-b-xl" style="white-space: nowrap;">&nbsp;</div>
+            </td>
+        </tr>
+
+        {% include('utils/impersonation_notification.html.twig') %}
+        {% include('utils/password_expiration_notification.html.twig') %}
+
+        {% if _legacy is defined %}
+            <tr>
+                <td>
+                    {% block notifications %}
+                        {% embed 'utils/notifications.html.twig' %}
+                        {% endembed %}
+                    {% endblock %}
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+</div>

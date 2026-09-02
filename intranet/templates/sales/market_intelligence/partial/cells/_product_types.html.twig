@@ -1,0 +1,5 @@
+<td>
+    {% for productType in item.productTypes %}
+        <a href="{{ path('sales_catalogue_type_show', {id: iri_id(productType)}) }}">{{ productType.englishName }}</a><br>
+    {% endfor %}
+</td>

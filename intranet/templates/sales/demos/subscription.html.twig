@@ -1,0 +1,22 @@
+{% extends 'sales/demos/layout.html.twig' %}
+{% trans_default_domain 'demo' %}
+
+{% block content %}
+    <div class="ibox-content">
+        <div
+                class="subscriptions"
+                data-resource="{{ demo.iri }}"
+                data-show-create-people="{{ is_granted('DEMO_EDIT_VOTER', demo.iri) }}"
+                data-show-delete="{{ is_granted('DEMO_EDIT_VOTER', demo.iri) }}"
+                data-show-delete-myself="1"
+                data-show-subscribe="0"
+                data-show-subscribers="1"
+        ></div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

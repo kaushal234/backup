@@ -1,0 +1,106 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/EngineeringItem.jsonld-engineering_item",
+    "definitions": {
+        "EngineeringItem.jsonld-engineering_item": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/engineering_items/item=\\w+;project=$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "item": {
+                    "type": "string"
+                },
+                "project": {
+                    "type": "string"
+                },
+                "signalCode": {
+                    "type": "string"
+                },
+                "revisions": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Revision.jsonld-engineering_item"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "item",
+                "project",
+                "signalCode",
+                "revisions"
+            ],
+            "additionalProperties": false
+        },
+        "Revision.jsonld-engineering_item": {
+            "type": "array",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "revision": {
+                    "type": "string"
+                },
+                "effectiveDate": {
+                    "type": "string"
+                },
+                "expiryDate": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "revision",
+                "effectiveDate",
+                "expiryDate"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

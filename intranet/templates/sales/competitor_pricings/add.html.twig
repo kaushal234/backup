@@ -1,0 +1,23 @@
+{% extends 'sales/competitor_pricings/layout.html.twig' %}
+{% trans_default_domain 'competitor_pricings' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-lg-9">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    {{ include('sales/competitor_pricings/partial/_form.html.twig', {
+                        form: form,
+                        action: path('competitor_pricings_add'),
+                        cancel_link: path('competitor_pricings_home')
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

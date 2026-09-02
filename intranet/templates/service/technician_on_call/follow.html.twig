@@ -1,0 +1,19 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+
+{% macro auditDayTime(auditLog) %}
+    {% if auditLog.days is same as 0 %}
+        {{ 'audit_log.hours'|trans({'%hours%': auditLog.h, '%minutes%': auditLog.i}, 'audit_log') }}
+    {% else %}
+        {{ 'audit_log.days'|trans({'%days%': auditLog.days, '%hours%': auditLog.h}, 'audit_log') }}
+    {% endif %}
+{% endmacro %}
+
+{% block content %}
+    {{ include('generic/_subscriptions.html.twig', {item: technicianOnCall}) }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+{% endblock %}

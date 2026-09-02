@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Extranet{% endblock %} — TLD</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+        {% block stylesheets %}{% endblock %}
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="d-flex align-items-end flex-column min-vh-100">
+            {% block header %}
+                <header class="site-header w-100">
+                    <div class="container-fluid px-4 d-flex align-items-center justify-content-between" style="height:64px">
+                        <a class="brand-mark" href="/">
+                            <img src="{{ asset('images/logo.svg') }}" alt="ALVEST / TLD" height="36">
+                        </a>
+                        <a class="btn btn-outline-tld btn-sm" href="{{ path('security:login') }}">
+                            {{ 'extranet.title.login'|trans }} →
+                        </a>
+                    </div>
+                </header>
+            {% endblock %}
+
+            {% block body %}
+                <div class="w-100">
+                    {% block main %}{% endblock %}
+                </div>
+            {% endblock %}
+
+            {% block footer %}
+                <footer class="w-100 mt-auto py-3 border-top" style="background:var(--ink-950)">
+                    <div class="container-fluid px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <span style="font-size:.8rem;color:var(--ink-400)">
+                            &copy; {{ 'now'|date('Y') }} ALVEST GROUP — {{ 'extranet.title.customer_portal'|trans }}
+                        </span>
+                        <div class="col-6 col-lg-2">
+                            {% set current_locale = get_current_locale() %}
+                            <select id="locale-switcher" class="locale-select" data-controller="locale-switcher" data-locale-switcher-current-value="{{ current_locale }}" data-locale-switcher-action-value="{{ path('locale:switch') }}" data-action="change->locale-switcher#switch" aria-label="{{ 'locale.switcher.label'|trans }}">
+                                {% for locale in get_available_locales() %}
+                                    <option value="{{ locale.value }}" {% if current_locale is same as locale.value %}selected="selected"{% endif %}>{{ ('locale.' ~ locale.value)|trans }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </footer>
+            {% endblock %}
+        </div>
+    </body>
+</html>

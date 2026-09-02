@@ -1,0 +1,100 @@
+framework:
+    default_locale: en
+    translator:
+        default_path: '%kernel.project_dir%/translations'
+        fallbacks:
+            - en
+        providers:
+            crowdin:
+                dsn: '%env(CROWDIN_DSN)%'
+                domains:
+                    - account
+                    - account_receivable
+                    - baan
+                    - calibration_log
+                    - calibration_tool
+                    - catalogue
+                    - cleanliness
+                    - competitor_pricings
+                    - contacts
+                    - coo_dashboard
+                    - corporate
+                    - courier
+                    - crab
+                    - customer_relationship_team
+                    - customer_service_record
+                    - demo
+                    - directory
+                    - document_translation
+                    - equipment_shipping_record
+                    - emails
+                    - employee_staffing
+                    - engineering_pictogram
+                    - engineering_smw
+                    - errors
+                    - file_type
+                    - finance
+                    - first_article_qualification
+                    - forecast_closures
+                    - forex
+                    - freight_forwarder
+                    - global_chat
+                    - job
+                    - location_areas
+                    - logs
+                    - manufacturing
+                    - manufacturing_margin
+                    - manufacturing_smw
+                    - market_intelligence
+                    - materials
+                    - meeting
+                    - messages
+                    - mis
+                    - news
+                    - non_conformity
+                    - out_of_tolerance_form
+                    - parts
+                    - pdfs
+                    - pio
+                    - product_manufacturing
+                    - product_smw
+                    - purchasing_smw
+                    - qhse
+                    - quality_dashboard
+                    - quality_smw
+                    - resource_email
+                    - sales_competitors
+                    - sales_customers
+                    - sales
+                    - sales_forecasts
+                    - sales_orders
+                    - sector
+                    - security
+                    - service
+                    - shipping_quotation_request
+                    - shortage_report
+                    - sage_parts_tools
+                    - sidebar
+                    - spare_parts_request
+                    - spq
+                    - subscribers
+                    - supplier_corrective_action_request
+                    - support
+                    - support_smw
+                    - surveys
+                    - time_keeping
+                    - tool
+                    - tool_types
+                    - topbar
+                    - tracking
+                    - trainings
+                    - transportation_notes
+                    - trouble_ticket
+                    - validators
+                    - vendor_warranty_claim
+                    - wms
+                locales: [ 'en', 'fr', 'zh-CN' ]
+#            loco:
+#                dsn: '%env(LOCO_DSN)%'
+#            lokalise:
+#                dsn: '%env(LOKALISE_DSN)%'

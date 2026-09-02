@@ -1,0 +1,17 @@
+{% extends 'finance/layout.html.twig' %}
+{% trans_default_domain 'finance' %}
+
+{% block title %}{{ parent() }} \ {{ 'finance.finance_family.title' | trans({}, 'finance') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="finance.nav_link.all_models" domain="finance" icon="mynaui:list"
+                      route="sales_catalogue_product_home"/>
+        {% if financeFamily is defined %}
+            <twig:NavItem:Edit route="finance_family_edit" :routeParameters="{ id: financeFamily.getIriId() }"
+                               :security="is_granted('FEATURE_FINANCE_FAMILY_ADMIN')"/>
+            <twig:NavItem:Delete route="finance_family_delete" :routeParameters="{ id: financeFamily.getIriId() }"
+                                 :security="is_granted('FEATURE_FINANCE_FAMILY_ADMIN')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends '/purchasing/layout.html.twig' %}
+{% trans_default_domain 'messages' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ data_table(vendorUsers) }}
+        </div>
+    </div>
+{% endblock %}

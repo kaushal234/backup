@@ -1,0 +1,27 @@
+{% trans_default_domain 'customer_service_record' %}
+
+<div class="tracking-status-intransit d-flex justify-content-between ps-5 pe-5">
+    <p class="fs-3 mt-auto mb-auto font-bold">
+        {{ include('service/customer_service_record/partial/_type_link.html.twig', {item: customerServiceRecord}, with_context = false) }}
+    </p>
+    <div class="tracking-status mt-auto mb-auto">
+        <p class="font-bold">{{ 'intervention.title.interventions' | trans({}, 'customer_service_record') }}
+            ({{ interventionsCount }})</p>
+
+        {% if customerServiceRecord.openIntervention is not null %}
+            <p class="fs-6 fst-italic">{{ customerServiceRecord.openIntervention.leader.firstname }} {{ customerServiceRecord.openIntervention.leader.lastname }}</p>
+        {% endif %}
+    </div>
+</div>
+<div class="ibox-content p-0 p-lg-2 pt-3 ">
+    {% set addComment = addComment is defined ? addComment : true %}
+    <div class="text-danger font-bold fst-italic">{{ 'csr.title.comments'|trans }}</div>
+    <div
+            class="logs-customer-service-records"
+            data-resource="{{ item['@id'] }}"
+            {% if addComment == true %}data-show-comment-form="true"{% endif %}
+            data-file-upload="{{ hasFileUpload|default(false) }}"
+            {% if hideComments|default(false) %}data-hide-comments{% endif %}>
+
+    </div>
+</div>

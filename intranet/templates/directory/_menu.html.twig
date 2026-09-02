@@ -1,0 +1,12 @@
+<a href="{{ path('legacy_directory_index') }}">Home</a>
+&nbsp;|&nbsp;<a href="{{ path('directory_regions_home') }}">{{ 'menu.region.title'|trans }}</a>
+&nbsp;|&nbsp;<a href="{{ path('directory_business_units_home') }}">Business Units</a>
+&nbsp;|&nbsp;<a href="{{ path('directory_locations_home') }}">Locations</a>
+{% if is_granted('ACL_SUPERUSER') or is_granted('ACL_ROLE_CFO') or is_granted('ACL_ROLE_LM') %}
+	&nbsp;|&nbsp;<a href="{{ path('directory_juridical_locations_home') }}">Juridical Locations</a>
+{% endif %}
+&nbsp;|&nbsp;<a href="{{ path('directory_departments_home') }}">Departments</a>
+&nbsp;|&nbsp;<a href="{{ path('directory_positions_home') }}">Functions</a>
+&nbsp;|&nbsp;<a href="{{ path('legacy_directory_index') }}?m[0]=people">People</a>
+&nbsp;|&nbsp;<a href="{{ path('legacy_directory_index') }}?m[0]=jobs">Jobs</a>
+&nbsp;|&nbsp;<a href="{{ path('legacy_directory_index') }}?m[0]=reports">Reports</a>

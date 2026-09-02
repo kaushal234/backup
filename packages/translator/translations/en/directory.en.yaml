@@ -1,0 +1,659 @@
+directory:
+
+  title:
+    search: search
+    organisation: Organisation Charts
+
+  nav_link:
+    add_category: New category
+    add_category_types: New category type
+    add_premise: Add premise
+    add_premise_type: Add premise type
+    dashboard: Dashboard
+    edit_premise: Edit premise
+    export: Export
+    members: Members
+    people_without_premise: People without premise
+    position_categories: Position categories
+    position_categories_types: Position categories types
+    position_classifications: Position classifications
+    premise: Premise
+    premise_type: Premise type
+    transfer: Transfer
+
+  position:
+    back_to_position: back to position
+    name: position
+    email_list: Email List
+
+    title:
+      add: add new position
+      edit: edit position
+      delete: delete position
+      list: Position Listing
+      view: Position Details
+
+    fields:
+      code: code
+      description: description
+      level: level
+      confirm: confirmation
+      groups: access control list
+      is_mentor_mandatory: Mentor mandatory
+
+    list:
+      empty: No position found
+
+    replacement: Replaced by
+
+    placeholder: Search a position
+
+    warning:
+      users: You cannot delete this position, there is %usersCount% users linked to it.
+
+    messages:
+      success:
+        add: The position have been created.
+        edit: The position have been updated.
+        delete: The position have been deleted.
+
+  position_categories:
+    name: Position Categories
+    singular: Position Category
+    direct_headcount: Direct Headcount
+    add: New category
+    edit: Edit category
+    messages:
+      success:
+        edit: The position categories have been successfully saved.
+        write: The position category have been successfully saved.
+        delete: The position category have been successfully deleted.
+      error:
+        write: Something went wrong saving the position category.
+        delete: Something went wrong deleting the position category.
+
+  position_category_types:
+    name: Position Category Types
+    singular: Position Category Type
+    add: New category type
+    edit: Edit category type
+    messages:
+      success:
+        write: The position category type have been successfully saved.
+        delete: The position category type have been successfully deleted.
+      error:
+        write: Something went wrong saving the position category type.
+        delete: Something went wrong deleting the position category type.
+
+  juridical_location:
+
+    name: juridical location
+
+    title:
+      add: add new juridical location
+      edit: edit juridical location
+      delete: delete juridical location
+      list: Juridical Location Listing
+      view: Juridical Location Details
+
+    fields:
+      name: name
+      confirm: confirmation
+
+    list:
+      empty: No juridical location found
+
+    messages:
+      success:
+        add: The juridical location have been created.
+        edit: The juridical location have been updated.
+        delete: The juridical location have been deleted.
+
+    warning:
+      used: You cannot delete this juridical location, it's in use.
+
+  department:
+
+    name: Department
+
+    title:
+      add: add new department
+      edit: edit department
+      delete: delete department
+      list: Department Listing
+      view: Department Details
+
+    fields:
+      name: name
+      sso: SSO
+      factory: factory
+      location: Location
+      replacement: replaced by
+      confirm: confirmation
+
+    list:
+      empty: No department found
+
+    warning:
+      replacement: "WARNING: This department is still in use"
+
+    messages:
+      success:
+        add: The department have been created.
+        edit: The department have been updated.
+        delete: The department have been deleted.
+
+    make_selection: Make your selection...
+
+  location:
+
+    name: location#
+
+    title:
+      add: add new Business Unit Parameters
+      edit: edit Business Unit Parameters
+      list: Business Unit Parameters Listing
+      view: Business Unit Parameters Details
+
+    fields:
+      id: ID
+      name: name
+      company: company
+      erp: erp
+      erpInLN: ERP exists in LN ?
+      currency: Currency
+      domain: domain
+      internalNetworkAddress: Internal network address
+      businessUnit: BU
+      juridicalLocation: juridical location
+      representative: Representative
+      network: network
+      timeZone: time zone
+      hotline: Factory Service Hotline
+      hotline_number: Hotline Number
+      psms: PSMs
+      pses: PSEs
+      erp_software: ERP Software
+      erp_software_form: ERP Software (Only for SSO)
+      logo: Logo
+      public_website: Public Website
+
+    make_selection: Make your selection...
+    select: Select location...
+
+    show_disabled: Show disabled
+    hide_disabled: Hide disabled
+
+    list:
+      empty: No location found
+
+    messages:
+      success:
+        add: The location have been created.
+        edit: The location have been updated.
+        delete: The location have been deleted.
+    hours: |
+      Guaranteed available hours :
+      WIN: 6:00 am to 4:30 pm US Eastern Time
+      SHE: 8:00 am to 5:30 pm US Eastern Time
+      STL: 8:00 am to 5:30 pm France time
+      MTL: 8:30 am to 5:30 pm France time
+      SHA: 8:00 am to 8:00 pm Beijing Time
+      WUX: 8:00 am to 8:00 pm Beijing Time
+
+  location_capability:
+
+    name: location capability
+
+    fields:
+      factory: factory
+      warehouse: warehouse
+      sparePartsHub: spare parts hub
+      serviceHub: service hub
+      headQuarter: HQ
+      sso: SSO
+
+  location_contact:
+
+    name: location contact
+
+    fields:
+      telephone: telephone
+      fax: fax
+      sparePartsEmail: spare parts email
+      partsCustomerSupportEmail: parts customer support email
+      sparePartsTelephone: spare parts telephone
+      sparePartsFax: spare parts Fax
+      serviceHubEmail: service hub email
+      serviceHubTelephone: service hub telephone
+
+  location_state:
+
+    name: location state
+
+    fields:
+      public: public
+      hidden: hidden
+      disabled: disabled
+
+  business_unit:
+
+    name: Business unit
+    no_business_unit: No business unit
+
+    title:
+      add: add new business unit
+      edit: edit business unit
+      delete: delete business unit
+      list: Business Unit Listing
+      view: Business Unit Details
+
+    fields:
+      name: name
+      representative: representative
+      location: BU Parameters
+      confirm: confirmation
+      domain: Email domain
+
+    list:
+      empty: No business unit found
+
+    make_selection: Make your selection...
+    placeholder: Search a business unit
+
+    warning:
+      used: You cannot delete this business unit, it's in use.
+
+    messages:
+      success:
+        add: The business unit have been created.
+        edit: The business unit have been updated.
+        delete: The business unit have been deleted.
+    helper:
+      domain: '@ is mandatory.'
+
+  region:
+
+    name: Region
+
+    title:
+      add: add new region
+      edit: edit region
+      delete: delete region
+      list: region Listing
+      view: region Details
+
+    fields:
+      name: name
+      type: type
+      representative: Head of Organization Chart
+      businessUnits: business units
+      confirm: confirmation
+
+    list:
+      empty: No region found
+
+    make_selection: Make your selection...
+
+    warning:
+      used: You cannot delete this region, it's in use.
+
+    messages:
+      success:
+        add: The region have been created.
+        edit: The region have been updated.
+        delete: The region have been deleted.
+
+  division:
+    name: Division
+    plural: Divisions
+    fields:
+      representatives: Representatives
+    title:
+      add: add new division
+      edit: edit division
+      delete: delete division
+      list: Division Listing
+      view: Division Details
+    messages:
+      success:
+        add: The division have been created.
+        edit: The division have been updated.
+        delete: The division have been deleted.
+      errors:
+        delete: Something went wrong and the division could not be deleted
+
+  sub_division:
+    name: Subdivision
+    plural: Subdivisions
+    title:
+      add: add new subdivision
+      edit: edit subdivision
+      delete: delete subdivision
+      list: Subdivision Listing
+      view: Subdivision Details
+    messages:
+      success:
+        add: The subdivision have been created.
+        edit: The subdivision have been updated.
+        delete: The subdivision have been deleted.
+      errors:
+        delete: Something went wrong and the subdivision could not be deleted
+
+  user:
+
+    name: user
+
+    fields:
+      username: username
+      password: password
+      confirm: Password confirmation
+      hidden: hidden
+      disabled: disabled
+      username_help: Must be same as email. If you want to change it, change the email.
+
+    messages:
+      success:
+        add: The user have been created.
+        edit: The user have been updated.
+        delete: The user have been deleted.
+
+      username_do_not_match_email: "Warning : username and email do not match"
+
+    select: Select user...
+
+  extranet_user:
+    fields:
+      disable: Disable Extranet Access
+      crt:
+        label: CRT
+        placeholder: Select a CRT
+      email:
+        label: Email address
+        placeholder: Enter an email address
+      lastname:
+        label: Lastname
+        placeholder: Enter a lastname
+      firstname:
+        label: Firstname
+        placeholder: Enter a firstname
+      division:
+        label: Division
+        placeholder: Type a Division name
+      department:
+        label: Department
+        placeholder: Type a Department name
+      job_title:
+        label: Job Title
+        placeholder: Enter a Job Title
+      phone:
+        label: Phone number
+        placeholder: Enter a phone number (international format)
+      language:
+        label: Language
+        placeholder: Select a language
+
+    success:
+      created: created successfully.
+    errors:
+      email_already_used: A User already exists with this email address.
+      phone_invalid_format: Invalid phone number, please use international format
+      required_fields:
+        crt: A CRT is required.
+        email: An email address is required.
+        lastname: A lastname is required.
+        firstname: A firstname is required.
+        division: A division is required.
+        job_title: A job title is required.
+        phone: A phone number is required.
+        country: A country is required.
+        department: A department name is required.
+
+  people:
+
+    name: people
+
+    title:
+      show: people Details
+      add: add new people
+      edit: edit people
+      duplicate: duplicate people
+      list: people listing
+      people_list : People list
+      filtered_list: People list filtered
+      search: search people
+      searchbyid: search people by id
+      transfer_crt: Transfer  CRT's
+      disable: Transfer and Disable, You are about to transfer all documents related to this user and disable this user.
+      download: Download Directory
+      new_comers: Recent and Coming New Comers
+      leavers: Recent (last 3 months) And Coming Leavers
+
+    activity:
+      dateFilter: Filter with dates
+      reportTitle: Activity Report
+      button: Check Activity
+      invalidDateRange: Start Date must be before End Date.
+      labels:
+        logs: Logs
+        comments: Comments
+        userConnections: User Connections
+        date: Date
+        resource: Resource
+        action: Action
+        changeSet: Change Set
+        message: Message
+      changedFrom: has been changed from
+      to: to
+      emptyData: 'empty'
+      fields:
+        happened_after: Happened after
+        happened_before: Happened before
+
+    fields:
+      lastname: LASTNAME (CAPITALS Only)
+      firstname: firstname
+      nickname: nickname
+      erpIdentifier: ERP identifier
+      jobTitle: job title
+      needs_collaboration_access: Does the guest user needs to collaborate on files in Teams/Sharepoint with our organization ?
+      module: Other accesses required
+      phones: phone numbers
+      businessUnit: business unit
+      legalEntity: legal entity
+      position: Position
+      region: region
+      department: department
+      supervisor: Supervisor
+      email: email
+      email_alternate: email (alternate)
+      windowsLogin: Windows Login
+      hidden: hidden
+      disabled: disabled
+      photo: photo
+      confirm_disable: Check to disable the user
+      prefered_locale: prefered language
+      contract_type: Contract Type
+      coefficient: Coefficient
+      gender: Gender
+      mentor: mentor
+      enable_at: Arrival date
+      confirm_homonymous_user: Confirm Homonymous User
+      closest_airport: Closest Airport
+      disabled_at : Effective Departure
+      planned_disable_at: Planned Departure
+      enabled_on : Enabled on
+      inactive_leave : Inactive, left the company
+      inactive_come : Inactive arriving soon
+      with_ongoing_update_tasks: With ongoing update tasks
+      leaver_status:
+        label: Status
+        planned: Planned only
+        left: Already left
+      new_comer_status:
+        label: Status
+        planned: Planned only
+        arrived: Already arrived
+
+    show:
+      name: name
+      nickname: alias / nickname
+      legacyId: Intranet Identifier
+      newId: New Intranet Identifier
+      supervisor: Supervisor
+
+    search:
+      id: People id
+      name: People name
+      hidden: Include hidden users
+      no_result: no people found
+      created_before: created before
+      created_after: created after
+      disabled_before: disabled before
+      disabled_after: disabled after
+
+    make_selection: Make your selection...
+
+    mentoring:
+      title: Mentoring Listing
+      no_mentor: no mentor found
+      no_mentee: no mentee found
+      mentee_email: mentee email
+      mentor_email: mentor email
+      mentor: mentor
+      mentee: mentee
+      mentees: mentees
+
+    list:
+      empty: No people found
+      email: "Email list. Copy and paste to your favourite email program to use:"
+      filtered_people: Filtered people
+      copy_to_clipboard: 'Copy Email List to Clipboard'
+
+    messages:
+      error:
+        email_field_error: A user has the same firstname and lastname. Please contact HR team members before continuing.
+        image_field_error: The user was created, but their photo could not be added. You can try adding the photo again in the user edit page.
+        airport_error: If premise is "offSite Location", airport must be filled.
+        valid_homonymous_user_error: A user with this lastname '%lastname' and firstname '%firstname' already exist in our database and his/her email is '%email'. Check "Confirm homonymous" to continue and create a new %lastname% %firstname.
+        valid_homonymous_user_hidden_error: A user with this lastname '%lastname' and firstname '%firstname' already exist in our database and his/her email is '%email'. Check "Confirm homonymous" to continue and create a new %lastname %firstname or contact HR to create a update user sequence to reactivate the existing one.
+
+      success:
+        add: "The people have been created with email: %email%"
+        edit: The people have been updated.
+        delete: The people have been deleted.
+        disable: The people have been disabled.
+        duplicate: The people have been duplicated.
+        define-password: The Password has been set successfully.
+        no_crt: This people isn't linked to any CRT's
+        transfer_sales_rep: Change Sales Representative of %name's CRT to
+        transfer_parts_rep: Change Parts Representative of %name's CRT to
+        transfer_service_rep: Change Service Representative of %name's CRT to
+        copy_emails: 'Emails of %count% members copied to clipboard.'
+
+      warning:
+        copy_limit_warning: 'Warning: This %type% has %count% members — only the first %limit% emails were copied.'
+
+    define-password-title: Enter the new password for
+
+    csv:
+      headers:
+        id: id
+        legacyId: legacy id
+        lastname: lastname
+        firstname: firstname
+        nickname: nickname
+        email: email
+        region.name: region
+        businessUnit.name: business unit
+        department.name: department
+        position.code: position
+        jobTitle: job title
+        address: address
+        supervisor.firstname: Supervisor firstname
+        supervisor.lastname: Supervisor lastname
+        phone:
+          reception: reception
+          phone: direct phone
+          mobile: mobile
+          fax: fax
+          home: home phone
+
+  import_acl:
+    title: Import ACL
+    subtitle: Select User & Location
+    keep_acls: Keep imported ACL's locations
+    location: Location to be set on imported ACLs
+    select_acls: Select ACLs to import
+
+  select:
+    factory: Select a factory
+
+  contract_type:
+    make_selection: Make your selection... (ask HR if any doubt)
+    title:
+      list: Contract Types
+      add: Add contract type
+      edit: Edit contract type
+    add:
+      success: Contract type has been added successfully
+    edit:
+      success: Contract type has been successfully edited
+    delete:
+      error: Contract type could not be deleted
+      success: Contract type deleted successfully
+      error_csrf: Cannot delete contract type, please refresh your page
+
+  position_classifications:
+    name: Position Classifications
+    edit:
+      title: Edit position classifications
+      success: Position classifications edited succesfully
+
+  closest_airport:
+    label: Closest Airport
+    no_airport: No Airport Selected
+
+  premise:
+    new: Request to add new premise
+    map: People closest airport
+    tooltip: Middle of Pacific corresponding to people with no filled coordinates
+    no_coordinates: No coordinates filled
+    dashboard: Premises dashboard
+    filter: Premise filter
+    transfer:
+      transfer: Premise transfer
+      to: Transfer employees of premise to
+      success: The employees of the premise has been successfully transferred
+    list:
+      list: Premise
+      filtered: List of premise filtered by %name%
+    title: Premise
+    type:
+      type: Premise's types
+      add: Add premise type
+      edit:
+        edit: Premise type edit
+        success: Premise type has been successfully saved
+      delete:
+        success: Premise type deleted successfully
+        error: Premise type could not be deleted
+    show_active: Show active premise
+    show_archived: Show archived premise
+    people_without_premise: People without Premise
+    fields:
+      archived_at: Archived at
+      number_people: Number of people
+      latitude: Latitude
+      longitude: Longitude
+      support_team: IT Support Team
+    edit:
+      success: Premise has been successfully saved
+      title: Edit premise
+    add:
+      title: Add premise
+    people_count: Number of people linked to this premise
+
+human_resources:
+  leavers:
+    access_filtered_warning: Page content is filtered based on your access rights.

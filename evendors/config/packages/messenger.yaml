@@ -1,0 +1,42 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        # failure_transport: failed
+        default_bus: command.bus
+
+        buses:
+            command.bus: ~
+            query.bus: ~
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            # failed: 'doctrine://default?queue_name=failed'
+            sync: 'sync://'
+
+        routing:
+            # Commands
+            'App\CQRS\Command\PurchaseOrder\AddPurchaseOrderCommentCommand': sync
+            'App\CQRS\Command\Settings\ChangePasswordCommand': sync
+            'App\CQRS\Command\VendorWarrantyClaim\AddVendorWarrantyClaimCommentCommand': sync
+            'App\CQRS\Command\SupplierCorrectiveActionRequest\AddSupplierCorrectiveActionRequestCommentCommand': sync
+            'App\CQRS\Command\VendorWarrantyClaim\AddSupplierCorrectiveActionRequestCommand': sync
+            'App\CQRS\Command\Security\PasswordReset\ConfirmPasswordResetCommand': sync
+            'App\CQRS\Command\Security\PasswordReset\SendPasswordResetEmailCommand': sync
+
+            # Queries
+            'App\CQRS\Query\Document\FindAllDocumentsQuery': sync
+            'App\CQRS\Query\MaterialRequirementsPlanning\FindAllMaterialRequirementsPlanningsGroupedByMonthQuery': sync
+            'App\CQRS\Query\MaterialRequirementsPlanning\FindAllMaterialRequirementsPlanningsQuery': sync
+            'App\CQRS\Query\PurchaseOrder\FindOnePurchaseOrderQuery': sync
+            'App\CQRS\Query\PurchaseOrder\FindAllPurchaseOrderOpenQuery': sync
+            'App\CQRS\Query\PurchaseOrder\FindAllPurchaseOrderCommentsQuery': sync
+            'App\CQRS\Query\SupplierCorrectiveActionRequest\FindAllSupplierCorrectiveActionRequestsQuery': sync
+            'App\CQRS\Query\SupplierCorrectiveActionRequest\FindSupplierCorrectiveActionRequestUsingIdQuery': sync
+            'App\CQRS\Query\VendorWarrantyClaim\FindAllVendorWarrantyClaimsQuery': sync
+            'App\CQRS\Query\VendorWarrantyClaim\FindNCRVendorWarrantyClaimQuery': sync
+            'App\CQRS\Query\VendorWarrantyClaim\FindWCVendorWarrantyClaimQuery': sync
+            'App\CQRS\Query\FindAllRepresentativeQuery': sync
+            'App\CQRS\Query\Manufacturing\FindBillOfMaterialQuery': sync
+            'App\CQRS\Query\SupplierRanking\FindSupplierRankingsByBusinessPartnerCodesQuery': sync
+            'App\CQRS\Query\Supplier\FindAllSuppliersQuery': sync

@@ -1,0 +1,23 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_boiler_plate.html.twig', {
+        boilerPlates: {
+            57: "<p>The Alvest Group is the leading company specializing in supporting aircraft on the ground with the mission of helping the aviation industry become Leaner & Greener©.</p>
+                <p>We innovate, design, manufacture, distribute, and service Ground Support Equipment (GSE) worldwide and develop solutions and services that bring Automation and Safety and contribute to Zero-Ground Emission solutions for airport operations.</p>",
+            152: "<p>The Alvest Group is the leading company specializing in supporting aircraft on the ground with the mission of helping the aviation industry become Leaner & Greener©.
+                <p>We innovate, design, manufacture, distribute, and service Ground Support Equipment (GSE) worldwide and develop solutions and services that bring Automation and Safety and contribute to Zero-Ground Emission solutions for airport operations.</p>
+                <p>With 10 industrial facilities, 45 Service & Spare Parts centers, 250 airports in which we carry out GSE maintenance and over 100 local offices worldwide, Alvest has delivered equipment and solutions in more than 167 countries over the past two years.</p>
+                <p>We also embrace a strong commitment to ESG reflected in our participation with multiple programs like the UN Global Compact and the Solar Impulse Foundation.</p>
+                <p>These values are reflected in our products and services as we strive to shape and lead our markets to impact our world positively in helping aviation become Leaner & Greener©.</p>",
+            190: "<p>The Alvest Group is the leading company specializing in supporting aircraft on the ground with the mission of helping the aviation industry become Leaner & Greener©.</p>
+                <p>We innovate, design, manufacture, distribute, and service Ground Support Equipment (GSE) worldwide and develop solutions and services that bring Automation and Safety and contribute to Zero-Ground Emission solutions for airport operations.</p>
+                <p>With 10 industrial facilities, 45 Service & Spare Parts centers, 250 airports in which we carry out GSE maintenance and over 100 local offices worldwide, Alvest has delivered equipment and solutions in more than 167 countries over the past two years.</p>
+                <p>Our customers include airlines, ground handlers, airports, cargo companies, defense forces, and aeronautical manufacturers. Our core values focus on customer support and satisfaction, quality, transparency, consistency, diversity, thorough working practices, as well as innovative spirit.</p>
+                <p>We also embrace a strong commitment to ESG shared by all our teams and that are reflected into our participation with multiple programs like the UN Global Compact and the Solar Impulse Foundation.</p>
+                <p>These values are reflected in our products and services as we strive to shape and lead our markets and impact our world positively in helping aviation become Leaner & Greener©.</p>"
+        }
+    }) }}
+{% endblock %}

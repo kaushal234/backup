@@ -1,0 +1,46 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+<div class="row">
+    <div class="col-md-4">
+        {{ form_row(form.module) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_row(form.moo) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_row(form.author) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.message) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.ticket) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.createdAfter) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.createdBefore) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div>
+            <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans | upper }}</button>
+            <a href="{{ resetPath }}" class="btn btn-secondary" id="quotations-filter-submit">{{ 'button.reset'| trans | upper }}</a>
+            {{ form_widget(form.download) }}
+        </div>
+    </div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

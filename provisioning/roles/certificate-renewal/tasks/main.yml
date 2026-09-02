@@ -1,0 +1,68 @@
+- name: Install PIP
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - python3-pip
+    state: present
+
+- name: Install dns-lexicon
+  become: true
+  ansible.builtin.pip:
+    name:
+      - dns-lexicon
+    state: present
+
+- name: Install dehydrated
+  become: true
+  ansible.builtin.apt:
+    name:
+      - dehydrated
+    state: present
+
+- name: Ensure /etc/dehydrated exists
+  become: true
+  ansible.builtin.file:
+    path: /etc/dehydrated
+    state: directory
+    mode: 0755
+
+- name: Add dehydrated-lexicon hook
+  become: true
+  ansible.builtin.template:
+    src: templates/hook.sh
+    dest: /etc/dehydrated/lexicon.hook.sh
+    mode: 0755
+
+- name: Prepare dehydrated config file
+  become: true
+  ansible.builtin.template:
+    src: templates/config
+    dest: /etc/dehydrated/config
+
+- name: Prepare dehydrated domains file
+  become: true
+  ansible.builtin.template:
+    src: templates/domains.txt
+    dest: /etc/dehydrated/domains.txt
+  notify:
+    - Dehydrated generate SSL
+
+- name: Prepare Gandi API credentials file
+  become: true
+  ansible.builtin.copy:
+    src: templates/credentials
+    dest: /etc/dehydrated/credentials
+    mode: 0600
+
+- name: Ensure the certificate renewal job is set
+  become: true
+  ansible.builtin.cron:
+    name: dehydrated cert renewal
+    minute: '0'
+    hour: '19'
+    weekday: '0'
+    job: bash -c 'source /etc/dehydrated/credentials &&
+      export PATH=/usr/local/bin:$PATH &&
+      /bin/dehydrated --cron --accept-terms >> /var/log/dehydrated.log 2>&1;
+      systemctl reload haproxy'

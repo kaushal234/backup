@@ -1,0 +1,30 @@
+<div class="row">
+    <div id="files">
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    filePath: {
+                        label: 'menu.files'|trans([], 'messages')|capitalize,
+                        template: 'service/customer_service_record/partial/_file_tooltip.html.twig',
+                        templateParams: {
+                            customerServiceRecordId: customerServiceRecord.id
+                        },
+                    },
+                    poster: {
+                        label: 'fields.poster'|trans([], 'messages')|capitalize,
+                        properties: ['poster.lastname', 'poster.firstname'],
+                        link:{
+                            route: 'directory_people_show',
+                            params: {'id': 'poster.@id'}
+                        },
+                    },
+                },
+                title: 'demo.fields.files'|trans({}, 'demo'),
+                data: customerServiceRecord.files,
+                search: false,
+                pagination: false,
+                initialSorting: 'createdAt'
+            }
+        }, with_context = false) }}
+    </div>
+</div>

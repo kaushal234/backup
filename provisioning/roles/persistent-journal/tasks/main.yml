@@ -1,0 +1,7 @@
+- name: Ensure /var/log/journal exists to activate journal persistence
+  become: true
+  ansible.builtin.file:
+    path: /var/log/journal
+    state: directory
+  notify:
+    - Reload journald

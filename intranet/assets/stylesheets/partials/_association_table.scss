@@ -1,0 +1,23 @@
+@use "variables" as tldvars;
+
+.association-table {
+
+  th, td {
+    padding: 5px 6px 4px!important;
+  }
+
+  th {
+    background-color: tldvars.$tldBlue;
+    width: 150px;
+    color: white;
+  }
+}
+
+/* ***** TABLETS ******* */
+@media (max-width: 767px) {
+  .association-table {
+    th, td {
+      white-space: inherit !important;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{%  extends "legal/layout.html.twig" %}
+{% trans_default_domain 'contract_category' %}
+
+{% block title %}{{ 'contract_category.title'|trans }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ data_table(categoryDatatable) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'contract_category' }) }}"></script>
+{% endblock %}
+
+
+{% block breadcrumb_links %}
+    <li class="breadcrumb-item">
+        <a
+            href="{{ path('contract_home') }}"
+            {% if app.request.attributes.get('_route') == 'contract_home' %} style="font-weight: bold;"{% endif %}
+        >{{ 'contract_category.breadcrumbs.crs'|trans }}</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a
+            href="{{ path('category_home') }}"
+            {% if app.request.attributes.get('_route') == 'category_home' %} style="font-weight: bold;"{% endif %}
+        >{{ 'contract_category.breadcrumbs.category'|trans }}</a>
+    </li>
+{% endblock %}

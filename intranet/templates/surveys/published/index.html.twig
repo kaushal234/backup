@@ -1,0 +1,140 @@
+{% extends 'surveys/layout.html.twig' %}
+
+{% trans_default_domain 'surveys' %}
+
+{% block title %} {{ parent() }} / {{ 'published.page_titles.list' | trans([]) }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ campaign.description }}{{ campaign.description ? ' - ' : '' }}{{ 'answers' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {% for item in survey.items %}
+                        {% for ratingType in survey.ratingTypes %}
+                            <div class="ibox-content m-b-sm">
+                                <div class="row">
+                                    <div class="col-lg-8 col-lg-offset-2">
+                                        <h3>{{ item.description }} - <b>{{ ratingType.description }}</b></h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2 text-center">
+                                        <span class="font-bold">{{ ratingType.min }}</span>
+                                        <p class="small">{{ ratingType.minLabel }}</p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        {% if campaign.results[item.id] is defined and campaign.results[item.id][ratingType.id] is defined %}
+                                            {% set results = campaign.results[item.id][ratingType.id] %}
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ results.average }}"
+                                                     aria-valuemin="{{ ratingType.min }}" aria-valuemax="{{ ratingType.max }}" style="width: {{ (results.average/ratingType.max)*100 }}%">
+                                                    <b>{{ results.average }}</b>
+                                                </div>
+                                            </div>
+                                            <p><b>{{ results.nbAnswers }}</b> {{ 'answers' | trans }}</p>
+                                        {% else %}
+                                            <p class="label label-danger">{{ 'no_answers_yet' | trans }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-lg-2 text-center ">
+                                        <span class="font-bold">{{ ratingType.max }}</span>
+                                        <p class="small">{{ ratingType.maxLabel }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 col-md-12">
+            {% set preparedItems = {
+                target: {
+                    label: 'published.fields.target' | trans | capitalize,
+                    class: 'small',
+                    properties: ['target.displayName']
+                },
+                isOpened: {
+                    label: 'published.fields.isOpened' | trans | capitalize,
+                    class: 'small text-center',
+                },
+                totalItemsAnswered: {
+                    label: 'published.fields.totalItemsAnswered'| trans | capitalize,
+                    class: 'small font-bold text-center',
+                },
+                totalRemainingItems: {
+                    label: 'published.fields.totalRemainingItems'| trans | capitalize,
+                    class: 'small font-bold text-center',
+                },
+                totalItems: {
+                    label: 'published.fields.totalItems'| trans | capitalize,
+                    class: 'small font-bold text-center',
+                },
+                view: {
+                    label: 'menu.view'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'survey_published_show',
+                        params: {'publishedId': 'token'},
+                        fixedParams: {'id': survey.iriId, 'campaignId': campaign.iriId},
+                        content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+                delete: {
+                    label: 'menu.delete'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'survey_published_delete',
+                        params: {'publishedId': 'token'},
+                        fixedParams: {'id': survey.iriId, 'campaignId': campaign.iriId},
+                        popup: {
+                            message: 'messages.grid_delete_confirmation' | trans | capitalize
+                        },
+                        content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-end'
+                },
+            } %}
+
+            {% if campaign.sentAt is not null %}
+                {% set preparedItems = preparedItems|merge({
+                    public:{
+                        label: 'general_fields.view_public'|trans()|capitalize,
+                        link:{
+                            route: 'survey_public',
+                            fullUrl: true,
+                            target: '_blank',
+                            params: {'token': 'token'},
+                            popup: {
+                                message: 'messages.view_public_confirmation' | trans | capitalize
+                            },
+                            content: '<span class="btn btn-warning btn-sm"><i class="fa fa-external-link fa-fw"></i></span>',
+                        },
+                        sortable: false,
+                        class : 'text-end'
+                    }
+                }) %}
+            {% endif %}
+
+            {{ include ('helper/_report_table.html.twig', {
+                reportTable: {
+                    data: publishedSurveys,
+                    title: 'published.page_titles.list' | trans | upper,
+                    items: preparedItems
+                }
+            }) }}
+        </div>
+    </div>
+{% endblock %}

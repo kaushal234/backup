@@ -1,0 +1,97 @@
+{% extends 'minutes_of_meeting/layout.html.twig' %}
+{% trans_default_domain 'meeting' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {% if formFilter is defined %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filters' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('minutes_of_meeting/partial/_form_filter.html.twig', {
+                        form: formFilter,
+                        resetPath: path('meeting_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if meetings is defined %}
+    <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'contacts.fields.id'|trans({},'contacts')|capitalize,
+                            link:{
+                                route: 'meeting_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        createdAt: {
+                            label: 'fields.date'|trans({}, 'messages')|capitalize,
+                            filters: ["date('Y-m-d')"]
+                        },
+                        createdBy: {
+                            label: 'calibration_tool.fields.created_by'|trans({}, 'calibration_tool')|capitalize,
+                            properties: ['createdBy.firstname', 'createdBy.lastname'],
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'createdBy.@id'},
+                            }
+                        },
+                        status: {
+                            label: 'demo.fields.status'|trans({}, 'demo')|capitalize,
+                        },
+                        quick: {
+                            label: 'meeting.fields.quickMeeting'|trans|capitalize,
+                            boolean: {
+                                'true': '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                'false': '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                            }
+                        },
+                        title: {
+                            label: 'contacts.mail.subject'|trans({}, 'contacts')|capitalize,
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'meeting_show',
+                                params: {'id':'id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+                    },
+                    pagination: {
+                        currentPage: currentPage is defined ? currentPage : 1,
+                        paginationUrl: paginationUrl
+                    },
+                    initialSorting: false,
+                    searchTable: true,
+                    title: title|default('meeting.meetings')|trans,
+                    data: meetings,
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('partial/_footable.html.twig', {'selectors': ['#block_seq']}) }}
+{% endblock %}

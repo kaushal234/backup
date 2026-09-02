@@ -1,0 +1,116 @@
+App\Entity\Task\Task:
+
+  task_1:
+    module: "@module_mis"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    startedAt: <dateTimeBetween('now', '+10 days')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "Explore the world of coding, where every line of code is a step towards endless possibilities."
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    createdBy: "@user_superuser"
+    assignee: "@user_hr"
+    location: "@location_1"
+    recipients: [ "@user_qam", "@user_em", "@user_mlm", "@user_eng" ]
+    legacyId: 13
+
+  task_2:
+    module: "@module_mis"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    status: CLOSED
+    startedAt: <dateTimeBetween('-6 months', '-3 months')>
+    closedAt: <dateTimeBetween('-70 days', '-60 days')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "Explore the world of coding, where every line of code is a step towards endless possibilities."
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    createdBy: "@user_hr"
+    assignee: "@user_hr"
+    location: "@location_1"
+    recipients: [ "@user_qam", "@user_em", "@user_mlm", "@user_eng" ]
+
+  task_3:
+    module: "@module_mis"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    status: IN PROGRESS
+    startedAt: <dateTimeBetween('-6 months', '-3 months')>
+    closedAt: <dateTimeBetween('-70 days', '-60 days')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "I am the task to test the changement status to pause and unpause allowed only for mis user"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    createdBy: "@user_hr"
+    assignee: "@user_evp"
+    location: "@location_1"
+    recipients: []
+
+  task_4:
+    module: "@module_toc"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    status: IN PROGRESS
+    startedAt: <dateTimeBetween('-6 months', '-3 months')>
+    closedAt: <dateTimeBetween('-70 days', '-60 days')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "I am a TOC task"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    createdBy: "@user_csm"
+    assignee: "@user_csm"
+    location: "@location_1"
+    recipients: []
+
+  warehouse_task:
+    module: "@module_warehouse_task"
+    referenceId: 32
+    location: "@location_warehouse"
+    indiceFactor: "IF 1"
+    status: PENDING
+    startedAt: <dateTimeBetween('-5 days', '-1 day')>
+    dueDate: <dateTimeBetween('+10 days', '+20 days')>
+    shortDescription: "Warehouse task test"
+    description: "Warehouse task used by Behat tests"
+    createdBy: "@user_basic"
+    assignee: "@user_hr"
+    recipients: [ "@user_qam", "@user_em" ]
+
+  task_5:
+    module: "@module_toc"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    startedAt: <dateTimeBetween('-6 months', '-3 months')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "I am the task used to test transfer by the assignee's supervisor"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    createdBy: "@user_basic"
+    assignee: "@user_hr"
+    location: "@location_1"
+    recipients: []
+
+  task_6:
+    module: "@module_toc"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    startedAt: <dateTimeBetween('-6 months', '-3 months')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "I am the task used to test close by the assignee's supervisor"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    createdBy: "@user_basic"
+    assignee: "@user_hr"
+    location: "@location_1"
+    recipients: []
+
+  task_generated_{15..49}:
+    legacyId: <current()>
+    module: "@module_mis"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    status: IN PROGRESS
+    startedAt: <dateTimeBetween('-6 months', '-3 months')>
+    closedAt: <dateTimeBetween('-70 days', '-60 days')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "I am the task to test the changement status to pause and unpause allowed only for mis user"
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quorum sine causa fieri nihil putandum est. Itaque his sapiens semper vacabit. Tum Torquatus: Prorsus, inquit, assentior; Est enim effectrix multarum et magnarum voluptatum. Quis istud, quaeso, nesciebat? Duo Reges: constructio interrete."
+    createdBy: "@user_hr"
+    assignee: "@user_evp"
+    location: "@location_1"
+    recipients: [ ]

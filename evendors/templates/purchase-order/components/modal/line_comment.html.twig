@@ -1,0 +1,40 @@
+<td>
+    <div data-name="{{ key }}">
+        {% if item.lineTexts|length > 0 %}
+            {% set modalId = 'commentLineModal' ~ item.iri %}
+            {% set modalIdSafe = modalId|normalizeId(item.iri) %}
+
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#{{ modalIdSafe }}"
+                    style="width: -moz-available">
+                {{ 'display.table.purchase_order_line.comment.see'|trans }}
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="{{ modalIdSafe }}" tabindex="-1"
+                 aria-labelledby="{{ modalIdSafe }}Label"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5"
+                                id="{{ modalIdSafe }}Label">{{ 'display.table.purchase_order_line.headers.comment'|trans }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% for lineText in item.lineTexts %}
+                                <div class="card mt-1">
+                                    <div class="card-header fw-normal text-black">
+                                        {{ lineText.lang }}
+                                    </div>
+                                    <div class="card-body">
+                                        {{ lineText.texts|nl2br }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</td>

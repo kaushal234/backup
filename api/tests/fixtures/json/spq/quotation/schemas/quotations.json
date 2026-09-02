@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/parts/quotations$"},
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/parts/quotations/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "receivedAt": {
+            "type": "string"
+          },
+          "suspendedAt": {
+            "type": ["string", "null"]
+          },
+          "submittedAt": {
+            "type": ["string", "null"]
+          },
+          "firstSubmittedAt": {
+            "type": ["string", "null"]
+          },
+          "expiredAt": {
+            "type": ["string", "null"]
+          },
+          "closedAt": {
+            "type": ["string", "null"]
+          },
+          "poster": {
+            "$ref": "../../../directory_people/schemas/directory_people_public.json"
+          },
+          "source": {
+            "oneOf": [
+              {"type": "null"},
+              { "$ref": "../../../directory_people/schemas/directory_people_public.json" }
+            ]
+          },
+          "quoter": {
+            "oneOf": [
+              {"type": "null"},
+              { "$ref": "../../../directory_people/schemas/directory_people_public.json" }
+            ]
+          },
+          "sph": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/locations/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "company": {
+                "type": "string"
+              },
+              "erp": {
+                "type": ["integer", "null"]
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "company",
+              "erp",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "rfq": {
+            "type": ["string", "null"]
+          },
+          "baanCustomerNumber": {
+            "type": ["string"]
+          },
+          "baanCustomerName": {
+            "type": ["string"]
+          },
+          "baanSalesOrder": {
+            "type": ["integer", "null"]
+          },
+          "customerPurchaseOrder": {
+            "type": ["string", "null"]
+          },
+          "status": {
+            "type": "string"
+          },
+          "payableService": {
+            "type": "boolean"
+          },
+          "requestType": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/parts/request_types/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ],
+            "additionalProperties": false
+          },
+          "customerName": {
+            "type": ["string", "null"]
+          },
+          "contactEmails": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "createdAt",
+          "receivedAt",
+          "suspendedAt",
+          "firstSubmittedAt",
+          "expiredAt",
+          "closedAt",
+          "poster",
+          "source",
+          "quoter",
+          "sph",
+          "baanCustomerNumber",
+          "baanCustomerName",
+          "baanSalesOrder",
+          "status",
+          "payableService",
+          "requestType",
+          "customerName",
+          "contactEmails",
+          "currency"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/equipment_maintenances$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@id": {"pattern": "^/equipment_maintenances/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "type": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "date",
+          "comment",
+          "type"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

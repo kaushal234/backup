@@ -1,0 +1,19 @@
+{% extends 'sales/customer_relationship_teams/layout.html.twig' %}
+{% trans_default_domain 'customer_relationship_team' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.duplicate'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div>
+            <h3>{{ 'customer_relationship_team.forms.title.duplicate'|trans }}</h3>
+
+            {{ include('sales/customer_relationship_teams/partial/_form.html.twig', {
+                form: form,
+                customer_relationship_team: customer_relationship_team,
+                action: path('sales_crt_duplicate', { id: customer_relationship_team.iriId }),
+                cancel_link: path('customer_relationship_team_home'),
+            }, with_context=false) }}
+        </div>
+    </div>
+{% endblock %}

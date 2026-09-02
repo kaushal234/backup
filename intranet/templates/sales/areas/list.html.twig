@@ -1,0 +1,52 @@
+{% extends 'sales/areas/layout.html.twig' %}
+{% trans_default_domain 'sales' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {% set items = {
+        continent: {
+            'properties': ['continent.name'],
+            'label': 'sales.sales_areas.continent'|trans|capitalize,
+        },
+        name: {
+            label: 'sales.sales_areas.country'|trans|capitalize
+        },
+    } %}
+
+    {% for network in networks %}
+        {% set items = items | merge({
+            (network.name): {
+                label: network.name,
+                properties: ['asms.'~network.name],
+            }
+        }) %}
+    {% endfor %}
+
+    {% set items = items | merge({
+        edit: {
+            label: 'menu.edit' | trans([], 'messages') | capitalize,
+            link:{
+                route: 'sales_areas_show',
+                params: { 'id':'@id' },
+                content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+            },
+            sortable: false,
+            class : 'text-end'
+        }
+    }) %}
+
+    <div class="row">
+        {{ include('helper/_report_table.html.twig', {
+            'reportTable': {
+                search: true,
+                pagination: false,
+                items: items,
+                title: 'sales.sales_areas.title'|trans,
+                data: countries,
+                initialSorting: 'continent'
+            }
+        }, with_context = true) }}
+    </div>
+{% endblock %}
+

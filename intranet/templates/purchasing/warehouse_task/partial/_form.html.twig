@@ -1,0 +1,38 @@
+{{ form_start(form) }}
+
+{{ form_errors(form) }}
+
+<div class="row">
+    <div class="col-lg-4">
+        {{ form_row(form.location) }}
+        {{ form_row(form.assignee) }}
+        {{ form_row(form.recipients) }}
+
+        {% if form.file is defined %}
+            {{ form_row(form.file) }}
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-6">
+                {{ form_row(form.dueDate) }}
+            </div>
+            <div class="col-lg-6">
+                {{ form_row(form.startedAt) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-10">
+                {{ form_row(form.shortDescription) }}
+            </div>
+            <div class="col-lg-2">
+                {{ form_row(form.indiceFactor) }}
+            </div>
+        </div>
+
+        {{ form_row(form.description) }}
+    </div>
+</div>
+
+{{ form_end(form) }}

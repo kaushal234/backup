@@ -1,0 +1,11 @@
+{% props externalErrorMessage = null %}
+
+<div {{ attributes }} class="position-relative">
+    <div data-loading="show" style="display:none" class="position-absolute top-50 start-50 translate-middle z-3">
+        <span class="spinner-border text-primary" role="status"></span>
+    </div>
+
+    <div data-loading="addClass(opacity-50 pe-none)">
+    {% block content %}{% endblock %}
+    </div>
+</div>

@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/cleanliness$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "@id": {"pattern": "^/quality/cleanliness/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "location": {
+            "type": ["object", "null"]
+            },
+          "rating": {
+            "type": "integer"
+          },
+          "date": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "@id",
+          "@type",
+          "location",
+          "rating",
+          "date",
+          "user"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

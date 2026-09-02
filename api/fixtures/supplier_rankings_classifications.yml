@@ -1,0 +1,42 @@
+App\Entity\Purchasing\SupplierRanking\Classification:
+  classification_unrestricted:
+    id: 1
+    name: Unrestricted
+    description: <text()>
+    isSupplierApproved: true
+    targetClassifications:
+      - '@classification_monitored'
+    color: 399a4b
+  classification_monitored:
+    id: 2
+    name: Monitored
+    description: <text()>
+    isSupplierApproved: true
+    workflowLevel: 2
+    targetClassifications:
+      - '@classification_unrestricted'
+    color: 1A3AA5
+  classification_restricted:
+    id: 3
+    name: Restricted
+    description: <text()>
+    isSupplierApproved: true
+    workflowLevel: 1
+    color: f8ac59
+  classification_locked:
+    id: 4
+    name: Locked
+    description: <text()>
+    isSupplierApproved: false
+    workflowLevel: 0
+    targetClassifications:
+      - '@classification_suppressed'
+    color: ED5565
+  classification_suppressed:
+    id: 5
+    name: Suppressed
+    description: <text()>
+    isSupplierApproved: false
+    targetClassifications:
+      - '@classification_locked'
+    color: ED5565

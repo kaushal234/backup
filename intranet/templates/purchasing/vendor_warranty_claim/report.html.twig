@@ -1,0 +1,202 @@
+{% extends 'purchasing/vendor_warranty_claim/layout.html.twig' %}
+{% trans_default_domain 'vendor_warranty_claim' %}
+{% form_theme formSupplierFactory 'form_theme_vertical.html.twig' %}
+{% form_theme formBuyer 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox-title">
+                <h5>{{ 'wms.form.filter' | trans([], 'wms') | upper }} {{ 'finance.approver.supplier' | trans([], 'finance') | upper }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(formSupplierFactory) }}
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form_row(formSupplierFactory.location) }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form_row(formSupplierFactory.supplierNumber) }}
+                    </div>
+                </div>
+                {{ form_widget(formSupplierFactory.rejected) }}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr class="hr-line-dashed">
+                        <div class="float-end">
+                            <label class="col-form-label">&nbsp;</label>
+                            {{ form_row(formSupplierFactory.submit) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(formSupplierFactory) }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox-title">
+                <h5>{{ 'wms.form.filter' | trans([], 'wms') | upper }}  {{ 'support.equipment_record.fields.buyer' | trans([], 'support') | upper }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(formBuyer) }}
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ form_row(formBuyer.location) }}
+                    </div>
+                    <div class="col-lg-6">
+                        {{ form_row(formBuyer.buyer) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr class="hr-line-dashed">
+                        <div class="float-end">
+                            <label class="col-form-label">&nbsp;</label>
+                            {{ form_row(formBuyer.buyerSubmit) }}
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(formBuyer) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            {% if topPartFailure[0] is defined %}
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        data: topPartFailure,
+                        pagination: 10,
+                        search: false,
+                        initialSorting: false,
+                        title: 'vendor_warranty_claim.report.top_part_failure' | trans() | capitalize ,
+                        items : {
+                            name: {
+                                label: 'spare_parts_request.fields.part_number' | trans({}, 'spare_parts_request'),
+                            },
+                            value: {
+                                label: 'vendor_warranty_claim.report.number_part'|trans,
+                                template: 'purchasing/vendor_warranty_claim/partial/report/_cell_top_part_failure.html.twig',
+                            },
+                        },
+                        extraParameters: parameters
+                    }
+                }, with_context=false) }}
+            {% endif %}
+        </div>
+        <div class="col-lg-6">
+            {% if reportPartFailHistory.rows is defined %}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'vendor_warranty_claim.report.part_failure_history' | trans}}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ include('helper/_matrix_table.html.twig', {
+                            data: reportPartFailHistory,
+                            template: 'purchasing/vendor_warranty_claim/partial/report/_cell_part_fail_history.html.twig',
+                            extraParameters: parameters
+                        }, with_context=false) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {% if reportRecoveryCost.rows is defined %}
+                <div class="highcharts" data-options="{{ chartFactory|json_encode }}" style="height: 500px;"></div>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {% if reportSupplierHistory.rows is defined %}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'vendor_warranty_claim.report.supplier_history' | trans}}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ include('helper/_matrix_table.html.twig', {
+                            data: reportSupplierHistory,
+                            template: 'purchasing/vendor_warranty_claim/partial/report/_cell_supplier_history.html.twig',
+                            extraParameters: parameters
+                        }, with_context=false) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            {% if vendorWarrantyClaims | length > 0 %}
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        data: vendorWarrantyClaims,
+                        search: false,
+                        initialSorting: false,
+                        title: 'vendor_warranty_claim.report.vendor_to_respond' | trans({}, 'vendor_warranty_claim'),
+                        items : {
+                            id: {
+                                label: 'display.table.vwc.headers.id' | trans({}, 'messages'),
+                                link:{
+                                    route: 'vendor_warranty_claim_show',
+                                    params: {'id':'@id'},
+                                }
+                            },
+                            days: {
+                                label: 'display.table.vwc.headers.days' | trans({}, 'messages'),
+                                template: 'purchasing/vendor_warranty_claim/partial/report/_cell_days.html.twig'
+                            },
+                            requestedCreditAmount: {
+                                label: 'vendor_warranty_claim.fields.requested_credit_amount'| trans({}, 'vendor_warranty_claim'),
+                                filters: "number_format(2)"
+                            },
+                            supplierCreditAmount: {
+                                label: 'vendor_warranty_claim.fields.supplier_credit_amount'| trans({}, 'vendor_warranty_claim'),
+                                filters: "number_format(2)"
+                            },
+                            actualCreditAmount: {
+                                label: 'vendor_warranty_claim.fields.actual_credit_amount'| trans({}, 'vendor_warranty_claim'),
+                                filters: "number_format(2)"
+                            },
+                        },
+                    }
+                }, with_context=false) }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            {% if reportBuyerHistory.rows is defined %}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'vendor_warranty_claim.report.buyer_history' | trans}}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ include('helper/_matrix_table.html.twig', {
+                            data: reportBuyerHistory,
+                        }, with_context=false) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-lg-12">
+            {% if reportVendorWarrantyClaimResolved.rows is defined %}
+                <div class="highcharts" data-options="{{ chartVendorWarrantyClaimResolved|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+                <br>
+            {% endif %}
+        </div>
+        <div class="col-lg-12">
+            {% if reportAverageResolvedTime.rows is defined %}
+                <div class="highcharts" data-options="{{ chartAverageResolvedTime|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

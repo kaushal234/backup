@@ -1,0 +1,108 @@
+# geerlingguy.nodejs
+nodejs_version: "22.x"
+nodejs_npm_global_packages:
+  - name: yarn
+    version: 1.22.22
+
+# geerlingguy.nginx
+nginx_remove_default_vhost: true
+nginx_listen_ipv6: false
+nginx_server_tokens: "off"
+nginx_vhosts:
+  - listen: "80"
+    server_name: "{{ evendors_url }}"
+    root: "{{ monorepo_path }}/current/evendors/public"
+    index: "index.php index.html index.htm"
+    access_log: "/var/log/nginx/{{ evendors_url }}.access.log"
+    error_log: "/var/log/nginx/{{ evendors_url }}.error.log"
+    state: "present"
+    filename: "{{ evendors_url }}.conf"
+    extra_parameters: |
+      server_tokens off;    
+      client_max_body_size 32M;
+      
+      rewrite https://www.tld-gse.com/evendors/evendors.php?m[0]=scar&m[1]=view&id=([0-9]+) {{ evendors_url }}/supplier-corrective-action-request/([0-9]+) permanent;
+      rewrite https://www.tld-gse.com/evendors/evendors.php?m[0]=vwc&m[1]=view&id=([0-9]+) {{ evendors_url }}/vendor-warranty-claim permanent;
+  
+      location / {
+        allow {{ haproxy_dmz_subnet }};
+        deny all;
+        try_files $uri /index.php$is_args$args;
+      }
+    
+      location ~ ^/index\.php(/|$) {
+        allow {{ haproxy_dmz_subnet }};
+        deny all;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        fastcgi_read_timeout 180;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        internal;
+      }
+    
+      location ~ \.php$ {
+        return 404;
+      }
+      
+      location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow 127.0.0.1;
+        allow {{ prtg_ip }};
+        deny all;
+      }
+      
+      location /fpm-status {
+        include fastcgi_params;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_param SCRIPT_FILENAME /fpm-status;
+        allow 127.0.0.1;
+        deny all;
+        access_log off;
+      }
+
+# geerlingguy.php-versions
+php_version: '8.4'
+
+# geerlingguy.php
+php_default_version_debian: '8.4'
+php_webserver_daemon: "nginx"
+php_fpm_pool_user: deployer
+php_fpm_pool_group: php_executor
+php_fpm_pools:
+  - pool_name: evendors
+    pool_template: templates/evendors/evendors.conf.j2
+    pool_listen: "127.0.0.1:9000"
+    pool_listen_allowed_clients: "127.0.0.1"
+php_enable_php_fpm: true
+php_date_timezone: "America/New_York"
+php_memory_limit: "256M"
+php_session_gc_maxlifetime: "{{ inactivity_limit }}"
+php_source_configure_command: >
+  {{ php_source_configure_command }}
+  --with-sodium
+php_packages:
+  - php{{ php_default_version_debian }}-apcu
+  - php{{ php_default_version_debian }}-bcmath
+  - php{{ php_default_version_debian }}-common
+  - php{{ php_default_version_debian }}-cli
+  - php{{ php_default_version_debian }}-dev
+  - php{{ php_default_version_debian }}-fpm
+  - libpcre3-dev
+  - php{{ php_default_version_debian }}-curl
+  - php{{ php_default_version_debian }}-imap
+  - php{{ php_default_version_debian }}-intl
+  - php{{ php_default_version_debian }}-opcache
+  - php{{ php_default_version_debian }}-xml
+  - php{{ php_default_version_debian }}-mbstring
+  - php{{ php_default_version_debian }}-gd
+  - php{{ php_default_version_debian }}-zip
+
+php_packages_extra:
+  - php{{ php_default_version_debian }}-mysql
+
+# Cron jobs
+cron:
+  state: started

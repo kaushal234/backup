@@ -1,0 +1,25 @@
+parameters:
+    parallel:
+        processTimeout: 300.0
+    level: 6
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - %rootDir%/../../../tests/bootstrap.php # Flex recipe file
+    inferPrivatePropertyTypeFromConstructor: true
+    ignoreErrors:
+        - '#(Property|Method|Function) .* has( parameter \$.+ with)? no( return)? type specified#'
+        - '#Access to an undefined property Sabre\\VObject\\Component\\VCard::\$ADR\.#'
+        - '#Call to an undefined method Symfony\\Component\\Form\\FormInterface::getClickedButton\(\)\.#'
+        - '#Property (App|Legacy)Bundle\\.*::\$translator \(Symfony\\Component\\Translation\\Translator\) does not accept Symfony\\Contracts\\Translation\\TranslatorInterface\.#'
+        -
+            message: '#Right side of && is always true#'
+            path: src/AppBundle/Controller/Sales/
+        - identifier: missingType.generics
+        - identifier: missingType.iterableValue
+
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/jangregor/phpstan-prophecy/extension.neon

@@ -1,0 +1,51 @@
+{% extends 'directory/juridical_location/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set juridical_location_id = iri_id(juridical_location) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'directory.juridical_location.title.view'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="">
+                        <table class="table table-bordered table-hover association-table table-responsive">
+                            <tbody>
+                            <tr>
+                                <th>{{ 'directory.juridical_location.name'|trans|upper }}#</th>
+                                <td>{{ juridical_location_id }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ 'directory.juridical_location.fields.name'|trans|capitalize }}</th>
+                                <td>{{ juridical_location.name }}</td>
+                            </tr>
+                            <tr>
+                            <th>{{ 'address.name'|trans([], 'messages')|capitalize }}</th>
+                                {{ include('partial/_address_table.html.twig', {
+                                    address: juridical_location.address
+                                }, with_context=false) }}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="logs-block" data-resource="{{ juridical_location['@id'] }}" data-show-comment-form="true"></div>
+    </div>
+{% endblock %}
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

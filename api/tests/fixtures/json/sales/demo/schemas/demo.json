@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/demos/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "sso": {
+      "$ref": "../../../directory_location/schemas/directory_location_public.json"
+    },
+    "factory": {
+      "$ref": "../../../directory_location/schemas/directory_location_public.json"
+    },
+    "product": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/products/\\d+$"},
+        "@type": {"type": "string"},
+        "id": {"type": "integer"},
+        "name": {"type": "string"},
+        "family": {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/sales/product_families/\\d+$"},
+            "@type": {"type": "string"},
+            "legacyId": {"type": "integer"},
+            "dmsPhoto": {"type": ["integer", "null"]}
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "dmsPhoto"
+          ],
+          "additionalProperties": false
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "dmsPhoto": {
+          "type": ["integer", "null"]
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "family",
+        "legacyId",
+        "dmsPhoto"
+      ],
+      "additionalProperties": false
+    }
+  ,
+    "customer": {
+      "type": "object"
+    },
+    "country": {
+      "type": "object"
+    },
+    "airport": {
+      "type": ["object", "null"]
+    },
+    "expectedStartDate": {
+      "type": ["string", "null"]
+    },
+    "expectedEndDate": {
+      "type": ["string", "null"]
+    },
+    "revisedEndDate": {
+      "type": ["string", "null"]
+    },
+    "approvalDate": {
+      "type": ["string", "null"]
+    },
+    "statusUpdatedAt": {
+      "type": ["string", "null"]
+    },
+    "activatedAt": {
+      "type": ["string", "null"]
+    },
+    "closingDate": {
+      "type": ["string", "null"]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "delinquent": {
+      "type": "boolean"
+    },
+    "equipmentRecord": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "@id": {"pattern": "^/equipment_records/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "serialNumber": {
+              "type": "string"
+            },
+            "type": {
+              "type": ["string", "null"]
+            },
+            "model": {
+              "type": ["string", "null"]
+            },
+            "legacyId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "serialNumber",
+            "type",
+            "model",
+            "legacyId"
+          ]
+        }
+      ]
+    },
+    "closingComment": {
+      "type": ["string", "null"]
+    },
+    "comment": {
+      "type": ["string", "null"]
+    },
+    "expectedClosingStatus": {
+      "type": ["string", "null"]
+    },
+    "actualStartDate": {
+      "type": ["string", "null"]
+    },
+    "lastCommentedAt": {
+      "type": ["string", "null"]
+    },
+    "sequenceId": {
+      "type": ["integer", "null"]
+    },
+    "approvers": {
+      "type": "array"
+    },
+    "asm": {
+      "type": "object",
+      "$ref": "../../../directory_people/schemas/directory_people_list.json"
+    },
+    "psm": {
+      "type": "object",
+      "$ref": "../../../directory_people/schemas/directory_people_list.json"
+    },
+    "ast": {
+      "type": "object",
+      "$ref": "../../../directory_people/schemas/directory_people_list.json"
+    },
+    "futureDemo": {
+      "type": ["object", "null"]
+    },
+    "demoFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "../../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "status": {
+      "type": "string"
+    },
+    "emissionRating": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/emission_ratings/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "linkAllocated": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "sso",
+    "factory",
+    "product",
+    "customer",
+    "country",
+    "airport",
+    "expectedStartDate",
+    "expectedEndDate",
+    "revisedEndDate",
+    "statusUpdatedAt",
+    "activatedAt",
+    "createdAt",
+    "closingDate",
+    "lastCommentedAt",
+    "delinquent",
+    "equipmentRecord",
+    "closingComment",
+    "comment",
+    "actualStartDate",
+    "expectedClosingStatus",
+    "sequenceId",
+    "asm",
+    "psm",
+    "ast",
+    "approvers",
+    "futureDemo",
+    "demoFiles",
+    "status",
+    "emissionRating"
+  ],
+  "additionalProperties": true
+}

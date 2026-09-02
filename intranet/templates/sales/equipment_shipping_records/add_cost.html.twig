@@ -1,0 +1,33 @@
+{% extends 'sales/equipment_shipping_records/layout.html.twig' %}
+{% trans_default_domain 'equipment_shipping_record' %}
+
+{% block title %} {{ 'equipment_shipping_record.line.new' | trans({}, 'equipment_shipping_record') }} \ {{ parent() }} \ {{ 'equipment_shipping_record.line.title' | trans({}, 'equipment_shipping_record') }} {% endblock %}
+
+{% block content %}
+    <div class="ibox-content">
+        {{ form_start(costForm) }}
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(costForm.costDate) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(costForm.type) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(costForm.currency) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(costForm.price) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(costForm.description) }}
+            </div>
+        </div>
+        {{ form_row(costForm.submit) }}
+        {{ form_end(costForm) }}
+    </div>
+{% endblock %}

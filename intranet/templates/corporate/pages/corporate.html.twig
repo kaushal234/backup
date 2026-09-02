@@ -1,0 +1,149 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+{% trans_default_domain 'corporate' %}
+{% set viewName = 'Corporate' %}
+
+{% block title %}{{ parent() }}{{ 'menu.page.title'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'menu.page.title'|trans([], 'messages') }}</h3>
+    <div class="row" id="corporate">
+        <div class="col-md-6">
+            <div class="ibox-title">
+                <h3><i class="fa fa-cogs"></i>&nbsp;Procedures</h3>
+            </div>
+            <div class="ibox-content no-padding">
+                <ul class="list-group list-corporate">
+                    <li class="list-group-item">
+                        <span>Alvest OEM Organizational Procedures</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(3701) }}">EN</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>TLD Spare Parts Guidelines</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(361) }}">EN</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>AS/TLD/SAGE Cooperation Guidelines</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(2439) }}">EN</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>Alvest Group Sourcing guidelines</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(2244) }}">EN</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>Alvest Communications Chart</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(144) }}">EN</a>-
+                            <a href="{{ dms(866) }}">FR</a>-
+                            <a href="{{ dms(871) }}">ZH</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>Alvest Guidelines for working meetings</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(922) }}">EN</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>Alvest presentation</span>
+                        <div class="links float-end">
+                            <a href="{{ dms(3188) }}">EN</a>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <span>TLD Group video</span>
+                        <div class="links float-end">
+                            <a href="{{ dms_portal(2246) }}">EN</a>
+                        </div>
+                        <hr class="hr-corporate">
+                        <div class="ratio ratio-16x9">
+                            <iframe class="" src="https://www.youtube.com/embed/hmsV6oLsHoI" allowfullscreen></iframe>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <div class="ibox-title">
+                    <h3><i class="fa fa-laptop"></i>&nbsp;TLD Group IT Policy</h3>
+                </div>
+                <div class="ibox-content no-padding">
+                    <ul class="list-group list-corporate">
+                        <li class="list-group-item">TLD MIS Management Process Description
+                            <div class="links float-end">
+                                <a href="{{ dms(644) }}">EN</a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">IT Policy
+                            <div class="links float-end">
+                                <a href="{{ dms(571) }}">EN</a>
+                            </div>
+                        </li>
+                        <ul>
+                            <li class="list-group-item"><i class="fa fa-caret-right"></i>&nbsp;Network Data Security
+                                Policy
+                                <div class="links float-end">
+                                    <a href="{{ dms(287) }}">EN</a>
+                                </div>
+                            </li>
+                            <li class="list-group-item"><i class="fa fa-caret-right"></i>&nbsp;Authorized Software List
+                                <div class="links float-end">
+                                    <a href="{{ dms(275) }}">EN</a>
+                                </div>
+                            </li>
+                            <li class="list-group-item"><i class="fa fa-caret-right"></i>&nbsp;Data Backup Policy
+                                <div class="links float-end">
+                                    <a href="{{ dms(279) }}">EN</a>
+                                </div>
+                            </li>
+                            <li class="list-group-item"><i class="fa fa-caret-right"></i>&nbsp;IT Fair Usage Policy
+                                <div class="links float-end">
+                                    <a href="{{ dms(219) }}">EN</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+            <hr class="hr-corporate">
+            <div>
+                <div class="ibox-title">
+                    <h3><i class="fa fa-university"></i>&nbsp;Identity</h3>
+                </div>
+                <div class="ibox-content no-padding">
+                    <ul class="list-group list-corporate">
+                        <li class="list-group-item">
+                            <span>Uniforms</span>
+                            <div class="links float-end">
+                                <a href="/en/private/corporate/uniforms/Uniforms_Jan2013_review.pdf">EN</a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <span>Powervamp Song</span>
+                            <div class="links float-end">
+                                <a href="/en/private/corporate/company_song/powervamp_corporate_song_en.html">EN</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

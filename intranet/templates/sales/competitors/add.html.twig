@@ -1,0 +1,13 @@
+{% extends 'sales/competitors/layout.html.twig' %}
+{% trans_default_domain 'sales_competitors' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/competitors/partial/_form.html.twig', {
+        title: 'competitors.forms.add'|trans,
+        form: form,
+        action: path('sales_competitors_add'),
+        cancel_link: path('sales_competitors_home')
+    }, with_context=false) }}
+{% endblock %}

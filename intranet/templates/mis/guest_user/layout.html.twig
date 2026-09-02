@@ -1,0 +1,11 @@
+{% extends '/mis/layout.html.twig' %}
+{% block title %}MIS\Guest Users{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="mis_guest_user_add"/>
+        {% if guestUser is defined and not null %}
+            <twig:NavItem:Edit route="mis_guest_user_edit" :routeParameters="{id: guestUser.id}" :security="is_granted('GUEST_USER_UPDATE_VOTER', guestUser['@id'])"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

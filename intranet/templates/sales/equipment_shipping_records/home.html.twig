@@ -1,0 +1,200 @@
+{% extends 'sales/equipment_shipping_records/layout.html.twig' %}
+{% form_theme formFilter 'form_theme_vertical.html.twig' %}
+{% form_theme legacyIdSearchForm 'form_theme_vertical.html.twig' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+
+{% trans_default_domain 'equipment_shipping_record' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+
+    <div class="row" style="gap: 5rem">
+        <div class="col-md-4">
+            <h3 class="text-capitalize">{{ 'titles.quick_access' | trans([], 'messages') }}</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_start(idSearchForm, { action: path('equipment_shipping_record_home') }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(idSearchForm) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="id-quick-access-submit" type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(idSearchForm) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <h3 class="text-capitalize">{{ 'titles.quick_access' | trans([], 'messages') }}</h3>
+                {{ form_start(legacyIdSearchForm, { action: path('equipment_shipping_record_home') }) }}
+                <div class="row">
+                    <div class="col-sm-10">
+                        {{ form_widget(legacyIdSearchForm) }}
+                    </div>
+                    <div class="col-sm-2">
+                        <input id ="legacy-id-quick-access-submit" type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                    </div>
+                </div>
+                {{ form_end(legacyIdSearchForm) }}
+            </div>
+        </div>
+    </div>
+
+<div class="ibox float-e-margins {% if filtered == false %}collapsed{% endif %}">
+    <div class="ibox-title">
+        <h5>{{ 'equipment_shipping_record.filter'|trans }}</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        {{ form_start(formFilter) }}
+        {{ form_errors(formFilter) }}
+        <div class="row">
+            <div class="col-md-3">
+                {{ form_row(formFilter.customer) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(formFilter.status) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(formFilter.incoterm) }}
+            </div>
+            <div class="col-md-2">
+                {{ form_row(formFilter.sso) }}
+            </div>
+            <div class="col-md-1">
+                {{ form_row(formFilter.modality) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                {{ form_row(formFilter.forwarder) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(formFilter.carrier) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(formFilter.serialNumber) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(formFilter.shipAuthorization) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_row(formFilter.loadingPlace) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(formFilter.departurePlace) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(formFilter.arrivalPlace) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(formFilter.manufacturerLocation) }}
+            </div>
+        </div>
+        <div class="row">
+            {{ form_row(formFilter.submit) }}
+        </div>
+        {{ form_end(formFilter) }}
+    </div>
+</div>
+<div class="col-md-12 d-flex">
+    <div class="col-md-6 pe-1">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'equipment_shipping_record.report.title.esr_by_sso_by_status' | trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                {{ include('helper/_matrix_table.html.twig', {
+                    data: reportSSObyStatus,
+                    removeXTotalsParam: true,
+                    removeYTotalsParam: true,
+                    link: {
+                        route: 'equipment_shipping_record_home',
+                        xParam: 'sso',
+                        yParam: 'status[]',
+                    },
+                    headers: {
+                        columns: ['PENDING', 'BOOKED', 'SHIPPED', 'CLOSED']
+                    },
+                }, with_context=false) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 ps-1">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'equipment_shipping_record.report.title.esr_by_factory_by_status' | trans }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                {{ include('helper/_matrix_table.html.twig', {
+                    data: reportFactoryByStatus,
+                    removeXTotalsParam: true,
+                    removeYTotalsParam: true,
+                    hideTotals:'x',
+                    link: {
+                        route: 'equipment_shipping_record_home',
+                        xParam: 'manufacturerLocation',
+                        yParam: 'status[]',
+                    },
+                    headers: {
+                        columns: ['PENDING', 'BOOKED']
+                    },
+                }, with_context=false) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ include('helper/_report_table.html.twig', {
+    reportTable: {
+        items: {
+            id: {
+                label: 'equipment_shipping_record.title'|trans ~ '#',
+                link:{
+                    route: 'equipment_shipping_record_show',
+                    params: {id: 'id'},
+                },
+            },
+            legacyId: {
+                label: 'equipment_shipping_record.legacyId'|trans ~ '#',
+            },
+            sso: {
+                label: 'directory.department.fields.sso'|trans({}, 'directory')|capitalize,
+                properties: ['sso.name']
+            },
+            customer: {
+                label: 'equipment_shipping_record.fields.customer_name'|trans,
+                properties: ['customer.name']
+            },
+            incoterm: {
+                label: 'equipment_shipping_record.fields.incoterm'|trans,
+                properties: ['incoterm.code']
+            },
+            status: {
+                label: 'status'|capitalize,
+            },
+        },
+        title: title|trans,
+        data: equipmentShippingRecords,
+        pagination: 50,
+        id: 'esr_list'
+    },
+}, with_context = false) }}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_boiler_plate.html.twig', {
+        boilerPlates: {
+            50: "<p>Alvest Equipment Services (AES) specializes in services for multi-brand Ground Support Equipment (GSE) and airport environment. Its wide and tailor-made range of services such as rental or operational lease, fleet management and pooling, maintenance, refurbishment, conversion to electric, second-hand GSE and consulting ensures an answer to any need.<p>",
+            150: "<p>Alvest Equipment Services (AES) is the reference for tailored services regarding multi-brand Ground Support Equipment (GSE) and airport environment. Serving ground handlers, airlines, and airports worldwide with high quality standards.</p>
+                <p>Our services include rental or operational lease, fleet management and pooling, maintenance, refurbishment, conversion to electric, second-hand GSE and consulting. With a combination of robust processes, efficient software platforms and the support of a dedicated team, we can ensure a solution to any need you might have.</p>
+                <p>AES has its headquarters in Paris and maintenance centers across the globe for better and quicker services. Our ReLife Centers, specialized in overhaul, allow us to turn any used GSE equipment into a brand new one.</p>
+                <p>More than a services company, AES is also engaged in sustainability. We aim towards improving the carbon footprint of airports by maximizing the lifecycle of GSE equipment. Firmly believing that reusing and recycling can make a change.</p>",
+            300: "<p>Alvest Equipment Services (AES) is the expert in services made for Ground Support Equipment (GSE). Specializing in carefully tailored answers towards any GSE problem you may encounter, the company and its 800+ employees spread across the world, has extensive knowledge about GSE machines of all brands.</p>
+                <p>The wide variety of services include a large GSE fleet, available for rental and second-hand retail. AES also provides operating lease solutions, to any GSE you need. AES uses the best technologies to offer fleet management and pooling systems. Its dedicated team ensures maintenance and refurbishment of GSE Equipment. Part of it being converting thermic motors to electric ones. Finally, AES can provide you with its expertise regarding your GSE fleet with its consulting service.</p>
+                <p>Those tailored possibilities answer the needs of airlines, ground handlers and airports alike. AES also provides global services with its main headquarters in Paris, strategically positioned centers in Europe, Canada, Latin America, Middle East and Asia. With a presence in more than 200 airports, AES is the largest GSE Maintenance provider in the in the United States. In addition, AES Re-life Centers ensure efficient refurbishment services across the world.</p>
+                <p>With high quality expectations, GSE equipment should last longer and better. This is the reason why one of AES core missions consists in making GSE more sustainable. In this regard, refurbishment and second-hand retailing have a high impact on reducing the carbon footprint in airports. This commitment, along with a strong code of ethics, ensures AES works with honesty and integrity.</p>
+                <p>AES mission consists in providing high quality services regarding GSE Equipment to address customer and environmental challenges. Operational efficiency, agile support and strong technical know-hows are keys to providing reliable services ahead of your requirements, making AES a trusted partner for your GSE services.</p>"
+        }
+    }) }}
+{% endblock %}

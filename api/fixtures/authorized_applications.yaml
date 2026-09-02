@@ -1,0 +1,65 @@
+App\Entity\AuthorizedApplication:
+
+  # /authorized_applications/1
+  authorized_application_1:
+    id: 1
+    name: La Poire Belle LN
+    keyGeneratedOn: <(new DateTime("1999-12-31 23:59:00"))>
+    keyExpiresOn: <(new DateTime("2999-12-31 23:59:00"))>
+    createdBy: '@user_superuser'
+
+  # /authorized_applications/2
+  authorized_application_2:
+    id: 2
+    name: ION
+    keyGeneratedOn: <(new DateTime("1999-12-31 23:59:00"))>
+    keyExpiresOn: <(new DateTime("2999-12-31 23:59:00"))>
+    createdBy: '@user_superuser'
+    features:
+      - '@feature_shipped_sales_orders_notify'
+      - '@feature_estimated_gt_date_equipment_record'
+      - '@feature_sales_quote_write'
+      - '@feature_write_supplier'
+      - '@feature_customer_status'
+
+  # /authorized_applications/3
+  authorized_application_3:
+    id: 3
+    name: PIO
+    keyGeneratedOn: <(new DateTime("1999-12-31 23:59:00"))>
+    keyExpiresOn: <(new DateTime("2999-12-31 23:59:00"))>
+    createdBy: '@user_superuser'
+    features:
+      - '@feature_people_item_read'
+
+  # /authorized_applications/4
+  authorized_application_4:
+    id: 4
+    name: link
+    keyGeneratedOn: <(new DateTime("1999-12-31 23:59:00"))>
+    keyExpiresOn: <(new DateTime("2999-12-31 23:59:00"))>
+    createdBy: '@user_superuser'
+    features:
+      - '@feature_catalog_download'
+
+  # /authorized_applications/5
+  authorized_application_5:
+    id: 5
+    name: powerbi
+    keyGeneratedOn: <(new DateTime("1999-12-31 23:59:00"))>
+    keyExpiresOn: <(new DateTime("2999-12-31 23:59:00"))>
+    createdBy: '@user_superuser'
+    features:
+      - '@FEATURE_DOWNLOAD_DIRECTORY'
+      - '@feature_people_read'
+
+  # /authorized_applications/6
+  authorized_application_6:
+    id: 6
+    name: EXTRANET
+    keyGeneratedOn: <(new DateTime("2026-02-09 03:42:44"))>
+    keyExpiresOn: <(new DateTime("2999-12-31 00:00:00"))>
+    createdBy: '@user_superuser'
+    features:
+      - '@feature_extranet_public'
+

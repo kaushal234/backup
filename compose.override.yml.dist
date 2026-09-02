@@ -1,0 +1,28 @@
+services:
+  gse:
+    volumes:
+      - ./docker/config/gse-php-debug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    environment:
+      # This should correspond to the server declared in PHPStorm `Preferences | Languages & Frameworks | PHP | Servers`
+      # Then PHPStorm will use the corresponding path mappings
+      PHP_IDE_CONFIG: serverName=tld-gse
+  php-api:
+    volumes:
+      - ./docker/config/api-php-debug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    environment:
+      XDEBUG: 1
+      # This should correspond to the server declared in PHPStorm `Preferences | Languages & Frameworks | PHP | Servers`
+      # Then PHPStorm will use the corresponding path mappings
+      PHP_IDE_CONFIG: serverName=api
+
+## for Mac
+services:
+  gse:
+    build:
+      dockerfile: docker/images/multistage/gse-mac/Dockerfile
+  php-api:
+    build:
+      dockerfile: docker/images/multistage/api-mac/Dockerfile
+  evendors-php:
+    build:
+      dockerfile: docker/images/multistage/evendors-mac/Dockerfile

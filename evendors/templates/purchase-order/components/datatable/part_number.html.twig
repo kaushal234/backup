@@ -1,0 +1,11 @@
+<td>
+    <div data-name="{{ key }}">
+    {% set revisionEffectiveDate = item.revisionEffectiveDate|default("now"|date('Y-m-d')) %}
+        <div>
+            <a href="{{ path('manufacturing:bill-of-material', {site: item.site, item: item.partNumber, effectiveDate: revisionEffectiveDate}) }}">{{ item.partNumber }}</a>
+        </div>
+        <div>
+            <a href="{{ path('manufacturing:bill-of-material:drawing-3d', {site: item.site,item: item.partNumber,effectiveDate: revisionEffectiveDate, revision: item.revision}) }}" class="ms-2 text-muted" title="Download 3D ZIP">3D files <i class="fa-solid fa-cube"></i></a>
+        </div>
+    </div>
+</td>

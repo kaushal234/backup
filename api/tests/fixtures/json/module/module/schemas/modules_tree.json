@@ -1,0 +1,64 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/modules_tree$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/(modules|lights|extendeds)/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "migrated": {
+            "type": "boolean"
+          },
+          "disabledForTroubleTicket": {
+            "type": "boolean"
+          },
+          "requiringModules": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "array" }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "legacyId",
+          "name",
+          "shortDescription",
+          "migrated",
+          "requiringModules",
+          "disabledForTroubleTicket"
+        ],
+        "additionalProperties" : false
+      },
+      "minItems": 2
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member"
+  ]
+}

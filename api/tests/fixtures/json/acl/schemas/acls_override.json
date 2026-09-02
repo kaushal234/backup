@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/acls$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/acls/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "group": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/groups/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ],
+            "additionalProperties": false
+          },
+          "location": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "group",
+          "location"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

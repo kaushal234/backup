@@ -1,0 +1,69 @@
+{% trans_default_domain "pdfs" %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style type="text/css">
+            {{ include('Pdf/fonts/opensans.css.twig') }}
+            {{ source('@css/pdf.css') }}
+        </style>
+        {% include 'Pdf/jsWkhtmltopdf.html.twig' %}
+    </head>
+
+    <body onload="subst()">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    {% if manual.equipmentRecord.manufacturerLocation.businessUnit.region.subDivision.logo.filePath is defined %}
+                        <img id="logo" src="{{ legacy_upload_uri ~ manual.equipmentRecord.manufacturerLocation.businessUnit.region.subDivision.logo.filePath }}" style="max-height: 170px;">
+                    {% else %}
+                        <img id="logo" src="https://www.tld-gse.com/shared/logos/ALVEST_logo_small.png">
+                    {% endif %}
+                </div>
+                <div class="col-md-6 text-center">
+                    <h3 class="title">{{ 'manual.document.header.title' | trans }}</h3>
+                    <h4>{% if document_id is defined %}{{ document_id }}{% else %}{{ document.id }}{% endif %}</h4>
+                </div>
+                <div class="col-md-3 text-right">
+                    <h4 style="white-space: nowrap ;">
+                        {{ 'manual.general.model' | trans }} :
+                        {% if manual.equipmentRecord is defined and manual.equipmentRecord.model is defined %}
+                            {{ manual.equipmentRecord.model|default('manual.general.unknown'|trans)|raw }}
+                        {% else %}
+                            {{ 'manual.general.unknown' | trans }}
+                        {% endif %}
+                    </h4>
+                    <h5>
+                        {{ 'manual.general.equipmentRecord' | trans }} :
+                        {% if manual.equipmentRecord is defined and manual.equipmentRecord.serialNumber is defined %}
+                            {{ manual.equipmentRecord.serialNumber|default('manual.general.unknown'|trans)|raw }}
+                        {% else %}
+                            {{ 'manual.general.unknown' | trans }}
+                        {% endif %}
+                    </h5>
+                    <h5>
+                        {{ 'manual.general.language' | trans }} : {{ manual.language|default('manual.general.unknown'|trans)|raw }}
+                    </h5>
+                    <h5>
+                        {{ 'manual.general.publicationDate' | trans }} :
+                        {% if manual.createdAt is not null %}
+                            {{ manual.createdAt|date('Y-m-d') }}
+                        {% else %}
+                            {{ 'manual.general.unknown' | trans }}
+                        {% endif %}
+                    </h5>
+                </div>
+            </div>
+            <div id="header">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        {{ 'manual.header.infos.page' | trans }}
+                        <span class="page"></span>/<span class="topage"></span>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+    </body>
+</html>

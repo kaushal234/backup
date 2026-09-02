@@ -1,0 +1,63 @@
+{% extends '/sales/catalogue/lead_time/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'button.filters' | trans([], 'messages') | upper }}</h5>
+            </div>
+            <div class="ibox-content">
+                {% form_theme leadTimeForm 'form_theme_vertical.html.twig' %}
+                {{ form_start(leadTimeForm) }}
+                {{ form_errors(leadTimeForm) }}
+                <div class="row">
+                    <div class="col-lg-4">
+                        {{ form_row(leadTimeForm.factory) }}
+                    </div>
+                    <div class="col-lg-4">
+                        {{ form_row(leadTimeForm.productType) }}
+                    </div>
+                    <div class="col-lg-4">
+                        {{ form_row(leadTimeForm.submit) }}
+                    </div>
+                </div>
+                {{ form_rest(leadTimeForm) }}
+                {{ form_end(leadTimeForm) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'lead_time.lead_time'| trans() | capitalize }}: {{ allowedLocations|column('name')|join(', ') }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="alert alert-info alert-dismissable">
+                    {{ 'lead_time.information'| trans() | capitalize | nl2br | raw }}
+                </div>
+                {% if allowedLocations is not empty and filtered is not same as(true) %}
+                    <a href="{{ path('lead_time_home', {'my-locations': 1}) }}" class="btn btn-info text-capitalize">
+                        <i class="fa fa-filter"></i>&nbsp;{{ 'lead_time.show_my_locations'|trans }}
+                    </a>
+                {% endif %}
+
+                {{ include('helper/_matrix_table.html.twig', {
+                    data: leadTimesMatrixData,
+                    template: '/sales/catalogue/lead_time/partial/_matrix_cell.html.twig',
+                    hideTotals:'both',
+                    removeXTotalsParam: true,
+                    removeYTotalsParam: true,
+                    additionalParams: {
+                        reportHotSfr: reportHotSfr,
+                        reportQuantityHotSfr: reportQuantityHotSfr,
+                        familyIris: familyIris,
+                        factoryIris: factoryIris,
+                    },
+                }, with_context=false) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

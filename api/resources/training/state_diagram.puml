@@ -1,0 +1,12 @@
+@startuml
+hide empty description
+
+[*] --> PLANNED
+PLANNED ------> CANCELLED: manually
+CANCELLED ------> PLANNED: manually\nand if the starting date\nis in the past
+PLANNED ---> DONE: manually\nand if the starting date\nis not in the past
+DONE --> [*]
+
+PLANNED: Metting has been set up
+DONE: Metting is over
+@enduml

@@ -1,0 +1,108 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block menu %}
+    {% set count = (collector.queries|length) %}
+    <span class="label {{ count > 0 ? 'label-status-warning' : 'disabled' }}">
+        <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="50" height="50" viewBox="0 0 50 50" xml:space="preserve">
+                <g transform="matrix(0.54 0 0 0.54 25 25)" id="Okt78-Sejhx01SDHjCnUA">
+                    <g style="" vector-effect="non-scaling-stroke">
+                        <g transform="matrix(3.78 0 0 3.78 -39.33 5.74)" id="_BY57uN8I3yooBWZV4HAe">
+                            <path style="stroke: none; stroke-width: 0.35; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-109.55, -174.19)" d="M 108.70896 171.45534 L 110.39711 171.45534 L 110.39711 176.92501000000001 L 108.70896 176.92501000000001 z" stroke-linecap="round" />
+                        </g>
+                        <g transform="matrix(3.78 0 0 3.78 -22.78 5.49)" id="oV8XyPtVBVfphsAl1hDee">
+                            <path style="stroke: none; stroke-width: 0.35; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-113.93, -174.12)" d="M 111.29813 171.45524 L 112.91871 171.45524 L 112.91871 171.95772 C 112.91871 171.95772 113.20022 171.32038 114.53932 171.32019 C 116.24986 171.32009 116.56511 172.44553 116.56511 173.90884 L 116.56511 176.92483 L 114.87711 176.92483 L 114.87711 174.24634999999998 C 114.87711 173.61601 114.86581 172.80584 113.99917 172.80584 C 113.12125 172.80584 112.98628000000001 173.49226 112.98628000000001 174.20139 L 112.98628000000001 176.92483000000001 L 111.29813000000001 176.92483000000001 z" stroke-linecap="round" />
+                        </g>
+                        <g transform="matrix(3.78 0 0 3.78 -3.51 -0.26)" id="2QjjVilhY_MpYEgiC-jFf">
+                            <path style="stroke: none; stroke-width: 0.35; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-119.03, -172.6)" d="M 117.46624 170.4874 C 117.46624 169.29430000000002 117.77 168.28158000000002 119.60437999999999 168.28158000000002 C 119.94188999999999 168.28158000000002 120.27985999999999 168.30398000000002 120.59485 168.3829 L 120.51594999999999 169.81210000000002 C 120.32453 169.74450000000002 120.16712999999999 169.69957000000002 119.96448999999998 169.69957000000002 C 119.42433999999999 169.69957000000002 119.15432999999999 169.86846000000003 119.15432999999999 170.58872000000002 L 119.15432999999999 171.45524000000003 L 120.40341 171.45524000000003 L 120.40341 172.80584000000005 L 119.15432999999999 172.80584000000005 L 119.15432999999999 176.92483000000004 L 117.46621999999999 176.92483000000004 z" stroke-linecap="round" />
+                        </g>
+                        <g transform="matrix(3.78 0 0 3.78 13.99 5.74)" id="YZ9kJ-PvJHSt_tR11Rgww">
+                            <path style="stroke: none; stroke-width: 0.35; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-123.66, -174.19)" d="M 123.66187 171.32038 C 125.34967999999999 171.32038 126.70047 172.44562 126.70047 174.19008 C 126.70047 175.93445 125.34967999999999 177.05979 123.66187 177.05979 C 121.97346999999999 177.05979 120.62307999999999 175.93445 120.62307999999999 174.19008 C 120.62307999999999 172.44562 121.97346999999999 171.32038 123.66187 171.32038 M 123.66187 175.57441 C 124.50586 175.57441 125.01245999999999 175.01156 125.01245999999999 174.19008 C 125.01245999999999 173.36840999999998 124.50585999999998 172.80584 123.66187 172.80584 C 122.81747999999999 172.80584 122.31146 173.36840999999998 122.31146 174.19008 C 122.31146 175.01156 122.81748 175.57441 123.66187 175.57441" stroke-linecap="round" />
+                        </g>
+                        <g transform="matrix(3.78 0 0 3.78 35.25 5.47)" id="FWzt3UNVdb6ZAvoHAub_9">
+                            <path style="stroke: none; stroke-width: 0.35; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-129.29, -174.12)" d="M 127.36184 171.45524 L 129.04985 171.45524 L 129.04985 171.93332 C 129.04985 171.93332 129.49026 171.24243 131.2108 171.31635 L 131.2108 172.79817 C 130.97432 172.73067 130.73805000000002 172.68573 130.49054 172.68573 C 129.20761000000002 172.68573 129.04985000000002 173.60881 129.04985000000002 174.70022 L 129.04985000000002 176.92483000000001 L 127.36184000000002 176.92483000000001 z" stroke-linecap="round" />
+                        </g>
+                        <g transform="matrix(3.78 0 0 3.78 -39.33 -11.89)" id="0f_r5NztC9apFQSfkRSIJ">
+                            <path style="stroke: none; stroke-width: 0.35; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  transform=" translate(-109.55, -169.53)" d="M 108.70896 169.65274 L 110.39707 168.49608999999998 L 110.39707 170.55432 L 108.70896 170.55432 z" stroke-linecap="round" />
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
+        <strong>ION</strong>
+        {% if count > 0 %}
+        <span class="count">
+            <span>{{ count }}</span>
+        </span>
+        {% endif %}
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <div class="metrics">
+        <div class="metric">
+            <span class="value">{{ collector.queries|length }}</span>
+            <span class="label">Queries to ION API</span>
+        </div>
+    </div>
+
+    {% for query in collector.queries %}
+        <table>
+        <thead>
+            <tr>
+                <th>
+                    <span class="label"># {{ loop.index }} </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Operation</th>
+                <td>{{ query.operation }}</td>
+            </tr>
+            <tr>
+                <th>Execution time</th>
+                <td>{{ query.executionTime }}</td>
+            </tr>
+            <tr>
+                <th>Request body</th>
+                <td>{% if query.requestBody is not empty %}{{ profiler_dump(query.requestBody[0], maxDepth=1) }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>XML Request</th>
+                <td>
+                    <pre lang="xml">{{ query.xmlRequest }}</pre>
+                </td>
+            </tr>
+            <tr>
+                <th>Request headers</th>
+                <td>{{ query.requestHeaders | nl2br }}</td>
+            </tr>
+            <tr>
+                <th>Response</th>
+                <td>
+                    <button class="btn btn-sm hidden" data-clipboard-text="{{ query.xmlResponse|e('html_attr') }}">Copy Response</button>
+                    <script type="text/javascript">
+                        if (navigator.clipboard) {
+                            document.querySelectorAll('[data-clipboard-text]').forEach(function(button) {
+                                Sfjs.removeClass(button, 'hidden');
+                                button.addEventListener('click', function() {
+                                    navigator.clipboard.writeText(button.getAttribute('data-clipboard-text'));
+                                })
+                            });
+                        }
+                    </script>
+                    <hr>
+                    <pre lang="xml">{{ query.xmlResponse }}</pre>
+                </td>
+                <td><pre lang="xml">{{ query.xmlResponse }}</pre></td>
+            </tr>
+            <tr>
+                <th>Response headers</th>
+                <td>{{ query.responseHeaders | nl2br }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    {% endfor    %}
+{% endblock %}

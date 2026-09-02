@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": { "type": "string" },
+    "@type": { "type": "string" },
+    "status": { "type": "string" },
+    "location": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+      ]
+    },
+    "buyer": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    }
+  },
+  "required": ["@id", "@type", "location", "buyer"],
+  "additionalProperties": false
+}

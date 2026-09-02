@@ -1,0 +1,481 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "@context": {"type": "string"},
+        "@id": {"pattern": "^/parts/(toc_|sb_|)spare_parts_requests/\\d+$"},
+        "@type": { "type": "string" },
+        "tocId": {"type": ["integer", "null"]},
+        "sbId": {"type": ["integer", "null"]},
+        "legacyId": {"type": "integer"},
+        "id": {"type": "integer"},
+        "createdAt": {"type": "string"},
+        "poster": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+        "status": {"type": "string"},
+        "activity": {"type": "string"},
+        "type": {"type": "string"},
+        "deliveryNotes": {"type": ["string", "null"]},
+        "sph": { "$ref": "../../directory_location/schemas/directory_location_public.json" },
+        "sso": { "$ref": "../../directory_location/schemas/directory_location_public.json" },
+        "factory": {"$ref": "../../directory_location/schemas/directory_location_public.json" },
+        "erpLocation": {
+            "oneOf": [
+                {"type": "null"},
+                {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+            ]
+        },
+        "shippingDate": {"type": ["string", "null"]},
+        "estimatedShippingDate": {"type": ["string", "null"]},
+        "notes": {"type": ["string", "null"]},
+        "salesOrder": {"type": ["string", "null"]},
+        "customer": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^/sales/customers/\\d+$"},
+                "@type": {"type": "string"},
+                "name": {"type": "string"},
+                "status": {"type": "string"},
+                "legacyId": {"type": "integer"}
+            },
+            "required": ["@id", "@type", "name", "status", "legacyId"],
+            "additionalProperties": false
+        },
+        "airport": {
+            "type": "object",
+            "properties": {
+                "@id": {"pattern": "^/airports/\\d+$"},
+                "@type": { "type": "string" },
+                "code": {"type": "string"},
+                "cityName": {"type": "string"},
+                "legacyId": {"type": "integer"},
+                "latitude": {"type": ["number", "null"]},
+                "longitude": {"type": ["number", "null"]}
+            },
+            "required": ["@id", "@type", "legacyId", "code", "cityName", "latitude", "longitude"],
+            "additionalProperties": false
+        },
+        "equipmentRecords": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "@id": {"pattern": "^/equipment_records/\\d+$"},
+                    "@type": {"type": "string"},
+                    "id": {"type": "integer"},
+                    "serialNumber": {"type": "string"},
+                    "type": {"type": ["string", "null"]},
+                    "model": {"type": ["string", "null"]},
+                    "buyer": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "@id": {"pattern": "^/sales/customers/\\d+$"},
+                            "@type": {"type": "string"},
+                            "name": {"type": "string"},
+                            "status": {"type": "string"},
+                            "legacyId": {"type": "integer"}
+                        },
+                        "required": ["@id", "@type", "name", "status", "legacyId"]
+                    },
+                    "greenTagDate": {
+                      "type": ["string", "null"]
+                    },
+                    "yellowTagDate": {
+                      "type": ["string", "null"]
+                    },
+                    "endUser": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "@id": {"pattern": "^/sales/customers/\\d+$"},
+                            "@type": {"type": "string"},
+                            "name": {"type": "string"},
+                            "status": {"type": "string"},
+                            "legacyId": {"type": "integer"}
+                        },
+                        "required": ["@id", "@type", "name", "status", "legacyId"]
+                    },
+                    "maintainer": {
+                        "oneOf": [
+                            {"type": "null"},
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {"pattern": "^/sales/customers/\\d+$"},
+                                    "@type": {"type": "string"},
+                                    "name": {"type": "string"},
+                                    "status": {"type": "string"},
+                                    "legacyId": {"type": "integer"}
+                                },
+                                "required": ["@id", "@type", "name", "status", "legacyId"]
+                            }
+                        ]
+                    },
+                    "manufacturerLocation": {
+                        "oneOf": [
+                            {"type": "null"},
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {"pattern": "^/locations/\\d+$"},
+                                    "name": {"type": "string"},
+                                    "erp": {"type": ["integer", "null"]},
+                                    "@type": {"type": "string"},
+                                    "legacyId": {"type": "integer"}
+                                },
+                                "required": ["@id", "@type", "legacyId"]
+                            }
+                        ]
+                    },
+                    "salesOrganisation": {
+                        "oneOf": [
+                            {"type": "null"},
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {"pattern": "^/locations/\\d+$"},
+                                    "name": {"type": "string"},
+                                    "erp": {"type": ["integer", "null"]},
+                                    "@type": {"type": "string"},
+                                    "legacyId": {"type": "integer"}
+                                },
+                                "required": ["@id", "@type", "legacyId"]
+                            }
+                        ]
+                    },
+                    "salesOrganisationService": {
+                        "oneOf": [
+                            {"type": "null"},
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {"pattern": "^/locations/\\d+$"},
+                                    "@type": {"type": "string"},
+                                    "name": {"type": "string"},
+                                    "erp": {"type": ["integer", "null"]},
+                                    "legacyId": {"type": "integer"}
+                                },
+                                "required": [
+                                    "@id",
+                                    "@type",
+                                    "legacyId"
+                                ]
+                            }
+                        ]
+                    },
+                    "customerSerialNumber": {"type": ["string", "null"]},
+                    "product": {
+                        "oneOf": [
+                            {"type": "null"},
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {"pattern": "^/sales/products/\\d+$"},
+                                    "@type": {"type": "string"},
+                                    "family": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "@id": {"pattern": "^/sales/product_families/\\d+$"},
+                                            "@type": {"type": "string"},
+                                            "productType": {
+                                                "type": "object",
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "@id": {"pattern": "^/sales/product_types/\\d+$"},
+                                                    "@type": {"type": "string"},
+                                                    "englishName": {"type": "string"},
+                                                    "legacyId": {"type": "integer"}
+                                                },
+                                                "required": ["@id", "@type", "englishName", "legacyId"]
+                                            },
+                                            "legacyId": {"type": "integer"}
+                                        },
+                                        "required": ["@id", "@type", "productType", "legacyId"]
+                                    },
+                                    "legacyId": {"type": "integer"}
+                                },
+                                "required": ["@id", "@type", "family", "legacyId"]
+                            }
+                        ]
+                    },
+                    "location": {"type": ["string", "null"]},
+                    "dateShipped": {"type": ["string", "null"]},
+                    "dateCommissioned": {"type": ["string", "null"]},
+                    "legacyId": {"type": "integer"},
+                    "hourMeter": {"type": ["integer", "null"]}
+                },
+                "required": [
+                  "@id", "@type", "id", "serialNumber", "type", "model", "buyer", "endUser",
+                  "customerSerialNumber", "product", "location", "dateShipped", "legacyId", "dateCommissioned",
+                  "salesOrganisation", "manufacturerLocation", "maintainer", "hourMeter",
+                  "greenTagDate", "yellowTagDate"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "parts": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "@id": {"pattern": "^/parts/spare_parts_request_parts/\\d+$"},
+                    "@type": {"type": "string"},
+                    "legacyId": {"type": "integer"},
+                    "id": {"type": "integer"},
+                    "createdAt": {"type": "string"},
+                    "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                    "deletedAt": {"type": ["null", "string"]},
+                    "deletedBy": {"oneOf": [
+                        {"type": "null"},
+                        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                    ]},
+                    "partNumber": {"type": "string"},
+                    "description": {"type": "string"},
+                    "unitOfMeasure": {"type": "string"},
+                    "quantity": {"type": "integer"},
+                    "comment": {"type": ["null", "string"]},
+                    "shippingOrigin": {
+                        "oneOf": [
+                            {"type": "null"},
+                            {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+                        ]
+                    },
+                    "plannedDeliveryDate": {"type": ["null", "string"]},
+                    "trackings": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "trackingNumber": {"type": "string"},
+                                "carrier": {"type": "string"},
+                                "shippedQuantity": {"type": "number"},
+                                "unitOfMeasure": {"type": "number"},
+                                "trackingLink": {"type": ["string", "null"]}
+                            },
+                            "required": ["trackingNumber", "courier", "shippedQuantity", "unitOfMeasure", "trackingLink"],
+                            "additionalProperties": false
+                        }
+                    }
+                },
+                "required": ["@id", "@type", "legacyId", "id", "createdAt", "createdBy", "deletedAt", "deletedBy", "partNumber", "description", "unitOfMeasure", "quantity", "comment", "shippingOrigin", "trackings"],
+                "additionalProperties": false
+            }
+        },
+        "deletedParts": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "@id": {"pattern": "^/parts/spare_parts_request_parts/\\d+$"},
+                    "@type": {"type": "string"},
+                    "legacyId": {"type": "integer"},
+                    "id": {"type": "integer"},
+                    "createdAt": {"type": "string"},
+                    "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                    "deletedAt": {"type": ["null", "string"]},
+                    "deletedBy": {"oneOf": [
+                        {"type": "null"},
+                        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                    ]},
+                    "partNumber": {"type": "string"},
+                    "description": {"type": "string"},
+                    "unitOfMeasure": {"type": "string"},
+                    "quantity": {"type": "integer"},
+                    "comment": {"type": ["null", "string"]},
+                    "shippingOrigin": {
+                        "oneOf": [
+                            {"type": "null"},
+                            {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+                        ]
+                    },
+                    "plannedDeliveryDate": {"type": ["null", "string"]},
+                    "trackings": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "trackingNumber": {"type": "string"},
+                                "carrier": {"type": "string"},
+                                "shippedQuantity": {"type": "number"},
+                                "unitOfMeasure": {"type": "number"},
+                                "trackingLink": {"type": ["string", "null"]}
+                            },
+                            "required": ["trackingNumber", "courier", "shippedQuantity", "unitOfMeasure", "trackingLink"],
+                            "additionalProperties": false
+                        }
+                    }
+                },
+                "required": ["@id", "@type", "legacyId", "id", "createdAt", "createdBy", "deletedAt", "deletedBy", "partNumber", "description", "unitOfMeasure", "quantity", "comment", "trackings"],
+                "additionalProperties": false
+            }
+        },
+        "proofOfDelivery": {
+            "oneOf": [
+                { "type": "null" },
+                { "$ref": "../../shared/schemas/file.json" }
+            ]
+        },
+        "sparePartsRequestFiles": {
+            "type": "array",
+            "items": { "type": "object" }
+        },
+        "deliveryAddress": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/parts/spare_parts_request_delivery_addresses/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "lastname": {"type": "string"},
+                "firstname": {"type": "string"},
+                "company": {"type": ["string", "null"]},
+                "phone": {"type": "string"},
+                "contact": {
+                    "oneOf": [
+                        {"type": "null"},
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@id": {"pattern": "^/sales/extranet_users/\\d+$"},
+                                "@type": {"type": "string"},
+                                "id": {"type": "integer"},
+                                "username": {"type": "string"},
+                                "email": {"type": "string"},
+                                "lastname": {"type": "string"},
+                                "firstname": {"type": "string"},
+                                "passwordExpirationDate": {"type": "string"},
+                                "legacyId": {"type": "integer"}
+                            },
+                            "required": ["@id", "@type", "username", "firstname", "lastname", "passwordExpirationDate", "email", "legacyId"],
+                            "additionalProperties": false
+                        }
+                    ]
+                },
+                "address": {
+                    "type": "object",
+                    "properties": {
+                        "@id": {
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "@type": {
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "country": {
+                            "externalDocs": {
+                                "url": "https://schema.org/addressCountry"
+                            },
+                            "type": ["string","null"]
+                        },
+                        "street1": {
+                            "maxLength": 255,
+                            "externalDocs": {
+                                "url": "https://schema.org/streetAddress"
+                            },
+                            "type": ["string","null"]
+                        },
+                        "street2": {
+                            "maxLength": 255,
+                            "externalDocs": {
+                                "url": "https://schema.org/streetAddress"
+                            },
+                            "type": ["string","null"]
+                        },
+                        "postalCode": {
+                            "maxLength": 20,
+                            "externalDocs": {
+                                "url": "https://schema.org/postalCode"
+                            },
+                            "type": ["string","null"]
+                        },
+                        "city": {
+                            "maxLength": 50,
+                            "externalDocs": {
+                                "url": "https://schema.org/addressLocality"
+                            },
+                            "type": ["string","null"]
+                        },
+                        "town": {
+                            "maxLength": 50,
+                            "externalDocs": {
+                                "url": "https://schema.org/addressLocality"
+                            },
+                            "type": ["string","null"]
+                        },
+                        "state": {
+                            "maxLength": 50,
+                            "externalDocs": {
+                                "url": "https://schema.org/addressLocality"
+                            },
+                            "type": ["string","null"]
+                        }
+                    },
+                    "required": [
+                        "@id",
+                        "@type",
+                        "country",
+                        "street1",
+                        "street2",
+                        "postalCode",
+                        "city",
+                        "town",
+                        "state"
+                    ],
+                    "additionalProperties": false
+                },
+                "airport": {
+                    "type": "object",
+                    "properties": {
+                        "@id": {"pattern": "^/airports/\\d+$"},
+                        "@type": { "type": "string" },
+                        "code": {"type": "string"},
+                        "cityName": {"type": "string"},
+                        "legacyId": {"type": "integer"},
+                        "latitude": {"type": ["number", "null"]},
+                        "longitude": {"type": ["number", "null"]}
+                    },
+                    "required": ["@id", "@type", "legacyId", "code", "cityName", "latitude", "longitude"],
+                    "additionalProperties": false
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "contact",
+                "address",
+                "airport",
+                "lastname",
+                "firstname",
+                "company",
+                "phone",
+                "id"
+            ],
+            "additionalProperties": false
+        },
+        "technicianOnCall": {
+            "oneOf": [
+                {"type": "null"},
+                {"$ref": "../../technician_on_calls/schemas/technician_on_call.json"}
+            ]
+        }
+    },
+    "required": ["@context", "@id", "@type", "legacyId", "id", "createdAt", "sparePartsRequestFiles", "poster", "status", "activity", "type", "sph", "factory", "erpLocation", "shippingDate", "estimatedShippingDate", "notes", "salesOrder", "airport", "equipmentRecords", "parts", "deletedParts", "proofOfDelivery", "deliveryNotes"],
+    "additionalProperties": false
+}

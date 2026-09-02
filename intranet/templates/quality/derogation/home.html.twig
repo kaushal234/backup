@@ -1,0 +1,95 @@
+{% extends 'quality/derogation/layout.html.twig' %}
+{% trans_default_domain 'crab' %}
+{% form_theme form_id 'form_theme_vertical.html.twig' %}
+
+
+{% block content %}
+    <div class="col-md-4">
+        <h3 class="text-capitalize">{{ 'customer_relationship_team.fields.quick_access'|trans([], 'customer_relationship_team') }}</h3>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(form_id, { action: path('derogation_home') }) }}
+                <div class="row">
+                    <div class="col-sm-10">
+                        {{ form_widget(form_id) }}
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                    </div>
+                </div>
+                {{ form_end(form_id) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins {% if filtered == false or resetPath is defined and resetPath == path('derogation_home') %}collapsed{% endif %}">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('quality/derogation/partial/_form_filter.html.twig', {
+                        form: form_filter,
+                        resetPath: path('derogation_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: '#',
+                            link:{
+                                route: 'derogation_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        assignor: {
+                            properties: ['assignor.firstname', 'assignor.lastname'],
+                            label: 'tasks.assignor' | trans({}, 'messages'),
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'assignor.@id'},
+                            },
+                        },
+                        assignee: {
+                            properties: ['assignee.firstname', 'assignee.lastname'],
+                            label: 'tasks.assignee' | trans({}, 'messages'),
+                            link:{
+                                route: 'directory_people_show',
+                                params: {'id':'assignee.@id'},
+                            },
+                        },
+                        shortDescription: { label: 'tasks.description' | trans({}, 'messages')},
+                        dueDate: {
+                            label: 'fields.due_date' | trans({}, 'messages')|capitalize,
+                            filters: 'date("Y-m-d")',
+                        },
+                        status: {
+                            label: 'crab.fields.derogation_status' | trans,
+                        }
+                    },
+                    title: derogationReportTitle | trans,
+                    data: derogationsCollection,
+                    initialSorting: false,
+                    additionalClass: 'table-striped'
+                },
+            }, with_context = false )}}
+        </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

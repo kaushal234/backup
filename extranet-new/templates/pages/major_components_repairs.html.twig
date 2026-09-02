@@ -1,0 +1,96 @@
+{#
+  pages/major_components_repairs.html.twig — STATIC
+  Route: page:major_repairs
+  Controller: App\Controller\StaticPageController::majorRepairs
+
+  The before/after slider uses before_after_controller.js.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.menu.major_repairs'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.technical_services'|trans,
+        hero_title: 'extranet.page.major_repairs.title'|trans,
+        hero_sub: 'extranet.page.major_repairs.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.menu.parts_support'|trans },
+            { label: 'extranet.page.major_repairs.title'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="row g-5">
+                {# LEFT — narrative #}
+                <div class="col-lg-7">
+                    <div class="comp-types">
+                        {% for ct in ['Pumps', 'Motors', 'Drives', 'Axles'] %}
+                            <span class="comp-type"><span class="ct-ico">●</span>{{ ct }}</span>
+                        {% endfor %}
+                        <span class="comp-type more">+ {{ 'extranet.page.major_repairs.and_more'|trans }}</span>
+                    </div>
+
+                    <p class="repairs-lead">{{ 'extranet.page.major_repairs.lead'|trans }}</p>
+
+                    <div class="repairs-body">
+                        <p>{{ 'extranet.page.major_repairs.body'|trans }}</p>
+                    </div>
+
+                    <div class="priority-block">
+                        <h3 class="priority-head"><span class="ph-bar"></span>{{ 'extranet.page.major_repairs.priority'|trans }}</h3>
+                        <ul class="priority-list">
+                            {% for benefit in [
+                                'extranet.page.major_repairs.b1'|trans,
+                                'extranet.page.major_repairs.b2'|trans,
+                                'extranet.page.major_repairs.b3'|trans,
+                                'extranet.page.major_repairs.b4'|trans
+                            ] %}
+                                <li><span class="pl-ico">✓</span><span>{{ benefit }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                {# RIGHT — before/after slider #}
+                <div class="col-lg-5">
+                    <div class="ba-card">
+                        <div class="ba-head">
+                            <h3 class="ba-title">{{ 'extranet.page.major_repairs.refurb'|trans }}</h3>
+                            <span class="ba-tag">{{ 'extranet.page.major_repairs.drag'|trans }}</span>
+                        </div>
+                        <div class="ba-stage" data-controller="before-after" style="--split:50%">
+                            <div class="ba-layer before"><img src="{{ asset('images/repair-before.png') }}" alt="Before" onerror="this.src='{{ asset('images/no_photo_catalogue.png') }}'"></div>
+                            <div class="ba-layer after"><img src="{{ asset('images/repair-after.png') }}" alt="After" onerror="this.src='{{ asset('images/no_photo_catalogue.png') }}'"></div>
+                            <span class="ba-badge before">{{ 'extranet.page.major_repairs.before'|trans }}</span>
+                            <span class="ba-badge after">{{ 'extranet.page.major_repairs.after'|trans }}</span>
+                            <div class="ba-divider"></div>
+                            <div class="ba-knob">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4 2 8l4 4M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                        </div>
+                        <div class="ba-foot">
+                            {{ 'extranet.page.major_repairs.caption'|trans }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# CTA #}
+            <div class="repairs-cta mt-5">
+                <div class="cta-text">
+                    <h3>{{ 'extranet.page.major_repairs.cta_title'|trans }}</h3>
+                    <p>{{ 'extranet.page.major_repairs.cta_sub'|trans }}</p>
+                </div>
+                <a class="btn-cta" href="{{ path('contact:index') }}?dept=sales">
+                    {{ 'extranet.page.major_repairs.cta_btn'|trans }}
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/purchasing/vendor_users/\\d+$"},
+    "id": {"type": "integer"},
+    "@type": {"type": "string"},
+    "erpIdentifier": {"type": "string"},
+    "email": {"type": "string"},
+    "firstname": {"type": "string"},
+    "lastname": {"type": "string"},
+    "passwordExpirationDate": {"type": "string"}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "erpIdentifier",
+    "email",
+    "firstname",
+    "lastname",
+    "passwordExpirationDate"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,16 @@
+{% extends 'corporate/agr/layout.html.twig' %}
+
+{% set acronym_id = acronym|iri_id %}
+
+{% block title %}{{ parent() }}\AGR#{{ acronym_id }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'titles.edition'|trans|capitalize }}</h3>
+
+    {{ include('corporate/agr/_form.html.twig', {
+        form: form,
+        action: path('acronyms_edit', { id: acronym_id }),
+        cancel_link: path('acronyms_show', { id: acronym_id }),
+        id: acronym_id
+    }, with_context=false) }}
+{% endblock %}

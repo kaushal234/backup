@@ -1,0 +1,13 @@
+{% set customerStatuses = {
+    'APPROVED': 'success',
+    'NOT APPROVED': 'danger'
+} %}
+
+{% set truncated = maxLength is defined and maxLength is not null and customer.name|length > maxLength %}
+
+<a href="{{ path('sales_customers_show', {id: iri_id(customer)}) }}" {% if truncated %}title="{{ customer.name }}"{% endif %}>
+    {{ truncated ? customer.name|slice(0, maxLength) ~ '...' : customer.name }}
+    {% if customer.status != 'APPROVED' or (showApproved is defined and showApproved is same as(true)) %}
+        &nbsp;<span class="label label-sm label-{{ customerStatuses[customer.status]|default('warning') }}">{{ customer.status }}</span>
+    {% endif %}
+</a>

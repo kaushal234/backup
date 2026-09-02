@@ -1,0 +1,13 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('surveys/survey/partial/_form.html.twig', {
+        title: 'survey.page_titles.add'|trans,
+        form: form,
+        action: path('surveys_add'),
+        cancel_link: path('surveys_index')
+    }, with_context=false) }}
+{% endblock %}

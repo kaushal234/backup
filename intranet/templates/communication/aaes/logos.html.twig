@@ -1,0 +1,24 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'ALVEST Arabia_BLUE_MED GREY': {
+                'eps': 'aaes/logos/TLD Arabia_BLUE_MED GREY_CMYK.eps',
+                'jpg': 'aaes/logos/TLD Arabia_BLUE_MED GREY_CMYK.jpg',
+                'png': 'aaes/logos/TLD Arabia_BLUE_MED GREY_RGB.png',
+            },
+            'ALVEST Arabia_WHITE_BLUE': {
+                'eps': 'aaes/logos/TLD Arabia_WHITE_BLUE Background_CMYK.eps',
+                'jpg': 'aaes/logos/TLD Arabia_WHITE_BLUE Background_CMYK.jpg',
+                'png': 'aaes/logos/TLD Arabia_WHITE_BLUE Background_RGB.png',
+            },
+            'ALVEST Arabia_WHITE_TRANSP': {
+                'eps': 'aaes/logos/TLD Arabia_WHITE_TRANSP Background_CMYK.eps',
+                'jpg': 'aaes/logos/TLD Arabia_WHITE_TRANSP Background_CMYK.jpg',
+            },
+        },
+    }) }}
+{% endblock %}

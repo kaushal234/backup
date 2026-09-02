@@ -1,0 +1,5 @@
+<td>
+    {% for region in regions %}
+        <a href="{{ path('directory_regions_show', {id: iri_id(region)}) }}">{{ region.name }}</a><br>
+    {% endfor %}
+</td>

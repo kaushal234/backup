@@ -1,0 +1,180 @@
+App\Entity\Purchasing\SupplierRanking\Threshold:
+  threshold_locked_ocm:
+    id: 1
+    name: Locking limit
+    classification: '@classification_locked'
+    expertiseLevel: '@level_ocm'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: true
+  threshold_locked_specialist:
+    id: 2
+    name: Locking limit
+    classification: '@classification_locked'
+    expertiseLevel: '@level_specialist'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: true
+  threshold_locked_fabricator:
+    id: 3
+    name: Locking limit
+    classification: '@classification_locked'
+    expertiseLevel: '@level_fabricator'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: true
+  threshold_restricted_ocm:
+    id: 4
+    name: Restricted limit
+    classification: '@classification_restricted'
+    expertiseLevel: '@level_ocm'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: true
+  threshold_restricted_specialist:
+    id: 5
+    name: Restricted limit
+    classification: '@classification_restricted'
+    expertiseLevel: '@level_specialist'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: true
+  threshold_restricted_fabricator:
+    id: 6
+    name: Restricted limit
+    classification: '@classification_restricted'
+    expertiseLevel: '@level_fabricator'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: true
+  threshold_restricted_ocm_three:
+    id: 7
+    name: Restricted limit
+    classification: '@classification_restricted'
+    expertiseLevel: '@level_ocm'
+    minCriterias: 3
+    description: <text()>
+    showInGraph: true
+  threshold_restricted_specialist_three:
+    id: 8
+    name: Restricted limit
+    classification: '@classification_restricted'
+    expertiseLevel: '@level_specialist'
+    minCriterias: 3
+    description: <text()>
+    showInGraph: true
+  threshold_restricted_fabricator_three:
+    id: 9
+    name: Restricted limit
+    classification: '@classification_restricted'
+    expertiseLevel: '@level_fabricator'
+    minCriterias: 3
+    description: <text()>
+    showInGraph: true
+  threshold_monitored_ocm:
+    id: 10
+    name: Default monitored
+    classification: '@classification_monitored'
+    expertiseLevel: '@level_ocm'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: false
+  threshold_monitored_specialist:
+    id: 11
+    name: Default monitored
+    classification: '@classification_monitored'
+    expertiseLevel: '@level_specialist'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: false
+  threshold_monitored_fabricator:
+    id: 12
+    name: Default monitored
+    classification: '@classification_monitored'
+    expertiseLevel: '@level_fabricator'
+    minCriterias: 1
+    description: <text()>
+    showInGraph: false
+
+App\Entity\Purchasing\SupplierRanking\ThresholdCriteria:
+  threshold_criteria_01: { threshold: '@threshold_locked_ocm', criteria: '@criteria_cost', rankLimit: 1 }
+  threshold_criteria_02: { threshold: '@threshold_locked_ocm', criteria: '@criteria_quality', rankLimit: 1 }
+  threshold_criteria_03: { threshold: '@threshold_locked_ocm', criteria: '@criteria_logistic', rankLimit: 1 }
+  threshold_criteria_04: { threshold: '@threshold_locked_ocm', criteria: '@criteria_communication', rankLimit: 1 }
+  threshold_criteria_05: { threshold: '@threshold_locked_ocm', criteria: '@criteria_innovation', rankLimit: 1 }
+  threshold_criteria_06: { threshold: '@threshold_locked_ocm', criteria: '@criteria_product', rankLimit: 1 }
+  threshold_criteria_07: { threshold: '@threshold_locked_ocm', criteria: '@criteria_esg', rankLimit: 1 }
+  threshold_criteria_08: { threshold: '@threshold_locked_ocm', criteria: '@criteria_antiCorruption', rankLimit: 1 }
+  threshold_criteria_09: { threshold: '@threshold_locked_ocm', criteria: '@criteria_cybersecurity', rankLimit: 1 }
+  threshold_criteria_10: { threshold: '@threshold_locked_specialist', criteria: '@criteria_cost', rankLimit: 1 }
+  threshold_criteria_11: { threshold: '@threshold_locked_specialist', criteria: '@criteria_quality', rankLimit: 1 }
+  threshold_criteria_12: { threshold: '@threshold_locked_specialist', criteria: '@criteria_logistic', rankLimit: 1 }
+  threshold_criteria_13: { threshold: '@threshold_locked_specialist', criteria: '@criteria_communication', rankLimit: 1 }
+  threshold_criteria_14: { threshold: '@threshold_locked_specialist', criteria: '@criteria_innovation', rankLimit: 1 }
+  threshold_criteria_15: { threshold: '@threshold_locked_specialist', criteria: '@criteria_product', rankLimit: 1 }
+  threshold_criteria_16: { threshold: '@threshold_locked_specialist', criteria: '@criteria_esg', rankLimit: 1 }
+  threshold_criteria_17: { threshold: '@threshold_locked_specialist', criteria: '@criteria_antiCorruption', rankLimit: 1 }
+  threshold_criteria_18: { threshold: '@threshold_locked_specialist', criteria: '@criteria_cybersecurity', rankLimit: 1 }
+  threshold_criteria_19: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_cost', rankLimit: 1 }
+  threshold_criteria_20: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_quality', rankLimit: 1 }
+  threshold_criteria_21: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_logistic', rankLimit: 1 }
+  threshold_criteria_22: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_communication', rankLimit: 1 }
+  threshold_criteria_23: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_innovation', rankLimit: 1 }
+  threshold_criteria_24: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_product', rankLimit: 1 }
+  threshold_criteria_25: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_esg', rankLimit: 1 }
+  threshold_criteria_26: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_antiCorruption', rankLimit: 1 }
+  threshold_criteria_27: { threshold: '@threshold_locked_fabricator', criteria: '@criteria_cybersecurity', rankLimit: 1 }
+  threshold_criteria_28: { threshold: '@threshold_restricted_ocm', criteria: '@criteria_quality', rankLimit: 2 }
+  threshold_criteria_29: { threshold: '@threshold_restricted_ocm', criteria: '@criteria_antiCorruption', rankLimit: 2 }
+  threshold_criteria_30: { threshold: '@threshold_restricted_specialist', criteria: '@criteria_quality', rankLimit: 2 }
+  threshold_criteria_31: { threshold: '@threshold_restricted_specialist', criteria: '@criteria_antiCorruption', rankLimit: 2 }
+  threshold_criteria_32: { threshold: '@threshold_restricted_fabricator', criteria: '@criteria_quality', rankLimit: 2 }
+  threshold_criteria_33: { threshold: '@threshold_restricted_fabricator', criteria: '@criteria_antiCorruption', rankLimit: 2 }
+  threshold_criteria_34: { threshold: '@threshold_restricted_ocm_three', criteria: '@criteria_cost', rankLimit: 2 }
+  threshold_criteria_35: { threshold: '@threshold_restricted_ocm_three', criteria: '@criteria_logistic', rankLimit: 2 }
+  threshold_criteria_36: { threshold: '@threshold_restricted_ocm_three', criteria: '@criteria_communication', rankLimit: 2 }
+  threshold_criteria_37: { threshold: '@threshold_restricted_ocm_three', criteria: '@criteria_innovation', rankLimit: 2 }
+  threshold_criteria_38: { threshold: '@threshold_restricted_ocm_three', criteria: '@criteria_product', rankLimit: 3 }
+  threshold_criteria_39: { threshold: '@threshold_restricted_ocm_three', criteria: '@criteria_esg', rankLimit: 2 }
+  threshold_criteria_40: { threshold: '@threshold_restricted_ocm_three', criteria: '@criteria_cybersecurity', rankLimit: 2 }
+  threshold_criteria_41: { threshold: '@threshold_restricted_specialist_three', criteria: '@criteria_cost', rankLimit: 2 }
+  threshold_criteria_42: { threshold: '@threshold_restricted_specialist_three', criteria: '@criteria_logistic', rankLimit: 2 }
+  threshold_criteria_43: { threshold: '@threshold_restricted_specialist_three', criteria: '@criteria_communication', rankLimit: 2 }
+  threshold_criteria_44: { threshold: '@threshold_restricted_specialist_three', criteria: '@criteria_innovation', rankLimit: 3 }
+  threshold_criteria_45: { threshold: '@threshold_restricted_specialist_three', criteria: '@criteria_product', rankLimit: 2 }
+  threshold_criteria_46: { threshold: '@threshold_restricted_specialist_three', criteria: '@criteria_esg', rankLimit: 2 }
+  threshold_criteria_47: { threshold: '@threshold_restricted_specialist_three', criteria: '@criteria_cybersecurity', rankLimit: 2 }
+  threshold_criteria_48: { threshold: '@threshold_restricted_fabricator_three', criteria: '@criteria_cost', rankLimit: 2 }
+  threshold_criteria_49: { threshold: '@threshold_restricted_fabricator_three', criteria: '@criteria_logistic', rankLimit: 2 }
+  threshold_criteria_50: { threshold: '@threshold_restricted_fabricator_three', criteria: '@criteria_communication', rankLimit: 2 }
+  threshold_criteria_51: { threshold: '@threshold_restricted_fabricator_three', criteria: '@criteria_innovation', rankLimit: 2 }
+  threshold_criteria_52: { threshold: '@threshold_restricted_fabricator_three', criteria: '@criteria_product', rankLimit: 2 }
+  threshold_criteria_53: { threshold: '@threshold_restricted_fabricator_three', criteria: '@criteria_esg', rankLimit: 2 }
+  threshold_criteria_54: { threshold: '@threshold_restricted_fabricator_three', criteria: '@criteria_cybersecurity', rankLimit: 2 }
+  threshold_criteria_55: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_cost', rankLimit: 5 }
+  threshold_criteria_56: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_quality', rankLimit: 5 }
+  threshold_criteria_57: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_logistic', rankLimit: 5 }
+  threshold_criteria_58: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_communication', rankLimit: 5 }
+  threshold_criteria_59: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_innovation', rankLimit: 5 }
+  threshold_criteria_60: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_product', rankLimit: 5 }
+  threshold_criteria_61: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_esg', rankLimit: 5 }
+  threshold_criteria_62: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_antiCorruption', rankLimit: 5 }
+  threshold_criteria_63: { threshold: '@threshold_monitored_ocm', criteria: '@criteria_cybersecurity', rankLimit: 5 }
+  threshold_criteria_64: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_cost', rankLimit: 5 }
+  threshold_criteria_65: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_quality', rankLimit: 5 }
+  threshold_criteria_66: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_logistic', rankLimit: 5 }
+  threshold_criteria_67: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_communication', rankLimit: 5 }
+  threshold_criteria_68: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_innovation', rankLimit: 5 }
+  threshold_criteria_69: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_product', rankLimit: 5 }
+  threshold_criteria_70: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_esg', rankLimit: 5 }
+  threshold_criteria_71: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_antiCorruption', rankLimit: 5 }
+  threshold_criteria_72: { threshold: '@threshold_monitored_specialist', criteria: '@criteria_cybersecurity', rankLimit: 5 }
+  threshold_criteria_73: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_cost', rankLimit: 5 }
+  threshold_criteria_74: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_quality', rankLimit: 5 }
+  threshold_criteria_75: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_logistic', rankLimit: 5 }
+  threshold_criteria_76: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_communication', rankLimit: 5 }
+  threshold_criteria_77: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_innovation', rankLimit: 5 }
+  threshold_criteria_78: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_product', rankLimit: 5 }
+  threshold_criteria_79: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_esg', rankLimit: 5 }
+  threshold_criteria_80: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_antiCorruption', rankLimit: 5 }
+  threshold_criteria_81: { threshold: '@threshold_monitored_fabricator', criteria: '@criteria_cybersecurity', rankLimit: 5 }

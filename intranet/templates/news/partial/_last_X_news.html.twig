@@ -1,0 +1,12 @@
+<table class="table table-responsive table-striped table-sm">
+    {% for news in last_news %}
+    <tr>
+        <td>
+            <a href="{{  path('news_show', {'id': iri_id(news)}) }}">{{ news.title }}</a>
+        </td>
+        <td class="hidden-xs">
+            {{ date(news.date) | ago }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>

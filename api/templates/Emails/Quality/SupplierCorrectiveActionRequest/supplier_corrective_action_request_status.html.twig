@@ -1,0 +1,36 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>{{ ('scar.message_' ~ status) | trans({ '%id%': supplierCorrectiveActionRequest.id }) | nl2br }}</p>
+            <a target="_blank" href="{{ 'TLD TO REVIEW FORM' == supplierCorrectiveActionRequest.status ? url('evendors_scar', {m: ['scar', 'view'], id: supplierCorrectiveActionRequest.id}) : url('supplier_corrective_action_request', {id: supplierCorrectiveActionRequest.id}) }}">Click here to view SCAR#{{ supplierCorrectiveActionRequest.id }}</a>
+            <hr>
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        createdAt: { label:'spr.fields.created_at' | trans, filters: ["date('Y-m-d H:i:s')"]},
+                        poster: { label:'sfr.fields.poster' | trans, properties: ['poster.lastname', 'poster.firstname'] },
+                        leader: { label:'scar.fields.leader' | trans, properties: ['leader.lastname', 'leader.firstname'] },
+                        representative: { label:'scar.fields.representative' | trans, properties: ['representative.lastname', 'representative.firstname'] },
+                        iFactor: { label:'scar.fields.i_factor' | trans},
+                        status: { label:'sfr.fields.status' | trans},
+                        location: { label:'demo.fields.factory' | trans, properties: ['location.name'] },
+                        supplierNumber: { label: 'first_article_qualification.fields.supplier_number' | trans | capitalize },
+                        supplierName: { label: 'first_article_qualification.fields.supplier_name' | trans | capitalize },
+                        shortDescription: { label:'scar.fields.short_description' | trans },
+                        description: { label:'first_article_qualification.fields.part_number.description' | trans | capitalize },
+                        issueOrigin: { label:'scar.fields.root_cause' | trans },
+                        correctiveAction: { label:'scar.fields.corrective_actions' | trans },
+                        preventiveAction: { label:'scar.fields.preventive_actions' | trans },
+                        commercialAgreement: { label:'scar.fields.commercial_agreements' | trans },
+                        conclusion: { label:'scar.fields.conclusion' | trans },
+                    },
+                    data: supplierCorrectiveActionRequest,
+                    title: 'SCAR #'~supplierCorrectiveActionRequest.id
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

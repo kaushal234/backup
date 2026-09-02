@@ -1,0 +1,16 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <strong>{{ 'task.message.dear' | trans }} {{task.assignee.firstname }} {{task.assignee.lastname }},</strong>
+            <p>{{ 'task.message.new_task_assigned' | trans }} {{task.createdBy.firstname }} {{task.createdBy.lastname }}.</p>
+            <p><a href="{{ url('task', { 'id': task.id }) }}">{{ 'task.message.see_task' | trans }}: {{ task.id }}</a></p>
+            <p>{{ 'task.message.status' | trans }}: {{ task.status }}</p>
+            <p>{{ 'task.message.description' | trans }}:</p>
+            <p>{{ task.description | raw  }}</p>
+        </columns>
+    </row>
+{% endblock %}

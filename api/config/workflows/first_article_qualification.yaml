@@ -1,0 +1,46 @@
+framework:
+    workflows:
+        first_article_qualification:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\Quality\FirstArticleQualification\FirstArticleQualification
+            places:
+                - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::PENDING
+                - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS
+                - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS_PLAN_COMPLETED
+                - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::CONDITIONAL
+                - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::QUALIFIED
+                - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::REJECTED
+            transitions:
+                to_in_progress:
+                    from:
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::PENDING
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS_PLAN_COMPLETED
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::QUALIFIED
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::CONDITIONAL
+                    to: !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS
+                to_in_progress_plan_completed:
+                    from:
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS
+                    to: !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS_PLAN_COMPLETED
+                to_rejected:
+                    from:
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::PENDING
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS_PLAN_COMPLETED
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::CONDITIONAL
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::QUALIFIED
+                    to: !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::REJECTED
+                to_conditional:
+                    from:
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS_PLAN_COMPLETED
+                    to: !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::CONDITIONAL
+                to_qualified:
+                    from:
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::IN_PROGRESS_PLAN_COMPLETED
+                        - !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::CONDITIONAL
+                    to: !php/const App\Entity\Quality\FirstArticleQualification\FirstArticleQualification::QUALIFIED

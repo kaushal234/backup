@@ -1,0 +1,188 @@
+App\Entity\Quality\CalibratedTools\Tool:
+    # /quality/calibrated_tools/tools/1
+    first_tool:
+      id: 1
+      serialNumber: 299d9982cc80dcce661d
+      description: first test tool from fixtures
+      calibrationInterval: 20
+      nextCalibrationDate: <dateTimeBetween('+30 days', '+100 days')>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA
+      vendorName: ANA MARIA
+      status: ACTIVE
+      toolType: "@hammers"
+      createdBy: "@user_superuser"
+      locationArea: "@iasi"
+      calibrationLogs: ['@log_first']
+
+    # /quality/calibrated_tools/tools/2
+    second_tool:
+      id: 2
+      serialNumber: 299d9982cc80dcce6s61f
+      description: <text()>
+      calibrationInterval: 20
+      nextCalibrationDate: <dateTimeBetween('+30 days', '+100 days')>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA
+      vendorName: ANA MARIA
+      status: ACTIVE
+      toolType: "@nails"
+      createdBy: "@user_superuser"
+      locationArea: "@botosani"
+
+    # /quality/calibrated_tools/tools/{3..13}
+    tool_{0..10}:
+      id: <($current + 3)>
+      serialNumber: 299d9982cc80dcce6s61f<current()>
+      description: <text()>
+      calibrationInterval: 20
+      nextCalibrationDate: <dateTimeBetween('+30 days', '+100 days')>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA_<current()>
+      vendorName: ANA_maria <current()>
+      status: ACTIVE
+      toolType: "@power_tools"
+      createdBy: "@user_superuser"
+      locationArea: "@vaslui"
+
+    # /quality/calibrated_tools/tools/14
+    fixed_tool:
+      id: 14
+      serialNumber: serialNumber
+      description: Such a wonderful tool
+      calibrationInterval: 60
+      nextCalibrationDate: <dateTimeBetween('-30 days', 'yesterday')>
+      calibrationNotice: 12
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 69
+      vendorErp: 404
+      vendorName: Coucou
+      status: EXPIRED
+      toolType: "@power_tools"
+      createdBy: "@user_superuser"
+      locationArea: "@botosani"
+
+    # /quality/calibrated_tools/tools/{15..17}
+    expired_tool_{1..3}:
+      id: <($current + 14)>
+      serialNumber: expired_<current()>
+      description: expired troll
+      calibrationInterval: 60
+      nextCalibrationDate: <dateTimeBetween('-30 days', 'yesterday')>
+      calibrationNotice: 12
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 69
+      vendorErp: 404
+      vendorName: Coucou
+      status: EXPIRED
+      toolType: "@power_tools"
+      createdBy: "@user_superuser"
+      locationArea: "@botosani"
+
+    # /quality/calibrated_tools/tools/18
+    active_tool_for_command:
+      id: 18
+      serialNumber: active_tool_for_command
+      description:  <text()>
+      calibrationInterval: 20
+      nextCalibrationDate: <(new DateTime("2 days ago"))>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA
+      vendorName: ANA MARIA
+      status: ACTIVE
+      toolType: "@hammers"
+      createdBy: "@user_superuser"
+      locationArea: "@iasi"
+
+    # /quality/calibrated_tools/tools/19
+    calibration_due_soon_tool_for_command:
+      id: 19
+      serialNumber: calibration_due_soon_tool_for_command
+      description:  <text()>
+      calibrationInterval: 20
+      nextCalibrationDate: <(new DateTime("2 days ago"))>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA
+      vendorName: ANA MARIA
+      status: CALIBRATION_DUE_SOON
+      toolType: "@hammers"
+      createdBy: "@user_superuser"
+      locationArea: "@iasi"
+
+    # /quality/calibrated_tools/tools/20
+    calibration_due_soon_to_under_calibration:
+      id: 20
+      serialNumber:  calibration_due_soon_to_under_calibration
+      description:  <text()>
+      calibrationInterval: 20
+      nextCalibrationDate: <(new DateTime("2 days ago"))>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA
+      vendorName: ANA MARIA
+      status: CALIBRATION_DUE_SOON
+      toolType: "@hammers"
+      createdBy: "@user_superuser"
+      locationArea: "@iasi"
+
+    # /quality/calibrated_tools/tools/21
+    active_tool_to_under_calibration:
+      id: 21
+      serialNumber: active_tool_to_under_calibration
+      description:  <text()>
+      calibrationInterval: 20
+      nextCalibrationDate: <(new DateTime("2 days ago"))>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA
+      vendorName: ANA MARIA
+      status: ACTIVE
+      toolType: "@hammers"
+      createdBy: "@user_superuser"
+      locationArea: "@iasi"
+
+    # /quality/calibrated_tools/tools/22
+    out_of_service_tool_to_under_calibration:
+      id: 22
+      serialNumber: out_of_service_tool_to_under_calibration
+      description:  <text()>
+      calibrationInterval: 20
+      nextCalibrationDate: <(new DateTime("2 days ago"))>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA
+      vendorName: ANA MARIA
+      status: OUT_OF_SERVICE
+      toolType: "@hammers"
+      createdBy: "@user_superuser"
+      locationArea: "@iasi"
+
+    # /quality/calibrated_tools/tools/23
+    tool_post_out_tolerance_form:
+      id: 23
+      serialNumber: tool_post_out_tolerance_form
+      description:  <text()>
+      calibrationInterval: 20
+      nextCalibrationDate: <(new DateTime("2 days ago"))>
+      calibrationNotice: 5
+      purchasingDate: <dateTimeBetween('-30 days', 'now')>
+      vendorId: 5
+      vendorErp: ANA
+      vendorName: ANA MARIA
+      status: OUT_OF_SERVICE
+      toolType: "@hammers"
+      createdBy: "@user_superuser"
+      locationArea: "@iasi"

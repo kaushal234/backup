@@ -1,0 +1,539 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/PurchaseOrder.jsonld-purchase_order_quantity_amount_address",
+    "definitions": {
+        "PurchaseOrder.jsonld-purchase_order_quantity_amount_address": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/purchase_orders/.*"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "orderIdentifier": {
+                    "type": "string"
+                },
+                "purchaseOfficeCode": {
+                    "type": "string"
+                },
+                "orderTypeCode": {
+                    "type": "string"
+                },
+                "buyFromSupplierCode": {
+                    "type": "string"
+                },
+                "orderDatetime": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "plannedReceiptDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "reference1": {
+                    "type": "string"
+                },
+                "reference2": {
+                    "type": "string"
+                },
+                "orderStatus": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "buyer":{
+                    "oneOf": [
+                        {"type": "null"},
+                        { "$ref": "../../ion/employees/schemas/item.json" }
+                    ]
+                },
+                "lines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PurchaseOrder.jsonld-purchase_order_line"
+                    },
+                    "minItems": 1
+                },
+                "activity": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "@id": {"pattern": "^/comments/\\d+$"},
+                            "@type": { "type" : "string" },
+                            "@context": { "type" : "string" },
+                            "id": { "type":  "number"},
+                            "message": { "type": "string" },
+                            "files": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "../../shared/schemas/file_light.json"
+                                },
+                                "uniqueItems": true
+                            },
+                            "metadata": { "type": ["object", "array"] },
+                            "changeSet": { "type": ["object", "array"] },
+                            "resource": { "type" : "string"},
+                            "action": { "type" : "string"},
+                            "from": { "type" : "string"},
+                            "user": {
+                                "oneOf": [
+                                    {"type": "null"},
+                                    {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                                ]},
+                            "createdAt": { "type":  "string"},
+                            "updatedAt": { "type":  "string"},
+                            "public": { "type":  "boolean"},
+                            "legacyId": { "type":  "number"}
+                        },
+                        "required": ["@id", "@type", "id", "metadata", "user", "resource", "createdAt", "updatedAt", "public"],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "orderIdentifier",
+                "purchaseOfficeCode",
+                "orderTypeCode",
+                "buyFromSupplierCode",
+                "orderDatetime",
+                "plannedReceiptDate",
+                "reference1",
+                "reference2",
+                "status",
+                "orderStatus",
+                "lines",
+                "activity"
+            ],
+            "additionalProperties": false
+        },
+        "PurchaseOrder.jsonld-purchase_order_line": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "lineIdentifier": {
+                    "type": "string"
+                },
+                "sequence": {
+                    "type": "integer"
+                },
+                "site": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "itemCode": {
+                    "type": "string"
+                },
+                "supplierItemCode": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "engineeringItemRevision": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "engineeringRevisionEffectiveDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "engineeringRevisionExpiryDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "project": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "projectCode": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "plannedReceiptDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "confirmedSupplierDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "rescheduledDate": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "currentPlannedReceiptDate": {
+                    "type": ["string"],
+                    "format": "date-time"
+                },
+                "quantity": {
+                    "$ref": "#/definitions/Quantity.jsonld-purchase_order_quantity_amount_address"
+                },
+                "receivedQuantity": {
+                    "$ref": "#/definitions/Quantity.jsonld-purchase_order_quantity_amount_address"
+                },
+                "backOrderQuantity": {
+                    "$ref": "#/definitions/Quantity.jsonld-purchase_order_quantity_amount_address"
+                },
+                "price": {
+                    "$ref": "#/definitions/Amount.jsonld-purchase_order_quantity_amount_address"
+                },
+                "lineTexts": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "items": {
+                        "$ref": "#/definitions/LineTexts.jsonld-purchase_order"
+                    }
+                },
+                "late": {
+                    "type": "boolean"
+                },
+                "unconfirmed": {
+                    "type": "boolean"
+                },
+                "toBeDeliveredWithin7Days": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "isConfirmable": {
+                    "type":  [
+                        "boolean"
+                    ]
+                },
+                "isToCancel": {
+                    "type":  [
+                        "boolean"
+                    ]
+                },
+                "expired": {
+                    "type": "boolean"
+                },
+                "canceled": {
+                    "type": "boolean"
+                },
+                "lineState": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "lineIdentifier",
+                "sequence",
+                "site",
+                "itemCode",
+                "supplierItemCode",
+                "engineeringItemRevision",
+                "engineeringRevisionEffectiveDate",
+                "engineeringRevisionExpiryDate",
+                "project",
+                "projectCode",
+                "plannedReceiptDate",
+                "confirmedSupplierDate",
+                "rescheduledDate",
+                "currentPlannedReceiptDate",
+                "quantity",
+                "receivedQuantity",
+                "backOrderQuantity",
+                "price",
+                "late",
+                "unconfirmed",
+                "toBeDeliveredWithin7Days",
+                "description",
+                "isConfirmable",
+                "expired",
+                "lineTexts"
+            ],
+            "additionalProperties": false
+        },
+        "Address.jsonld-purchase_order_quantity_amount_address": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^_:\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "addressLine1": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "addressLine2": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "addressLine3": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "addressLine4": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "addressLine5": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "addressLine6": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "postalCode": {
+                    "type": "string"
+                },
+                "cityCode": {
+                    "type": "string"
+                },
+                "cityDescription": {
+                    "type": "string"
+                },
+                "stateOrProvinceCode": {
+                    "type": "string"
+                },
+                "countryCode": {
+                    "type": "string"
+                },
+                "telephone": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "fax": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "telex": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "internetURL": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "emailAddress": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "timeZone": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "name",
+                "addressLine1",
+                "addressLine2",
+                "addressLine3",
+                "addressLine4",
+                "addressLine5",
+                "addressLine6",
+                "postalCode",
+                "cityCode",
+                "cityDescription",
+                "stateOrProvinceCode",
+                "countryCode",
+                "telephone",
+                "fax",
+                "telex",
+                "internetURL",
+                "emailAddress",
+                "timeZone"
+            ],
+            "additionalProperties": false
+        },
+        "Quantity.jsonld-purchase_order_quantity_amount_address": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                },
+                "unitOfMeasure": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "value",
+                "unitOfMeasure"
+            ],
+            "additionalProperties": false
+        },
+        "LineTexts.jsonld-purchase_order": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^_:\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "langCode": {
+                    "type": "string"
+                },
+                "lang": {
+                    "type": "string"
+                },
+                "texts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "langCode",
+                "lang"
+            ],
+            "additionalProperties": false
+        },
+        "Amount.jsonld-purchase_order_quantity_amount_address": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                },
+                "currency": {
+                    "type": "string"
+                },
+                "unitOfMeasure": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "value",
+                "currency",
+                "unitOfMeasure"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

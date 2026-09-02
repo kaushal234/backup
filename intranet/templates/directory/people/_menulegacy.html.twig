@@ -1,0 +1,7 @@
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="{{ path('legacy_directory_index') }}?m[0]=people">Home</a>
+&nbsp;|&nbsp;<a href="{{ path('directory_people_search_id') }}">By Number</a>
+&nbsp;|&nbsp;<a href="{{ path('directory_people_search') }}">Search</a>
+{% if is_granted('FEATURE_DOWNLOAD_DIRECTORY') or is_granted('FEATURE_DOWNLOAD_DIRECTORY_CONFIDENTIAL') %}
+    &nbsp;|&nbsp;<a href="{{ path('directory_people_download') }}">Download directory (CSV)</a>
+{% endif %}

@@ -1,0 +1,39 @@
+App\Entity\AcronymCategory:
+    acro_cat_BU:
+        name: BU
+
+    acro_cat_FINANCE:
+        name: FINANCE
+
+    acro_cat_IT:
+        name: IT
+
+    acro_cat_KPI:
+        name: KPI
+
+    acro_cat_PRODUCT:
+        name: PRODUCT
+
+    acro_cat_TLD_PROCESS:
+        name: TLD_PROCESS
+
+App\Entity\Acronym:
+    acronym_MIS:
+        acronym: MIS
+        description: |
+            A management information system (MIS) is a system that provides information needed to manage organizations effectively.
+            Management information systems involve three primary resources: technology, information, and people.
+            Management information systems are regarded as a subset of the overall internal controls procedures in a business, which cover the application of people, documents, technologies, and procedures used by management accountants to solve business problems such as costing a product, service or a business-wide strategy. Management information systems are distinct from regular information systems in that they are used to analyze other information systems applied in operational activities in the organization.
+        shortDescription: Management Information System
+        url: 'https://www.tld-gse.com/en/private/mis/mis.php'
+        categories:
+            - '@acro_cat_IT'
+
+    acronym_PDC:
+        acronym: PDC
+        description: TLD product continuous improvement process that consists in tracking and handlin properly any comment from the fields
+        shortDescription: Product Demerit Claim
+        url: 'https://tld-gse.com/en/private/product_support/index.ps.php?m=demerits'
+        categories:
+            - '@acro_cat_PRODUCT'
+            - '@acro_cat_TLD_PROCESS'

@@ -1,0 +1,24 @@
+kreyu_data_table:
+  defaults:
+    request_handler: 'App\DataTable\Request\ApiHttpFoundationRequestHandler'
+    themes:
+      - 'datatable_card_theme.html.twig'
+    pagination:
+      enabled: true
+      persistence_enabled: true
+      persistence_adapter: kreyu_data_table.pagination.persistence.adapter.cache
+      persistence_subject_provider: kreyu_data_table.persistence.subject_provider.token_storage
+    sorting:
+      enabled: true
+      persistence_enabled: true
+      persistence_adapter: kreyu_data_table.sorting.persistence.adapter.cache
+      persistence_subject_provider: kreyu_data_table.persistence.subject_provider.token_storage
+    filtration:
+      enabled: true
+      persistence_enabled: true
+      persistence_adapter: kreyu_data_table.filtration.persistence.adapter.cache
+      persistence_subject_provider: kreyu_data_table.persistence.subject_provider.token_storage
+    exporting:
+      enabled: true
+    personalization:
+      enabled: false

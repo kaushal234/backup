@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/plan_item_types$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/quality/plan_item_types/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "requestablePriorDelivery": {
+            "type": "boolean"
+          },
+          "requestableAtPurchaseOrder": {
+            "type": "boolean"
+          }
+
+        },
+        "required": [
+          "@id",
+          "@type",
+          "description",
+          "requestablePriorDelivery",
+          "requestableAtPurchaseOrder"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}
+

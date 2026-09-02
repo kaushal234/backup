@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/position_categories/\\d+$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+    "directHeadcount": { "type": "boolean" },
+    "positionCategoryType": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/position_category_types/\\d+$"},
+        "@type": {"type": "string"},
+        "id": {"type": "integer"},
+        "name": {"type": "string"}
+      },
+      "required": ["@id", "@type", "id", "name"],
+      "additionalProperties": false
+    },
+    "divisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/divisions/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "name": {"type": "string"}
+        },
+        "required": ["@id", "@type", "id", "name"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "name",
+    "description",
+    "directHeadcount",
+    "divisions"
+  ],
+  "additionalProperties": false
+}

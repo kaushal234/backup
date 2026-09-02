@@ -1,0 +1,21 @@
+framework:
+    workflows:
+        sales_order:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\Sales\Order
+            initial_marking: !php/const App\Entity\Sales\Order::PENDING
+            places:
+                - !php/const App\Entity\Sales\Order::PENDING
+                - !php/const App\Entity\Sales\Order::IN_PROGRESS
+                - !php/const App\Entity\Sales\Order::CLOSED
+            transitions:
+                to_in_progress:
+                    from: !php/const App\Entity\Sales\Order::PENDING
+                    to: !php/const App\Entity\Sales\Order::IN_PROGRESS
+                to_closed:
+                    from: !php/const App\Entity\Sales\Order::IN_PROGRESS
+                    to: !php/const App\Entity\Sales\Order::CLOSED

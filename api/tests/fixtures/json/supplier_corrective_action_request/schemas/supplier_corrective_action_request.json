@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/supplier_corrective_action_requests/\\d+(/status|)$"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "createdAt": {"type": "string"},
+    "iFactor": {"type": "string"},
+    "status": {"type": "string"},
+    "shortDescription": {"type": ["string", "null"]},
+    "description": {"type": ["string", "null"]},
+    "closedAt": {"type": ["string", "null"]},
+    "approvedAt": {"type": ["string", "null"]},
+    "issueOrigin": {"type": ["string", "null"]},
+    "correctiveAction": {"type": ["string", "null"]},
+    "commercialAgreement": {"type": ["string", "null"]},
+    "verificationDescription": {"type": ["string", "null"]},
+    "preventiveAction": {"type": ["string", "null"]},
+    "conclusion": {"type": ["string", "null"]},
+    "supplierName": {"type": "string"},
+    "supplierNumber": {"type": "string"},
+    "factory":{"$ref": "../../directory_location/schemas/directory_location_public.json"},
+    "representative":{
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    },
+    "supplierRepresentative":{
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    },
+    "poster":{
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    },
+    "leader": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+      ]
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/parts/supplier_corrective_action_request_parts/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "createdAt": {"type": "string"},
+          "createdBy":{
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+            ]
+          },
+          "deletedAt": {"type": ["null", "string"]},
+          "deletedBy": {"oneOf": [
+            {"type": "null"},
+            {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+          ]},
+          "partNumber": {"type": "string"},
+          "description": {"type": "string"},
+          "unitOfMeasure": {"type": "string"},
+          "quantity": {"type": "integer"}
+        },
+        "required": ["@id", "@type", "id", "createdAt", "createdBy", "deletedAt", "deletedBy", "partNumber", "description", "unitOfMeasure", "quantity"],
+        "additionalProperties": false
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "mainFile": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../shared/schemas/file.json"}
+      ]
+    },
+    "vendorWarrantyClaims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "pattern": "^/purchasing/(ncr_|wc_|)vendor_warranty_claims/\\d+$" },
+          "@type": { "type" : "string" },
+          "status": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/purchasing/vendor_warranty_claim_statuses/\\d+$"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "position": {"type": "integer"}
+            },
+            "required": ["@id", "@type", "name", "description", "position"],
+            "additionalProperties": false
+          },
+          "id": { "type":  "integer"},
+          "type": {
+            "type": "object",
+            "properties": {
+              "@id": {"type":  "string"},
+              "@type": {"type":  "string"},
+              "name": {"type":  "string"},
+              "description": {"type":  "string"}
+            },
+            "required": ["@id", "@type", "name", "description"],
+            "additionalProperties": false
+          },
+          "nonConformity": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/quality/non_conformities/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "problem": {"type": "string"}
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "id",
+                  "problem"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": ["@id", "@type", "status", "type"],
+        "additionalProperties": false
+      }
+    },
+    "activity": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/comments/\\d+$"},
+          "@type": { "type" : "string" },
+          "@context": { "type" : "string" },
+          "id": { "type":  "number"},
+          "message": { "type": "string" },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "../../shared/schemas/file_light.json"
+            },
+            "uniqueItems": true
+          },
+          "metadata": { "type": "object" },
+          "resource": { "type" : "string"},
+          "user": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+          ]},
+          "createdAt": { "type":  "string"},
+          "updatedAt": { "type":  "string"},
+          "public": { "type":  "boolean"},
+          "legacyId": { "type":  "number"},
+          "discriminator": {"type": ["string","null"]}
+        },
+        "required": ["@id", "@type", "id", "message", "files", "metadata", "user", "resource", "createdAt", "updatedAt", "public", "discriminator"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "createdAt",
+    "iFactor",
+    "status",
+    "shortDescription",
+    "description",
+    "closedAt",
+    "approvedAt",
+    "issueOrigin",
+    "correctiveAction",
+    "commercialAgreement",
+    "verificationDescription",
+    "preventiveAction",
+    "factory",
+    "representative",
+    "supplierRepresentative",
+    "leader",
+    "poster",
+    "supplierNumber",
+    "supplierName",
+    "parts",
+    "conclusion",
+    "files",
+    "mainFile",
+    "vendorWarrantyClaims",
+    "activity"
+  ],
+  "additionalProperties": true
+}
+

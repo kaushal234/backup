@@ -1,0 +1,35 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "technician_on_call" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            {{ 'toc.message.task_survey_error'|trans({}, 'emails')|raw }}
+        </columns>
+    </row>
+    {% if messages is not empty %}
+    <row>
+        <columns>
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </columns>
+    </row>
+    {% endif %}
+    <row>
+        <columns>
+            {{ 'toc.message.link'|trans({'%id%': survey.technicianOnCall.id}, 'emails') }}
+			&nbsp;—&nbsp;
+			<a href="{{ path('technician_on_call', {id: survey.technicianOnCall.id }) }}">
+				{{ 'toc.message.intranet'|trans({}, 'emails') }}
+			</a>
+			&nbsp;|&nbsp;
+			<a href="{{ path('mobile_technician_on_call', {id: survey.technicianOnCall.id }) }}">
+				{{ 'toc.message.mobile'|trans({}, 'emails') }}
+			</a>
+        </columns>
+    </row>
+{% endblock %}

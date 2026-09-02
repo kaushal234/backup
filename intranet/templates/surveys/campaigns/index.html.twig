@@ -1,0 +1,98 @@
+{% extends 'surveys/layout.html.twig' %}
+
+{% trans_default_domain 'surveys' %}
+
+{% set survey_id = iri_id(survey) %}
+
+{% block title %} {{ parent() }} / {{ 'published.page_titles.list' | trans([]) }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% set items = {
+            id: {
+                label: 'survey.fields.id' | trans | capitalize,
+                properties: ['@id'],
+                filters: ['iri_id'],
+                class: 'small',
+                link: {
+                    route: 'survey_published_index',
+                    params: { 'campaignId': '@id' },
+                    fixedParams: { 'id': survey_id }
+                },
+                sortable:"numeric"
+            },
+            description: {
+                label: 'general_fields.description' | trans | capitalize,
+                class: 'small'
+            },
+            createdAt: {
+                label: 'general_fields.createdAt' | trans | capitalize,
+                class: 'small text-center',
+                filters: ["date('Y-m-d H:m:s')"]
+            },
+            sentAt: {
+                label: 'general_fields.sentAt' | trans | capitalize,
+                class: 'small text-center',
+                filters: ["date('Y-m-d')"],
+                preserveNull: true
+            },
+            createdBy: {
+                label: 'survey.fields.createdBy'| trans | capitalize,
+                properties: ['createdBy.lastname', 'createdBy.firstname'],
+                class: 'small text-center',
+                link: {
+                    route: 'directory_people_show',
+                    params: { 'id': 'createdBy.@id' }
+                }
+            },
+            view: {
+                label: 'menu.view'|trans([], 'messages')|capitalize,
+                link: {
+                    route: 'survey_published_index',
+                    params: { 'campaignId': '@id' },
+                    fixedParams: { 'id': survey_id },
+                    content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                },
+                sortable: false,
+                class : 'text-end'
+            },
+        } %}
+        {% if is_granted('FEATURE_SURVEY_EDIT_ADMIN') %}
+            {% set items = items | merge ({
+                edit: {
+                    label: 'menu.edit'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'survey_campaign_edit',
+                        params: { 'campaignId': '@id' },
+                        fixedParams: { 'id': survey_id },
+                        content: '<span class="btn btn-warning text-capitalize"><i class="fa fa-pencil-alt"></i></span>',
+                    },
+                    class : 'text-end'
+                },
+            }) %}
+        {% endif %}
+        {% if is_granted('FEATURE_SURVEY_DELETE_ADMIN') %}
+            {% set items = items | merge ({
+                delete: {
+                    label: 'menu.delete'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'survey_campaign_delete',
+                        params: { 'campaignId': '@id' },
+                        fixedParams: { 'id': survey_id },
+                        content: '<span class="btn btn-danger text-capitalize"><i class="fa fa-trash-alt"></i></span>',
+                    },
+                    class : 'text-end'
+                },
+            }) %}
+        {% endif %}
+        <div class="col-lg-9 col-md-12">
+            {{ include ('helper/_report_table.html.twig', {
+                'reportTable': {
+                    data: campaigns,
+                    title: 'campaign.title' | trans | upper,
+                    items: items
+                }
+            }) }}
+        </div>
+    </div>
+{% endblock %}

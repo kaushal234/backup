@@ -1,0 +1,19 @@
+{% extends 'sales/sales_forecasts/list_layout.html.twig' %}
+{% trans_default_domain 'sales_forecasts' %}
+
+{% block sales_forecast_list %}
+    {% apply spaceless %}
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div id="react"/>
+            </div>
+        </div>
+    {% endapply %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}

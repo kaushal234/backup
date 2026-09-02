@@ -1,0 +1,61 @@
+{% extends 'sales/customers/layout.html.twig' %}
+{% trans_default_domain 'contacts' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+   <div class="row">
+        <div class="col-lg-12">
+            {{ include('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'items': {
+                        '@id': {
+                            'label': 'contacts.fields.id'|trans|capitalize,
+                            'link':{
+                                'route': 'sales_contact_show',
+                                'params': {'id':'@id'},
+                            },
+                            'filters': 'iri_id',
+                            'sortable': 'numeric'
+                        },
+                        'name': {
+                            'properties': ['lastname', 'firstname'],
+                            'label': 'contacts.fields.name'|trans|capitalize,
+                        },
+                        'username': {
+                            'label': 'contacts.fields.userid'|trans|capitalize,
+                        },
+                        'erpLocation': {
+                            'properties': ['extranetUserProfile.erpLocation.name'],
+                            'label': 'contacts.fields.erp_location'|trans|capitalize,
+                            'link': {
+                                'route': 'directory_locations_show',
+                                'params': {'id':'extranetUserProfile.erpLocation.@id'},
+                            }
+                        },
+                        'customer': {
+                            'properties': ['extranetUserProfile.customer.name'],
+                            'label': 'contacts.fields.customer'|trans|capitalize,
+                            'link': {
+                                'route': 'sales_customers_show',
+                                'params': {'id':'extranetUserProfile.customer.@id'},
+                            }
+                        },
+                        'view': {
+                            'label': 'menu.view'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'sales_contact_show',
+                                'params': {'id':'@id'},
+                                'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        },
+                    },
+                    'title': 'contacts.menu.contacts'|trans,
+                    'data': extranetUsers,
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

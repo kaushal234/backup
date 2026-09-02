@@ -1,0 +1,22 @@
+{% trans_default_domain "emails" %}
+{{ include('Helpers/_association_table.html.twig', {
+    associationData: {
+        items: {
+            model: { label:'sfr.fields.model' | trans, properties: ['equipmentRecord.product.name']},
+            serialNumber: { label:'manufacturing_margin.fields.serial_number' | trans, properties: ['equipmentRecord.serialNumber']},
+            partNumber: { label:'wms.picking_alert.references.part_number' | trans, properties: ['part.partNumber']},
+            sso: { label:'demo.fields.sso' | trans, properties: ['equipmentRecord.salesOrganisation.name']},
+            customerBuyer: { label:'sfr.fields.customer_buyer' | trans, properties: ['equipmentRecord.buyer.name']},
+            category: { label:'training.references.category' | trans | capitalize },
+            department: { label:'crab.fields.department' | trans({}, 'crab'), properties: ['department.name'] },
+            nonConformity: { label:'non_conformity.title.ncr' | trans({}, 'non_conformity'), properties: ['nonConformity.id']},
+            code: { label:'crab.fields.code' | trans({}, 'crab'), properties: ['code.code', 'code.description'], glue: ' - '},
+            reportedBy: { label:'non_conformity.fields.reported_by' | trans({}, 'non_conformity'), properties: ['createdBy.lastname', 'createdBy.firstname']},
+            description: { label:'spr.fields.description' | trans },
+            fixingComments: { label:'crab.fields.fixing_comments' | trans({}, 'crab') },
+            inspectingComments: { label:'crab.fields.inspecting_comments' | trans({}, 'crab') }
+        },
+        data: crab,
+        title: 'CRAB #'~crab.id
+    },
+}, with_context = false) }}

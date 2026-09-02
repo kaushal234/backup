@@ -1,0 +1,293 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/SparePartsRequestDeliveryAddress.jsonld-delivery_address_delivery_address.detail_address",
+    "definitions": {
+        "SparePartsRequestDeliveryAddress.jsonld-delivery_address_delivery_address.detail_address": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/parts/spare_parts_request_delivery_addresses/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "contact": {
+                    "oneOf": [
+                        {"type": "null"},
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "@id": {"pattern": "^/sales/extranet_users/\\d+$"},
+                                "@type": {"type": "string"},
+                                "username": {"type": "string"},
+                                "disabled": {"type": "boolean"},
+                                "phones": {
+                                    "type": "array",
+                                    "items": {"type": "object"}
+                                },
+                                "extranetUserProfile": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "@id": {"pattern": "^/sales/extranet_user_profiles/\\d+$"},
+                                        "@type": {"type": "string"},
+                                        "id": {"type": "integer"},
+                                        "department": {"type": ["string", "null"]},
+                                        "customer": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "@id": {"pattern": "^/sales/customers/\\d+$"},
+                                                "@type": {"type": "string"},
+                                                "name": {"type": "string"},
+                                                "status": {"type": "string"}
+                                            },
+                                            "required": ["@id", "@type", "name", "status"]
+                                        },
+                                        "erpLocation": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "@id": {"pattern": "^/locations/\\d+$"},
+                                                "@type": {"type": "string"},
+                                                "name": {"type": "string"},
+                                                "erp": {"type": ["integer", "null"]}
+                                            },
+                                            "required": ["@id", "@type", "name", "erp"]
+                                        }
+                                    },
+                                    "required": [
+                                        "@id",
+                                        "@type",
+                                        "id",
+                                        "department",
+                                        "customer",
+                                        "erpLocation"
+                                    ]
+                                },
+                                "hidden": {"type": "boolean"},
+                                "passwordUpdatedAt": {"type": "string"},
+                                "firstname": {"type": "string"},
+                                "lastname": {"type": "string"},
+                                "email": {"type": "string"},
+                                "id": {"type": "integer"},
+                                "passwordExpirationDate": {"type": "string"}
+                            },
+                            "required": [
+                                "@id",
+                                "@type",
+                                "username",
+                                "disabled",
+                                "extranetUserProfile",
+                                "hidden",
+                                "passwordUpdatedAt",
+                                "firstname",
+                                "lastname",
+                                "email",
+                                "id",
+                                "passwordExpirationDate",
+                                "phones"
+                            ]
+                        }
+                    ]
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": ["string", "null"]
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "address": {
+                    "externalDocs": {
+                        "url": "https://schema.org/PostalAddress"
+                    },
+                    "$ref": "#/definitions/AddressWithCountry.jsonld-delivery_address_delivery_address.detail_address"
+                },
+                "airport": {
+                    "type": [
+                          "string",
+                        "null"
+                    ],
+                    "format": "iri-reference"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "lastUsedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "poster": {
+                    "oneOf": [
+                        {"type": "null"},
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "@id": {"pattern": "^/people/\\d+$"},
+                                "@type": {"type": "string"},
+                                "username": {"type": "string"},
+                                "disabled": {"type": "boolean"},
+                                "hidden": {"type": "boolean"},
+                                "passwordUpdatedAt": {"type": "string"},
+                                "firstname": {"type": "string"},
+                                "lastname": {"type": "string"},
+                                "email": {"type": "string"},
+                                "id": {"type": "integer"},
+                                "passwordExpirationDate": {"type": "string"},
+                                "photo": {"type": ["string", "null"]}
+                            },
+                            "required": [
+                                "@id",
+                                "@type",
+                                "username",
+                                "disabled",
+                                "hidden",
+                                "passwordUpdatedAt",
+                                "firstname",
+                                "lastname",
+                                "email",
+                                "id",
+                                "passwordExpirationDate",
+                                "photo"
+                            ]
+                        }
+                    ]
+                },
+                "archived": {"type": "boolean"},
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "contact",
+                "firstname",
+                "lastname",
+                "company",
+                "phone",
+                "address",
+                "airport",
+                "createdAt",
+                "lastUsedAt",
+                "poster",
+                "archived",
+                "id"
+            ],
+            "additionalProperties": false
+        },
+        "AddressWithCountry.jsonld-delivery_address_delivery_address.detail_address": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "country": {
+                    "externalDocs": {
+                        "url": "https://schema.org/addressCountry"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "street1": {
+                    "maxLength": 255,
+                    "externalDocs": {
+                        "url": "https://schema.org/streetAddress"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "street2": {
+                    "maxLength": 255,
+                    "externalDocs": {
+                        "url": "https://schema.org/streetAddress"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "postalCode": {
+                    "maxLength": 20,
+                    "externalDocs": {
+                        "url": "https://schema.org/postalCode"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "city": {
+                    "maxLength": 50,
+                    "externalDocs": {
+                        "url": "https://schema.org/addressLocality"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "town": {
+                    "maxLength": 50,
+                    "externalDocs": {
+                        "url": "https://schema.org/addressLocality"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "state": {
+                    "maxLength": 50,
+                    "externalDocs": {
+                        "url": "https://schema.org/addressLocality"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "country",
+                "street1",
+                "street2",
+                "postalCode",
+                "city",
+                "town",
+                "state"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

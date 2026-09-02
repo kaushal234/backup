@@ -1,0 +1,7 @@
+<td class="text-center">
+    {% if item.expiredAt|date('Y-m-d') < 'now'|date('Y-m-d') %}
+            <span style="color: #EC4758"><i class="fa fa-circle"></i></span>
+    {% else %}
+            <span style="color: #358F46"><i class="fa fa-circle"></i></span>
+    {% endif %}
+</td>

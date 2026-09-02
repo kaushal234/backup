@@ -1,0 +1,145 @@
+{% extends 'finance/forex/layout.html.twig' %}
+{% trans_default_domain "forex" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' | trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('finance/forex/partial/_form_filter_home.html.twig', {
+                        form: formFilters,
+                        resetPath: path('forex_home')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'forex.reports.end_of_month'|trans({ '%currency%': 'EUR'}) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: endOfMonthReport,
+                        hideTotals: 'both',
+                        headers: {columns: ['CAD','CNY','GBP','HKD','JPY','SGD','TWD','USD']},
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'forex.reports.end_of_month'|trans({'%currency%': 'USD'}) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: endOfMonthReportInUSD,
+                        hideTotals: 'both',
+                        headers: {columns: ['CAD','CNY','GBP','HKD','JPY','SGD','TWD']},
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'forex.reports.monthly_average'|trans({ '%currency%': 'EUR'}) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: monthlyAverageReport,
+                        hideTotals: 'both',
+                        headers: {columns: ['CAD','CNY','GBP','HKD','JPY','SGD','TWD','USD']},
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'forex.reports.monthly_average'|trans({ '%currency%': 'USD'}) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: monthlyAverageReportInUSD,
+                        hideTotals: 'both',
+                        headers: {columns: ['CAD','CNY','GBP','HKD','JPY','SGD','TWD']},
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'forex.reports.year_to_date_monthly_average'|trans({ '%currency%': 'EUR'}) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: yearToDateAverage,
+                        hideTotals: 'both',
+                        headers: {columns: ['CAD','CNY','GBP','HKD','JPY','SGD','TWD','USD']},
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'forex.reports.year_to_date_monthly_average'|trans({ '%currency%': 'USD'}) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: yearToDateAverageInUSD,
+                        hideTotals: 'both',
+                        headers: {columns: ['CAD','CNY','GBP','HKD','JPY','SGD','TWD']},
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+- name: Ensure cron is installed
+  become: true
+  ansible.builtin.apt:
+    name: cron
+    state: present
+
+- name: Make sure cron is started on boot
+  become: true
+  ansible.builtin.service:
+    name: cron
+    enabled: true
+    state: "{{ cron.state }}"
+
+- name: Activate logrotate
+  become: true
+  ansible.builtin.cron:
+    name: cron for logrotate
+    job: /usr/sbin/logrotate /etc/logrotate.conf
+    user: root
+    minute: "*/5"
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    state: present

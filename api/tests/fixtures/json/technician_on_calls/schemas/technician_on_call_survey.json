@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/TechnicianOnCallSurvey.jsonld",
+  "definitions": {
+    "TechnicianOnCallSurvey.jsonld": {
+      "type": "object",
+      "description": "",
+      "deprecated": false,
+      "properties": {
+        "@id": {"pattern": "^/service/technician_on_call_surveys/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "@context": {
+          "type": "string"
+        },
+        "execution": {
+          "minimum": 1,
+          "maximum": 5,
+          "type": "integer"
+        },
+        "responsiveness": {
+          "minimum": 1,
+          "maximum": 5,
+          "type": "integer"
+        },
+        "communication": {
+          "minimum": 1,
+          "maximum": 5,
+          "type": "integer"
+        },
+        "attitude": {
+          "minimum": 1,
+          "maximum": 5,
+          "type": "integer"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "technicianOnCall": {
+          "$ref": "technician_on_call_light.json"
+        },
+        "id": {
+          "readOnly": true,
+          "type": "integer"
+        },
+        "perfect": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "@id",
+        "@context",
+        "@type",
+        "execution",
+        "responsiveness",
+        "communication",
+        "attitude",
+        "comment",
+        "technicianOnCall",
+        "perfect"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

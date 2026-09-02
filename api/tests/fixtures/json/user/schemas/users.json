@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": ["hydra:member", "@id"],
+  "properties": {
+    "@id": {"pattern": "^/users$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/(people|(sales/extranet_|purchasing/vendor_|guest_)?users)/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "photo": {
+            "type": ["string", "null"]
+          },
+          "file": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../shared/schemas/file.json" }
+            ]
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "boolean"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "passwordUpdatedAt": {
+            "type": "string"
+          },
+          "passwordExpirationDate": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "@id",
+          "@type",
+          "username",
+          "email",
+          "lastname",
+          "firstname",
+          "hidden",
+          "disabled",
+          "passwordUpdatedAt",
+          "passwordExpirationDate"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

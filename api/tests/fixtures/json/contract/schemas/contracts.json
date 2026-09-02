@@ -1,0 +1,198 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": { "pattern": "^/contracts$" },
+    "@type": { "enum": ["hydra:Collection"] },
+
+    "hydra:totalItems": { "type": "integer" },
+
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "pattern": "^/contracts/\\d+$" },
+          "@type": { "enum": ["Contract"] },
+          "id": { "type": "integer" },
+          "shortDescription": { "type": "string" },
+          "description": { "type": "string" },
+          "status": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "startDate": { "type": "string", "format": "date-time" },
+          "expirationDate": { "type": ["string", "null"], "format": "date-time" },
+          "indefinitePeriodType": { "type": "boolean" },
+          "renewalPeriod": { "type": "integer" },
+          "renewalUnit": { "type": "string" },
+          "externalParty": { "type": "string" },
+          "observationValue": { "type": ["string", "null"] },
+          "observationTerm": { "type": ["string", "null"] },
+          "observationStatus": { "type": ["string", "null"] },
+          "internalParty": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "customers": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "createdBy": {
+            "type": "object",
+            "properties": {
+              "@id": { "type": "string" },
+              "@type": { "type": "string" },
+              "username": { "type": "string" },
+              "email": { "type": "string" },
+              "firstname": { "type": "string" },
+              "lastname": { "type": "string" }
+            },
+            "required": ["@id", "@type", "username", "email"],
+            "additionalProperties": false
+          },
+
+          "owner": {
+            "type": "object",
+            "properties": {
+              "@id": { "type": "string" },
+              "@type": { "type": "string" },
+              "username": { "type": "string" },
+              "email": { "type": "string" },
+              "firstname": { "type": "string" },
+              "lastname": { "type": "string" }
+            },
+            "required": ["@id", "@type", "username", "email"],
+            "additionalProperties": false
+          },
+
+          "value": { "type": "integer" },
+          "currency": {
+            "type": "object",
+            "properties": {
+              "@id": { "type": "string" },
+              "@type": { "type": "string" },
+              "id": { "type": "integer" },
+              "name": { "type": "string" }
+            },
+            "required": ["@id", "@type", "id", "name"],
+            "additionalProperties": false
+          },
+
+          "subCategory": {
+            "type": "object",
+            "properties": {
+              "@id": { "type": "string" },
+              "@type": { "type": "string" },
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "displayedName": { "type": "string" },
+              "isAllow": { "type": "boolean" },
+              "category": {
+                "type": "object",
+                "properties": {
+                  "@id": { "type": "string" },
+                  "@type": { "type": "string" },
+                  "id": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "displayedName": { "type": "string" }
+                },
+                "required": ["@id", "@type", "id", "name", "displayedName"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["@id", "@type", "id", "name", "category", "displayedName", "isAllow"],
+            "additionalProperties": false
+          },
+
+          "divisions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "businessUnits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "@id",
+                "@type",
+                "name"
+              ]
+            }
+          },
+          "regions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "premises": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+
+          "jurisdiction": { "type": "string" },
+
+          "otherPartySignatories": {
+            "type": "array",
+            "items": { "type": "object" }
+          },
+
+          "alvestSignatories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": { "type": "string" },
+                "@type": { "type": "string" },
+                "username": { "type": "string" },
+                "email": { "type": "string" },
+                "firstname": { "type": "string" },
+                "lastname": { "type": "string" }
+              },
+              "required": ["@id", "@type", "username", "email"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "@id", "@type", "id", "shortDescription", "description",
+          "createdAt", "startDate", "customers",
+          "renewalPeriod", "renewalUnit", "externalParty",
+          "internalParty", "createdBy", "owner", "status",
+          "value", "currency", "subCategory", "jurisdiction",
+          "businessUnits", "regions", "divisions", "premises",
+          "alvestSignatories", "otherPartySignatories",
+          "observationValue", "observationTerm", "observationStatus"
+        ],
+        "additionalProperties": false
+      }
+    },
+
+    "hydra:search": {
+      "type": "object",
+      "properties": {
+        "@type": { "type": "string" },
+        "hydra:template": { "type": "string" },
+        "hydra:variableRepresentation": { "type": "string" },
+        "hydra:mapping": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@type": { "type": "string" },
+              "variable": { "type": "string" },
+              "property": { "type": "string" },
+              "required": { "type": "boolean" }
+            },
+            "required": ["@type", "variable", "property", "required"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["@type", "hydra:template", "hydra:mapping"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@context", "@id", "@type", "hydra:member", "hydra:totalItems", "hydra:search"
+  ],
+  "additionalProperties": false
+}

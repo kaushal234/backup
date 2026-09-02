@@ -1,0 +1,25 @@
+App\Entity\Finance\ExchangeRate:
+    # /finance/exchange_rates/1
+    exchange_rate_1:
+        applicatedOn: <(new \DateTime('1990-07-24'))>
+        type: END
+        rate: '1.02'
+        currency: '@cur_USD'
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /finance/exchange_rates/2
+    exchange_rate_2:
+        applicatedOn: <(new \DateTime('1990-07-24'))>
+        type: AVG
+        rate: '1.25'
+        currency: '@cur_USD'
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>
+
+    # /finance/exchange_rates/2..20
+    exchange_rate_{3..20}:
+        applicatedOn: <dateTimeBetween('-1 year')>
+        type: <randomElement(['END', 'AVG', 'TLD'])>
+        rate: <numerify('#.####')>
+        # Should not add TWD to ensure that there is no rate linked to this currency for tests
+        currency: "@cur_<randomElement(['SGD','JPY','HKD','CNY','CAD'])>"
+        createdAt: <dateTimeBetween('-60 days', '-10 days')>

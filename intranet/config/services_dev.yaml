@@ -1,0 +1,6 @@
+services:
+    Symfony\Component\Security\Http\FirewallMapInterface: '@security.firewall.map'
+
+    LegacyBundle\Security\Http\Firewall\Firewall:
+      autoconfigure: true
+      autowire: true

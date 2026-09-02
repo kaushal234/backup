@@ -1,0 +1,23 @@
+App\Entity\Materials\EvendorsNews:
+    #/evendors_news/1
+    evendors_news_1:
+        id: 1
+        content: "My little pony 10/10 best drama ever"
+        publishedAt: <dateTimeInInterval('-30 days', '-2 days')>
+        unpublishedAt: <dateTimeInInterval('+10 days', '+2 days')>
+        createdBy: '@user_superuser'
+        createdAt: <dateTimeInInterval('-5 days', '-2 days')>
+        factories: ['@location_factory']
+        updatedAt: <dateTimeInInterval('-30 days', '-2 days')>
+        files: []
+
+    evendors_news_{2..30}:
+        id: <current()>
+        content: <paragraph()>
+        publishedAt: <dateTimeInInterval('-30 days', '-2 days')>
+        unpublishedAt: <dateTimeInInterval('-30 days', '-2 days')>
+        createdBy: '@user_superuser'
+        createdAt: <dateTimeInInterval('-30 days', '-2 days')>
+        factories: [ '@location_factory' ]
+        updatedAt: <dateTimeInInterval('-30 days', '-2 days')>
+        files: []

@@ -1,0 +1,62 @@
+{% extends 'finance/manufacturing-margin/layout.html.twig' %}
+{% trans_default_domain 'manufacturing_margin' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'competitors.fields.file_upload'|trans({}, 'sales_competitors') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% form_theme form 'form_theme_vertical.html.twig' %}
+
+                            {{ form_start(form, { action: path('manufacturing_margin_upload') }) }}
+                            {{ form_errors(form) }}
+
+                            {{ form_row(form.file) }}
+                            {{ form_row(form.submit) }}
+
+                            {{ form_rest(form) }}
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if errors %}
+            <div class="col-md-9">
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            line: {
+                                label: 'manufacturing_margin.file.line'|trans,
+                            },
+                            property: {
+                                label: 'manufacturing_margin.file.property'|trans,
+                            },
+                            message: {
+                                label: 'manufacturing_margin.file.message'|trans,
+                            },
+                        },
+                        initialSorting: false,
+                        search: false,
+                        pagination: false,
+                        title: 'manufacturing_margin.file.error_title'|trans,
+                        data: invalidLines,
+                    }
+                }, with_context = false) }}
+            </div>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

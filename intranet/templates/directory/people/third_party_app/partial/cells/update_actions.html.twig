@@ -1,0 +1,105 @@
+<td>
+    {% if item.done %}
+        <span class="btn btn-default btn-xs">{% if item.confirmed %}Confirmed{% else %}Refused{% endif %}</span>
+    {% else %}
+            {% if fromNewComersPage is defined %}
+                {{ include('human_resources/people_lifecycle/partial/_update_actions.html.twig', {item: item}, with_context = true) }}
+            {% else %}
+                {% if item.demandType == 'GRANT_ACCESS' %}
+                            {{ include('helper/_modal.html.twig', {
+                                    id: 'confirm_' ~ item.user.id ~ '_' ~ item.id,
+                                    button: {
+                                            name: 'mis.update_task.confirm_modal.grant_confirmed.button'|trans({}, 'mis'),
+                                            icon: 'fa-check',
+                                            color: 'info'
+                                    },
+                                    modal: {
+                                            title: 'Confirmation',
+                                            size: 'lg',
+                                            targetButton: {
+                                                    name: 'mis.update_task.confirm_modal.grant_confirmed.target.button'|trans({}, 'mis'),
+                                                    link: path('directory_people_third_party_app_grant_access_accepted', {
+                                                            id: item.user.id,
+                                                            updateTaskId: item.id
+                                                    }),
+                                                    color: 'info'
+                                            },
+                                            closeButton: {
+                                                    name: 'Cancel'
+                                            }
+                                    },
+                                    body: 'mis.update_task.confirm_modal.grant_confirmed.target.message'|trans({userLastname: item.user.lastname|capitalize, userFirstname: item.user.firstname, moduleName: item.thirdPartyApp.name}, 'mis')
+                            }) }} &nbsp;
+                            {{ include('helper/_modal.html.twig', {
+                                    id: 'denied_' ~ item.user.id ~ '_' ~ item.id,
+                                    button: {
+                                            name: 'Denied',
+                                            icon: 'fa-times',
+                                            color: 'danger'
+                                    },
+                                    modal: {
+                                            title: 'Confirmation',
+                                            size: 'lg',
+                                            targetButton: {
+                                                    name: 'Yes, denied',
+                                                    link: path('directory_people_third_party_app_grand_access_denied', {id: item.user.id, updateTaskId: item.id}),
+                                                    color: 'danger'
+                                            },
+                                            closeButton: {
+                                                    name: 'Cancel'
+                                            }
+                                    },
+                                    body: 'mis.update_task.confirm_modal.grant_denied.target.message'|trans({userLastname: item.user.lastname|capitalize, userFirstname: item.user.firstname, moduleName: item.thirdPartyApp.name}, 'mis')
+                            }) }}
+                    {% elseif item.demandType == 'REMOVE_ACCESS' %}
+                            {{ include('helper/_modal.html.twig', {
+                                    id: 'confirm_' ~ item.user.id ~ '_' ~ item.id,
+                                    button: {
+                                            name: 'Confirmed',
+                                            icon: 'fa-check',
+                                            color: 'info'
+                                    },
+                                    modal: {
+                                            title: 'Confirmation',
+                                            size: 'lg',
+                                            targetButton: {
+                                                    name: 'Yes, confirmed',
+                                                    link: path('directory_people_third_party_app_remove_access_accepted', {
+                                                            id: item.user.id,
+                                                            updateTaskId: item.id
+                                                    }),
+                                                    color: 'info'
+                                            },
+                                            closeButton: {
+                                                    name: 'Cancel'
+                                            }
+                                    },
+                                    body: 'mis.update_task.confirm_modal.remove_confirmed.target.message'|trans({userLastname: item.user.lastname|capitalize, userFirstname: item.user.firstname, moduleName: item.thirdPartyApp.name}, 'mis')
+                            }) }} &nbsp;
+                            {{ include('helper/_modal.html.twig', {
+                                    id: 'denied_' ~ item.user.id ~ '_' ~ item.id,
+                                    button: {
+                                            name: 'Denied',
+                                            icon: 'fa-times',
+                                            color: 'danger'
+                                    },
+                                    modal: {
+                                            title: 'Confirmation',
+                                            size: 'lg',
+                                            targetButton: {
+                                                    name: 'Yes, denied',
+                                                    link: path('directory_people_third_party_app_remove_access_denied', {id: item.user.id, updateTaskId: item.id}),
+                                                    color: 'danger'
+                                            },
+                                            closeButton: {
+                                                    name: 'Cancel'
+                                            }
+                                    },
+                                    body: 'mis.update_task.confirm_modal.remove_denied.target.message'|trans({userLastname: item.user.lastname|capitalize, userFirstname: item.user.firstname, moduleName: item.thirdPartyApp.name}, 'mis')
+                            }) }}
+                    {% endif %}
+            {% endif %}
+
+    {% endif %}
+</td>
+

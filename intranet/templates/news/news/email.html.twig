@@ -1,0 +1,15 @@
+{% extends 'news/layout.html.twig' %}
+
+{% block content %}
+    {{ include('partial/_resource_email.html.twig', {
+        title: news.title,
+        form: form,
+        action: path('news_email', { id: news.iriId}),
+        cancel_link: path('news_index')
+    }, with_context=false) }}
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

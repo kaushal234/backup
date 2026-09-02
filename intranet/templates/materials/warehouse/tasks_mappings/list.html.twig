@@ -1,0 +1,44 @@
+{% extends 'materials/warehouse/tasks_mappings/layout.html.twig' %}
+{% trans_default_domain 'materials' %}
+
+{% block content %}
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                erp: {
+                    label: 'ERP',
+                    properties: ['location.erp'],
+                },
+                location: {
+                    label: 'fields.category'|trans({}, 'messages')|capitalize,
+                    properties: ['location.name'],
+                },
+                inboundTasks: {
+                    label: 'materials.tasks_mappings.fields.inbound_tasks'|trans|capitalize,
+                    filters: ['sort', 'join(", ")'],
+                },
+                outboundTasks: {
+                    label: 'materials.tasks_mappings.fields.outbound_tasks'|trans|capitalize,
+                    filters: ['sort', 'join(", ")'],
+                },
+                administrativeTasks: {
+                    label: 'materials.tasks_mappings.fields.administrative_tasks'|trans|capitalize,
+                    filters: ['sort', 'join(", ")'],
+                },
+                excludedTasks: {
+                    label: 'materials.tasks_mappings.fields.excluded_tasks'|trans|capitalize,
+                    filters: ['sort', 'join(", ")'],
+                },
+                edit: {
+                    label: '',
+                    template: 'materials/warehouse/tasks_mappings/partial/_edition.html.twig',
+                },
+            },
+            title: 'materials.tasks_mappings.titles.default'|trans|title,
+            data: mappings,
+            pagination: false,
+        }
+    }, with_context = false) }}
+{% endblock %}
+
+

@@ -1,0 +1,58 @@
+{% extends 'directory/department/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'directory.department.title.list'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content report-table-with-filter">
+                    <input type="text" class="form-control form-control-sm m-b-xs" id="filter"
+                           placeholder="Search in table...">
+                    <div class="">
+                        <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive" data-filter=#filter
+                               data-page-size="20">
+                            <thead>
+                            <tr>
+                                <th data-toggle="true">{{ 'directory.department.fields.name'|trans }}</th>
+                                <th data-toggle="true">{{ 'directory.department.fields.sso'|trans }}</th>
+                                <th data-toggle="true">{{ 'directory.department.fields.factory'|trans }}</th>
+                                <th data-toggle="true"
+                                    class="text-end">{{ 'menu.view'|trans([], 'messages')|capitalize }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for department in departments %}
+                                    <tr>
+                                        <td>{{ department.name }}</td>
+                                        <td>{{ (department.sso ? 'yes' : 'no')|trans([], 'messages') }}</td>
+                                        <td>{{ (department.factory ? 'yes' : 'no')|trans([], 'messages') }}</td>
+                                        <td class="text-end">
+                                            <a href="{{ path('directory_departments_show', {id: iri_id(department)}) }}"><span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                    <p class="text-end">{{ 'helper.recordsTotalNumber'|trans([], 'messages') }}:
+                                        <strong>{{ departments|length }}</strong></p>
+                                    <ul class="hide-if-no-paging pagination float-end"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

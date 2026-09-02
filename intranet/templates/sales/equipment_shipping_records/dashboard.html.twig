@@ -1,0 +1,120 @@
+{% extends 'sales/equipment_shipping_records/layout.html.twig' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+{% trans_default_domain 'equipment_shipping_record' %}
+
+{% block content %}
+    <br/>
+    <br/>
+    <div class="row">
+        <div class="col-md-5">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            {{ form_row(form.location) }}
+                        </div>
+                        <div class="col-md-2 btn-height" style="padding-top: 34px; display: flex; justify-content: end">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'button.submit'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {% if equipmentShippingRecordLines is defined %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        {{ include('helper/_report_table.html.twig', {
+                            reportTable: {
+                                items: {
+                                    sso: {
+                                        label: 'fields.sso'|trans({}, 'messages'),
+                                        properties: ['equipmentShippingRecord.sso.name'],
+                                    },
+                                    esrId: {
+                                        label: 'equipment_shipping_record.dashboard.esr_number'|trans|capitalize,
+                                        properties: ['equipmentShippingRecord.id'],
+                                        link:{
+                                            route: 'equipment_shipping_record_show',
+                                            params: {'id':'equipmentShippingRecord.@id'},
+                                        }
+                                    },
+                                    id: {
+                                        label: 'equipment_shipping_record.dashboard.esrl_number'|trans|capitalize,
+                                    },
+                                    equipmentRecord: {
+                                        properties: ['equipmentRecord.legacyId'],
+                                        label: 'demo.fields.equipment_record'|trans({}, 'demo')|capitalize,
+                                        link:{
+                                            route: 'legacy_product_support',
+                                            params: {'id':'equipmentRecord.legacyId'},
+                                            fixedParams: {'m':['equipment', 'view']},
+                                        }
+                                    },
+                                    model: {
+                                        properties: ['equipmentRecord.model'],
+                                        label: 'demo.fields.product'|trans({}, 'demo')|capitalize,
+                                    },
+                                    customer: {
+                                        properties: ['equipmentRecord.endUser.name'],
+                                        label: 'sales_forecasts.fields.customer'|trans({}, 'sales_forecasts')|capitalize
+                                    },
+                                    estimatedPickUpDate: {
+                                        label: 'equipment_shipping_record.fields.line.estimated_pick_up_date'|trans|capitalize,
+                                        filters: 'date("Y-m-d")',
+                                        preserveNull: true,
+                                    },
+                                    actualGreenTagDate: {
+                                        label: 'service.equipment_record.fields.green_tag_date'|trans({}, 'service')|capitalize,
+                                        properties: ['equipmentRecord.greenTagDate'],
+                                        filters: 'date("Y-m-d")',
+                                        preserveNull: true,
+                                    },
+                                    yellowTagDate: {
+                                        label: 'support.equipment_record.fields.yellow_tag_date'|trans({}, 'support')|capitalize,
+                                        properties: ['equipmentRecord.yellowTagDate'],
+                                        filters: 'date("Y-m-d")',
+                                        preserveNull: true,
+                                    },
+                                    yellowTag1month: {
+                                        label: 'equipment_shipping_record.dashboard.yt_one_month'|trans,
+                                        boolean: {
+                                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                            false: '<span class="d-none">0</span>'
+                                        }
+                                    },
+                                    yellowTag3month: {
+                                        label: 'equipment_shipping_record.dashboard.yt_three_month'|trans,
+                                        boolean: {
+                                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                            false: '<span class="d-none">0</span>'
+                                        }
+                                    },
+                                    yellowTagCrab: {
+                                        label: 'equipment_shipping_record.dashboard.yt_with_open_crab'|trans,
+                                        boolean: {
+                                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                            false: '<span class="d-none">0</span>'
+                                        }
+                                    },
+                                    comment: {
+                                        label: 'demo.fields.comment'|trans({}, 'demo')|capitalize,
+                                    },
+                                },
+                                title: 'equipment_shipping_record.dashboard.title'|trans,
+                                data: equipmentShippingRecordLines,
+                                pagination: 100
+                            }
+                        }, with_context = false) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

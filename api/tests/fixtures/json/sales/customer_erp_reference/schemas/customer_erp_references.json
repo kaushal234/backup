@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/customer_erp_references$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/customer_erp_references/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "customerNumber": {"type": "string"},
+          "customer": {"type": "string"},
+          "sso": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/locations/\\d+$"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "erp": {"type": ["integer", "null"]}
+            },
+            "required": ["@id", "@type", "name", "erp"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["@id", "@type", "id", "customer", "customerNumber", "sso"],
+        "additionalProperties": false,
+        "minItem": 1
+      }
+    }
+  },
+  "required": ["@context", "@id", "@type", "hydra:member"]
+}

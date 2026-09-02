@@ -1,0 +1,42 @@
+{% extends 'directory/region/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        name: {
+                            label: 'fields.name'|trans([], 'messages')|capitalize,
+                            link:{
+                                'route': 'directory_regions_show',
+                                'params': {'id':'@id'},
+                            },
+                        },
+                        subDivision: {
+                            label: 'directory.sub_division.name'|trans|capitalize,
+                            properties: ['subDivision.name'],
+                            link:{
+                                route: 'directory_sub_divisions_show',
+                                params: {'id':'subDivision.@id'},
+                            },
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                'route': 'directory_regions_show',
+                                'params': {'id':'@id'},
+                                'content': '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class: 'text-end'
+                        },
+                    },
+                    title: 'directory.region.title.list'|trans|capitalize,
+                    data: regions
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

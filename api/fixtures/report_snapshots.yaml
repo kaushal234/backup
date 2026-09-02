@@ -1,0 +1,184 @@
+App\Entity\Report\ReportSnapshot:
+    report_employee_staffing_module:
+        createdAt: <( new \DateTime('2021-02-24 10:00:00'))>
+        resource: '/people'
+        x: 'businessUnit.positionClassifications.positionCategory.name'
+        y: 'contractType.name'
+        options:
+            entity: "/sub_divisions/1"
+        xTotals:
+            Cat & gorille: 0
+            Cat & gory: 1
+        yTotals:
+            Saisonnier: 0
+            Sous-Fifre: 1
+        total: 1
+        rows:
+            Cat & gorille:
+                Saisonnier:
+                    "@type": ReportCell
+                    "@id": _:1744
+                    x: Cat & gorille
+                    y: Saisonnier
+                    value: 0
+                Sous-Fifre:
+                    "@type": ReportCell
+                    "@id": _:85067
+                    x: Cat & gorille
+                    y: Sous-Fifre
+                    value: 0
+            Cat & gory:
+                Saisonnier:
+                    "@type": ReportCell
+                    "@id": _:84661
+                    x: Cat & gory
+                    y: Saisonnier
+                    value: 0
+                Sous-Fifre:
+                    "@type": ReportCell
+                    "@id": _:908
+                    x: Cat & gory
+                    y: Sous-Fifre
+                    value: 1
+        metadata:
+            xIris:
+                Cat & gory: "/position_categories/1"
+                Cat & gorille: "/position_categories/2"
+            yIris:
+                Sous-Fifre: "/contract_types/1"
+                Saisonnier: "/contract_types/2"
+            classifications:
+                Cat & gory:
+                    correction: -2
+                    iris:
+                        - "/position_classifications/1"
+                        - "/position_classifications/2"
+                    comments:
+                        - "(+1 for SAY_MY_NAME) Bob is working like a dog - specific comment to make sure that snapshot data is loaded"
+                        - "(-3 for business_unit_2) Roger is very very sick"
+                    budget: 40
+                    reforecast: 60
+            uncategorized:
+                - count: '28'
+                  name: business_unit_2
+                - count: '1'
+                  name: Crona and Sons
+                - count: '19'
+                  name: Deckow-Kuhn
+                - count: '11'
+                  name: Fisher-Strosin
+                - count: '17'
+                  name: Littel, Gerlach and Gibson
+                - count: '10'
+                  name: Marquardt PLC
+                - count: '12'
+                  name: Nikolaus, Boyer and Kub
+                - count: '12'
+                  name: Pollich-Satterfield
+                - count: '8'
+                  name: Reinger-Swift
+                - count: '2'
+                  name: SAY_MY_NAME
+                - count: '12'
+                  name: Senger, Konopelski and Hayes
+                - count: '17'
+                  name: Von LLC
+                - count: '13'
+                  name: Willms LLC
+                - count: '7'
+                  name: Wintheiser-Haley
+                - count: '7'
+                  name: Zemlak, Miller and Baumbach
+                - count: '11'
+                  name: Ziemann, Stroman and Prosacco
+            scope: SubDivision
+            businessUnits:
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/2"
+                  "@type": BusinessUnit
+                  name: business_unit_2
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/3"
+                  "@type": BusinessUnit
+                  name: Pollich-Satterfield
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/4"
+                  "@type": BusinessUnit
+                  name: Fisher-Strosin
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/5"
+                  "@type": BusinessUnit
+                  name: Von LLC
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/6"
+                  "@type": BusinessUnit
+                  name: Ziemann, Stroman and Prosacco
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/7"
+                  "@type": BusinessUnit
+                  name: Senger, Konopelski and Hayes
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/8"
+                  "@type": BusinessUnit
+                  name: Deckow-Kuhn
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/9"
+                  "@type": BusinessUnit
+                  name: Littel, Gerlach and Gibson
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/10"
+                  "@type": BusinessUnit
+                  name: Nikolaus, Boyer and Kub
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/11"
+                  "@type": BusinessUnit
+                  name: Wintheiser-Haley
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/12"
+                  "@type": BusinessUnit
+                  name: Willms LLC
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/13"
+                  "@type": BusinessUnit
+                  name: Zemlak, Miller and Baumbach
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/14"
+                  "@type": BusinessUnit
+                  name: Reinger-Swift
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/15"
+                  "@type": BusinessUnit
+                  name: Marquardt PLC
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/16"
+                  "@type": BusinessUnit
+                  name: Deckow-Zulauf
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/17"
+                  "@type": BusinessUnit
+                  name: Dicki, Mayer and Upton
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/18"
+                  "@type": BusinessUnit
+                  name: Crona and Sons
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/20"
+                  "@type": BusinessUnit
+                  name: SSO
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/23"
+                  "@type": BusinessUnit
+                  name: SSO_3
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/21"
+                  "@type": BusinessUnit
+                  name: FACTORY_2
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/22"
+                  "@type": BusinessUnit
+                  name: SSO_2
+                - "@context": "/contexts/BusinessUnit"
+                  "@id": "/business_units/1"
+                  "@type": BusinessUnit
+                  name: SAY_MY_NAME
+

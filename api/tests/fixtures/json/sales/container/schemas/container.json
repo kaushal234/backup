@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/containers/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "loadingAtFactory": {
+      "type": "boolean"
+    },
+    "containerType": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/sales/container_types/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "quantity",
+    "containerType",
+    "loadingAtFactory"
+  ],
+  "additionalProperties": false
+}

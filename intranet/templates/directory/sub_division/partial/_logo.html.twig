@@ -1,0 +1,5 @@
+<td>
+    {% if item.logo is not empty %}
+        <img src="{{ asset(upload_uri ~ '/' ~ item.logo.filePath) }}?width=100">
+    {% endif %}
+</td>

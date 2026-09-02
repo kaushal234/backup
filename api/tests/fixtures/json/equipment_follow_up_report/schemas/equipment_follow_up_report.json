@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/equipment_follow_up_reports/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "createdBy": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../directory_people/schemas/directory_people_public.json" }
+      ]
+    },
+    "updatedBy": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../directory_people/schemas/directory_people_public.json" }
+      ]
+    },
+    "equipmentRecord": {
+      "$ref": "../../equipment_record/schemas/equipment_record.json"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "hourmeter": {
+      "type": "integer"
+    },
+    "hourmeterTotalizer": {
+      "type": "integer"
+    },
+    "hourmeterDate": {
+      "type": "string"
+    },
+    "odometer": {
+      "type": ["integer", "null"]
+    },
+    "odometerDate": {
+      "type": ["string", "null"]
+    },
+    "operationalStatus": {
+      "$ref": "../../unit_operational_status/schemas/unit_operational_status.json"
+    },
+    "accident": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../equipment_accident/schemas/equipment_accident.json" }
+      ]
+    },
+    "maintenance": {
+      "oneOf": [
+        {"type": "null"},
+        { "$ref": "../../equipment_maintenance/schemas/equipment_maintenance.json" }
+      ]
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "createdAt",
+    "updatedAt",
+    "createdBy",
+    "updatedBy",
+    "equipmentRecord",
+    "comment",
+    "hourmeter",
+    "hourmeterDate",
+    "odometer",
+    "odometerDate",
+    "operationalStatus",
+    "accident",
+    "maintenance"
+  ]
+}

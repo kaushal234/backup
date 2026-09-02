@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}SPQ{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="spq.nav_link.quotations" domain="spq" icon="pepicons-pencil:file"
+                      route="spq_quotations_list"/>
+        <twig:NavItem translationKey="spq.nav_link.reports" domain="spq" icon="material-symbols:table-outline"
+                      route="spq_reports"/>
+        <twig:NavItem translationKey="spq.nav_link.spq_one" domain="spq" icon="tabler:report" route="legacy_parts_parts"
+                      :routeParameters="{m: ['spq']}"/>
+        {% if quotation is defined %}
+            <twig:NavItem translationKey="spq.nav_link.home" domain="spq" icon="material-symbols:home-outline-rounded"
+                          route="spq_quotations_show" :routeParameters="{ id: quotation.id }"/>
+            <twig:NavItem:Files route="spq_quotation_files" :routeParameters="{ id: quotation.id }"/>
+            <twig:NavItem translationKey="spq.nav_link.logs" domain="spq" icon="mynaui:list"
+                          route="spq_quotation_logs" :routeParameters="{ id: quotation.id }"/>
+            <twig:NavItem translationKey="spq.nav_link.tasks" domain="spq" icon="material-symbols:task-outline-rounded"
+                          route="spq_quotation_tasks" :routeParameters="{ id: quotation.id }"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            {% if quickAccess is defined and quickSearch is defined %}
+                {{ include('parts/spq/partials/_quick_access_form.html.twig', { quickAccess: quickAccess, quickSearch: quickSearch }, with_context=false) }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

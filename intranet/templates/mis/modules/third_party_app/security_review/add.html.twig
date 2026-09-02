@@ -1,0 +1,23 @@
+{% extends 'mis/modules/third_party_app/security_review/index.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block content %}
+    {% embed 'helper/_ibox.html.twig' with {
+        title: 'mis.security_review.add_title'|trans,
+        options: {
+            collapsable: false
+        }
+    } %}
+        {% block card_content %}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary float-end text-capitalize" onclick="return confirm('{{ 'mis.security_review.alert_confirm'|trans({}, 'mis') }}')">{{ 'button.submit'|trans }}</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        {% endblock card_content %}
+    {% endembed %}
+{% endblock %}
+

@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/acronyms"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/acronyms/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "acronym": {
+            "type": "string"
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "description": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "acronym",
+          "shortDescription",
+          "description"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

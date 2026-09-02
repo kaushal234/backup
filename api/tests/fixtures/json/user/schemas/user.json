@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/(people|(sales/extranet_|purchasing/vendor_|guest_)?users)/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "@context": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "photo": {
+      "type": ["string", "null"]
+    },
+    "file": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../shared/schemas/file.json" }
+      ]
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "username": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "passwordUpdatedAt": {
+      "type": "string"
+    },
+    "passwordExpirationDate": {
+      "type": "string"
+    },
+    "lastLogin": {
+      "type": ["string", "null"]
+    },
+    "createdAt": {
+      "type": ["string", "null"]
+    },
+    "updatedAt": {
+      "type": ["string", "null"]
+    },
+    "disabledAt": {
+      "type": ["string", "null"]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "username",
+    "email",
+    "lastname",
+    "firstname",
+    "hidden",
+    "disabled",
+    "passwordUpdatedAt",
+    "passwordExpirationDate",
+    "lastLogin",
+    "createdAt",
+    "updatedAt",
+    "disabledAt"
+  ]
+}

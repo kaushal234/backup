@@ -1,0 +1,37 @@
+*:not(ul):not(ol) {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1;
+  font-weight: 400;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.cui.light body {
+  color: #555;
+}
+
+.cui.light input:-webkit-autofill,
+.cui.light input:-webkit-autofill:hover,
+.cui.light input:-webkit-autofill:focus,
+.cui.light input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+.cui.dark input:-webkit-autofill,
+.cui.dark input:-webkit-autofill:hover,
+.cui.dark input:-webkit-autofill:focus,
+.cui.dark input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #1e1e1e inset !important;
+}

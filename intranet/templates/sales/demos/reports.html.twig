@@ -1,0 +1,205 @@
+{% extends 'sales/demos/layout.html.twig' %}
+{% trans_default_domain 'demo' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.report.opened_demos_sso_by_factory' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: demoBySSOFactory,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        link: {
+                            route: 'demo_home',
+                            xParam: 'sso',
+                            yParam: 'factory',
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div><div class="row">
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.report.opened_demos_by_sso_by_status' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: demoBySSOReport,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        link: {
+                            route: 'demo_home',
+                            xParam: 'sso',
+                            yParam: 'status[]',
+                        },
+                        headers: {
+                            columns: ['PENDING', 'SUBMITTED', 'APPROVED', 'ACTIVE']
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.report.demos_by_sso_by_status' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: demoBySSOReport,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        link: {
+                            route: 'demo_home',
+                            xParam: 'sso',
+                            yParam: 'status[]',
+                        },
+                        headers: {
+                            columns: ['PENDING', 'SUBMITTED', 'APPROVED', 'ACTIVE', 'SUCCESSFUL', 'SUCCESSFUL_FUTURE_SALE', 'UNSUCCESSFUL']
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.report.opened_demos_by_factory_by_status' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: demoByFactoryReport,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        link: {
+                            route: 'demo_home',
+                            xParam: 'factory',
+                            yParam: 'status[]',
+                        },
+                        headers: {
+                            columns: ['PENDING', 'SUBMITTED', 'APPROVED', 'ACTIVE']
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.report.demos_by_factory_by_status' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: demoByFactoryReport,
+                        removeXTotalsParam: true,
+                        removeYTotalsParam: true,
+                        link: {
+                            route: 'demo_home',
+                            xParam: 'factory',
+                            yParam: 'status[]',
+                        },
+                        headers: {
+                            columns: ['PENDING', 'SUBMITTED', 'APPROVED', 'ACTIVE', 'SUCCESSFUL', 'SUCCESSFUL_FUTURE_SALE', 'UNSUCCESSFUL']
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.report.demos_delinquent_by_factory' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: demoDelinquentByFactoryReport,
+                        hideTotals:'x',
+                        removeXTotalsParam: true,
+                        link: {
+                            route: 'demo_home',
+                            xParam: 'factory',
+                            yParam: 'delinquent',
+                            additionalParams: {delinquent: true}
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.report.demos_delinquent_by_sso' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: demoDelinquentBySSOReport,
+                        hideTotals:'x',
+                        removeXTotalsParam: true,
+                        link: {
+                            route: 'demo_home',
+                            xParam: 'sso',
+                            yParam: 'delinquent',
+                            additionalParams: {delinquent: true}
+                        },
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

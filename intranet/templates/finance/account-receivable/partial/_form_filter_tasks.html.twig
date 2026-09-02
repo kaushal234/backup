@@ -1,0 +1,27 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="row">
+    {% if form.asm is defined %}
+        <div class="col-lg-4">
+            {{ form_row(form.asm) }}
+        </div>
+    {% endif %}
+    {% if form.ssd is defined %}
+        <div class="col-lg-4">
+            {{ form_row(form.ssd) }}
+        </div>
+    {% endif %}
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans | upper }}</button>
+        <a href="{{ resetPath }}" class="btn btn-secondary">{{ 'button.reset'| trans | upper }}</a>
+    </div>
+</div>
+{{ form_rest(form) }}
+
+{{ form_end(form) }}

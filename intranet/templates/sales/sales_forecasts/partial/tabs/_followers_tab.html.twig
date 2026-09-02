@@ -1,0 +1,11 @@
+<div class="ibox-content">
+    <div
+            class="subscriptions"
+            data-resource="{{ item['@id'] }}"
+            data-show-create-people="{{ is_granted('SALES_FORECAST_EDIT_VOTER', item['@id']) }}"
+            data-show-delete="{{ is_granted('SALES_FORECAST_EDIT_VOTER', item['@id']) }}"
+            data-show-delete-myself="1"
+            data-show-subscribe="0"
+            data-show-subscribers="1"
+    ></div>
+</div>

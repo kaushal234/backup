@@ -1,0 +1,5 @@
+{% props label, prompt, class = '' %}
+<form action="{{ path('chat_prompt_conversation') }}" method="post" class="d-inline">
+    <input type="hidden" name="prompt" value="{{ prompt }}">
+    <button type="submit" class="text-capitalize {{ class }}">{{ label }}</button>
+</form>

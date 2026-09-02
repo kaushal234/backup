@@ -1,0 +1,115 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "definitions": {
+        "Premise.jsonld-premise": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "pattern": "^/premises/\\d+$"
+                },
+                "@type": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "maxLength": 10,
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "@id": {"pattern": "^/premise_tags/\\d+$"},
+                            "@type": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "@id",
+                            "@type",
+                            "name"
+                        ],
+                        "minItems": 1,
+                        "additionalProperties": false
+                    }
+                },
+                "latitude": {
+                    "type": ["number", "null"]
+                },
+                "longitude": {
+                    "type": ["number", "null"]
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "address": {
+                    "type": "object",
+                    "$ref": "../../shared/schemas/address_with_country.json"
+                },
+                "supportTeam": {
+                    "oneOf": [
+                        {"type": "null"},
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@id": {
+                                    "pattern": "^/mis/support_teams/\\d+$"
+                                },
+                                "@type": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["@id", "@type", "id", "name"],
+                            "additionalProperties": false
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "name",
+                "description",
+                "tags",
+                "count",
+                "address",
+                "latitude",
+                "longitude",
+                "supportTeam"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Premise.jsonld-premise"
+            },
+            "minItems": 1,
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "@context",
+        "@id",
+        "@type",
+        "hydra:member"
+    ]
+}

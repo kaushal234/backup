@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_powerpoint_templates.html.twig', {
+        presentations: {
+            'TLD Powerpoint Template': {
+                'pptx': 'tld/powerpoint_templates/DMS_3782_rev_3(1).pptx',
+            }
+        }
+    }) }}
+{% endblock %}

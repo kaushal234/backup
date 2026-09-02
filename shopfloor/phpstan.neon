@@ -1,0 +1,22 @@
+parameters:
+    parallel:
+        processTimeout: 300.0
+    level: 5
+    paths:
+        - hr
+        - news
+        - parts
+        - reports
+        - shop
+        - src
+    excludePaths:
+        analyseAndScan:
+            - ../shared/inc/sales_service.inc.php # this is to avoid error HackCatalogueInterface interface missing
+    scanDirectories:
+        - ../shared/inc
+
+    inferPrivatePropertyTypeFromConstructor: true
+    reportUnmatchedIgnoredErrors: false
+
+includes:
+    - phpstan-baseline.neon

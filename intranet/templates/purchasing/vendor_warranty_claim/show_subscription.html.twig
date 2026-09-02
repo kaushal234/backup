@@ -1,0 +1,28 @@
+{% extends 'purchasing/vendor_warranty_claim/layout.html.twig' %}
+{% trans_default_domain 'vendor_warranty_claim' %}
+
+{% block title %}{{ parent() }}#{{ vendorWarrantyClaim.id }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+        <twig:Tabs:Tabs>
+
+            <twig:Tabs:NavItemList>
+                {{ include('purchasing/vendor_warranty_claim/partial/tabs/_nav.html.twig', {
+                    vendorWarrantyClaim: vendorWarrantyClaim,
+                }) }}
+            </twig:Tabs:NavItemList>
+
+            <twig:Tabs:Content>
+                {{ include('generic/_subscriptions.html.twig', {
+                    item: vendorWarrantyClaim
+                }) }}
+            </twig:Tabs:Content>
+
+        </twig:Tabs:Tabs>
+{% endblock %}
+
+ {% block translations %}
+     <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+     <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+ {% endblock %}

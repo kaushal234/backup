@@ -1,0 +1,16 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_powerpoint_templates.html.twig', {
+        presentations: {
+            'AES Powerpoint Template': {
+                'potx': 'aes/powerpoint_templates/AES Powerpoint Template.potx',
+            },
+            'AES Powerpoint Presentation': {
+                'pptx': 'aes/powerpoint_templates/AES Powerpoint Presentation.pptx',
+            }
+        }
+    }) }}
+{% endblock %}

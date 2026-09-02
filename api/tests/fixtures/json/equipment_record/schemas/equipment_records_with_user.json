@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/equipment_records$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/equipment_records/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "string"
+          },
+          "type": {
+            "type": ["string", "null"]
+          },
+          "model": {
+            "type": ["string", "null"]
+          },
+          "endUser": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ]
+          },
+          "location": {
+            "type": ["string", "null"]
+          },
+          "dateShipped": {
+            "type": ["string", "null"]
+          },
+          "dateCommissioned": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "serialNumber",
+          "endUser",
+          "type",
+          "model",
+          "location",
+          "dateShipped",
+          "dateCommissioned"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["hydra:member", "@id"]
+}

@@ -1,0 +1,7 @@
+<td>
+    {% if item.comment is not empty %}
+        <i data-toggle="tooltip" data-placement="top" title="{{ item.comment }}">
+            {{ ux_icon('material-symbols:search-rounded', {height: '16px', width: '16px'}) }}
+        </i>
+    {% endif %}
+</td>

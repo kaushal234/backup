@@ -1,0 +1,30 @@
+{% for flashMessage in app.session.flashbag.get(success_key|default('success')) %}
+    <div class="alert alert-success rounded-0 m-0 mb-2">
+        {{ flashMessage|raw }}
+    </div>
+{% endfor %}
+
+{% if forms is defined and forms is not empty %}
+    {% for form in forms %}
+        {% embed 'helper/_ibox.html.twig' %}
+            {% block card_header_title %}
+                <h5 style="position: relative; z-index:99 ">
+                    <a style="color: inherit" href="{{ path('customer_service_record_show', {'id': form.vars['value']['customerServiceRecord']['id']}) }}">
+                        CSR #{{ form.vars['value']['customerServiceRecord']['id'] }}</a>
+                    - {{ form.vars['value']['customerServiceRecord']['title'] }}</h5>
+            {% endblock %}
+            {% block card_content %}
+                {% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ include('service/customer_service_record/form/_form_completed_intervention.html.twig') }}
+                    </div>
+                </div>
+            {% endblock card_content %}
+        {% endembed %}
+    {% endfor %}
+{% else %}
+    <div class="alert alert-light rounded-0 fs-5">
+        {{ 'csr.dashboard.messages.no_csr_started'|trans({}, 'customer_service_record') }}
+    </div>
+{% endif %}

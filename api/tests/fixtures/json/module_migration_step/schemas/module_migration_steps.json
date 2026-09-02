@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/module_migration_steps$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/module_migration_steps/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "shortDesc": {
+            "type": "string"
+          },
+          "fullDesc": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "shortDesc",
+          "fullDesc"
+        ],
+        "additionalProperties" : false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member"
+  ]
+}

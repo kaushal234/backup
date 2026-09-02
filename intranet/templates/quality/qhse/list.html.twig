@@ -1,0 +1,62 @@
+{% extends 'quality/qhse/layout.html.twig' %}
+{% trans_default_domain 'cleanliness' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {% set items = {
+                'location': {
+                    'label': 'cleanliness.fields.location'| trans|capitalize,
+                    'properties': ['location.name'],
+                    'sortable': true
+                },
+                'date': {
+                    'label': 'cleanliness.fields.date'| trans|capitalize,
+                    'sortable': true,
+                    'filters': [ 'format_datetime("medium", "none")' ]
+                },
+                'rating': {
+                    'label': 'qhse.fields.rating' | trans([], 'qhse') | capitalize,
+                    'class': 'text-center',
+                }
+            }
+            %}
+
+            {% if is_granted('FEATURE_QHSE_WRITE') %}
+                {% set items = items | merge ({
+                    'edit': {
+                        'label': 'menu.edit'|trans([], 'messages')|capitalize,
+                        'link': {
+                            'route': 'qhse_edit',
+                            'params': {'id':'@id'},
+                            'content': '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                        },
+                        'sortable': false,
+                        'class' : 'text-center'
+                    },
+                    'delete': {
+                        'label': 'menu.delete'|trans([], 'messages')|capitalize,
+                        'link': {
+                            'route': 'qhse_delete',
+                            'params': {'id':'@id'},
+                            'content': '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                        },
+                        'sortable': false,
+                        'class' : 'text-center'
+                    }
+                }) %}
+            {% endif %}
+
+
+            {{ include ('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'data': qhseProgress,
+                    'title': 'qhse.last' | trans({}, 'qhse') | upper,
+                    'items': items
+                }
+            }) }}
+        </div>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,7 @@
+{% set startDate = '01%2F01%2F' ~ cell.y %}
+{% set endDate = cell.y + 1  %}
+{% set endDate = endDate|trans %}
+{% set endDate = '01%2F01%2F' ~ endDate%}
+<td>
+    <a href="{{ path('vendor_warranty_claim_home', { createdAfter: startDate, createdBefore: endDate, location: extraParameters.location, partNumber: cell.x, supplierNumber: extraParameters.supplierNumber }) }}">{{ cell.value }}</a>
+</td>

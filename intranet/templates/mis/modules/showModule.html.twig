@@ -1,0 +1,181 @@
+{% extends 'mis/modules/layout.html.twig' %}
+{% trans_default_domain 'mis' %}
+{% set id = iri_id(module) %}
+
+{% block breadcrumb_links %}
+    {{ parent() }}
+    <li class="breadcrumb-item">
+        <a href="{{ path('mis_modules_show', {id: module.id}) }}"><strong>{{ module.name }} - {{ module.shortDescription }}</strong></a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    {% block header_content %}
+        <div class="row">
+            <div class="col">
+                <div class="widget bg-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fa fa-desktop fa-3x"></i>
+                        </div>
+                        <div class="col-8 text-end" id="module-title">
+                            <h3 class="font-bold">{{ module.name }} {{ module.department is null ? '' : '(' ~ module.department.name ~ ')' }}</h3>
+                            {{ module.shortDescription }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="widget bg-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <twig:PeoplePhoto user="{{ module.operationalOwner }}" />
+                        </div>
+                        <div class="col-8 text-end">
+                            <h3 class="font-bold">{{ 'mis.modules.fields.moo' | trans }}</h3>
+                            {% if module.operationalOwner is not null %}
+                                <a href="{{ path('directory_people_show', {id: iri_id(module.operationalOwner)}) }}">{{ module.operationalOwner.lastname ~ ' ' ~ module.operationalOwner.firstname }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="widget bg-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <twig:PeoplePhoto user="{{ module.keyUser }}" />
+                        </div>
+                        <div class="col-8 text-end">
+                            <h3 class="font-bold">{{'mis.modules.fields.key_user' | trans }}</h3>
+                            {% if module.keyUser is not null %}
+                                <a href="{{ path('directory_people_show', {id: iri_id(module.keyUser)}) }}">{{ module.keyUser.lastname ~ ' ' ~ module.keyUser.firstname }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% block header_content_extra %}
+            {% endblock header_content_extra %}
+            <div class="col">
+                <div class="widget bg-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fa fa-book fa-3x"></i>
+                        </div>
+                        <div class="col-8 text-end">
+                            <h3 class="font-bold">{{'DMS' | trans }}</h3>
+                            {% if null != module.dmsProcedureId %}
+                                <a href="{{ dms(module.dmsProcedureId) }}"><i class="fa fa-file-alt"></i> {{ 'mis.modules.fields.dms_procedure' | trans }}</a><br>
+                            {% endif %}
+                            {% if null != module.dmsHelpId %}
+                                <a href="{{ dms(module.dmsHelpId) }}"><i class="fa fa-file-alt"></i> {{ 'mis.modules.fields.dms_help' | trans }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock header_content %}
+
+<div class="row">
+    <div class="col-xl-5 col-md-12">
+        {% block module_item %}
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        name: {
+                            label: 'mis.modules.fields.name'|trans|capitalize,
+                        },
+                        frontEndRoute: {
+                            label: 'mis.modules.fields.front_end_route'|trans
+                        },
+                        type: {
+                            label: 'mis.modules.fields.type'|trans|capitalize,
+                            template: '/mis/modules/partial/cells/_type.html.twig',
+                        },
+                        status: {
+                            label: 'Status'
+                        },
+                        shortDescription: {
+                            label: 'mis.modules.fields.short_desc'|trans|capitalize,
+                        },
+                        fullDescription: {
+                            label: 'mis.modules.fields.full_desc'|trans|capitalize,
+                        },
+                        department: {
+                            label: 'mis.modules.fields.department'|trans|capitalize,
+                            properties: ['department.name'],
+                        },
+                        application: {
+                            label: 'mis.modules.fields.application'|trans|capitalize,
+                            properties: ['application.name'],
+                        },
+                        localKeyUsers: {
+                            label: 'mis.modules.fields.local_key_users'|trans,
+                            template: '/mis/modules/partial/cells/_local_key_users.html.twig',
+                        },
+                    },
+                    title: module.name,
+                    data: module
+                },
+            }, with_context = false) }}
+        {% endblock module_item %}
+        <div class="row">
+            <div class="col-md-12">
+                {% if module.requiredModules | length > 0 %}
+                    <div class="ibox float-e-margins" >
+                        <div class="ibox-title clearfix">
+                            <h5>{{ 'mis.modules.dependencies.required' | trans({'%moduleName%': module.name}) }}</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <ul>
+                                {% for module in module.requiredModules %}
+                                    <li><a href="{{ path('mis_modules_show', {'id': iri_id(module) }) }}">{{ module.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if module.requiringModules | length > 0 %}
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title clearfix">
+                            <h5>{{ 'mis.modules.dependencies.requiring' | trans({'%moduleName%': module.name}) }}</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <ul>
+                                {% for module in module.requiringModules %}
+                                    <li><a href="{{ path('mis_modules_show', {'id': iri_id(module) }) }}">{{ module.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-7 col-md-12">
+        {% block tabs %}
+            {{ include('@AlvestTwigHelper/tabs_layout.html.twig', {
+                tabsData: {
+                    tabs: {
+                        logs: {
+                            defaultTab: true,
+                            label: 'directory.people.activity.labels.logs' | trans({}, 'directory'),
+                            template: '/mis/modules/tabs/logs.html.twig',
+                        },
+                    },
+                    data: {},
+                    link: app.request.query.get('tab')
+                },
+            }) }}
+        {% endblock tabs %}
+    </div>
+</div>
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

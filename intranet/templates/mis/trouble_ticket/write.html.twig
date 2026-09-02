@@ -1,0 +1,33 @@
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+
+{% block title %}
+    {{ parent() }}
+    {% if troubleTicket is not null %}
+        #{{ troubleTicket.id }}
+    {% else %}
+        {{ 'menu.add' | trans({}, 'messages') }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+        window.MIS_APP_PROPS = {{ props|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'trouble_ticket' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'contacts' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'mis' }) }}"></script>
+{% endblock %}
+
+
+

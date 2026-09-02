@@ -1,0 +1,18 @@
+{% extends 'directory/contract_type/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set id = iri_id(contractType) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.contract_type.title.edit'|trans([], 'directory')|capitalize }}</h3>
+    <div class="row">
+        <div class="col-md-6">
+            {{ include('directory/contract_type/partial/_form.html.twig', {
+                form: form,
+                action: path('contract_type_edit', { id: contractType.iriId }),
+            }, with_context=false) }}
+        </div>
+    </div>
+{% endblock %}

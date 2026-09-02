@@ -1,0 +1,37 @@
+{% trans_default_domain "emails" %}
+<row>
+    <columns>
+        {{ include('Helpers/_association_table.html.twig', {
+            associationData: {
+                items: {
+                    location: { label:'sfr.fields.factory' |trans | capitalize, properties: ['location.name'] },
+                    supplierNumber: { label:'first_article_qualification.fields.supplier_number' |trans | capitalize },
+                    supplierName: { label:'first_article_qualification.fields.supplier_name' |trans | capitalize },
+                    owner: { label:'first_article_qualification.fields.owner' |trans | capitalize, properties: ['owner.firstname','owner.lastname'] },
+                    poster: { label:'first_article_qualification.fields.poster' |trans | capitalize, properties: ['poster.firstname','poster.lastname'] },
+                    buyer: { label:'sfr.fields.customer_buyer' |trans | capitalize, properties: ['buyer.firstname', 'buyer.lastname'] },
+                },
+                data: firstArticleQualification_normalized,
+                title: 'FAQ #'~firstArticleQualification_normalized.id
+            },
+        }, with_context = false) }}
+    </columns>
+</row>
+<row>
+    <columns>
+        <h5>{{ 'first_article_qualification.titles.part_numbers'|trans | capitalize }}</h5>
+        {% for partNumber in firstArticleQualification_normalized.partNumbers %}
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        number: { label:'first_article_qualification.fields.part_number.number'|trans | capitalize },
+                        revision: { label:'first_article_qualification.fields.part_number.revision'|trans | capitalize },
+                        description: { label:'first_article_qualification.fields.part_number.description'|trans | capitalize },
+                    },
+                    data: partNumber,
+                    title: '',
+                },
+            }, with_context = false) }}
+        {% endfor %}
+    </columns>
+</row>

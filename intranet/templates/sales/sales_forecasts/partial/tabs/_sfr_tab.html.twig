@@ -1,0 +1,232 @@
+{% trans_default_domain 'sales_forecasts' %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins ">
+            <div class="ibox-title">
+                <h5>{{ 'sidebar.sales.sfr' | trans({}, 'sidebar') }}#{{ item['@id']|iri_id }}</h5>
+            </div>
+            <div class="ibox-content report-table-with-filter">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% if leadTime is not null %}
+                            {% set item = item|merge({leadTime: 'lead_time.lead_time_sales_forecast'|trans({'%weeks%': leadTime.weeks, '%family%': item.product.family.name, '%factory%': item.factory.name}, 'catalogue')}) %}
+                            {% set item = item|merge({leadTimeComment: leadTime.description}) %}
+                        {% endif %}
+                        {% set items = {
+                            asm: {
+                                properties: ['asm.lastname', 'asm.firstname'],
+                                label: 'sales_forecasts.fields.asm'|trans|capitalize,
+                                link: {
+                                    'route': 'directory_people_show',
+                                    'params': {'id':'asm.@id'}
+                                }
+                            },
+                            factory: {
+                                properties: ['factory.name'],
+                                label: 'fields.factory'|trans({}, 'messages')|capitalize,
+                                link:{
+                                    route: 'directory_locations_show',
+                                    params: {'id':'factory.@id'},
+                                }
+                            },
+                            sso: {
+                                properties: ['sso.name'],
+                                label: 'fields.sso'|trans({}, 'messages'),
+                                link:{
+                                    route: 'directory_locations_show',
+                                    params: {'id':'sso.@id'},
+                                }
+                            },
+                            buyer: {
+                                label: 'fields.buyer'|trans({}, 'messages'),
+                                template: 'sales/customers/partial/cells/_customer.html.twig',
+                                templateParams: {customerPath: 'buyer', showApproved: true}
+                            },
+                            buyerOnWatchList: {
+                                label: 'customers.fields.watch_list'|trans({}, 'sales_customers'),
+                                properties: ['buyer.watchList'],
+                                boolean: {
+                                    true: 'customers.fields.watch_list_on' | trans({}, 'sales_customers'),
+                                    false: 'customers.fields.watch_list_not_on' | trans({}, 'sales_customers'),
+                                },
+                            },
+                        } %}
+
+                        {% if item.buyer.watchList is same as(true) %}
+                            {% set items = items | merge ({
+                                watchListReason: {
+                                    properties: ['buyer.watchListReason'],
+                                    label: 'customers.fields.watch_list_reason'|trans({}, 'sales_customers'),
+                                }
+                            }) %}
+                        {% endif %}
+
+                        {% set items = items | merge ({
+                            endUser: {
+                                label: 'fields.end_user'|trans({}, 'messages'),
+                                template: 'sales/customers/partial/cells/_customer.html.twig',
+                                templateParams: {customerPath: 'endUser'}
+                            },
+                            thirdParty: {
+                                label: 'sales_forecasts.fields.third_party'|trans(),
+                                template: 'sales/customers/partial/cells/_customer.html.twig',
+                                templateParams: {customerPath: 'thirdParty'}
+                            },
+                            country: {
+                                properties: ['country.name'],
+                                label: 'address.fields.country'|trans({}, 'messages')|capitalize,
+                                preserveNull: true,
+                            },
+                            equoteId: {
+                                label: 'sales_forecasts.fields.equote'|trans()
+                            },
+                            model: {
+                                label: 'sales_forecasts.fields.product'|trans(),
+                                template: 'sales/sales_forecasts/partial/cells/_model.html.twig',
+                            },
+                            quantity: {
+                                label: 'fields.quantity'|trans({}, 'messages')
+                            },
+                            margin: {
+                                filters: ['concat(" %")'],
+                                label: 'sales_forecasts.fields.margin'|trans|capitalize,
+                                preserveNull: true,
+                            },
+                            price: {
+                                label: 'sales_forecasts.fields.price'|trans|capitalize,
+                                filters: ["number_format(0, '.', ' ')", 'concat(" ' ~ currency ~ '")'],
+                                preserveNull: true,
+                            },
+                            tier: {
+                                properties: ['tier.name'],
+                                label: 'sales_forecasts.fields.tier'|trans|capitalize
+                            },
+                            airport: {
+                                properties: ['airport.code', 'airport.cityName'],
+                                glue: ' - ',
+                                label: 'fields.airport'|trans({}, 'messages')|capitalize
+                            },
+                            leadTime: {
+                                label: 'lead_time.lead_time'|trans({}, 'catalogue')|capitalize
+                            },
+                            leadTimeComment: {
+                                label: 'lead_time.lead_time_comment'|trans({}, 'catalogue')|capitalize,
+                            },
+                            quote: {
+                                label: 'sales_forecasts.fields.ln_quote'|trans,
+                                properties: ['quote.quoteNumber'],
+                            },
+                            legacyId: {'label': 'Legacy Id'}
+                        }) %}
+
+                        {{ include('helper/_association_table_raw.html.twig', {
+                            associationData: {
+                                items: items,
+                                title: 'SFR#' ~ item.id,
+                                data: item
+                            },
+                        }, with_context = false) }}
+                    </div>
+                    <div class="col-md-6">
+                        <span class="btn btn-{{ item.status in ['IN_PROGRESS', 'DELAYED', 'BUDGET'] ? 'primary' : 'danger' }}"><i class="fa fa-map-marker-alt"></i>&nbsp;{{ item.status | replace({'_': ' '})  }}</span>
+                        <span class="btn btn-{{ item.delinquent ? 'danger' : 'green' }}"><i class="fa fa-{{ item.delinquent ? 'exclamation-triangle' : 'check' }}"></i>&nbsp;{{ (item.delinquent ? 'sales_forecasts.fields.delinquent' : 'sales_forecasts.fields.non_delinquent') | trans  }}</span>
+                        <hr>
+                        {% set success = item.customerSuccessPercentage * item.successPercentage / 100 %}
+                        {% if success < 25 %}
+                            {% set successClass = 'danger' %}
+                        {% elseif success >= 25 and success < 60 %}
+                            {% set successClass = 'warning' %}
+                        {% else %}
+                            {% set successClass = 'green' %}
+                        {% endif %}
+
+                        <strong>{{ 'sales_forecasts.fields.success_percentage'|trans }}:</strong>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-{{ successClass }} progress-bar-striped active" role="progressbar" aria-valuenow="{{ success }}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{ success }}%;">
+                                {{ success }}%
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>{{ 'sales_forecasts.fields.customer_purchase_percentage'|trans }}:</strong>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{ item.customerSuccessPercentage }}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{ item.customerSuccessPercentage }}%;">
+                                        {{ item.customerSuccessPercentage }}%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>{{ 'sales_forecasts.fields.alvest_success_percentage'|trans }}:</strong>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{ item.successPercentage }}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{ item.successPercentage }}%;">
+                                        {{ item.successPercentage }}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <p><strong><i class="far fa-calendar-alt"></i>&nbsp;{{ 'sales_forecasts.fields.estimated_sale_date'|trans }}</strong>: <br>{{ item.estimatedSaleDate | date("m-Y") }}</p>
+                        <hr>
+                        <p><strong><i class="far fa-calendar-alt"></i>&nbsp;{{ 'fields.created_at'|trans({}, 'messages') }}</strong>: <br>{{ item.createdAt | date("Y-m-d H:i") }}</p>
+                        <hr>
+                        <p><strong><i class="fa fa-comment"></i>&nbsp;{{ 'sales_forecasts.fields.last_comment'|trans }}</strong>: <br>{{ item.lastCommentedAt | date("Y-m-d H:i") }} - {{ item.lastComment | nl2br }}<br></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if (is_granted('SALES_FORECAST_EDIT_VOTER', item['@id'])) %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins " id="sfr-add-link">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_forecasts.actions.link_sfr'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {% form_theme linkForm 'form_theme_vertical.html.twig' %}
+                    {{ form_start(linkForm) }}
+                    {{ form_errors(linkForm) }}
+
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="form-control">
+                                {{ form_row(linkForm.salesForecasts) }}
+                                {{ form_row(linkForm.submit) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ form_rest(linkForm) }}
+                    {{ form_end(linkForm) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox float-e-margins " id="sfr-add-comment">
+                <div class="ibox-title">
+                    <h5>{{ 'sales_forecasts.actions.add_comment'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {{ form_start(estimatedSaleDateForm) }}
+                    {{ form_errors(estimatedSaleDateForm) }}
+                    {{ form_row(estimatedSaleDateForm.estimatedSaleDate, {'date_pattern': '<span style="display: none;">{{ day }}</span> {{ month }} {{ year }}'}) }}
+                    {{ form_row(estimatedSaleDateForm.comment) }}
+                    {% if estimatedSaleDateForm.synchronized is defined  %}
+                        {{ form_row(estimatedSaleDateForm.synchronized) }}
+                    {% endif %}
+                    {{ form_row(estimatedSaleDateForm.notificationRestricted) }}
+                    {{ form_row(estimatedSaleDateForm.notifyPackage) }}
+                    <br>
+                    {{ form_rest(estimatedSaleDateForm) }}
+                    {{ form_end(estimatedSaleDateForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if linkedSalesForecasts is not empty %}
+    {{ include('sales/sales_forecasts/partial/_sfr_linked.html.twig') }}
+{% endif %}

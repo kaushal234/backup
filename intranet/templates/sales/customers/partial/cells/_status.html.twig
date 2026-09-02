@@ -1,0 +1,8 @@
+{% if item.status == 'PENDING' or item.status == 'PENDING RE-APPROVAL' %}
+    {% set statusClass='warning' %}
+{% elseif item.status == 'APPROVED' %}
+    {% set statusClass='info' %}
+{% else %}
+    {% set statusClass='danger' %}
+{% endif %}
+<td><span class="btn btn-sm btn-{{ statusClass }}">{{ item.status }}</span></td>

@@ -1,0 +1,24 @@
+{% extends 'sales/customers/layout.html.twig' %}
+{% trans_default_domain 'sales_customers' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/customers/partial/_form.html.twig', {
+        title: 'customers.forms.title.edit'|trans,
+        form: form,
+        customer: customer,
+        action: path('sales_customers_edit', {'id': customer.iriId}),
+    }, with_context=false) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        {{ include('sales/customers/partial/_contact_points_sub_divisions.js.twig', {contactPointsSubDivisions: contactPointsSubDivisions}, with_context=false) }}
+    </script>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'sales_customers' }) }}"></script>
+{% endblock %}

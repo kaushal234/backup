@@ -1,0 +1,70 @@
+- name: Ensure basic editors are installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - nano
+      - vim
+    state: present
+
+- name: Ensure curl is installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - curl
+    state: present
+
+- name: Ensure ncdu is installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - ncdu
+    state: present
+
+- name: Ensure tree is installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - tree
+    state: present
+
+- name: Ensure basic network utils are installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - dnsutils
+      - iputils-ping
+      - telnet
+      - nmap
+    state: present
+
+- name: Ensure screen is installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - screen
+    state: present
+  when: inventory_hostname != "web-haproxy-01.tld-america.com"
+
+- name: Ensure logrotate is installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - logrotate
+    state: present
+  when: inventory_hostname != "web-haproxy-01.tld-america.com"
+
+- name: Ensure build-essential is installed (needed for node/yarn)
+  become: true
+  ansible.builtin.apt:
+    name:
+      - build-essential
+    state: present
+  when: inventory_hostname in groups['portals']
+
+- name: Deactivate dns stub listener
+  become: true
+  ansible.builtin.template:
+    src: templates/resolved.conf
+    dest: /etc/systemd/resolved.conf
+  notify:
+    - Restart systemd-resolved

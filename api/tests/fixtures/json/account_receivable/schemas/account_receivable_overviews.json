@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/finance/account_receivable_overviews"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/finance/account_receivable_overviews/\\d+$"},
+          "@type": { "type": "string" },
+          "customerErpReference": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/sales/customer_erp_references/\\d+$"},
+              "@type": {"type": "string"},
+              "id": {"type": "integer"},
+              "customerNumber": {"type": "string"},
+              "sso": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/locations/\\d+$"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "erp": {"type": ["integer", "null"]}
+                },
+                "required": ["@id", "@type", "name", "erp"],
+                "additionalProperties": false
+              },
+              "customer": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/customers/\\d+$"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "status": {"type": "string"}
+                },
+                "required": ["@id", "@type", "name", "status"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["@id", "@type", "id", "customerNumber", "sso", "customer"]
+          },
+          "currency": { "type": "string" },
+          "totalValue": {"type": "number"},
+          "notPastDue": {"type": "number"},
+          "pastDueOneMonth": {"type": "number"},
+          "pastDueTwoMonths": {"type": "number"},
+          "pastDueThreeMonths": {"type": "number"},
+          "pastDueSixMonths": {"type": "number"},
+          "pastDueMoreThanSixMonths": {"type": "number"},
+          "pastDuePercentage": {"type": "integer"},
+          "pastDueTwoMonthsPercentage": {"type": "integer"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "customerErpReference",
+          "currency",
+          "totalValue",
+          "notPastDue",
+          "pastDueOneMonth",
+          "pastDueTwoMonths",
+          "pastDueThreeMonths",
+          "pastDueSixMonths",
+          "pastDueMoreThanSixMonths",
+          "pastDuePercentage",
+          "pastDueTwoMonthsPercentage"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

@@ -1,0 +1,88 @@
+services:
+    _defaults:
+        autowire: true
+
+    app.transfer.manager.generic:
+        class: App\Manager\Transfer\EntityTransferManager
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\NewsAuthorTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\OrderTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\FirstArticleQualificationTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\DemoRepresentativeTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\SubscriptionTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\MeetingTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\TroubleTicketTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\SupervisorTransferHandler']
+
+    app.transfer.manager.customer_representative:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.customer.representative'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\SalesForecastTransferHandler']
+            - registerHandler: ['@App\Manager\Transfer\Handler\DemoRepresentativeTransferHandler']
+
+    app.transfer.manager.service_representative:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.service.representative'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+
+    app.transfer.manager.parts_representative:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.parts.representative'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+
+    app.transfer.manager.sales_representative:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.sales.representative'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+
+    app.transfer.manager.customer:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.customer'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+
+    app.transfer.manager.sfr:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.sfr'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\SalesForecastAdvancedTransferHandler']
+
+    app.transfer.manager.premise:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.premise'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+
+    app.transfer.manager.expertise_level:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.expertise_level'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+
+    app.transfer.manager.classification:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.classification'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']
+
+    app.transfer.manager.file_category:
+        class: App\Manager\Transfer\EntityTransferManager
+        arguments:
+            $alias: 'manager.file_category'
+        calls:
+            - registerHandler: ['@App\Manager\Transfer\Handler\GenericTransferHandler']

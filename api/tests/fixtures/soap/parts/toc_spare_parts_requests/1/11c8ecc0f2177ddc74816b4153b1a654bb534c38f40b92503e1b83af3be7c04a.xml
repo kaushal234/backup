@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
+      <faultcode>S:Server</faultcode>
+      <faultstring>Request validation; Attr. 'salesOrder', Value 'DONOTEXIST': the value is too long.</faultstring>
+      <detail>
+        <Result xmlns="http://www.infor.com/businessinterface/SalesOrder">
+          <messageCode xmlns:ns6="http://www.infor.com/businessinterface/SalesOrder" xmlns="">tlbcts0074</messageCode>
+          <messageType xmlns:ns6="http://www.infor.com/businessinterface/SalesOrder" xmlns="">Error</messageType>
+          <messageText xmlns:ns6="http://www.infor.com/businessinterface/SalesOrder" xmlns="">Request validation; Attr. 'salesOrder', Value 'DONOTEXIST': the value is too long.</messageText>
+          <messageSource xmlns:ns6="http://www.infor.com/businessinterface/SalesOrder" xmlns="">Application</messageSource>
+        </Result>
+      </detail>
+    </S:Fault>
+  </S:Body>
+</S:Envelope>

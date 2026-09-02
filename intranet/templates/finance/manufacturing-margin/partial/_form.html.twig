@@ -1,0 +1,74 @@
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+
+    {{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+    <div class="animated">
+        <div class="mail-box-header clearfix">
+            <h2 class="float-sart">
+                {{ title }}
+            </h2>
+        </div>
+        <div class="mail-box">
+            <div class="mail-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        {{ form_row(form.equipmentRecord) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.exportedAt, {'date_pattern': '<span style="display: none;">{{ day }}</span> {{ month }} {{ year }}'}) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.actualHours) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.standardHours) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.actualLabourCost) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.standardLabourCost) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        {{ form_row(form.standardMaterialCost) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.actualMaterialCost) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.standardOtherMaterialCost) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.actualOtherMaterialCost) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.standardOtherDirectCost) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.actualOtherDirectCost) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        {{ form_row(form.factoryRevenue) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.currency) }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ form_row(form.optionConfigurationParameterHours) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.comment) }}
+                    </div>
+                </div>
+                {{ form_row(form.submit) }}
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

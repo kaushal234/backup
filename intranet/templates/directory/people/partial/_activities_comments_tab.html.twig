@@ -1,0 +1,17 @@
+{{ include('@AlvestTwigHelper/report_table_layout.html.twig', {
+    reportTable: {
+        items: {
+            createdAt: {
+                label: 'directory.people.activity.labels.date' | trans({}, 'directory'),
+                filters: 'date',
+                class: 'col-2'
+            },
+            message: {
+                label: 'directory.people.activity.labels.message' | trans({}, 'directory'),
+            }
+        },
+        search: false,
+        title: 'directory.people.activity.reportTitle' | trans({}, 'directory'),
+        data: comments,
+    },
+}, with_context = false) }}

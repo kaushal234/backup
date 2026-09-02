@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/divisions/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "subDivisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sub_divisions/\\d+$"},
+          "@type": {"type": "string"},
+          "name": {"type": "string"},
+          "legacyId": {"type": "integer"}
+        },
+        "required": ["@id", "@type", "name", "legacyId"],
+        "additionalProperties": false
+      }
+    },
+    "representatives": {
+      "type": "array",
+      "items": { "$ref": "../../directory_people/schemas/directory_people_public.json" }
+    }
+  },
+  "required": [
+    "@id",
+    "@context",
+    "@type",
+    "id",
+    "legacyId",
+    "name",
+    "subDivisions",
+    "representatives"
+  ],
+  "additionalProperties": false
+}

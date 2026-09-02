@@ -1,0 +1,231 @@
+{% extends 'purchasing/supplier/layout.html.twig' %}
+{% trans_default_domain 'suppliers' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="submenu.suppler_rankings"
+                      icon="carbon:chart-line"
+                      route="supplier_rankings_show"
+                      :routeParameters="{
+                            id: supplierRanking.getIriId(),
+                            expertiseLevel: supplierRanking['expertiseLevel'],
+                            notations: supplierRanking['notations']},"
+        />
+        <twig:NavItem icon="mdi:star-half-full"
+                      route="vendor_warranty_claim_home"
+                      :routeParameters="{
+                  'filter_vendor_warranty_claims[supplierNumber][value]': supplier['code'],
+                  'filter_vendor_warranty_claims[status][value][0]': vendorWarrantyClaims.iris[0],
+                  'filter_vendor_warranty_claims[status][value][1]': vendorWarrantyClaims.iris[1],
+                  'filter_vendor_warranty_claims[status][value][2]': vendorWarrantyClaims.iris[2],
+                  'filter_vendor_warranty_claims[status][value][3]': vendorWarrantyClaims.iris[3],
+                  'filter_vendor_warranty_claims[status][value][4]': vendorWarrantyClaims.iris[4],
+                  'filter_vendor_warranty_claims[status][value][5]': vendorWarrantyClaims.iris[5],
+                  'filter_vendor_warranty_claims[status][value][6]': vendorWarrantyClaims.iris[6],
+                  'filter_vendor_warranty_claims[status][value][7]': vendorWarrantyClaims.iris[7],
+                  'filter_vendor_warranty_claims[status][value][8]': vendorWarrantyClaims.iris[8],
+                  'filter_vendor_warranty_claims[status][value][9]': vendorWarrantyClaims.iris[9]
+              }">
+            {% block content %}
+                {{ 'submenu.vwc'|trans({'%count%': vendorWarrantyClaims.count}, 'suppliers')}}
+            {% endblock %}
+        </twig:NavItem>
+
+        <twig:NavItem icon="fluent:clipboard-task-24-regular"
+                      route="non_conformity_home"
+                      :routeParameters="{
+                  'filter_non_conformity[supplierNumber][value]': supplier['code'],
+                  'filter_non_conformity[status][value][0]': nonConformities.statuses[0],
+                  'filter_non_conformity[status][value][1]': nonConformities.statuses[1],
+                  'filter_non_conformity[status][value][2]': nonConformities.statuses[2]
+              }">
+            {% block content %}
+                {{ 'submenu.ncr'|trans({'%count%': nonConformities.count}, 'suppliers')}}
+            {% endblock %}
+        </twig:NavItem>
+
+        <twig:NavItem icon="fluent:history-24-regular"
+                      route="supplier_corrective_action_request_home"
+                      :routeParameters="{
+                  'filter_supplier_corrective_action_request[supplierNumber][value]': supplier['code'],
+                  'filter_supplier_corrective_action_request[status][value][0]': scars.statuses[0],
+                  'filter_supplier_corrective_action_request[status][value][1]': scars.statuses[1],
+                  'filter_supplier_corrective_action_request[status][value][2]': scars.statuses[2],
+                  'filter_supplier_corrective_action_request[status][value][3]': scars.statuses[3],
+                  'filter_supplier_corrective_action_request[status][value][4]': scars.statuses[4]
+              }">
+            {% block content %}
+                {{'submenu.scar'|trans({'%count%': scars.count}, 'suppliers')}}
+            {% endblock %}
+        </twig:NavItem>
+
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block content %}
+{#     Top widgets#}
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="widget bg-body">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-suitcase fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ supplier.name }}</span>
+                        <h3 class="font-bold">{{ supplier.code }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget bg-body">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-globe fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ supplier.location.name ?? '-' }}</span>
+                        <h3 class="font-bold">{{ supplier.country.name ?? '-' }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget bg-body">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-euro fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'widget.currency'|trans }}</span>
+                        <h3 class="font-bold">{{ supplier.currency.name ?? '-' }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            {% set statusColor = supplier.status == 'ACTIVE' ? '#5cb85c' : '#d9534f' %}
+            <div class="widget" style="background-color: {{ statusColor }}; color: #FFF;">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-check-square fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'widget.status'|trans }}</span>
+                        <h3 class="font-bold">{{ supplier.status }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#     Main content#}
+    <div class="row">
+        <div class="col-12 col-xxl-6">
+            {% embed 'helper/_ibox.html.twig' with { title: 'widget.supplier_details'|trans } %}
+                {% trans_default_domain 'suppliers' %}
+                {% block card_content %}
+                    {{ include('helper/_association_table.html.twig', {
+                        associationData: {
+                            search: false,
+                            title: 'widget.supplier_details'|trans,
+                            items: {
+                                code: { label: 'fields.code'|trans },
+                                name: { label: 'fields.name'|trans },
+                                location: { label: 'fields.master_bu'|trans, properties: ['location.name'] },
+                                country: { label: 'fields.country'|trans, properties: ['country.name'] },
+                                currency: { label: 'fields.currency'|trans, properties: ['currency.name'] },
+                                masterBuyer: {
+                                    label: 'fields.master_buyer'|trans,
+                                    properties: ['masterBuyer.lastname', 'masterBuyer.firstname'],
+                                    link: {
+                                        route: 'directory_people_show',
+                                        params: {'id': 'masterBuyer.@id'},
+                                    },
+                                },
+                            },
+                            data: supplier,
+                            options: {card: false},
+                        }
+                    }, with_context = false) }}
+                {% endblock %}
+            {% endembed %}
+        </div>
+
+        <div class="col-12 col-xxl-6">
+            {% embed 'helper/_ibox.html.twig' with { title: 'widget.buy_from'|trans } %}
+                {% trans_default_domain 'suppliers' %}
+                {% block card_content %}
+                    <table class="table table-sm small">
+                        <thead>
+                        <tr>
+                            <th>{{ 'fields.location'|trans }}</th>
+                            <th>{{ 'fields.buyer'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for buyFrom in supplier.buyFrom %}
+                            <tr>
+                                <td>{{ buyFrom.location.name ?? '-' }}</td>
+                                <td>
+                                    {% if buyFrom.buyer is not null %}
+                                        <a href="{{ path('directory_people_show', {id: iri_id(buyFrom.buyer['@id'])}) }}">
+                                            {{ buyFrom.buyer.lastname }} {{ buyFrom.buyer.firstname }}
+                                        </a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+    <div class="row g-3 mt-1">
+        <div class="col-12">
+            {% embed 'helper/_ibox.html.twig' with { title: 'widget.vendor_users'|trans } %}
+                {% trans_default_domain 'suppliers' %}
+                {% block card_content %}
+                    {% if vendorUsers|length > 0 %}
+                        <table class="table table-sm small">
+                            <thead>
+                            <tr>
+                                <th>{{ 'fields.name'|trans }}</th>
+                                <th>{{ 'fields.email'|trans }}</th>
+                                <th>{{ 'fields.contact_code'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in vendorUsers %}
+                                    <tr>
+                                        <td>
+                                            {% if user.vendorUserId is not null%}
+                                                <a href="{{ path('vendor_users_show', {id: user.vendorUserId}) }}">
+                                                    {{ user.fullName }}
+                                                </a>
+                                            {% else %}
+                                                {{ user.fullName }}
+                                            {% endif %}
+                                        </td>
+                                        </td>
+                                        <td>{{ user.email |default('-') }}</td>
+                                        <td class="font-bold">{{ user.contactCode |default('-') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div class="no-data-placeholder">
+                            <i class="fa fa-users"></i>
+                            <span class="m-2">{{ 'widget.no_vendor_users' | trans }}</span>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </div>
+{% endblock content %}

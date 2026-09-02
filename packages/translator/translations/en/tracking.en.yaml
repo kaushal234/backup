@@ -1,0 +1,32 @@
+tracking:
+  packing_slips:
+    title: Packing slips for %date%, company %erp%
+    title_without_date: Packing slips filtered, company %erp%
+  fields:
+    delivery_date: Delivery Date
+    delivered_on: Delivered On
+    packing_slip: Packing Slip
+    packing_slips: Packing Slips
+    tracking_number: Tracking Number
+    tracking_numbers: Tracking Numbers
+    document_type: Type
+    courier: Courier
+    document: Document
+  title:
+    list: Tracking Numbers for Packing Slip#%packing_slip%, Company %erp%
+    add: New tracking information
+  messages:
+    file:
+      success: The file has been successfully uploaded.
+    trackings:
+      success: The new tracking information has been successfully saved
+      error: "Something went wrong while saving the new tracking information: %error%"
+      constraint: There must be at least one tracking number entered.
+      delete:
+        success: Tracking has been deleted successfully.
+        error: Something went wrong and the tracking could not be deleted.
+    filters:
+      error: You must filter by Packing Slip or by Tracking Number, not both.
+  link:
+    courier: Click to go on %courier% website
+    document: Click to download the %documentType% document

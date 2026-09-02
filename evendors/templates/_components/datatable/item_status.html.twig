@@ -1,0 +1,9 @@
+<td>
+    <div>
+        {% if item.expired %}
+            {{ 'manufacturing.bill_of_materials.status_change'|trans({date: attribute(item, expiryDateProperty|default('expiryDate'))|date('Y-m-d')}) }}
+        {% else %}
+            OK
+        {% endif %}
+    </div>
+</td>

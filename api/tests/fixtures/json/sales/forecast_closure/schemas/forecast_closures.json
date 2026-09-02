@@ -1,0 +1,195 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/forecast_closures$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/forecast_closures/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "salesForecast": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/sales_forecasts/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "sso": {
+                "$ref": "../../../directory_location/schemas/directory_location_public_with_network.json"
+              },
+              "factory": {
+                "$ref": "../../../directory_location/schemas/directory_location_public_with_network.json"
+              },
+              "asm": {
+                "$ref": "../../../directory_people/schemas/directory_people_public.json"
+              },
+              "buyer": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/customers/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "oneOf": [
+                      {"type": "null"},
+                      {
+                        "type": "object",
+                        "properties": {
+                          "name": {"type": "string"}
+                        },
+                        "required": ["name"]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "legacyId",
+                  "name",
+                  "country"
+                ],
+                "additionalProperties": false
+              },
+              "endUser": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/customers/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "oneOf": [
+                      {"type": "null"},
+                      {
+                        "type": "object",
+                        "properties": {
+                          "name": {"type": "string"}
+                        },
+                        "required": ["name"]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "legacyId",
+                  "name",
+                  "country"
+                ],
+                "additionalProperties": false
+              },
+              "product": {
+                "$ref": "../../../sales/product/schemas/product_public.json"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "estimatedSaleDate": {
+                "type": "string"
+              },
+              "equoteId": {
+                "type": ["string", "null"]
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "closedAt": {
+                "type": ["string", "null"]
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "legacyId",
+              "sso",
+              "factory",
+              "asm",
+              "buyer",
+              "endUser",
+              "product",
+              "quantity",
+              "estimatedSaleDate",
+              "equoteId",
+              "createdAt",
+              "closedAt",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "status": {
+            "type": "string"
+          },
+          "orderedQuantity": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "poster": {
+            "$ref": "../../../directory_people/schemas/directory_people_public.json"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "competitor": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../competitor/schemas/competitor_public.json"}
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "salesForecast",
+          "status",
+          "orderedQuantity",
+          "createdAt",
+          "poster",
+          "reason",
+          "competitor",
+          "legacyId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "minItems": 1
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

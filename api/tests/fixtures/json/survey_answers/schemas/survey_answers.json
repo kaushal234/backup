@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "properties": {
+        "@context": { "type": "string"},
+        "@id": {"pattern": "^/surveys/answers$"},
+        "@type": { "type": "string"},
+        "hydra:member": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "@id": {"pattern": "^/surveys/answers/\\d+$"},
+                    "@type": {"type": "string"},
+                    "createdAt": {"type": "string"},
+                    "updatedAt": {"type": "string"}
+                },
+                "required": [ "@id", "@type", "createdAt", "updatedAt" ],
+                "additionalProperties": false
+            },
+            "minItems": 0
+        },
+        "hydra:totalItems": {"type": "integer"}
+    },
+    "required": [ "@context", "@id", "@type", "hydra:member", "hydra:totalItems" ],
+    "additionalProperties": false
+}

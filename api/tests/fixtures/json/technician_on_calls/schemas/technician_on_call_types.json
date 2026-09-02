@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/service/technician_on_call_types$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "id": {
+            "readOnly": true,
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+
+      },
+      "additionalProperties": false,
+      "required": [
+        "@id",
+        "@type",
+        "id",
+        "name",
+        "description"
+      ]
+    }
+  }
+}

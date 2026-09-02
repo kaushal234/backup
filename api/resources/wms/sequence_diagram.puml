@@ -1,0 +1,44 @@
+@startuml
+actor Operator
+actor WarehouseSupervisor
+actor WarehouseKeeper
+database api
+database legacy
+database baan
+
+api -> api: scheduled synchronization
+activate api
+api ----> baan
+baan ----> api
+api ----> legacy
+legacy ----> api
+deactivate api
+...
+Operator -> legacy: outbound request
+...
+api -> api: scheduled synchronization
+activate api
+api ----> baan
+baan ----> api
+api ----> legacy
+legacy ----> api
+deactivate api
+...
+
+WarehouseSupervisor -> api: planify deliveries
+note right : lier des outbound request\na des picking group et entrer\nla date de livraison prévue
+...
+
+WarehouseKeeper -> api: start delivery
+note right : * sélectionne un picking group parmis ceux à traiter\n* il sélectionne son/ses secteurs parmis \nceux qui lui sont attribués\n*le système génère la liste des avis de désenlogement\n*le system met à jour le statut des outbound request concernés\n*il part en picking avec un équivalent à l'existant\n*fin de picking, le system met à jour le statut des outbound request concernés
+...
+
+api -> api: scheduled synchronization
+activate api
+api ----> baan
+baan ----> api
+api ----> legacy
+legacy ----> api
+deactivate api
+...
+@enduml

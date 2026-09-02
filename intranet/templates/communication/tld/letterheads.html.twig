@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_letterheads.html.twig', {
+        letterheads: {
+            'TLD Letterhead template': {
+                'docx': 'tld/letterheads/tld_letterhead.docx',
+            }
+        }
+    }) }}
+{% endblock %}

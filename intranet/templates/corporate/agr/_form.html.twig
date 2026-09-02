@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-lg-8">
+        {{ form_start(form, { action: action }) }}
+        {{ form_errors(form) }}
+        {{ form_rest(form) }}
+        <a href="{{ cancel_link }}" class="btn btn-primary text-capitalize">{{ 'button.cancel'|trans }}</a>
+        <div class="float-end">
+            <input type="reset" class="btn btn-danger text-capitalize" value="{{ 'button.reset'|trans }}"/>
+            <input type="submit" class="btn btn-primary text-capitalize" value="{{ 'button.submit'|trans }}"/>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

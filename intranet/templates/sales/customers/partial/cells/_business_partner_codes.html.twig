@@ -1,0 +1,7 @@
+{% if item.inforLnBusinessPartnerCodes %}
+    <td class="p-1">
+        {% for code in item.inforLnBusinessPartnerCodes %}
+            <span class="badge m-1">{{ code }}</span>
+        {% endfor %}
+    </td>
+{% endif %}

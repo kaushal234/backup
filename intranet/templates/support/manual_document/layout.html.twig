@@ -1,0 +1,24 @@
+{% extends 'support/manuals/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:LegacyNavItem icon="material-symbols:home-outline-rounded"
+                            url="/en/private/product_support/index.ps.php?m[0]=equipment&m[1]=view&id={{ manualDocument.manual.equipmentRecord.legacyId }}"
+                            :security="manualDocument.manual is defined and manualDocument.manual.equipmentRecord is defined">
+            {{ 'support.nav_link.equipment_record'|trans({'%id%': manualDocument.manual.equipmentRecord.legacyId}, 'support') }}
+        </twig:LegacyNavItem>
+        <twig:NavItem translationKey="support.nav_link.manual" domain="support" icon="pepicons-pencil:file"
+                      route="manuals_show" :routeParameters="{id: manualDocument.manual.id}"/>
+        <twig:NavItem translationKey="support.nav_link.manual" domain="support" icon="bi:filetype-pdf"
+                      route="manual_document_download_pdf_file" :routeParameters="{manualDocumentId: manualDocument.id}"
+                      :security="manualDocument.type is same as constant('AppBundle\\Controller\\Support\\ManualDocumentController::PARTS_DIAGRAM')"/>
+        <twig:NavItem:Edit route="manual_documents_edit" :routeParameters="{id: manualDocument.id}"
+                           :security="is_granted('FEATURE_MANUAL_ADMIN')"/>
+        {% if form is defined %}
+            <twig:NavItem translationKey="support.nav_link.cancel" domain="support" icon="mdi:ban"
+                          route="manual_documents_show" :routeParameters="{id: manualDocument.id}"
+                          class="action-danger"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

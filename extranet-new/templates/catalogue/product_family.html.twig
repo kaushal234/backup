@@ -1,0 +1,97 @@
+{#
+  Catalogue — Level 3: Product Family detail + datasheets
+  Route: catalogue:product_family (App\Controller\Catalogue\ShowProductFamilyController)
+  Vars : productFamily (.id, .name, .englishDescription, .productType.{id,englishName}, .dms)
+         datasheets[]  — each item exposes:
+             item.id                  -> used by path('document:download', {id: item.id})
+             item.document.title
+             item.document.language
+             item.document.createdAt
+
+  Restyled from templates/catalogue/product_family.html.twig.
+
+  ── DATASHEETS ──────────────────────────────────────────────
+  The original embedded _components/report_table.html.twig. Here we
+  iterate `datasheets` directly into themed rows for the new look.
+  The item.document.* property names mirror the report_table config
+  ('document.title' / 'document.language' / 'document.createdAt') and
+  item.id mirrors the download template. If your datasheet resource
+  shapes differently, adjust the three {{ item.document.* }} accessors.
+  Prefer to keep the old table instead? Swap the .dochub block for the
+  original {% embed '_components/report_table.html.twig' ... %} — it
+  still works; only the visual treatment changes.
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.title.catalogue'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    <section class="page-hero">
+        <div class="page-hero-pattern"></div>
+        <div class="container-fluid px-4 position-relative" style="z-index:2">
+            <nav class="page-crumbs" aria-label="breadcrumb">
+                <a href="{{ path('index') }}">{{ 'header.menu.home'|trans }}</a>
+                <span class="sep">/</span>
+                <a href="{{ path('catalogue:index') }}">{{ 'extranet.menu.catalogue'|trans }}</a>
+                <span class="sep">/</span>
+                <a href="{{ path('catalogue:product_families', {id: productFamily.productType.id}) }}">{{ productFamily.productType.englishName }}</a>
+                <span class="sep">/</span>
+                <span class="current">{{ productFamily.name }}</span>
+            </nav>
+            <h1 class="page-hero-title">{{ productFamily.name }}</h1>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="fam-detail">
+                {# LEFT: description + datasheets #}
+                <div>
+                    <div class="fam-desc">{{ productFamily.englishDescription|raw }}</div>
+
+                    <h2 class="ds-title"><span class="ph-bar"></span>{{ 'extranet.title.datasheets'|trans }}</h2>
+
+                    <div class="dochub">
+                        {% if datasheets is empty %}
+                            <div class="dl-empty">{{ 'no_results'|trans }}</div>
+                        {% else %}
+                            <ul class="doc-list">
+                                {% for item in datasheets %}
+                                    <a class="doc-row" href="{{ path('document:download', {id: item.document.id}) }}">
+                                        <span class="doc-ico is-pdf">PDF</span>
+                                        <span>
+                                            <span class="doc-title">{{ item.document.title }}</span>
+                                            <span class="doc-sub">{{ item.document.language }}</span>
+                                        </span>
+                                        <span class="doc-meta">
+                                            <span class="label">{{ 'display.table.scar_files.headers.createdAt'|trans }}</span>
+                                            {{ item.document.createdAt }}
+                                        </span>
+                                        <span><span class="doc-tag tag-datasheet">{{ 'extranet.title.datasheets'|trans }}</span></span>
+                                        <span class="dl-btn">
+                                            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                                <path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M3 13h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            {{ 'display.table.document.rows.download.link_text'|trans }}
+                                        </span>
+                                    </a>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# RIGHT: product image #}
+                <div class="fam-media">
+                    {% if productFamily.dms is not null %}
+                        <img src="{{ absolute_url('https://www.tld-gse.com/en/private/public/dms.php?id=' ~ productFamily.dms) }}" alt="{{ productFamily.name }}">
+                    {% else %}
+                        <img src="{{ asset('images/no_photo_catalogue.png') }}" alt="{{ productFamily.name }}">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_email_signatures.html.twig', {
+        signatures: {
+            'Anderson Airmotive Email Signature': {
+                'docx': 'anderson_airmotive/email_signatures/ANDERSON AIRMOTIVE EMAIL SIGNATURE.docx',
+            }
+        }
+    }) }}
+{% endblock %}

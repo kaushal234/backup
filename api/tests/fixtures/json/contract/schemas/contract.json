@@ -1,0 +1,269 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": { "pattern": "^/contracts/\\d+$" },
+    "@type": { "enum": ["Contract"] },
+
+    "id": { "type": "integer" },
+    "shortDescription": { "type": "string" },
+    "description": { "type": "string" },
+    "status": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "startDate": { "type": "string", "format": "date-time" },
+    "expirationDate": { "type": ["string", "null"], "format": "date-time" },
+    "indefinitePeriodType": { "type": "boolean" },
+    "confidential": { "type": "boolean" },
+    "automaticRenewal": { "type": "boolean" },
+    "renewalPeriod": { "type": "integer" },
+    "renewalUnit": { "type": "string" },
+    "externalParty": { "type": "string" },
+    "comment": { "type": ["string", "null"] },
+    "observationValue": { "type": ["string", "null"] },
+    "observationTerm": { "type": ["string", "null"] },
+    "observationStatus": { "type": ["string", "null"] },
+
+    "internalParty": {
+      "type": ["array", "object"],
+      "items": { "type": "string" }
+    },
+    "customers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/customers/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" }
+      },
+      "required": ["@id", "@type", "username", "email"],
+      "additionalProperties": false
+    },
+
+    "owner": {
+      "type": "object",
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" }
+      },
+      "required": ["@id", "@type", "username", "email"],
+      "additionalProperties": false
+    },
+
+    "value": { "type": "integer" },
+    "currency": {
+      "type": "object",
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": { "type": "string" },
+        "id": { "type": "integer" },
+        "name": { "type": "string" }
+      },
+      "required": ["@id", "@type", "id", "name"],
+      "additionalProperties": false
+    },
+
+    "subCategory": {
+      "type": "object",
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": { "type": "string" },
+        "name": { "type": "string" },
+        "id": { "type": "integer" },
+        "displayedName": { "type": "string" },
+        "isAllow": { "type": "boolean" },
+        "category": {
+          "type": "object",
+          "properties": {
+            "@id": { "type": "string" },
+            "@type": { "type": "string" },
+            "name": { "type": "string" },
+            "id": { "type": "integer" },
+            "displayedName": { "type": "string" }
+          },
+          "required": ["@id", "@type", "name", "id", "displayedName"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["@id", "@type", "name", "id", "category", "displayedName", "isAllow"],
+      "additionalProperties": false
+    },
+
+    "divisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "type": "string" },
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "name": { "type": "string" }
+        },
+        "required": ["@id", "@type", "id", "name"],
+        "additionalProperties": false
+      }
+    },
+
+    "businessUnits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "type": "string" },
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "domain": { "type": "string" },
+          "region": {
+            "type": "object",
+            "properties": {
+              "@id": { "type": "string" },
+              "@type": { "type": "string" },
+              "name": { "type": "string" }
+            },
+            "required": ["@id", "@type", "name"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["@id", "@type", "id", "name", "domain", "region"],
+        "additionalProperties": false
+      }
+    },
+
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "type": "string" },
+          "@type": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": ["@id", "@type", "name"],
+        "additionalProperties": false
+      }
+    },
+
+    "premises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "type": "string" },
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "latitude": { "type": ["number", "null"] },
+          "longitude": { "type": ["number", "null"] },
+          "supportTeam": { "type": ["string", "null"] },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "count": { "type": "integer" },
+          "address": {
+            "type": "object",
+            "properties": {
+              "@id": { "type": "string" },
+              "@type": { "type": "string" },
+              "country": { "type": "string" },
+              "street1": { "type": "string" },
+              "street2": { "type": "string" },
+              "postalCode": { "type": "string" },
+              "city": { "type": "string" },
+              "town": { "type": ["string", "null"] },
+              "state": { "type": ["string", "null"] }
+            },
+            "required": ["@id", "@type", "country", "street1", "street2", "postalCode", "city"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["@id", "@type", "id", "name", "description", "address", "latitude", "longitude", "supportTeam", "tags", "count"],
+        "additionalProperties": false
+      }
+    },
+
+    "jurisdiction": { "type": "string" },
+    "parentContract": { "type": ["string", "null"] },
+
+    "otherPartySignatories": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+
+    "alvestSignatories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "type": "string" },
+          "@type": { "type": "string" },
+          "username": { "type": "string" },
+          "email": { "type": "string" },
+          "firstname": { "type": "string" },
+          "lastname": { "type": "string" }
+        },
+        "required": ["@id", "@type", "username", "email"],
+        "additionalProperties": false
+      }
+    },
+
+    "childContracts": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+
+    "files": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+
+  "required": [
+    "@context", "@id", "@type", "id",
+    "shortDescription", "description",
+    "createdAt", "startDate", "customers",
+    "expirationDate", "indefinitePeriodType",
+    "renewalPeriod", "renewalUnit", "externalParty",
+    "internalParty", "createdBy", "owner",
+    "value", "currency", "subCategory", "confidential",
+    "jurisdiction", "parentContract",
+    "otherPartySignatories", "alvestSignatories",
+    "childContracts", "files", "status",
+    "businessUnits", "regions", "divisions", "premises",
+    "observationValue", "observationTerm", "automaticRenewal", "observationStatus", "comment"
+  ],
+
+  "additionalProperties": false
+}

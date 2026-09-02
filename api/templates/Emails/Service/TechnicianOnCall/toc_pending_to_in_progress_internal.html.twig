@@ -1,0 +1,17 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="row" style="margin: 16px;">
+        <h5>{{ 'toc.message.toc_pending_to_in_progress_internal'|trans({
+                '%id%': technicianOnCall.id,
+                '%unitOperationalStatus%': technicianOnCall.unitOperationalStatus.name,
+                '%indiceFactor%': technicianOnCall.indiceFactor
+            }) | nl2br }}</h5>
+        <hr>
+
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_internal.html.twig') }}
+        {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_details.html.twig', { technicianOnCall: technicianOnCall }) }}
+    </div>
+{% endblock %}

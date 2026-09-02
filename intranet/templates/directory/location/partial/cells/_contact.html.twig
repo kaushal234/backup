@@ -1,0 +1,39 @@
+{% trans_default_domain 'directory' %}
+<td>
+    <table>
+        <tbody>
+        <tr>
+            <th>{{ 'directory.location_contact.fields.telephone'|trans|capitalize }}</th>
+            <td>{{ item.contact.telephone }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_contact.fields.fax'|trans|capitalize }}</th>
+            <td>{{ item.contact.fax }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_contact.fields.sparePartsEmail'|trans|capitalize }}</th>
+            <td>{{ item.contact.sparePartsEmail }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_contact.fields.partsCustomerSupportEmail'|trans|capitalize }}</th>
+            <td>{{ item.contact.partsCustomerSupportEmail }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_contact.fields.sparePartsTelephone'|trans|capitalize }}</th>
+            <td>{{ item.contact.sparePartsTelephone }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_contact.fields.sparePartsFax'|trans|capitalize }}</th>
+            <td>{{ item.contact.sparePartsFax }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_contact.fields.serviceHubEmail'|trans|capitalize }}</th>
+            <td>{{ item.contact.serviceHubEmail }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_contact.fields.serviceHubTelephone'|trans|capitalize }}</th>
+            <td>{{ item.contact.serviceHubTelephone }}</td>
+        </tr>
+        </tbody>
+    </table>
+</td>

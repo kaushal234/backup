@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/parts/couriers/\\d+$"},
+    "@type": { "type": "string" },
+    "id":  {"type": ["integer"]},
+    "name":  {"type": ["string"]},
+    "url":  {"type": ["string", "null"]},
+    "parameterName": {"type": ["string", "null"]}
+  },
+  "required": ["@context", "@id", "id", "@type", "name", "url", "parameterName"],
+  "additionalProperties": false
+}

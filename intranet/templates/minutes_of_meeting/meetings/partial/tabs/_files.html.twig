@@ -1,0 +1,38 @@
+{% trans_default_domain 'meeting' %}
+<div class="row">
+    <div class="col-md-8">
+        {{ include('minutes_of_meeting/partial/_files.html.twig', {meeting: item} )}}
+    </div>
+    {% if is_granted('MEETING_WRITE_VOTER', item.iri) %}
+        <div class="col-md-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'demo.fields.add_file' | trans([], 'demo') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% form_theme formFiles 'form_theme_vertical.html.twig' %}
+
+                            {{ form_start(formFiles, { action: path('meeting_show', {'id': item.id}) }) }}
+                            {{ form_errors(formFiles) }}
+
+                            {{ form_row(formFiles.file) }}
+                            {{ form_row(formFiles.description) }}
+                            {{ form_row(formFiles.submit) }}
+
+                            {{ form_rest(formFiles) }}
+
+                            {{ form_end(formFiles) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

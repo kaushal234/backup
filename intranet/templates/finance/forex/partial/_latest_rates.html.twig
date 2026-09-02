@@ -1,0 +1,11 @@
+<h4>Official TLD Rate</h4>
+{% for key, rates in latestRates %}
+    {% if rates is not null %}
+        <p>{{ key | trans({}, 'forex') }}=&nbsp;<strong>{{ rates.rate }}</strong><br>
+    {% else %}
+        <p>{{ key | trans({}, 'forex') }}= <strong>{{ 'home.messages.no_rates_found' |trans }}</strong><br>
+    {% endif %}
+{% endfor %}
+{% if is_granted('FEATURE_EXCHANGE_RATE_WRITE') %}
+    <a href="{{ path('forex_search') }}" class="btn btn-warning btn-sm m-t-xs"><span class="fa fa-pencil-alt"></span>&nbsp;Edit Forex</a>
+{% endif %}

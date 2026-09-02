@@ -1,0 +1,60 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+{% block body %}
+    <style type="text/css">
+        .warningDate {
+            background: #e58a8a;
+            margin-top: -2px;
+            padding-top: 2px;
+            padding-left: 1px;
+            color: black;
+        }
+    </style>
+    <row>
+        <columns>
+            {% if message is defined and message != "" %}
+                <h4>{{ 'purchase_order.confirmation.comment' | trans }} :</h4>
+                <p>{{ message }}</p>
+            {% endif %}
+
+            {{ include('Helpers/_report_table_raw.html.twig', {
+                reportTable: {
+                    items: {
+                        lineIdentifier: { label: 'purchase_order.confirmation.fields.line' | trans},
+                        itemCode: { label: 'purchase_order.confirmation.fields.part_number' | trans},
+                        description: { label: 'purchase_order.confirmation.fields.description' | trans},
+                        quantity: {
+                            label: 'purchase_order.confirmation.fields.order_quantity' | trans,
+                            template: 'Emails/PurchaseOrder/partial/quantity.html.twig',
+                        },
+                        receivedQuantity: {
+                            label: 'purchase_order.confirmation.fields.delivered_quantity' | trans,
+                            template: 'Emails/PurchaseOrder/partial/quantity.html.twig',
+                        },
+                        backOrderQuantity: {
+                            label: 'purchase_order.confirmation.fields.back_order_quantity' | trans,
+                            template: 'Emails/PurchaseOrder/partial/back_order_quantity.html.twig',
+                        },
+                        plannedReceiptDate: {
+                            label: 'purchase_order.confirmation.fields.original_requested_date' | trans,
+                            template: 'Emails/PurchaseOrder/partial/warning_date.html.twig',
+                        },
+                        rescheduledDate: {
+                            label: 'purchase_order.confirmation.fields.rescheduled_delivery_date' | trans,
+                            template: 'Emails/PurchaseOrder/partial/warning_date.html.twig',
+
+                        },
+                        confirmedSupplierDate: {
+                            label: 'purchase_order.confirmation.fields.confirmed_delivery_date' | trans,
+                            template: 'Emails/PurchaseOrder/partial/confirmed_delivery_date.html.twig',
+                        },
+                    },
+                    data: purchase_order.lines,
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}
+

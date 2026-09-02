@@ -1,0 +1,111 @@
+App\Entity\Sales\Demo:
+    #/sales/demos/1
+    demo_globine:
+        id: 1
+        sso: "@location_sso"
+        factory: "@location_factory"
+        asm: "@user_asm"
+        psm: "@user_psm"
+        ast: "@user_pse"
+        product: "@catalog_product_1"
+        customer: "@customer_noire"
+        country: "@country_kinder"
+        status: "SUBMITTED"
+        expectedStartDate: <dateTimeBetween('-30 days','-1 days')>
+        approvers:
+            - '@user_ceo'
+            - '@user_evp'
+
+    #/sales/demos/2
+    demo_roïde:
+        id: 2
+        sso: "@location_sso"
+        factory: "@location_404"
+        asm: "@user_asm"
+        psm: "@user_psm"
+        ast: "@user_pse"
+        product: "@catalog_product_2"
+        customer: "@customer_a_boire"
+        country: "@country_kinder"
+        status: "ACTIVE"
+        expectedStartDate: <dateTimeBetween('-30 days','-1 days')>
+
+    #/sales/demos/3
+    demo_de_minuit:
+        id: 3
+        sso: "@location_sso"
+        factory: "@location_factory"
+        asm: "@user_asm_transferred"
+        psm: "@user_psm"
+        ast: "@user_pse"
+        product: "@catalog_product_not_deleted"
+        customer: "@customer_noire"
+        country: "@country_kinder"
+        status: "APPROVED"
+        equipmentRecord: "@equipment_record_parent"
+        delinquent: 1
+        lastCommentedAt: <dateTimeBetween('-100 days','30 days')>
+        expectedStartDate: <dateTimeBetween('-30 days','-1 days')>
+
+    #/sales/demos/4
+    demo_toujours_demo_encore_demo_rien_que_demo:
+        id: 4
+        sso: "@location_sso"
+        factory: "@location_404"
+        asm: "@user_asm_transferred"
+        psm: "@user_psm"
+        ast: "@user_pse"
+        product: "@catalog_product_1"
+        customer: "@customer_noire"
+        country: "@country_kinder"
+        status: "ACTIVE"
+        equipmentRecord: "@equipment_record_remi"
+        delinquent: 1
+
+    #/sales/demos/5
+    demo_cassins:
+        id: 5
+        sso: "@location_sso"
+        factory: "@location_404"
+        asm: "@user_asm_transferred"
+        psm: "@user_psm"
+        ast: "@user_pse"
+        product: "@catalog_product_1"
+        customer: "@customer_noire"
+        country: "@country_kinder"
+        status: "SUCCESSFUL"
+        equipmentRecord: "@equipment_record_remi"
+        delinquent: 0
+
+    #/sales/demos/6
+    demo_niaque:
+        id: 6
+        sso: "@location_sso"
+        factory: "@location_factory"
+        asm: "@user_asm"
+        psm: "@user_psm"
+        ast: "@user_basic"
+        product: "@catalog_product_not_deleted"
+        customer: "@customer_noire"
+        country: "@country_kinder"
+        equipmentRecord: "@equipment_record_pol"
+        status: "APPROVED"
+        delinquent: 1
+        lastCommentedAt: <dateTimeBetween('-100 days','-30 days')>
+        revisedEndDate: <dateTimeBetween('2 days','30 days')>
+
+    #/sales/demos/7
+    jeux_demo:
+        id: 7
+        sso: "@location_sso"
+        factory: "@location_factory"
+        asm: "@user_asm"
+        psm: "@user_psm"
+        ast: "@user_basic"
+        product: "@catalog_product_not_deleted"
+        customer: "@customer_demo"
+        country: "@country_kinder"
+        status: "APPROVED"
+        delinquent: 1
+        lastCommentedAt: <dateTimeBetween('-100 days','30 days')>
+        revisedEndDate: <(new \DateTime("2222-02"))>

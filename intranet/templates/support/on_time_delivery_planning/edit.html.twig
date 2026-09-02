@@ -1,0 +1,25 @@
+{% extends '/support/on_time_delivery_planning/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.SF_INITIAL_STORE_STATE = {{ initialState|json_encode|raw }};
+        window.ODP_APP_PROPS = {{ props|json_encode|raw }}
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'service' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'support' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'sales_orders' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'equipment_shipping_record' }) }}"></script>
+{% endblock %}

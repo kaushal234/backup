@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["@id", "@type", "@context", "attendee", "note", "contentNote", "trainerNote", "comment"],
+  "properties": {
+    "@id":  {"type": "string", "pattern": "^/training_feedbacks/\\d+$"},
+    "@type":  {"type": "string", "pattern": "^TrainingFeedback$"},
+    "@context": {"type":  "string"},
+    "attendee":  {"type":  "string"},
+    "note": {"type": "integer", "minimum": 0, "maximum": 5},
+    "contentNote": {"type": "integer", "minimum": 0, "maximum": 5},
+    "trainerNote": {"type": "integer", "minimum": 0, "maximum": 5},
+    "comment": {"type": "string"}
+  }
+}

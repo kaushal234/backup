@@ -1,0 +1,74 @@
+{% trans_default_domain 'customer_service_record' %}
+{% form_theme surveyFilterForm 'form_theme_vertical.html.twig' %}
+
+<div class="col-md-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>{{ 'csr.title.survey_rating'|trans }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            {{ form_start(surveyFilterForm) }}
+            <div class="row">
+                <div class="col-md-3">
+                    {{ form_row(surveyFilterForm.completedAfter) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(surveyFilterForm.completedBefore) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(surveyFilterForm.salesOrganisationService) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(surveyFilterForm.salesOrganisation) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(surveyFilterForm.manufacturerLocation) }}
+                </div>
+                <div class="col-md-12 form-group text-end">
+                    {{ form_widget(surveyFilterForm.submit) }}
+                    {{ form_widget(surveyFilterForm.download) }}
+                </div>
+            </div>
+            {{ form_end(surveyFilterForm) }}
+
+            {{ include('helper/_report_table_raw.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'CSR#',
+                            link:{
+                                route: 'customer_service_record_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        equipmentRecord: {
+                            properties: ['equipmentRecord.serialNumber'],
+                            label: 'calibration_tools.tools.fields.serialNumber' | trans({}, 'messages'),
+                            link:{
+                                route: 'legacy_product_support',
+                                params: {'id':'equipmentRecord.legacyId'},
+                                fixedParams: {'m':['equipment', 'view']}
+                            }
+                        },
+                        completedAt: {
+                            label: 'fields.completed_at' | trans({}, 'messages')|capitalize,
+                            filters: 'date("Y-m-d")',
+                            template: 'partial/cells/_nullable_date.html.twig',
+                        },
+                        ratingResult: {
+                            label: 'csr.table.ratings'|trans,
+                        }
+                    },
+                    data: customerServiceRecords,
+                    initialSorting: false,
+                    additionalClass: 'table-striped'
+                },
+            }, with_context = false )}}
+        </div>
+    </div>
+</div>

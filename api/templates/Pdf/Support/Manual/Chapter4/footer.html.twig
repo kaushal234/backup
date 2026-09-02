@@ -1,0 +1,10 @@
+{% extends 'Pdf/Support/Manual/footer.html.twig' %}
+
+{% block head %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        {{ include('Pdf/fonts/opensans.css.twig') }}
+        {{ source('@css/chapter4.css') }}
+    </style>
+    {% include 'Pdf/jsWkhtmltopdf.html.twig' %}
+{% endblock head %}

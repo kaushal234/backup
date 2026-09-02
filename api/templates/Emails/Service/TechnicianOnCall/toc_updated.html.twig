@@ -1,0 +1,67 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <h5>{{ 'toc.message.toc_updated' | trans({'%id%': technicianOnCall.id})|nl2br }}</h5>
+
+            {% if changeSet|length > 0 %}
+                <ul>
+                    {% for field, values in changeSet %}
+                        {% set emptyLabel = '<strong>[ <i>' ~ 'activity.log.empty'|trans({}, 'messages') ~ '</i> ]</strong>' %}
+
+                        {% set before = values[0] is empty
+                            ? emptyLabel
+                            : '<b>' ~ values[0] ~ '</b>'
+                        %}
+
+                        {% set after = values[1] is empty
+                            ? emptyLabel
+                            : '<b>' ~ values[1] ~ '</b>'
+                        %}
+
+                        <li>
+                            {{ 'sfr.change' | trans({
+                                '%field%': field,
+                                '%before%': before,
+                                '%after%': after
+                            }) | raw }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% set documentationItems = {} %}
+            {% if 'symptoms' in documentationFields|default([]) %}
+                {% set documentationItems = documentationItems|merge({
+                    symptoms: { label: 'Symptoms' }
+                }) %}
+            {% endif %}
+            {% if 'rootCause' in documentationFields|default([]) %}
+                {% set documentationItems = documentationItems|merge({
+                    rootCause: { label: 'toc.fields.rootCause'|trans({}, 'technician_on_call') }
+                }) %}
+            {% endif %}
+            {% if 'solution' in documentationFields|default([]) %}
+                {% set documentationItems = documentationItems|merge({
+                    solution: { label: 'toc.fields.solution'|trans({}, 'technician_on_call') }
+                }) %}
+            {% endif %}
+
+            {% if documentationItems is not empty %}
+                {{ include('Helpers/_association_table.html.twig', {
+                    associationData: {
+                        items: documentationItems,
+                        data: technicianOnCall,
+                        title: '',
+                    },
+                }, with_context = false) }}
+            {% endif %}
+        </columns>
+    </row>
+
+    {{ include('Emails/Service/TechnicianOnCall/_partials/_toc_link_internal.html.twig') }}
+{% endblock %}

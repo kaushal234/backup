@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/positions/\\d+$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "legacyId": {"type": "integer"},
+    "code": {"type": "string"},
+    "description": {"type": "string"},
+    "mentorMandatory": {"type":  "boolean"},
+    "level": {
+      "type": "object",
+      "properties": {
+        "@id": {"type": "string"},
+        "@type": {"type": "string"},
+        "label": {"type": "string"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "divisionGroups": {
+      "type":  "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"type": "string"},
+          "@type": {"type": "string"},
+          "division": {
+            "type": "object",
+            "properties": {
+              "@id": {"type": "string"},
+              "@type": {"type": "string"},
+              "id": {"type": "integer"},
+              "name": {"type": "string"},
+              "legacyId": {"type": "integer"}
+            },
+            "required": ["@id", "@type", "id", "name"],
+            "additionalProperties": false
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"type": "string"},
+                "@type": {"type": "string"},
+                "id": {"type": "integer"},
+                "name": {"type": "string"},
+                "legacyId": {"type": "integer"}
+              },
+              "required": ["@id", "@type", "id", "name"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["@id", "@type", "id", "division", "groups"]
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "legacyId",
+    "code",
+    "description",
+    "mentorMandatory",
+    "level",
+    "divisionGroups"
+  ],
+  "additionalProperties": false
+}

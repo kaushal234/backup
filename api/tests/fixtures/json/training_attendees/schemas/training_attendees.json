@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["@context", "@id", "@type", "hydra:totalItems", "hydra:member", "hydra:search"],
+  "properties": {
+    "@id": {"type": "string", "pattern": "^/training_attendees$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["@id", "@type", "id", "guest", "invited", "answer", "training"],
+        "properties": {
+          "@id":  {"type": "string", "pattern": "^/training_attendees/\\d+$"},
+          "@type":  {"type": "string", "pattern": "^TrainingAttendee$"},
+          "id":  {"type": "integer"},
+          "guest":  {"$ref": "../../directory_people/schemas/directory_people_public.json" },
+          "invited":  {"type": "boolean"},
+          "answer":  {"type":  ["null", "boolean"]},
+          "training":  {"type":  ["string"]}
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

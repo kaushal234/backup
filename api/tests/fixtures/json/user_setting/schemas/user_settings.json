@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/user_settings$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/user_settings/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "settings": {"type": ["object", "array"]},
+          "name": {"type": "string"},
+          "user": {"type": "string"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "settings",
+          "name",
+          "user"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

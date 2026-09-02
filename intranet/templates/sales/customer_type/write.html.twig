@@ -1,0 +1,26 @@
+{% extends '/sales/customers/layout.html.twig' %}
+{% trans_default_domain 'sales_customers' %}
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    {{ 'customer_types.write.title'|trans|capitalize }}
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_widget(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+.data_table_filter_viewer__chip {
+  display: flex;
+  justify-content: center;
+  min-height: 33px;
+}
+
+.data_table_filter_viewer__chip > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+}
+
+.data_table_filter_viewer__chip_title {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  font-weight: bolder;
+  white-space: nowrap;
+  color: var(--bs-body-color);
+  font-weight: bolder;
+}
+
+.data_table_filter_viewer__chip_value {
+  border-top: 1px solid var(--bs-border-color);
+  border-bottom: 1px solid var(--bs-border-color);
+  background-color: white;
+}
+
+.data_table_filter_viewer__chip_clear {
+  border: 1px solid #ed5565;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: white;
+  color: #ed5565;
+}
+
+.data_table_filter_viewer__chip_clear svg {
+  width: 15.5px;
+}
+
+.data_table_filter_viewer__chip_clear:hover {
+  background-color: #ed5565;
+  color: white;
+  cursor: pointer;
+}
+
+.data_table_filter_viewer__wrapper {
+  display: flex;
+  align-self: center;
+  justify-content: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}

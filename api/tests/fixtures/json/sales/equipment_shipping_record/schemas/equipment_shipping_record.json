@@ -1,0 +1,1159 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/EquipmentShippingRecord.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy",
+    "definitions": {
+        "EquipmentShippingRecord.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "sso",
+                "customer",
+                "incoterm",
+                "createdAt",
+                "status",
+                "modality",
+                "loadingPlace",
+                "departurePlace",
+                "arrivalPlace",
+                "notes",
+                "shipAuthorization",
+                "equipmentShippingRecordLines",
+                "equipmentShippingRecordCosts",
+                "files",
+                "id",
+                "legacyId"
+            ],
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "sso": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Location.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "customer": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Customer.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "incoterm": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Incoterm.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "status": {
+                    "default": "PENDING",
+                    "example": "PENDING",
+                    "type": "string"
+                },
+                "modality": {
+                    "default": "AIR",
+                    "example": "AIR",
+                    "type": "string"
+                },
+                "loadingPlace": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "departurePlace": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "arrivalPlace": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "notes": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "shipAuthorization": {
+                    "type": "boolean"
+                },
+                "equipmentShippingRecordLines": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "@id": { "type": "string" },
+                            "@type": { "type": "string" },
+                            "equipmentRecord": {"type": "object"},
+                            "vesselLoadingDate": { "type": "string", "format": "date-time" },
+                            "estimatedArrivalDate": { "type": "string", "format": "date-time" },
+                            "actualArrivalDate": { "type": "string", "format": "date-time" },
+                            "estimatedPickUpDate": { "type": "string", "format": "date-time" },
+                            "id": { "type": "integer" },
+                            "legacyId": { "type": "integer" }
+                        }
+                    }
+                },
+                "equipmentShippingRecordCosts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/EquipmentShippingRecordCost.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                    }
+                },
+                "files": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "iri-reference"
+                    }
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "legacyId": {
+                    "type": "integer"
+                },
+                "carrier": {
+                    "type": "object",
+                    "properties": {
+                        "@context": {"type": "string"},
+                        "@id": {"pattern": "^/freight_forwarders/\\d+$"},
+                        "@type": { "type": "string" },
+                        "id": { "type": "integer" },
+                        "name": { "type": "string" },
+                        "language": { "type": "string" },
+                        "supplierNumber": { "type": ["string", "null"] },
+                        "location": {
+                            "oneOf": [
+                                {"type": "null"},
+                                {"$ref": "../../../directory_location/schemas/directory_location_public.json"}
+                            ]
+                        },
+                        "emails": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "forwarder": {
+                    "type": "object",
+                    "properties": {
+                        "@context": {"type": "string"},
+                        "@id": {"pattern": "^/freight_forwarders/\\d+$"},
+                        "@type": { "type": "string" },
+                        "id": { "type": "integer" },
+                        "name": { "type": "string" },
+                        "language": { "type": "string" },
+                        "supplierNumber": { "type": ["string", "null"] },
+                        "location": {
+                            "oneOf": [
+                                {"type": "null"},
+                                {"$ref": "../../../directory_location/schemas/directory_location_public.json"}
+                            ]
+                        },
+                        "emails": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "Location.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "description": "A location in the company.",
+            "required": [
+                "@id",
+                "@type",
+                "name",
+                "erp",
+                "currency",
+                "legacyId"
+            ],
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/locations/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "name": {
+                    "maxLength": 50,
+                    "externalDocs": {
+                        "url": "https://schema.org/name"
+                    },
+                    "type": "string"
+                },
+                "erp": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "currency": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Currency.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false
+        },
+        "Currency.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/finance/currencies/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "minLength": 3,
+                    "maxLength": 3,
+                    "externalDocs": {
+                        "url": "https://schema.org/Text"
+                    },
+                    "type": "string"
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "id",
+                "name",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "Customer.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "description": "A TLD customer.",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/customers/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "maxLength": 255,
+                    "externalDocs": {
+                        "url": "https://schema.org/name"
+                    },
+                    "type": "string"
+                },
+                "address": {
+                    "externalDocs": {
+                        "url": "https://schema.org/PostalAddress"
+                    },
+                    "$ref": "#/definitions/Address.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                },
+                "country": {
+                    "externalDocs": {
+                        "url": "https://schema.org/addressCountry"
+                    },
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Country.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "phone": {
+                    "externalDocs": {
+                        "url": "https://schema.org/telephone"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "fax": {
+                    "externalDocs": {
+                        "url": "https://schema.org/telephone"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "id",
+                "name",
+                "address",
+                "country",
+                "phone",
+                "fax",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "Address.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "street1": {
+                    "maxLength": 255,
+                    "externalDocs": {
+                        "url": "https://schema.org/streetAddress"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "street2": {
+                    "maxLength": 255,
+                    "externalDocs": {
+                        "url": "https://schema.org/streetAddress"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "postalCode": {
+                    "maxLength": 20,
+                    "externalDocs": {
+                        "url": "https://schema.org/postalCode"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "city": {
+                    "maxLength": 50,
+                    "externalDocs": {
+                        "url": "https://schema.org/addressLocality"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "town": {
+                    "maxLength": 50,
+                    "externalDocs": {
+                        "url": "https://schema.org/addressLocality"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "state": {
+                    "maxLength": 50,
+                    "externalDocs": {
+                        "url": "https://schema.org/addressLocality"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "street1",
+                "street2",
+                "postalCode",
+                "city",
+                "town",
+                "state"
+            ],
+            "additionalProperties": false
+        },
+        "Country.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": ["object", "null"],
+            "description": "A Country.",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/countries/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "minLength": 2,
+                    "maxLength": 100,
+                    "description": "Get name.",
+                    "externalDocs": {
+                        "url": "https://schema.org/name"
+                    },
+                    "type": "string"
+                },
+                "isoCode2": {
+                    "minLength": 2,
+                    "maxLength": 2,
+                    "description": "Get isoCode2.",
+                    "externalDocs": {
+                        "url": "https://schema.org/Text"
+                    },
+                    "type": "string"
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "id",
+                "name",
+                "isoCode2",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "Incoterm.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "required": [
+                "@id",
+                "@type",
+                "description",
+                "code"
+            ],
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/incoterms/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "EquipmentShippingRecordLine.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "equipmentRecord": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EquipmentRecord.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "vesselLoadingDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "estimatedArrivalDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "actualArrivalDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "estimatedPickUpDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "equipmentRecord",
+                "vesselLoadingDate",
+                "estimatedArrivalDate",
+                "actualArrivalDate",
+                "estimatedPickUpDate",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "EquipmentRecord.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "serialNumber": {
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "externalDocs": {
+                        "url": "https://schema.org/serialNumber"
+                    },
+                    "type": "string"
+                },
+                "buyer": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Customer.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "endUser": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Customer.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "maintainer": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Customer.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "customerSerialNumber": {
+                    "oneOf": [
+                        {
+                            "minLength": 1,
+                            "maxLength": 30
+                        }
+                    ],
+                    "externalDocs": {
+                        "url": "https://schema.org/serialNumber"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "model": {
+                    "oneOf": [
+                        {
+                            "minLength": 1,
+                            "maxLength": 30
+                        }
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "type": {
+                    "oneOf": [
+                        {
+                            "minLength": 1,
+                            "maxLength": 30
+                        }
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "product": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Product.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "location": {
+                    "oneOf": [
+                        {
+                            "minLength": 1,
+                            "maxLength": 20
+                        }
+                    ],
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "dateShipped": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "dateCommissioned": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time"
+                },
+                "manufacturerLocation": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Location.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "salesOrganisation": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Location.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "id",
+                "serialNumber",
+                "buyer",
+                "endUser",
+                "maintainer",
+                "customerSerialNumber",
+                "model",
+                "type",
+                "product",
+                "location",
+                "dateShipped",
+                "dateCommissioned",
+                "manufacturerLocation",
+                "salesOrganisation",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "Product.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "family": {
+                    "$ref": "#/definitions/ProductFamily.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "family",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "ProductFamily.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "productType": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ProductType.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "productType",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "ProductType.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "englishName": {
+                    "maxLength": 255,
+                    "externalDocs": {
+                        "url": "https://schema.org/name"
+                    },
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "englishName",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "EquipmentShippingRecordCost.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "createdBy": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/People.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "costDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "type": {
+                    "default": "Transport",
+                    "example": "Transport",
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "currency": {
+                    "nullable": true,
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Currency.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy"
+                        }
+                    ]
+                },
+                "price": {
+                    "type": "number"
+                },
+                "legacyId": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "createdBy",
+                "costDate",
+                "type",
+                "description",
+                "currency",
+                "price",
+                "legacyId"
+            ],
+            "additionalProperties": false
+        },
+        "People.jsonld-equipment_shipping_records.detail_location_public_customer_light_country_list_currency_people_public_equipment_record_freight_forwarder_address_incoterm_expose_legacy": {
+            "type": "object",
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "username",
+                "email",
+                "legacyId",
+                "firstname",
+                "lastname"
+            ],
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/sales/equipment_shipping_records/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "username": {
+                    "maxLength": 255,
+                    "externalDocs": {
+                        "url": "https://schema.org/Text"
+                    },
+                    "type": "string"
+                },
+                "email": {
+                    "format": "email",
+                    "maxLength": 255,
+                    "externalDocs": {
+                        "url": "https://schema.org/email"
+                    },
+                    "type": "string"
+                },
+                "legacyId": {
+                    "type": "integer"
+                },
+                "firstname": {
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "pattern": "^(.*(^(\\S)+(.*?\\S+$|$)).*)$",
+                    "type": "string"
+                },
+                "lastname": {
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "pattern": "^(.*(^(\\S)+(.*?\\S+$|$)).*)$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}

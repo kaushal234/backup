@@ -1,0 +1,42 @@
+{% extends 'directory/business_unit/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ include('helper/_report_table.html.twig', {
+                'reportTable': {
+                    'items': {
+                        name: {
+                            'label': 'directory.business_unit.fields.name'|trans|capitalize,
+                            'link':{
+                                'route': 'directory_business_units_show',
+                                'params': {'id':'@id'},
+                            },
+                        },
+                        region: {
+                            label: 'directory.region.name'|trans|capitalize,
+                            properties: ['region.name'],
+                            link:{
+                                route: 'directory_regions_show',
+                                params: {'id':'region.@id'},
+                            },
+                        },
+                        view: {
+                            'label': 'menu.view'|trans([], 'messages')|capitalize,
+                            'link':{
+                                'route': 'directory_business_units_show',
+                                'params': {'id':'@id'},
+                                'content': '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                            },
+                            'sortable': false,
+                            'class' : 'text-end'
+                        },
+                    },
+                    'title': 'directory.business_unit.title.list'|trans,
+                    'data': business_units
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

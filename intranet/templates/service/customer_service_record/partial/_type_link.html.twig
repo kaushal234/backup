@@ -1,0 +1,14 @@
+{% if item['@type'] == 'TechnicianOnCallCustomerServiceRecord' %}
+    <a class="text-white text-decoration-none" target="_blank" href="{{ path('technician_on_calls_show', {id: item.technicianOnCall.id}) }}">
+        TOC #{{ item.technicianOnCall.id }}
+    </a>
+{% endif %}
+{% if item['@type'] == 'ServiceBulletinCustomerServiceRecord' %}
+    <a class="text-white text-decoration-none" target="_blank" href="{{ path('legacy_product_support', {m: ['sb', 'view'], id: item.serviceBulletinLegacyId}) }}">
+        SB #{{ item.serviceBulletinLegacyId }}
+    </a>
+{% endif %}
+
+{% if item['@type'] == 'CommissioningCustomerServiceRecord' %}
+    Com.
+{% endif %}

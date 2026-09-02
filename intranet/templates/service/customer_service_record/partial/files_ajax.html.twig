@@ -1,0 +1,69 @@
+{{ include('helper/_report_table.html.twig', {
+    reportTable: {
+        items: {
+            filePath: {
+                label: 'menu.files'|trans([], 'messages')|capitalize,
+                template: 'service/customer_service_record/partial/_file_tooltip.html.twig',
+                templateParams: {
+                    customerServiceRecordId: customerServiceRecord.id
+                },
+            },
+            size: {
+                label: 'size'|trans([], 'messages')|capitalize,
+                filters : 'readable_filesize'
+            },
+            poster: {
+                label: 'fields.poster'|trans([], 'messages')|capitalize,
+                template: 'service/customer_service_record/partial/_file_poster.html.twig',
+                link:{
+                    route: 'directory_people_show',
+                    params: {'id': 'poster.@id'}
+                },
+            },
+            createdAt: {
+                label: 'fields.created_at'|trans([], 'messages'),
+                filters: 'date("Y-m-d")'
+            },
+            public: {
+                label: 'fields.file_is_public'|trans([], 'file_type') ~ ' ?'
+            },
+            changeVisibility: {
+                label: 'fields.change_file_visibility'|trans({}, 'file_type')|capitalize,
+                link: {
+                    route: 'customer_service_record_file_change_visibility',
+                    params: {'fileId': 'id'},
+                    fixedParams: {
+                        'customerServiceRecordId': customerServiceRecord.id
+                    },
+                    content: '<span class="btn btn-warning btn-xs"><i class="fa fa-edit fa-fw"></i></span>',
+                    popup: {
+                        type: 'confirmation',
+                        title: 'visibility.popup.confirmation.title'|trans({}, 'file_type'),
+                        message: 'visibility.popup.confirmation.message'|trans({}, 'file_type'),
+                    },
+                },
+            },
+            delete: {
+                label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                sortable: false,
+                class: 'text-end',
+                link: {
+                    route: 'customer_service_record_files_delete',
+                    params: {'id': 'id'},
+                    fixedParams: {'customerServiceRecordId': customerServiceRecord.id, '_token': csrf_token('delete_customer_service_record_file')},
+                    content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                    popup: {
+                        type: 'confirmation',
+                        title: 'Confirmation',
+                        message: 'Are you sure to delete ?',
+                    },
+                },
+            },
+        },
+        title: 'demo.fields.files'|trans({}, 'demo'),
+        data: customerServiceRecord.files,
+        search: false,
+        pagination: false,
+        initialSorting: 'createdAt'
+    }
+}, with_context = false) }}

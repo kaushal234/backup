@@ -1,0 +1,57 @@
+{% extends 'directory/division/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10">
+
+            {% set items = {
+                name: {
+                    label: 'fields.name'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'directory_divisions_show',
+                        params: {'id':'@id'},
+                    },
+                },
+            } %}
+
+            {% if is_granted('FEATURE_DIVISION_WRITE') or is_granted('MOO_SFR') %}
+                {% set items = items | merge ({
+                    edit: {
+                        label: 'menu.edit'|trans({}, 'messages')|capitalize,
+                        link:{
+                            route: 'directory_divisions_edit',
+                            content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                            params: {id: 'id'},
+                        },
+                        sortable: false,
+                        class: 'text-end'
+                    },
+                    delete: {
+                        label: 'button.delete'|trans({}, 'messages')|capitalize,
+                        link:{
+                            route: 'directory_divisions_delete',
+                            params: {id: '@id'},
+                            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                            fixedParams: {'_token': csrf_token('delete_division')},
+                            popup: {
+                                type: 'confirmation',
+                                title: 'Confirmation',
+                                message: 'Are you sure you want to delete ?',
+                            },
+                        },
+                        class: "text-end",
+                    },
+                }) %}
+            {% endif %}
+
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: items,
+                    title: 'directory.division.title.list'|trans|capitalize,
+                    data: divisions
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

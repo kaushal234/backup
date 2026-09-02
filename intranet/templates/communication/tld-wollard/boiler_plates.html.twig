@@ -1,0 +1,21 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_boiler_plate.html.twig', {
+        boilerPlates: {
+            50: "<p>Wollard designs, manufactures, and markets dependable and durable Ground Support Equipment (GSE) that demonstrates value – every turn, every time. Because we’re purpose-built for this industry, we understand the problems that can pile up to delay aviation ramp operations – so we’re out to eliminate them.</p>",
+            150: "<p>Every day, for every flight, the mission of Wollard remains the same — to make aviation operations of every size and description more efficient, reliable, and sustainable. It’s why Wollard is your go-to resource for all the equipment you need to make it happen.</p>
+                <p>Wollard designs, manufactures, and markets dependable and durable Ground Support Equipment (GSE) that demonstrates value – every turn, every time. Because we’re purpose-built for this industry, we understand the problems that can pile up to delay aviation ramp operations – so we’re out to eliminate them.</p>
+                <p>On the ground, we provide your crew with the tools they need to excel in the areas of safety, reliability, and overall performance. In innovation, our advancements in zero-emission vehicles are leading the industry.</p>
+                <p>Bottom line, the people of Wollard are committed to making sure that your ramp operations are better today than they were yesterday.</p>",
+            300: "<p>Wollard is a Ground Support Equipment manufacturer located in Eau Claire, WI. We specialize in purpose-built equipment to meet the operational demands of our Commercial Airlines, Cargo Carriers, Ground Handlers and Military Operations.</p>
+                <p>Our mission is to deliver a industry leading customer experience with quality products and support. We strive to deliver high value, reliable and safe equipment with support over the entire life of the product.</p>
+                <p>Every day, for every flight, the Wollard mission remains the same — to make aviation operations of every size and description more efficient, reliable, and sustainable. It’s why Wollard is your go-to resource for all the equipment you need to make it happen.</p>
+                <p>Wollard designs, manufactures, and markets dependable and durable equipment that demonstrates value – every turn, every time. Because we’re purpose-built for this industry, we understand the problems that can pile up to delay aviation ramp operations – so we’re out to eliminate them.</p>
+                <p>On the ground, we provide your crew with the tools they need to excel in the areas of safety, reliability, and overall performance. In innovation, our advancements in zero-emission vehicles are leading the industry.</p>
+                <p>Bottom line, the people of Wollard are committed to making sure that your ramp operations are better today than they were yesterday.</p>"
+        }
+    }) }}
+{% endblock %}

@@ -1,0 +1,7 @@
+App\Entity\Support\EquipmentMaintenance:
+    # equipment_maintenances/1..5
+    equipment_maintenance_{1..5}:
+        id: <current()>
+        date: <(new \DateTime())>
+        comment: <text()>
+        type: <randomElement([500, 1000, 2000])>

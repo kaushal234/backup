@@ -1,0 +1,7 @@
+<td>
+    {% set color = item.customerErpReference.customer.watchList == true ? 'danger' : 'green' %}
+    <div><span class="d-none">1</span><i class="fa fa-circle text-{{ color }}"></i></div>
+    {% if item.customerErpReference.customer.watchList == true %}
+        {{ item.customerErpReference.customer.watchListReason }}
+    {% endif %}
+</td>

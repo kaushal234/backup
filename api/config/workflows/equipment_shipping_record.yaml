@@ -1,0 +1,36 @@
+framework:
+  workflows:
+    equipment_shipping_record:
+      type: state_machine
+      marking_store:
+        type: method
+        property: status
+      supports:
+        - App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord
+      initial_marking: !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::PENDING
+      places:
+        - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::PENDING
+        - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::BOOKED
+        - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::SHIPPED
+        - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::CLOSED
+      transitions:
+        pending_to_booked:
+          from: !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::PENDING
+          to: !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::BOOKED
+        to_shipped:
+          from:
+            - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::PENDING
+            - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::BOOKED
+          to: !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::SHIPPED
+        to_closed:
+          from:
+            - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::PENDING
+            - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::BOOKED
+            - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::SHIPPED
+          to: !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::CLOSED
+        to_reopen:
+          guard: "is_granted('FEATURE_EQUIPMENT_SHIPPING_RECORD_REOPEN') or is_granted('MOO_ESR')"
+          from:
+            - !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::CLOSED
+          to: !php/const App\Entity\Sales\EquipmentShippingRecord\EquipmentShippingRecord::SHIPPED
+

@@ -1,0 +1,7 @@
+<td>
+    {% if item.module.frontEndRoute is not null %}
+        <a href="{{ path(item.module.frontEndRoute , {id: item.referenceId}) }}">{{ item.module.name }} #{{ item.referenceId }}</a>
+    {% else %}
+        <p>{{ item.module.name }} #{{ item.referenceId }}</p>
+    {% endif %}
+</td>

@@ -1,0 +1,55 @@
+{% extends 'quality/layout.html.twig' %}
+
+{% trans_default_domain 'quality_dashboard' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'quality_dashboard.title.tool_statuses_by_factory' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: statusByBusinessUnit,
+                        link: {
+                            route: 'quality_calibrated_tools_home',
+                            xParam: 'status',
+                            yParam: 'factory'
+                        }
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'quality_dashboard.title.tool_statuses_by_location_area' | trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: statusByLocationArea,
+                        link: {
+                            route: 'quality_calibrated_tools_home',
+                            xParam: 'locationArea',
+                            yParam: 'status'
+                        }
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+
+{% block title %}{{ parent() }} #{{ troubleTicket.id }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            {{ include('mis/trouble_ticket/partial/_edit_form.html.twig', {
+                title:                 'trouble_ticket.form.edit_title'|trans ~ ' #' ~ troubleTicket.id,
+                subtitle:              'trouble_ticket.form.edit_subtitle'|trans,
+                form:                  form,
+                action:                path('trouble_ticket_edit', { id: troubleTicket.id }),
+                on_behalf:             isGrantedOpenOnBehalf,
+                is_admin:              isGrantedAdmin,
+                cios:                  cios,
+                read_only_description: troubleTicket.description|default(''),
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'trouble_ticket' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'contacts' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'mis' }) }}"></script>
+{% endblock %}

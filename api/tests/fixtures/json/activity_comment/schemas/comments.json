@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/comments$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:search": {
+      "type": "object"
+    },
+    "hydra:view": {
+      "type": "object"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/comments/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "legacyId": {"type": "integer"},
+          "resource": {"type": "string"},
+          "discriminator": {"type": ["string", "null"]},
+          "message": {"type": "string"},
+          "user": {"type": ["object", "null"]},
+          "createdAt": {"type": "string"},
+          "updatedAt": {"type": "string"},
+          "public": {"type": "boolean"},
+          "metadata": { "type": ["object", "array"] },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "../../shared/schemas/file_light_description.json"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "message",
+          "user",
+          "createdAt",
+          "updatedAt",
+          "public",
+          "resource",
+          "metadata",
+          "files"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "hydra:totalItems",
+    "hydra:search",
+    "hydra:member"
+  ],
+  "additionalProperties": false
+}

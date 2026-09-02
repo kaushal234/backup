@@ -1,0 +1,36 @@
+App\Entity\News\News:
+    news_{1..25}:
+        id: <current()>
+        title: <sentence()>
+        content: <paragraph()>
+        date: <dateTimeBetween('-2 months', 'now')>
+        category: '@category_<numberBetween(1,5)>'
+
+    news_fixed:
+        id: 26
+        title: "News Title"
+        content: "contenubizarre pas en latin"
+        date: <dateTimeBetween("2016-07-01 12:42:58", "2016-07-01 12:42:58")>
+        category: '@category_fixed'
+        premise: "@premise_moa"
+
+    news_without_category:
+        id: 27
+        title: "News Title without category"
+        content: "Lorem ipsum dolor sit amet without category"
+        date: <dateTimeBetween("2016-07-01 02:15:03", "2016-07-01 02:15:03")>
+
+    news_in_future:
+        id: 28
+        title: "News written in the future"
+        content: "Lorem ipsum dolor sit amet in the future"
+        people: '@user_transferred'
+        date: <dateTimeBetween('+3 months', '+6 months')>
+
+App\Entity\News\NewsCategory:
+    category_{1..5}:
+        id: <current()>
+        name: <name()>
+    category_fixed:
+        id: 6
+        name: "Category"

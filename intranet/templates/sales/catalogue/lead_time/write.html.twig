@@ -1,0 +1,79 @@
+{% extends '/sales/catalogue/lead_time/layout.html.twig' %}
+{% trans_default_domain 'catalogue' %}
+
+{% block content %}
+    {{ form_start(form, { action: path('lead_time_edit', {id: location.iriId}) }) }}
+    <div class="row">
+        {{ form_errors(form) }}
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    type: {
+                        label: 'catalogue.type.name'|trans()|capitalize,
+                        properties: ['productType.englishName'],
+                        link: {
+                            route: 'sales_catalogue_type_show',
+                            params: {'id': '@id'},
+                            fixedParams: {'type': 'show'},
+                            target: '_blank',
+                        }
+                    },
+                    family: {
+                        label: 'catalogue.family.name'|trans()|capitalize,
+                        properties: ['name'],
+                        link: {
+                            route: 'sales_catalogue_family_show',
+                            params: {'id':'@id'},
+                            target: '_blank',
+                        }
+                    },
+                    weeks: {
+                        label: 'calibration_tool.fields.calibrationIntervalUnit.weeks'|trans({}, 'calibration_tool')|capitalize,
+                        template: '/sales/catalogue/lead_time/partial/_form_cell_week.html.twig',
+                        templateParams: {'form': form},
+                    },
+                    description: {
+                        label: 'demo.fields.comment'|trans({}, 'demo')|capitalize,
+                        template: '/sales/catalogue/lead_time/partial/_form_cell_description.html.twig',
+                        templateParams: {'form': form},
+                    },
+                    reset: {
+                        label: 'button.reset'|trans({}, 'messages')|capitalize,
+                        template: '/sales/catalogue/lead_time/partial/_form_cell_reset.html.twig',
+                        templateParams: {'form': form},
+                    }
+                },
+                title: 'lead_time.edit.title'|trans|capitalize,
+                data: families,
+                pagination: false,
+                initialSorting: 'family'
+            }
+        }, with_context = false) }}
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-end">
+            {{ form_row(form.fullUpdate) }}
+        </div>
+        <div class="col-md-12 text-end">
+            {{ form_row(form.submit) }}
+        </div>
+        {{ form_rest(form) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+    window.onload = function() {
+        Array.from(document.getElementsByClassName('lead-time-reset')).forEach((checkbox) => {
+            checkbox.addEventListener('change', function (event) {
+                Array.from(event.target.closest('tr').querySelectorAll('input[type=text]')).forEach((input) => {
+                    input.disabled = event.target.checked
+                })
+            }, false)
+        })
+    }
+</script>
+{% endblock %}

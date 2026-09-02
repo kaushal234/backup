@@ -1,0 +1,85 @@
+service:
+    title: Service
+    nav_link:
+        equipment_record: Equipment record
+        maintenance_follow_up_report: Maintenance follow up report
+    maintenance_contract:
+        title: Maintenance Contracts
+        fields:
+            start_date: Start Date
+            signature_date: Signature Date
+            expiration_date: Expiration Date
+            end_user_representative: end user representatives
+            buyer_representative: buyer representatives
+            equipment_records: equipment fleet
+        status:
+            active: active
+            expired: expired
+            not_started: not started
+        messages:
+            success:
+              add: The contract has been successfully created
+              edit: The contract %code% has been successfully edited
+        make_selection: Make your selection...
+
+    follow_up_report:
+        title: maintenance follow up report
+        fields:
+            created_by: created by
+            hourmeter: hourmeter
+            odometer: odometer
+            hourmeter_totalizer: hourmeter totalizer
+            accident: accident
+            maintenance: maintenance
+            injuries: injuries
+            human_injuries: human injuries
+            plane_damages: plane damages
+            environment_damages: environment damages
+            equipment_damages: equipment damages
+            maitenance_type: maintenance type
+            accident_files: accident file
+            maintenance_files: maintenance file
+
+    operational_status:
+        fields:
+            operational_status: operational status
+
+    equipment_record:
+        title: Equipment Record
+        fields:
+            serial_number: Serial number
+            customer_asset: customer asset
+            buyer: buyer
+            end_user: end user
+            model: Model
+            type: Type
+            green_tag_date: Green Tag date
+            shipped_tag: Ship date
+            publishable: Publishable
+            estimated_green_tag_date: Est GT date
+            first_green_tag_date: First GT date
+    dashboard:
+        no_widget: Widget %title% not available
+
+
+service_area:
+    title:
+        add: Add Service Area
+        edit: Edit Service Area
+        airports_list: Airports List
+    fields:
+        service_area_name: Name
+        service_area_representative: Service Area Representative
+        airports: Airports
+        countries: Countries
+        display_countries: Display country
+        selected_airports: Selected Airports
+        unknown_country: Unknown Country
+        has_service_area: Has Service Area
+        service_areas_column: Service Areas
+    actions:
+        toggle_all: Select all / none
+    create_success: Service Area successfully created
+    edit_success: Service Area successfully updated
+    delete_success: Service Area "%name%" successfully deleted
+

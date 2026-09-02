@@ -1,0 +1,20 @@
+.tooltip-multiline {
+  white-space: pre-line;
+}
+
+// Preserves literal line breaks and spacing (unlike .tooltip-multiline's
+// pre-line, which collapses repeated whitespace) while still wrapping long
+// lines. Useful anywhere raw comment/message content is rendered.
+.text-pre-wrap {
+  white-space: pre-wrap;
+}
+
+@media screen and (max-width: 1400px) {
+  .crop-from-third-line {
+    display: block;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+  }
+}

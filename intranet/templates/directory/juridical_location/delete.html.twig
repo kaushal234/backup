@@ -1,0 +1,40 @@
+{% extends 'directory/juridical_location/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set juridical_location_id = iri_id(juridical_location) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.delete'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <h3>{{ 'directory.juridical_location.title.delete'|trans|capitalize }}</h3>
+
+    {% if not used %}
+        <div class="row">
+            <div class="col-lg-8">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div>
+                    <label class="col-sm-2 col-form-label">{{ 'directory.juridical_location.name'|trans|upper }}#</label>
+                    <div class="col-sm-10">
+                        <div class="form-control">{{ juridical_location_id }}</div>
+                    </div>
+                </div>
+                <div>
+                    <label class="col-sm-2 col-form-label">{{ 'directory.juridical_location.fields.name'|trans }}</label>
+                    <div class="col-sm-10">
+                        <div class="form-control">{{ juridical_location.name }}</div>
+                    </div>
+                </div>
+                {{ form_rest(form) }}
+                <div>
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary float-end text-capitalize">{{ 'button.delete'|trans([], 'messages') }}</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    {% else %}
+        <p><i style="color: red;">{{ 'directory.juridical_location.warning.used'|trans }}</i></p>
+    {% endif %}
+{% endblock %}

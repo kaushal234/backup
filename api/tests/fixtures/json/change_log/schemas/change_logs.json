@@ -1,0 +1,142 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/change_logs$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "@id": {"pattern": "^/change_logs/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "module": {
+          "type": "object",
+          "properties": {
+            "@context": {
+              "type": "string"
+            },
+            "@id": {"pattern": "^/modules/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "operationalOwner": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/people/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "firstname": {
+                  "type": "string"
+                },
+                "lastname": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "legacyId": {
+                  "type": "integer"
+                },
+                "photo": {
+                  "type": ["string", "null"]
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "firstname",
+                "lastname",
+                "email",
+                "legacyId",
+                "username",
+                "photo"
+              ],
+              "additionalProperties": false
+            },
+            "shortDescription": {
+              "type": "string"
+            },
+            "fullDescription": {
+              "type": "string"
+            },
+            "dmsProcedureId": {
+              "type": "integer"
+            },
+            "dmsHelpId": {
+              "type": ["integer", "null"]
+            },
+            "legacyLoc": {
+              "type": ["integer", "null"]
+            },
+            "migrationCurrentStep": {
+              "type": ["object", "null"]
+            },
+            "migrationEstimatedHours": {
+              "type": "integer"
+            },
+            "migrated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "@context",
+            "@id",
+            "@type",
+            "id",
+            "legacyId",
+            "name",
+            "operationalOwner",
+            "shortDescription",
+            "fullDescription",
+            "dmsProcedureId",
+            "dmsHelpId",
+            "legacyLoc",
+            "migrationCurrentStep",
+            "migrationEstimatedHours",
+            "migrated",
+            "requiringModules",
+            "requiredModules"
+          ],
+          "additionalProperties": false
+        }
+      ,
+        "author": {
+          "$ref": "../../directory_people/schemas/directory_people_public.json"
+        },
+        "date": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "ticket": {
+          "type": "string"
+        }
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

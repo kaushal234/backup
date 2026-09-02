@@ -1,0 +1,36 @@
+App\Entity\Common\Notification\Notification:
+  #/notifications/1
+  notification_tts:
+    id: 1
+    people: '@user_qam'
+    template: '@notification_template_tts'
+    referenceId: 1
+    textDisplayed: "TTS#1: This TTS is assigned to you and required action on your side."
+    url: "https://localhost/en/private/mis/trouble-tickets/1/show"
+
+  #/notifications/2
+  notification_tts_2:
+    id: 2
+    people: '@user_qam'
+    template: '@notification_template_tts'
+    referenceId: 2
+    textDisplayed: "TTS#2: This TTS is assigned to you and required action on your side."
+    url: "https://localhost/en/private/mis/trouble-tickets/2/show"
+
+  #/notifications/3
+  notification_csr_1:
+    id: 3
+    people: '@user_qam'
+    template: '@notification_template_csr'
+    referenceId: 1
+    textDisplayed: "CSR#145: The CSR Survey has been completed and is not 5/5/5."
+    url: "https://localhost/en/private/service/customer-service-records/1/show"
+
+  #/notifications/4
+  notification_csr_2:
+    id: 4
+    people: '@user_quality'
+    template: '@notification_template_csr'
+    referenceId: 2
+    textDisplayed: "CSR#146: The CSR Survey has been completed and is not 5/5/5."
+    url: "https://localhost/en/private/service/customer-service-records/2/show"

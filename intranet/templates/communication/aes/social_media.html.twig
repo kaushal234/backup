@@ -1,0 +1,26 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="text-center article-title">
+                        {% set entity = entity | replace({'-': ' '}) %}
+                        <h1>{{ entity | upper }} Social Media</h1>
+                    </div>
+                    <p>LinkedIn</p>
+                    <p><u><a href="https://www.linkedin.com/company/alvest-equipment-services">https://www.linkedin.com/company/alvest-equipment-services</a></u></p>
+                    <p>Facebook</p>
+                    <p><u><a href="https://www.facebook.com/AlvestEquipmentServices">https://www.facebook.com/AlvestEquipmentServices</a></u></p>
+                    <p>Instagram</p>
+                    <p><u><a href="https://www.instagram.com/alvest_equipment_services/">https://www.instagram.com/alvest_equipment_services/</a></u></p>
+                    <p>Twitter / X</p>
+                    <p><u><a href="https://twitter.com/AlvestServices">https://twitter.com/AlvestServices</a></u></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

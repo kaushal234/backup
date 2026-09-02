@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/dms$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/dms/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "legacyId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "title",
+          "legacyId"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["hydra:member", "@id"]
+}

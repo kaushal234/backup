@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/manufacturing/product_manufacturings"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/manufacturing/product_manufacturings/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "product": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/products/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "productManufacturings": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string"
+                        },
+                        "@type": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "factory": {
+                          "type": "object"
+                        },
+                        "industrialIncorporationParameter": {
+                          "type": "integer"
+                        },
+                        "factoryStandardEfficiency": {
+                          "type": "integer"
+                        },
+                        "effectiveAt": {
+                          "type": "string"
+                        },
+                        "modelBaseHours": {
+                          "type": ["integer", "null"]
+                        }
+                      },
+                      "required": [
+                        "@id",
+                        "@type",
+                        "id",
+                        "factory",
+                        "industrialIncorporationParameter",
+                        "factoryStandardEfficiency",
+                        "effectiveAt",
+                        "modelBaseHours"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "id",
+              "name",
+              "productManufacturings"
+            ],
+            "additionalProperties": false
+          },
+          "factory": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/locations/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name"
+            ],
+            "additionalProperties": false
+          },
+          "industrialIncorporationParameter": {
+            "type": "integer"
+          },
+          "factoryStandardEfficiency": {
+            "type": "number"
+          },
+          "effectiveAt": {
+            "type": "string"
+          },
+          "modelBaseHours": {
+            "type": ["integer", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "product",
+          "factory",
+          "factoryStandardEfficiency",
+          "industrialIncorporationParameter",
+          "effectiveAt",
+          "modelBaseHours"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}
+

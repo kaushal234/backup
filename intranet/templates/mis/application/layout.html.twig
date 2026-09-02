@@ -1,0 +1,9 @@
+{% extends 'mis/layout.html.twig' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="mis_application_add" :security="is_granted('FEATURE_APPLICATION_CREATE')"/>
+        <twig:NavItem translationKey="mis_application.nav_link.modules" domain="mis_application" icon="mynaui:list" route="mis_modules_home"/>
+        <twig:NavItem translationKey="mis_application.nav_link.tts" domain="mis_application" icon="mynaui:list" route="trouble_ticket_home"/>
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% if selectors is defined and selectors is iterable and (selectors|length) > 0 %}
+<script>
+  window.onload = function() {
+    $('{{ selectors|join(', ') }}').on('ready', function(){
+      $('.footable').footable();
+    });
+  }
+</script>
+{% endif %}

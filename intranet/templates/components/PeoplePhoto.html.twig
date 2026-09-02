@@ -1,0 +1,11 @@
+{% if (user is not null)
+    and (user.photo is not empty)
+    and app.environment is not same as 'dev' %}
+    <img
+            class="rounded-circle"
+            src="{{ asset(upload_uri ~ '/' ~ user.photo.filePath) }}?width={{ width }}"
+            alt="image"
+    >
+{% else %}
+    <img class="rounded-circle" src="/shared/no_photo.jpg" alt="image" style="max-width: {{ width }}px; max-height: {{ width }}px">
+{% endif %}

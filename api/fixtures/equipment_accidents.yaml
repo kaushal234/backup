@@ -1,0 +1,10 @@
+App\Entity\Support\EquipmentAccident:
+    # equipment_accidents/1..5
+    equipment_accident_{1..5}:
+        id: <current()>
+        date: <(new \DateTime())>
+        comment: <text()>
+        humanInjuries: <boolean()>
+        planeDamages: <boolean()>
+        environmentDamages: <boolean()>
+        equipmentDamages: <boolean()>

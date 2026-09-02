@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+
+    TheNetworg\OAuth2\Client\Provider\Azure:
+        class: TheNetworg\OAuth2\Client\Provider\Azure
+        arguments:
+            - {
+                clientId: '%env(SAGEPARTS_CLIENT_ID)%',
+                clientSecret: '%env(SAGEPARTS_CLIENT_SECRET)%',
+                redirectUri: '%env(SAGEPARTS_REDIRECT_URI)%',
+                scope: ['openid', 'profile', 'email', 'offline_access'],
+                defaultEndPointVersion: '2.0',
+                tenant: '%env(SAGEPARTS_TENANT_ID)%'
+            }

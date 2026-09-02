@@ -1,0 +1,592 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/purchasing/(ncr_|wc_|)vendor_warranty_claims/\\d+$"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "type": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"type":  "string"},
+            "@type": {"type":  "string"},
+            "name": {"type":  "string"},
+            "description": {"type":  "string"}
+          },
+          "required": ["@id", "@type", "name", "description"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "supplierName": {"type": "string"},
+    "supplierNumber": {"type": "string"},
+    "supplierErp": {"type": ["integer", "null"]},
+    "createdAt": {"type": "string"},
+    "closedAt": {"type": ["string", "null"]},
+    "statusUpdatedAt": {"type": ["string", "null"]},
+    "status": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/purchasing/vendor_warranty_claim_statuses/\\d+$"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "description": {"type": "string"},
+        "position": {"type": "integer"}
+      },
+      "required": ["@id", "@type", "name", "description", "position"],
+      "additionalProperties": false},
+    "requestedSupplierAction": {"type": "string"},
+    "requestedCreditAmount": {"type": "number"},
+    "supplierCreditAmount": {"type": ["number", "null"]},
+    "supplierShipperName": {"type": ["string", "null"]},
+    "actualCreditAmount": {"type": ["number", "null"]},
+    "supplierStockVerified": {"type": ["string", "null"]},
+    "tldStockVerified": {"type": ["string", "null"]},
+    "issueOrigin": {"type": ["string", "null"]},
+    "correctiveAction": {"type": ["string", "null"]},
+    "scarRequested": {"type": "boolean"},
+    "assignee": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+    "poster": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "mainFile": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../shared/schemas/file.json"}
+      ]
+    },
+    "warrantyClaimFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/legacy_file.json"
+      },
+      "uniqueItems": true
+    },
+    "tocFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/legacy_file.json"
+      },
+      "uniqueItems": true
+    },
+    "supplierCorrectiveActionRequest": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/quality/supplier_corrective_action_requests/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {"type": "integer"},
+            "createdAt": {"type": "string"},
+            "iFactor": {"type": "string"},
+            "status": {"type": "string"},
+            "shortDescription": {"type": ["string", "null"]},
+            "supplierName": {"type": "string"},
+            "supplierNumber": {"type": "string"},
+            "factory":{
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/locations/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "erp": {
+                  "type": ["integer", "null"]
+                },
+                "currency": {
+                  "oneOf": [
+                    {"type": "null"},
+                    {"$ref": "../../finance_currency/schemas/currency.json"}
+                  ]
+                }
+              },
+              "required": ["@id", "@type", "name", "erp", "currency"],
+              "additionalProperties": false
+            },
+            "poster":{
+              "oneOf": [
+                {"type": "null"},
+                {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+              ]
+            },
+            "leader": {
+              "oneOf": [
+                {"type": "null"},
+                {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+              ]
+            }
+          },
+          "required": ["@id", "@type", "id", "createdAt", "iFactor", "status", "shortDescription", "factory", "leader", "poster", "supplierName", "supplierNumber"],
+          "additionalItems": false
+        }
+      ]
+    },
+    "nonConformity": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/quality/non_conformities/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {"type": "integer"},
+            "factory": {
+              "oneOf": [{"type": "null"}, {"$ref": "../../directory_location/schemas/directory_location_public.json"}]
+            },
+            "location": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/locations/\\d+$"},
+                "@type": {"type": "string"},
+                "name": {"type": "string"},
+                "erp": {"type": ["integer", "null"]},
+                "currency":{"$ref": "../../finance_currency/schemas/currency.json"}
+              },
+              "required": ["@id", "@type", "name", "erp", "currency"],
+              "additionalProperties": false
+            },
+            "processes": {
+              "type": "array",
+              "items": {
+                "$ref": "../../process/schemas/process.json"
+              }
+            },
+            "createdAt": {"type": "string"},
+            "status": {"type": "string"},
+            "supplierName": {"type": ["string", "null"]},
+            "supplierNumber": {"type": ["string", "null"]},
+            "problem": {"type": "string"},
+            "shortDescription": {"type": "string"},
+            "responsibles": {
+              "type": "array",
+              "items": {
+                "$ref": "../../responsible/schemas/responsible.json"
+              }
+            },
+            "solution": {"type": ["string", "null"]},
+            "environmentalIssue": {"type": ["boolean"]},
+            "safety": {"type": ["boolean"]},
+            "failureType": {"type": ["string", "null"]},
+            "iFactor": {"type": ["string", "null"]},
+            "investigation": {"type": ["string", "null"]},
+            "purchaseOrderNumber": {"type": ["string", "null"]},
+            "actionComment": {"type": ["string", "null"]},
+            "repairApprovalDate": {"type": ["string", "null"]},
+            "costBreakdown": {"type": ["string", "null"]},
+            "workOrderReference": {"type": ["string", "null"]},
+            "invoiceNumber": {"type": ["string", "null"]},
+            "cost": {"type": ["number", "null"]},
+            "nonQualityCost": {"type": ["number", "null"]},
+            "hours": {"type": ["integer", "null"]},
+            "reportedBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+            "crabs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/quality/crabs/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "files": {
+                    "type": "array",
+                    "items": {"$ref": "../../shared/schemas/file.json"}
+                  },
+                  "mainFile": {
+                    "oneOf": [
+                      {"type": "null"},
+                      {"$ref": "../../shared/schemas/file.json"}
+                    ]
+                  },
+                  "openTasks": {"type": "boolean"}
+                }
+              }
+            },
+            "repairApprover": {
+              "oneOf": [
+                {"type": "null"},
+                {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+              ]
+            },
+            "currency": {
+              "oneOf": [
+                {"type": "null"},
+                {"$ref": "../../finance_currency/schemas/currency.json"}
+              ]
+            },
+            "rush": {"type": "boolean"},
+            "chargeVendor": {"type": "boolean"},
+            "scrap": {"type": "boolean"},
+            "rework": {"type": "boolean"},
+            "firstArticleInspection": {"type": "boolean"},
+            "useAsIs": {"type": "boolean"},
+            "derogation": {"type": "boolean"},
+            "returnVendor": {"type": "boolean"},
+            "chargeVendorForRepair": {"type": "boolean"},
+            "supplierCorrectiveActionRequest": {"type": "boolean"},
+            "internalCorrectiveActionRequest": {"type": "boolean"},
+            "other": {"type": "boolean"},
+            "containment": {"type": "boolean"},
+            "files": {
+              "type": "array",
+              "items": {
+                "$ref": "../../shared/schemas/file.json"
+              },
+              "uniqueItems": true
+            },
+            "mainFile": {
+              "oneOf": [
+                {"type": "null"},
+                {"$ref": "../../shared/schemas/file.json"}
+              ]
+            },
+            "products": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@id": {"type": "string"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "family": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"type": "string"},
+                      "@type": {"type": "string"},
+                      "name": {"type": "string"},
+                      "productType": {
+                        "type": "object",
+                        "properties": {
+                          "@id": {"type": "string"},
+                          "@type": {"type": "string"},
+                          "englishName": {"type": "string"}
+                        },
+                        "required": ["@id", "@type", "englishName"],
+                        "additionalItems": false
+                      }
+                    },
+                    "required": ["@id", "@type", "name", "productType"],
+                    "additionalItems": false
+                  }
+                },
+                "required": ["@id", "@type", "name", "family"],
+                "additionalItems": false
+              },
+              "uniqueItems": true
+            },
+            "parts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/parts/non_conformity_parts/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": {"type": "integer"},
+                  "createdAt": {"type": "string"},
+                  "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+                  "deletedAt": {"type": ["null", "string"]},
+                  "deletedBy": {"oneOf": [
+                    {"type": "null"},
+                    {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+                  ]},
+                  "partNumber": {"type": "string"},
+                  "description": {"type": "string"},
+                  "unitOfMeasure": {"type": "string"},
+                  "quantity": {"type": "integer"},
+                  "reference": {"type": ["string", "null"]},
+                  "referenceNumber": {"type": ["string", "null"]},
+                  "serialNumber": {"type": ["string", "null"]},
+                  "standardCost": {"type": ["number", "null"]}
+                },
+                "required": ["@id", "@type", "id", "createdAt", "createdBy", "deletedAt", "deletedBy", "partNumber", "description", "unitOfMeasure", "quantity", "reference", "referenceNumber", "serialNumber"],
+                "additionalProperties": false
+              }
+            },
+            "equipmentRecords": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {"pattern": "^/equipment_records/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "serialNumber": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": ["string", "null"]
+                  },
+                  "model": {
+                    "type": ["string", "null"]
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "serialNumber",
+                  "type",
+                  "model"
+                ]
+              }
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "location",
+            "processes",
+            "createdAt",
+            "chargeVendor",
+            "chargeVendorForRepair",
+            "containment",
+            "cost",
+            "costBreakdown",
+            "currency",
+            "reportedBy",
+            "problem",
+            "purchaseOrderNumber",
+            "responsibles",
+            "actionComment",
+            "firstArticleInspection",
+            "supplierCorrectiveActionRequest",
+            "useAsIs",
+            "status",
+            "iFactor",
+            "derogation",
+            "failureType",
+            "internalCorrectiveActionRequest",
+            "investigation",
+            "nonQualityCost",
+            "repairApprovalDate",
+            "scrap",
+            "supplierName",
+            "supplierNumber",
+            "shortDescription",
+            "returnVendor",
+            "workOrderReference",
+            "products",
+            "files",
+            "invoiceNumber",
+            "repairApprover",
+            "other",
+            "rework",
+            "hours",
+            "rush",
+            "mainFile",
+            "solution",
+            "environmentalIssue",
+            "safety",
+            "equipmentRecords"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "warrantyClaimId": {"type":  ["integer", "null"]},
+    "location": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/locations/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "erp": {
+          "type": ["integer", "null"]
+        },
+        "currency": {
+          "oneOf": [
+            {"type": "null"},
+            {"$ref": "../../finance_currency/schemas/currency.json"}
+          ]
+        }
+      },
+      "required": ["@id", "@type", "name", "erp", "currency"],
+      "additionalProperties": false
+    },
+    "warrantyClaim": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "id": {"type": "integer"},
+            "status": {"type":  "string"},
+            "enteredBy": {"type":  "string"},
+            "claimantDetails": {"type":  "string"},
+            "warrantyDetails": {"type":  "string"},
+            "customer": {"type":  "string"},
+            "problemDescription": {"type":  "string"},
+            "claimDate": {"type":  "string"},
+            "type": {"type":  "string"},
+            "model": {"type":  "string"},
+            "manufacturerLocation": {"type":  "string"},
+            "salesOrganization": {"type":  "string"},
+            "serialNumber": {"type":  "string"},
+            "equipmentLocation": {"type":  "string"},
+            "hours": {"type":  "integer"}
+          },
+          "required": ["id", "status", "enteredBy", "equipmentLocation", "type", "claimantDetails", "claimDate", "customer", "manufacturerLocation", "model", "problemDescription", "salesOrganization", "serialNumber", "warrantyDetails", "hours"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "supplierReturnMerchandiseAuthorization": {"type":  ["string", "null"]},
+    "supplierCreditNote": {"type":  ["string", "null"]},
+    "supplierShippingInstruction": {"type":  ["string", "null"]},
+    "costBreakdown": {"type":  ["string", "null"]},
+    "resolution": {"type":  ["string", "null"]},
+    "trackingNumber": {"type":  ["string", "null"]},
+    "accepted": {"type": "boolean"},
+    "shipBackDefectivePart": {"type": "boolean"},
+    "currency": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../finance_currency/schemas/currency.json"}
+      ]
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/parts/vendor_warranty_claim_parts/\\d+$"},
+          "@type": {"type": "string"},
+          "id": {"type": "integer"},
+          "createdAt": {"type": "string"},
+          "createdBy": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+          "deletedAt": {"type": ["null", "string"]},
+          "deletedBy": {"oneOf": [
+            {"type": "null"},
+            {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+          ]},
+          "partNumber": {"type": "string"},
+          "description": {"type": "string"},
+          "unitOfMeasure": {"type": "string"},
+          "quantity": {"type": "integer"},
+          "serialNumber": {"type": ["string", "null"]},
+          "vendorPartNumber": {"type": ["string", "null"]},
+          "vendorSerialNumber": {"type": ["string", "null"]},
+          "failureType": {"type": ["string", "null"]},
+          "failureSystem": {"type": ["string", "null"]},
+          "receivedQuantity": {"type": ["integer", "null"]},
+          "standardCost": {"type": ["number", "null"]},
+          "ship": {"type": "boolean"}
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "createdAt",
+          "createdBy",
+          "deletedAt",
+          "deletedBy",
+          "partNumber",
+          "description",
+          "unitOfMeasure",
+          "quantity",
+          "serialNumber",
+          "failureType",
+          "failureSystem",
+          "receivedQuantity",
+          "vendorPartNumber",
+          "vendorSerialNumber",
+          "ship",
+          "standardCost"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "activity": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/(comments|logs|)/\\d+$"},
+          "@context": { "type" : "string" },
+          "@type": { "type" : "string" },
+          "id": { "type":  "number"},
+          "message": { "type": "string" },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "../../shared/schemas/file_light.json"
+            },
+            "uniqueItems": true
+          },
+          "metadata": { "type": ["object", "array"] },
+          "changeSet": { "type": ["object", "array"] },
+          "resource": { "type" : "string"},
+          "action": { "type" : "string"},
+          "discriminator": {"type": ["string", "null"]},
+          "from": { "type" : "string"},
+          "user": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_people/schemas/directory_people_public.json"}
+            ]},
+          "createdAt": { "type":  "string"},
+          "updatedAt": { "type":  "string"},
+          "public": { "type":  "boolean"},
+          "legacyId": { "type":  "number"}
+        },
+        "required": ["@id", "@type", "id", "metadata", "user", "resource", "createdAt", "updatedAt", "public"],
+        "additionalProperties": false
+      }
+    },
+    "vendorToRespondAt": {"type": ["string", "null"]}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "type",
+    "supplierCreditAmount",
+    "requestedSupplierAction",
+    "requestedCreditAmount",
+    "assignee",
+    "actualCreditAmount",
+    "supplierName",
+    "supplierNumber",
+    "createdAt",
+    "supplierCorrectiveActionRequest",
+    "costBreakdown",
+    "poster",
+    "accepted",
+    "resolution",
+    "scarRequested",
+    "shipBackDefectivePart",
+    "supplierCreditNote",
+    "supplierReturnMerchandiseAuthorization",
+    "supplierShippingInstruction",
+    "status",
+    "location",
+    "parts",
+    "trackingNumber",
+    "currency",
+    "supplierShipperName",
+    "files",
+    "statusUpdatedAt",
+    "activity",
+    "vendorToRespondAt"
+  ],
+  "additionalProperties": false
+}

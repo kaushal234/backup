@@ -1,0 +1,125 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/maintenance_contracts$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "@id": {"pattern": "^/maintenance_contracts/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "equipmentRecords": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/equipment_records/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "representative": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "description": {
+            "type": "string"
+          },
+          "endUser": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "buyer": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "createdAt",
+          "startDate",
+          "expirationDate",
+          "equipmentRecords",
+          "representative",
+          "description",
+          "endUser",
+          "buyer"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

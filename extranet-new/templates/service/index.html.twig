@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.menu.service_bulletins'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.menu.service_support'|trans,
+        hero_title: 'extranet.page.bulletins.title'|trans,
+        hero_sub: 'extranet.page.bulletins.sub'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.menu.service_support'|trans },
+            { label: 'extranet.page.bulletins.title'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+            <div class="section-head">
+                <div class="titles">
+                    <div class="eyebrow"><span class="accent">●</span> &nbsp;{{ 'extranet.page.bulletins.technical'|trans }}</div>
+                    <h2 class="section-title mt-2">{{ 'extranet.page.bulletins.for_fleet'|trans }}</h2>
+                </div>
+            </div>
+
+            <div class="dt-wrap">
+                {{ data_table(datatable) }}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

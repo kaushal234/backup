@@ -1,0 +1,10 @@
+App\Entity\Survey\Item:
+  question_{0..2}:
+    id: <($current + 1)>
+    description: Où vous remettez en question <current()> ?
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    updatedAt: <dateTimeBetween('-30 days','-1 days')>
+    createdBy: "@user_superuser"
+    updatedBy: "@user_superuser"
+    group: "@survey_group_<current()>"
+    survey: "@first_survey"

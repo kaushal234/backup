@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {
+      "pattern": "^/sales/equipment_shipping_records$"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/sales/equipment_shipping_records/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "sso": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/locations/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "legacyId": {"type": "integer"},
+              "name": {
+                "type": "string"
+              },
+              "erp": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "erp"
+            ],
+            "additionalProperties": false
+          },
+          "customer": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {"type": "string"},
+              "id": { "type": "integer" },
+              "address": { "type": "array" },
+              "legacyId": {"type": "integer"},
+              "country": {
+                "oneOf": [
+                  {"type": "null"},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {"type": "integer"},
+                      "name": {"type": "string"},
+                      "isoCode2": {"type": "string"}
+                    },
+                    "required": ["id", "name", "isoCode2"]
+                  }
+                ]
+              },
+              "name": {"type": "string"},
+              "phone": {"type": ["string", "null"]},
+              "fax": {"type": ["string", "null"]}
+            },
+            "required": ["@id", "@type", "id", "name", "address", "country"],
+            "additionalProperties": false
+          },
+          "incoterm": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "$ref": "../../incoterm/incoterm.json"
+              }
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "legacyId",
+            "customer",
+            "sso",
+            "incoterm",
+            "status"
+          ],
+          "additionalProperties": true
+        },
+        "minItems": 1
+      }
+    },
+    "required": [
+      "@context",
+      "@id",
+      "@type",
+      "hydra:totalItems",
+      "hydra:member",
+      "hydra:search"
+    ]
+  }
+}

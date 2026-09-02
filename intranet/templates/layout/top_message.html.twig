@@ -1,0 +1,36 @@
+{% trans_default_domain 'messages' %}
+{% set environments = [] %}
+{% set links = [] %}
+
+{% for cookie in constant('AppBundle\\Controller\\CookieController::COOKIES') %}
+    {% if app.request.cookies.has(cookie) %}
+        {% set environments = environments | merge([('cookies.' ~ cookie ~ '.name')|trans]) %}
+        {% set links = links | merge({
+            (path('cookie_switcher', {cookie: cookie})): {
+                leave: ('cookies.' ~ cookie ~ '.leave')|trans,
+                warning: ('cookies.' ~ cookie ~ '.warning')|trans,
+            }
+        }) %}
+    {% endif %}
+{% endfor %}
+
+{% if environments is not empty %}
+    {% for class in ['navbar-placeholder ', 'navbar-fixed-top'] %}
+        <nav class="center-banner env-warning navbar navbar-light {{ class }} no_print">
+            {% for link, text in links %}
+                <h3>{{ text.warning|trans({'%name%': environments|join(' ')}) }}
+                    <a href="{{ link }}">{{ text.leave }}</a>{% if not loop.last %}, {% endif %}
+                </h3>
+            {% endfor %}
+        </nav>
+    {% endfor %}
+{% endif %}
+
+{% if is_granted('IS_AUTHENTICATED') %}
+    {% set news = news() | default(null) %}
+    {% if news is not null %}
+            <nav class="center-banner navbar {{ news.majorIncident ? "env-warning" : "" }} navbar-light navbar-placeholder no_print border-bottom border-white">
+                <h3 class="text-white">{{ news.bannerText|raw }}</h3>
+            </nav>
+    {% endif %}
+{% endif %}

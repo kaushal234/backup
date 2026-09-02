@@ -1,0 +1,4 @@
+<td class="text-center">
+    {% if item.greenTagDate is not null %}{{ item.greenTagDate|date("Y-m-d") }}{% endif %}
+    {{ form_widget(form['equipmentRecords'][item['@id']|iri_id]['newGreenTagDate']) }}
+</td>

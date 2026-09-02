@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "required": ["hydra:member", "@id"],
+  "properties": {
+    "@id": {"pattern": "^/features$"},
+    "hydra:member": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/features/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "groups": {
+            "type": "array",
+            "item": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/groups/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "legacyId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["@id", "@type", "id","name", "groups"],
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    }
+  }
+}

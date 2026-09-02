@@ -1,0 +1,14 @@
+{% extends 'engineering/pictogram/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                {{ 'category_edit'|trans }}
+            </div>
+            <div class="ibox-content">
+                {{ include('engineering/pictogram/category/form.html.twig', {form: form}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

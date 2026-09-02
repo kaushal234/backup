@@ -1,0 +1,65 @@
+{% extends 'parts/layout.html.twig' %}
+{% trans_default_domain 'materials' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10">
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    transactionDate: {
+                        label: 'materials.purchase_order_lines.transaction_date'|trans|capitalize,
+                        filters: 'date("Y-m-d")',
+                        sortable: false
+                    },
+                    deliveryDateConfirmed: {
+                        label: '',
+                        sortable: false,
+                        boolean: {
+                            true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                            false: ''
+                        }
+                    },
+                    orderType: {
+                        label: 'materials.purchase_order_lines.order_type'|trans|capitalize,
+                        sortable: false
+                    },
+                    orderNumber: {
+                        label: 'materials.purchase_order_lines.order_number'|trans|capitalize,
+                        sortable: false
+                    },
+                    position: {
+                        label: 'materials.purchase_order_lines.position'|trans|capitalize,
+                        sortable: false,
+                        class: 'text-end'
+                    },
+                    relation: {
+                        label: 'materials.purchase_order_lines.relation'|trans|capitalize,
+                        sortable: false
+                    },
+                    name: {
+                        label: 'materials.purchase_order_lines.name'|trans|capitalize,
+                        sortable: false
+                    },
+                    plannedQuantity: {
+                        label: 'materials.purchase_order_lines.quantity'|trans|capitalize,
+                        properties: ['transactionType', 'plannedQuantity'],
+                        sortable: false,
+                        class: 'text-end'
+                    },
+                    expectedInventory: {
+                        label: 'materials.purchase_order_lines.quantity'|trans|capitalize,
+                        sortable: false,
+                        class: 'text-end'
+                    }
+                },
+                title: 'materials.inventory_lines.title'|trans({'%erp%': app.request.query.get('erp'), '%partNumber%': app.request.query.get('partNumber')})|capitalize,
+                data: transactions,
+                pagination: false,
+                search: false,
+                initialSorting: false
+            }
+        }, with_context = false) }}
+    </div>
+</div>
+{% endblock %}

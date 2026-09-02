@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ serviceBulletin.title }} — {{ 'extranet.fields.service_bulletin'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.service_bulletins'|trans,
+        hero_title: serviceBulletin.title,
+        hero_sub: serviceBulletin.type ~ (serviceBulletin.type and serviceBulletin.createdAt ? ' · ' : '') ~ serviceBulletin.createdAt|date('Y-m-d'),
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.title.service_bulletins'|trans, href: path('page:service_bulletins') },
+            { label: serviceBulletin.title }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            {# Top row: service bulletin details (narrow) + attached files (remaining space) #}
+            <div class="row g-4 mb-4 et-tables">
+                <div class="col-12 col-lg-5 col-xl-4">
+                    <h2 class="section-title mb-3">{{ 'extranet.fields.service_bulletin'|trans }}</h2>
+                    {% embed '_components/association_table.html.twig' with {
+                        associationData: {
+                            items: {
+                                id: {
+                                    label: 'wms.fields.id' | trans({}, 'wms') | upper,
+                                },
+                                decisionDate: {
+                                    label: 'wms.picking_alert.created_at' | trans({}, 'wms'),
+                                    filters: 'date("Y-m-d")'
+                                },
+                                category: {
+                                    label: 'crab.fields.category' | trans({}, 'crab'),
+                                },
+                                status: {
+                                    label: 'fields.status' | trans,
+                                },
+                                type: {
+                                    label: 'crab.fields.type' | trans({}, 'crab'),
+                                },
+                                title: {
+                                    label: 'jobs.fields.title' | trans({}, 'job'),
+                                },
+                                description: {
+                                    label: 'market_intelligence.fields.description' | trans({}, 'market_intelligence'),
+                                },
+                                partsNeeded: {
+                                    label: 'extranet.fields.parts_needed' | trans,
+                                },
+                            },
+                            title: '',
+                            data: serviceBulletin
+                        }
+                    } %}
+                    {% endembed %}
+                </div>
+
+                <div class="col-12 col-lg-7 col-xl-8">
+                    <h2 class="section-title mb-3">{{ 'menu.files'|trans | capitalize }}</h2>
+                    {% if serviceBulletinFiles | length > 0 %}
+                        <div class="dt-wrap p-3">
+                            <div class="row g-3">
+                                <twig:Swiper
+                                        :files="serviceBulletinFiles"
+                                        :fileRouteBuilder="(file) => path('service_bulletin:file_stream', {id: file.id})"
+                                />
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>{{ 'no_data' | trans | capitalize }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Equipments linked to the service bulletin #}
+            <div class="row g-4 et-tables">
+                <div class="col-12">
+                    <h2 class="section-title mb-3">{{ 'extranet.fields.equipments'|trans }}</h2>
+                    {% if serviceBulletin.equipments | length > 0 %}
+                        {{ data_table(equipmentDataTable) }}
+                    {% else %}
+                        <p>{{ 'no_data' | trans | capitalize }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+{% endblock %}

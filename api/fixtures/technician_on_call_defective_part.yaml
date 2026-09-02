@@ -1,0 +1,8 @@
+App\Entity\Service\TechnicianOnCallDefectivePart:
+    toc_defective_part:
+        id: 1
+        partNumber: "PN"
+        description: "Part"
+        quantity: 2.1
+        technicianOnCall: '@toc_solved_with_defective_part'
+        createdBy: '@user_basic'

@@ -1,0 +1,13 @@
+{% extends 'quality/layout.html.twig' %}
+{% trans_default_domain 'out_of_tolerance_form' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('quality/calibrated_tools/out_of_tolerance_forms/partial/_form.html.twig', {
+        title: 'out_of_tolerance_form.title.edit'|trans,
+        form: form,
+        cancel_link: path('quality_calibrated_otf_home'),
+        otf: otf
+    }, with_context=false) }}
+{% endblock %}

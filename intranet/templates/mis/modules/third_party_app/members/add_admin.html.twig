@@ -1,0 +1,20 @@
+{% extends 'mis/modules/showExtended.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block content %}
+    {% embed 'helper/_ibox.html.twig' %}
+        {% block card_header_title %}
+            <h5>{{ 'mis.member.add_administrator'|trans({}, 'mis') }}</h5>
+        {% endblock %}
+        {% block card_content %}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div>
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary float-end text-capitalize">{{ 'button.submit'|trans }}</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        {% endblock card_content %}
+    {% endembed %}
+{% endblock content %}

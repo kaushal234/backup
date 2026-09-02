@@ -1,0 +1,7 @@
+<td class="{{ class|default('') }}">
+    <div
+            class="activity-list"
+            data-resource="{{ item['@id'] }}"
+            {% if title is defined %}data-title="{{ title }}"{% endif %}
+    ></div>
+</td>

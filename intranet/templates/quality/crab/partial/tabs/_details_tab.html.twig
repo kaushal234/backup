@@ -1,0 +1,308 @@
+{% trans_default_domain 'crab' %}
+
+<div class="row">
+    <div class="col-md-8">
+        {{ include('helper/_association_table.html.twig', {
+            associationData: {
+                items: {
+                    id: { label: 'CRAB#'},
+                    factory: {
+                        properties: ['equipmentRecord.manufacturerLocation.name'],
+                        label: 'fields.factory' | trans({}, 'messages'),
+                        link:{
+                            route: 'directory_locations_show',
+                            params: {'id':'equipmentRecord.manufacturerLocation.@id'},
+                        },
+                    },
+                    status: { label: 'fields.status' | trans({}, 'messages')},
+                    part: {
+                        properties: ['part.partNumber'],
+                        label: 'fields.part_number' | trans({}, 'messages'),
+                        link:{
+                            route: 'legacy_manufacturing_whse',
+                            params: {'id': 'part.partNumber', 'erp' : 'equipmentRecord.manufacturerLocation.erp'},
+                            fixedParams: { m: ['inv', 'byPNPlanned'] },
+                        },
+                    },
+                    partDescription: {
+                        properties: ['part.description'],
+                        label: 'support.manual_document_parts.filter_part_description' | trans({}, 'support'),
+                    },
+                    machine: {
+                        properties: ['equipmentRecord.serialNumber'],
+                        label: 'crab.fields.equipment_record' | trans({}, 'crab'),
+                        link:{
+                            route: 'legacy_product_support',
+                            params: {'id':'equipmentRecord.legacyId'},
+                            fixedParams: {'m':['equipment', 'view']}
+                        }
+                    },
+                    model: {
+                        properties: ['equipmentRecord.product.name'],
+                        label: 'crab.fields.model_er' | trans({}, 'crab'),
+                        link:{
+                            route: 'sales_catalogue_product_show',
+                            params: {'id':'equipmentRecord.product.@id'},
+                        }
+                    },
+                    piQuestionType: {
+                        label : 'crab.fields.pi_questions_type'| trans({}, 'crab')
+                    },
+                    piQuestionParentId: {
+                        label : 'crab.fields.pi_questions_parent_id'| trans({}, 'crab'),
+                        link:{
+                            route: 'legacy_manufacturing_index',
+                            params: {'id':'piQuestionParentId'},
+                            fixedParams: {'m':['pi', 'view']}
+                        }
+                    },
+                    piQuestionSubject: {
+                        label : 'crab.fields.pi_questions_subject'| trans({}, 'crab')
+                    },
+                    piQuestionDescription: {
+                        label : 'crab.fields.pi_questions_description'| trans({}, 'crab')
+                    },
+                    description: { label: 'tasks.description' | trans({}, 'messages')},
+                    category: { label: 'crab.fields.stage' | trans({}, 'crab')},
+                    department: {
+                        properties: ['department.name'],
+                        label: 'menu.department.title' | trans({}, 'messages')
+                    },
+                    code: {
+                        properties: ['code.code'],
+                        label: 'crab.fields.code' | trans({}, 'crab')
+                    },
+                    codeDescription: {
+                        properties: ['code.description'],
+                        label: 'crab.fields.code_description' | trans({}, 'crab')
+                    },
+                    ncr:{
+                        properties: ['nonConformity.id'],
+                        label: 'crab.fields.ncr_id' | trans({}, 'crab'),
+                        link:{
+                            route:'non_conformity_show',
+                            params:{'id':'nonConformity.@id'}
+                        }
+                    },
+                    eapId:{
+                        label: 'crab.fields.eap_id' | trans({}, 'crab'),
+                        link: {
+                            route: 'legacy_manufacturing_eng',
+                            params: {id: 'eapId'},
+                            fixedParams: {
+                                m:['eap', 'view'],
+                            }
+                        }
+                    },
+                    firstArticleQualification:{
+                        properties: ['firstArticleQualification.id'],
+                        label: 'crab.fields.first_article_qualification' | trans({}, 'crab'),
+                        link:{
+                            route:'first_article_qualifications_show',
+                            params:{'id': 'firstArticleQualification.@id'}
+                        }
+                    },
+                },
+                title: 'crab.title.general' | trans,
+                data: item,
+                card:false,
+            }
+        }, with_context  = false) }}
+    </div>
+    {% if item.mainFile is not null or (item.files is not null and item.files|length > 0) %}
+        {% set fileArray = [] %}
+
+        {% if item.mainFile is defined and item.mainFile is not null %}
+            {% set mainFile = item.mainFile|merge({main: true}) %}
+            {% set fileArray = fileArray|merge([mainFile]) %}
+        {% endif %}
+
+        {% if item.files is defined and item.files|length > 0 %}
+            {% set fileArray = fileArray|merge(item.files) %}
+        {% endif %}
+        <div class="col-md-4">
+            {{ component('Swiper', {
+                files: fileArray,
+                uploadUri: upload_uri,
+                fileRouteBuilder: (file) => file.main|default(false) == true
+                ? path('crab_download_main_file', {id: iri_id(item), fileId: file.id})
+                : path('crab_files_show', {crabId: iri_id(item), id: file.id})
+            }) }}
+        </div>
+    {% endif %}
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                {{ include('helper/_association_table.html.twig', {
+                    associationData: {
+                        items: {
+                            createdBy: {
+                                properties: ['createdBy.firstname', 'createdBy.lastname'],
+                                label: 'fields.created_by' | trans({}, 'messages'),
+                                link:{
+                                    route: 'directory_people_show',
+                                    params: {'id':'createdBy.@id'},
+                                },
+                            },
+                            createdAt: {
+                                label: 'fields.created_at' | trans({}, 'messages')|capitalize,
+                                filters: 'date("Y-m-d")',
+                            },
+                        },
+                        title: 'crab.title.initiated' | trans,
+                        data: item,
+                        card:false,
+                    }
+                }, with_context  = false) }}
+            </div>
+            {% if item.fixedAt is not null and item.fixedBy is not null %}
+                <div class="col-md-4">
+                    {{ include('helper/_association_table.html.twig', {
+                        associationData: {
+                            items: {
+                                fixedBy: {
+                                    properties: ['fixedBy.firstname', 'fixedBy.lastname'],
+                                    label: 'crab.fields.fixed_by' | trans({}, 'crab'),
+                                    link:{
+                                        route: 'directory_people_show',
+                                        params: {'id':'fixedBy.@id'},
+                                    },
+                                },
+                                fixedAt: {
+                                    label: 'crab.fields.fixed_at' | trans({}, 'crab'),
+                                    filters: 'date("Y-m-d")',
+                                },
+                                fixingComments: {
+                                    label: 'crab.fields.fixing_comments' | trans({}, 'crab'),
+                                }
+                            },
+                            title: 'crab.title.fixed' | trans,
+                            data: item,
+                            card:false,
+                        }
+                    }, with_context  = false) }}
+                </div>
+            {% else %}
+                {% if item.openTasks %}
+                    <div class="col-md-4">
+                        {% embed 'helper/_ibox.html.twig' %}
+                            {% block card_header_title %}
+                                <h5>{{ 'crab.title.fixed' | trans({}, 'crab') }}</h5>
+                            {% endblock %}
+                            {% block card_content %}
+                                <div class="alert alert-warning" role="alert">
+                                    <p class="mb-0">{{ 'crab.errors.task_open_fix' | trans({}, 'crab') }}</p>
+                                </div>
+                            {% endblock %}
+                        {% endembed %}
+                    </div>
+                {% elseif item.derogation is null or (item.derogation is not null and item.derogation.status == 'DENIED') %}
+                    <div class="col-md-4">
+                        {% embed 'helper/_ibox.html.twig' %}
+                            {% block card_header_title %}
+                                <h5>{{ 'crab.title.fixed' | trans({}, 'crab') }}</h5>
+                            {% endblock %}
+                            {% block card_content %}
+                                {% form_theme form_fix with ['form_theme_vertical.html.twig', _self] %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form_start(form_fix) }}
+                                        {{ form_end(form_fix) }}
+                                    </div>
+                                </div>
+                            {% endblock card_content %}
+                        {% endembed %}
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if item.inspectedAt is not null and item.inspectedBy is not null and item.openTasks is not same as (true) and item.derogation is null%}
+                <div class="col-md-4">
+                        {{ include('helper/_association_table.html.twig', {
+                            associationData: {
+                                items: {
+                                    inspectedBy: {
+                                        properties: ['inspectedBy.firstname', 'inspectedBy.lastname'],
+                                        label: 'crab.fields.inspected_by' | trans({}, 'crab'),
+                                        link:{
+                                            route: 'directory_people_show',
+                                            params: {'id':'inspectedBy.@id'},
+                                        },
+                                    },
+                                    inspectedAt: {
+                                        label: 'crab.fields.inspected_at' | trans({}, 'crab'),
+                                        filters: 'date("Y-m-d")',
+                                    },
+                                    inspectingComments: {
+                                        label: 'crab.fields.inspecting_comments' | trans({}, 'crab'),
+                                    }
+                                },
+                                title: 'crab.title.inspected' | trans,
+                                data: item,
+                                card:false,
+                            }
+                        }, with_context  = false) }}
+                </div>
+            {% else %}
+                {% if item.openTasks %}
+                    <div class="col-md-4">
+                        {% embed 'helper/_ibox.html.twig' %}
+                            {% block card_header_title %}
+                                <h5>{{ 'crab.title.inspected' | trans({}, 'crab') }}</h5>
+                            {% endblock %}
+                            {% block card_content %}
+                                <div class="alert alert-warning" role="alert">
+                                    <p class="mb-0">{{ 'crab.errors.task_open_inspect' | trans({}, 'crab') }}</p>
+                                </div>
+                            {% endblock %}
+                        {% endembed %}
+                    </div>
+                {% elseif (item.fixedAt is not null and item.fixedBy is not null)
+                    and (item.derogation is null or (item.derogation is not null and item.derogation.status == 'DENIED'))
+                    and (item.category is not same as 'QA' or is_granted('FEATURE_CRAB_INSPECT_QA')) %}
+                    <div class="col-md-4">
+                        {% embed 'helper/_ibox.html.twig' %}
+                            {% block card_header_title %}
+                                <h5>{{ 'crab.title.inspected' | trans({}, 'crab') }}</h5>
+                            {% endblock %}
+                            {% block card_content %}
+                                {% form_theme form_inspect with ['form_theme_vertical.html.twig', _self] %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form_start(form_inspect) }}
+                                        {{ form_end(form_inspect) }}
+                                    </div>
+                                </div>
+                            {% endblock card_content %}
+                        {% endembed %}
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if item.derogation is not null and item.derogation.status == 'ACCEPTED' %}
+                <div class="col-md-4">
+                    {{ include('helper/_association_table.html.twig', {
+                        associationData: {
+                            items: {
+                                closedBy: {
+                                    properties: ['closedBy.firstname', 'closedBy.lastname'],
+                                    label: 'crab.fields.derogated_by' | trans({}, 'crab'),
+                                    link:{
+                                        route: 'directory_people_show',
+                                        params: {'id':'closedBy.@id'},
+                                    },
+                                },
+                                closedAt: {
+                                    label: 'crab.fields.derogated_at' | trans({}, 'crab'),
+                                    filters: 'date("Y-m-d")',
+                                }
+                            },
+                            title: 'crab.title.derogated' | trans,
+                            data: item.derogation,
+                            card:false,
+                        }
+                    }, with_context  = false) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

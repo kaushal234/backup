@@ -1,0 +1,23 @@
+- name: Playbook for haproxy mobile servers
+  hosts: mobile
+  roles:
+    - { role: shared-handlers, tags: [always] }
+    - { role: monitored-server, tags: [monitoring] }
+    - { role: iptables, tags: [security], vars: { iptables_rules_template: templates/mobile/iptables/rules.v4.j2 }}
+    - { role: utils, tags: [utils] }
+    - { role: geerlingguy.ntp, become: true, tags: [utils] }
+    - { role: code-host, tags: [web] }
+    - { role: geerlingguy.nodejs, become: true, tags: [web, js]}
+    - { role: git, tags: [web] }
+    - { role: geerlingguy.nginx, become: true, tags: [web, nginx] }
+    - { role: logrotate, become: true, tags: [log] }
+    -
+      role: dotenv
+      tags: [env]
+      vars:
+        dotenv_template: "templates/mobile/.env.j2"
+        dotenv_path: "{{ monorepo_path }}/shared/mobile/.env"
+        dotenv_profile_filename: mobile_env
+    - { role: sentinel, tags: [sentinel] }
+    - { role: auditbeat, tags: [auditbeat] }
+    - { role: landscape, tags: [landscape] }

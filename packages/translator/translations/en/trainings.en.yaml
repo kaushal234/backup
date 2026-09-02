@@ -1,0 +1,102 @@
+trainings:
+  block_creation: Events can no longer be created on the ATM. Please create your training session as an Event on AGILE
+  make_selection: Make your selection...
+  training_email_placeholder: Separated by , or ;
+  training:
+    name: Training
+
+    menu:
+      subscribe: subscribe
+      add_attendee: add attendees
+
+    fields:
+      emails: attendees emails
+      feedback_note: Overall training feedback - please indicate your appreciation for the training attended
+      feedback_content_note: Content feedback - please indicate your appreciation for the content of the training
+      feedback_trainer_note: Trainer feedback - please indicate your appreciation of the trainer's job
+      feedback: "Dear %firstname%, you attended the %title of training% training on %date%.
+      As such, your honest feedback is valuable and enables to constantly improve our training.
+      Please rate each of the following topic on a scale from 1 to 5, 5 being the highest grade."
+      note: note
+      content_note: content note
+      trainer_note: trainer note
+      comment: "comments: please share here below any comments/suggestions you may have about this particular training"
+      designation: designation
+      trainer: trainer
+      organizer: organizer
+      starting_at: from
+      starting_at_after: starting from
+      starting_at_before: starting until
+      ending_at: to
+      meeting_place: place
+      open: open
+      guest: guest
+      answer: answer
+      invited: invited
+      attendance_limit: attendance limit
+      guest_business_unit: guest's BU
+      guest_department: guest's deparment
+
+    title:
+      add: add a training
+      edit: edit this training
+      list: list trainings
+      next: next trainings
+      view: training details
+      average_note: average note
+      list_feedbacks: Feedback list
+      list_attendees: Attendees list
+      my_training_as_trainer: my trainings as trainer
+      my_training_as_guest: my trainings as guest
+    reports:
+      attendance: Attendance
+    messages:
+      success:
+        add_feedback: The training feedback has been created.
+        add: The training has been created.
+        edit: The training has been updated.
+        delete_file: Training's file has successfully been deleted.
+        subscribe: You're now on the attendees list.
+        subscribe_attendee: "%attendee% is now on the attendees list."
+        delete: Training has successfully been deleted.
+      errors:
+        delete_file: You cannot delete file.
+        update_attendee: It was not possible to update attendance.
+        update_status: It was not possible to update the training status.
+        subscribe: It was not possible to add you the the attendees.
+        open: This training is not open
+      warning:
+        attendance_limit: this meeting has reached its attendance limit
+  category:
+    name: Training Categories
+    title:
+      add: Add a training category
+      edit: Edit training category
+      list: List training categories
+      training_by_categories_by_status: trainings by category by status
+    messages:
+      success:
+        add: The training category has been created.
+        edit: The training category has been updated.
+  type:
+    name: Training Types
+    title:
+      add: Add a training type
+      edit: Edit training type
+      list: List training types
+      training_by_type_by_status: trainings by type by status
+    messages:
+      success:
+        add: The training type has been created.
+        edit: The training type has been updated.
+  subscription:
+    name: My Training Subscriptions
+    title:
+      add: Add a training subscription
+    add_text: The more criteria you add in your subscription, the less you will receive notifications. Notifications will be limited to training opened matching with all criteria selected in the subscription.
+    messages:
+      success:
+        add: The subscription has been created.
+        delete: This subscription has been correctly removed.
+      errors:
+        delete: Something happened and the subscription could not be deleted

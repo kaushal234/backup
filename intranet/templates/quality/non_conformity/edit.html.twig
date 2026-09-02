@@ -1,0 +1,196 @@
+{% extends 'quality/non_conformity/layout.html.twig' %}
+{% trans_default_domain 'non_conformity' %}
+
+{% block title %}{{ parent() }}#{{ nonConformity.id }}\{{ 'menu.edit'|trans({}, 'messages') }}{% endblock %}
+
+{% block content %}
+    <twig:NonConformityDynamicFormEdit nonConformityId="{{ nonConformity.id }}">
+        {% trans_default_domain 'non_conformity' %}
+        {% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'non_conformity.title.edit' | trans({'%id%': nonConformity.id}) }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr class="hr-form">
+                                <h3>{{ 'contacts.menu.detail'|trans({}, 'contacts') }}</h3>
+                                <hr class="hr-form">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.location) }}
+                                <span data-live-ignore="true">
+                                {{ form_row(form.reportedBy) }}
+                                </span>
+                                {{ form_row(form.shortDescription) }}
+                                {{ form_row(form.failureType) }}
+                                {{ form_row(form.iFactor) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.mainFile) }}
+                                {{ form_row(form.problem) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr class="hr-form">
+                                <h3>{{ 'non_conformity.title.description'|trans }}</h3>
+                                <hr class="hr-form">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.processes) }}
+                                {{ form_row(form.responsibles) }}
+                                {{ form_row(form.purchaseOrderNumber) }}
+                                {{ form_row(form.rush) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.investigation) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr class="hr-form">
+                                <h3>{{ 'non_conformity.title.actions'|trans }}</h3>
+                                <hr class="hr-form">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.scrap) }}
+                                {{ form_row(form.rework) }}
+                                {{ form_row(form.firstArticleInspection) }}
+                                {{ form_row(form.useAsIs) }}
+                                {{ form_row(form.returnVendor) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.chargeVendorForRepair) }}
+                                {{ form_row(form.supplierCorrectiveActionRequest) }}
+                                {{ form_row(form.internalCorrectiveActionRequest) }}
+                                {{ form_row(form.containment) }}
+                                {{ form_row(form.other) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_row(form.actionComment) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr class="hr-form">
+                                <h3>{{ 'non_conformity.title.conclusion'|trans }}</h3>
+                                <hr class="hr-form">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.repairApprover) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.repairApprovalDate) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_row(form.solution) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr class="hr-form">
+                                <h3>{{ 'non_conformity.title.costs_involved'|trans }}</h3>
+                                <hr class="hr-form">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.hours) }}
+                                {{ form_row(form.currency) }}
+                                {{ form_row(form.cost) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.nonQualityCost) }}
+                                {{ form_row(form.workOrderReference) }}
+                                {{ form_row(form.invoiceNumber) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_row(form.costBreakdown) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr class="hr-form">
+                                <h3>{{ 'non_conformity.title.vendor_info'|trans }}</h3>
+                                <hr class="hr-form">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" data-live-ignore="true">
+                                {{ form_row(form.supplierNumber) }}
+                            </div>
+                        </div>
+                        {# Bridge: synced from the React hidden input via JS so LiveComponent can
+                           track supplierNumber changes that originate inside data-live-ignore #}
+                        <input type="text" class="d-none" id="supplier-number-bridge" data-model="norender|selectedSupplierNumber" autocomplete="off">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr class="hr-form">
+                                <h3>{{ 'catalogue.family.products'|trans([], 'catalogue') }}</h3>
+                                <hr class="hr-form">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" id="equipment-records-wrapper-{{ random() }}">
+                                {{ form_row(form.equipmentRecords, {
+                                    attr: {
+                                        'data-model': 'selectedEquipment',
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-6" id="products-wrapper-{{ random() }}">
+                                {{ form_row(form.products, {
+                                    attr: {
+                                        'data-model': 'selectedProducts'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.environmentalIssue) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.safety) }}
+                            </div>
+                        </div>
+                        {{ form_row(form.submit, {
+                            attr: {
+                                'data-action': 'live#action:prevent',
+                                'data-live-action-param': 'files|save'
+                            }
+                        }) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </twig:NonConformityDynamicFormEdit>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('quality/non_conformity/partial/js/_form_action.html.twig', { form: 'edit'}) }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'non_conformity' }) }}"></script>
+{% endblock %}

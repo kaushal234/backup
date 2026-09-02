@@ -1,0 +1,18 @@
+App\Entity\HumanResources\Event:
+    # /events/1
+    fete_nationale:
+        id: 1
+        name: Fête Nationale
+        country: '@country_kinder'
+        startedAt: <dateTimeBetween('-30 days','-1 days')>
+        endedAt: <dateTimeBetween('+30 days','+31 days')>
+        dayOff: true
+
+    # /events/2
+    christmas:
+        id: 2
+        name: Christmas
+        country: '@country_kinder'
+        startedAt: <dateTimeBetween('+100 days','+110 days')>
+        endedAt: <dateTimeBetween('+110 days','+120 days')>
+        dayOff: true

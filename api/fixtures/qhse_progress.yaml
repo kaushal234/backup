@@ -1,0 +1,35 @@
+App\Entity\Quality\QualityHealthSafetyEnvironmentProgress:
+    qhse_progress_1_{1..12}:
+        id: <current()>
+        rating: <biasedNumberBetween(0,100)>
+        location: '@location_6'
+        date: <( new \DateTime("2016-$current-01"))>
+        poster: '@user_1'
+
+    qhse_progress_2_{1..12}:
+        id: <($current + 12)>
+        rating: <biasedNumberBetween(0,100)>
+        location: '@location_7'
+        date: <( new \DateTime("2016-$current-01"))>
+        poster: '@user_1'
+
+    qhse_progress_3_{1..12}:
+        id: <($current + 24)>
+        rating: <biasedNumberBetween(0,100)>
+        location: '@location_8'
+        date: <( new \DateTime("2016-$current-01"))>
+        poster: '@user_1'
+
+    qhse_progress_4_{1..12}:
+        id: <($current + 36)>
+        rating: <biasedNumberBetween(0,100)>
+        location: '@location_9'
+        date: <( new \DateTime("2016-$current-01"))>
+        poster: '@user_1'
+
+    qhse_progress_5_{1..12}:
+        id: <($current + 48)>
+        rating: <biasedNumberBetween(0,100)>
+        location: '@location_factory' #Ensure factory is 1
+        date: <( new \DateTime("2016-$current-01"))>
+        poster: '@user_1'

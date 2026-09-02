@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "pattern": "^/contexts/BaseTask$"
+    },
+    "@id": {
+      "pattern": "^/base_tasks$"
+    },
+    "@type": {
+      "pattern": "hydra:Collection"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {
+            "pattern": "^/(mis/|)(trouble_tickets|tasks|renew_guest_users|part_number_tasks)/\\d+$"
+          },
+          "@type": {
+            "pattern": "^(TroubleTicket|Task|RenewGuestUser|PartNumberTask)$"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "referenceId": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "createdBy": {
+            "$ref": "../../directory_people/schemas/directory_people_public.json"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "$ref": "../../directory_people/schemas/directory_people_public.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "misAssignee": {
+            "oneOf": [
+              {
+                "$ref": "../../directory_people/schemas/directory_people_public.json"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": {
+            "pattern": "^/mis/types/\\d+$"
+          },
+          "dueDate": {
+            "type": "string"
+          },
+          "startedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "lastComment": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "closedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "isAddToUserStories": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "indiceFactor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "module": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "pattern": "^/modules/\\d+$"
+              },
+              "@type": {
+                "type": "string"
+              },
+              "frontEndRoute": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "operationalOwner": {
+                "$ref": "../../directory_people/schemas/directory_people_public.json"
+              },
+              "shortDescription": {
+                "type": "string"
+              },
+              "migrated": {
+                "type": "boolean"
+              },
+              "disabledForTroubleTicket": {
+                "type": "boolean"
+              },
+              "keyUser": {
+                "type": [
+                  "null",
+                  "object"
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "frontEndRoute",
+              "name",
+              "operationalOwner",
+              "shortDescription",
+              "migrated",
+              "disabledForTroubleTicket",
+              "keyUser"
+            ],
+            "additionalProperties": false
+          },
+          "additionalOwners": {
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "rescheduleDate": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

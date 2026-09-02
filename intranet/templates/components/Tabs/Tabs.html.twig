@@ -1,0 +1,12 @@
+<turbo-frame
+        id="tabs-turbo"
+        data-turbo="true"
+        target="_top"
+        data-turbo-action="advance"
+        data-turbo-prefetch="false"
+        data-controller="logs hinclude subscriptions"
+>
+    <div class="tabs-container">
+        {% block content %}{% endblock %}
+    </div>
+</turbo-frame>

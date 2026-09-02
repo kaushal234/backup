@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/juridical_locations/\\d+$"},
+    "@context": {"type": "string"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "legacyId": {"type": "integer"},
+    "name": {"type": "string"},
+    "address": {
+      "type": "object",
+      "$ref": "../../shared/schemas/address_with_country.json"
+    }
+  },
+  "required": ["@id", "@type", "@context", "id", "legacyId", "name", "address"],
+  "additionalProperties": false
+}

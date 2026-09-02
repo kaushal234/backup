@@ -1,0 +1,19 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_boiler_plate.html.twig', {
+        boilerPlates: {
+            50: "<p>Sage Parts is the global leader in Ground Support Equipment (GSE) parts and solutions. With unmatched inventory, cutting-edge engineering, and a customer-first approach, Sage provides cost-effective, high-quality parts to keep your fleet running smoothly. Our expertise ensures efficiency, innovation, and reliability for GSE operations worldwide. At Sage Parts, your success is our mission.</p>",
+            150: "<p>Sage Parts is the world's premier provider of Ground Support Equipment (GSE) parts and solutions. Serving airlines, ground handlers, cargo, OEMs, and airports globally, we specialize in delivering cost-efficient, high-quality components to meet diverse operational needs. With industry-leading inventory management, advanced engineering capabilities, and a robust knowledgebase, Sage Parts ensures faster, more reliable access to critical parts.</p>
+                <p>Our innovative e-commerce platform, eSage, integrates seamlessly with customer systems, simplifying parts management and ordering. Backed by a dedicated in-house engineering team, we focus on continuous improvement, developing new solutions, and reviving obsolete parts to enhance fleet performance and reduce total cost of ownership.</p>
+                <p>Headquartered in Fountain Inn, SC, with a global distribution network spanning five continents, Sage Parts is committed to ensuring your GSE operations run efficiently. Trust us to deliver unmatched service, technical expertise, and innovative solutions tailored to your unique challenges. Sage Parts – We Keep Your GSE Moving.</p>",
+            300: "<p>Sage Parts is the global authority in Ground Support Equipment (GSE) parts and solutions, dedicated to empowering the aviation and logistics industries with unparalleled service and innovation. Specializing exclusively in GSE, we deliver tailored solutions to airlines, cargo, airports, ground handlers, and OEMs worldwide, ensuring their fleets operate efficiently and cost-effectively.</p>
+                <p>Our extensive inventory, combined with industry-leading knowledge, enables us to supply parts for every GSE need, from current production to hard-to-find and obsolete components. Through eSage, our user-friendly e-commerce platform, customers gain real-time access to inventory, seamless ordering, and integration with existing systems, streamlining operations while reducing workload.</p>
+                <p>Sage’s in-house engineering team drives continuous improvement by designing innovative products, reviving obsolete parts, and enhancing quality. This expertise translates into reduced total cost of ownership and improved equipment performance. Additionally, our commitment to quality assurance ensures every part meets or exceeds customer expectations.</p>
+                <p>Headquartered in Fountain Inn, SC, Sage Parts operates a global network of distribution centers strategically located near major airports, offering unmatched service and support. With locations across North America, South America, Europe, Asia, and beyond, we ensure parts are available where and when they are needed.</p>
+                <p>Our mission is simple: deliver high-value, reliable solutions that address customer challenges, enhance operational efficiency, and support long-term growth. At Sage Parts, we pride ourselves on being more than a supplier—we’re a trusted partner committed to your success. When it comes to GSE, we lead so you can soar.</p>"
+        }
+    }) }}
+{% endblock %}

@@ -1,0 +1,93 @@
+{#
+  user/account.html.twig — MY ACCOUNT (restyled)
+  Route: account:index  (App\Controller\User\AccountController)
+  Var  : user  (App\Sdk\Resource\User) — unchanged.
+
+  Replaces the three association_table embeds with a themed profile header +
+  info cards. All field paths match the original template (user.lastname,
+  user.contact.reception, user.address.country.name, etc.). Edit + password
+  routes preserved (account:form, account:update_password).
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'extranet.title.my_account'|trans }}{% endblock %}
+
+{% block body %}
+<div class="w-100">
+    {% include '_components/page_hero.html.twig' with {
+        hero_eyebrow: 'extranet.title.my_account'|trans,
+        hero_title: 'extranet.title.my_account'|trans,
+        hero_sub: 'extranet.account.intro'|trans,
+        hero_crumbs: [
+            { label: 'header.menu.home'|trans, href: path('index') },
+            { label: 'extranet.title.my_account'|trans }
+        ]
+    } %}
+
+    <section class="py-5">
+        <div class="container-fluid px-4">
+
+            {# Profile header #}
+            <div class="acct-header">
+                <div class="acct-avatar">{{ user.firstname|slice(0,1)|upper }}{{ user.lastname|slice(0,1)|upper }}</div>
+                <div class="acct-id">
+                    <h2 class="acct-name">{{ user.firstname }} {{ user.lastname }}</h2>
+                    <div class="acct-mail">{{ user.email }}</div>
+                    <div class="acct-badges">
+                        <span class="acct-badge org">{{ app.session.get('customer').name }}</span>
+                        {% if user.department %}<span class="acct-badge">{{ user.department }}</span>{% endif %}
+                    </div>
+                </div>
+                <div class="acct-actions">
+                    <a class="btn-find" href="{{ path('account:form') }}" style="text-decoration:none">
+                        {{ 'menu.edit'|trans|capitalize }}
+                    </a>
+                    <a class="btn-outline-tld" href="{{ path('account:update_password') }}">
+                        {{ 'extranet.title.update_password'|trans }}
+                    </a>
+                </div>
+            </div>
+
+            {# Info cards #}
+            <div class="info-grid">
+                {# Identity #}
+                <div class="info-card">
+                    <div class="info-head"><span class="ph-bar"></span><h3>{{ 'extranet.title.identity'|trans }}</h3></div>
+                    <dl class="info-list">
+                        <dt>{{ 'settings.profile.form.lastname.label'|trans }}</dt><dd>{{ user.lastname|default('—') }}</dd>
+                        <dt>{{ 'settings.profile.form.firstname.label'|trans|capitalize }}</dt><dd>{{ user.firstname|default('—') }}</dd>
+                        <dt>{{ 'extranet.fields.email'|trans|capitalize }}</dt><dd>{{ user.email|default('—') }}</dd>
+                        <dt>{{ 'menu.division.title'|trans }}</dt><dd>{{ user.division|default('—') }}</dd>
+                        <dt>{{ 'menu.department.title'|trans }}</dt><dd>{{ user.department|default('—') }}</dd>
+                        <dt>{{ 'fields.language'|trans|capitalize }}</dt><dd>{{ user.language|upper|default('—') }}</dd>
+                    </dl>
+                </div>
+
+                {# Contact #}
+                <div class="info-card">
+                    <div class="info-head"><span class="ph-bar"></span><h3>{{ 'extranet.title.contact'|trans }}</h3></div>
+                    <dl class="info-list">
+                        <dt>{{ 'extranet.fields.phone'|trans }}</dt><dd>{{ user.contact.reception|default('—') }}</dd>
+                        <dt>{{ 'extranet.fields.direct_phone'|trans|capitalize }}</dt><dd>{{ user.contact.phone|default('—') }}</dd>
+                        <dt>{{ 'extranet.fields.mobile'|trans|capitalize }}</dt><dd>{{ user.contact.mobile|default('—') }}</dd>
+                        <dt>{{ 'extranet.fields.fax'|trans|capitalize }}</dt><dd>{{ user.contact.fax|default('—') }}</dd>
+                    </dl>
+                </div>
+
+                {# Address #}
+                <div class="info-card span-2">
+                    <div class="info-head"><span class="ph-bar"></span><h3>{{ 'address.name'|trans|capitalize }}</h3></div>
+                    <dl class="info-list">
+                        <dt>{{ 'extranet.fields.street'|trans }}</dt><dd>{{ user.address.street|default('—') }}</dd>
+                        <dt>{{ 'address.fields.street2'|trans|capitalize }}</dt><dd>{{ user.address.street2|default('—') }}</dd>
+                        <dt>{{ 'address.fields.city'|trans|capitalize }}</dt><dd>{{ user.address.city|default('—') }}</dd>
+                        <dt>{{ 'address.fields.state'|trans|capitalize }}</dt><dd>{{ user.address.state|default('—') }}</dd>
+                        <dt>{{ 'address.fields.country'|trans|capitalize }}</dt><dd>{{ user.address.country.name|default('—') }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+body.green-theme {
+  background-color: #335433;
+
+  .navbar-minimalize {
+    background-color: #5d965d;
+    border-color: #5d965d;
+    &:hover, &:focus {
+      background-color: #508050;
+      border-color: #508050;
+    }
+  }
+
+  .navbar:not(.env-warning), .navbar-default:not(.env-warning) {
+    background-color: #335433;
+
+    .nav-second-level.collapse {
+      background-color: #223822;
+    }
+
+    #side-menu > li.active {
+      border-left: 4px solid #5d965d;
+    }
+
+    li > a:hover, li > a:focus, li.active {
+      background-color: #223822;
+    }
+  }
+}

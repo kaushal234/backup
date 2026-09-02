@@ -1,0 +1,144 @@
+{% extends 'quality/first_article_qualification/layout.html.twig' %}
+{% form_theme idSearchForm 'form_theme_vertical.html.twig' %}
+{% trans_default_domain 'first_article_qualification' %}
+{% block title %} {{ 'first_article_qualification.titles.first_article_qualification' |trans([]) }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'titles.quick_access' |trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        {{ form_start(idSearchForm, { action: path('first_article_qualifications_search') }) }}
+                        <div class="row">
+                            <div class="col-sm-10">
+                                {{ form_widget(idSearchForm) }}
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="submit" name="submit" class="btn btn-primary" value="{{ 'menu.search'|trans([], 'messages')|capitalize }}"/>
+                            </div>
+                        </div>
+                        {{ form_end(idSearchForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'button.filter' |trans([], 'messages') | upper }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('quality/first_article_qualification/partial/_form_filters.html.twig', {
+                        form: formFilters,
+                        resetPath: path('first_article_qualifications_search')
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {% set localizeddateFilter = user.timeZone is defined ? "format_datetime('medium', 'medium', 'timezone="~user.timeZone~"')" : "format_datetime" %}
+
+            {{ include ('helper/_report_table.html.twig', {
+                reportTable: {
+                    data: firstArticleQualifications,
+                    title: 'first_article_qualification.titles.first_article_qualification'|trans|upper,
+                    initialSorting: false,
+                    search: false,
+                    pagination: {
+                        currentPage: currentPage is defined ? currentPage : 1,
+                        paginationUrl: paginationUrl
+                    },
+                    items: {
+                        '@id': {
+                            label: 'FAQ#',
+                            sortable: true,
+                            filters: 'iri_id',
+                            link:{
+                                route: 'first_article_qualifications_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        location: {
+                            label: 'directory.location_capability.fields.factory'|trans([], 'directory')|capitalize,
+                            properties: ['location.name'],
+                            sortable: true,
+                            link: {
+                                route: 'directory_locations_show',
+                                params: {'id':'location.@id'},
+                            }
+                        },
+                        status: {
+                            label: 'fields.status'|trans([], 'messages')|capitalize,
+                            sortable: true,
+                        },
+                        poster: {
+                            label: 'fields.poster'|trans([], 'messages')|capitalize,
+                            properties: ['poster.lastname', 'poster.firstname'],
+                        },
+                        eap: {
+                            label: 'sidebar.engineering.eap'|trans([], 'sidebar')|capitalize,
+                            sortable: 'numeric',
+                            link: {
+                                route: 'legacy_manufacturing_eng',
+                                params: {id: 'eap'},
+                                fixedParams: {
+                                    m:['eap', 'view'],
+                                },
+                            }
+                        },
+                        meap: {
+                            label: 'sidebar.engineering.meap'|trans([], 'sidebar')|capitalize,
+                            sortable: 'numeric',
+                            link: {
+                                route: 'legacy_manufacturing_eng',
+                                params: {id: 'meap'},
+                                fixedParams: {
+                                    m:['meap', 'view', 'dashboard'],
+                                },
+                            }
+                        },
+                        partNumbers:
+                        {
+                            label: 'spq.quotations.fields.part_number'|trans([], 'spq') |capitalize ,
+                            template: 'quality/first_article_qualification/partial/_part_numbers.html.twig',
+                        },
+                        progress:
+                        {
+                            label: 'first_article_qualification.fields.progress'|trans |capitalize ,
+                            template: 'quality/first_article_qualification/partial/_progress.html.twig',
+                            sortable: 'numeric',
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link: {
+                                route: 'first_article_qualifications_show',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class: 'text-end'
+                        }
+                    }
+                }
+            }) }}
+        </div>
+    </div>
+{% endblock %}

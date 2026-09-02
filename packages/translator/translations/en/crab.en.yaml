@@ -1,0 +1,139 @@
+crab:
+  nav_link:
+    add_derogation: Create Derogation
+    add_from_sol: Add CRAB from SOL
+    archive: Archive
+    crab_actions: CRAB actions
+    dashboard: Dashboard
+    edit_derogation: Edit Derogation
+    kpi : KPI
+    link_derogation: Link Derogation
+    show_derogation: 'Derogation #%id%'
+    transfer_eap: Transfer EAP
+    transfer_ncr: Transfer NCR
+  title:
+    crabs: CRABs
+    crabs_linked: Crabs linked
+    count_by_factory: CRAB Count by factory
+    last_ones: Last CRABs created
+    general: General
+    initiated: Initiated
+    fixed: Fixed
+    add : Add Crab
+    add_from_sol: Add Crab From SOL
+    edition : Edit Crab
+    duplicate_crab: 'Duplicate Crab %id%'
+    inspected: Inspected
+    derogated: Derogated
+    charts: Charts
+    reports: Reports
+    kpi : KPI
+    dashboard: Dashboard
+    transfer_ncr: Tx NCR
+    duplicate: Duplicate
+    transfer_eap: Tx EAP
+    per_type: Crabs per type
+    per_model: Crabs per model
+    reports_filters : Reports Filters
+    filtered: Filtered CRABs
+    sidebar : New Crabs
+    files: CRAB files
+    show_derogation: 'Derogation #%id%'
+    add_derogation: Create Derogation
+    edit_derogation: Edit Derogation
+    link_derogation: Link Derogation
+  fields:
+    category: Category
+    code: Code
+    stage: Stage
+    type: Type
+    department: Department
+    first_article_qualification: Affiliated FAQ
+    description: Description
+    code_description: Code description
+    created_at: Created at
+    created_before : Created before
+    created_after : Created after
+    fixed_by: Fixed by
+    fixed_at: Fixed at
+    comments: Comments
+    inspected_by: Inspected by
+    derogated_by: Derogated by
+    inspected_at: Inspected at
+    derogated_at: Derogated at
+    inspected: Inspected
+    equipment_record: ER SN#
+    model_er: Model
+    fixing_comments: Fixing comments
+    inspecting_comments: Inspecting comments
+    ncr_id : NCR#
+    eap_id : EAP#
+    crab_id: CRAB#
+    crab_id_with_derogation: Crabs with derogation
+    derogation: Derogation
+    derogation_status: Derogation Status
+    pi_questions_type : Question Type
+    pi_questions_id : Question#
+    pi_questions_parent_id: Parent Question#
+    pi_questions_subject : Question Subject
+    pi_questions_description : Question Description
+    crab_list : Crabs derogated
+  button:
+    submit: Submit
+  success :
+    delete: Crab has been successfully deleted.
+    add: Crab has been successfully created.
+    add_from_sol : Crabs have been successfully created.
+    edition : Crab has been successfully edited.
+    fixed : Crab has been successfully fixed.
+    inspected : Crab has been successfully inspected.
+    duplicate: Crab has been successfully duplicated %links%.
+    add_derogation: Derogation has been created successfully.
+  chart:
+      by_locations: '%category% Crab for %factory% %by% (previous 12 months)'
+  report:
+      crab_title_average: 'Average Crab'
+      crab_title_count: 'Count Crab'
+      crab_average_per_category_by_period: 'Crab Average per Category for %factory% from %from% to %to%'
+      crab_count_by_code_product: 'Crab count for %factory% of %product% from %from% to %to%'
+      crab_count_by_code_family: 'Crab count for %factory% of %family% from %from% to %to%'
+      average_crab_count_product : 'Average number of CRABs per ER of %product% GT in the month (first GT date) (over 12 months)'
+      average_crab_count_type : 'Average number of CRABs per ER of %type% GT in the month (first GT date) (over 12 months)'
+  errors:
+    not_exist: 'Crab #%id% does not exist'
+    derogation_not_exist: 'Derogation #%id% does not exist'
+    delete: Something went wrong and the Crab could not be deleted.
+    inspected : Something went wrong and the Crab could not be inspected.
+    part_not_found: Part %part% not found
+    first_article_qualification_not_found: FAQ %first_article_qualification% not found
+    task_open_fix: Fix this CRAB is impossible while an active task belongs.
+    task_open_inspect: Inspect this CRAB is impossible while an active task belongs.
+    part_number_missing: "Part number must be filled for code: {{ code }} - {{ descriptionCode }}."
+    assy_category_error: "Assy Stage not allowed for Equipment Records with First GreenTagDate or YellowTagDate."
+  file:
+    max_size: Allowed maximum size is 15 MB
+  derogation:
+    messages:
+      confirm:
+        delete: Are you sure you want to delete this Derogation ?
+    files: Derogation Files
+    title:
+      last_ones: Last derogations created
+      filtered: Filtered derogations
+    help: If you don't select anyone as assignee, it will be assigned automatically
+    help_assignee: If assignee is already selected, please type to search
+    created_by: Derogation created by %lastname%, %firstname%
+    decision: Decision comment
+    status:
+      reopen: REOPEN
+      accept: ACCEPT
+      deny: DENY
+      archive: Archive
+      error: Status could not be updated
+      success: Status of derogation has been updated successfully
+    success:
+      delete_derogation: Derogation deleted successfully
+    errors:
+      delete_derogation: Unable to delete derogation
+  green_tag:
+    gt_case : Be careful, this ER is GT and will be YT

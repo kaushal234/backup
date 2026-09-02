@@ -1,0 +1,17 @@
+{%  extends "layout.html.twig" %}
+{% trans_default_domain 'baan' %}
+{% block content %}
+    {% set items = {ctxt: {label: '#'}} %}
+    {% if texts|length > 0 and texts[0].erp is defined %}
+        {% set items = items|merge({erp: {label: 'ERP'}}) %}
+    {% endif %}
+    {% set items = items|merge({language: {label: 'baan.fields.language'|trans}, texts: {label: 'baan.fields.texts'|trans, filters: 'baan_language_texts'}}) %}
+    {% set reportTable = {items: items, data: texts, pagination: false, search: false} %}
+    {% set reportTable = reportTable|merge({title: title|length > 0 ? title|trans : null}) %}
+    {% if texts|length > 0 and texts[0].erp is defined %}
+        {% set reportTable = reportTable|merge({initialSorting: 'erp'}) %}
+    {% endif %}
+
+    {{ include('helper/_report_table.html.twig', {reportTable: reportTable}, with_context = false) }}
+
+{% endblock %}

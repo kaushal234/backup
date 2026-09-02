@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/support/manuals"},
+    "hydra:member": {
+      "type": "array",
+      "items": [
+        {
+          "properties": {
+            "@context": {
+              "type": "string"
+            },
+            "@id": {"pattern": "^/support/manuals/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "equipmentRecord": {
+              "oneOf": [
+                {"type":  "null"},
+                { "$ref": "../../equipment_record/schemas/equipment_record_manuals.json" }
+              ]
+            },
+            "equipmentSerial" : {
+              "oneOf": [
+                {"type": "null"},
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {"pattern": "^/equipment_serials/\\d+$"},
+                    "@type": {"type": "string"},
+                    "component": {
+                      "oneOf": [
+                        { "type": "null" },
+                        {
+                          "type": "string",
+                          "pattern": "^/equipment_serial_components/\\d+$"
+                        }
+                      ]
+                    },
+                    "model": {
+                      "type": ["string", "null"]
+                    },
+                    "serial": {
+                      "type": "string"
+                    },
+                    "brand": {
+                      "type": ["string", "null"]
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "createdBy": {
+                      "$ref": "../../directory_people/schemas/directory_people_public.json"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "id", "component", "model", "serial", "brand", "createdAt", "createdBy", "legacyId"
+                  ]
+                }
+              ]
+            },
+            "description": {
+              "type": ["string", "null"]
+            },
+            "features": {
+              "type": ["string", "null"]
+            },
+            "language": {
+              "type": ["string", "null"]
+            },
+            "status": {
+              "type": ["string", "null"]
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "createdBy": {
+              "$ref": "../../directory_people/schemas/directory_people_public.json"
+            },
+            "documents": {
+              "type": "array",
+              "items": {
+                "$ref": "../../manual_documents/schemas/manual_document_public.json"
+              }
+            },
+            "prints": {
+              "type": "array",
+              "items": {
+                "$ref": "../../manual_prints/schemas/manual_print_public.json"
+              }
+            },
+            "id": {
+              "type": "integer"
+            },
+            "legacyId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "documents",
+            "prints",
+            "legacyId"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

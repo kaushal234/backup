@@ -1,0 +1,46 @@
+{% form_theme form 'form_theme_vertical.html.twig' %}
+
+
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(form.asm) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.customerTypes) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.country) }}
+            </div>
+            <div class="col-lg-3">
+                {{ form_row(form.status) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(form.region) }}
+            </div>
+            <div class="col-lg-2">
+                {{ form_row(form.main_representative_exists) }}
+            </div>
+            <div class="col-lg-2">
+                {{ form_row(form.watchList) }}
+            </div>
+            <div class="col-lg-2">
+                {{ form_row(form.has_crt) }}
+            </div>
+        </div>
+
+        <div class="row">
+            {{ form_rest(form) }}
+            <div class="col-lg-12">
+                <hr class="hr-line-dashed">
+                <div class="float-end">
+                    <label class="col-form-label">&nbsp;</label>
+                    <button class="btn btn-primary" type="submit">{{ 'button.filter'| trans | upper }}</button>
+                    <a href="{{ resetPath }}" class="btn btn-secondary">{{ 'button.reset'| trans | upper }}</a>
+                </div>
+            </div>
+        </div>
+{{ form_end(form) }}

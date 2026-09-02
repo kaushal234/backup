@@ -1,0 +1,141 @@
+{#
+This is the base template used as the application layout which contains the
+common elements and decorates all the other templates.
+See https://symfony.com/doc/current/templates.html#template-inheritance-and-layouts
+#}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{{ 'title._evendors'|trans }}{% endblock %} | {{ 'title._tld_group'|trans }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}"/>
+
+    {% block stylesheets %}
+    {% endblock %}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body class="bg-light">
+<div class="d-flex align-items-end flex-column min-vh-100">
+    {% block header %}
+        <header class="bg-white w-100 h-auto border-bottom border-1 mb-2">
+            <div class="{% if app.request.cookies.has('ALVEST_STAGING') %}has-env-banner{% endif %}">
+                {{ include('top_message.html.twig') }}
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light m-2">
+                <div class="container-fluid">
+                    <div class="navbar-brand">
+                        <img class="max-w-xs h-36 mb-2" src="{{ asset('images/logo.svg') }}" alt="TLD SAS Logo"
+                             height="24"/>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    {% if app.user %}
+                    <div class="collapse navbar-collapse justify-content-center w-100" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('index') }}">{{ 'header.menu.home'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('document:index') }}">{{ 'header.menu.document'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('request-for-quotation:index') }}">{{ 'header.menu.rfq'|trans }}</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdownOrders" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ 'header.menu.orders'|trans }}</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdownOrders">
+                                    <li><a class="dropdown-item" href="{{ path('purchase-order:index') }}">{{ 'header.menu.purchase_order'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('purchase-order:all:edit') }}">{{ 'header.menu.purchase_order_lines'|trans }}</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ 'header.menu.material_requirements_planning.title'|trans }}</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" href="{{ path('forecast:detailed') }}">{{ 'header.menu.material_requirements_planning.detailed'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('forecast:monthly') }}">{{ 'header.menu.material_requirements_planning.monthly'|trans }}</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('supplier-corrective-action-request:index') }}">{{ 'header.menu.supplier_corrective_action_request'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('vendor-warranty-claim:index') }}">{{ 'header.menu.vendor_warranty_claim'|trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('kpi:index') }}">{{ 'header.menu.kpi'|trans }}</a>
+                            </li>
+                            {% if get_user_guide(app.request.pathInfo)|length > 0 %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdownOrders" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ 'header.menu.user_guide.name'|trans }}</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdownOrders">
+                                        {% for helper_id, helper_parameters in get_user_guide(app.request.pathInfo) %}
+                                            <li>
+                                                <a class="dropdown-item" href="{{ path('document:download', { id: helper_id, filename: helper_parameters['filename'] }) }}" target="_blank">{{ (helper_parameters['name'])|trans }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle me-3" href="#" id="navbarDropdownMenuLink" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">{{ app.user.fullname }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('settings') }}">{{ 'header.menu.user.settings'|trans }}</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('security:logout') }}">{{ 'header.menu.user.logout'|trans }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+
+    {% include '_components/flash_messages.html.twig' %}
+
+    {% block body %}
+        <div class="container">
+            <div class="row m-auto justify-content-md-center w-100">
+                <div id="main" class="col-sm-10">
+                    {% block main %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block footer %}
+        <footer class="bg-white w-100 mt-auto border-top border-1 pt-3 mt-2">
+            <div class="row mx-3">
+                <div id="footer-copyright" class="col-2 mt-2">
+                    <p class="fw-normal">&copy; {{ 'now'|date('Y') }} - <span class="text-primary">TLD Group</span></p>
+                </div>
+                <div class="col"></div>
+                <div class="col-2">
+                    <div class="">
+                        {% set current_locale = get_current_locale() %}
+                        <select id="locale-switcher" class="form-select" data-current="{{ current_locale }}" data-action="{{ path('locale:switch') }}" aria-label="{{ 'locale.switcher.label'|trans }}">
+                            {% for locale in get_available_locales() %}
+                                <option value="{{ locale.value }}" {% if current_locale is same as locale.value %}selected="selected"{% endif %}>{{ ('locale.' ~ locale.value)|trans }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    {% endblock %}
+</div>
+
+</body>
+</html>

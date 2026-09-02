@@ -1,0 +1,24 @@
+{% extends 'directory/people/layout_people.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set people_id = iri_id(people) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block breadcrumb_links %}
+    {{ parent() }}
+    <li class="breadcrumb-item">
+        <a href="{{ path('directory_people_show', {id: people.id}) }}"><strong>{{ people.firstname }} {{ people.lastname }}</strong></a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    {{ include('directory/people/partial/_username_error.html.twig') }}
+    <h3>{{ 'directory.people.title.show'|trans([], 'directory') }}</h3>
+
+    {{ include('partial/_people.html.twig', {
+        entry: people,
+        id: people_id
+    }, with_context=false) }}
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% trans_default_domain 'surveys' %}
+{% set total = collection | length %}
+{% set procent = 0 %}
+    <div class="col-lg-2">
+        {% if total > 0 %}
+            {% set procentExpireInMonth = ((collection | countWithDateBetween('expirationDate', null, date('+30 day'))) / total) * 100 %}
+        {% else %}
+            {% set procentExpireInMonth = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.expiration.month' | trans ,
+            'procent': procentExpireInMonth,
+            'value': collection | countWithDateBetween('expirationDate', null, date('+30 day')) | format_number,
+            'tooltip': 'statistics.results.calculated_current_page' | trans,
+        }) }}
+    </div>
+    <div class="col-lg-2">
+        {% if total > 0 %}
+            {% set procentExpireIn2Month = ((collection | countWithDateBetween('expirationDate', null, date('+2 month'))) / total) * 100 %}
+        {% else %}
+            {% set procentExpireIn2Month = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.expiration.2months' | trans ,
+            'procent': procentExpireIn2Month,
+            'value': collection | countWithDateBetween('expirationDate', null, date('+2 month')) | format_number,
+            'tooltip': 'statistics.results.calculated_current_page' | trans,
+        }) }}
+    </div>
+    <div class="col-lg-2">
+        {% if total > 0 %}
+            {% set procentExpireInYear = ((collection | countWithDateBetween('expirationDate', null, date('+1 year'))) / total) * 100 %}
+        {% else %}
+            {% set procentExpireInYear = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.expiration.year' | trans ,
+            'procent': procentExpireInYear,
+            'value': collection | countWithDateBetween('expirationDate', null, date('+1 year')) | format_number,
+            'tooltip': 'statistics.results.calculated_current_page' | trans,
+        }) }}
+    </div>
+    <div class="col-lg-2">
+        {% if total > 0 %}
+            {% set procentExpired = ((collection | countWithDateBetween('expirationDate', null, date('now'))) / total) * 100 %}
+        {% else %}
+            {% set procentExpired = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.expiration.already_expired' | trans ,
+            'procent': procentExpired,
+            'value': collection | countWithDateBetween('expirationDate', null, date('now')) | format_number,
+            'tooltip': 'statistics.results.calculated_current_page' | trans,
+        }) }}
+    </div>
+
+    <div class="col-lg-2">
+        {% if total > 0 %}
+            {% set procentPublishedMonth = ((collection | countWithDateBetween('createdAt')) / total) * 100 %}
+        {% else %}
+            {% set procentPublishedMonth = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.created.month' | trans,
+            'procent': procentPublishedMonth,
+            'value': collection | countWithDateBetween('createdAt') | format_number,
+            'tooltip': 'statistics.results.calculated_current_page' | trans,
+        }) }}
+    </div>
+
+    <div class="col-lg-2">
+        {% if total > 0 %}
+            {% set procentPublishedYear = ((collection | countWithDateBetween('createdAt', date('-1 year'))) / total) * 100 %}
+        {% else %}
+            {% set procentPublishedYear = 0 %}
+        {% endif %}
+        {{ include('surveys/partial/statistics_box.html.twig', {
+            'title': 'statistics.created.year' | trans,
+            'procent': procentPublishedYear,
+            'value': collection | countWithDateBetween('createdAt', date('-1 year')) | format_number ,
+            'tooltip': 'statistics.results.calculated_current_page' | trans,
+        }) }}
+    </div>
+
+

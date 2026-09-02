@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/sales/planning_daily_limits/\\d+$"},
+    "@type": { "type": "string" },
+    "id": { "type": "integer" },
+    "days": { "type": "integer" },
+    "comment": { "type": ["string", "null"] },
+    "factory": {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "days",
+    "comment",
+    "factory"
+  ],
+  "additionalProperties": false
+}

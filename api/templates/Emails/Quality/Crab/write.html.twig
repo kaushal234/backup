@@ -1,0 +1,15 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <row>
+        <columns>
+            <a href="{{ url('crab', { id: crab.id }) }}">{{ 'crab.new_crab' | trans({'%id%': crab.id, '%date%': crab.createdAt | date('Y-m-d')}) }}</a>
+            <br/>
+            {% if yellowTag == true %}
+                <h4>{{ 'crab.note' | trans({'%serialNumber%': crab.equipmentRecord.serialNumber}) }}</h4>
+            {% endif %}
+            {{ include('Emails/Quality/Crab/partials/_crab_association_data.html.twig', {crab: crab}) }}
+        </columns>
+    </row>
+{% endblock %}

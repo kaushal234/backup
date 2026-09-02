@@ -1,0 +1,23 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_colour_palette.html.twig', {
+        colorIntroduction: "Unvarying and accurate usage of AERO Specialties colors ensure recognition and awareness. The chosen colors have been selected to complement both our brand as well as TLD who uses the same blue Pantone, 293 C. Anytime AERO Specialties is represented in print, online in video or through digital display, the following Pantone colors or listed color codes must be used to insure consistency.",
+        colors: [
+            {
+                pantone: '293 C',
+                cmyk: '100 / 80 / 12 / 3',
+                rgb: '0 / 61 / 166',
+                hex: '#003DA6'
+            },
+            {
+                pantone: '7417 C',
+                cmyk: '0 / 75 / 75 / 0',
+                rgb: '242 / 102 / 73',
+                hex: '#F26649'
+            }
+        ],
+    }) }}
+{% endblock %}

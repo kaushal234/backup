@@ -1,0 +1,15 @@
+{% extends '@AlvestTwigHelper/association_table_layout.html.twig' %}
+
+{% block card_body_class %}ibox-content{% endblock %}
+{% block table_class %}{{ parent() }} table-bordered association-table{% endblock %}
+
+{% block card_header %}
+    <div class="ibox-title">
+        <h5>{% if table.title is defined %}{{ table.title|raw }}{% endif %}</h5>
+        {% block card_header_after %}
+            <div class="ibox-tools">
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock card_header %}

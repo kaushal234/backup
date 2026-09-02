@@ -1,0 +1,1 @@
+<td data-name="planned-delivery-date-value" data-value="{{ item.plannedDeliveryDate|date("Y-m-d") }}">{{ item.plannedDeliveryDate is not null ? item.plannedDeliveryDate|format_date() : 'generic.not_available'|trans }}</td>

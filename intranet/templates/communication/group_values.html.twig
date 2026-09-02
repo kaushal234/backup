@@ -1,0 +1,55 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block content %}
+<div class="row" id="identity">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="text-center article-title">
+                    {% set entity = entity | replace({'-': ' '}) %}
+                    <h1>{{ entity | upper }} Group Values</h1>
+                </div>
+
+                <hr>
+
+                <p>All posters will have to be under the exact same format regardless of the language used. To facilitate the printing please find here after the formats for 4 types of posters:</p>
+
+                <ul>
+                    <li>A4 format (210 x 297)</li>
+                    <li>A3 format (297 x 420)</li>
+                    <li>Small poster 600 x 800</li>
+                    <li>Regular poster 800 x 1200</li>
+                </ul>
+
+                <p>Each PDF file contains these 4 formats with a 5mm bleed (margin) for printing purposes. Please check the footers of the different pages to choose the correct one to use.</p>
+
+                <div class="table-responsive">
+                    {% set filepath = asset(upload_uri ~ '/corporate/alvest/group_values/') %}
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <td>Alvest Our Core Values in English</td>
+                            <td>
+                                <a class="float-end btn btn-primary" target="_blank" href="{{ filepath  ~ "190417 ALVESTGroup Core Values [UK]-YVC-DAB.pdf" }}"><i class="fa fa-file-pdf"></i>&nbsp;PDF</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Alvest Nos Valeurs Essentielles en Français</td>
+                            <td>
+                                <a class="float-end btn btn-primary" target="_blank" href="{{ filepath  ~ "190417 ALVESTGroup Core Values [FR]-YVC-DAB.pdf" }}"><i class="fa fa-file-pdf"></i>&nbsp;PDF</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Alvest 我们的核心价值观</td>
+                            <td>
+                                <a class="float-end btn btn-primary" target="_blank" href="{{ filepath  ~ "190417 ALVESTGroup Core Values [CN]-YVC-DAB.pdf" }}"><i class="fa fa-file-pdf"></i>&nbsp;PDF</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

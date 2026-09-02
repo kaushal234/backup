@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/purchasing/vendor_warranty_claim_statuses"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/purchasing/vendor_warranty_claim_statuses/\\d+$"},
+          "@type": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "position": {"type": "integer"}
+        },
+        "required": ["@id", "@type", "name", "description", "position"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

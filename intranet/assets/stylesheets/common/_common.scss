@@ -1,0 +1,256 @@
+.cui .heading {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 33px;
+}
+
+.cui .heading {
+  color: var(--cui-alvest-logo-light);
+}
+
+.cui .label,
+.label_checkbox .MuiFormControlLabel-label {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  size: 14px;
+  line-height: 20px;
+}
+
+.cui .label {
+  padding-bottom: 8px;
+}
+
+.cui .label,
+.cui .label_checkbox .MuiFormControlLabel-label {
+  color: var(--cui-alvest-logo-light);
+}
+
+.cui .label .Mui-completed {
+  color: var(--cui-alvest-logo-light);
+}
+
+.cui .label .Mui-active {
+  color: var(--cui-alvest-logo-light);
+}
+
+.cui .input_wrapper input {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  size: 14px;
+  line-height: 20px;
+  padding: 0;
+}
+
+.cui .input_wrapper input,
+.cui .input_wrapper textarea {
+  color: rgb(112, 126, 174);
+}
+
+.cui .input_wrapper .MuiOutlinedInput-input {
+  border-radius: 0;
+}
+
+.cui .input_wrapper > div {
+  border-radius: 13px;
+  padding: 11.6px 16px;
+}
+
+.cui .button {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  size: 16px;
+  line-height: 28px;
+  padding: 10px 24px;
+  border-radius: 16px;
+  text-transform: none;
+}
+
+.cui .button.MuiButton-sizeSmall {
+  padding: 6px 20px;
+}
+
+.cui .button {
+  color: rgb(250, 252, 254);
+  background-color: var(--cui-alvest-logo-light);
+}
+
+.cui .button.primary {
+  color: rgb(250, 252, 254);
+  background-color: var(--mui-palette-primary-main);
+}
+
+.cui .icon_button_no_pad {
+  padding: 0;
+}
+
+.cui .dropdown {
+  border-radius: 13px;
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  size: 14px;
+  line-height: 20px;
+  width: 100%;
+}
+
+.cui .dropdown {
+  color: rgb(112, 126, 174);
+}
+
+.cui .dropdown > div {
+  padding: 11.6px 16px;
+}
+
+.cui .block {
+  display: block;
+}
+
+.cui .three-line {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 4.5em;
+  line-height: 1.5em;
+}
+
+.cui .w-100 {
+  width: 100%;
+}
+
+.cui .input_wrapper .MuiAutocomplete-inputRoot {
+  padding: 11.6px 16px;
+}
+
+.cui .input_wrapper .MuiAutocomplete-inputRoot .MuiAutocomplete-input {
+  padding: 0;
+}
+
+.cui .input_calender .MuiInputBase-adornedEnd {
+  padding: 7.1px 16px;
+}
+
+.cui .MuiSelect-select em {
+  opacity: 0.4;
+}
+
+.cui .invisible {
+  visibility: hidden;
+}
+
+.cui .one-line {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em;
+  white-space: break-spaces;
+}
+
+.cui .one-line-regular {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  white-space: break-spaces;
+}
+
+.cui .ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cui .MuiAccordionSummary-root.Mui-expanded {
+  min-height: 48px;
+}
+
+.cui .MuiAccordionSummary-root.Mui-expanded .MuiAccordionSummary-content {
+  margin: 0;
+}
+
+.cui .MuiAccordionDetails-root {
+  padding: calc(2 * var(--mui-spacing));
+}
+
+.cui .bold-500 {
+  font-weight: 500;
+}
+
+.cui .bg-red {
+  background-color: var(--cui-bg-red);
+}
+
+.cui .bg-orange {
+  background-color: var(--cui-bg-orange);
+}
+
+.cui .bg-green {
+  background-color: var(--cui-bg-green);
+}
+
+.cui .disabled {
+  opacity: 0.5;
+}
+
+.cui .light-text {
+  color: #555;
+}
+
+.cui .MuiChip-labelSmall {
+  padding: 0 8px;
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.03333em;
+}
+
+.cui .error {
+  color: var(--mui-palette-error-main);
+}
+
+.cui .success {
+  color: var(--mui-palette-success-main);
+}
+
+.cui .allow-white-space {
+  white-space: pre-line;
+}
+
+.cui .Mui-error {
+  margin-left: 0;
+}
+
+.cui .MuiFormLabel-root {
+  background-color: initial;
+}
+
+.cui .notistack-SnackbarContainer {
+  z-index: 2002 !important;
+}
+
+[class$="-menu"] [class$="-MenuList"] [class$="-Group"]:not(:last-of-type) {
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.live-loader {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: inherit;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+}
+
+[busy] .live-loader {
+  display: flex;
+}
+
+[busy] {
+  position: relative;
+}

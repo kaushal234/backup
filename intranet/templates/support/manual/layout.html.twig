@@ -1,0 +1,57 @@
+{% extends 'support/manuals/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="support.nav_link.rspl" domain="support" icon="pepicons-pencil:file"
+                      route="manuals_rspl" :routeParameters="{id: manual.id}"/>
+        <twig:NavItem translationKey="support.nav_link.parts_list" domain="support" icon="bi:filetype-pdf"
+                      route="manual_download_parts_list_pdf_file" :routeParameters="{manualId: manual.id}"/>
+        <twig:NavItem translationKey="support.nav_link.prints" domain="support"
+                      icon="material-symbols:print-outline-rounded"
+                      route="manual_prints_list" :routeParameters="{id: manual.id}"/>
+        <twig:NavItem translationKey="support.nav_link.combine_standard" domain="support" icon="bi:filetype-pdf"
+                      route="legacy_product_support"
+                      :routeParameters="{m: ['publications', 'manuals', 'form'],drivingManual: 'true',eqid: manual.equipmentRecord is not null ? manual.equipmentRecord.legacyId : null,id: manual.legacyId}"
+                      :security="manual.equipmentRecord is not null"/>
+        <twig:NavItem translationKey="support.nav_link.combine_full" domain="support" icon="bi:filetype-pdf"
+                      route="legacy_product_support"
+                      :routeParameters="{m: ['publications', 'manuals', 'form'],eqid: manual.equipmentRecord is not null ? manual.equipmentRecord.legacyId : null,id: manual.legacyId,}"
+                      :security="manual.equipmentRecord is not null"/>
+        <twig:NavItem translationKey="support.nav_link.download_cd" domain="support" icon="hugeicons:cd"
+                      route="legacy_product_support"
+                      :routeParameters="{m: ['equipment', 'view', 'publications', 'cdrom'],id: manual.equipmentRecord is not null ? manual.equipmentRecord.legacyId : null}"
+                      :security="manual.equipmentRecord is not null"/>
+        <twig:NavItem translationKey="support.nav_link.extranet_qr_code" domain="support" icon="solar:qr-code-outline"
+                      route="manual_extranet_qrcode" :routeParameters="{id: manual.id}"/>
+        {% if manual is defined and form is defined %}
+            <twig:NavItem translationKey="support.nav_link.cancel" domain="support" icon="mdi:ban"
+                          route="manuals_show" :routeParameters="{id: manual.id}" class="action-danger"/>
+            <twig:NavItem:Delete route="manuals_delete" :routeParameters="{id: manual.id}"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+
+{% block quick_action_bar %}
+    <twig:NavBar:Container>
+        <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+        </li>
+        {% if manual.equipmentRecord is not null %}
+            <twig:LegacyNavItem
+                    icon="material-symbols:home-outline-rounded"
+                    url="/en/private/product_support/index.ps.php?m[0]=equipment&m[1]=view&id={{ manual.equipmentRecord.legacyId }}">
+                {{ 'support.nav_link.equipment_record'|trans({'%id%': manual.equipmentRecord.legacyId}, 'support') }}
+            </twig:LegacyNavItem>
+        {% endif %}
+        <twig:NavItem translationKey="support.nav_link.chapter_four" domain="support" icon="bi:filetype-pdf"
+                      route="manual_download_chapter4_pdf_file" :routeParameters="{manualId: manual.id}"/>
+        <twig:NavItem:Edit route="manuals_edit" :routeParameters="{id: manual.id}"
+                           :security="is_granted('MANUAL_EDIT_VOTER', manual['equipmentRecord']['@id'])"/>
+        <twig:NavItem translationKey="support.nav_link.download_zip" domain="support" icon="bi:filetype-zip"
+                      route="manual_download_zip" :routeParameters="{manualId: manual.id}"/>
+    </twig:NavBar:Container>
+{% endblock %}

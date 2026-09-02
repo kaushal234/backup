@@ -1,0 +1,89 @@
+App\Entity\Sales\OrderLine:
+  # sales/order_line/1
+  order_line_1 :
+    id: 1
+    purchaseOrderAcceptedDate: <dateTimeBetween('-2 days', 'now')>
+    inspection: false
+    incoterm: "@incoterm_EXW"
+    incotermLocation: 'Alzasse'
+    isPaymentTermValid: true
+    legacy_id: 18828
+    status: 'IN_PROGRESS'
+    factoryOrders: ['@order_factory_1']
+
+  order_line_2 :
+    id: 2
+    purchaseOrderAcceptedDate: <dateTimeBetween('-2 days', 'now')>
+    inspection: true
+    incoterm: "@incoterm_EXW"
+    incotermLocation: 'Laputa'
+    legacy_id: 13
+    isPaymentTermValid: true
+    status: 'IN_PROGRESS'
+    factoryOrders: ['@order_factory_2']
+
+  order_line_3 :
+    id: 3
+    purchaseOrderAcceptedDate: <dateTimeBetween('-2 days', 'now')>
+    inspection: true
+    incoterm: "@incoterm_EXW"
+    incotermLocation: 'Laputa'
+    legacy_id: 14
+    isPaymentTermValid: true
+    status: 'CLOSED'
+    factoryOrders: ['@order_factory_3']
+
+  order_line_4 :
+    id: 4
+    purchaseOrderAcceptedDate: <dateTimeBetween('-2 days', 'now')>
+    inspection: true
+    incoterm: "@incoterm_EXW"
+    incotermLocation: 'HiroDeLaputa'
+    legacy_id: 20
+    isPaymentTermValid: true
+    status: 'IN_PROGRESS'
+    factoryOrders: ['@order_factory_4']
+
+  order_line_5 :
+    id: 5
+    purchaseOrderAcceptedDate: <dateTimeBetween('-5 days', '-3 days')>
+    inspection: true
+    incoterm: "@incoterm_EXW"
+    incotermLocation: 'Dathomir'
+    legacy_id: 21
+    isPaymentTermValid: true
+    status: 'SHIPPED'
+    factoryOrders: ['@order_factory_5']
+
+  order_line_6 :
+    id: 6
+    purchaseOrderAcceptedDate: <dateTimeBetween('-5 days', 'now')>
+    inspection: true
+    incoterm: "@incoterm_EXW"
+    incotermLocation: 'Yavin IV'
+    legacy_id: 22
+    isPaymentTermValid: true
+    status: 'IN_PROGRESS'
+    factoryOrders: ['@order_factory_6']
+
+  order_line_7 :
+    id: 7
+    purchaseOrderAcceptedDate: <dateTimeBetween('-5 days', 'now')>
+    inspection: true
+    incoterm: "@incoterm_EXW"
+    incotermLocation: 'Maximator'
+    legacy_id: 23
+    isPaymentTermValid: true
+    status: 'IN_PROGRESS'
+    factoryOrders: ['@order_factory_7']
+
+  order_line_8 :
+    id: 8
+    purchaseOrderAcceptedDate: <dateTimeBetween('-5 days', 'now')>
+    inspection: true
+    incoterm: "@incoterm_EXW"
+    incotermLocation: 'Yavin IV'
+    legacy_id: 24
+    isPaymentTermValid: true
+    status: 'IN_PROGRESS'
+    factoryOrders: ['@order_factory_8']

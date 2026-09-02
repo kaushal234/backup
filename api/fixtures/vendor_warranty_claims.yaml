@@ -1,0 +1,78 @@
+App\Entity\Purchasing\WCVendorWarrantyClaim:
+  #/purchasing/wc_vendor_warranty_claims/1
+  #/purchasing/vendor_warranty_claims/1
+  vwc_wc_1:
+    warrantyClaimId: 59
+    location: '@location_factory'
+    status: '@vwc_status_2'
+    type: '@vwc_type_1'
+    supplierName: DANA SAS FRANCE
+    supplierNumber: DAN0013
+    poster: '@user_qe'
+    assignee: '@user_superuser'
+    requestedSupplierAction: to fix the problem
+    requestedCreditAmount: 42
+    supplierCorrectiveActionRequest: '@scar_2'
+
+  #/purchasing/wc_vendor_warranty_claims/2
+  #/purchasing/vendor_warranty_claims/2
+  vwc_wc_2:
+    warrantyClaimId: 58
+    location: '@location_factory'
+    status: '@vwc_status_3'
+    type: '@vwc_type_2'
+    supplierName: DANA SAS FRANCE
+    supplierNumber: DAN0013
+    poster: '@user_qe'
+    assignee: '@user_superuser'
+    requestedSupplierAction: to fix the other problem
+    requestedCreditAmount: 43
+    supplierCorrectiveActionRequest: '@scar_2'
+
+  #/purchasing/wc_vendor_warranty_claims/3
+  #/purchasing/vendor_warranty_claims/3
+  vwc_wc_3:
+    warrantyClaimId: 60
+    location: '@location_factory'
+    status: '@vwc_status_3'
+    type: '@vwc_type_2'
+    supplierName: Banque scie you
+    supplierNumber: CU5000
+    poster: '@user_qe'
+    assignee: '@user_superuser'
+    requestedSupplierAction: to fix the other problem
+    requestedCreditAmount: 45
+    supplierCorrectiveActionRequest: '@scar_2'
+
+App\Entity\Purchasing\NCRVendorWarrantyClaim:
+  #/purchasing/ncr_vendor_warranty_claims/4
+  #/purchasing/vendor_warranty_claims/4
+  vwc_ncr_1:
+    nonConformity: '@ncr_1'
+    location: '@location_factory'
+    status: '@vwc_status_2'
+    type: '@vwc_type_1'
+    supplierName: DANA SAS FRANCE
+    supplierNumber: DAN0013
+    poster: '@user_qam'
+    assignee: '@user_basic'
+    requestedSupplierAction: give the money back
+    requestedCreditAmount: 99.99
+    supplierCorrectiveActionRequest: '@scar_1'
+    scarRequested: true
+
+  #/purchasing/ncr_vendor_warranty_claims/5
+  #/purchasing/vendor_warranty_claims/5
+  vwc_ncr_2:
+    nonConformity: '@ncr_2'
+    location: '@location_factory'
+    status: '@vwc_status_2'
+    type: '@vwc_type_1'
+    supplierName: Banque scie you
+    supplierNumber: CU5000
+    poster: '@user_qam'
+    assignee: '@user_transferred'
+    requestedSupplierAction: give the money back
+    requestedCreditAmount: 99.99
+    supplierCorrectiveActionRequest: '@scar_1'
+    scarRequested: true

@@ -1,0 +1,58 @@
+{% trans_default_domain 'task' %}
+
+{% set items = {
+    filePath: {
+        label: 'task.fields.files' | trans,
+        filters: 'slice(29)',
+        link: {
+            route: 'contract_download_file',
+            params: {
+                'fileId': 'id',
+            },
+            fixedParams: {
+                'contractId': contract.id
+            }
+        },
+    },
+    description: {
+        label: 'task.fields.file_description' | trans,
+    },
+    createdAt: {
+        label: 'task.fields.created_at' | trans,
+        filters: 'date("Y-m-d H:i:s")'
+    },
+    size: {
+        label: 'task.fields.size' | trans,
+        filters : 'readable_filesize'
+    }
+} %}
+
+{% set items = items | merge({
+    delete: {
+        label: 'task.fields.delete' | trans,
+        sortable: false,
+        class: 'text-end',
+        link: {
+            route: 'contract_delete_file',
+            params: {'fileId': 'id'},
+            fixedParams: {'contractId': contract.id, '_token': csrf_token('delete_contract_file')},
+            content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+            popup: {
+                type: 'confirmation',
+                title: 'visibility.popup.confirmation.title'|trans({}, 'file_type'),
+                message: 'delete.popup.confirmation.message'|trans({}, 'file_type'),
+            }
+        },
+    }
+}
+) %}
+{{ include('helper/_report_table.html.twig', {
+    reportTable: {
+        items: items,
+        title: 'legal.fields.files' | trans({}, 'legal'),
+        data: contract.files,
+        search: false,
+        pagination: false,
+        initialSorting: 'createdAt'
+    }
+}, with_context = false) }}

@@ -1,0 +1,61 @@
+App\Entity\DocumentTranslation:
+
+  document_translation_1:
+    id: 1
+    documentId: "deeplDocumentId_1"
+    documentKey: "deeplDocumentKey_1"
+    estimatedSeconds: 180
+    targetLang: EN
+    formality: default
+    filename: "my_file_1.pdf"
+    mimeType: "application/pdf"
+    size: 1024
+    status: 'queued'
+    user: '@user_basic'
+    createdAt: <dateTimeBetween('-2 days', '-1 days')>
+    errorMessage: null
+
+  document_translation_2:
+    id: 2
+    documentId: "deeplDocumentId_2"
+    documentKey: "deeplDocumentKey_2"
+    estimatedSeconds: null
+    targetLang: IT
+    formality: default
+    filename: "my_file_2.pdf"
+    mimeType: "application/pdf"
+    size: 1024
+    status: 'ready'
+    user: '@user_basic'
+    createdAt: <dateTimeBetween('-2 days', '-1 days')>
+    errorMessage: null
+
+  document_translation_3:
+    id: 3
+    documentId: "deeplDocumentId_3"
+    documentKey: "deeplDocumentKey_3"
+    estimatedSeconds: null
+    targetLang: ES
+    formality: default
+    filename: "my_file_3.pdf"
+    mimeType: "application/pdf"
+    size: 1024
+    status: 'queued'
+    user: '@user_basic'
+    createdAt: <dateTimeBetween('-2 days', '-1 days')>
+    errorMessage: null
+
+  document_translation_4:
+    id: 4
+    documentId: "deeplDocumentId_4"
+    documentKey: "deeplDocumentKey_4"
+    estimatedSeconds: null
+    targetLang: BG
+    formality: default
+    filename: "my_file_4.pdf"
+    mimeType: "application/pdf"
+    size: 1024
+    status: 'ready'
+    user: '@user_superuser'
+    createdAt: <dateTimeBetween('-3 days', '-3 days')>
+    errorMessage: null

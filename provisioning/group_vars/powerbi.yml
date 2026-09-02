@@ -1,0 +1,57 @@
+# geerlingguy.nodejs
+nodejs_version: "24.x"
+
+# geerlingguy.nginx
+nginx_remove_default_vhost: true
+nginx_listen_ipv6: false
+nginx_server_tokens: "off"
+nginx_vhosts:
+  - listen: "80"
+    server_name: "{{ powerbi_url }}"
+    root: "{{ monorepo_path }}/current/powerbi/src/server.js"
+    access_log: "/var/log/nginx/{{ powerbi_url }}.access.log"
+    error_log: "/var/log/nginx/{{ powerbi_url }}.error.log"
+    state: "present"
+    filename: "{{ powerbi_url }}.conf"
+    extra_parameters: |
+      server_tokens off;    
+
+      location / {
+        allow {{ haproxy_dmz_subnet }};
+        deny all;
+        proxy_pass http://127.0.0.1:9500;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      }
+    
+      location ~ \.php$ {
+        return 404;
+      }
+      
+      location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow 127.0.0.1;
+        allow {{ prtg_ip }};
+        deny all;
+      }
+
+client_secret: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  38616231613433343765373831363961396234626562656637303634646434653933386636653530
+  3337323235636538343232326365353231313432343363360a663262376135386436373834633034
+  64303933656634373532386366373165386230373432343833386535623866313666343034323538
+  3730393337666163370a636639663164303134303735383139306265636536393335353761653032
+  35363562383361613237623632323635366266346135613938643266353238633637346463313163
+  6332663136333735353336316132643965633464363033366236
+
+tenant_id: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  37323739376134386365643430326262373137333130623132343461663862613732376235366265
+  6532626136626538643865376530613465336132636563330a343432316462383863623963376639
+  39353330333138343538366138646163626638616265373134333735626532383965656664666335
+  6361356364623065650a306166633136336264386339393132343030353833623639316337663530
+  65643263343339383564623539393833313438616633306466346338623063366133376238623936
+  6362366561343139333161376337653535363332353637323937

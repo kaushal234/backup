@@ -1,0 +1,75 @@
+{% extends 'service/customer_service_record/layout.html.twig' %}
+{% trans_default_domain 'customer_service_record' %}
+{% form_theme form with ['form_theme_vertical.html.twig'] %}
+
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'csr.title.edit' | trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <style>
+                            .tempus-dominus-widget .today:before {
+                                display: none !important;
+                            }
+                            .tempus-dominus-widget .today:not(.active) {
+                                border: 1px solid grey;
+                            }
+                        </style>
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {% if form.equipmentRecord is defined %}{{ form_row(form.equipmentRecord) }}{% endif %}
+                        {{ form_row(form.airport) }}
+                        {% if form.hourmeter is defined %}{{ form_row(form.hourmeter) }}{% endif %}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.description) }}
+                        {% if form.hourmeter is defined %}{{ form_row(form.status) }}{% endif %}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+            {% if surveyForm is defined and surveyForm is not null %}
+                {% form_theme surveyForm with ['form_theme_vertical.html.twig'] %}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'intervention.title.survey' | trans }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            {{ form_start(surveyForm) }}
+                            {{ form_errors(surveyForm) }}
+                            {{ form_row(surveyForm) }}
+                            {{ form_end(surveyForm) }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-5">
+            {{ include('service/customer_service_record/partial/files.html.twig') }}
+        </div>
+        {% if customerServiceRecord.openIntervention is not null %}
+            <div class="col-md-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ 'csr.title.edit_operator' | trans }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <p>{{ customerServiceRecord.openIntervention.leader.lastname }}  {{ customerServiceRecord.openIntervention.leader.firstname }}</p>
+                        <div class="row">
+                            {{ form_start(operatorForm) }}
+                            {{ form_errors(operatorForm) }}
+                            {{ form_widget(operatorForm.operators) }}
+                            {{ form_end(operatorForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

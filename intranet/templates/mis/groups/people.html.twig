@@ -1,0 +1,45 @@
+{% extends 'mis/groups/layout.html.twig' %}
+{% set id = iri_id(group) %}
+{% block title %}{{ group.name }} members{% endblock %}
+
+{% block content %}
+    {{ include('helper/_report_table.html.twig', {
+        'reportTable': {
+            'items': {
+                'name': {
+                    'label': 'fields.fullname'|trans()|capitalize,
+                    'properties': ['lastname', 'firstname'],
+                    'link': {
+                        'route': 'directory_people_show',
+                        'params': {'id':'@id'}
+                    }
+                },
+                'email': {
+                    'label': 'directory.people.fields.email'|trans([], 'directory')|capitalize
+                },
+                'businessUnit': {
+                    'properties': ['businessUnit.name'],
+                    'label': 'directory.people.fields.businessUnit'|trans([], 'directory')|capitalize,
+                    'link': {
+                        'route': 'directory_business_units_show',
+                        'params': {'id': "businessUnit.@id"},
+                    },
+                },
+                'position': {
+                    'properties': ['position.description'],
+                    'label': 'directory.people.fields.position'|trans([], 'directory')|capitalize,
+                    'link': {
+                        'route': 'directory_positions_show',
+                        'params': {'id': "position.@id"},
+                    },
+                },
+                'aclsLocation': {
+                    'label': 'ACL ' ~ 'directory.people.fields.businessUnit'|trans([], 'directory')|capitalize,
+                    'sortable': false
+                },
+            },
+            'title': 'mis.groups.members_of'|trans([], 'mis')|capitalize ~ ' ' ~ group.name ,
+            'data': people
+        }
+    }, with_context = false) }}
+{% endblock %}

@@ -1,0 +1,207 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/orders$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/orders/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "equoteId": {"type": ["string", "null"]},
+          "enteredAt": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "sso": {
+            "$ref": "../../../directory_location/schemas/directory_location_public.json"
+          },
+          "juridicalLocation": {
+            "$ref": "../../../directory_juridical_location/schemas/directory_juridical_location_public.json"
+          },
+          "asm": {
+            "$ref": "../../../directory_people/schemas/directory_people_public.json"
+          },
+          "buyer": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "country": {
+                "oneOf": [
+                  {"type": "null"},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string"}
+                    },
+                    "required": ["name"]
+                  }
+                ]
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId",
+                "country"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "contact": {
+            "oneOf": [
+              {"type":  "null"},
+              {"type":  "object"}
+            ]
+          },
+          "endUser": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/customers/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "country": {
+                "oneOf": [
+                  {"type": "null"},
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string"}
+                    },
+                    "required": ["name"]
+                  }
+                ]
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId",
+                "country"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "salesAgent": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/customers/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "country": {
+                    "oneOf": [
+                      {"type": "null"},
+                      {
+                        "type": "object",
+                        "properties": {
+                          "name": {"type": "string"}
+                        },
+                        "required": ["name"]
+                      }
+                    ]
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "legacyId",
+                    "country"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          },
+          "baanOrderNumbers": {
+            "type": "array",
+            "uniqueItems": true
+          },
+          "customerPurchaseOrders": {
+            "type": "array",
+            "uniqueItems": true
+          },
+          "note": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "inforLnBusinessPartnerCode": {
+            "type": ["null", "string"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "equoteId",
+          "sso",
+          "enteredAt",
+          "status",
+          "baanOrderNumbers",
+          "asm",
+          "buyer",
+          "contact",
+          "endUser",
+          "customerPurchaseOrders",
+          "note",
+          "legacyId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "minItems": 1
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

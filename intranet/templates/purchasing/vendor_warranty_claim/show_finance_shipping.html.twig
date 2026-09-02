@@ -1,0 +1,75 @@
+{% extends 'purchasing/vendor_warranty_claim/layout.html.twig' %}
+
+ {% block title %}{{ parent() }}#{{ vendorWarrantyClaim.id }}{% endblock %}
+
+ {% block content %}
+     <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+     {% form_theme form 'form_theme_vertical.html.twig' %}
+
+         <twig:Tabs:Tabs>
+             <twig:Tabs:NavItemList>
+                 {{ include('purchasing/vendor_warranty_claim/partial/tabs/_nav.html.twig', {
+                     vendorWarrantyClaim: vendorWarrantyClaim,
+                 }) }}
+             </twig:Tabs:NavItemList>
+
+             <twig:Tabs:Content>
+                 <div class="row">
+                     <div class="col-md-8">
+                         {% trans_default_domain 'vendor_warranty_claim' %}
+                         {{ include('helper/_association_table.html.twig', {
+                             associationData: {
+                                 items: {
+                                     supplierReturnMerchandiseAuthorization: { label:'vendor_warranty_claim.fields.supplier_rma' | trans },
+                                     supplierShippingInstruction: { label:'vendor_warranty_claim.fields.shipping_instructions' | trans },
+                                     trackingNumber: { label:'tracking.fields.tracking_number' | trans({}, 'tracking') },
+                                 },
+                                 title: 'vendor_warranty_claim.title.shipping' | trans,
+                                 data: vendorWarrantyClaim
+                             },
+                         }, with_context = false) }}
+
+                         {{ include('helper/_association_table.html.twig', {
+                             associationData: {
+                                 items: {
+                                     requestedCreditAmount: { label:'vendor_warranty_claim.fields.requested_credit_amount' | trans },
+                                     supplierCreditNote: { label:'vendor_warranty_claim.fields.supplier_credit_note' | trans },
+                                     supplierCreditAmount: { label:'vendor_warranty_claim.fields.supplier_credit_amount' | trans },
+                                     actualCreditAmount: { label:'vendor_warranty_claim.fields.actual_credit_amount' | trans },
+                                     currency: {
+                                         label: 'directory.location.fields.currency' | trans({}, 'directory') | capitalize,
+                                         properties: ['currency.name']
+                                     },
+                                 },
+                                 title: 'vendor_warranty_claim.title.finance' | trans,
+                                 data: vendorWarrantyClaim
+                             },
+                         }, with_context = false) }}
+                     </div>
+                     <div class="col-md-4">
+                         {% if is_granted('FEATURE_VENDOR_WARRANTY_CLAIM_EDIT_SHIPPING') or is_granted('FEATURE_VWC_EDIT_FINANCE') %}
+                             <div class="ibox float-e-margins">
+                                 <div class="ibox-title">
+                                     <h5>{{ 'vendor_warranty_claim.title.partial_edit' | trans}}</h5>
+                                 </div>
+                                 <div class="ibox-content">
+                                     {{ form_start(form) }}
+                                     {{ form_errors(form) }}
+                                     {{ form_row(form.supplierShippingInstruction) }}
+                                     {{ form_row(form.supplierReturnMerchandiseAuthorization) }}
+                                     {{ form_row(form.trackingNumber) }}
+                                     {{ form_row(form.supplierCreditNote) }}
+                                     {{ form_row(form.supplierCreditAmount) }}
+                                     {{ form_row(form.currency) }}
+                                     {{ form_row(form.submit) }}
+                                     {{ form_rest(form) }}
+                                     {{ form_end(form) }}
+                                 </div>
+                             </div>
+                         {% endif %}
+                     </div>
+                 </div>
+             </twig:Tabs:Content>
+         </twig:Tabs:Tabs>
+
+ {% endblock %}

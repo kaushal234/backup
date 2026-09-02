@@ -1,0 +1,39 @@
+parameters:
+    parallel:
+        processTimeout: 300.0
+    inferPrivatePropertyTypeFromConstructor: true
+    treatPhpDocTypesAsCertain: false
+    level: 6
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - src/Link/Manager/Support/EquipmentRecordManager.php # to be removed
+        - tests/bootstrap.php # Flex recipe file
+        - tests/object-manager.php # PHPStan object manager loader
+    ignoreErrors:
+        - identifier: missingType.generics
+        - identifier: missingType.iterableValue
+        -
+            identifier: staticMethod.alreadyNarrowedType
+            path: tests/*
+        -
+            identifier: trait.unused
+            path: src/Doctrine/Migration/*
+        - '#Access to an undefined property Symfony\\Component\\Validator\\Constraint::\$message.#'
+        # False positive
+        - '#Property Symfony\\Component\\Validator\\Constraints\\File::\$maxSize \(int\) does not accept string\.#'
+        - '#Unable to resolve the template type T in call to method [A-Za-z\\]+::getRepository\(\)#'
+        - '#Anonymous function should return Symfony\\Bridge\\Twig\\Mime\\TemplatedEmail but returns Symfony\\Component\\Mime\\RawMessage\.#'
+        # Read/Write
+        - '#Property [A-Za-z\\]+::\$[A-Za-z0-9]+ is never read, only written.#'
+        - '#Property [A-Za-z\\]+::\$[A-Za-z0-9]+ is never written, only read.#'
+        # Typehint
+        - '#(Property|Method|Function) .* has( parameter \$.+ with)? no( return)? type specified#'
+    doctrine:
+        objectManagerLoader: tests/object-manager.php
+includes:
+    - vendor/jangregor/phpstan-prophecy/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon

@@ -1,0 +1,35 @@
+{% extends 'sales/equipment_shipping_records/layout.html.twig' %}
+{% trans_default_domain 'equipment_shipping_record' %}
+
+{% block content %}
+    <div class="row mt-5">
+        <div class="col-md-8">
+            <div class="ibox float-e-margins col-md-12 mb-5">
+                <div class="ibox-title">
+                    <h5>{{ 'planning_daily_exception.form.title' | trans([], 'equipment_shipping_record') }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_start(planningDailyExceptionForm) }}
+                            {{ form_errors(planningDailyExceptionForm) }}
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    {{ form_widget(planningDailyExceptionForm.date) }}
+                                </div>
+                                <div class="col-sm-9">
+                                    {{ form_widget(planningDailyExceptionForm.comment) }}
+                                </div>
+                                <div class="col-sm-1 justify-content-end">
+                                    <input id="id-quick-access-submit" type="submit" name="submit" class="btn btn-primary" value="{{ 'button.submit'|trans([], 'messages')|capitalize }}"/>
+                                </div>
+                            </div>
+                            {{ form_rest(planningDailyExceptionForm) }}
+                            {{ form_end(planningDailyExceptionForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

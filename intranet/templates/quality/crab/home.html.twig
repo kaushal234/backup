@@ -1,0 +1,64 @@
+{% extends 'quality/crab/layout.html.twig' %}
+{% trans_default_domain 'crab' %}
+
+{% block content %}
+    <div class="col-md-4">
+        <h3 class="text-capitalize">{{ 'customer_relationship_team.fields.quick_access'|trans([], 'customer_relationship_team') }}</h3>
+        <div class="row">
+            <div class="col-md-12">
+                {{ id_search_form(
+                    idLabel: false,
+                    idPlaceholder: 'By ID',
+                    redirectRoute: 'crab_show',
+                    apiRoute: constant('AppBundle\\Controller\\Quality\\CrabController::CRAB_URL'),
+                ) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ data_table(crabDatatable) }}
+        </div>
+    </div>
+    {% include 'quality/crab/partial/_charts.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // The charts are driven by the data table filters but live outside the Turbo frame.
+        // When the frame reloads (filter/sort/paginate), Turbo only swaps the frame, so we swap
+        // the #anchor charts container ourselves from the same response. loadCharts() is then
+        // re-run by the global "turbo:frame-load" listener once the frame has rendered.
+        (function () {
+            if (window.__crabChartsRefreshBound) {
+                return;
+            }
+            window.__crabChartsRefreshBound = true;
+
+            document.addEventListener('turbo:before-fetch-response', async function (event) {
+                var fetchResponse = event.detail && event.detail.fetchResponse;
+                if (!fetchResponse) {
+                    return;
+                }
+
+                var html = await fetchResponse.responseHTML;
+                if (!html) {
+                    return;
+                }
+
+                var freshAnchor = new DOMParser().parseFromString(html, 'text/html').getElementById('anchor');
+                var currentAnchor = document.getElementById('anchor');
+                if (freshAnchor && currentAnchor) {
+                    currentAnchor.outerHTML = freshAnchor.outerHTML;
+                }
+            });
+        })();
+    </script>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

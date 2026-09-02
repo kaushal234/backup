@@ -1,0 +1,4 @@
+{% set color = item.indiceFactor == 'IF 1' ? '#198050' : (item.indiceFactor == 'IF 10' ? '#0C6DFD' : (item.indiceFactor == 'IF 100' ? '#FFC007' : '#CC313F')) %}
+<td class="bg-gradient" style="{% if item.indiceFactor is not null %}background-color: {{ color }}; color: white{% endif %}">
+        {{ item.indiceFactor }}
+</td>

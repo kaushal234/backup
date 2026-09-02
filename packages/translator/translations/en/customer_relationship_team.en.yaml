@@ -1,0 +1,54 @@
+customer_relationship_team:
+  nav_link:
+    task: Task
+  title:
+      contact_role: Add role on eContact for this CRT
+      contacts_info: Contacts Information
+      last10: Last 10 CRT created
+      locations_info: Locations Information
+      show : Customer Relationship Team
+  fields:
+      id: Id
+      cuno: pCust
+      business_partner_code: Business Partner Code (LN)
+      sales_representative : Sales Representative
+      parts_representative : Parts Representative
+      service_representative : Service Representative
+      customer : eCustomer
+      parts_location : Parts Location
+      service_location : Service Location
+      erp_location : ERP Location
+      quick_access: Quick Access
+      extranet_users_linked: eContacts Linked
+      representative: Representatives
+  messages:
+      success:
+          edit: The CRT has been edited successfully
+          duplicate: The CRT has been duplicated successfully
+          delete: The CRT has been deleted successfully
+          transfer: The CRT's have been successfully transferred
+      error:
+        edit: Something went wrong and the CRT could not be edited
+        duplicate: Something went wrong and the CRT could not be duplicated
+        delete: Something went wrong and the CRT could not be deleted
+      more: More
+  forms:
+      make_selection: Make your selection...
+      title:
+        add: Add a CRT
+        edit: Edit a CRT
+        duplicate: Duplicate a CRT
+  search: Search for a CRT
+  no_representatives: No Representatives
+  no_contacts: No contacts have been found for this eCustomer, please create or link one and then you will be able to create a CRT
+  errors:
+      customer: Customer is mandatory.
+      erpLocation: ERP Location is mandatory.
+      partsLocation: Parts Location is mandatory.
+      serviceLocation: Service Location is mandatory.
+      salesRepresentative: Sales Representative is mandatory.
+      partsRepresentative: Parts Representative is mandatory.
+      sserviceRepresentative: Service Representative is mandatory.
+      extranet_user: Extranet User is mandatory.
+      extranet_user_group: At least one role should be selected.
+      erp_location_ref: ERP Location selected is not the same as the reference pCust/ERP selected.

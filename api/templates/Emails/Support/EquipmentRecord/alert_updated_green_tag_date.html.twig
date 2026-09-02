@@ -1,0 +1,29 @@
+{% extends 'Emails/alvest/layout_enlarged.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <p>
+            {{ 'manufacturing.equipment_record.alert_gap_estimated_green_tag_date.message'|trans({
+                '%serialNumber%': equipmentRecord.serialNumber|default(''),
+                '%model%': equipmentRecord.model|default(''),
+                '%sol%': solId|default(''),
+                '%buyer%': equipmentRecord.buyer.name|default(''),
+                '%endUser%': equipmentRecord.endUser.name|default(''),
+                '%factory%': factory,
+                '%gap%': gap,
+                '%previousEstimatedGreenTagDate%': previousEstimatedGreenTagDate | date('Y-m-d'),
+                '%newEstimatedGreenTagDate%': equipmentRecord.estimatedGreenTagDate | date('Y-m-d'),
+            }, 'emails')|nl2br }}
+        </p>
+        {% if equipmentRecord.orderFactory.factoryPromisedDeliveryDate is defined and equipmentRecord.orderFactory.factoryPromisedDeliveryDate is not null %}
+        <p>
+            {{ 'manufacturing.equipment_record.alert_gap_estimated_green_tag_date.promise'|trans({
+                '%promise%': equipmentRecord.orderFactory.factoryPromisedDeliveryDate | date('Y-m-d')
+            }, 'emails')|nl2br }}
+        </p>
+        <a href="{{ url('legacy_product_support', { 'm': ['equipment', 'view'], 'id': equipmentRecord.legacyId }) }}">Click here to see ER</a>
+        {% endif %}
+    </row>
+{% endblock %}

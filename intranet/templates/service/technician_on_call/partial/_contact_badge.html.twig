@@ -1,0 +1,10 @@
+{% if contact is defined and contact is not null %}
+    <span
+        class="badge badge-secondary"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="{{ contact.email ~ '\n' ~ contact.phones|map(phone => phone.type ~ ': ' ~ phone.number)|join('\n') }}"
+    >
+        <a href="{{ path('sales_contact_show', {'id': contact.id}) }}">{{ contact.lastname }}, {{ contact.firstname }}</a>
+    </span>
+{% endif %}

@@ -1,0 +1,151 @@
+{% extends '@AlvestTwigHelper/table_layout.html.twig' %}
+
+{% block table %}
+    {% set queryParams = link.additionalParams is defined ? link.additionalParams : [] %}
+    {% set showXtotals = (hideTotals is not defined) or (hideTotals != 'x' and hideTotals != 'both') %}
+    {% set showYtotals = (hideTotals is not defined) or (hideTotals != 'y' and hideTotals != 'both') %}
+    {% set additionalParams = additionalParams|default({}) %}
+    {% set noXTotalsParam = removeXTotalsParam|default('') %}
+    {% set noYTotalsParam = removeYTotalsParam|default('') %}
+    {% if data.rows is defined and data.rows|length > 0 %}
+        {% set xIris = data.metadata.xIris|default([]) %}
+        {% set yIris = data.metadata.yIris|default([]) %}
+        {% set data = matrix(data, headers is defined and headers.columns is defined ? headers.columns : [], headers is defined and headers.lines is defined ? headers.lines : []) %}
+        <div class="table-responsive {{ containerClass|default('') }}">
+            {{ parent() }}
+        </div>
+    {% else %}
+        {{ block('table_no_results') }}
+    {% endif %}
+{% endblock %}
+
+{% block table_header %}
+    <thead>
+        <tr>
+            {% if xHeaderTemplate is defined %}
+                {{ include(xHeaderTemplate, {part: 'header'}, with_context=true) }}
+            {% else %}
+                <th>{{ legend is defined ? legend : '' }}</th>
+            {% endif %}
+
+            {% for title, total in data.yTotals %}
+                <th class="top-label"><div><span>{% if filters is defined and filters.columnHeaders is defined %}{{ title|filters(filters.columnHeaders) }}{% else %}{{ title }}{% endif %}</span></div></th>
+            {% endfor %}
+
+            {% if showXtotals %}
+                <th class="top-label th-total"><div><span>{{ 'alvest.twig_helper.table.totals'|trans({}, 'messages') }}</span></div></th>
+            {% endif %}
+        </tr>
+    </thead>
+{% endblock table_header %}
+
+{% block table_content %}
+    <tbody>
+    {% for title, cells in data.rows %}
+        <tr>
+            {% if xHeaderTemplate is defined %}
+                {{ include(xHeaderTemplate, {part: 'content'}, with_context=true) }}
+            {% else %}
+                <th>{% if filters is defined and filters.lineHeaders is defined %}{{ title|filters(filters.lineHeaders) }}{% else %}{{ title }}{% endif %}</th>
+            {% endif %}
+
+            {% if link is defined %}
+                {% for cell in cells %}
+                    {% set options = {} %}
+                    {% if link.xParam is not same as (null) %}
+                        {% set options = options|merge({(link.xParam): xIris[cell.x]|default(cell.x)}) %}
+                    {% endif %}
+                    {% if link.yParam is not same as (null) %}
+                        {% set options = options|merge({(link.yParam): yIris[cell.y]|default(cell.y)}) %}
+                    {% endif %}
+                    {% set options = options|merge(queryParams) %}
+                    <td>{% if showZero is not defined or showZero is not same as(false) or cell.value > 0 %}<a href="{{ path(link.route, options) }}">{{ filters is defined and filters.values is defined ? cell.value|filters(filters.values) : cell.value }}</a>{% endif %}</td>
+                {% endfor %}
+            {% else %}
+                {% for cell in cells %}
+                    {% if template is defined %}
+                        {{ include(template, additionalParams, with_context=true) }}
+                    {% else %}
+                        <td>{% if showZero is not defined or showZero is not same as(false) or cell.value > 0 %}{{ filters is defined and filters.values is defined ? cell.value|filters(filters.values) : cell.value }}{% endif %}</td>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if showXtotals %}
+                {% if link is defined %}
+                    {% set xLinkValue = xIris[title]|default(title) %}
+                    {% set yLinkValue = noYTotalsParam %}
+
+                    {% set options = {} %}
+                    {% if link.xParam is not same as (null) %}
+                        {% set options = options|merge({(link.xParam): xLinkValue}) %}
+                    {% endif %}
+                    {% if noYTotalsParam is not same as(true) and link.yParam is not same as (null) %}
+                        {% set options = options|merge({(link.yParam): yLinkValue}) %}
+                    {% endif %}
+
+                    {% set options = options|merge(queryParams) %}
+
+                    <td class="total"><a href="{{ path(link.route, options) }}">{{ filters is defined and filters.values is defined ? data.xTotals[title]|filters(filters.values) : data.xTotals[title] }}</a></td>
+                {% else %}
+                    <td class="total">{{ filters is defined and filters.values is defined ? data.xTotals[title]|filters(filters.values) : data.xTotals[title] }}</td>
+                {% endif %}
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}
+
+{% block table_footer %}
+    {% if showYtotals %}
+        <tfoot>
+        <tr>
+            {% if xHeaderTemplate is defined %}
+                {{ include(xHeaderTemplate, {part: 'footer'}, with_context=true) }}
+            {% else %}
+                <th class="th-total">{{ 'alvest.twig_helper.table.totals'|trans({}, 'messages') }}</th>
+            {% endif %}
+
+            {% if link is defined %}
+                {% for y, total in data.yTotals %}
+                    {% set xLinkValue = noXTotalsParam %}
+                    {% set yLinkValue = yIris[y]|default(y) %}
+
+                    {% set options = noXTotalsParam is not same as(true) ? {(link.xParam): xLinkValue, (link.yParam): yLinkValue} : {(link.yParam): yLinkValue } %}
+                    {% set options = {} %}
+                    {% if noXTotalsParam is not same as(true) and link.xParam is not same as (null) %}
+                        {% set options = options|merge({(link.xParam): xLinkValue}) %}
+                    {% endif %}
+                    {% if link.yParam is not same as (null) %}
+                        {% set options = options|merge({(link.yParam): yLinkValue}) %}
+                    {% endif %}
+                    {% set options = options|merge(queryParams) %}
+                    <td class="total"><a href="{{ path(link.route, options) }}">{{ filters is defined and filters.values is defined ? total|filters(filters.values) : total }}</a></td>
+                {% endfor %}
+            {% else %}
+                {% for total in data.yTotals %}
+                    <td class="total">{{ filters is defined and filters.values is defined ? total|filters(filters.values) : total }}</td>
+                {% endfor %}
+            {% endif %}
+
+            {% if showXtotals %}
+                {% if link is defined %}
+                    {% set options = {} %}
+                    {% if noXTotalsParam is not same as(true) and noYTotalsParam is not same as(true) %}
+                        {% if link.xParam is not same as (null) %}
+                            {% set options = options|merge({(link.xParam): noXTotalsParam}) %}
+                        {% endif %}
+                        {% if link.yParam is not same as (null) %}
+                            {% set options = options|merge({(link.yParam): noYTotalsParam}) %}
+                        {% endif %}
+                        {% set options = options|merge(queryParams) %}
+                    {% endif %}
+
+                    <td class="total"><a href="{{ path(link.route, options) }}">{{ filters is defined and filters.values is defined ? data.total|filters(filters.values) : data.total }}</a></td>
+                {% else %}
+                    <td class="total">{{ filters is defined and filters.values is defined ? data.total|filters(filters.values) : data.total }}</td>
+                {% endif %}
+            {% endif %}
+        </tr>
+        </tfoot>
+    {% endif %}
+{% endblock table_footer %}

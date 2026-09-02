@@ -1,0 +1,36 @@
+{% extends 'service/technician_on_call/layout.html.twig' %}
+{% trans_default_domain 'technician_on_call' %}
+{% form_theme filterForm 'form_theme_vertical.html.twig' %}
+
+{% block content %}
+    {{ form_start(filterForm) }}
+    <div class="row mb-3">
+        <div class="col-3">
+            {{ form_row(filterForm.salesServiceOrganisation) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(filterForm.from) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(filterForm.to) }}
+        </div>
+        <div class="col-3 d-flex align-items-center">
+            <button class="btn btn-primary">
+                {{ 'button.filter'|trans({}, 'messages')|upper }}
+            </button>
+        </div>
+    </div>
+    {{ form_end(filterForm) }}
+    <div class="row justify-content-md-center mt-3">
+        <div class="col-md-12">
+            {% if chartTechnicianOnCallBuilder is defined %}
+                <div data-options="{{ chartTechnicianOnCallBuilder | json_encode }}" class="ibox float-e-margins highcharts" style="min-width: 400px; height: 500px;"></div>
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            {% if chartCustomerServiceRecordYearBacklog is defined %}
+                <div data-options="{{ chartCustomerServiceRecordYearBacklog | json_encode }}" class="ibox float-e-margins highcharts" style="min-width: 400px; height: 500px;"></div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

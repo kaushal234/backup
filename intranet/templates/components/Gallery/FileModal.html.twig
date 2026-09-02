@@ -1,0 +1,14 @@
+{% props index, path %}
+
+<div class="modal fade" id="modal-files-{{ index }}" tabindex="-1" aria-labelledby="modal-files-{{ index }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close pull-right" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img class="w-100" src="{{ path }}" alt="">
+            </div>
+        </div>
+    </div>
+</div>

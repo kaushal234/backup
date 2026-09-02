@@ -1,0 +1,17 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_boiler_plate.html.twig', {
+        boilerPlates: {
+            50: "<p>Smart Airport Systems is globally recognized as the undisputed pioneering leader in aircraft turbine shutdown on the ground, deploying revolutionary aviation solutions. Through our advanced technologies, including APU OFF and ENG OFF, we actively contribute to emission reductions airside, implementing our ZERO GROUND EMISSIONS strategy adopted by international airports.</p>",
+            150: "<p>Smart Airport Systems is globally recognized as the undisputed pioneering leader in aircraft turbine shutdown on the ground, deploying revolutionary aviation solutions. Through our advanced technologies, including APU OFF and ENG OFF, we actively contribute to emission reductions airside, implementing our ZERO GROUND EMISSIONS strategy adopted by international airports.</p>
+                <p>Our expertise is built on an innovative approach that combines cutting-edge engineering with a deep understanding of aviation industry requirements. We design robust and reliable solutions that decarbonize ground operations, significantly reducing operating costs while improving environmental performance. Each system promoted by Smart Airport Systems, results from rigorous research within the ALVEST Group and close collaboration with renowned technology and industry partners.</p>
+                <p>Our commitment to sustainability drives the continuous improvement of our products and services, anticipating and addressing future aviation challenges. We consistently invest in research and development to remain at the forefront of technological innovation.</p>",
+            190: "<p>Smart Airport Systems is globally recognized as the undisputed pioneer and leader in aircraft turbine shutdown on the ground, deploying revolutionary solutions that transform the aviation industry. Through our advanced technologies, including APU OFF and ENG OFF, we actively contribute to emission reductions airside, implementing our ZERO GROUND EMISSIONS strategy adopted by more and more international airports.</p>
+                <p>Our expertise is built on an innovative approach that combines cutting-edge engineering with a deep understanding of aviation industry requirements. We design robust and reliable solutions that decarbonize ground operations, significantly reducing operating costs while improving environmental performance. Each system promoted by Smart Airport Systems, results from rigorous research within the ALVEST Group and close collaboration with renowned technology and industry partners.</p>
+                <p>With a global presence, our company relies on an extensive network of technical and support centers, ensuring rapid response and high-quality assistance for our clients. Our commitment to sustainability drives the continuous improvement of our products and services, anticipating and addressing future aviation challenges. We consistently invest in research and development to remain at the forefront of technological innovation.  Smart Airport Systems is an Alvest Group Company.</p>"
+            }
+    }) }}
+{% endblock %}

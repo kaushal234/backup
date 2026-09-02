@@ -1,0 +1,219 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/finance/account_receivables"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/finance/account_receivables/\\d+$"},
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "transactionTypeReference": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/finance/transaction_type_references/\\d+$"},
+              "@type": {"type": "string"},
+              "erpType": {"type": "string"},
+              "location": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/locations/\\d+$"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "erp": {"type": ["integer", "null"]},
+                  "legacyId": {"type": "integer"},
+                  "currency": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "object",
+                        "$ref": "../../finance_currency/schemas/currency.json"
+                      }
+                    ]
+                  }
+                },
+                "required": ["@id", "@type", "name", "erp", "currency", "legacyId"],
+                "additionalProperties": false
+              },
+              "transactionType": {
+                "type": "object",
+                "$ref": "../../transaction_type/schemas/transaction_type.json"
+              }
+            },
+            "required": ["@id", "@type", "erpType", "location", "transactionType"]
+          },
+          "erpInvoiceNumber": { "type": "string" },
+          "purchaseOrderNumber": {"type": ["string", "null"]},
+          "invoiceDate": {"type": "string"},
+          "dueDate": {"type": "string"},
+          "originalAmount": {"type": ["number", "null"]},
+          "originalAmountLocalCurrency": {"type": ["number", "null"]},
+          "balanceAmount":  {"type": ["number", "null"]},
+          "balanceAmountLocalCurrency":  {"type": ["number", "null"]},
+          "balanceAmountConverted":  {"type": "number"},
+          "salesOrderNumber":  {"type": ["integer", "null"]},
+          "salesOrderDate":  {"type": ["string", "null"]},
+          "salesReferenceA": {"type": ["string", "null"]},
+          "salesReferenceB": {"type": ["string", "null"]},
+          "financeReferenceA": {"type": ["string", "null"]},
+          "financeReferenceB": {"type": ["string", "null"]},
+          "creditAnalyst": {"type": ["integer", "null"]},
+          "delinquent": {"type": "boolean"},
+          "country": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/countries/\\d+$"},
+              "@type": {"type": "string"},
+              "id": {"type": "integer"},
+              "legacyId": {"type": "integer"},
+              "name": {"type": "string"},
+              "isoCode2": {"type":  "string"}
+            },
+            "required": ["@id", "@type", "id", "name", "isoCode2"]
+          },
+          "customerErpReference": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "@id": {"pattern": "^/sales/customer_erp_references/\\d+$"},
+              "@type": {"type": "string"},
+              "id": {"type": "integer"},
+              "customerNumber": {"type": "string"},
+              "sso": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/locations/\\d+$"},
+                  "@type": {"type": "string"},
+                  "name": {"type": "string"},
+                  "erp": {"type": ["integer", "null"]},
+                  "currency": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "object",
+                        "$ref": "../../finance_currency/schemas/currency.json"
+                      }
+                    ]
+                  },
+                  "legacyId": {"type": "integer"}
+                },
+                "required": ["@id", "@type", "name", "erp", "currency", "legacyId"],
+                "additionalProperties": false
+              },
+              "customer": {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/customers/\\d+$"},
+                  "@type": {"type": "string"},
+                  "id": { "type": "integer" },
+                  "address": { "type": "array" },
+                  "name": {"type": "string"},
+                  "country": {
+                    "oneOf": [
+                      { "type": "null" },
+                      { "$ref": "../../country/schemas/country.json" }
+                    ]
+                  },
+                  "mainSalesRepresentative": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "asm": {
+                            "type": "object",
+                            "properties": {
+                              "@id": {"pattern": "^/people/\\d+$"},
+                              "@type": {"type": "string"},
+                              "firstname": {"type": "string"},
+                              "lastname": {"type": "string"},
+                              "email": {"type": "string"},
+                              "username": {"type": "string"},
+                              "legacyId": {"type": "integer"}
+                            },
+                            "required": ["@id", "@type", "firstname", "lastname", "email", "username", "legacyId"],
+                            "additionalProperties": false
+                          },
+                          "subDivision": {
+                            "type": "object",
+                            "properties": {
+                              "@id": {"pattern": "^/sub_divisions/\\d+$"},
+                              "@type": {"type": "string"},
+                              "name": {"type": "string"},
+                              "legacyId": {"type": "integer"}
+                            },
+                            "required": ["@id", "@type", "name", "legacyId"],
+                            "additionalProperties": false
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "customerTypes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {"pattern": "^/sales/customer_types/\\d+$"},
+                        "@type": {"type": "string"},
+                        "legacyId": {"type": "integer"}
+                      },
+                      "required": ["@id", "@type", "legacyId"],
+                      "additionalProperties": false
+                    }
+                  },
+                  "status": {"type": "string"},
+                  "legacyId": {"type": "integer"}
+                },
+                "required": ["@id", "@type", "id", "name", "status", "address", "country", "mainSalesRepresentative", "customerTypes", "legacyId"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["@id", "@type", "id", "customerNumber", "sso", "customer"]
+          },
+          "currency": {
+            "type": "object",
+            "$ref": "../../finance_currency/schemas/currency.json"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "transactionTypeReference",
+          "erpInvoiceNumber",
+          "purchaseOrderNumber",
+          "invoiceDate",
+          "dueDate",
+          "originalAmount",
+          "originalAmountLocalCurrency",
+          "balanceAmount",
+          "balanceAmountLocalCurrency",
+          "balanceAmountConverted",
+          "salesOrderNumber",
+          "salesOrderDate",
+          "salesReferenceA",
+          "salesReferenceB",
+          "financeReferenceA",
+          "financeReferenceB",
+          "creditAnalyst",
+          "country",
+          "customerErpReference",
+          "currency",
+          "delinquent"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

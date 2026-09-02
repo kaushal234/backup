@@ -1,0 +1,29 @@
+.cui .detail_files__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cui .detail_files__no_files {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  grid-column: span 2;
+}
+
+.cui .detail_files__chat_heading_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cui.light .detail_files__add_file {
+  background-color: var(--mui-palette-primary-main);
+}
+
+.cui.light .detail_files__add_file button {
+  color: white;
+}

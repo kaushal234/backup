@@ -1,0 +1,50 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'trouble_ticket.message.jira_reminder' | trans }}</p>
+            {{ include('/Helpers/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'extranet_user.fields.id' |trans,
+                            link: {
+                                route: 'trouble_ticket',
+                                params: {id: '@id'}
+                            }
+
+                        },
+                        shortDescription: { label:'fields.short-description' |trans({}, 'messages') | capitalize},
+                        createdBy: {
+                            properties: ['createdBy.firstname', 'createdBy.lastname'],
+                            label: 'tasks.assignor' | trans({}, 'messages'),
+                        },
+                        assignee: {
+                            label: 'tasks.assignee' | trans({}, 'messages'),
+                            template: 'Emails/MIS/TroubleTicket/partial/cell/_assignee.html.twig',
+                        },
+                        status: {
+                            label: 'demo.fields.status' | trans({}, 'emails'),
+                        },
+                        module: {
+                            properties: ['module.name'],
+                            label: 'mis.changelog.fields.module' | trans({}, 'mis'),
+                        },
+                        indiceFactor: {
+                            label:'fields.ifactor' |trans({}, 'messages'),
+                        },
+                        jiraIssueNumber: {
+                            label:'trouble_ticket.fields.jira_number' |trans({}, 'trouble_ticket'),
+                        },
+                    },
+                    data: troubleTickets,
+                    title: '',
+                },
+            }, with_context = false) }}
+        </columns>
+    </row>
+{% endblock %}

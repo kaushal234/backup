@@ -1,0 +1,35 @@
+{% trans_default_domain 'mis' %}
+
+{% if data.admin %}
+    <a
+            href="{{ path('mis_third_party_app_members_demote', {id: data.thirdPartyApp.id, memberId: data.id}) }}"
+            class="btn btn-xs btn-outline d-inline-flex align-items-center gap-2 btn-default"
+            type="button"
+            title="{{ 'mis.member.buttons.demote'|trans }}"
+            data-turbo="true"
+            data-turbo-prefetch="false"
+            data-turbo-frame="_self"
+            data-turbo-action="advance"
+            data-bs-toggle="tooltip"
+            data-bs-trigger="hover focus"
+            data-bs-placement="right"
+    >
+        <i class="fa fa-angle-double-down lh-base"></i>
+    </a>
+{% else %}
+    <a
+            href="{{ path('mis_third_party_app_members_promote', {id: data.thirdPartyApp.id, memberId: data.id}) }}"
+            class="btn btn-xs btn-outline d-inline-flex align-items-center gap-2 btn-default"
+            type="button"
+            title="{{ 'mis.member.buttons.promote'|trans }}"
+            data-turbo="true"
+            data-turbo-prefetch="false"
+            data-turbo-frame="_self"
+            data-turbo-action="advance"
+            data-bs-toggle="tooltip"
+            data-bs-trigger="hover focus"
+            data-bs-placement="right"
+    >
+        <i class="fa fa-angle-double-up lh-base"></i>
+    </a>
+{% endif %}

@@ -1,0 +1,176 @@
+{% extends 'layout.html.twig' %}
+{% form_theme form 'form_theme_horizontal.html.twig' %}
+
+{% trans_default_domain 'coo_dashboard' %}
+
+{% block title %} {{ 'coo_dashboard.title' |trans }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="text-capitalize">{{ 'coo_dashboard.title'|trans }}</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_start(form, { action: path('coo_dashboard') }) }}
+                    <div class="row">
+                        <div class="col-sm-10">
+                            {{ form_widget(form) }}
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-primary" value="{{ 'button.submit'|trans([], 'messages')|capitalize }}"/>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="ibox float-e-margins col-md-8">
+            <div class="ibox-title">
+                <h5>{{ 'quality_smw.title.links'| trans({}, 'quality_smw') }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="">
+                    <table class="footable table table-hover toggle-arrow-tiny report-table table-responsive"" data-page-size=20>
+                        <thead>
+                        <tr>
+                            <th>{{ 'quality_smw.fields.title'| trans({}, 'quality_smw') }}</th>
+                            <th>{{ 'quality_smw.fields.description'| trans({}, 'quality_smw') }}</th>
+                            <th>{{ 'quality_smw.fields.link'| trans({}, 'quality_smw') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.revenue_invoicing'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.revenue_invoicing'| trans }}</td>
+                            <td><a href="{{ path('legacy_manufacturing_index', {m: ['activity', 'revenue', 'sumBySSOERP'], x: location.name, y: 'ALL', year: lastMonth|date('Y') }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.bookings'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.bookings'| trans }}</td>
+                            <td><a href="{{ path('legacy_manufacturing_index', {m: ['activity', 'bookings', 'sumBySSOERPYear'], x: location.name, y: 'ALL', year: lastMonth|date('Y')}) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.inventory_value'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.inventory_value'| trans }}</td>
+                            <td><a href="{{ path('legacy_manufacturing_pur', {m: ['home', 'statistics'], erp: location.erp }) }}">
+                                    <span class="btn btn-warning btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.wip_value'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.pending'| trans }}</td>
+                            <td><a href="#">
+                                    <span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.toc_factory_support'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.toc_factory_support'| trans }}</td>
+                            <td><a href="{{ path('legacy_service', {m: ['toc', 'listing', 'byFactorySupportRequired'], x: 'ALL', y: location.name }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.pdc_pending'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.pdc_pending'| trans }}</td>
+                            <td><a href="{{ path('legacy_product_support', {m: ['pdc', 'listing', 'byFactoryOpenStatusWithNoOpenTasks'], x: 'PENDING', y: location.name }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.quality_nc_pending'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.quality_nc_pending'| trans }}</td>
+                            <td><a href="{{ path('legacy_manufacturing_qa', {m: ['ncr', 'reports', 'mlList', 'byFactoryStatus'], x: 'PENDING', y: location.name }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.wc_pending'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.wc_pending'| trans }}</td>
+                            <td><a href="{{ path('legacy_product_support', {m: ['wc'] }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.sb_pending'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.sb_pending'| trans }}</td>
+                            <td><a href="{{ path('legacy_product_support', {m: ['sb', 'listing', 'byCategoryStatus', 'byFactory'], x: 'PENDING', y: 'ALL', buid: location.legacyId }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.sb_ssd_decision'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.sb_pending'| trans }}</td>
+                            <td><a href="{{ path('legacy_product_support', {m: ['sb', 'listing', 'byCategoryStatus', 'byFactory'], x: 'SSD_DECISION', y: 'ALL', buid: location.legacyId }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.scar_action'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.scar_action'| trans }}</td>
+                            <td><a href="{{ path('legacy_manufacturing_qa', {m: ['scar', 'listing', 'byFactoryStatus'], x: 'TLD TO REVIEW FORM', y: location.name }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.cpa_wo_task'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.pending'| trans }}</td>
+                            <td><a href="#">
+                                    <span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.sol_print_factory_ack'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.sol_print_factory_ack'| trans }}</td>
+                            <td><a href="{{ path('legacy_sales', {m: ['sol', 'listing', 'byERPStatus'], x: location.name, y: 'PRINT_FACTORY_SO_ACK' }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.dms_expired'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.dms_expired'| trans }}</td>
+                            <td><a href="{{ path('legacy_manufacturing_qa', {m: ['reports', 'listing', 'dmsKPI'] }) }}">
+                                    <span class="btn btn-warning btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.open_mrp_advice'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.pending'| trans }}</td>
+                            <td><a href="#">
+                                    <span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.shortages'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.pending'| trans }}</td>
+                            <td><a href="#">
+                                    <span class="btn btn-danger btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'coo_dashboard.titles.eap_closed'| trans }}</td>
+                            <td>{{ 'coo_dashboard.descriptions.eap_closed'| trans }}</td>
+                            <td><a href="{{ path('legacy_manufacturing_eng', {m: ['eap'] }) }}">
+                                    <span class="btn btn-green btn-sm"><i class="far fa-eye fa-fw"></i></span>
+                                </a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

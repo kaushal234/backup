@@ -1,0 +1,75 @@
+App\Entity\Sales\Product:
+    # /sales/products/1
+    catalog_product_1:
+        id: 1
+        name: Produit Test
+        family: '@catalog_product_family_1'
+        erpLocation: '@location_sso'
+        manufacturingFamily: '@march_family'
+        hidden: false
+
+    # /sales/products/{2..30}
+    catalog_product_{2..30}:
+        id: <current()>
+        name: catalog_product_<current()>
+        family: '@catalog_product_family_2'
+        erpLocation: '@location_factory'
+        financeFamily: '@famille_belier'
+        hidden: false
+
+    # /sales/products/31
+    catalog_product_fixed_name:
+        id: 31
+        name: Fixed
+        family: '@catalog_product_family_1'
+        erpLocation: '@location_sso'
+        hidden: false
+        financeFamily: "@fonky_family"
+
+    # /sales/products/32
+    catalog_product_to_be_deleted:
+        id: 32
+        name: To be deleted
+        family: '@catalog_product_family_deleted'
+        erpLocation: '@location_sso'
+        hidden: false
+
+    # /sales/products/33
+    catalog_product_not_deleted:
+        id: 33
+        name: To be not deleted
+        family: '@catalog_product_family_not_deleted'
+        erpLocation: '@location_sso'
+        hidden: false
+
+    # /sales/products/34
+    catalog_product_not_deleted_also:
+        id: 34
+        name: To be not deleted also
+        family: '@catalog_product_family_not_deleted'
+        erpLocation: '@location_sso'
+        hidden: false
+
+    # /sales/products/35
+    catalog_product_family_not_public:
+        id: 35
+        name: Family not public
+        family: '@catalog_product_family_2'
+        erpLocation: '@location_sso'
+        hidden: false
+
+    # /sales/products/36
+    catalog_product_hidden:
+        id: 36
+        name: Hidden
+        family: '@catalog_product_family_1'
+        erpLocation: '@location_sso'
+        hidden: true
+
+    # /sales/products/37
+    catalog_product_eztow:
+        id: 37
+        name: EZTow
+        family: '@catalog_product_family_1'
+        erpLocation: '@location_sso'
+        hidden: false

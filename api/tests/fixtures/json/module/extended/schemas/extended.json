@@ -1,0 +1,839 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/(modules|lights|extendeds)/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "frontEndRoute": {
+      "type":  ["string", "null"]
+    },
+    "specification": {
+      "type":  ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/mis/specifications/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "status": {
+      "type": "string"
+    },
+    "notifyOperationalOwner": {
+      "type": "boolean"
+    },
+    "notifyKeyUser": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": ["integer", "null"]
+    },
+    "name": {
+      "type": "string"
+    },
+    "notificationColor": {
+      "type": ["string", "null"]
+    },
+    "operationalOwner": {
+      "type": "object",
+      "properties": {
+        "@id": {"pattern": "^/people/\\d+$"},
+        "@type": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        },
+        "photo": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "../../../shared/schemas/file_light.json" }
+          ]
+        },
+        "legalEntity": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@id": {"type":  "string"},
+                "@type": {"type":  "string"},
+                "region": {
+                  "type":  "object",
+                  "properties": {
+                    "@id": {"type":  "string"},
+                    "@type": {"type":  "string"},
+                    "name": {"type": "string"},
+                    "legacyId": {"type": "integer"}
+                  },
+                  "required": ["@id", "@type", "name", "legacyId"],
+                  "additionalProperties": false
+                }
+              },
+              "required": ["@id", "@type", "region"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "firstname",
+        "lastname",
+        "email",
+        "legacyId",
+        "username",
+        "photo"
+      ],
+      "additionalProperties": false
+    },
+    "keyUser": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/people/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "photo": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "../../../shared/schemas/file_light.json"
+                }
+              ]
+            },
+            "businessUnit": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {"type":  "string"},
+                    "@type": {"type":  "string"},
+                    "legacyId": {"type": "integer"},
+                    "region": {
+                      "type":  "object",
+                      "properties": {
+                        "@id": {"type":  "string"},
+                        "@type": {"type":  "string"},
+                        "name": {"type": "string"},
+                        "legacyId": {"type": "integer"}
+                      },
+                      "required": ["@id", "@type", "name", "legacyId"],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": ["@id", "@type", "region", "legacyId"],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "firstname",
+            "lastname",
+            "email",
+            "legacyId",
+            "username",
+            "photo",
+            "businessUnit"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "application": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@context": {
+              "type": "string"
+            },
+            "@id": {"pattern": "^/mis/applications/\\d+$"},
+            "@type": {"type": "string"},
+            "id": {"type":  "integer"},
+            "name": {"type":  "string"},
+            "jiraProjectId": {"type":  ["integer", "null"]}
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "name",
+            "jiraProjectId"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "typeDefaultAssignees": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "fullDescription": {
+      "type": "string"
+    },
+    "dmsProcedureId": {
+      "type": ["integer", "null"]
+    },
+    "dmsHelpId": {
+      "type": ["integer", "null"]
+    },
+    "legacyLoc": {
+      "type": ["integer", "null"]
+    },
+    "migrationCurrentStep": {
+      "type": ["object", "null"]
+    },
+    "migrationEstimatedHours": {
+      "type": "integer"
+    },
+    "migrated": {
+      "type": "boolean"
+    },
+    "disabledForTroubleTicket": {
+      "type": "boolean"
+    },
+    "department": {
+      "type": ["object", "null"],
+      "properties": {
+        "@id": {"pattern": "^/departments/\\d+$"},
+        "@type": {"type": "string"},
+        "name": {"type": "string"},
+        "legacyId": {"type": "integer"}
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "migratedAt": {
+      "type": ["string", "null"]
+    },
+    "misRelative": {
+      "type": "boolean"
+    },
+    "requiringModules": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/modules/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "notificationColor": {
+            "type": ["string", "null"]
+          },
+          "misRelative": {
+            "type": "boolean"
+          },
+          "operationalOwner": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "photo": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "../../../shared/schemas/file_light.json" }
+                ]
+              },
+              "businessUnit": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"type":  "string"},
+                      "@type": {"type":  "string"},
+                      "legacyId": {"type": "integer"},
+                      "region": {
+                        "type":  "object",
+                        "properties": {
+                          "@id": {"type":  "string"},
+                          "@type": {"type":  "string"},
+                          "name": {"type": "string"}
+                        },
+                        "required": ["@id", "@type", "name"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": ["@id", "@type", "region", "legacyId"],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "email",
+              "legacyId",
+              "username",
+              "photo",
+              "businessUnit"
+            ],
+            "additionalProperties": false
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "fullDescription": {
+            "type": "string"
+          },
+          "dmsProcedureId": {
+            "type": ["integer", "null"]
+          },
+          "dmsHelpId": {
+            "type": ["integer", "null"]
+          },
+          "legacyLoc": {
+            "type": ["integer", "null"]
+          },
+          "migrationCurrentStep": {
+            "type": ["object", "null"]
+          },
+          "migrationEstimatedHours": {
+            "type": "integer"
+          },
+          "migrated": {
+            "type": "boolean"
+          },
+          "migratedAt": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@context",
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "name",
+          "operationalOwner",
+          "shortDescription",
+          "fullDescription",
+          "dmsProcedureId",
+          "dmsHelpId",
+          "legacyLoc",
+          "migrationCurrentStep",
+          "migrationEstimatedHours",
+          "migrated",
+          "department",
+          "migratedAt",
+          "misRelative",
+          "notificationColor"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "localKeyUsers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/people/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "photo": {
+            "oneOf": [
+              { "type": "null" },
+              { "$ref": "../../../shared/schemas/file_light.json" }
+            ]
+          },
+          "businessUnit": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"type":  "string"},
+                  "@type": {"type":  "string"},
+                  "region": {
+                    "type":  "object",
+                    "properties": {
+                      "@id": {"type":  "string"},
+                      "@type": {"type":  "string"},
+                      "name": {"type": "string"}
+                    },
+                    "required": ["@id", "@type", "name"],
+                    "additionalProperties": false
+                  }
+                },
+                "required": ["@id", "@type", "region"],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "firstname",
+          "lastname",
+          "email",
+          "legacyId",
+          "username",
+          "photo",
+          "businessUnit"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "requiredModules": {
+      "type": "array",
+      "uniqueItems":  true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@context": {
+            "type": "string"
+          },
+          "@id": {"pattern": "^/modules/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "notificationColor": {
+            "type": ["string", "null"]
+          },
+          "operationalOwner": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              },
+              "photo": {
+                "oneOf": [
+                  { "type": "null" },
+                  { "$ref": "../../../shared/schemas/file_light.json" }
+                ]
+              },
+              "businessUnit": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"type":  "string"},
+                      "@type": {"type":  "string"},
+                      "legacyId": {"type":  "integer"},
+                      "name": {"type":  "string"},
+                      "domain": {"type":  ["string", "null"]},
+                      "region": {
+                        "type":  "object",
+                        "properties": {
+                          "@id": {"type":  "string"},
+                          "@type": {"type":  "string"},
+                          "name": {"type": "string"},
+                          "legacyId": {"type": "integer"}
+                        },
+                        "required": ["@id", "@type", "name"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": ["@id", "@type", "region"],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "firstname",
+              "lastname",
+              "email",
+              "legacyId",
+              "username",
+              "photo",
+              "businessUnit"
+            ],
+            "additionalProperties": false
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "fullDescription": {
+            "type": "string"
+          },
+          "dmsProcedureId": {
+            "type": ["integer", "null"]
+          },
+          "dmsHelpId": {
+            "type": ["integer", "null"]
+          },
+          "legacyLoc": {
+            "type": ["integer", "null"]
+          },
+          "migrationCurrentStep": {
+            "type": ["object", "null"]
+          },
+          "migrationEstimatedHours": {
+            "type": "integer"
+          },
+          "migrated": {
+            "type": "boolean"
+          },
+          "misRelative": {
+            "type": "boolean"
+          },
+          "department": {
+            "type": ["object", "null"],
+            "properties": {
+              "@id": {"pattern": "^/departments/\\d+$"},
+              "@type": {"type": "string"},
+              "name": {"type": "string"},
+              "legacyId": {"type": "integer"}
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "migratedAt": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@context",
+          "@id",
+          "@type",
+          "id",
+          "legacyId",
+          "name",
+          "operationalOwner",
+          "keyUser",
+          "shortDescription",
+          "fullDescription",
+          "dmsProcedureId",
+          "dmsHelpId",
+          "legacyLoc",
+          "migrationCurrentStep",
+          "migrationEstimatedHours",
+          "migrated",
+          "department",
+          "migratedAt",
+          "misRelative",
+          "notificationColor"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sso": {
+      "type": "boolean"
+    },
+    "mfaUser": {
+      "type": "boolean"
+    },
+    "mfaAdmin": {
+      "type": "boolean"
+    },
+    "passwordPolicyApplied": {
+      "type": "boolean"
+    },
+    "lastSecurityReviewOld": {
+      "type": "boolean"
+    },
+    "lastAccountReviewOld": {
+      "type": "boolean"
+    },
+    "securityReviewFrequency": {
+      "type": "integer"
+    },
+    "securityReviewDateStart": {
+      "type": ["string", "null"]
+    },
+    "accountReviewFrequency": {
+      "type": "integer"
+    },
+    "accountReviewDateStart": {
+      "type": ["string", "null"]
+    },
+    "availabilityClassification": {
+      "type": ["integer", "null"]
+    },
+    "integrityClassification": {
+      "type": ["integer", "null"]
+    },
+    "confidentialityClassification": {
+      "type": ["integer", "null"]
+    },
+    "mainAdmin": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/people/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "businessUnit": {
+              "type": ["object", "null"]
+            },
+            "photo": {
+              "oneOf": [
+                { "type": "null" },
+                { "$ref": "../../../shared/schemas/file_light.json" }
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "firstname",
+            "lastname",
+            "email",
+            "legacyId",
+            "username",
+            "photo"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "securityLevel": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "properties": {
+            "@id": {"pattern": "^/security_levels/\\d+$"},
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": ["string", "null"]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "name",
+            "description"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "businessUnitPositions": {"type": "array"},
+    "whitelistedUsers": {"type": "array"},
+    "blacklistedUsers": {"type": "array"}
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "frontEndRoute",
+    "specification",
+    "id",
+    "legacyId",
+    "name",
+    "operationalOwner",
+    "keyUser",
+    "shortDescription",
+    "fullDescription",
+    "dmsProcedureId",
+    "dmsHelpId",
+    "legacyLoc",
+    "migrationCurrentStep",
+    "migrationEstimatedHours",
+    "migrated",
+    "migratedAt",
+    "requiringModules",
+    "requiredModules",
+    "application",
+    "typeDefaultAssignees",
+    "localKeyUsers",
+    "misRelative",
+    "notificationColor",
+    "sso",
+    "mfaUser",
+    "mfaAdmin",
+    "passwordPolicyApplied",
+    "lastAccountReviewOld",
+    "lastSecurityReviewOld",
+    "securityReviewDateStart",
+    "securityLevel",
+    "accountReviewDateStart",
+    "availabilityClassification",
+    "integrityClassification",
+    "confidentialityClassification",
+    "notifyKeyUser",
+    "notifyOperationalOwner",
+    "mainAdmin",
+    "department",
+    "blacklistedUsers",
+    "whitelistedUsers",
+    "status",
+    "disabledForTroubleTicket"
+  ],
+  "additionalProperties": false
+}

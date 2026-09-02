@@ -1,0 +1,2156 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Instantiated class tldUser not found\\.$#"
+			count: 1
+			path: src/App.php
+
+		-
+			message: "#^Call to static method escape\\(\\) on an unknown class TldDatabase\\.$#"
+			count: 1
+			path: src/Controller/LoginController.php
+
+		-
+			message: "#^Call to static method isTokenValid\\(\\) on an unknown class tldUser\\.$#"
+			count: 1
+			path: src/Controller/LoginController.php
+
+		-
+			message: "#^Call to method logout\\(\\) on an unknown class tldUser\\.$#"
+			count: 1
+			path: src/Controller/LogoutController.php
+
+		-
+			message: "#^Call to method isInGroup\\(\\) on an unknown class tldUser\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Call to static method getAccessTypeList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Call to static method getList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Call to static method getPeriodicityList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Call to static method getPortalList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Call to static method getStatusList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Variable \\$user in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: web/admin/dms_admin.php
+
+		-
+			message: "#^Call to static method getFunctionListByLevelSubLevelAndDepartment\\(\\) on an unknown class tldFunction\\.$#"
+			count: 1
+			path: web/ajax.php
+
+		-
+			message: "#^Call to static method getList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 1
+			path: web/ajax.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/ajax.php
+
+		-
+			message: "#^Call to method getFullname\\(\\) on an unknown class tldUser\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Call to method getUserGroups\\(\\) on an unknown class tldUser\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$_CHARSET might not be defined\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$_LANG might not be defined\\.$#"
+			count: 3
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$app might not be defined\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 8
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$user in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 1
+			path: web/dms.tpl.php
+
+		-
+			message: "#^Call to method addApprover\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method addBu\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method addDepartment\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 62
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method addLogEntry\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method addRule\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 5
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 5
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldReportColumnar\\.$#"
+			count: 4
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method getUserlist\\(\\) on an unknown class tldGroup\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method isEmpty\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 3
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 9
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 5
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method byConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method byConstraints\\(\\) on an unknown class tldDirectory\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 11
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method constructWhere\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getAccessTypeList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 4
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getBuListAsIdBU\\(\\) on an unknown class tldLocation\\.$#"
+			count: 3
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getERPByID\\(\\) on an unknown class tldLocation\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getLangList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 3
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getListAsIdDepartment\\(\\) on an unknown class tldDepartment\\.$#"
+			count: 3
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getPeriodicityList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getPortalList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 3
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getSalesMaterialLangList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getStatusList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getSystemRefList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method getUserlist\\(\\) on an unknown class tldDirectory\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method inGroup\\(\\) on an unknown class tldGroup\\.$#"
+			count: 4
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method insert\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 3
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Do\\-while loop condition is always false\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 5
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Instantiated class tldDMS not found\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Instantiated class tldGroup not found\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Instantiated class tldOrgSelectionForm not found\\.$#"
+			count: 2
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Instantiated class tldReportColumnar not found\\.$#"
+			count: 4
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Offset 'bu' does not exist on array\\{approver\\: non\\-empty\\-array\\<int\\<0, max\\>, array\\{step\\: int\\<1, max\\>, uid\\: mixed\\}\\>\\}\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Offset 'department' does not exist on array\\{approver\\: non\\-empty\\-array\\<int\\<0, max\\>, array\\{step\\: int\\<1, max\\>, uid\\: mixed\\}\\>\\}\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 5
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$_ERROR might not be defined\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$_LANG might not be defined\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$m might not be defined\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 14
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$toAdd might not be defined\\.$#"
+			count: 1
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 8
+			path: web/form/form.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldReportColumnar\\.$#"
+			count: 1
+			path: web/functions.php
+
+		-
+			message: "#^Call to method isInGroup\\(\\) on an unknown class tldUser\\.$#"
+			count: 1
+			path: web/functions.php
+
+		-
+			message: "#^Instantiated class tldReportColumnar not found\\.$#"
+			count: 1
+			path: web/functions.php
+
+		-
+			message: "#^Variable \\$user in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: web/functions.php
+
+		-
+			message: "#^Access to property \\$itsHeader on an unknown class tldDepartment\\.$#"
+			count: 3
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 17
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldAssocTable\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldHTMLTable\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldMatrix\\.$#"
+			count: 3
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method getID\\(\\) on an unknown class tldDepartment\\.$#"
+			count: 6
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method getID\\(\\) on an unknown class tldLocation\\.$#"
+			count: 6
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method getShortName\\(\\) on an unknown class tldLocation\\.$#"
+			count: 3
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method byLatest\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method countByStatusTypeByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method countByStatusTypeByDptIdBuIdByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 3
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method getBuListAsIdBU\\(\\) on an unknown class tldLocation\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method getList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method getListAsIdDepartment\\(\\) on an unknown class tldDepartment\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method getListAsIdDivision\\(\\) on an unknown class tldRegion\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method getSystemRefList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method getUserStatsByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 3
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Instantiated class tldAssocTable not found\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Instantiated class tldDepartment not found\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Instantiated class tldHTMLTable not found\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Instantiated class tldLocation not found\\.$#"
+			count: 2
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Instantiated class tldMatrix not found\\.$#"
+			count: 4
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 1
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 17
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 24
+			path: web/homepage.dms.php
+
+		-
+			message: "#^Variable \\$_CONF might not be defined\\.$#"
+			count: 1
+			path: web/index.php
+
+		-
+			message: "#^Variable \\$_ERROR might not be defined\\.$#"
+			count: 1
+			path: web/index.php
+
+		-
+			message: "#^Variable \\$_NOTE might not be defined\\.$#"
+			count: 1
+			path: web/index.php
+
+		-
+			message: "#^Variable \\$_PATH might not be defined\\.$#"
+			count: 1
+			path: web/index.php
+
+		-
+			message: "#^Variable \\$_WARNING might not be defined\\.$#"
+			count: 1
+			path: web/index.php
+
+		-
+			message: "#^Variable \\$m might not be defined\\.$#"
+			count: 2
+			path: web/index.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 9
+			path: web/index.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 1
+			path: web/index.php
+
+		-
+			message: "#^Call to method getFullname\\(\\) on an unknown class tldUser\\.$#"
+			count: 3
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to method out\\(\\) on an unknown class tldXLS\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method byBuDepartmentByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method byConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method byNotificationUserIdByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method byOpenSeqAssigneeIdByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method byOwnerIdByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method byStatusTypeByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method constructWhere\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Call to static method escape\\(\\) on an unknown class TldDatabase\\.$#"
+			count: 17
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Instantiated class tldUser not found\\.$#"
+			count: 3
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Instantiated class tldXLS not found\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$buid might not be defined\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$dptid might not be defined\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 2
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$ref might not be defined\\.$#"
+			count: 7
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$sess might not be defined\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$status might not be defined\\.$#"
+			count: 1
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$uid might not be defined\\.$#"
+			count: 3
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$x might not be defined\\.$#"
+			count: 2
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$y might not be defined\\.$#"
+			count: 2
+			path: web/listing/listing.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 1
+			path: web/reports/reports.home.tpl.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldMatrix\\.$#"
+			count: 1
+			path: web/reports/reports.logic.php
+
+		-
+			message: "#^Call to static method countByBuDepartmentByConstraints\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/reports/reports.logic.php
+
+		-
+			message: "#^Instantiated class tldMatrix not found\\.$#"
+			count: 1
+			path: web/reports/reports.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 1
+			path: web/reports/reports.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/reports/reports.logic.php
+
+		-
+			message: "#^Variable \\$_PATH might not be defined\\.$#"
+			count: 1
+			path: web/reports/reports.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/reports/reports.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 1
+			path: web/reports/reports.logic.php
+
+		-
+			message: "#^Access to property \\$itsHeader on an unknown class tldModOrg\\.$#"
+			count: 4
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 9
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method addRule\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldAssocTable\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 3
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 3
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to static method getAccessTypeList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to static method getGroups\\(\\) on an unknown class tldGroup\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to static method getPortalList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Instantiated class tldAssocTable not found\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Instantiated class tldModOrg not found\\.$#"
+			count: 2
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Instantiated class tldOrgSelectionForm not found\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 3
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$_PATH might not be defined\\.$#"
+			count: 4
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 15
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$header might not be defined\\.$#"
+			count: 2
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 7
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 6
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$toLog might not be defined\\.$#"
+			count: 1
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 4
+			path: web/view/acl/acl.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 2
+			path: web/view/acl/acl.view.tpl.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 1
+			path: web/view/acl/acl.view.tpl.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 9
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to method addRule\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldReportColumnar\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to method getFullname\\(\\) on an unknown class tldUser\\.$#"
+			count: 6
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 2
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to static method getUserlist\\(\\) on an unknown class tldDirectory\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Instantiated class tldReportColumnar not found\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Instantiated class tldUser not found\\.$#"
+			count: 4
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 3
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 3
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 2
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 1
+			path: web/view/approver/approver.logic.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 16
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to method addRule\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldReportColumnar\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to static method getBuListAsIdBU\\(\\) on an unknown class tldLocation\\.$#"
+			count: 1
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to static method getListAsIdDepartment\\(\\) on an unknown class tldDepartment\\.$#"
+			count: 1
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 6
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Instantiated class tldReportColumnar not found\\.$#"
+			count: 2
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 4
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 6
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 5
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 3
+			path: web/view/coverage/coverage.logic.php
+
+		-
+			message: "#^Access to property \\$itsHeader on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 9
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method addRule\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 3
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method freeze\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method getFamilyTree\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method getID\\(\\) on an unknown class tldDMS\\.$#"
+			count: 3
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method isEmpty\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method removeElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 2
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Instantiated class tldDMS not found\\.$#"
+			count: 4
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 4
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 2
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 8
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Variable \\$header might not be defined\\.$#"
+			count: 2
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 6
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 2
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 1
+			path: web/view/hierarchy/hierarchy.logic.php
+
+		-
+			message: "#^Access to property \\$itsHeader on an unknown class tldModOrg\\.$#"
+			count: 4
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 4
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class tldOrgSelectionForm\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Call to static method byConstraints\\(\\) on an unknown class tldDirectory\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 2
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Instantiated class tldModOrg not found\\.$#"
+			count: 2
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Instantiated class tldOrgSelectionForm not found\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between '' and 'check' will always evaluate to false\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 3
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 4
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 9
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 9
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$sess might not be defined\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$toLog might not be defined\\.$#"
+			count: 1
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 3
+			path: web/view/notification/notification.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 3
+			path: web/view/notification/notification.view.tpl.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 1
+			path: web/view/notification/notification.view.tpl.php
+
+		-
+			message: "#^Access to property \\$itsConvertedPdfFile on an unknown class tldHTML2PDF\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Access to property \\$itsFile on an unknown class tldFile\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Access to property \\$itsHeader on an unknown class tldDMSRevision\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method addComment\\(\\) on an unknown class tldDMSRevision\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 21
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method addFile\\(\\) on an unknown class tldPDFToolKit\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method addLogEntry\\(\\) on an unknown class tldDMSRevision\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method addRule\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method download\\(\\) on an unknown class tldFile\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldAssocTable\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldHTMLTable\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldReportColumnar\\.$#"
+			count: 8
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method getComments\\(\\) on an unknown class tldDMSRevision\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method getElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method getLog\\(\\) on an unknown class tldDMSRevision\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method getOriginalFileName\\(\\) on an unknown class tldFile\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method getPubAllowedExtensionList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method getRevisionNumber\\(\\) on an unknown class tldDMSRevision\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method getSrcAllowedExtensionList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method isCompleted\\(\\) on an unknown class tldSEQ\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method isEmpty\\(\\) on an unknown class tldDMSRevision\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method isFile\\(\\) on an unknown class tldFile\\.$#"
+			count: 3
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method merge\\(\\) on an unknown class tldPDFToolKit\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method out\\(\\) on an unknown class tldPDFToolKit\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 4
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method update\\(\\) on an unknown class tldDMSRevision\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to static method getExtensionFromFileName\\(\\) on an unknown class basicFile\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to static method getFilePath\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to static method getSqlToAssocArray\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Call to static method upload\\(\\) on an unknown class tldFile\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldAssocTable not found\\.$#"
+			count: 2
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldDMSRevision not found\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldDMSType not found\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldFile not found\\.$#"
+			count: 3
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldHTML2PDF not found\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldHTMLTable not found\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldPDFToolKit not found\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldReportColumnar not found\\.$#"
+			count: 8
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Instantiated class tldSEQ not found\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 3
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Variable \\$DMS_URL might not be defined\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 7
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 7
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 20
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 15
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 3
+			path: web/view/revision/revision.logic.php
+
+		-
+			message: "#^Access to property \\$itsHeader on an unknown class tldDMSRevision\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Access to property \\$itsOutputFile on an unknown class tldPDFToolKit\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 16
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method addRule\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 5
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method getElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method getFileName\\(\\) on an unknown class basicFile\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method getFilePath\\(\\) on an unknown class basicFile\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method getOriginalFileName\\(\\) on an unknown class tldFile\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method getPubAllowedExtensionList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method getSrcAllowedExtensionList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method isCompleted\\(\\) on an unknown class tldSEQ\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method isEmpty\\(\\) on an unknown class tldFile\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method isFile\\(\\) on an unknown class basicFile\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method notifyAssignee\\(\\) on an unknown class tldSEQ\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method rename\\(\\) on an unknown class basicFile\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method stampText\\(\\) on an unknown class tldPDFToolKit\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 3
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to static method escape\\(\\) on an unknown class TldDatabase\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to static method getExtensionFromFileName\\(\\) on an unknown class basicFile\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to static method getFilePath\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to static method insert\\(\\) on an unknown class tldSEQ\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Call to static method upload\\(\\) on an unknown class tldFile\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Instantiated class basicFile not found\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Instantiated class tldDMSRevision not found\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Instantiated class tldDMSType not found\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Instantiated class tldFile not found\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Instantiated class tldPDFToolKit not found\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Instantiated class tldSEQ not found\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 7
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$_PATH might not be defined\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 29
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$fileObj might not be defined\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 8
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$pubAllowedFileExt might not be defined\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$rev might not be defined\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$revHeader might not be defined\\.$#"
+			count: 5
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$revNumber might not be defined\\.$#"
+			count: 2
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$srcAllowedFileExt might not be defined\\.$#"
+			count: 1
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 3
+			path: web/view/status/status.logic.php
+
+		-
+			message: "#^Access to property \\$itsHeader on an unknown class tldDMS\\.$#"
+			count: 5
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Access to property \\$itsHeader on an unknown class tldModLink\\.$#"
+			count: 3
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method addElement\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 34
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method addLink\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method addRule\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 5
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method delete\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method exportValues\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 3
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldAssocTable\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldHTMLTable\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldReportColumnar\\.$#"
+			count: 7
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getActiveRevisionFile\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getAllowedUserList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getBUID\\(\\) on an unknown class tldUser\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getFullname\\(\\) on an unknown class tldUser\\.$#"
+			count: 4
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getID\\(\\) on an unknown class tldDMS\\.$#"
+			count: 5
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getLinks\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getLog\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getOwnerID\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getSupervisor\\(\\) on an unknown class tldUser\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getSystemRef\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getTasks\\(\\) on an unknown class tldDMS\\.$#"
+			count: 3
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method getTitle\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method isEmpty\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method isEmpty\\(\\) on an unknown class tldModLink\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method notifyOwner\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method refresh\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method setDefaults\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method toHTML\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 4
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method update\\(\\) on an unknown class tldDMS\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method validate\\(\\) on an unknown class HTML_QuickForm\\.$#"
+			count: 4
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method cleanupFormInput\\(\\) on an unknown class tldUtils\\.$#"
+			count: 4
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method delete\\(\\) on an unknown class tldModLink\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method getERPByID\\(\\) on an unknown class tldLocation\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method getExtensionFromFileName\\(\\) on an unknown class basicFile\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method getIconPathByExtension\\(\\) on an unknown class tldMimeFile\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method getLangList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method getList\\(\\) on an unknown class tldDMSType\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method getPeriodicityList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method getSystemRefList\\(\\) on an unknown class tldDMS\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method getUserlist\\(\\) on an unknown class tldDirectory\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to static method optionsByKeyValue\\(\\) on an unknown class tldUtils\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Instantiated class HTML_QuickForm not found\\.$#"
+			count: 4
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Instantiated class tldAssocTable not found\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Instantiated class tldDMS not found\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Instantiated class tldHTMLTable not found\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Instantiated class tldModLink not found\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Instantiated class tldReportColumnar not found\\.$#"
+			count: 7
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Instantiated class tldUser not found\\.$#"
+			count: 3
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Variable \\$_BODY might not be defined\\.$#"
+			count: 3
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Variable \\$_MENU might not be defined\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Variable \\$_PATH might not be defined\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Variable \\$_TITLE might not be defined\\.$#"
+			count: 1
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Variable \\$m might not be defined\\.$#"
+			count: 2
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Variable \\$php_self might not be defined\\.$#"
+			count: 19
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Variable \\$user might not be defined\\.$#"
+			count: 9
+			path: web/view/view.logic.php
+
+		-
+			message: "#^Call to method fetch\\(\\) on an unknown class tldOverlib\\.$#"
+			count: 1
+			path: web/view/view.statusbar.tpl.php
+
+		-
+			message: "#^Instantiated class tldOverlib not found\\.$#"
+			count: 1
+			path: web/view/view.statusbar.tpl.php
+
+		-
+			message: "#^Variable \\$dms might not be defined\\.$#"
+			count: 1
+			path: web/view/view.statusbar.tpl.php

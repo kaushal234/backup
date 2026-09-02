@@ -1,0 +1,41 @@
+App\Entity\Parts\SparePartsRequestPart:
+  #/parts/spare_parts_request_parts/2
+  spr_parts_1:
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    createdBy: '@user_service'
+    partNumber: 56789
+    description: Willy Waller 2006
+    unitOfMeasure: KG
+    quantity: 4
+    comment: this is just a comment
+    sparePartsRequest: '@spr_toc'
+
+  #/parts/spare_parts_request_parts/3
+  spr_parts_2:
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    createdBy: '@user_service'
+    partNumber: 11111
+    description: Elbow grease
+    unitOfMeasure: LIT
+    quantity: 42
+    sparePartsRequest: '@spr_sb'
+
+  #/parts/spare_parts_request_parts/4
+  spr_parts_3:
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    createdBy: '@user_service'
+    partNumber: 666
+    description: Cup of coffee
+    unitOfMeasure: EA
+    quantity: 69
+    sparePartsRequest: '@spr_toc'
+
+  #/parts/spare_parts_request_parts/5
+  spr_parts_4:
+    createdAt: <dateTimeBetween('-60 days', '-10 days')>
+    createdBy: '@user_service'
+    partNumber: WW2023
+    description: Water Waller 2023
+    unitOfMeasure: EA
+    quantity: 14
+    sparePartsRequest: '@spr_sb_3'

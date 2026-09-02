@@ -1,0 +1,13 @@
+{% extends 'sales/freight_forwarders/layout.html.twig' %}
+{% trans_default_domain 'freight_forwarder' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('sales/freight_forwarders/partials/_form.html.twig', {
+        title: 'freight_forwarder.fedit.title'|trans,
+        form: form,
+        action: path('freight_forwarders_edit', {'id': freightForwarder.iriId}),
+    }, with_context=false) }}
+{% endblock %}
+

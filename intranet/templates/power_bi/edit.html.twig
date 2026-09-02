@@ -1,0 +1,31 @@
+{% extends 'power_bi/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'power_bi_report.edit'|trans }}</h5>
+            </div>
+            <div class="ibox-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                {{ form_row(form.title) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.category) }}
+                {{ form_row(form.subCategories) }}
+                {{ form_row(form.powerBiUuid) }}
+                {{ form_row(form.groups) }}
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary float-end">{{ 'button.submit'|trans([], 'messages') }}</button>
+                    </div>
+                </div>
+
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+<td>
+    <div {% if value is not null and value < item.currentPlannedReceiptDate|date_modify('+3 days')|date('Y-m-d') %} class="warningDate" {% endif %}>
+        {{ value }}
+    </div>
+</td>

@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {"type": "integer"},
+    "@id": {"pattern": "^/quality/qhse_progress/\\d+$"},
+    "@type": {"type": "string"},
+    "@context": {"type": "string"},
+    "location": {"$ref": "../../../directory_location/schemas/directory_location_public.json"},
+    "rating": {"type": "integer"},
+    "date": {"type": "string"},
+    "poster": {"$ref": "../../../directory_people/schemas/directory_people_public.json"}
+  },
+  "required": ["id", "@id", "@type", "@context", "location", "rating", "date", "poster"],
+  "additionalProperties": false
+}

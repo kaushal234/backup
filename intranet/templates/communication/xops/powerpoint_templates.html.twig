@@ -1,0 +1,13 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_powerpoint_templates.html.twig', {
+        presentations: {
+            'XOPS Powerpoint Template': {
+                'pptx': 'xops/powerpoint_templates/Presentation XOPS V1 (2).pptx',
+            }
+        }
+    }) }}
+{% endblock %}

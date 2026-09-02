@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/equipment_serials/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "component": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../equipment_serial_component/schemas/equipment_serial_component_public.json" }
+      ]
+    },
+    "model": {
+      "type": ["string", "null"]
+    },
+    "serial": {
+      "type": "string"
+    },
+    "brand": {
+      "type": ["string", "null"]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "createdBy": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "component",
+    "model",
+    "serial",
+    "brand",
+    "createdAt",
+    "createdBy",
+    "id",
+    "legacyId"
+  ]
+}

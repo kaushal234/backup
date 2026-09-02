@@ -1,0 +1,5 @@
+<td>
+    {% for productType in item.productTypes %}
+        {{ productType.englishName }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</td>

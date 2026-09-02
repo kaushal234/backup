@@ -1,0 +1,15 @@
+- name: Ensure locales package is installed, needed for dms and shopfloor translations
+  become: true
+  ansible.builtin.apt:
+    name:
+      - locales
+    state: present
+
+- name: Ensure fr_FR (ISO-8859-1) and zh_CN (GB2312) locales are generated, needed for dms and shopfloor translations
+  become: true
+  community.general.locale_gen:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - fr_FR
+    - zh_CN

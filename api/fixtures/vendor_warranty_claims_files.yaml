@@ -1,0 +1,12 @@
+App\Entity\Purchasing\VendorWarrantyClaimFile:
+  vendor_warranty_claim_file_1:
+    vendor_warranty_claim: '@vwc_wc_1'
+    poster: "@user_basic"
+    filePath: '../../../tests/fixtures/file.pdf'
+    description: "Another file"
+    sha: 'tonid1'
+    mimeType: 'x-pdf'
+    extension: 'pdf'
+    size: 22
+    created_at: <dateTimeBetween('-30 days','-1 days')>
+    public: true

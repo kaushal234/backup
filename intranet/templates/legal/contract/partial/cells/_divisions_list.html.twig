@@ -1,0 +1,5 @@
+<td>
+    {% for division in divisions %}
+        <a href="{{ path('directory_divisions_show', {id: iri_id(division)}) }}">{{ division.name }}</a><br>
+    {% endfor %}
+</td>

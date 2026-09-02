@@ -1,0 +1,129 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/SalesOrder.jsonld-sales_order_site.light",
+    "definitions": {
+        "SalesOrder.jsonld-sales_order_site.light": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@context": {
+                    "readOnly": true,
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "@vocab": {
+                                    "type": "string"
+                                },
+                                "hydra": {
+                                    "type": "string",
+                                    "enum": [
+                                        "http://www.w3.org/ns/hydra/core#"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "@vocab",
+                                "hydra"
+                            ],
+                            "additionalProperties": true
+                        }
+                    ]
+                },
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/sales_orders/\\w+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "salesOrder": {
+                    "type": "string"
+                },
+                "lines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SalesOrderLine.jsonld-sales_order_site.light"
+                    },
+                    "minItems": 1
+                }
+            },
+            "required": [
+                "@context",
+                "@id",
+                "@type",
+                "salesOrder",
+                "lines"
+            ],
+            "additionalProperties": false
+        },
+        "SalesOrderLine.jsonld-sales_order_site.light": {
+            "type": "object",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "lineID": {
+                    "type": "string"
+                },
+                "item": {
+                    "type": "string"
+                },
+                "plannedDeliveryDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "site": {
+                    "$ref": "#/definitions/Site.jsonld-sales_order_site.light"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "lineID",
+                "item",
+                "plannedDeliveryDate",
+                "site"
+            ],
+            "additionalProperties": false
+        },
+        "Site.jsonld-sales_order_site.light": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "@id": {
+                    "readOnly": true,
+                    "type": "string",
+                    "pattern": "^/ion/sites/\\d+$"
+                },
+                "@type": {
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "siteID": {
+                    "type": "string"
+                },
+                "siteDescription": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@id",
+                "@type",
+                "siteID",
+                "siteDescription"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

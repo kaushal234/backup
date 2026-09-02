@@ -1,0 +1,29 @@
+{% extends 'corporate/agr/layout.html.twig' %}
+{% trans_default_domain 'corporate' %}
+{% set viewName = 'AGR' %}
+
+{% block title %}Corporate/AGR{% endblock %}
+
+{% block content %}
+    <h3>AGR {{ 'menu.homepage'|trans([], 'messages')|capitalize }}</h3>
+    <p>{{ 'corporate.acronyms.welcome'|trans }}</p>
+    {{ include('helper/_report_table.html.twig', {
+        'reportTable': {
+            'items': {
+                '@id': {
+                    'label':'AGR#',
+                    'link':{
+                        'route': 'acronyms_show',
+                        'params': {'id':'@id'}
+                    },
+                    'filters': 'iri_id'
+                },
+                'acronym': {'label': 'corporate.acronyms.acronym'|trans|capitalize},
+                'shortDescription': {'label': 'fields.short-description'|trans([], 'messages')|capitalize},
+            },
+            'title': 'corporate.acronyms.acronym-title'|trans|capitalize,
+            'data': acronyms
+        }
+    }, with_context = false) }}
+
+{% endblock %}

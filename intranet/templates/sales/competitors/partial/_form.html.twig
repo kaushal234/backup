@@ -1,0 +1,54 @@
+{% trans_default_domain 'sales_competitors' %}
+
+{% block content %}
+    {% form_theme form 'form_theme_vertical.html.twig' %}
+
+    {{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="ibox float-e-margins news-list-element">
+                <div class="ibox-title">
+                    <h4>{{ title }}</h4>
+                </div>
+                <div class="ibox-content">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.shortDescription) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.url) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="ibox float-e-margins news-list-element">
+                <div class="ibox-title">
+                    <h4>{{ 'competitors.fields.logo' | trans }}</h4>
+                </div>
+                <div class="ibox-content">
+                    {{ form_widget(form.logo) }}
+                </div>
+            </div>
+            <div class="ibox float-e-margins news-list-element">
+                <div class="ibox-content">
+                    {{ form_row(form.productTypes) }}
+                    {{ form_rest(form) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <button type="submit" class="btn btn-primary">{{ 'button.submit'|trans({}, 'messages') }}</button>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}
+

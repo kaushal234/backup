@@ -1,0 +1,50 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        {% if closedComment is same as true %}
+            {{ 'demo.message_comment_closed_demo' | trans({}, 'emails') }}
+        {% endif %}
+        <columns>
+            {% if user is defined %}
+                <p>{{ 'demo.message_comment' | trans({
+                        '%demoId%': demo_normalized.id,
+                        '%firstname%': user.firstname,
+                        '%lastname%': user.lastname,
+                        '%comment%': comment,
+                    }, 'emails')|nl2br }}</p>
+            {% else %}
+                <p>{{ 'demo.message_comment_no_user' | trans({
+                        '%demoId%': demo_normalized.id,
+                        '%comment%': comment,
+                    }, 'emails')|nl2br }}</p>
+            {% endif %}
+
+            {{ include('Helpers/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        status: { label:'demo.fields.status' | trans },
+                        customer: { label:'demo.fields.customer' | trans, properties: ['customer.name']},
+                        product: { label:'demo.fields.product' | trans, properties: ['product.name'] },
+                        factory: { label:'demo.fields.factory' | trans, properties: ['factory.name'] },
+                        sso: { label:'demo.fields.sso' | trans, properties: ['sso.name'] },
+                        country: { label:'demo.fields.country' | trans, properties: ['country.name'] },
+                        asm: { label:'demo.fields.asm' | trans, properties: ['asm.lastname', 'asm.firstname'] },
+                        psm: { label:'demo.fields.psm' | trans, properties: ['psm.lastname', 'psm.firstname'] },
+                        ast: { label:'demo.fields.ast' | trans, properties: ['ast.lastname', 'ast.firstname'] },
+                        expectedStartDate: { label:'demo.fields.expected_start_date' | trans, filters: ["date('Y-m-d')"] },
+                        expectedEndDate: { label:'demo.fields.expected_end_date' | trans, filters: ["date('Y-m-d')"] },
+                    },
+                    data: demo_normalized,
+                    title: 'DEMO #'~demo_normalized.id
+                },
+            }, with_context = false) }}
+
+            <hr>
+            <center><button href="{{ url('demos', {id: demo_normalized.id}) }}">{{ 'demo.link' | trans }}</button></center>
+
+        </columns>
+    </row>
+{% endblock %}

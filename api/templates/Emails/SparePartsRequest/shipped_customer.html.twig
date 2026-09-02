@@ -1,0 +1,52 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'spr.message.customer.dear'|trans({'%firstname%': sparePartsRequest.deliveryAddress.firstname, '%lastname%': sparePartsRequest.deliveryAddress.lastname}) }}</p>
+            {% if sparePartsRequest['@type'] == 'TocSparePartsRequest' %}
+                <p>{{ 'spr.message.customer.introduction_toc'|trans({'%tocId%': sparePartsRequest.tocId}) }}</p>
+            {% elseif sparePartsRequest['@type'] == 'SbSparePartsRequest' %}
+                <p>{{ 'spr.message.customer.introduction_sb'|trans({'%sbId%': sparePartsRequest.sbId}) }}</p>
+            {% endif %}
+
+            <p>
+                <strong>{{ 'address.street1'|trans|capitalize }}</strong>: {{ sparePartsRequest.deliveryAddress.address.street1 }}<br>
+                {% if sparePartsRequest.deliveryAddress.address.street2 is not empty %}
+                    <strong>{{ 'address.street2'|trans|capitalize }}</strong>: {{ sparePartsRequest.deliveryAddress.address.street2 }}<br>
+                {% endif %}
+                <strong>{{ 'address.postal_code'|trans|capitalize }}</strong>: {{ sparePartsRequest.deliveryAddress.address.postalCode }}<br>
+                <strong>{{ 'address.city'|trans|capitalize }}</strong>: {{ sparePartsRequest.deliveryAddress.address.city }}<br>
+                {% if sparePartsRequest.deliveryAddress.address.state is not empty %}
+                    <strong>{{ 'address.state'|trans|capitalize }}</strong>: {{ sparePartsRequest.deliveryAddress.address.state }}<br>
+                {% endif %}
+                <strong>{{ 'address.country'|trans|capitalize }}</strong>: {{ sparePartsRequest.deliveryAddress.address.country }}<br>
+            </p>
+
+            {% if trackingNumbers is not empty %}
+                <p>{{ 'spr.message.shipped_extra'|trans }}</p>
+                <ul>
+                    {% for trackingNumber, courier in trackingNumbers %}
+                        <li>{{ courier }}: {{ trackingNumber }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {{ include('Helpers/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        partNumber: { label: 'spr.fields.part_number'|trans },
+                        description: { label: 'spr.fields.description'|trans },
+                        unitOfMeasure: { label: 'spr.fields.unit_of_measure'|trans },
+                        quantity: { label: 'spr.fields.quantity'|trans },
+                    },
+                    data: sparePartsRequest.parts,
+                    title: 'spr.title.lines'|trans
+                },
+            }, with_context = false) }}
+            <p>{{ 'spr.message.customer.conclusion'|trans|nl2br }}</p>
+            <small><i>{{ 'spr.message.customer.disclaimer'|trans|nl2br }}</i></small>
+        </columns>
+    </row>
+{% endblock %}

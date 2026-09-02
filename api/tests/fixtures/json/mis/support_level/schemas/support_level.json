@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"pattern": "^/mis/support_levels/\\d+$"},
+    "@type": {"type": "string"},
+    "id": {"type": "integer"},
+    "level": {"type": "integer"},
+    "name": {"type": "string"},
+    "description": {"type": ["string", "null"]}
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "level",
+    "name",
+    "description"
+  ],
+  "additionalProperties": false
+}

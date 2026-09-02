@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"type": "string", "pattern": "^/trainings$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "organizer",
+          "trainer",
+          "meetingPlace",
+          "startingAt",
+          "endingAt",
+          "status",
+          "designation",
+          "content",
+          "level",
+          "open",
+          "mandatory",
+          "language",
+          "category",
+          "type",
+          "timezone"
+        ],
+        "properties": {
+          "@id": {"type": "string", "pattern": "^/trainings/\\d+$"},
+          "@type": {"type": "string", "pattern": "^Training$"},
+          "id": { "type": "integer"},
+          "organizer": {"$ref": "../../directory_people/schemas/directory_people_public.json"},
+          "trainer": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_people/schemas/directory_people_public.json" }
+            ]
+          },
+          "meetingPlace": {"type": "string"},
+          "startingAt": {"type": "string", "format": "date-time"},
+          "endingAt": {"type": "string", "format": "date-time"},
+          "status": {"type": "string", "pattern": "^(PLANNED)|(SOLVED)|(CANCELLED)$"},
+          "designation": {"type": "string"},
+          "content": {"type": "string"},
+          "level": {"type": ["string", "null"]},
+          "open": {"type": "boolean"},
+          "mandatory": {"type": "boolean"},
+          "timezone": {"type": "string"},
+          "language": {"type": "string", "pattern": "\\w{2}$"},
+          "category": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["@id", "@type", "name"],
+            "properties": {
+              "@id": {"type": "string", "pattern": "^/training_categories/\\d+$"},
+              "@type": {"type": "string", "pattern": "^TrainingCategory$"},
+              "name": {"type": "string"}
+            }
+          },
+          "type": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["@id", "@type", "name"],
+                "properties": {
+                  "@id": {"type": "string", "pattern": "^/training_types/\\d+$"},
+                  "@type": {"type": "string", "pattern": "^TrainingType$"},
+                  "name": {"type": "string"}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

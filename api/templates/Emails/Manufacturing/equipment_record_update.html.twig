@@ -1,0 +1,30 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+{% block banner %}
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'manufacturing.equipment_record.update' | trans }} <a href="{{ url('legacy_product_support', { 'm': ['equipment', 'view'], 'id': equipmentRecord.legacyId }) }}"> {{ equipmentRecord.serialNumber }}</a></p>
+            <p>{{ 'manufacturing.equipment_record.model' | trans ({ '%model%': equipmentRecord.model }) }}, {{ 'manufacturing.equipment_record.end_user' | trans }}<a href="{{ url('customer', {'id':equipmentRecord.endUser.id}) }}">{{ equipmentRecord.endUser.name }}</a></p>
+            {% if estimatedGreenTagDateUpdated %}
+            <p>{{ 'manufacturing.equipment_record.estimated_gt'|  trans({ '%previous_date%': previousEquipmentRecord.estimatedGreenTagDate | date('Y-m-d'), '%new_date%': equipmentRecord.estimatedGreenTagDate | date('Y-m-d') }) }}</p>
+            {% if newDelay > 0 %}
+                <p>{{ 'manufacturing.equipment_record.new_delay_notice'|  trans({ '%new_delay%': newDelay}) }}</p>
+            {% endif %}
+            {% if daysLate > 0 %}
+                <p>{{ 'manufacturing.equipment_record.days_late_notice'|  trans({ '%days_late%': daysLate}) }}</p>
+            {% endif %}
+            {% endif %}
+            {% if odpCommentUpdated %}
+                {% set previousOdpComment = previousEquipmentRecord.odpComment is not empty ? previousEquipmentRecord.odpComment : 'Empty' %}
+                {% set currentOdpComment = equipmentRecord.odpComment is not empty ? equipmentRecord.odpComment : 'Empty' %}
+            <p>{{ 'manufacturing.equipment_record.odp_note'|trans ({ '%previous_odp_comment%': previousOdpComment, '%new_odp_comment%': currentOdpComment }) }}</p>
+            {% endif %}
+
+            <hr>
+            <p>{{ 'manufacturing.equipment_record.done_by'|trans ({'%user%': user }) }}</p>
+        </columns>
+    </row>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'AER0 Black': {
+                'eps': 'aero_specialties/AERO_BLACK_CMYK.eps',
+                'jpg': 'aero_specialties/AERO_BLACK_CMYK.jpg',
+                'png': 'aero_specialties/AERO_BLACK_RGB.png',
+            },
+            'AERO Blue Red': {
+                'eps': 'aero_specialties/AERO_BLUE_RED_CMYK.eps',
+                'jpg': 'aero_specialties/AERO_BLUE_RED_CMYK.jpg',
+                'png': 'aero_specialties/AERO_BLUE_RED_RGB.png',
+            },
+            'AERO Specialties black and white logo': {
+                'png': 'aero_specialties/logos/AERO_WHITE_BLACK Background_RGB.png',
+                'eps': 'aero_specialties/logos/AERO_WHITE_BLACK Background_CMYK.eps',
+                'jpg': 'aero_specialties/logod/AERO_WHITE_BLACK Background_CMYK.jpg'
+            },
+            'AERO Specialties white and blue logo': {
+                'png': 'aero_specialties/logos/AERO_WHITE_BLUE Background_RGB.png',
+                'eps': 'aero_specialties/logos/AERO_WHITE_BLUE Background_CMYK.eps',
+                'jpg': 'aero_specialties/logod/AERO_WHITE_BLUE Background_CMYK.jpg'
+            },
+            'AERO Specialties white logo / transparent background': {
+                'eps': 'aero_specialties/logos/AERO_WHITE_TRANSP Background.eps',
+                'png': 'aero_specialties/logos/AERO_WHITE_TRANSP Background.png',
+            },
+            'Aviation Safety Equipment logo': {
+                'png': 'aero_specialties/logos/ase_logo.png'
+            },
+            'Aviation Safety Equipment black and white logo': {
+                'png': 'aero_specialties/logos/ase_logo_b&w.png'
+            },
+        },
+    }) }}
+{% endblock %}

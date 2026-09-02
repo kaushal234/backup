@@ -1,0 +1,5 @@
+<td>
+    {% for owner in item.additionalOwners %}
+        <a href="{{ path('directory_people_show', {id: iri_id(owner)}) }}">{{ owner.firstname }} {{ owner.lastname }}</a><br>
+    {% endfor %}
+</td>

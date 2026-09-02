@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/purchasing/supplier_ranking/periodicities/expertiseLevel=\\d+;classification=\\d+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "expertiseLevel": {
+      "type": "object",
+      "properties": {
+        "@type": {"pattern": "^ExpertiseLevel"},
+        "@id": {"pattern": "^/purchasing/supplier_ranking/expertise_levels/\\d+$" },
+        "name": {"type":  "string"}
+      },
+      "required": [
+        "@type",
+        "@id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "classification": {
+      "type": "object",
+      "properties": {
+        "@type": {"pattern": "^Classification"},
+        "@id": {"pattern": "^/purchasing/supplier_ranking/classifications/\\d+$" },
+        "name": {"type":  "string"}
+      },
+      "required": [
+        "@type",
+        "@id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "months": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "expertiseLevel",
+    "classification",
+    "months"
+  ],
+  "additionalProperties": false
+}

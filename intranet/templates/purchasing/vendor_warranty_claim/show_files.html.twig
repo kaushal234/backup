@@ -1,0 +1,199 @@
+{% extends 'purchasing/vendor_warranty_claim/layout.html.twig' %}
+ {% trans_default_domain 'vendor_warranty_claim' %}
+
+ {% block title %}{{ parent() }}#{{ vendorWarrantyClaim.id }}{% endblock %}
+
+ {% block content %}
+     <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+
+         <twig:Tabs:Tabs>
+             <twig:Tabs:NavItemList>
+                 {{ include('purchasing/vendor_warranty_claim/partial/tabs/_nav.html.twig', {
+                     vendorWarrantyClaim: vendorWarrantyClaim,
+                 }) }}
+             </twig:Tabs:NavItemList>
+
+             <twig:Tabs:Content>
+                 <div class="row">
+                     <div class="col-md-8">
+                         <div class="row">
+                             {% set items = {
+                                 filePath: {
+                                     label: 'menu.files'|trans({}, 'messages')|capitalize,
+                                     filters : 'slice(41)',
+                                     link:{
+                                         route: 'vendor_warranty_claim_files_show',
+                                         params: {
+                                             'id': 'id'
+                                         },
+                                         fixedParams: {
+                                             'vendorWarrantyClaimId': vendorWarrantyClaim.id
+                                         }
+                                     },
+                                 },
+                                 description: {
+                                     label: 'demo.fields.file_description' | trans({}, 'demo') | capitalize,
+                                 },
+                                 createdAt: {
+                                     label: 'demo.fields.created_at'| trans({}, 'demo') |capitalize,
+                                     filters: 'date("Y-m-d H:i:s")'
+                                 },
+                                 size: {
+                                     label: 'size'|trans({}, 'messages')|trans|capitalize,
+                                     filters : 'readable_filesize'
+                                 },
+                                 public: {
+                                     label: 'fields.file_is_public'|trans({}, 'file_type')|capitalize,
+                                     boolean: {
+                                         true: '<span class="d-none">1</span><i class="fa fa-check text-info"></i>',
+                                         false: '<span class="d-none">0</span><i class="fa fa-times text-danger"></i>'
+                                     }
+                                 },
+                             } %}
+
+                             {% if is_granted('FEATURE_VWC_FILE_CHANGE_VISIBILITY') %}
+                                 {% set items = items | merge({
+                                     changeVisibility: {
+                                         label: 'fields.change_file_visibility'|trans({}, 'file_type')|capitalize,
+                                         link: {
+                                             route: 'vendor_warranty_file_change_visibility',
+                                             params: {'fileId': 'id'},
+                                             fixedParams: {
+                                                 'vendorWarrantyClaimId': vendorWarrantyClaim.id
+                                             },
+                                             content: '<span class="btn btn-warning btn-xs"><i class="fa fa-edit fa-fw"></i></span>',
+                                             popup: {
+                                                 type: 'confirmation',
+                                                 title: 'visibility.popup.confirmation.title'|trans({}, 'file_type'),
+                                                 message: 'visibility.popup.confirmation.message'|trans({}, 'file_type'),
+                                             },
+                                         },
+                                     }
+                                 }) %}
+                             {% endif %}
+
+                             {% if is_granted('FEATURE_VENDOR_WARRANTY_CLAIM_FILE_DELETE') %}
+                                 {% set items = items | merge({
+                                     delete: {
+                                         label: 'menu.delete'|trans({}, 'messages')|capitalize,
+                                         sortable: false,
+                                         class: 'text-end',
+                                         link: {
+                                             route: 'vendor_warranty_claim_file_delete',
+                                             params: {'id': 'id'},
+                                             fixedParams: {'vendorWarrantyClaimId': vendorWarrantyClaim.id, '_token': csrf_token('delete_vwc_file')},
+                                             content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                                             popup: {
+                                                 type: 'confirmation',
+                                                 title: 'Confirmation',
+                                                 message: 'Are you sure to delete ?',
+                                             },
+                                         },
+                                     }}) %}
+                             {% endif %}
+
+                             {{ include('helper/_report_table.html.twig', {
+                                 reportTable: {
+                                     items: items,
+                                     title: 'demo.fields.files'|trans({}, 'demo'),
+                                     data: vendorWarrantyClaim.files,
+                                     search: false,
+                                     pagination: false,
+                                     initialSorting: 'createdAt'
+                                 }
+                             }, with_context = false) }}
+                         </div>
+                         {% if vendorWarrantyClaim.nonConformity is defined and vendorWarrantyClaim.nonConformity is not null and vendorWarrantyClaim.nonConformity.files is defined and vendorWarrantyClaim.nonConformity.files is not empty %}
+                             <div class="row">
+                                 {% set items = {
+                                     filePath: {
+                                         label: 'menu.files'|trans({}, 'messages')|capitalize,
+                                         filters : 'slice(41)',
+                                         link:{
+                                             route: 'non_conformity_files_show',
+                                             params: {
+                                                 'id': 'id'
+                                             },
+                                             fixedParams: {
+                                                 'nonConformityId': vendorWarrantyClaim.nonConformity.id
+                                             }
+                                         },
+                                     },
+                                     description: {
+                                         label: 'demo.fields.file_description' | trans({}, 'demo') | capitalize,
+                                     },
+                                     createdAt: {
+                                         label: 'demo.fields.created_at'| trans({}, 'demo') |capitalize,
+                                         filters: 'date("Y-m-d H:i:s")'
+                                     },
+                                     size: {
+                                         label: 'size'|trans({}, 'messages')|trans|capitalize,
+                                         filters : 'readable_filesize'
+                                     },
+                                 } %}
+
+                                 {{ include('helper/_report_table.html.twig', {
+                                     reportTable: {
+                                         items: items,
+                                         title: 'non_conformity.title.ncr_files'|trans({}, 'non_conformity'),
+                                         data: vendorWarrantyClaim.nonConformity.files,
+                                         search: false,
+                                         pagination: false,
+                                         initialSorting: 'createdAt'
+                                     }
+                                 }, with_context = false) }}
+                             </div>
+                         {% endif %}
+                         {% if vendorWarrantyClaim.warrantyClaimFiles is defined and vendorWarrantyClaim.warrantyClaimFiles is not empty %}
+                             <div class="row">
+                                 <div class="ibox float-e-margins">
+                                     <div class="ibox-title">
+                                         <h5>{{ 'vendor_warranty_claim.fields.wc_files'|trans({}, 'vendor_warranty_claim') }}</h5>
+                                         <div class="ibox-tools">
+                                             <a class="collapse-link">
+                                                 <i class="fa fa-chevron-up"></i>
+                                             </a>
+                                         </div>
+                                     </div>
+                                     <div class="ibox-content">
+                                         <div class="col-12">
+                                             <hx:include src="/en/private/product_support/wc/wc_files_hinclude.php?warrantyClaimId={{ vendorWarrantyClaim.warrantyClaimId }}&vendorWarrantyClaimId={{ vendorWarrantyClaim.id }}" id="block_task">
+                                                 <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+                                             </hx:include>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         {% endif %}
+                     </div>
+                     <div class="col-md-4">
+                         <div class="ibox float-e-margins">
+                             <div class="ibox-title">
+                                 <h5>{{ 'demo.fields.add_file'|trans({}, 'demo') }}</h5>
+                                 <div class="ibox-tools">
+                                     <a class="collapse-link">
+                                         <i class="fa fa-chevron-up"></i>
+                                     </a>
+                                 </div>
+                             </div>
+                             <div class="ibox-content">
+                                 <div class="row">
+                                     <div class="col-lg-12">
+                                         {% form_theme form_files 'form_theme_vertical.html.twig' %}
+
+                                         {{ form_start(form_files) }}
+                                         {{ form_errors(form_files) }}
+                                         {{ form_row(form_files.file) }}
+                                         {{ form_row(form_files.description) }}
+                                         {{ form_rest(form_files) }}
+                                         {{ form_end(form_files) }}
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </twig:Tabs:Content>
+         </twig:Tabs:Tabs>
+
+ {% endblock %}

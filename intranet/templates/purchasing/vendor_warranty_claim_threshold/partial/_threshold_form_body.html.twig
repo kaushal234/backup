@@ -1,0 +1,15 @@
+<tr>
+    <td style="font-size: 1rem; font-weight: 400; line-height: 2; width: 60%;">
+        {% if thresholdForm.location is defined %}
+            {{ form_widget(thresholdForm.location) }} {{ form_errors(thresholdForm.location) }}
+        {% else %}
+            {{ thresholdForm.vars.value.location.name }}
+            {{ thresholdForm.vars.value.location.currency.name is defined
+        ? '- ' ~ thresholdForm.vars.value.location.currency.name
+        : '- ' ~ 'vendor_warranty_claim.threshold.location_no_currency_message'|trans({}, 'vendor_warranty_claim')
+        }}
+        {% endif %}
+    </td>
+    <td style="width: 30%;">{{ form_widget(thresholdForm.threshold) }} {{ form_errors(thresholdForm.threshold) }}</td>
+    <td style="width: 10%;">{{ form_widget(thresholdForm.submit) }}</td>
+</tr>

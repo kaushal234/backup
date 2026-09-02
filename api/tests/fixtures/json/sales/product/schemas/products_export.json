@@ -1,0 +1,78 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/products$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/products/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "hidden": {
+            "type": "string"
+          },
+          "financeFamily": {
+            "type": "string"
+          },
+          "familyId": {
+            "type": ["null","integer"]
+          },
+          "erpLocation": {
+            "type": "string"
+          },
+          "productType": {
+            "type": "string"
+          },
+          "productTypeId": {
+            "type": "integer"
+          },
+          "familyDMSPhoto": {
+            "type": ["null","integer"]
+          },
+          "dmsPhoto": {
+            "type": ["null","integer"]
+          },
+          "productTypeDMSPhoto": {
+            "type": ["null","integer"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "financeFamily",
+          "family",
+          "hidden",
+          "erpLocation",
+          "productType",
+          "productTypeId",
+          "dmsPhoto",
+          "familyId"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

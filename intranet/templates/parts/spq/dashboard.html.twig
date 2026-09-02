@@ -1,0 +1,125 @@
+{% extends 'parts/spq/layout.html.twig' %}
+
+{% trans_default_domain "spq" %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="row">
+         <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spq.dashboard.my_quotations_by_sph_by_status' | trans([], 'spq') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: myQuotationsBySphByStatusReport,
+                        link: {
+                            route: 'spq_quotations_list',
+                            xParam: 'sph',
+                            yParam: 'status',
+                            additionalParams: {quoter: user['@id']}
+                        },
+                        headers: {
+                            columns: ['PENDING', 'SUSPENDED', 'SUBMITTED_PARTIAL', 'SUBMITTED_FULL', 'SUBMITTED_FULL_REVISED', 'ORDERED_PARTIAL', 'ORDERED_FULL', 'CANCELLED', 'LOST']
+                        },
+                        filters: {
+                            columnHeaders: "replace({'_': ' '})"
+                        }
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'spq.dashboard.quotations_by_sph_by_status' | trans([], 'spq') }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: quotationsBySphByStatusReport,
+                        link: {
+                            route: 'spq_quotations_list',
+                            xParam: 'sph',
+                            yParam: 'status'
+                        },
+                        headers: {
+                            columns: ['PENDING', 'SUSPENDED', 'SUBMITTED_PARTIAL', 'SUBMITTED_FULL', 'SUBMITTED_FULL_REVISED', 'ORDERED_PARTIAL', 'ORDERED_FULL', 'CANCELLED', 'LOST']
+                        },
+                        filters: {
+                            columnHeaders: "replace({'_': ' '})"
+                        }
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% set localizeddateFilter = user.timeZone is defined ? "format_datetime('medium', 'none', 'timezone="~user.timeZone~"')" : "format_datetime" %}
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            items: {
+                id: {
+                    label: '#',
+                    sortable: 'numeric',
+                    link: {
+                        route: 'spq_quotations_show',
+                        params: {'id':'@id'}
+                    }
+                },
+                quoter: {
+                    properties: ['quoter.firstname', 'quoter.lastname'],
+                    label: 'spq.quotations.fields.quoter'|trans|capitalize
+                },
+                status: {
+                    label: 'spq.quotations.fields.status'|trans|capitalize,
+                    template: 'parts/spq/partials/_status.html.twig',
+                },
+                baanCustomerName: {label: 'spq.quotations.fields.customer.title'|trans|capitalize},
+                baanCustomerNumber: {label: 'spq.quotations.fields.cuno'|trans|capitalize},
+                sph: {
+                    properties: ['sph.name'],
+                    label: 'spq.quotations.fields.sph'|trans|capitalize
+                },
+                receivedAt: {
+                    filters: [localizeddateFilter],
+                    label: 'spq.quotations.fields.received_at'|trans|capitalize
+                },
+                totalExcludingTaxes: {
+                    filters: ['number_format(2)'],
+                    label: 'spq.quotations.fields.total_excluding_taxes'|trans|capitalize,
+                    class: 'text-end',
+                    sortable: 'numeric',
+                },
+                currency: {
+                    label: 'spq.quotations.fields.currency'|trans|capitalize
+                },
+                view: {
+                    label: 'menu.view'|trans([], 'messages')|capitalize,
+                    link: {
+                        route: 'spq_quotations_show',
+                        params: {'id':'@id'},
+                        content: '<span class="btn btn-primary btn-sm"><i class="far fa-eye fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    'class' : 'text-end'
+                },
+            },
+            title: 'spq.dashboard.last_10_quotations'|trans|capitalize,
+            data: latestQuotations,
+            initialSorting: 'submittedAt'
+        }
+    }, with_context = false) }}
+{% endblock %}

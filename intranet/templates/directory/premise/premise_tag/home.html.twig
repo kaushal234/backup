@@ -1,0 +1,47 @@
+{% extends 'directory/premise/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    {% set items = {
+                        name: {
+                            label: 'catalogue.products.name'|trans({}, 'catalogue')|capitalize,
+                        }
+                    } %}
+                    {% if is_granted('FEATURE_PREMISE_WRITE') %}
+                        {% set items = items | merge ({
+                            edit: {
+                                label: 'menu.edit'|trans([], 'messages')|capitalize,
+                                class: 'text-end',
+                                link:{
+                                    route: 'premise_tag_edit',
+                                    params: {'id':'@id'},
+                                    content: '<span class="btn btn-warning btn-sm text-capitalize"><i class="fa fa-pencil-alt"></i></span>',
+                                },
+                            },
+                            delete: {
+                                label: 'menu.delete'|trans([], 'messages')|capitalize,
+                                class: 'text-end',
+                                link:{
+                                    route: 'premise_tag_delete',
+                                    params: {'id':'@id'},
+                                    content: '<span class="btn btn-danger btn-sm text-capitalize"><i class="fa fa-trash-alt"></i></span>',
+                                },
+                            }
+                        }) %}
+                    {% endif %}
+                    {{ include('helper/_report_table.html.twig', {
+                        reportTable: {
+                            items: items,
+                            title: 'directory.premise.type.type'|trans|capitalize,
+                            data: premiseTags
+                        }
+                    }, with_context = false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

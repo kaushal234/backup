@@ -1,0 +1,410 @@
+App\Entity\EquipmentRecord:
+    # equipment_records/1-9
+    equipment_record_{1..9}:
+        id: <current()>
+        serialNumber: SN_00<current()>
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: "30%? <word()>"
+        model: "TXL-737"
+        type: "Belt Loaders"
+        product: "@catalog_product_1"
+        location: '80%? <city()>'
+        legacyId (unique): <numberBetween(1,999999)>
+        airport: '@airport_70'
+        dateShipped: <dateTimeBetween('-2 years','-1 year')>
+        dateCommissioned: <( new \DateTime('-1 year'))>
+        manufacturerLocation: '@location_factory'
+        salesOrganisation: '@location_sso'
+        salesOrganisationService: '@location_sso'
+        projectNumber: 132012
+        hourMeter: <current()>0
+
+    # equipment_records/10
+    equipment_record_esr :
+        id: 10
+        serialNumber: SN_0010
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: "30%? <word()>"
+        model: "TXL-737"
+        type: "Belt Loaders"
+        product: "@catalog_product_1"
+        location: '80%? <city()>'
+        legacyId (unique): <numberBetween(1,999999)>
+        airport: '@airport_70'
+        dateShipped: <dateTimeBetween('-2 years','-1 year')>
+        dateCommissioned: <( new \DateTime('-1 year'))>
+        manufacturerLocation: '@location_factory'
+        salesOrganisation: '@location_sso'
+        salesOrganisationService: '@location_sso'
+        projectNumber: 132012
+        hourMeter: 100
+
+    # equipment_records/11
+    equipment_record_remi :
+        id: 11
+        serialNumber: REMI
+        buyer: '@customer_noire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: SANS FAMILLE
+        model: "<randomElement(['ABS-580-E', 'NBL-E', 'TXL-737'])>"
+        type: "<randomElement(['Passenger Steps', 'Belt Loaders', 'Loaders'])>"
+        product: "@catalog_product_fixed_name"
+        location: foyer
+        legacyId: 37455
+        airport: '@airport_teumanto'
+        manufacturerLocation: '@location_5'
+        salesOrganisationService: '@location_sso'
+        salesOrganisation: '@location_sso'
+        projectNumber: T800
+        orderFactory: '@order_factory_7'
+        estimatedGreenTagDate: <( new \DateTime('2010-01-01'))>
+
+    # equipment_records/12
+    equipment_record_parent:
+        id: 12
+        serialNumber: PETER
+        buyer: '@customer_a_boire'
+        endUser: '@customer_a_boire'
+        customerSerialNumber: GRIFFIN
+        model: "NBL-E"
+        type: "<randomElement(['Passenger Steps', 'Belt Loaders', 'Loaders'])>"
+        product: "@catalog_product_1"
+        location: DRUNKEN CLAM
+        legacyId (unique): <numberBetween(1,999999)>
+        airport: '@airport_teumanto'
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_sso_2'
+        greenTagDate: <(new \DateTime('-32 days'))>
+        salesOrganisationService: '@location_sso_2'
+        dateCommissioned: <( new \DateTime('-1 year'))>
+
+    # equipment_records/13
+    equipment_record_child:
+        id: 13
+        serialNumber: STEWIE
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: GRIFFIN
+        model: "<randomElement(['ABS-580-E', 'NBL-E', 'TXL-737'])>"
+        type: "<randomElement(['Passenger Steps', 'Belt Loaders', 'Loaders'])>"
+        product: "@catalog_product_1"
+        location: playpen
+        estimatedGreenTagDate: <dateTimeBetween('-30 days','-3 days')>
+        greenTagDate: <dateTimeBetween('-3 days','-1 days')>
+        parentEquipment: '@equipment_record_parent'
+        legacyId: 1982
+        airport: '@airport_tesurlesysteme'
+        dateShipped: <dateTimeBetween('-30 days','-1 days')>
+
+    # equipment_records/14
+    equipment_record_dog:
+        id: 14
+        serialNumber: BRIAN
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: GRIFFIN DOG
+        model: "<randomElement(['ABS-580-E', 'NBL-E', 'TXL-737'])>"
+        type: "<randomElement(['Passenger Steps', 'Belt Loaders', 'Loaders'])>"
+        product: "@catalog_product_1"
+        location: doghouse
+        legacyId: 1983
+        airport: '@airport_tesurlesysteme'
+        dateShipped: <dateTimeBetween('-30 days','-1 days')>
+
+    # equipment_records/15
+    equipment_record_cat:
+        id: 15
+        serialNumber: THOMAS
+        buyer: '@customer_demo'
+        endUser: '@customer_for_er'
+        maintainer: "@customer_a_boire"
+        customerSerialNumber: GRIFFIN CAT
+        model: "TXL-737"
+        type: "Loaders"
+        product: "@catalog_product_not_deleted"
+        location: doghouse
+        legacyId: 1984
+        airport: '@airport_tesurlesysteme'
+        length: 1080
+        width: 768
+        height: 1500
+        weight: 2000
+        optionsDescription: "Options are added"
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+        salesOrganisationService: '@location_factory_2'
+        projectNumber: "PR0000097"
+        greenTagDate: <( new \DateTime('2015-01-05'))>
+        estimatedGreenTagDate: <( new \DateTime('2010-01-01'))>
+        emissionRating: '@emission_rating_1'
+
+    # equipment_records/16
+    equipment_record_pol:
+        id: 16
+        serialNumber: polo
+        buyer: '@customer_demo'
+        endUser: '@customer_for_er'
+        customerSerialNumber: GRIFFIN CAT
+        model: "TXL-737"
+        type: "Loaders"
+        dateShipped: <dateTimeBetween('-30 days','-1 days')>
+        product: "@catalog_product_not_deleted"
+        location: doghouse
+        legacyId: 1984
+        airport: '@airport_tesurlesysteme'
+        manufacturerLocation: '@location_factory'
+        salesOrganisation: '@location_factory'
+        odpComment: 'comment'
+        estimatedGreenTagDate: <( new \DateTime('2010-01-01'))>
+        order: "@sor_1"
+        publishable: true
+
+    # equipment_records/17
+    equipment_record_not_green_tag:
+        id: 17
+        serialNumber: 'NOT Green tag'
+        buyer: '@customer_demo'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: GRIFFIN CAT
+        model: "TXL-737"
+        type: "Loaders"
+        dateShipped: <dateTimeBetween('-30 days','-1 days')>
+        product: "@catalog_product_not_deleted"
+        location: doghouse
+        airport: '@airport_tesurlesysteme'
+        manufacturerLocation: '@location_factory_400'
+        salesOrganisation: '@location_factory_400'
+        odpComment: 'comment'
+        estimatedGreenTagDate: <( new \DateTime('2010-01-01'))>
+        order: "@sor_1"
+        projectNumber: 40850
+
+    # equipment_records/18
+    equipment_record_green_tag:
+        id: 18
+        serialNumber: 'Green tag'
+        buyer: '@customer_demo'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: GRIFFIN CAT
+        model: "TXL-737"
+        type: "Loaders"
+        dateShipped: <dateTimeBetween('-30 days','-1 days')>
+        product: "@catalog_product_not_deleted"
+        location: doghouse
+        airport: '@airport_tesurlesysteme'
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+        odpComment: 'comment'
+        order: "@sor_1"
+        projectNumber: "T70021"
+        greenTagDate: <( new \DateTime('2022-03-03'))>
+
+    # equipment_records/19
+    equipment_record_light:
+        id: 19
+        serialNumber: LIGHT19
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: ER LIGHT
+        model: "LC100E-SL Lavatory Service Car"
+        type: "Lavatory and Water Trucks"
+        product: "@catalog_product_1"
+        location: Wakanda
+        estimatedGreenTagDate: <( new \DateTime('2024-01-01'))>
+        airport: '@airport_tesurlesysteme'
+        light: true
+        actualDeliveryDate: <dateTimeBetween('-30 days','-1 days')>
+
+    # equipment_records/20
+    equipment_record_light_order_line_closed:
+        id: 20
+        serialNumber: LIGHT20
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: ER LIGHT ORDER CLOSED
+        model: "LC100E-SL Lavatory Service Car"
+        type: "Lavatory and Water Trucks"
+        product: "@catalog_product_1"
+        location: Wakanda
+        estimatedGreenTagDate: <( new \DateTime('2024-01-01'))>
+        airport: '@airport_tesurlesysteme'
+        light: true
+        dateShipped: <dateTimeBetween('-30 days','-1 days')>
+
+    # equipment_records/21
+    equipment_record_estimated_green_tag_date:
+        id: 21
+        serialNumber: LIGHT20
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: ER LIGHT
+        model: "LC100E-SL Lavatory Service Car"
+        type: "Lavatory and Water Trucks"
+        product: "@catalog_product_1"
+        location: Wakanda
+        estimatedGreenTagDate: <( new \DateTime('2098-01-31'))>
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+        projectNumber: "T44981"
+        dateShipped: <dateTimeBetween('-30 days','-1 days')>
+
+    # equipment_records/22
+    equipment_record_for_crab_sol:
+        id: 22
+        serialNumber: LIGHT20
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: ER LIGHT
+        model: "LC100E-SL Lavatory Service Car"
+        type: "Lavatory and Water Trucks"
+        product: "@catalog_product_1"
+        location: Wakanda
+        estimatedGreenTagDate: <( new \DateTime('2098-01-31'))>
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+        dateShipped: <dateTimeBetween('-30 days','-1 days')>
+
+    # equipment_records/23
+    equipment_record_green_tagged_2_months:
+        id: 23
+        serialNumber: GT2023
+        buyer: '@customer_noire'
+        endUser: '@customer_35'
+        customerSerialNumber: GREEN23
+        model: "<randomElement(['ABS-580-E', 'NBL-E', 'TXL-737'])>"
+        type: "<randomElement(['Passenger Steps', 'Belt Loaders', 'Loaders'])>"
+        product: "@catalog_product_1"
+        location: Ahch-To
+        estimatedGreenTagDate: <dateTimeBetween('-60 days', 'now')>
+        greenTagDate: <dateTimeBetween('-60 days', '-30 days')>
+        dateShipped: <dateTimeBetween('-29 days','-1 days')>
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+
+    # equipment_records/24
+    equipment_record_pdi_next_month:
+        id: 24
+        serialNumber: PDI2024
+        buyer: '@customer_noire'
+        endUser: '@customer_35'
+        customerSerialNumber: PDI24
+        model: "<randomElement(['ABS-580-E', 'NBL-E', 'TXL-737'])>"
+        type: "<randomElement(['Passenger Steps', 'Belt Loaders', 'Loaders'])>"
+        product: "@catalog_product_1"
+        location: Ahch-To
+        estimatedGreenTagDate: <(new DateTime("+15 days"))>
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+
+    # equipment_records/25
+    equipment_record_commissioned:
+        id: 25
+        serialNumber: PDI2025
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: PDI25
+        model: "LC100E-SL Lavatory Service Car"
+        type: "Lavatory and Water Trucks"
+        product: "@catalog_product_1"
+        location: Bakistan
+        estimatedGreenTagDate: <( new \DateTime('2024-01-01'))>
+        airport: '@airport_tesurlesysteme'
+        orderFactory: '@order_factory_7'
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+        dateCommissioned: <( new \DateTime('-1 year'))>
+
+    # equipment_records/26
+    equipment_record_first_gt:
+        id: 26
+        serialNumber: T85401
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: PDI25
+        model: "LC100E-SL Lavatory Service Car"
+        type: "Lavatory and Water Trucks"
+        product: "@catalog_product_1"
+        location: Bakistan
+        estimatedGreenTagDate: <( new \DateTime('2024-01-01'))>
+        dateShipped: <dateTimeBetween('-6 month','-2 month')>
+        airport: '@airport_tesurlesysteme'
+        orderFactory: '@order_factory_7'
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+        projectNumber: "T85401"
+
+    # equipment_records/27
+    equipment_record_qr_code:
+        id: 27
+        serialNumber: z68919
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: "30%? <word()>"
+        model: 'NBL-E'
+        type: 'Belt Loaders'
+        product: "@catalog_product_1"
+        location: 'Tours'
+        legacyId (unique): <numberBetween(1,999999)>
+        airport: '@airport_70'
+        manufacturerLocation: '@location_factory'
+        salesOrganisation: '@location_sso'
+        salesOrganisationService: '@location_sso'
+        projectNumber: 132012
+        actualDeliveryDate: <dateTimeBetween('-30 days','-1 days')>
+
+    # equipment_records/28 - no ship/commissioning/delivery date, must stay hidden from extranet users
+    equipment_record_crab_gt:
+        id: 28
+        serialNumber: T334455
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: "30%? <word()>"
+        model: 'NBL-E'
+        type: 'Belt Loaders'
+        product: "@catalog_product_1"
+        location: 'Tours'
+        legacyId (unique): <numberBetween(1,999999)>
+        airport: '@airport_70'
+        manufacturerLocation: '@location_factory'
+        salesOrganisation: '@location_sso'
+        salesOrganisationService: '@location_sso'
+        projectNumber: 132012
+        greenTagDate: <dateTimeBetween('-60 days', '-30 days')>
+        estimatedGreenTagDate: <dateTimeBetween('-60 days', '-30 days')>
+
+    # equipment_records/29
+    equipment_record_retired:
+        id: 29
+        serialNumber: SN_retired
+        buyer: '@customer_noire'
+        endUser: '@customer_35'
+        customerSerialNumber: RETIRED
+        model: "TXL-737"
+        type: "Passenger Steps"
+        product: "@catalog_product_1"
+        location: Ahch-To
+        estimatedGreenTagDate: <dateTimeBetween('-60 days', 'now')>
+        manufacturerLocation: '@location_factory_2'
+        salesOrganisation: '@location_factory_2'
+        state: 'RETIRED'
+
+    # equipment_records/30
+    equipment_record_eztow:
+        id: 30
+        serialNumber: SN_EZTow
+        buyer: '@customer_a_boire'
+        endUser: '@customer_for_fur'
+        customerSerialNumber: EZTow#42
+        model: "EZTow"
+        type: "Autonomous"
+        product: "@catalog_product_eztow"
+        location: Ahch-To
+        legacyId (unique): <numberBetween(1,999999)>
+        airport: '@airport_70'
+        dateShipped: <dateTimeBetween('-2 years','-1 year')>
+        dateCommissioned: <( new \DateTime('-1 year'))>
+        manufacturerLocation: '@location_factory'
+        salesOrganisation: '@location_sso'
+        salesOrganisationService: '@location_sso'

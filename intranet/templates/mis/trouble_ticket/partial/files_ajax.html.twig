@@ -1,0 +1,42 @@
+{% set items = {
+    filePath: {
+        label: 'menu.files'|trans({}, 'messages')|capitalize,
+        template: 'mis/trouble_ticket/partial/cell/_file.html.twig',
+        templateParams: {troubleTicket: troubleTicket}
+    },
+    description: {
+        label: 'demo.fields.file_description' | trans({}, 'demo') | capitalize,
+    },
+    createdAt: {
+        label: 'demo.fields.created_at'| trans({}, 'demo') |capitalize,
+        filters: 'date("Y-m-d H:i:s")'
+    },
+    size: {
+        label: 'size'|trans({}, 'messages')|trans|capitalize,
+        filters : 'readable_filesize'
+    }
+} %}
+
+
+{% set items = items | merge({
+    delete: {
+        label: 'menu.delete'|trans({}, 'messages')|capitalize,
+        sortable: false,
+        class: 'text-end',
+        template: 'mis/trouble_ticket/partial/cell/_file_delete.html.twig',
+        templateParams: {troubleTicket: troubleTicket},
+    },
+}) %}
+
+
+{{ include('helper/_report_table.html.twig', {
+    reportTable: {
+        items: items,
+        title: 'demo.fields.files'|trans({}, 'demo'),
+        data: troubleTicket.files,
+        search: false,
+        pagination: false,
+        initialSorting: 'createdAt'
+    }
+}, with_context = false) }}
+

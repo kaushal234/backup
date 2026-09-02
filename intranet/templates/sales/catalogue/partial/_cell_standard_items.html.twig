@@ -1,0 +1,5 @@
+<td>
+    {% for standardItem in item.productStandardItems %}
+    {{ standardItem.standardItem }}{% if not loop.last %},{% endif %}
+    {% endfor %}
+</td>

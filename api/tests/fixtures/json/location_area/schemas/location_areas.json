@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/location_areas$"},
+    "@context": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "@id": {"pattern": "^/location_areas/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "factory": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/locations/\\d+$"},
+              "@type": { "type": "string" },
+              "name": { "type": "string" },
+              "company": { "type": "string" }
+            },
+            "required": [ "@id", "@type", "name", "company"],
+            "additionalProperties": false
+          },
+          "supervisor": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/people/\\d+$"},
+              "@type": { "type": "string" },
+              "firstname": { "type": "string" },
+              "lastname": { "type": "string" },
+              "email": { "type": "string" },
+              "username": { "type": "string" }
+            },
+            "required": [ "@id", "@type", "firstname", "lastname", "email", "username"],
+            "additionalProperties": false
+          },
+          "toolsCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "@id",
+          "@type",
+          "name",
+          "factory",
+          "supervisor",
+          "toolsCount"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 2
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

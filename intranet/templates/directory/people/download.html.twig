@@ -1,0 +1,46 @@
+{% extends 'directory/people/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.search'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'directory.people.title.download'|trans([], 'directory') }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    {% form_theme form 'form_theme_vertical.html.twig' %}
+                    {{ form_start(form) }}
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.businessUnit) }}
+                            </div>
+                            <div class="col-md-6" style="display: flex;flex-direction: column-reverse;">
+                                {{ form_row(form.hidden) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.createdAfter) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.createdBefore) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.disabledAfter) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.disabledBefore) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{ form_row(form.submit) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

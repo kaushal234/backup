@@ -1,0 +1,60 @@
+{% extends 'quality/layout.html.twig' %}
+
+{% trans_default_domain 'domain_name' %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        {% if nonConformity.parts[0].partNumber is not defined %}
+            <twig:NavItem:Add route="non_conformity_add"/>
+        {% endif %}
+        <twig:NavItem:Reports route="non_conformity_report"/>
+        <twig:NavItem translationKey="non_conformity.nav_link.costs" icon="mynaui:list" route="non_quality_cost_home"/>
+        {% if nonConformity is defined and not null %}
+            <twig:NavItem:Details route="non_conformity_show" :routeParameters="{id: nonConformity.id}"/>
+            <twig:NavItem translationKey="non_conformity.nav_link.transfer_crab" icon="solar:arrow-up-outline" route="crab_add"
+                          :routeParameters="{ nonConformity: nonConformity.id }"/>
+            <twig:NavItem translationKey="non_conformity.nav_link.transfer_eap" icon="solar:arrow-up-outline"
+                          route="legacy_manufacturing_eng"
+                          :routeParameters="{ m: ['eap', 'forms', 'newEAP'], from: { mod: 'NCR', id: nonConformity.id } }"/>
+            <twig:NavItem translationKey="non_conformity.nav_link.transfer_scar" icon="solar:arrow-up-outline"
+                          route="supplier_corrective_action_request_add"
+                          :routeParameters="{ nonConformity: nonConformity.id }"/>
+            <twig:NavItem translationKey="non_conformity.nav_link.transfer_vwc" icon="solar:arrow-up-outline"
+                          route="vendor_warranty_claim_add_from_ncr" :routeParameters="{ ncrId: nonConformity.id }"/>
+            <twig:NavItem:Delete route="non_conformity_delete" :routeParameters="{ id: nonConformity.id }"
+                                 :security="is_granted('NON_CONFORMITY_EDIT_VOTER', nonConformity['@id'])"/>
+        {% endif %}
+        {% if nonConformity is defined and nonConformity.crabs | length %}
+            <twig:NavItem translationKey="CRAB #{{ nonConformity.crabs[0].id }}" icon="bi:eye" route="crab_show" :routeParameters="{ id: nonConformity.crabs[0].id }"
+                          target="_blank">CRAB #{{ nonConformity.crabs[0].id }}</twig:NavItem>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+    {% if nonConformity is defined and not null %}
+        <twig:NavBar:Container>
+            <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Add route="non_conformity_add"/>
+            <twig:NavItem:Edit route="non_conformity_edit" :routeParameters="{id: nonConformity.id}"
+                               :security="is_granted('NON_CONFORMITY_EDIT_VOTER', nonConformity['@id'])"/>
+            <twig:NavItem translationKey="non_conformity.nav_link.edit_parts" icon="teenyicons:basket-plus-outline"
+                          route="non_conformity_admin_parts" :routeParameters="{id: nonConformity.id}"
+                          :security="is_granted('NON_CONFORMITY_EDIT_VOTER', nonConformity['@id'])"/>
+            <twig:NavItem:AddLink route="legacy_common"
+                                  :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'NCR', parent_id: nonConformity.id}"
+                                  :security="is_granted('NON_CONFORMITY_EDIT_VOTER', nonConformity['@id'])"/>
+            {% if nonConformity is defined and status_form is defined and is_granted('NON_CONFORMITY_EDIT_VOTER', nonConformity['@id']) and is_granted('FEATURE_NON_CONFORMITY_STATUS') %}
+                <twig:Dropdown translationKey="non_conformity.nav_link.change_status">
+                    {{ form_start(status_form) }}
+                    {{ form_widget(status_form.status) }}
+                    {{ form_end(status_form) }}
+                </twig:Dropdown>
+            {% endif %}
+        </twig:NavBar:Container>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,34 @@
+App\Entity\Support\EquipmentRecord\HourMeterTransaction\EquipmentRecordHourMeterTransaction:
+  hour_meter_transaction_1:
+    hourMeter: 10
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    equipmentRecord: '@equipment_record_dog'
+
+App\Entity\Support\EquipmentRecord\HourMeterTransaction\TechnicianOnCallHourMeterTransaction:
+  hour_meter_transaction_2:
+    hourMeter: 10
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    equipmentRecord: '@equipment_record_1'
+    tocLegacyId: 37025
+    technicianOnCall: '@toc_1'
+
+App\Entity\Support\EquipmentRecord\HourMeterTransaction\CustomerServiceRecordHourMeterTransaction:
+  hour_meter_transaction_3:
+    hourMeter: 30
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    equipmentRecord: '@equipment_record_dog'
+    customerServiceRecordLegacyId: 2
+    customerServiceRecord: "@csr_2"
+
+App\Entity\Support\EquipmentRecord\HourMeterTransaction\WarrantyClaimHourMeterTransaction:
+  hour_meter_transaction_4:
+    hourMeter: 40
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    equipmentRecord: '@equipment_record_dog'
+    warrantyClaimLegacyId: 14
+
+App\Entity\Support\EquipmentRecord\HourMeterTransaction\ServiceContractMaintenanceHourMeterTransaction:
+  hour_meter_transaction_5:
+    hourMeter: 50
+    createdAt: <dateTimeBetween('-2 months', 'now')>
+    equipmentRecord: '@equipment_record_dog'

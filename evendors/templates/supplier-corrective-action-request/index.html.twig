@@ -1,0 +1,44 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.supplier_corrective_action_requests'|trans }}{% endblock %}
+
+{% block main %}
+    {{ include('_components/report_table.html.twig', {
+        reportTable: {
+            items: {
+                id: {
+                    label: 'display.table.scar.headers.id'|trans,
+                    link:{
+                        route: 'supplier-corrective-action-request:show',
+                        params: {id: 'id'},
+                    },
+                },
+                supplierName: {label: 'display.table.scar.headers.supplier'|trans},
+                factoryName: {
+                    label: 'display.table.scar.headers.factory'|trans,
+                    properties: ['factory.name']
+                },
+                poster: {
+                    label: 'display.table.scar.headers.poster'|trans,
+                    template: 'supplier-corrective-action-request/components/datatable/poster.html.twig'
+                },
+                leader: {
+                    label: 'display.table.scar.headers.leader'|trans,
+                    template: 'supplier-corrective-action-request/components/datatable/leader.html.twig'
+                },
+                iFactor: {label: 'display.table.scar.headers.i_factor'|trans},
+                createdAt: {
+                    label: 'display.table.scar.headers.creation_date'|trans,
+                    filters: 'format_date'
+                },
+                statusPresentableValue: {
+                    label: 'display.table.scar.headers.status'|trans,
+                    properties: ['status.presentableValue']
+                },
+            },
+            title: 'display.table.scar.caption.title'|trans,
+            id: 'scar-table',
+            data: requests,
+        }
+    }, with_context = false) }}
+{% endblock %}

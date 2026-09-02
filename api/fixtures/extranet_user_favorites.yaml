@@ -1,0 +1,14 @@
+App\Entity\Sales\ExtranetUserFavorite:
+    extranet_user_favorite_{1..10}:
+        id: <current()>
+        extranetUser: "@extranet_user_250"
+        aeroUsername: "FX6969"
+        partNumber: "<numberBetween(1,999999)>"
+        description: "Grumpy Meow"
+
+    extranet_user_favorite_julien_lepers:
+        id: 11
+        extranetUser: "@extranet_user_fix"
+        aeroUsername: "FX6969"
+        partNumber: "<numberBetween(1,999999)>"
+        description: "Aaaah oui"

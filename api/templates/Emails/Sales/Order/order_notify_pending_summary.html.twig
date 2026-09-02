@@ -1,0 +1,34 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <row>
+        <columns>
+            <table class="table-manager">
+                <tr>
+                    <th style="width:15%"><strong>{{ 'sor.pending_summary.header.sor'|trans }}</strong></th>
+                    <th style="width:15%"><strong>{{ 'sor.pending_summary.header.sso'|trans }}</strong></th>
+                    <th style="width:15%"><strong>{{ 'sor.pending_summary.header.juridical_location'|trans }}</strong></th>
+                    <th style="width:15%"><strong>{{ 'sor.pending_summary.header.asm'|trans }}</strong></th>
+                    <th style="width:20%"><strong>{{ 'sor.pending_summary.header.buyer'|trans }}</strong></th>
+                    <th style="width:20%"><strong>{{ 'sor.pending_summary.header.end_user'|trans }}</strong></th>
+                </tr>
+                {% for order in orders %}
+                    <tr>
+                        <td><a href="{{ path('sor', {id: order.id }) }}">{{ order.id }}</a></td>
+                        <td>{{ order.sso.name|default('') }}</td>
+                        <td>{{ order.juridicalLocation.name|default('') }}</td>
+                        <td>{% if order.asm is defined %}<a href="{{ path('people', {id: order.asm.id }) }}">{{ order.asm }}</a>{% endif %}</td>
+                        <td>{% if order.buyer is defined %}<a href="{{ path('customer', {id: order.buyer.id }) }}">{{ order.buyer.name }}</a>{% endif %}</td>
+                        <td>{% if order.endUser is defined %}<a href="{{ path('customer', {id: order.endUser.id }) }}">{{ order.endUser.name }}</a>{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br/><br/>
+        </columns>
+    </row>
+{% endblock %}

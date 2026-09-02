@@ -1,0 +1,151 @@
+.sortable-selected > div, .sortable-chosen > div, .sortable-ghost > div {
+  color: #004F9E;
+  z-index: 1;
+  border: 1px solid #004F9E !important;
+  opacity: 0.5;
+}
+
+.csr-card-planner {
+  background-color: #f3f3f4;
+  .card-body {
+    height: 150px;
+  }
+}
+
+.planner-container .csr-card-planner:hover {
+  cursor: grab;
+}
+
+.planner-container {
+  min-height: 85px;
+}
+
+.scroll-container {
+  height: 625px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: auto;
+  scrollbar-color: lightgrey white;
+}
+
+.scroll-container h4,
+.scroll-container h5,
+.scroll-container p {
+  word-wrap: break-word;
+}
+
+
+canvas.drag-image {
+  position: absolute;
+  left: -100%;
+}
+
+#planner-notification {
+  position: fixed;
+  min-width: 25%;
+  max-width: 50%;
+  bottom: 50px;
+  right: 50px;
+  z-index: 999;
+}
+
+.bl-default {
+  border-left: 3px solid $gray-200 !important;
+}
+
+.bl-warning {
+  border-left: 3px solid $yellow !important;
+}
+
+.bl-danger {
+  border-left: 3px solid $red !important;
+}
+
+.bl-info {
+  border-left: 3px solid $blue !important;
+}
+
+.bl-success {
+  border-left: 3px solid $blue !important;
+}
+
+.bl-success-2 {
+  border-left: 3px solid $green !important;
+}
+
+
+.tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  z-index: 2;
+  width: auto;
+  color: white;
+  font-size: 12px;
+  background-color: var(--bs-primary);
+  border-radius: 10px;
+  padding: 10px 15px 10px 15px;
+}
+
+.tooltip-text::before {
+  content: "";
+  position: absolute;
+  transform: rotate(45deg);
+  padding: 5px;
+  z-index: 1;
+}
+
+.hover-text:hover .tooltip-text {
+  visibility: visible;
+}
+
+#top {
+  top: -40px;
+}
+
+#top.customer-service-records {
+  right: -50px;
+  left: -50px;
+  padding: 0;
+  //background-color: transparent;
+  background-color: rgb(246, 246, 246);
+  color: #0a0a0a;
+  border: .1rem solid grey;
+}
+
+#top.customer-service-records::before {
+  top: 90%;
+  left: 46.8%;
+}
+
+.hover-text {
+  position: relative;
+}
+
+.custom-outline-info,
+.custom-outline-info:hover,
+.custom-outline-info:active {
+  border-color: #004F9E !important;
+  background-color: #f8f9fa !important;
+  color: black !important;
+}
+
+.custom-outline-info-checked {
+  background-color: #004F9E !important;
+  color: white !important;
+}
+
+.custom-outline-info-unchecked {
+  background-color: white !important;
+  color: black !important;
+}
+.custom-tab-customer-service-record {
+  .nav-link {
+    @media all and (max-width: 560px) {
+      padding: .4rem;
+    }
+  }
+  .card-body {
+    background-color: #f3f3f4;
+    padding: 0;
+  }
+}

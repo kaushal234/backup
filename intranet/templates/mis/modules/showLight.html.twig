@@ -1,0 +1,100 @@
+{% extends 'mis/modules/showModule.html.twig' %}
+{% trans_default_domain 'mis' %}
+{% set id = iri_id(module) %}
+
+{% block header_content_extra %}
+    <div class="col">
+        <div class="widget bg-body">
+            <div class="row">
+                <div class="col-4">
+                    <twig:PeoplePhoto user="{{ module.mainAdmin }}" />
+                </div>
+                <div class="col-8 text-end">
+                    <h3 class="font-bold">{{'mis.modules.fields.main_admin' | trans }}</h3>
+                    {% if module.mainAdmin is not null %}
+                        <a href="{{ path('directory_people_show', {id: iri_id(module.mainAdmin)}) }}">{{ module.mainAdmin.lastname ~ ' ' ~ module.mainAdmin.firstname }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock header_content_extra %}
+
+{% block module_item %}
+    {% trans_default_domain 'mis' %}
+    {{ include('helper/_association_table.html.twig', {
+        associationData: {
+            items: {
+                name: {
+                    label: 'mis.modules.fields.name'|trans,
+                },
+                type: {
+                    label: 'mis.modules.fields.type'|trans,
+                    template: '/mis/modules/partial/cells/_type.html.twig',
+                },
+                shortDescription: {
+                    label: 'mis.modules.fields.short_desc'|trans,
+                },
+                fullDescription: {
+                    label: 'mis.modules.fields.full_desc'|trans,
+                },
+                department: {
+                    label: 'mis.modules.fields.department'|trans,
+                    properties: ['department.name'],
+                },
+                application: {
+                    label: 'mis.modules.fields.application'|trans,
+                    properties: ['application.name'],
+                },
+                localKeyUsers: {
+                    label: 'mis.modules.fields.local_key_users'|trans,
+                    template: '/mis/modules/partial/cells/_local_key_users.html.twig',
+                },
+                securityLevel: {
+                    label: 'mis.modules.fields.security_level'|trans,
+                    properties: ['securityLevel.name'],
+                },
+                sso: {
+                    label: 'mis.modules.fields.sso'|trans,
+                },
+                passwordPolicyApplied: {
+                    label: 'mis.modules.fields.password_policy_applied'|trans,
+                },
+                mfaUser: {
+                    label: 'mis.modules.fields.mfa_user'|trans,
+                },
+                mfaAdmin: {
+                    label: 'mis.modules.fields.mfa_admin'|trans,
+                },
+                securityReviewFrequency: {
+                    label: 'mis.modules.fields.security_review_frequency'|trans,
+                },
+                securityReviewDateStart: {
+                    label: 'mis.modules.fields.security_review_date_start'|trans,
+                    filters: 'date("Y-m-d")',
+                },
+                accountReviewFrequency: {
+                    label: 'mis.modules.fields.account_review_frequency'|trans,
+                },
+                accountReviewDateStart: {
+                    label: 'mis.modules.fields.account_review_date_start'|trans,
+                    filters: 'date("Y-m-d")',
+                },
+                availabilityClassification: {
+                    label: 'mis.modules.fields.availability'|trans,
+                    template: 'mis/modules/partial/cells/_criteria_risk.html.twig',
+                },
+                integrityClassification: {
+                    label: 'mis.modules.fields.integrity'|trans,
+                    template: 'mis/modules/partial/cells/_criteria_risk.html.twig',
+                },
+                confidentialityClassification: {
+                    label: 'mis.modules.fields.confidentiality'|trans,
+                    template: 'mis/modules/partial/cells/_criteria_risk.html.twig',
+                },
+            },
+            title: module.name,
+            data: module
+        },
+    }, with_context = false) }}
+{% endblock module_item %}

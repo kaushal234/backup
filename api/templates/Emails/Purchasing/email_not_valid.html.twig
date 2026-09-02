@@ -1,0 +1,8 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    <div class="row">
+        <p>{{ 'vendor.email_not_valid.text'|trans({'%contact%': contact}) |nl2br }}</p>
+    </div>
+{% endblock %}

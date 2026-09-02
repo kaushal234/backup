@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": { "type": "string" },
+    "@id": { "pattern": "^/contract/categories$" },
+    "@type": { "enum": ["hydra:Collection"] },
+    "hydra:totalItems": { "type": "integer" },
+
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": { "pattern": "^/contract/categories/\\d+$" },
+          "@type": { "enum": ["Category"] },
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "displayedName": { "type": "string" }
+        },
+        "required": ["@id", "@type", "id", "name", "displayedName"],
+        "additionalProperties": false
+      }
+    },
+    "hydra:search": {
+      "type": "object",
+      "properties": {
+        "@type": { "type": "string" },
+        "hydra:template": { "type": "string" },
+        "hydra:variableRepresentation": { "type": "string" },
+        "hydra:mapping": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@type": { "type": "string" },
+              "variable": { "type": "string" },
+              "property": { "type": "string" },
+              "required": { "type": "boolean" }
+            },
+            "required": ["@type", "variable", "property", "required"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["@type", "hydra:template", "hydra:mapping"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["@context", "@id", "@type", "hydra:totalItems", "hydra:member", "hydra:search"],
+  "additionalProperties": false
+}

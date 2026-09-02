@@ -1,0 +1,114 @@
+{% extends 'mis/project/layout.html.twig' %}
+{% trans_default_domain 'mis_project' %}
+
+{% block title %}{{ parent() }}&nbsp;#{{ project.id }}{% endblock %}
+
+{% block content %}
+    {% if commentForm is defined and commentForm is not null %}
+        {{ include('mis/project/form_comment.html.twig', {form: commentForm, title: title}) }}
+    {% endif %}
+
+    <div class="row mt-3">
+        <div class="col-lg-3">
+            <div class="widget bg-body m-0 h-100 py-2  py-2">
+                <div class="row h-100 d-fl  ex justify-center align-items-center">
+                    <div class="col-4">
+                        <i class="fa fa-suitcase fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <h3 class="m-0">{{ project.name | capitalize}}</h3>
+                        <h3>{{ project.indicesFactor }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget bg-body m-0 h-100  py-2">
+                <div class="row h-100 d-flex justify-center align-items-center">
+                    <div class="col-4">
+                        <i class="fa-solid fa-location-crosshairs fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <p class="mb-0">{{ 'mis_project.fields.region' | trans([], 'mis_project') }}: <span class="font-bold">{% if project.region is not null %}{{ project.region.name }}{% endif %}</span></p>
+                        <p class="mb-0">{{ 'mis_project.fields.module' | trans([], 'mis_project') }}: <span class="font-bold">{% if project.module is not null %}{{ project.module.name }}{% endif %}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget bg-body m-0 h-100  py-2">
+                <div class="row h-100 d-flex justify-center align-items-center">
+                    <div class="col-4">
+                        <i class="fa-solid fa-user fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <p class="mb-0">{{ 'mis_project.fields.project_manager' | trans }}: <span class="font-bold">{{ project.projectManager.firstname }} {{ project.projectManager.lastname }}</span></p>
+                        <p class="mb-0">{{ 'mis_project.fields.mis_owner' | trans }}: <span class="font-bold">{{ project.misOwner.firstname }} {{ project.misOwner.lastname }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget bg-body m-0 h-100  py-2">
+                <div class="row h-100 d-flex justify-center align-items-center">
+                    <div class="col-4">
+                        <i class="fa-solid fa-cogs fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <p class="mb-0">Status</p>
+                        <p><span class="font-bold">{{ project.status }}</span></p>
+                        {% if project.activePhase is not null %}
+                            <p><span class="font-bold">{{ ('mis_project.fields.phase_description_' ~ project.activePhase.number) | trans }}</span></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+        {{ include('helper/_tabs.html.twig', {
+            tabsData: {
+                tabs: {
+                    details: {
+                        defaultTab: true,
+                        label: 'mis_project.tab.details'|trans,
+                        template: '/mis/project/tabs/_details.html.twig',
+                        templateParams: {project: project, comments: comments}
+                    },
+                    teamMember: {
+                        label: 'mis_project.fields.mis_members'|trans,
+                        template: '/mis/project/tabs/_team_members.html.twig',
+                    },
+                    files: {
+                        label: 'mis_project.tab.files'|trans,
+                        template: '/mis/project/tabs/_files.html.twig',
+                        badge: filesBadgeCount,
+                    },
+                    links: {
+                        label: 'menu.links' | trans({}, 'messages') | capitalize,
+                        template: 'generic/_links.html.twig',
+                        templateParams: { module: 'MIS', legacy: false }
+                    },
+                    tasks: {
+                        label: 'mis_project.tab.tasks'|trans,
+                        template: '/mis/project/tabs/_tasks.html.twig',
+                        templateParams: {tasks: tasks},
+                        badge: tasks | length,
+                    },
+                    projectLogs: {
+                        label: 'menu.logs' | trans({}, 'messages') | capitalize,
+                        template: 'generic/_logs.html.twig',
+                        templateParams: {hideComments: true}
+                    }
+                },
+                data: project,
+                link: app.request.query.get('tab'),
+            },
+        }, with_context = false) }}
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ url('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

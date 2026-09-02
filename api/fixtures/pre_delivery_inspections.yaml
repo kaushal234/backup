@@ -1,0 +1,14 @@
+App\Entity\Sales\PreDeliveryInspection:
+  #/pre_delivery_inspections/1
+  pdi_1:
+    createdBy: "@user_psm"
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    plannedAt: <dateTimeBetween('+2 days', '+30 days')>
+    equipmentRecord: "@equipment_record_pdi_next_month"
+
+  #/pre_delivery_inspections/2
+  pdi_2:
+    createdBy: "@user_psm"
+    createdAt: <dateTimeBetween('-30 days','-1 days')>
+    plannedAt: <dateTimeBetween('+60 days', '+90 days')>
+    equipmentRecord: "@equipment_record_commissioned"

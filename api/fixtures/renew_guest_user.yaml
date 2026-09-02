@@ -1,0 +1,32 @@
+App\Entity\Task\RenewGuestUser:
+  # 50
+  renew_guest_user_to_be_accepted:
+    status: PENDING
+    guestUser: '@guest_user_renewed'
+    module: "@module_mis"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    startedAt: <dateTimeBetween('-6 months', '-3 months')>
+    closedAt: <dateTimeBetween('-70 days', '-60 days')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "Renewed guest user"
+    description: "Renewed guest user"
+    createdBy: "@user_hr"
+    assignee: "@user_hr"
+    location: "@location_1"
+
+  # 51
+  renew_guest_user_to_be_rejected:
+    status: PENDING
+    guestUser: '@guest_user_not_renewed'
+    module: "@module_mis"
+    referenceId: 1
+    indiceFactor: "IF 1"
+    startedAt: <dateTimeBetween('-6 months', '-3 months')>
+    closedAt: <dateTimeBetween('-70 days', '-60 days')>
+    dueDate: <dateTimeBetween('+10 days', '20 days')>
+    shortDescription: "Not renewed guest user"
+    description: "Renewed guest user"
+    createdBy: "@user_hr"
+    assignee: "@user_hr"
+    location: "@location_1"

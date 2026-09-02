@@ -1,0 +1,69 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.request_for_quotation'|trans }}{% endblock %}
+
+{% block main %}
+    {% embed '_components/association_table.html.twig' with {
+        associationData: {
+            items: {
+                id: {label: 'display.table.rfq.headers.id'|trans},
+                erp: {
+                    label: 'display.table.rfq.headers.erp'|trans,
+                    template: '_components/datatable/company.html.twig',
+                },
+                supplierNumber: {label: 'display.table.rfq.headers.supplier_number'|trans},
+                buyer: {
+                    label: 'display.table.rfq.headers.buyer'|trans,
+                    template: 'document/components/datatable/buyer.html.twig'
+                },
+                returnDate: {
+                    label: 'display.table.rfq.headers.return_date'|trans,
+                    filters: 'format_date'
+                },
+                status: {
+                    label: 'display.table.rfq.headers.status'|trans,
+                    template: 'document/components/datatable/status.html.twig'
+                },
+            },
+            title: 'display.table.rfq.caption.id'|trans({'id': request.id}),
+            data: request
+        }
+    } %}
+        {% block card_header_after %}
+            <div class="col">
+                <a href="{{ path('request-for-quotation:download', {id: request.id, erp: request.erp}) }}" class="btn btn-outline-primary float-end">{{ 'display.table.rfq.caption.download'|trans }}</a>
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+    {{ include('_components/report_table.html.twig', {
+        reportTable: {
+            items: {
+                position: {label: 'display.table.rfq_lines.headers.id'|trans},
+                partNumber: {
+                    label: 'display.table.rfq_lines.headers.part_number'|trans,
+                    template: 'request-for-quotation/components/datatable/part_number.html.twig'
+                },
+                description: {label: 'display.table.rfq_lines.headers.description'|trans},
+                date: {
+                    label: 'display.table.rfq_lines.headers.date'|trans,
+                    filters: 'format_date'
+                },
+                quantity: {label: 'display.table.rfq_lines.headers.quantity'|trans},
+                unitOfMeasure: {label: 'display.table.rfq_lines.headers.unit_of_measure'|trans},
+                requestedDeliveryDate: {
+                    label: 'display.table.rfq_lines.headers.requested_delivery_date'|trans,
+                    filters: 'format_date'
+                },
+                information: {
+                    label: 'display.table.rfq_lines.headers.information'|trans,
+                    template: 'document/components/datatable/information.html.twig'
+                },
+                revision: {label: 'display.table.rfq_lines.headers.revision'|trans},
+            },
+            title: 'display.table.rfq_lines.caption.title'|trans,
+            id: 'request-for-quotation-lines-table',
+            data: request.lines,
+        }
+    }, with_context = false) }}
+{% endblock %}

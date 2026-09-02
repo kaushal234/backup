@@ -1,0 +1,40 @@
+{% extends 'quality/non_conformity/layout.html.twig' %}
+{% trans_default_domain 'non_conformity' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            {% set items = editable == true ? {
+                location: {
+                    label:'fields.location' | trans({}, 'messages'),
+                    template: 'quality/non_quality_cost/partial/cell/_location.html.twig',
+                },
+                defaultCosts: {
+                    label:'non_conformity.non_quality_cost.default_costs' | trans({}, 'non_conformity'),
+                    template: 'quality/non_quality_cost/partial/cell/_default_costs.html.twig',
+                },
+                submit: {
+                    label: '',
+                    template: 'quality/non_quality_cost/partial/cell/_submit.html.twig',
+                }
+            } : {
+                location: {
+                    label:'fields.location' | trans({}, 'messages'),
+                    properties: ['location.name'],
+                },
+                defaultCosts: { label:'non_conformity.non_quality_cost.default_costs' | trans({}, 'non_conformity') },
+            } %}
+            {% set title = editable == true ? 'non_conformity.non_quality_cost.admin' : 'non_conformity.non_quality_cost.title' %}
+            {% set data = editable == true ? forms : nonQualityCosts %}
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: items,
+                    title: title | trans,
+                    data: data,
+                    search: false,
+                    pagination: false,
+                }
+            }, with_context = false )}}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,349 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type":"object",
+  "properties":{
+    "hydra:member":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "@id": {"pattern": "^/sales/market_intelligences/\\d+$"},
+          "@type":{
+            "type":"string"
+          },
+          "id":{
+            "type":"integer"
+          },
+          "type": {
+            "$ref": "../../market_intelligence_type/schemas/market_intelligence_type.json"
+          },
+          "createdAt":{
+            "type":"string"
+          },
+          "shortDescription":{
+            "type":"string"
+          },
+          "poster":{
+            "$ref":"../../../directory_people/schemas/directory_people_public.json"
+          },
+          "customers":{
+            "type":"array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "hydra:member": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/sales/customers/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "divisions":{
+            "type":"array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "hydra:member": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/divisions/\\d+$"},
+                      "@type": {"type": "string"},
+                      "name": {"type": "string"}
+                    },
+                    "required": ["@id", "@type", "name"],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "positionLevels":{
+            "type":"array",
+            "items":{
+              "type": "string"
+            }
+          },
+          "suppliers":{
+            "type":"array",
+            "items":{
+              "type": "string"
+            }
+          },
+          "productTypes":{
+            "type":"array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "hydra:member": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/sales/product_types/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "englishName": {
+                        "type": ["string", "null"]
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "englishName"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "competitors":{
+            "type":"array",
+            "items":{
+              "type": "object",
+              "properties": {
+                "hydra:member": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/sales/competitors/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["@id", "@type", "name"],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "marketIntelligencesLinked": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {"pattern": "^/sales/market_intelligences/\\d+$"},
+                "@type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "type": {
+                  "$ref": "../../market_intelligence_type/schemas/market_intelligence_type.json"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "shortDescription": {
+                  "type": "string"
+                },
+                "customers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "hydra:member": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "@id": {"pattern": "^/sales/customers/\\d+$"},
+                            "@type": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "@id",
+                            "@type",
+                            "name"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    }
+                  }
+                },
+                "productTypes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "hydra:member": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "@id": {"pattern": "^/sales/product_types/\\d+$"},
+                            "@type": {
+                              "type": "string"
+                            },
+                            "englishName": {
+                              "type": ["string", "null"]
+                            }
+                          },
+                          "required": [
+                            "@id",
+                            "@type",
+                            "englishName"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    }
+                  }
+
+                },
+                "competitors": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "hydra:member": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "@id": {"pattern": "^/sales/competitors/\\d+$"},
+                            "@type": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["@id", "@type", "name"],
+                          "additionalProperties": false
+                        }
+                      }
+                    }
+                  }
+                },
+                "divisions":{
+                  "type":"array",
+                  "items":{
+                    "type": "object",
+                    "properties": {
+                      "hydra:member": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "@id": {"pattern": "^/divisions/\\d+$"},
+                            "@type": {"type": "string"},
+                            "name": {"type": "string"}
+                          },
+                          "required": ["@id", "@type", "name"],
+                          "additionalProperties": false
+                        }
+                      }
+                    }
+                  }
+                },
+                "positionLevels":{
+                  "type":"array",
+                  "items":{
+                    "type": "string"
+                  }
+                },
+                "suppliers":{
+                  "type":"array",
+                  "items":{
+                    "type": "string"
+                  }
+                },
+                "poster": {
+                  "$ref": "../../../directory_people/schemas/directory_people_public.json"
+                },
+                "marketIntelligencesLinkedTo": {
+                  "type": "array"
+                },
+                "marketIntelligenceFiles": {
+                  "type": "array"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "id",
+                "type",
+                "createdAt",
+                "shortDescription",
+                "productTypes",
+                "competitors",
+                "customers",
+                "poster",
+                "marketIntelligencesLinkedTo",
+                "marketIntelligenceFiles",
+                "suppliers",
+                "positionLevels",
+                "divisions"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "marketIntelligencesLinkedTo": {
+            "type": "array"
+          },
+          "marketIntelligenceFiles": {
+            "type": "array"
+          }
+        },
+        "required":[
+          "@id",
+          "@type",
+          "id",
+          "type",
+          "poster",
+          "createdAt",
+          "shortDescription",
+          "customers",
+          "productTypes",
+          "marketIntelligencesLinked",
+          "marketIntelligencesLinkedTo",
+          "marketIntelligenceFiles",
+          "competitors",
+          "divisions",
+          "positionLevels",
+          "suppliers"
+        ],
+        "additionalProperties":false
+      },
+      "minItems":1
+    }
+  },
+  "required":[
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

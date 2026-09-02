@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/mis/user_story_notifications$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "item": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/mis/notifications/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "follower": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "roleToNotify": {
+            "type": "array",
+            "items": {
+              "ref": "../../notifications_accesses/schemas/notifications_access.json"
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "message",
+          "follower",
+          "id",
+          "roleToNotify"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

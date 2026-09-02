@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/departments/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "sso": {
+      "type": "boolean"
+    },
+    "factory": {
+      "type": "boolean"
+    },
+    "legacyId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "legacyId",
+    "name",
+    "sso",
+    "factory"
+  ],
+  "additionalProperties": false
+}

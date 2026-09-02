@@ -1,0 +1,66 @@
+{% extends 'materials/evendors_news/layout.html.twig' %}
+
+{% trans_default_domain 'news' %}
+
+{% use '/partial/_paginated_list.html.twig' %}
+
+{% block list_header %}
+<div class="paginatedList">
+    {% endblock %}
+
+    {% block list_footer %}
+</div>
+{% endblock %}
+
+{% block list_entry %}
+    <div class="ibox float-e-margins news-list-element">
+        <div class="ibox-title">
+            <small class="font-noraml">
+                {{ entry.publishedAt | format_datetime('full', 'medium') }}
+                {% if entry.createdBy %}
+                    {{ 'news.by' | trans }} <a
+                        href="{{ path('directory_people_show', {'id': iri_id(entry.createdBy)}) }}">
+                    {{ entry.createdBy.lastname ~ ' ' ~ entry.createdBy.firstname }}
+                </a>
+                {% endif %}
+            </small>
+            {% if entry.factories|length %}
+                <div class="row" style="margin-top:5px">
+                    <div class="col-md-12">
+                        {% for factory in entry.factories %}
+                            <span class="label label-info">{{ factory.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="ibox-content">
+            <p>{{ entry.content | raw}}</p>
+            <div class="pull-left">
+            {% if entry.files is not empty %}
+                {{ include('materials/evendors_news/partials/_show_files.html.twig', { entry: entry, displayChoice: "inline-flex"  }) }}
+            {% endif %}
+            </div>
+            <div class="pull-right">
+                    <a href="{{ path('evendors_news_show', {'id': iri_id(entry)}) }}" class="btn btn-primary">{{ 'news.read_more' | trans }}
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ 'evendors_news.name' | trans }}</h2>
+
+    <div class="row" >
+        <div class="col-md-12">
+            {% set entries = evendorsNews %}
+            {% set noEntriesMessage = '' %}
+            {{ block('list') }}
+        </div>
+    </div>
+
+{% endblock %}

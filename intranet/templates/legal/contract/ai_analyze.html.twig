@@ -1,0 +1,17 @@
+{% extends 'legal/contract/layout.html.twig' %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.CONTRACT_AI_ANALYZE_PROPS = {{ props|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'legal' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'contract' }) }}"></script>
+{% endblock %}

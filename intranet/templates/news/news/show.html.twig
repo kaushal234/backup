@@ -1,0 +1,63 @@
+{% extends 'news/layout.html.twig' %}
+
+{% set news_id = iri_id(news) %}
+
+{% trans_default_domain "news" %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-7 animated fadeInLeft">
+            <div class="mail-box-header">
+                <h2 class="news-title">{{ news.title }}{% if news.category %}
+                        <small> - {{ news.category.name }}</small>{% endif %}
+                    </h2>
+                <small class="font-noraml news-date">
+                    {{ news.date | format_datetime('full', 'medium') }}
+                    {% if news.people %}
+                        {{ 'news.by' | trans }} <a
+                            href="{{ path('directory_people_show', {'id': iri_id(news.people)}) }}">
+                        {{ news.people.lastname ~ ' ' ~ news.people.firstname }}
+                    </a>
+                    {% endif %}
+                </small>
+                <p>{% if news.division %}<span class="badge text-bg-primary">{{ news.division.name }}</span>{% endif %}
+                    {% if news.department %}<span class="badge text-bg-primary">{{ news.department.name }}</span>{% endif %}
+                    {% if news.premise %}<span class="badge text-bg-primary">{{ news.premise.description }}</span>{% endif %}</p>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {% if news.files is not empty %}
+                        {{ component('Swiper', {
+                            files: news.files,
+                            uploadUri: upload_uri,
+                            fileRouteBuilder: (file) =>path('news_files_show', {
+                                newsId: news_id,
+                                fileId: file.id
+                            })
+                        }) }}
+                    {% endif %}
+                    {{ news.content | raw }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 last-five-news">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'news.last_X_news'|trans({ '%newsCount%': 5 }) }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ render_hinclude(controller('AppBundle\\Controller\\News\\NewsController::lastNews')) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $languageChoices: "%languages%"
+            $uploadDir: '%upload_dir%'
+
+    ApiBundle\Form\ViolationMapper:
+        public: true
+
+    AppBundle\Filters\Type\:
+        resource: "../../src/AppBundle/Filters/Type/*"
+
+    AppBundle\Form\Type\:
+        resource: "../../src/AppBundle/Form/Type/*"
+
+    ApiBundle\Form\Type\ResourceCollectionType:
+
+    ActivityBundle\Form\Type\CommentType:

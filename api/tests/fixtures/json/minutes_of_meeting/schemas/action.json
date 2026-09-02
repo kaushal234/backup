@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/minutes_of_meeting/actions/\\d+$"},
+    "@type": {"type": "string"},
+    "@context": {"type": "string"},
+    "description": {"type": "string"},
+    "completed": {"type": "boolean"},
+    "assignee": {"pattern": "^/people/\\d+$"},
+    "createdBy": {"pattern": "^/people/\\d+$"},
+    "createdAt": {"type": "string"},
+    "initialDueDate": {"type": "string"},
+    "internal": {"type": "boolean"},
+    "task": {"type": "integer"},
+    "meeting": {"pattern": "^/minutes_of_meeting/meetings/\\d+$"},
+    "closingComment": {"type": ["string", "null"]},
+    "customer": {"pattern":  "^/sales/customers/\\d+$"}
+  },
+  "additionalProperties": false,
+  "required": [
+    "@id",
+    "@type",
+    "@context",
+    "description",
+    "completed",
+    "assignee",
+    "createdBy",
+    "createdAt",
+    "task",
+    "meeting",
+    "closingComment",
+    "customer"
+  ]
+}

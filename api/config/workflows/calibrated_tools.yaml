@@ -1,0 +1,50 @@
+framework:
+    workflows:
+        calibration_tool:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\Quality\CalibratedTools\Tool
+            places:
+                - ACTIVE
+                - CALIBRATION_DUE_SOON
+                - EXPIRED
+                - UNDER_CALIBRATION
+                - OUT_OF_SERVICE
+                - SCRAPPED
+            transitions:
+                to_calibration_due_soon:
+                    from: [ACTIVE, EXPIRED]
+                    to: CALIBRATION_DUE_SOON
+                to_expired:
+                    from: [ACTIVE, CALIBRATION_DUE_SOON]
+                    to: EXPIRED
+                to_calibration:
+                    from: [ACTIVE, CALIBRATION_DUE_SOON, EXPIRED, OUT_OF_SERVICE]
+                    to: UNDER_CALIBRATION
+                to_out_of_service:
+                    from: [ACTIVE, CALIBRATION_DUE_SOON, EXPIRED, UNDER_CALIBRATION]
+                    to: OUT_OF_SERVICE
+                to_scrapped:
+                    from: [ACTIVE, CALIBRATION_DUE_SOON, EXPIRED, UNDER_CALIBRATION, OUT_OF_SERVICE]
+                    to: SCRAPPED
+                to_active:
+                    from: [UNDER_CALIBRATION, OUT_OF_SERVICE, EXPIRED, CALIBRATION_DUE_SOON]
+                    to: ACTIVE
+
+        calibration_out_of_tolerance_form:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\Quality\CalibratedTools\OutOfToleranceForm
+            places:
+                - IN_PROGRESS
+                - CLOSED
+            transitions:
+                to_closed:
+                    from: !php/const App\Entity\Quality\CalibratedTools\OutOfToleranceForm::IN_PROGRESS
+                    to: !php/const App\Entity\Quality\CalibratedTools\OutOfToleranceForm::CLOSED

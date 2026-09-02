@@ -1,0 +1,23 @@
+- name: Make sure destination dir exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ jwt_directory }}"
+    state: directory
+    owner: deployer
+    group: php_executor
+
+- name: Ensure private key for JWT encryption is present
+  become: true
+  ansible.builtin.template:
+    src: templates/private.pem
+    dest: "{{ jwt_directory }}/private.pem"
+    owner: deployer
+    group: php_executor
+
+- name: Ensure public key for JWT encryption is present
+  become: true
+  ansible.builtin.copy:
+    src: templates/public.pem
+    dest: "{{ jwt_directory }}/public.pem"
+    owner: deployer
+    group: php_executor

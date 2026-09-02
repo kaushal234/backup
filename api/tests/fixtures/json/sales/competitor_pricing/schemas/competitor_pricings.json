@@ -1,0 +1,158 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/competitor_pricings$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/competitor_pricings/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "forecastClosure": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/forecast_closures/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "legacyId": {
+                    "type": "integer"
+                  },
+                  "salesForecast": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {"pattern": "^/sales/sales_forecasts/\\d+$"},
+                      "@type": {
+                        "type": "string"
+                      },
+                      "legacyId": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "@id",
+                      "@type",
+                      "legacyId"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "legacyId",
+                  "salesForecast"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "quotationDate": {
+            "type": "string"
+          },
+          "competitor": {
+            "type": "object",
+            "properties": {
+              "@id": {"pattern": "^/sales/competitors/\\d+$"},
+              "@type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "legacyId": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "@id",
+              "@type",
+              "name",
+              "legacyId"
+            ],
+            "additionalProperties": false
+          },
+          "quantity": {
+            "type": ["integer", "null"]
+          },
+          "price": {
+            "type": ["number", "null"]
+          },
+          "currency": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../../finance_currency/schemas/currency.json"}
+            ]
+          },
+          "competitorModel": {
+            "type": ["string", "null"]
+          },
+          "incoterm": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {"pattern": "^/sales/incoterms/\\d+$"},
+                  "@type": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "description",
+                  "code"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "markupPercentage": {
+            "type": ["integer", "null"]
+          },
+          "legacyId": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "forecastClosure",
+          "quotationDate",
+          "competitor",
+          "quantity",
+          "price",
+          "currency",
+          "competitorModel",
+          "incoterm",
+          "markupPercentage",
+          "legacyId"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "minItems": 1
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

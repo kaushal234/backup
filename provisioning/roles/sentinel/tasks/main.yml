@@ -1,0 +1,43 @@
+- name: Check that the sentinelctl exists
+  ansible.builtin.stat:
+    path: /opt/sentinelone/bin/sentinelctl
+  become: true
+  register: sentinelctl_exists
+
+- name: Create temporary folder to place the installer
+  ansible.builtin.file:
+    path: /tmp/sentinel_installer
+    state: directory
+    mode: '0755'
+  when: not sentinelctl_exists.stat.exists
+
+- name: Get SentinelAgent dev package from remote location
+  ansible.builtin.get_url:
+    url: "{{ sentinel_one.rpm_agent_installer_url }}"
+    dest: "/tmp/sentinel_installer/sentinelone_installer.deb"
+    mode: '0777'
+    headers:
+      Authorization: ApiToken {{ sentinel_one.api_token }}
+    checksum: sha1:1b3b24cee93841e261fdeca7ecf41b8a9e44d5fc
+  when: not sentinelctl_exists.stat.exists
+
+- name: Install the Linux Agent
+  ansible.builtin.command: dpkg -i /tmp/sentinel_installer/sentinelone_installer.deb
+  become: true
+  when: not sentinelctl_exists.stat.exists
+
+- name: Apply the registration token to the agent
+  ansible.builtin.command: /opt/sentinelone/bin/sentinelctl management token set {{ sentinel_one.registration_token }}
+  become: true
+  when: not sentinelctl_exists.stat.exists
+
+- name: Start the SentinelOne agent
+  ansible.builtin.command: /opt/sentinelone/bin/sentinelctl control start
+  become: true
+  changed_when: false
+
+- name: Delete the installer folder
+  ansible.builtin.file:
+    path: /tmp/sentinel_installer
+    state: absent
+  become: true

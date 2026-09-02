@@ -1,0 +1,30 @@
+{% extends '/purchasing/vendor_user/layout.html.twig' %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        {{ include('helper/_tabs.html.twig', {
+            tabsData: {
+                tabs: {
+                    detail: {
+                        defaultTab: true,
+                        label: 'contacts.menu.detail' | trans({}, 'contacts') | capitalize,
+                        template: 'purchasing/vendor_user/partial/tabs/_vendor_user_tab.html.twig',
+                        templateParams: {vendorUser: vendorUser}
+                    },
+                    vendorUserLogs: {
+                        label: 'activity.log.name'|trans({}, 'messages'),
+                        template: 'generic/_logs.html.twig',
+                    },
+                },
+                data: vendorUser,
+            },
+        }, with_context = false) }}
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'subscribers' }) }}"></script>
+
+{% endblock %}

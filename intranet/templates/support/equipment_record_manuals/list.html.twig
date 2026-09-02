@@ -1,0 +1,63 @@
+{% extends 'support/equipment_record_manuals/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <script src="/shared/javascript/hinclude/hinclude.min.js"></script>
+    <div class="row">
+        <div class="col-md-4">
+            {{ include('support/equipment_record_manuals/partial/_equipment_record_info.html.twig', {
+                equipmentRecord: equipmentRecord
+            }, with_context = false) }}
+        </div>
+        <div class="col-md-8">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        id: {
+                            label: 'support.manuals.fields.id'|trans|capitalize,
+                            link:{
+                                route: 'manuals_show',
+                                params: {'id':'@id'},
+                            }
+                        },
+                        status: {
+                            label: 'support.manuals.fields.status'|trans,
+                        },
+                        language: {
+                            label: 'support.manuals.fields.language'|trans,
+                        },
+                        description: {
+                            label: 'support.manuals.fields.description'|trans,
+                        },
+                        createdAt: {
+                            label: 'support.manuals.fields.created_at'|trans,
+                            filters: 'date("Y-m-d H:i:s")',
+                            preserveNull: true
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'manuals_show',
+                                params: {'id':'@id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        },
+                    },
+                    title: 'support.manuals.title'|trans(),
+                    data: equipmentRecord.manuals,
+                    initialSorting: false,
+                    search: false,
+                    pagination: false
+                }
+            }, with_context = false )}}
+
+            <hx:include src="/en/private/product_support/equipment/serial_hinclude.php?id={{ equipmentRecord.legacyId }}">
+                <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+            </hx:include>
+        </div>
+    </div>
+{% endblock content %}

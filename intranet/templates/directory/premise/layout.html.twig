@@ -1,0 +1,35 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ 'directory.premise.title'|trans()|upper }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add translationKey="directory.nav_link.add_premise" domain="directory"
+                          route="directory_premise_add" :security="is_granted('FEATURE_PREMISE_WRITE')"/>
+        {% if premiseTags is defined %}
+            <twig:NavItem:Add translationKey="directory.nav_link.add_premise_type" domain="directory"
+                              route="premise_tag_add"/>
+        {% endif %}
+        <twig:NavItem translationKey="directory.nav_link.dashboard" domain="directory"
+                      icon="material-symbols:home-outline-rounded" route="directory_premise_home"/>
+        <twig:NavItem translationKey="directory.nav_link.premise" domain="directory"
+                      icon="mynaui:list" route="directory_premise_list"/>
+        <twig:NavItem translationKey="directory.nav_link.people_without_premise" domain="directory"
+                      icon="material-symbols:flag-outline-rounded" route="directory_people_home"
+                      :routeParameters="{exists: {'premise' : false}, hidden: false}"/>
+        <twig:NavItem translationKey="directory.nav_link.premise_type" domain="directory"
+                      icon="material-symbols:factory-outline-rounded" route="premise_tag_home"
+                      :security="is_granted('FEATURE_PREMISE_WRITE')"/>
+        {% if premise is defined and premise.iri is defined %}
+            <twig:NavItem:Edit translationKey="directory.nav_link.edit_premise" domain="directory"
+                               route="directory_premise_edit" :routeParameters="{id: iri_id(premise)}" :security="is_granted('FEATURE_PREMISE_WRITE', premise.iri)"/>
+            <twig:NavItem:CopyEmail translationKey="directory.people.list.copy_to_clipboard" domain="directory"
+                                    icon="material-symbols:content-copy-outline"
+                                    subject="{{ premise.iri }}" type="premise"/>
+            <twig:NavItem translationKey="directory.nav_link.transfer" domain="directory"
+                          icon="solar:arrow-right-outline" route="directory_premises_transfer"
+                          :routeParameters="{id: iri_id(premise)}" :security="is_granted('FEATURE_PREMISE_WRITE', premise.iri)"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

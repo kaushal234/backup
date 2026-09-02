@@ -1,0 +1,68 @@
+{% trans_default_domain 'customer_service_record' %}
+
+{% macro survey_help_label(labelKey, helpKey) %}
+    {{- labelKey|trans -}}
+    &nbsp;<i class="fa fa-question-circle"
+           role="button"
+           tabindex="0"
+           data-toggle="tooltip"
+           data-bs-toggle="tooltip"
+           data-placement="top"
+           style="color:#fff;"
+           title="{{ helpKey|trans|replace({'\n': ' '})|trim|e('html_attr') }}"
+           aria-label="{{ helpKey|trans|replace({'\n': ' '})|trim|e('html_attr') }}"></i>
+{% endmacro %}
+
+<div class="col-md-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>{{ 'intervention.title.survey'|trans }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            {{ include('helper/_association_table_raw.html.twig', {
+                associationData: {
+                    items: {
+                        createdAt : { label: 'intervention.fields.completion_date' | trans , properties: ['0.createdAt'], filters: 'date("Y-m-d")'} ,
+                        aspect : { label: _self.survey_help_label('intervention.fields.aspect', 'intervention.tooltips.aspect') , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::ASPECT') ~ '.answer']} ,
+                        aspectComment : { label: 'intervention.fields.comments' | trans , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::ASPECT') ~ '.comment']} ,
+                        conformity : { label: _self.survey_help_label('intervention.fields.conformity', 'intervention.tooltips.conformity') , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::CONFORMITY') ~ '.answer']} ,
+                        conformityComment : { label: 'intervention.fields.comments' | trans , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::CONFORMITY') ~ '.comment']} ,
+                        operational : { label: _self.survey_help_label('intervention.fields.operational', 'intervention.tooltips.operational') , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::OPERATIONAL') ~ '.answer']} ,
+                        operationalComment : { label: 'intervention.fields.comments' | trans , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::OPERATIONAL') ~ '.comment']} ,
+                        shipping : {
+                            label: 'intervention.fields.shipping' | trans , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::SHIPPING') ~ '.answer'],
+                            template: 'service/customer_service_record/partial/_shipping_damages.html.twig',
+                        } ,
+                        shippingComment : { label: 'intervention.fields.comments' | trans , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::SHIPPING') ~ '.comment']} ,
+                        link_fms : {
+                            label: 'intervention.fields.link_fms' | trans ,
+                            properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::IS_LINK_WORKING') ~ '.answer'],
+                            boolean: {
+                                true: 'YES',
+                                false: 'NO',
+                            },
+                        },
+                        link_fms_comment : { label: 'intervention.fields.comments' | trans , properties: [constant('AppBundle\\Form\\Type\\Service\\CustomerServiceRecord\\AnswerType::IS_LINK_WORKING') ~ '.comment']},
+                    },
+                    title: 'intervention.title.survey' | trans,
+                    data: customerServiceRecord.answerSurveyCustomerServiceRecords,
+                    card: false,
+                }
+            }, with_context = false) }}
+            <div class="text-end">
+                <a href="mailto:?subject={{ 'csr.notification.commissioning_imperfect'|trans({
+                    '%csr%': customerServiceRecord.id,
+                    '%rating_result%': customerServiceRecord.ratingResult,
+                    '%serial%': customerServiceRecord.equipmentRecord.serialNumber,
+                }) }}" class="btn btn-primary">
+                    {{ 'csr.button.send'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

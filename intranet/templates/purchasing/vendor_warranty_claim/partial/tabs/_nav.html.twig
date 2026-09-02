@@ -1,0 +1,40 @@
+<twig:Tabs:NavItem
+        url="{{ path('vendor_warranty_claim_show', {id: vendorWarrantyClaim.id}) }}"
+>
+    {{ 'contacts.menu.detail'|trans({}, 'contacts') }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('vendor_warranty_claim_show_finance_shipping', {id: vendorWarrantyClaim.id}) }}"
+>
+    {{ 'vendor_warranty_claim.title.finance_shipping'|trans({}, 'vendor_warranty_claim') }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('vendor_warranty_claim_show_files', {id: vendorWarrantyClaim.id}) }}"
+>
+    {{ 'menu.files'|trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('vendor_warranty_claim_show_links', {id: vendorWarrantyClaim.id}) }}"
+>
+    {{ 'menu.links'|trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('vendor_warranty_claim_show_tasks', {id: vendorWarrantyClaim.id}) }}"
+>
+    {{ 'menu.people.tasks' | trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('vendor_warranty_claim_show_comments', {id: vendorWarrantyClaim.id}) }}"
+>
+    {{ 'display.table.purchase_order_line.headers.comments'|trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('vendor_warranty_claim_show_logs', {id: vendorWarrantyClaim.id}) }}"
+>
+    {{ 'menu.logs'|trans({}, 'messages')|capitalize }}
+</twig:Tabs:NavItem>
+<twig:Tabs:NavItem
+        url="{{ path('vendor_warranty_claim_show_subscription', {id: vendorWarrantyClaim.id}) }}"
+>
+    {{ 'subscribers'|trans({}, 'messages') }}
+</twig:Tabs:NavItem>

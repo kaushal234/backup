@@ -1,0 +1,28 @@
+{{ include('@AlvestTwigHelper/report_table_layout.html.twig', {
+    reportTable: {
+        items: {
+            createdAt: {
+                label: 'directory.people.activity.labels.date' | trans({}, 'directory'),
+                filters: 'date',
+                class: 'col-2',
+            },
+            resource: {
+                label: 'directory.people.activity.labels.resource' | trans({}, 'directory'),
+                class: 'col-2',
+            },
+            action: {
+                label: 'directory.people.activity.labels.action' | trans({}, 'directory'),
+                class: 'col-2',
+            },
+            changeSet: {
+                label: 'directory.people.activity.labels.changeSet' | trans({}, 'directory'),
+                filters: 'json_encode',
+                class: 'col-6',
+                template: '/directory/people/partial/_activities_change_set_cell.html.twig'
+            }
+        },
+        search: false,
+        title: 'directory.people.activity.reportTitle' | trans({}, 'directory'),
+        data: logs,
+    },
+}, with_context = false) }}

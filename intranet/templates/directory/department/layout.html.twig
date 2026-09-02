@@ -1,0 +1,16 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.department.title'|trans([], 'messages') }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="directory_departments_add" :security="is_granted('ACL_SUPERUSER')"/>
+        {% if department_id is defined or departement.legacyId is defined %}
+            <twig:NavItem:Edit route="directory_departments_edit" :routeParameters="{ id: department_id }"
+                               :security="is_granted('ACL_SUPERUSER')"/>
+            <twig:NavItem:Delete route="directory_departments_delete" :routeParameters="{ id: department_id }"
+                                 :security="is_granted('ACL_SUPERUSER')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% trans_default_domain "first_article_qualification" %}
+{{ include('helper/_report_table.html.twig', {
+    'reportTable': {
+        'items': {
+            'filePath': {
+                'label': 'menu.files'|trans([], 'messages')|capitalize,
+                'filters' : 'slice(62)',
+                'link':{
+                    'route': 'first_article_qualification_files_show',
+                    'params': {
+                        'id': 'id'
+                    },
+                    'fixedParams': {
+                        'faqId': firstArticleQualification.id,
+                    }
+                },
+            },
+            'description': {
+                'label': 'fields.description'|trans([], 'messages')|capitalize,
+            },
+            'size': {
+                'label': 'size'|trans([], 'messages')|capitalize,
+                'filters' : 'readable_filesize'
+            },
+            'poster': {
+                'label': 'fields.poster'|trans([], 'messages')|capitalize,
+                'properties': ['poster.lastname', 'poster.firstname'],
+                'link':{
+                    'route': 'directory_people_show',
+                    'params': {'id': 'poster.@id'}
+                },
+            },
+            'createdAt': {
+                'label': 'fields.created_at'|trans([], 'messages'),
+                'filters': 'date("Y-m-d H:i:s")'
+            },
+            'edit': {
+                'label': 'menu.edit'|trans({}, 'messages')|capitalize,
+                'sortable': false,
+                'class': 'text-end',
+                'link': {
+                    'route': 'first_article_qualification_files_edit',
+                    'params': {'id': 'id'},
+                    'fixedParams': {'faqId': firstArticleQualification.id},
+                    'content': '<span class="btn btn-warning btn-sm"><i class="fa fa-edit fa-fw"></i></span>',
+                },
+            },
+            'delete': {
+                'label': 'menu.delete'|trans({}, 'messages')|capitalize,
+                'sortable': false,
+                'class': 'text-end',
+                'link': {
+                    'route': 'delete_first_article_qualification_file',
+                    'params': {'id': 'id'},
+                    'fixedParams': {'faqId': firstArticleQualification.id, '_token': csrf_token('delete_faq_file')},
+                    'content': '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw"></i></span>',
+                    'popup': {
+                        'type': 'confirmation',
+                        'title': 'Confirmation',
+                        'message': 'Are you sure to delete ?',
+                    },
+                },
+            },
+        },
+        'title': 'first_article_qualification.titles.first_article_qualification_files'|trans,
+        'data': firstArticleQualification.files,
+        'search': false,
+        'pagination': false,
+        initialSorting: 'createdAt'
+    }
+}, with_context = false) }}
+
+

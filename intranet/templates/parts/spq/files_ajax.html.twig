@@ -1,0 +1,44 @@
+{% trans_default_domain "spq" %}
+{{ include('helper/_report_table.html.twig', {
+    'reportTable': {
+        'items': {
+            'filePath': {
+                'label': 'menu.files'|trans({}, 'messages')|capitalize,
+                'filters' : 'slice(51)',
+                'link':{
+                    'route': 'spq_quotation_files_show',
+                    'params': {
+                        'id': 'id'
+                    },
+                    'fixedParams': {
+                        'quotationId': quotation.id,
+                        'fileType': 'attached_files'
+                    }
+                },
+            },
+            'size': {
+                'label': 'size'|trans({}, 'messages')|capitalize,
+                'filters' : 'readable_filesize'
+            },
+            'poster': {
+                'label': 'spq.quotations.fields.quoter'|trans|capitalize,
+                'properties': ['poster.lastname', 'poster.firstname'],
+                'link':{
+                    'route': 'directory_people_show',
+                    'params': {'id': 'poster.@id'}
+                },
+            },
+            'createdAt': {
+                'label': 'spq.quotations.fields.created_at'|trans|capitalize,
+                'filters': 'date("Y-m-d H:i:s")'
+            },
+        },
+        'title': 'spq.quotations.fields.files.attached_files'|trans,
+        'data': quotation.attachedFiles,
+        'search': false,
+        'pagination': false,
+        'initialSorting': 'createdAt'
+    }
+}, with_context = false) }}
+
+

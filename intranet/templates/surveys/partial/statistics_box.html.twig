@@ -1,0 +1,18 @@
+<div class="ibox">
+    <div class="ibox-content">
+        <div>
+            <h4>
+                {{ title | default('Statistics')}}
+                {% if tooltip is defined and tooltip is not empty %}
+                    <i class="fa fa-question-circle float-end" data-toggle="tooltip" data-placement='top' title="{{ tooltip }}"></i>
+                {% endif %}
+            </h4>
+            <span class="font-bold">{{ value }}</span>
+            <p class="float-end small">{{ procent | round(2, 'ceil') | default(0) ~ '%'  }}</p>
+        </div>
+
+        <div class="progress progress-mini">
+            <div style="width: {{ procent }}%" class="progress-bar progress-bar-{{ color | default('success') }}"></div>
+        </div>
+    </div>
+</div>

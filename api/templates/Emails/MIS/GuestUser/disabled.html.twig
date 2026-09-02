@@ -1,0 +1,15 @@
+{% embed 'Emails/alvest/layout.html.twig' %}
+
+    {% trans_default_domain "emails" %}
+
+    {% block body %}
+        {{ parent() }}
+        <row>
+            <columns>
+                <p class="text-introduction">{{ 'guest_user.disabled.message.hello' | trans({'%firstName%': firstName, '%lastName%': lastName}) }}</p>
+                <p>{{ 'guest_user.disabled.message.body' | trans({'%guestName%': guestName}) }}</p>
+                <p>{{ 'guest_user.disabled.message.regards' | trans }}</p>
+            </columns>
+        </row>
+    {% endblock %}
+{% endembed %}

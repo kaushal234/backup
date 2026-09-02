@@ -1,0 +1,243 @@
+{#
+  base.html.twig — application shell (header mega-menu nav + footer)
+
+  Defines the blocks reused by every child template (title, stylesheets,
+  javascripts, importmap, header, body, main, footer), the top_message + flash
+  includes, the user/customer dropdown and the locale switcher.
+
+  Header: brand + horizontal nav with two mega menus (Services, Parts) built on
+  Bootstrap 5 dropdowns. Themed dark footer with locale switcher. Fonts (Barlow
+  Condensed / Inter / JetBrains Mono) are declared below.
+
+  Static page routes referenced by the nav:
+    page:service_bulletins, page:warranty_conditions, page:telemetry,
+    page:technical_services, page:trainings, page:parts_returns,
+    page:parts_terms, page:rspl, page:major_repairs, page:coming_soon
+  Existing routes reused: index, equipment:index, catalogue:index, contact:index.
+#}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|split('_')|first|default('en') }}" data-density="comfortable" data-card-style="bordered">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Extranet{% endblock %}</title>
+        <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+        {% block stylesheets %}{% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body class="{% if app.request.cookies.has('ALVEST_STAGING') %}has-env-banner{% endif %}">
+        {{ include('top_message.html.twig') }}
+        <div class="d-flex align-items-end flex-column min-vh-100">
+            {% block header %}
+                <header class="site-header w-100">
+                    {# top utility bar #}
+                    <div class="topbar w-100">
+                        <div class="container-fluid px-4 d-flex justify-content-between align-items-center py-2">
+                            <span class="text-uppercase" style="letter-spacing:.16em;font-size:.72rem">
+                                <span style="color:#fff">{{ 'extranet.title.customer_portal'|trans }}</span>
+                            </span>
+                            <div class="d-flex align-items-center gap-3">
+                                <a href="{{ path('contact:index') }}">{{ 'extranet.title.contact_us'|trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# main nav #}
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between" style="min-height:76px">
+                            <a href="{{ path('index') }}" class="brand-mark d-flex align-items-center">
+                                <img src="{{ asset('images/logo.svg') }}" alt="ALVEST / TLD" height="36">
+                            </a>
+
+                            <nav class="d-none d-lg-flex align-items-center" style="gap:.2rem">
+                                <a class="nav-link {{ app.request.attributes.get('_route') == 'index' ? 'active' }}" href="{{ path('index') }}">{{ 'header.menu.home'|trans }}</a>
+                                <a class="nav-link {{ app.request.attributes.get('_route') starts with 'equipment' ? 'active' }}" href="{{ path('equipment:index') }}">{{ 'extranet.fields.equipments'|trans }}</a>
+
+                                {# ---- SERVICES mega menu ---- #}
+                                <div class="dropdown has-mega">
+                                    <a class="nav-link dropdown-toggle d-inline-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                        {{ 'extranet.menu.services'|trans }}
+                                    </a>
+                                    <div class="dropdown-menu mega-menu">
+                                        <div class="mega-col">
+                                            <h6>{{ 'extranet.menu.service_support'|trans }}</h6>
+                                            <ul>
+                                                <li><a href="{{ path('technician_on_call:index') }}">{{ 'extranet.menu.service_support_toc'|trans }}</a></li>
+                                                <li><a href="{{ path('page:service_bulletins') }}">{{ 'extranet.menu.service_bulletins'|trans }}</a></li>
+                                                <li><a href="{{ path('warranty_claim:index') }}">{{ 'extranet.menu.warranties'|trans }}</a></li>
+                                                <li><a href="{{ path('page:warranty_conditions') }}">{{ 'extranet.menu.warranty_conditions'|trans }}</a></li>
+                                                <li><a href="{{ path('page:telemetry') }}">{{ 'extranet.menu.telemetry'|trans }}</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-col">
+                                            <h6>{{ 'extranet.menu.technical_services'|trans }}</h6>
+                                            <ul>
+                                                <li><a href="{{ path('page:technical_services') }}">{{ 'extranet.menu.maintenance_service'|trans }}</a></li>
+                                                <li><a href="{{ path('page:technical_services') }}">{{ 'extranet.menu.install_feature'|trans }}</a></li>
+                                                <li><a href="{{ path('page:technical_services') }}">{{ 'extranet.page.tech_services.repair'|trans }}</a></li>
+                                                <li><a href="{{ path('page:technical_services') }}">{{ 'extranet.menu.overhaul'|trans }}</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-col">
+                                            <h6>{{ 'extranet.menu.technical_trainings'|trans }}</h6>
+                                            <ul>
+                                                <li><a href="{{ path('page:trainings') }}">{{ 'extranet.menu.operator_trainings'|trans }}</a></li>
+                                                <li><a href="{{ path('page:trainings') }}">{{ 'extranet.menu.maintenance_trainings'|trans }}</a></li>
+                                                <li><a href="{{ path('page:trainings') }}">{{ 'extranet.menu.expert_trainings'|trans }}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# ---- PARTS mega menu ---- #}
+                                <div class="dropdown has-mega">
+                                    <a class="nav-link dropdown-toggle d-inline-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                        {{ 'extranet.menu.parts'|trans }}
+                                    </a>
+                                    <div class="dropdown-menu mega-menu mega-parts">
+                                        <div class="mega-col">
+                                            <h6>{{ 'extranet.menu.parts_support'|trans }}</h6>
+                                            <ul>
+                                                <li><a href="https://www.tldparts.com/" target="_blank" rel="noopener">{{ 'extranet.menu.parts_availability'|trans }}</a></li>
+                                                <li><a href="https://www.tldparts.com/" target="_blank" rel="noopener">{{ 'extranet.menu.parts_orders'|trans }}</a></li>
+                                                <li><a href="{{ path('page:parts_returns') }}">{{ 'extranet.menu.parts_returns'|trans }}</a></li>
+                                                <li><a href="{{ path('page:parts_terms') }}">{{ 'extranet.menu.parts_terms'|trans }}</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-col">
+                                            <h6>{{ 'extranet.menu.parts_services'|trans }}</h6>
+                                            <ul>
+                                                <li><a href="{{ path('page:rspl') }}">{{ 'extranet.menu.rspl'|trans }}</a></li>
+                                                <li><a href="{{ path('page:accessories') }}">{{ 'extranet.menu.accessories'|trans }}</a></li>
+                                                <li><a href="{{ path('page:major_repairs') }}">{{ 'extranet.menu.major_repairs'|trans }}</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-col">
+                                            <h6>{{ 'extranet.menu.parts_academy'|trans }}</h6>
+                                            <ul>
+                                                <li><a href="{{ path('page:coming_soon') }}">{{ 'extranet.menu.extranet_navigation'|trans }}</a></li>
+                                                <li><a href="{{ path('page:coming_soon') }}">{{ 'extranet.menu.eparts'|trans }}</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <a class="nav-link {{ app.request.attributes.get('_route') starts with 'catalogue' ? 'active' }}" href="{{ path('catalogue:index') }}">{{ 'extranet.menu.catalogue'|trans }}</a>
+                                <a class="nav-link {{ app.request.attributes.get('_route') == 'contact:index' ? 'active' }}" href="{{ path('contact:index') }}">{{ 'extranet.title.contact_us'|trans }}</a>
+                            </nav>
+                            {% if app.user %}
+                            <div class="dropdown">
+                                <button class="user-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="avatar">{{ app.user.fullname|slice(0,1)|upper }}</span>
+                                    <span class="meta">
+                                        <span class="name">{{ app.user.fullname }}</span>
+                                        <span class="org">{{ app.session.get('customer').name }}</span>
+                                    </span>
+                                    <svg class="chev" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    {% if app.user.getCustomers()|length > 1 %}
+                                        <li class="px-3 pt-2 pb-1" data-controller="customer-switcher">
+                                            <p class="mb-2 small text-muted">{{ 'extranet.title.switch_customer'|trans }}:</p>
+                                            <input type="search" autocomplete="off"
+                                                   class="form-control form-control-sm mb-2"
+                                                   placeholder="{{ 'extranet.placeholder.search_company'|trans }}"
+                                                   aria-label="{{ 'extranet.placeholder.search_company'|trans }}"
+                                                   data-customer-switcher-target="search"
+                                                   data-action="input->customer-switcher#filter click->customer-switcher#stop">
+                                            <ul class="list-unstyled mb-0 overflow-auto" style="max-height: 16rem;" data-customer-switcher-target="list">
+                                                {% set sorted = app.user.getCustomers()|sort((a, b) => (a.name|lower) <=> (b.name|lower)) %}
+                                                {% set current_letter = null %}
+                                                {% for customer in sorted %}
+                                                    {% set letter = customer.name|first|upper %}
+                                                    {% if letter is not same as(current_letter) %}
+                                                        {% set current_letter = letter %}
+                                                        <li class="small fw-bold text-muted text-uppercase sticky-top bg-white px-1 pt-1" data-customer-switcher-target="group">{{ letter }}</li>
+                                                    {% endif %}
+                                                    <li data-customer-switcher-target="item" data-cs-name="{{ customer.name|lower }}" data-cs-group="{{ current_letter }}">
+                                                        <a href="{{ path('switch_customer', {id: iri_id(customer.iri)}) }}"
+                                                           class="dropdown-item rounded text-wrap d-flex align-items-center justify-content-between {% if customer.name is same as(app.session.get('customer').name) %}active fw-bold{% endif %}">
+                                                            <span class="cs-label">{{ customer.name|lower|title }}</span>
+                                                            {% if customer.name is same as(app.session.get('customer').name) %}
+                                                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                                            {% endif %}
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                                <li class="small text-muted px-1 py-2 d-none" data-customer-switcher-target="empty">{{ 'extranet.message.no_company_found'|trans }}</li>
+                                            </ul>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                    {% endif %}
+                                    <li><a class="dropdown-item" href="{{ path('account:index') }}">{{ 'extranet.title.my_account'|trans }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('security:logout') }}">{{ 'header.menu.user.logout'|trans }}</a></li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </header>
+            {% endblock %}
+
+            {% include '_components/flash_messages.html.twig' %}
+
+            {% block body %}
+                <div class="w-100">
+                    <div class="container-fluid px-4 py-4">
+                        <div id="main">
+                            {% block main %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% block footer %}
+                <footer class="site-footer w-100 mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="row g-4">
+                            <div class="col-lg-4">
+                                <div class="footer-brand">{{ 'extranet.title.customer_portal'|trans }}</div>
+                                <div class="footer-tag">{{ 'extranet.footer.alvest_company'|trans }}</div>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <h6>{{ 'extranet.footer.portal'|trans }}</h6>
+                                <a href="{{ path('index') }}">{{ 'header.menu.home'|trans }}</a>
+                                <a href="{{ path('equipment:index') }}">{{ 'extranet.fields.equipments'|trans }}</a>
+                                <a href="{{ path('catalogue:index') }}">{{ 'extranet.menu.catalogue'|trans }}</a>
+                                <a href="{{ path('contact:index') }}">{{ 'extranet.title.contact_us'|trans }}</a>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <h6>{{ 'extranet.menu.services'|trans }}</h6>
+                                <a href="{{ path('page:technical_services') }}">{{ 'extranet.menu.technical_services'|trans }}</a>
+                                <a href="{{ path('page:trainings') }}">{{ 'extranet.menu.technical_trainings'|trans }}</a>
+                                <a href="{{ path('page:warranty_conditions') }}">{{ 'extranet.menu.warranty_conditions'|trans }}</a>
+                                <a href="{{ path('page:telemetry') }}">{{ 'extranet.menu.telemetry'|trans }}</a>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <h6>{{ 'extranet.title.my_account'|trans }}</h6>
+                                <a href="{{ path('account:index') }}">{{ 'extranet.title.my_account'|trans }}</a>
+                                <a href="{{ path('security:logout') }}">{{ 'header.menu.user.logout'|trans }}</a>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <h6>{{ 'locale.switcher.label'|trans }}</h6>
+                                {% set current_locale = get_current_locale() %}
+                                <select id="locale-switcher" class="locale-select" data-controller="locale-switcher" data-locale-switcher-current-value="{{ current_locale }}" data-locale-switcher-action-value="{{ path('locale:switch') }}" data-action="change->locale-switcher#switch" aria-label="{{ 'locale.switcher.label'|trans }}">
+                                    {% for locale in get_available_locales() %}
+                                        <option value="{{ locale.value }}" {% if current_locale is same as locale.value %}selected="selected"{% endif %}>{{ ('locale.' ~ locale.value)|trans }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="legal">
+                            <div>&copy; {{ 'now'|date('Y') }} ALVEST · TLD SAS. {{ 'extranet.footer.rights'|trans }}</div>
+                        </div>
+                    </div>
+                </footer>
+            {% endblock %}
+        </div>
+    </body>
+</html>

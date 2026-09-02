@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+{% trans_default_domain 'mis_project' %}
+{% block title %}{{ 'mis_project.title' | trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="mis_project_add" :security="is_granted('FEATURE_MIS_PROJECT_WRITE')"/>
+        <twig:NavItem translationKey="mis_project.nav_link.gantt" domain="mis_project" icon="mdi-light:chart-line"
+                      route="project_chart_home"/>
+        {% if project is defined and project is not null %}
+            <twig:NavItem translationKey="mis_project.nav_link.comment" domain="mis_project"
+                          icon="material-symbols:comment-outline-rounded" route="mis_project_comment"
+                          :routeParameters="{id: project.id}"
+                          :security="is_granted('PROJECT_COMMENT_VOTER', project['@id'])"/>
+            <twig:NavItem:Edit route="mis_project_edit" :routeParameters="{id: project.id}"
+                               :security="is_granted('PROJECT_EDIT_VOTER', project['@id'])"/>
+            <twig:NavItem translationKey="mis_project.nav_link.close" domain="mis_project"
+                          icon="material-symbols:close-rounded" route="mis_project_close"
+                          :routeParameters="{id: project.id}"
+                          :security="project.status is same as ('PHASE 4') and is_granted('PROJECT_CLOSE_VOTER', project['@id'])"/>
+            <twig:NavItem translationKey="mis_project.nav_link.update_status" domain="mis_project"
+                          icon="material-symbols-light:update-rounded" route="mis_project_update_status"
+                          :routeParameters="{id: project.id}"
+                          :security="is_granted('PROJECT_EDIT_VOTER', project['@id']) and project.status is not same as ('CLOSED')"/>
+            <twig:NavItem:AddLink route="legacy_common" :routeParameters="{ m: ['links', 'form', 'newLink'], module: 'MIS', parent_id: project.id}"/>
+            <twig:NavItem:NewTask translationKey="mis_project.nav_link.add_task" domain="mis_project" route="task_add" :routeParameters="{module: 'MIS', referenceId: project.id, confidential: project.confidential}" :security="project.status not in ['CLOSED', 'CANCELLED']"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

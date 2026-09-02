@@ -1,0 +1,123 @@
+vendor_warranty_claim:
+  nav_link:
+    change_status: Change status
+    edit_parts: Edit parts
+    email_vendor: Email vendor
+    internal_note: Internal note
+    matrix: Matrix
+    vwc_thresholds: VWC thresholds
+  title:
+    vwc: VWC
+    last_ones: Latest VWCs
+    shipping: Shipping
+    finance: Finance
+    finance_shipping: Finance/Shipping
+    partial_edit: Edit Finance and Shipping information
+    edit: Edit VWC#%id%
+    add: Add VWC from %origin%#%id%
+    add_from_ncr: Add from NCR
+    add_from_wc: Add from WC
+    comment: Comment VWC#%id%
+    filtered: VWC filtered
+    email_vendor: Email Vendor
+    internal_note: Internal Note
+    add_task: Add Task
+    rejected: filter rejected (for recovery cost report)
+    by_department: By Department
+    by_assignee: By Assignee
+    scar_help: Only SCAR's that shares parts with VWC are displayed
+    business_partner_contacts_list: Quality contacts list
+    claim_amount: Total Claim amount
+    vwc_review: VWC Review
+  report:
+    by_status_by_location: VWC Count by Status, Location
+    by_status_by_assignee: VWC Count by Status, Assignee
+    by_status_by_department: VWC Count by Status, Department
+    top_part_failure: Top part failure (last 2 years)
+    number_part: Number of VWC
+    part_failure_history: Part failure history
+    vendor_to_respond: VWC in VENDOR_TO_RESPOND status
+    recovery_cost: Supplier recovery cost
+    supplier_history: VWC Supplier history (36 months)
+    buyer_history: Buyer history
+    average_resolved_time: Average resolved time for buyer
+    resolved_rate: Resolved rate % for buyer
+    results: Number of results
+  message:
+    items_per_page: Only the first 500 VWC are displayed in the list below
+    supplier: Please choose a supplier below or enter one manually on the Supplier Number field
+    report_buyer_location: Please choose a location first.
+    error:
+      generic: Something went wrong while fetching the data. Please try again.
+  fields:
+    accepted: Accepted ?
+    actual_credit_amount: Actual credit amount
+    assignee: Assignee
+    closed_at: Closed at
+    corrective_action: Corrective action(s)
+    cost_breakdown: Cost Breakdown
+    cost_paid_by_supplier: Cost paid by supplier
+    created_at: Created at
+    currency: Currency
+    general_status: 'General - Status:'
+    id: ID
+    issue_origin: Root cause(s)
+    module: Module
+    non_conformity: NCR#
+    part_number: Part number
+    requested_credit_amount: Requested credit amount
+    requested_supplier_action: Requested supplier action
+    resolution: Resolution - shared with vendor
+    scar: SCAR#
+    scar_requested: SCAR requested ?
+    serial_number: Serial number
+    ship_back_defective_part: Defective part to ship back ?
+    shipping_instructions: Shipping instructions
+    status: Status
+    status_updated_at: status Updated At
+    supplier_contacts: Supplier Contacts
+    supplier_credit_amount: Supplier credit amount
+    supplier_credit_note: Supplier credit note
+    supplier_erp: Supplier ERP
+    supplier_name: Supplier name
+    supplier_number: Supplier number
+    supplier_rma: Supplier RMA
+    supplier_shipper_name: Supplier shipper name
+    supplier_stock_verified: Supplier stock verified?
+    tld_stock_verified: TLD Stock verified?
+    warranty_claim: WC#
+    wc_files: WC Files
+    buyer: Buyer
+    factory: Factory
+    vwc_count: VWC Count
+  errors:
+    not_exist: 'VWC #%id% does not exist'
+    delete: Something went wrong and the VWC could not be deleted.
+    part_delete: Something went wrong and the part could not be deleted.
+    get_status: Status %status% does not exist
+    part_not_fount: Part(s) %part% not found.
+  success:
+    delete: VWC has been removed successfully?
+    remove_part: Part has been removed successfully.
+    edition: VWC has been successfully updated.
+    creation: VWC has been successfully created.
+    comment: Comment has been successfully sent.
+    status: Status of VWC has been successfully updated.
+  part:
+    fields:
+      vendor_serial_number: Vendor SN
+      vendor_part_number: Vendor PN
+      received_quantity: Received Quantity
+      standard_cost: Standard Cost
+      failure_type: Failure type
+      failure_system: Failure system
+      ship: Ship ?
+  threshold:
+    title: VWC Thresholds
+    label: Threshold
+    location_no_currency_message: Please set a currency for this location.
+    success: Thresholds have been successfully updated
+    forbidden_error: This action is restricted to QAMs of the associated location.
+  drawing: Drawing
+  button:
+    matrix: Matrix

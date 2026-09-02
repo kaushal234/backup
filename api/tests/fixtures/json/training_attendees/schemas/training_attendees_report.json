@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["@context", "@id", "@type", "hydra:totalItems", "hydra:member", "hydra:search"],
+  "properties": {
+    "@id": {"type": "string", "pattern": "^/training_attendees$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["@id", "@type", "id", "guest", "invited", "answer", "training"],
+        "properties": {
+          "@id":  {"type": "string", "pattern": "^/training_attendees/\\d+$"},
+          "@type":  {"type": "string", "pattern": "^TrainingAttendee$"},
+          "id":  {"type": "integer"},
+          "guest":  {"$ref": "people_reports.json" },
+          "invited":  {"type": "boolean"},
+          "answer":  {"type":  ["null", "boolean"]},
+          "training":  {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "@id",
+              "@type",
+              "trainer",
+              "meetingPlace",
+              "startingAt",
+              "endingAt",
+              "status",
+              "designation",
+              "level",
+              "open",
+              "mandatory",
+              "language",
+              "category",
+              "type",
+              "timezone"
+            ],
+            "properties": {
+              "@id": {"type": "string", "pattern": "^/trainings/\\d+$"},
+              "@type": {"type": "string", "pattern": "^Training$"},
+              "trainer": {
+                "oneOf": [
+                  {"type": "null"},
+                  {"$ref": "people_reports.json" }
+                ]
+              },
+              "meetingPlace": {"type": "string"},
+              "startingAt": {"type": "string", "format": "date-time"},
+              "endingAt": {"type": "string", "format": "date-time"},
+              "status": {"type": "string", "pattern": "^(PLANNED)|(SOLVED)|(CANCELLED)$"
+              },
+              "timezone": {"type": "string"},
+              "designation": {"type": "string"},
+              "level": {"type": ["string", "null"]
+              },
+              "open": {"type": "boolean"},
+              "mandatory": {"type": "boolean"},
+              "language": {"type": "string", "pattern": "\\w{2}$"
+              },
+              "category": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ],
+                "properties": {
+                  "@id": {"type": "string", "pattern": "^/training_categories/\\d+$"},
+                  "@type": {"type": "string", "pattern": "^TrainingCategory$"},
+                  "name": {"type": "string"}
+                }
+              },
+              "type": {
+                "oneOf": [
+                  {"type": "null"},
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "@id",
+                      "@type",
+                      "name"
+                    ],
+                    "properties": {
+                      "@id": {"type": "string", "pattern": "^/training_types/\\d+$"},
+                      "@type": {"type": "string", "pattern": "^TrainingType$"},
+                      "name": {"type": "string"}
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{{ monorepo_path }}/shared/intranet/var/log/prod-*.log {
+    rotate 5
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/intranet/var/log -name "prod-*" -mtime +5 -delete
+    endscript
+}
+
+{{ monorepo_path }}/shared/intranet/var/log/prod.deprecations-*.log {
+    rotate 5
+    daily
+    notifempty
+    missingok
+    compress
+    delaycompress
+    postrotate
+            find {{ monorepo_path }}/shared/intranet/var/log -name "prod.deprecations-*" -mtime +5 -delete
+    endscript
+}

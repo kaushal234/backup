@@ -1,0 +1,16 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'task.sequence.name' | trans }} <a href="{{ url('calendar', { 'm': ['tasks', 'task', 'view'], 'id': sequenceId }) }}">#{{ sequenceId }}</a> {{ 'task.sequence.attention' | trans }}</p>
+            <p>{{ 'task.description' | trans }}:</p>
+            {{ sequenceDescription | raw | nl2br }}
+        </columns>
+    </row>
+{% endblock %}

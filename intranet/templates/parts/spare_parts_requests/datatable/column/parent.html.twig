@@ -1,0 +1,5 @@
+{% if spr_type == 'TocSparePartsRequest' and toc_id %}
+    <a target="_blank" href="{{ href }}">TOC#{{ toc_id }}</a>
+{% elseif spr_type == 'SbSparePartsRequest' and sb_id %}
+    <a target="_blank" href="{{ href }}">SB#{{ sb_id }}</a>
+{% endif %}

@@ -1,0 +1,10 @@
+{% trans_default_domain 'sales_customers' %}
+<td>
+    {% if item.mainSalesRepresentative is not null %}
+        <p>
+            <a href="{{ path('directory_people_show', {id: iri_id(item.mainSalesRepresentative.asm)}) }}">{{ item.mainSalesRepresentative.asm.lastname }} {{ item.mainSalesRepresentative.asm.firstname }}</a>
+            /
+            <a href="{{ path('directory_sub_divisions_show', {id: iri_id(item.mainSalesRepresentative.subDivision)}) }}">{{ item.mainSalesRepresentative.subDivision.name }}</a>
+        </p>
+    {% endif %}
+</td>

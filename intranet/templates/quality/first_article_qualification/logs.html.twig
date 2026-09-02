@@ -1,0 +1,24 @@
+{% extends 'quality/first_article_qualification/layout.html.twig' %}
+{% trans_default_domain 'first_article_qualification' %}
+
+{% block content %}
+    <div class="col-md-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>{{ 'menu.logs'|trans({}, 'messages') }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="logs-block" data-resource="{{ firstArticleQualification.iri }}"></div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

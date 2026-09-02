@@ -1,0 +1,26 @@
+{% if item[week] is defined %}
+    {% set alternate_color = false %}
+    {% for technician in item[week] %}
+        <div class="p-2 row" style="background-color: {{ alternate_color ? 'rgba(0,0,0,.05)' : '' }}">
+            <div class="col-md-2">
+                <h3>{{ technician.technicianName }} ({{ technician.customerServiceRecord|length }})</h3>
+                {% if technician.airport is defined and technician.airport is not empty %}
+                    <h4><i class="fa fa-plane fa-1x" style="vertical-align: middle"></i>
+                        {% set airports = technician.airport|join(', ') %}
+                            <span class="col" style="vertical-align: middle">{{ airports }}</span>
+                    </h4>
+                {% endif %}
+            </div>
+            <div class="col-md-10">
+                <div class="row g-2">
+                    {% for csr in  technician.customerServiceRecord %}
+                        <div class="col-md-2">
+                            {% include 'service/customer_service_record/partial_planner/_csr_light_card.html.twig' with {'customerServiceRecord': csr} %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% set alternate_color = not alternate_color %}
+    {% endfor %}
+{% endif %}

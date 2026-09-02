@@ -1,0 +1,60 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/shipping_quotation_requests$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/shipping_quotation_requests/\\d+$"},
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "counter": { "type": "integer" },
+          "sso": { "$ref": "../../../directory_location/schemas/directory_location_public.json" },
+          "createdBy": {"$ref": "../../../directory_people/schemas/directory_people_list.json"},
+          "incoterms": { "type": "string" },
+          "incoLocation": { "type": "string" },
+          "type": { "type": "string" },
+          "answerDeadline": { "type": "string" },
+          "note": { "type": ["string", "null"] },
+          "status": { "type": "string" },
+          "shippingQuotationRequestLines": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "../../../shared/schemas/file.json"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "sso",
+          "createdBy",
+          "incoterms",
+          "incoLocation",
+          "type",
+          "answerDeadline",
+          "note",
+          "status",
+          "shippingQuotationRequestLines",
+          "counter",
+          "files"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

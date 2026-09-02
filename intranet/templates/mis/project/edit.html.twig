@@ -1,0 +1,14 @@
+{% extends 'mis/project/layout.html.twig' %}
+
+{% block title %}{{ parent() }} / {{ 'mis_project.edit_form_title'|trans([], 'mis_project') }}{% endblock %}
+
+{% block content %}
+    {% embed 'helper/_ibox.html.twig' %}
+        {% block card_header_title %}
+            <h5>{{ 'mis_project.edit_form_title'|trans([], 'mis_project') }}</h5>
+        {% endblock card_header_title %}
+        {% block card_content %}
+            {{ include('mis/project/partial/_form.html.twig', {form: form}) }}
+        {% endblock card_content %}
+    {% endembed %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'Emails/Quality/FirstArticleQualification/layout.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block customized %}
+    <p>
+        <b>{{ 'first_article_qualification.titles.plan_completed'| trans({ '%faqId%': firstArticleQualification_normalized.id }) }}</b>
+    </p>
+{% endblock %}

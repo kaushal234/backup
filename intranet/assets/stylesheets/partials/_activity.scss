@@ -1,0 +1,31 @@
+@import "../partials/mixins";
+
+.activity-list {
+  position: relative;
+  .activity-list-popup {
+    z-index: 999;
+    padding: 15px;
+    width: 50vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    @include shadow($z-depth: 2);
+    .activity-list-popup-inner {
+      position: relative;
+      .activity-list-popup-close {
+        position: absolute;
+        display: block;
+        top: -28px;
+        right: -28px;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        font-size: 24px;
+        background-color: white;
+        border-radius: 100%;
+        @include shadow($z-depth: 2);
+      }
+    }
+  }
+}

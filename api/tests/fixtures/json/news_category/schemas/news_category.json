@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/news_categories/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "legacyId",
+    "id",
+    "name"
+  ],
+  "additionalProperties": false
+}

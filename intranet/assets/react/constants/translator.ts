@@ -1,0 +1,38 @@
+export const TRANSLATOR = {
+  LANGUAGES: [
+    { value: "AR", label: "Arabic" },
+    { value: "BG", label: "Bulgarian" },
+    { value: "CS", label: "Czech" },
+    { value: "DA", label: "Danish" },
+    { value: "DE", label: "German" },
+    { value: "EL", label: "Greek" },
+    { value: "EN", label: "English" },
+    { value: "ES", label: "Spanish" },
+    { value: "ET", label: "Estonian" },
+    { value: "FI", label: "Finnish" },
+    { value: "FR", label: "French" },
+    { value: "HU", label: "Hungarian" },
+    { value: "ID", label: "Indonesian" },
+    { value: "IT", label: "Italian" },
+    { value: "JA", label: "Japanese" },
+    { value: "KO", label: "Korean" },
+    { value: "LT", label: "Lithuanian" },
+    { value: "LV", label: "Latvian" },
+    { value: "NB", label: "Norwegian (Bokmål)" },
+    { value: "NL", label: "Dutch" },
+    { value: "PL", label: "Polish" },
+    { value: "PT", label: "Portuguese" },
+    { value: "RO", label: "Romanian" },
+    { value: "RU", label: "Russian" },
+    { value: "SK", label: "Slovak" },
+    { value: "SL", label: "Slovenian" },
+    { value: "SV", label: "Swedish" },
+    { value: "TR", label: "Turkish" },
+    { value: "UK", label: "Ukrainian" },
+    { value: "ZH", label: "Chinese" },
+  ] as const,
+  DEFAULT_LANGUAGE: "EN" as const,
+};
+
+export type Language = (typeof TRANSLATOR.LANGUAGES)[number];
+export type LanguageCode = Language["value"];

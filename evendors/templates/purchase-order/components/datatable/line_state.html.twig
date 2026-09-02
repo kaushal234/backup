@@ -1,0 +1,15 @@
+<td>
+    <div class="badge {% if item.isToCancel %} bg-danger {% elseif item.isConfirmable %} bg-success {% elseif item.canceled or item.sequence == 0 %} bg-secondary  {% else %} bg-primary {% endif %}" data-name="{{ key }}" data-value="{{ value }}">
+        {% if item.sequence == 0 %}
+            {{ 'display.table.purchase_order_line.state.summary'|trans|upper }}
+        {% elseif item.isToCancel %}
+            {{ 'display.table.purchase_order_line.state.to_be_canceled'|trans|upper }}
+        {% elseif item.isConfirmable %}
+            {{ 'display.table.purchase_order_line.state.open'|trans|upper }}
+        {% elseif item.canceled %}
+            {{ 'display.table.purchase_order_line.state.canceled'|trans|upper }}
+        {% else %}
+            {{ 'display.table.purchase_order_line.state.delivered'|trans|upper }}
+        {% endif %}
+    </div>
+</td>

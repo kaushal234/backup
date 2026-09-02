@@ -1,0 +1,9 @@
+<div class="ibox-content">
+    {% if item.status is not same as ('CLOSED') %}
+        <a href="{{ path('legacy_calendar') }}?m[0]=tasks&m[1]=form&m[2]=newTask&module=CRAB&parent_id={{ item.legacyId }}" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;{{ 'vendor_warranty_claim.title.add_task' | trans({}, 'vendor_warranty_claim') }}</a>
+        <hr>
+    {% endif %}
+    <hx:include src="/en/private/calendar/tasks/tasks_hinclude.php?module=CRAB&parent_id={{ item.legacyId }}" id="block_task">
+        <div class="text-center"><span class="fa fa-refresh fa-spin"></span></div>
+    </hx:include>
+</div>

@@ -1,0 +1,223 @@
+{% trans_default_domain 'directory' %}
+
+<div class="animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="contact-box" style="display:flex">
+                <div class="col-sm-2 m-b-xl">
+                    <div class="text-center">
+                        {% if entry.photo is not empty %}
+                            <a href="{{ path('legacy_directory_index') }}?m[0]=people&m[1]=view&m[2]=photo&id={{ entry.legacyId }}" target="_blank">
+                                <img class="m-t-xs img-fluid" src="{{ asset(upload_uri ~ '/' ~ entry.photo.filePath) }}?width=128">
+                            </a>
+                        {% else %}
+                            <img class="m-t-xs img-fluid" width="128" src="/shared/no_photo.jpg">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="row m-b-sm hover-container">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9">
+                            {% if entry.disabled %}
+                                {% set hasDisabledAt = entry.disabledAt is defined and entry.disabledAt is not null %}
+                                {% set hasEnableAt = entry.enableAt is defined and entry.enableAt is not null %}
+
+                                {% if hasDisabledAt and hasEnableAt %}
+                                    {% if entry.disabledAt > entry.enableAt %}
+                                        <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_leave'|trans|upper }}</span><br>
+                                        <div class="people-date">
+                                            {{ 'directory.people.fields.disabled_at'|trans }} : {{ entry.disabledAt|date('d/m/Y') }}
+                                        </div>
+                                    {% else %}
+                                        <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_come'|trans|upper }}</span><br>
+                                        <div class="people-date">
+                                            {{ 'directory.people.fields.enabled_on'|trans }} : {{ entry.enableAt|date('d/m/Y') }}
+                                        </div>
+                                    {% endif %}
+                                {% elseif hasDisabledAt %}
+                                    <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_leave'|trans|upper }}</span><br>
+                                    <div class="people-date">
+                                        {{ 'directory.people.fields.disabled_at'|trans }} : {{ entry.disabledAt|date('d/m/Y') }}
+                                    </div>
+                                {% elseif hasEnableAt %}
+                                    <span class="badge text-bg-warning">{{ 'directory.people.fields.inactive_come'|trans|upper }}</span><br>
+                                    <div class="people-date">
+                                        {{ 'directory.people.fields.enabled_on'|trans }} : {{ entry.enableAt|date('d/m/Y') }}
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                {% if entry.enableAt is defined and entry.enableAt is not null %}
+                                    <div class="people-date">
+                                        {{ 'directory.people.fields.enabled_on'|trans }} : {{ entry.enableAt|date('d/m/Y') }}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
+                            <h3><strong>{{ entry.lastname }} {{ entry.firstname }}</strong></h3>
+                        </div>
+                    </div>
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.show.nickname'|trans }}</div>
+                        <div class="col-sm-9">{{ entry.nickname|default('-') }}</div>
+                    </div>
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.show.legacyId'|trans }}</div>
+                        <div class="col-sm-9">{{ entry.legacyId }}</div>
+                    </div>
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3">{{ 'directory.people.show.newId'|trans}}</div>
+                        <div class="col-sm-9">{{ id }}</div>
+                    </div>
+                    {% if is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_MIS') or is_granted('ACL_GG_ADMIN') or is_granted('ACL_GG_HR')%}
+                        {{ include('partial/_people_advanced.html.twig', { entry: entry, id:id }, with_context=false) }}
+                    {% endif %}
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.premise.fields.support_team'|trans }}</div>
+                        <div class="col-sm-9">{% if entry.premise is not empty and entry.premise.supportTeam is not empty %}
+                            <strong>{{ entry.premise.supportTeam.name }}</strong>
+                            {% else %}-{% endif %}
+                        </div>
+                    </div>
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.businessUnit'|trans }}</div>
+                        <div class="col-sm-9">{% if entry.businessUnit is not empty %}
+                            <a href="{{ path('directory_business_units_show', {id: iri_id(entry.businessUnit)}) }}">
+                                <strong>{{ entry.businessUnit.name }}</strong>
+                            </a>{% else %}-{% endif %}</div>
+                    </div>
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.legalEntity'|trans }}</div>
+                        <div class="col-sm-9">{% if entry.legalEntity is not empty %}
+                            <a href="{{ path('directory_business_units_show', {id: iri_id(entry.legalEntity)}) }}">
+                                <strong>{{ entry.legalEntity.name }}</strong>
+                                </a>{% else %}-{% endif %}</div>
+                    </div>
+                    <div class="row m-b-xs">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.department'|trans }}</div>
+                        <div class="col-sm-9">{% if entry.department is not empty %}
+                            <a href="{{ path('directory_departments_show', {id: iri_id(entry.department)}) }}">
+                                <strong>{{ entry.department.name }}</strong>
+                            </a>{% else %}-{% endif %}</div>
+                    </div>
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.position'|trans }}</div>
+                        <div class="col-sm-9">{% if entry.position is not empty %}
+                            <a href="{{ path('directory_positions_show', {id: iri_id(entry.position)}) }}">
+                                <strong>{{ entry.position.description ~ " (" ~ entry.position.code ~ ")"}}</strong>
+                            </a>{% else %}-{% endif %}</div>
+                    </div>
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.position_categories.singular'|trans }}</div>
+                        <div class="col-sm-9">
+                            {% if entry.positionCategory is defined and entry.positionCategory is not empty %}
+                            <strong>{{ entry.positionCategory }}</strong>
+                            {% else %}-
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.jobTitle'|trans }}</div>
+                        <div class="col-sm-9">{{ entry.jobTitle }}</div>
+                    </div>
+                    {% if is_granted('PEOPLE_PARTIAL_UPDATE_VOTER', entry['@id']) or is_granted('ACL_SUPERUSER') %}
+                        <div class="row m-b-sm">
+                            <div class="col-sm-3 text-capitalize">{{ 'directory.user.fields.username'|trans }}</div>
+                            <div class="col-sm-9"><b>{{ entry.username }}</b></div>
+                        </div>
+                    {% endif %}
+                    {% if is_granted('PEOPLE_CONTRACT_TYPE_VIEW_VOTER', entry['@id']) %}
+                        <div class="row m-b-sm">
+                            <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.contract_type'|trans }}</div>
+                            {% if entry.contractType is not null  %}
+                                <div class="col-sm-9"><b>{{ entry.contractType.name }}</b></div>
+                            {% endif %}
+                        </div>
+                        <div class="row m-b-sm">
+                            <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.coefficient'|trans }}</div>
+                            <div class="col-sm-9"><b>{{ entry.coefficient }}</b></div>
+                        </div>
+                    {% endif %}
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.email'|trans }}</div>
+                        <div class="col-sm-9"><b><a href="mailto:{{ entry.email }}">{{ entry.email }}</a></b></div>
+                    </div>
+                    {% if entry.alternateEmail is defined %}
+                        <div class="row m-b-sm">
+                            <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.email_alternate'|trans }}</div>
+                            <div class="col-sm-9"><b><a href="mailto:{{ entry.alternateEmail }}">{{ entry.alternateEmail }}</a></b></div>
+                        </div>
+                    {% endif %}
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.show.supervisor'|trans }}</div>
+                        <div class="col-sm-9">{% if entry.supervisor is not empty %}
+                            <a href="{{ path('directory_people_show', {id: iri_id(entry.supervisor)}) }}">
+                                <strong>
+                                    {{ (entry.supervisor.firstname ~ ' ' ~ entry.supervisor.lastname)|default('-') }}
+                                </strong>
+                                </a>{% else %}-{% endif %}
+                        </div>
+                    </div>
+                    {% if entry.premise is null %}
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.closest_airport.label'|trans([], 'directory') }}</div>
+                        <div class="col-sm-9">{% if entry.closestAirport is not null %}{{ entry.closestAirport.code }} {% if entry.closestAirport.country is not null %}{{ entry.closestAirport.country.name }},{% endif %} {{ entry.closestAirport.cityName }} {% else %} {{ 'directory.closest_airport.no_airport'|trans([], 'directory') }} {% endif %}</div>
+                    </div>
+                    {% endif %}
+                    {% if entry.premise is not null %}
+                        <div class="row m-b-sm">
+                            <div class="col-sm-3 text-capitalize">{{ 'directory.premise.title'|trans([], 'directory') }} / {{ 'directory.department.fields.name'|trans([], 'directory') }} </div>
+                            <div class="col-sm-9">{{ entry.premise.name }}</div>
+                        </div>
+                        <div class="row m-b-sm">
+                            <div class="col-sm-3 text-capitalize">{{ 'directory.premise.title'|trans([], 'directory') }} / {{ 'directory.position.fields.description'|trans([], 'directory') }} </div>
+                            <div class="col-sm-9">{{ entry.premise.description }}</div>
+                        </div>
+                        <div class="row m-b-sm">
+                            <div class="col-sm-3 text-capitalize">{{ 'directory.premise.title'|trans([], 'directory') }} / {{ 'fields.type'|trans([], 'messages') }} </div>
+                            <div class="col-sm-9">
+                                {% for tag in entry.premise.tags %}
+                                    {{ tag.name }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row m-b-sm">
+                            <div class="col-sm-3 text-capitalize">{{ 'directory.premise.title'|trans([], 'directory') }} / {{ 'address.name'|trans([], 'messages') }}</div>
+                            <div class="col-sm-9">
+                                {{ include('partial/_address.html.twig', {
+                                    address: entry.premise.address
+                                }, with_context=false) }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'directory.people.fields.phones'|trans }}</div>
+                        <div class="col-sm-9">
+                            {% for phone in entry.phones %}
+                                <div class="row">
+                                    <div class="col-sm-3">{{ phone.type }}</div>
+                                    <div class="col-sm-9"><a href="tel:{{ phone.number }}">{{ phone.number }}</a></div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if entry.premise is null %}
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize">{{ 'address.name'|trans([], 'messages') }}</div>
+                        <div class="col-sm-9">
+                            {{ include('partial/_address.html.twig', {
+                                address: entry.address
+                            }, with_context=false) }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="row m-b-sm">
+                        <div class="col-sm-3 text-capitalize"><img src="/shared/icons/idcard-icon-sm.jpg"></div>
+                        <div class="col-sm-9"><a href="{{ path('directory_people_vcard', {id: iri_id(entry)}) }}">Download Vcard</a></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

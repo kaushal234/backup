@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cXML timestamp="2017-04-27T17:03:55+0200" payloadID="payload">
+    <Header>
+        <From>
+            <Credential domain="coucou">
+                <Identity>moi</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="salut">
+                <Identity>toi</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="hello">
+                <Identity>moi</Identity>
+                <SharedSecret>chuuuut</SharedSecret>
+            </Credential>
+            <UserAgent>James Bond</UserAgent>
+        </Sender>
+    </Header>
+    <Request>
+        <OrderRequest>
+            <OrderRequestHeader orderID="Order ID" orderDate="2017-04-27T17:03:55+0200" type="new">
+                <Total>
+                    <Money currency="EUR">2500</Money>
+                </Total>
+                <ShipTo>
+                    <Address>
+                        <Name xml:lang="en"></Name>
+                        <PostalAddress>
+                            <DeliverTo></DeliverTo>
+                            <Street></Street>
+                            <City></City>
+                            <State></State>
+                            <PostalCode></PostalCode>
+                            <Country isoCountryCode=""></Country>
+                        </PostalAddress>
+                    </Address>
+                </ShipTo>
+                <BillTo>
+                    <Address>
+                        <Name xml:lang="en"></Name>
+                        <PostalAddress>
+                            <DeliverTo></DeliverTo>
+                            <Street></Street>
+                            <City></City>
+                            <State></State>
+                            <PostalCode></PostalCode>
+                            <Country isoCountryCode=""></Country>
+                        </PostalAddress>
+                    </Address>
+                </BillTo>
+            </OrderRequestHeader>
+            <ItemOut quantity="12.5" requestedDeliveryDate="2017-04-26T00:00:00+0200" lineNumber="1">
+                <ItemID>
+                    <SupplierPartID></SupplierPartID>
+                </ItemID>
+                <ItemDetail>
+                    <UnitPrice>
+                        <Money currency="EUR">200</Money>
+                    </UnitPrice>
+                    <Description xml:lang="en">Vin rouge</Description>
+                    <UnitOfMeasure>Liters</UnitOfMeasure>
+                    <Classification domain="oulamourseraroi">Adult</Classification>
+                    <ManufacturerPartID></ManufacturerPartID>
+                    <Extrinsic name="RushOrder">Rush hour</Extrinsic>
+                    <Extrinsic name="ShippingInstructions">Au fond à gauche</Extrinsic>
+                </ItemDetail>
+            </ItemOut>
+            <ItemOut quantity="1" requestedDeliveryDate="2017-04-26T00:00:00+0200" lineNumber="2">
+                <ItemID>
+                    <SupplierPartID></SupplierPartID>
+                </ItemID>
+                <ItemDetail>
+                    <UnitPrice>
+                        <Money currency="EUR">200</Money>
+                    </UnitPrice>
+                    <Description xml:lang="en">Vin rouge avec description</Description>
+                    <UnitOfMeasure>Liters</UnitOfMeasure>
+                    <Classification domain="oulamourseraroi">Adult</Classification>
+                    <ManufacturerPartID></ManufacturerPartID>
+                    <Extrinsic name="RushOrder">Rush hour</Extrinsic>
+                    <Extrinsic name="ShippingInstructions">Au fond à gauche</Extrinsic>
+                </ItemDetail>
+                <Comments>A comment</Comments>
+            </ItemOut>
+        </OrderRequest>
+    </Request>
+</cXML>

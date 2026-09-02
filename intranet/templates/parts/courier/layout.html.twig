@@ -1,0 +1,10 @@
+{% extends 'parts/layout.html.twig' %}
+{% trans_default_domain 'courier' %}
+
+{% block title %}{{ parent() }}\{{ 'courier.title' |trans }} {% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem translationKey="courier.nav_link.couriers" domain="courier" icon="mdi-light:truck" route="courier_home"/>
+    </twig:NavBar:Container>
+{% endblock %}

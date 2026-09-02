@@ -1,0 +1,15 @@
+<tr>
+    <th>{{ 'customers.fields.watch_list' | trans | upper }}</th>
+    <td>{% if customer.watchList is same as(true) %}
+            {{ 'customers.fields.watch_list_on' | trans }}
+        {% else %}
+            {{ 'customers.fields.watch_list_not_on' | trans }}
+        {% endif %}
+    </td>
+</tr>
+{% if customer.watchList is same as(true) %}
+    <tr>
+        <th>{{ 'customers.fields.watch_list_reason' | trans | upper }}</th>
+        <td>{{ customer.watchListReason }}</td>
+    </tr>
+{% endif %}

@@ -1,0 +1,45 @@
+<div class="swiper">
+    <div class="swiper-wrapper">
+        {% for item in this.processedFiles %}
+            {% set file = item.data %}
+            {% set fileRoute = item.route %}
+
+            <div class="swiper-slide">
+                <div class="swiper-zoom-container">
+                    {% set ext = file.extension is not empty ? file.extension : file.filePath|split('.')|last|lower %}
+                    <a href="{{ fileRoute }}">
+                        {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'webp'] %}
+                            <img src="{{ fileRoute }}" class="d-block w-100">
+                        {% elseif ext in ['mp4', 'webm', 'ogg'] %}
+                            <video controls style="width: 100%; height: auto;">
+                                <source src="{{ fileRoute }}" type="video/{{ ext }}">
+                            </video>
+                        {% elseif ext in ['txt', 'csv', 'log'] %}
+                            <iframe src="{{ fileRoute }}" frameborder="0" width="100%" height="100%"></iframe>
+                        {% elseif ext in ['pdf'] %}
+                            <twig:UX:Icon name="tabler:file-type-pdf" class="text-danger" style="width: 48px; height: 48px;" />
+                        {% else %}
+                            <twig:UX:Icon name="tabler:file-unknown" class="text-secondary" style="width: 48px; height: 48px;" />
+                        {% endif %}
+                    </a>
+                </div>
+                {% if file.description %}
+                    <div class="swiper-description">
+                        {{ file.description|raw|nl2br }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <button class="swiper-fullscreen-btn" title="Full screen">⛶</button>
+</div>
+
+<link rel="stylesheet" href="{{ asset('vendor/swiper/swiper-bundle.min.css') }}">
+<link rel="stylesheet" href="{{ asset('styles/partial/swiper.css') }}">
+<script type="module">
+  import "{{ asset('swiper.js') }}"
+</script>

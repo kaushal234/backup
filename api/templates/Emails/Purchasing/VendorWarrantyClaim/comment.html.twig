@@ -1,0 +1,24 @@
+{% set layout = comment.public ? 'Emails/alvest/layout.html.twig' : 'Emails/alvest/layout_condensed.html.twig' %}
+{% extends layout %}
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {% set message = comment.public ? 'vwc.comment.message' : 'vwc.internal_comment.message' %}
+    <row>
+        <columns>
+            {% set module = vendorWarrantyClaim.nonConformity is defined ? 'NCR' : 'WC' %}
+            {% set evendorsUrl = module == 'NCR' ? 'evendors_vwc_ncr' : 'evendors_vwc_wc' %}
+            {% set moduleId = vendorWarrantyClaim.nonConformity is defined ? vendorWarrantyClaim.nonConformity.id : vendorWarrantyClaim.warrantyClaimId %}
+            <p>{{ ('vwc.comment.module') | trans({'%id%': id, '%module%': module, '%module_id%': moduleId}) }}:</p>
+            <p>{{ message | trans | nl2br }}:</p>
+            <p>{{ comment.message | nl2br }}</p>
+            <hr>
+            {% if comment.public == false %}
+                <a target="_blank" href="{{ url('vendor_warranty_claim', {id: vendorWarrantyClaim.id}) }}">Click here to view VWC#{{ vendorWarrantyClaim.id }}</a>
+            {% else %}
+                <a href="{{ url(evendorsUrl, { id: id }) }}">{{ 'vwc.comment.please_login' | trans({'%id%': id}) }}</a>
+            {% endif %}
+
+        </columns>
+    </row>
+{% endblock %}

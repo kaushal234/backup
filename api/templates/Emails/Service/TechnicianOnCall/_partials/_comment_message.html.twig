@@ -1,0 +1,13 @@
+{% trans_default_domain "emails" %}
+{# Renders a TOC comment body: English (DeepL) translation first, original text
+   in a muted block below. When no translation is available, only the original
+   text is rendered. #}
+{% if translation is not empty %}
+    {{ translation|raw|nl2br }}
+    <p class="subheader" style="font-size: 12px;">
+        <em>{{ 'toc.message.original_comment'|trans }}</em><br>
+        {{ message|raw|nl2br }}
+    </p>
+{% else %}
+    {{ message|raw|nl2br }}
+{% endif %}

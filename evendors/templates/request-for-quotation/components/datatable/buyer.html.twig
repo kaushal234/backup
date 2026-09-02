@@ -1,0 +1,5 @@
+{% if item.buyerEmail is null %}
+    <td>{{ 'generic.not_available'|trans }}</td>
+{% else %}
+    <td><a href="mailto:{{ item.buyerEmail }}">{{ item.buyerEmail }}</a></td>
+{% endif %}

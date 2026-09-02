@@ -1,0 +1,1171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/people/(\\d|random)+$"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "positionCategory": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "enableAt": {
+      "type": ["string", "null"]
+    },
+    "alternateEmail": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nickname": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "jobTitle": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "type": [
+          "object"
+        ],
+        "properties": {
+          "@id": {
+            "pattern": "^/phones/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "type",
+          "number"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "photo": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "../../shared/schemas/file_light.json"
+        }
+      ]
+    },
+    "address": {
+      "type": "object",
+      "$ref": "../../shared/schemas/address_with_country.json"
+    },
+    "erpLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "erpIdentifier": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "windowsLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "businessUnit": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/business_units/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "location": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/locations/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "publicWebsite": {
+                      "type": ["string", "null"]
+                    },
+                    "address": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "@id": { "type": "string"},
+                            "@type": {
+                              "type": "string"
+                            },
+                            "country": [
+                              "string",
+                              "null"
+                            ],
+                            "street1": [
+                              "string",
+                              "null"
+                            ],
+                            "street2": [
+                              "integer"
+                            ],
+                            "postalCode": [
+                              "string",
+                              "null"
+                            ],
+                            "city": [
+                              "string",
+                              "null"
+                            ],
+                            "town": [
+                              "string",
+                              "null"
+                            ],
+                            "state": [
+                              "string",
+                              "null"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "currency": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "@id": {
+                              "pattern": "^/finance/currencies/\\d+$"
+                            },
+                            "@type": {
+                              "type": "string"
+                            },
+                            "name": [
+                              "string",
+                              "null"
+                            ],
+                            "legacyId": [
+                              "integer",
+                              "null"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "address",
+                    "currency",
+                    "legacyId",
+                    "publicWebsite"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "name",
+            "domain",
+            "location"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "legalEntity": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/business_units/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "location": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/locations/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "publicWebsite": {
+                      "type": ["string", "null"]
+                    },
+                    "address": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "@id": { "type": "string"},
+                            "@type": {
+                              "type": "string"
+                            },
+                            "country": [
+                              "string",
+                              "null"
+                            ],
+                            "street1": [
+                              "string",
+                              "null"
+                            ],
+                            "street2": [
+                              "integer"
+                            ],
+                            "postalCode": [
+                              "string",
+                              "null"
+                            ],
+                            "city": [
+                              "string",
+                              "null"
+                            ],
+                            "town": [
+                              "string",
+                              "null"
+                            ],
+                            "state": [
+                              "string",
+                              "null"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "currency": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "@id": {
+                              "pattern": "^/finance/currencies/\\d+$"
+                            },
+                            "@type": {
+                              "type": "string"
+                            },
+                            "name": [
+                              "string",
+                              "null"
+                            ],
+                            "legacyId": [
+                              "integer",
+                              "null"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "legacyId": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "address",
+                    "currency",
+                    "legacyId",
+                    "publicWebsite"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "legacyId",
+            "name",
+            "domain",
+            "location"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "position": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/positions/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "level": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "legacyId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "code",
+            "description",
+            "level",
+            "legacyId"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "department": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "@id": {
+          "pattern": "^/departments/\\d+$"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "legacyId": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@id",
+        "@type",
+        "name",
+        "legacyId"
+      ],
+      "additionalProperties": false
+    },
+    "supervisor": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/people/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "firstname": {
+              "type": "string"
+            },
+            "lastname": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "enableAt": {
+              "type": ["string", "null"]
+            },
+            "alternateEmail": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "nickname": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "jobTitle": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "phones": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "object"
+                ],
+                "properties": {
+                  "@id": {
+                    "pattern": "^/phones/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "number": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "type",
+                  "number"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0
+            },
+            "photo": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "address": {
+              "type": "object",
+              "$ref": "../../shared/schemas/address_with_country.json"
+            },
+            "erpLogin": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "erpIdentifier": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "windowsLogin": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "businessUnit": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "@id": {
+                  "pattern": "^/business_units/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "location",
+                "domain",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            },
+            "legalEntity": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "@id": {
+                  "pattern": "^/business_units/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "location",
+                "domain",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            },
+            "position": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "@id": {
+                  "pattern": "^/positions/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "level": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "code",
+                "description",
+                "level",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            },
+            "department": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "@id": {
+                  "type": "string"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "legacyId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "name",
+                "legacyId"
+              ],
+              "additionalProperties": false
+            },
+            "locale": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "legacyId": {
+              "type": "integer"
+            },
+            "username": {
+              "type": "string"
+            },
+            "hidden": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "passwordUpdatedAt": {
+              "type": "string"
+            },
+            "lastLogin": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "createdAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "updatedAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "disabledAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "plannedDisableAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "passwordExpirationDate": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "contractType": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/contract_types/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "id",
+                    "name",
+                    "description"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "coefficient": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "gender": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "premise": {
+              "oneOf": [
+                { "type": "null" },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "@type": {
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "name": {
+                      "maxLength": 10,
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "object",
+                      "$ref": "../../shared/schemas/address_with_country.json"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                          "@id": {
+                            "pattern": "^/premise_tags/\\d+$"
+                          },
+                          "@type": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "@id",
+                          "@type",
+                          "name"
+                        ],
+                        "minItems": 1,
+                        "additionalProperties": false
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "address",
+                    "tags",
+                    "count"
+                  ]
+                }
+              ]
+            },
+            "closestAirport": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "enableAt": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "mentor": {
+              "oneOf": [{"$ref": "directory_people_mentor.json"}, { "type": "null" }]
+            },
+            "mentees": {
+              "type": "array",
+              "items": {
+                "oneOf": [{"$ref": "directory_people_mentor.json"}, { "type": "string" }]
+              }
+            },
+            "positionCategory": {
+              "type": "string"
+            }
+        },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "firstname",
+            "lastname",
+            "email",
+            "nickname",
+            "jobTitle",
+            "phones",
+            "photo",
+            "address",
+            "erpLogin",
+            "erpIdentifier",
+            "windowsLogin",
+            "businessUnit",
+            "position",
+            "department",
+            "locale",
+            "legacyId",
+            "username",
+            "hidden",
+            "disabled",
+            "passwordUpdatedAt",
+            "lastLogin",
+            "createdAt",
+            "updatedAt",
+            "disabledAt",
+            "plannedDisableAt",
+            "passwordExpirationDate",
+            "gender",
+            "premise",
+            "closestAirport",
+            "enableAt"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "locale": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "username": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "lastLogin": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "updatedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "disabledAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plannedDisableAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "passwordUpdatedAt": {
+      "type": "string"
+    },
+    "passwordExpirationDate": {
+      "type": "string"
+    },
+    "contractType": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "pattern": "^/contract_types/\\d+$"
+            },
+            "@type": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "id",
+            "name",
+            "description"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "coefficient": {
+      "type": ["integer", "null"]
+    },
+    "gender": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "premise": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "@type": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 10,
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object",
+              "$ref": "../../shared/schemas/address_with_country.json"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "@id": {
+                    "pattern": "^/premise_tags/\\d+$"
+                  },
+                  "@type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id",
+                  "@type",
+                  "name"
+                ],
+                "minItems": 1,
+                "additionalProperties": false
+              }
+            },
+            "count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "@id",
+            "@type",
+            "name",
+            "address",
+            "tags",
+            "count"
+          ]
+        }
+      ]
+    },
+    "closestAirport": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "enableAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mentor": {
+      "oneOf": [{ "$ref": "directory_people_mentor.json"}, {"type": "null"}]
+    },
+    "mentees": {
+      "type": "array",
+      "items": {
+        "$ref": "directory_people_mentor.json"
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "firstname",
+    "lastname",
+    "email",
+    "nickname",
+    "jobTitle",
+    "phones",
+    "photo",
+    "address",
+    "erpLogin",
+    "erpIdentifier",
+    "windowsLogin",
+    "businessUnit",
+    "position",
+    "department",
+    "supervisor",
+    "locale",
+    "legacyId",
+    "username",
+    "hidden",
+    "disabled",
+    "lastLogin",
+    "createdAt",
+    "updatedAt",
+    "enableAt",
+    "disabledAt",
+    "plannedDisableAt",
+    "passwordUpdatedAt",
+    "passwordExpirationDate",
+    "gender",
+    "premise",
+    "closestAirport",
+    "enableAt"
+  ],
+  "additionalProperties": false
+}

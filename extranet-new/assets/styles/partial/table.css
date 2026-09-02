@@ -1,0 +1,78 @@
+.table-responsive table.table.table-striped:not(.report-table) {
+  td {
+    padding: 4px 6px 3px;
+    vertical-align: middle;
+  }
+  thead {
+    tr {
+      th.active {
+        background-color: #2f4050;
+        svg, span {
+          color: white;
+        }
+      }
+      th:not(.active) {
+        background-color: #2f4050;
+        svg, span {
+          color: #a7b1c2;
+        }
+      }
+    }
+  }
+  tbody {
+    tr {
+      height: 35px;
+    }
+  }
+}
+
+.ibox-tools a {
+  color: inherit;
+}
+
+turbo-frame {
+  display: block;
+
+  .frame-loading-show {
+    display: none;
+  }
+
+  .sk-spinner-circle .sk-circle::before {
+    background-color: #2555a8;
+  }
+
+  &[aria-busy] {
+    .frame-loading-hide { display: none; }
+    .frame-loading-show { display: block; }
+  }
+}
+
+
+.card-tools {
+  display: block;
+  float: none;
+  margin-top: 0;
+  position: relative;
+  padding: 0;
+  text-align: right;
+}
+
+/* Hints that a column header has more info available on hover, wherever a datatable
+   column opts into it via 'header_attr' => ['data-bs-toggle' => 'tooltip', ...]. */
+th[data-bs-toggle="tooltip"] {
+  cursor: help;
+}
+
+th[data-bs-toggle="tooltip"] > a::after,
+th[data-bs-toggle="tooltip"] > span::after {
+  content: "\24D8";
+  margin-left: 4px;
+  font-size: 1em;
+  opacity: 0.8;
+  vertical-align: middle;
+}
+
+.tooltip-inner {
+  white-space: pre-line;
+  text-align: left;
+}

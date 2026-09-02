@@ -1,0 +1,19 @@
+{% trans_default_domain 'directory' %}
+<td>
+    <table>
+        <tbody>
+        <tr>
+            <th>{{ 'directory.location_state.fields.public'|trans|capitalize }}</th>
+            <td>{{ (item.state.public ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_state.fields.hidden'|trans|capitalize }}</th>
+            <td>{{ (item.state.hidden ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'directory.location_state.fields.disabled'|trans|capitalize }}</th>
+            <td>{{ (item.state.disabled ? 'yes' : 'no')|trans([], 'messages') }}</td>
+        </tr>
+        </tbody>
+    </table>
+</td>

@@ -1,0 +1,48 @@
+<button type="button" class="btn btn-{{ button.color|default('secondary') }}" data-bs-toggle="modal" data-bs-target="#{{ id }}">
+    {% if button.icon is defined %}
+        <i class="fa {{ button.icon }}"></i>
+    {% endif %}
+    {{ button.name }}
+</button>
+
+<div class="modal fade inmodal" id="{{ id }}" tabindex="-1" aria-labelledby="{{ id }}Label" aria-hidden="true">
+    <div class="modal-dialog {% if modal.size is defined %}modal-{{ modal.size }}{% endif %}">
+        <div class="modal-content">
+            <div class="modal-header">
+                {% block header %}
+                    {% block title %}
+                        <h1 class="modal-title fs-5" id="{{ id }}Label">{{ modal.title }}</h1>
+                    {% endblock %}
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                {% endblock %}
+            </div>
+            <div class="modal-body">
+                {% block body %}
+                    {{ body|raw }}
+                {% endblock %}
+            </div>
+            <div class="modal-footer">
+                {% block footer %}
+                    {% if modal.closeButton is defined %}
+                        <button type="button" class="btn btn-{{ modal.closeButton.color|default('default') }}" data-bs-dismiss="modal">
+                            {% if modal.closeButton.icon is defined %}
+                                <i class="fa {{ modal.closeButton.icon }}"></i>
+                            {% endif %}
+                            {{ modal.closeButton.name }}
+                        </button>
+                    {% else %}
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    {% endif  %}
+                    {% if modal.targetButton is defined %}
+                        <a type="button" href="{{ modal.targetButton.link }}" id="button_{{ id }}" class="btn btn-{{ modal.targetButton.color|default('secondary') }}">
+                            {% if modal.targetButton.icon is defined %}
+                                <i class="fa {{ modal.targetButton.icon }}"></i>
+                            {% endif %}
+                            {{ modal.targetButton.name }}
+                        </a>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>

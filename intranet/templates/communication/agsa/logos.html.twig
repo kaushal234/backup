@@ -1,0 +1,15 @@
+{% extends 'corporate/pages/layout.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ include('communication/partials/_logos.html.twig', {
+        secondaryLogos: {
+            'AGSA Logo': {
+                'png': 'agsa/logos/agsa-logo.png',
+                'jpg': 'agsa/logos/agsa-logo.jpg',
+                'pdf': 'agsa/logos/agsa-logo.pdf',
+            },
+        },
+    }) }}
+{% endblock %}

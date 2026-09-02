@@ -1,0 +1,18 @@
+App\Entity\Module\ThirdPartyApp\AccountReview:
+  account_review_{1..10}:
+    id: <current()>
+    thirdPartyApp: '@third_party_app_extended'
+    createdAt: <dateTimeBetween('-30 days', 'now')>
+    createdBy: '@user_superuser'
+    countStartAdminUsers: <numberBetween(0,100)>
+    countEndAdminUsers: <numberBetween(0,100)>
+    adminsComment: <text()>
+    adminAccountsConfirmed: true
+    countAppUsers: <numberBetween(0,100)>
+    countStartMembers: <numberBetween(0,100)>
+    countEndMembers: <numberBetween(0,100)>
+    countDisabledAccounts: <numberBetween(0,100)>
+    countEnabledAccounts: <numberBetween(0,100)>
+    disabledAccountsComment: <text()>
+    enabledAccountsComment: <text()>
+    userAccountsConfirmed: true

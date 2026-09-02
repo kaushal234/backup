@@ -1,0 +1,15 @@
+{% extends 'surveys/layout.html.twig' %}
+{% trans_default_domain 'surveys' %}
+
+{% set survey_id = iri_id(survey) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.add'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('surveys/groups/partial/_form.html.twig', {
+        title: 'group.page_titles.add'|trans,
+        form: form,
+        action: path('survey_groups_add', {id: survey_id}),
+        cancel_link: path('survey_groups_index', {id: survey_id})
+    }, with_context=false) }}
+{% endblock %}

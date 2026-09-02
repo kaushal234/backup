@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cXML timestamp="2017-04-27T17:06:51+0200" payloadID="payload">
+    <Header>
+        <From>
+            <Credential domain="coucou">
+                <Identity>moi</Identity>
+            </Credential>
+        </From>
+        <To>
+            <Credential domain="salut">
+                <Identity>toi</Identity>
+            </Credential>
+        </To>
+        <Sender>
+            <Credential domain="hello">
+                <Identity>007</Identity>
+                <SharedSecret>chuuuut</SharedSecret>
+            </Credential>
+            <UserAgent>James Bond</UserAgent>
+        </Sender>
+    </Header>
+    <Request>
+        <InvoiceDetailRequest>
+            <InvoiceDetailRequestHeader invoiceDate="2017-04-27T17:06:51+0200" invoiceID="Invoice ID" purpose="standard" operation="new">
+                <InvoiceDetailHeaderIndicator></InvoiceDetailHeaderIndicator>
+                <InvoiceDetailLineIndicator></InvoiceDetailLineIndicator>
+                <InvoicePartner>
+                    <Contact role="billTo">
+                        <Name xml:lang="en">name</Name>
+                        <PostalAddress>
+                            <DeliverTo>coincoin</DeliverTo>
+                            <Street>rue de la volaille</Street>
+                            <City>Troufigny-Les-Oies</City>
+                            <State>State</State>
+                            <PostalCode>404</PostalCode>
+                            <Country isoCountryCode="GRD">Groland</Country>
+                        </PostalAddress>
+                    </Contact>
+                </InvoicePartner>
+                <InvoicePartner>
+                    <Contact role="remitTo">
+                        <Name xml:lang="en">name</Name>
+                        <PostalAddress>
+                            <DeliverTo>coincoin</DeliverTo>
+                            <Street>rue de la volaille</Street>
+                            <City>Troufigny-Les-Oies</City>
+                            <State>State</State>
+                            <PostalCode>404</PostalCode>
+                            <Country isoCountryCode="GRD">Groland</Country>
+                        </PostalAddress>
+                    </Contact>
+                </InvoicePartner>
+                <InvoiceDetailShipping>
+                    <Contact role="shipFrom">
+                        <Name xml:lang="en">name</Name>
+                        <PostalAddress>
+                            <DeliverTo>coincoin</DeliverTo>
+                            <Street>rue de la volaille</Street>
+                            <City>Troufigny-Les-Oies</City>
+                            <State>State</State>
+                            <PostalCode>404</PostalCode>
+                            <Country isoCountryCode="GRD">Groland</Country>
+                        </PostalAddress>
+                    </Contact>
+                    <Contact role="shipTo">
+                        <Name xml:lang="en">name</Name>
+                        <PostalAddress>
+                            <DeliverTo>coincoin</DeliverTo>
+                            <Street>rue de la volaille</Street>
+                            <City>Troufigny-Les-Oies</City>
+                            <State>State</State>
+                            <PostalCode>404</PostalCode>
+                            <Country isoCountryCode="GRD">Groland</Country>
+                        </PostalAddress>
+                    </Contact>
+                </InvoiceDetailShipping>
+            </InvoiceDetailRequestHeader>
+            <InvoiceDetailOrder>
+                <InvoiceDetailOrderInfo>
+                    <OrderReference orderID="Order ID">
+                        <DocumentReference payloadID="Order payload"/>
+                    </OrderReference>
+                </InvoiceDetailOrderInfo>
+                <InvoiceDetailItem invoiceLineNumber="001" quantity="5">
+                    <UnitOfMeasure>kilo</UnitOfMeasure>
+                    <UnitPrice>
+                        <Money currency="EUR">15</Money>
+                    </UnitPrice>
+                    <InvoiceDetailItemReference lineNumber="001">
+                        <ItemID>
+                            <SupplierPartID>LeroyMerlin</SupplierPartID>
+                        </ItemID>
+                        <Description xml:lang="FR">Graines pour oies</Description>
+                    </InvoiceDetailItemReference>
+                    <SubtotalAmount>
+                        <Money currency="EUR">14</Money>
+                    </SubtotalAmount>
+                    <GrossAmount>
+                        <Money currency="EUR">12</Money>
+                    </GrossAmount>
+                    <NetAmount>
+                        <Money currency="EUR">13</Money>
+                    </NetAmount>
+                </InvoiceDetailItem>
+            </InvoiceDetailOrder>
+            <InvoiceDetailSummary>
+                <SubtotalAmount>
+                    <Money currency="">0</Money>
+                </SubtotalAmount>
+                <Tax>
+                    <Money currency="">0</Money>
+                    <Description xml:lang="en"></Description>
+                </Tax>
+                <ShippingAmount>
+                    <Money currency="">0</Money>
+                </ShippingAmount>
+                <GrossAmount>
+                    <Money currency="">0</Money>
+                </GrossAmount>
+                <NetAmount>
+                    <Money currency="">0</Money>
+                </NetAmount>
+                <DueAmount>
+                    <Money currency="">0</Money>
+                </DueAmount>
+            </InvoiceDetailSummary>
+        </InvoiceDetailRequest>
+    </Request>
+</cXML>

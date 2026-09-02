@@ -1,0 +1,30 @@
+{% extends 'quality/supplier_corrective_action_request/layout.html.twig' %}
+{% trans_default_domain 'supplier_corrective_action_request' %}
+
+{% block title %}
+    {% if supplierCorrectiveActionRequest.id is defined %}
+        {{ parent() }}#{{ supplierCorrectiveActionRequest.id }}\{{ 'menu.edit'|trans({}, 'messages') }}
+    {% else %}
+        {{ parent() }}\{{ 'menu.add'|trans({}, 'messages') }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div id="react"></div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        window.SUPPLER_CORRECTIVE_ACTION_REQUEST_APP_PROPS = {{ initialState|json_encode|raw }};
+    </script>
+    {{ parent() }}
+{% endblock %}
+
+
+{% block translations %}
+    {{ parent() }}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'supplier_corrective_action_request' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'location_areas' }) }}"></script>
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}

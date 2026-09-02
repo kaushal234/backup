@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "id",
+    "organizer",
+    "trainer",
+    "meetingPlace",
+    "startingAt",
+    "endingAt",
+    "status",
+    "designation",
+    "content",
+    "level",
+    "open",
+    "mandatory",
+    "language",
+    "category",
+    "type",
+    "files",
+    "attendees",
+    "timezone",
+    "attendanceLimit",
+    "maximumAttendanceReached"
+  ],
+  "properties": {
+    "@context": {"type": "string"},
+    "@id": {"type": "string", "pattern": "^/trainings/\\d+$"},
+    "@type": {"type": "string", "pattern": "^Training$"},
+    "id": { "type": "integer"},
+    "organizer": {
+      "$ref": "../../directory_people/schemas/directory_people_public.json"
+    },
+    "trainer": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "../../directory_people/schemas/directory_people_public.json" }
+      ]
+    },
+    "meetingPlace": {"type": "string"},
+    "startingAt": {"type": "string", "format": "date-time"},
+    "endingAt": {"type": "string", "format": "date-time"},
+    "attendees": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["@id", "@type", "guest", "invited", "answer"],
+        "properties": {
+          "@id":  {"type": "string", "pattern": "^/training_attendees/\\d+$"},
+          "@type":  {"type": "string", "pattern": "^TrainingAttendee$"},
+          "guest":  {"$ref": "../../directory_people/schemas/directory_people_public.json" },
+          "invited":  {"type": "boolean"},
+          "answer":  {"type":  ["null", "boolean"]}
+        }
+      }
+    },
+    "status": {"type": "string", "pattern": "^(PLANNED)|(SOLVED)|(CANCELLED)$"
+    },
+    "timezone": {"type": "string"},
+    "designation": {"type": "string"},
+    "content": {"type": "string"},
+    "level": {"type": ["string", "null"]
+    },
+    "open": {"type": "boolean"},
+    "mandatory": {"type": "boolean"},
+    "language": {"type": "string", "pattern": "\\w{2}$"
+    },
+    "category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "@id",
+        "@type",
+        "name"
+      ],
+      "properties": {
+        "@id": {"type": "string", "pattern": "^/training_categories/\\d+$"},
+        "@type": {"type": "string", "pattern": "^TrainingCategory$"},
+        "name": {"type": "string"}
+      }
+    },
+    "type": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "@id",
+            "@type",
+            "name"
+          ],
+          "properties": {
+            "@id": {"type": "string", "pattern": "^/training_types/\\d+$"},
+            "@type": {"type": "string", "pattern": "^TrainingType$"},
+            "name": {"type": "string"}
+          }
+        }
+      ]
+    },
+    "attendanceLimit": {"type": ["integer", "null"]},
+    "maximumAttendanceReached": {"type": "boolean"},
+    "files": {
+      "type": "array",
+      "items": {"$ref": "../../shared/schemas/file.json"},
+      "uniqueItems": true
+    }
+  }
+}

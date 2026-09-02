@@ -1,0 +1,37 @@
+App\Entity\Quality\Derogation:
+  derogation_1:
+    id: 1
+    description: <paragraph(2)>
+    shortDescription: This is a short description
+    status: DENIED
+    assignee: '@user_qam'
+    assignor: '@user_pm'
+    crabs:
+      - '@crab_2'
+    dueDate: <dateTimeBetween('+5 days', '+6 days')>
+  derogation_no_crabs:
+    id: 2
+    description: <paragraph(2)>
+    shortDescription: This is a short description
+    status: OPEN
+    assignee: '@user_qam'
+    assignor: '@user_pm'
+    dueDate: <dateTimeBetween('+5 days', '+6 days')>
+
+  derogation_accepted:
+    id: 3
+    description: <paragraph(2)>
+    shortDescription: accepted derogation
+    status: ACCEPTED
+    assignee: '@user_qam'
+    assignor: '@user_pm'
+    dueDate: <dateTimeBetween('+5 days', '+6 days')>
+
+  derogation_bulk_{4..23}:
+    id: <current()>
+    description: <paragraph(2)>
+    shortDescription: <sentence(4)>
+    status: OPEN
+    assignee: '@user_qam'
+    assignor: '@user_pm'
+    dueDate: <dateTimeBetween('+5 days', '+6 days')>

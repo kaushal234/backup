@@ -1,0 +1,75 @@
+{% extends 'mis/modules/third_party_app/account_review/index.html.twig' %}
+{% trans_default_domain 'mis' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    items: {
+                        createdAt: {
+                            label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                            filters: 'date("Y-m-d")',
+                        },
+                        createdBy: {
+                            properties: ['createdBy.lastname', 'createdBy.firstname'],
+                            label: 'fields.created_by' |trans({}, 'messages'),
+                            link: {
+                                route: 'directory_people_show',
+                                params: {'id':'createdBy.@id'}
+                            }
+                        },
+                        countStartAdminUsers: {
+                            label: 'mis.account_review.fields.count_start_admin_users'|trans,
+                        },
+                        countEndAdminUsers: {
+                            label: 'mis.account_review.fields.count_end_admin_users'|trans,
+                        },
+                        adminsComment: {
+                            label: 'mis.account_review.fields.admins_comment'|trans,
+                        },
+                        adminAccountsConfirmed: {
+                            label: 'mis.account_review.fields.admin_accounts_confirmed'|trans,
+                        },
+                        countAppUsers: {
+                            label: 'mis.account_review.fields.count_app_users'|trans,
+                        },
+                        countStartMembers: {
+                            label: 'mis.account_review.fields.count_start_members'|trans,
+                        },
+                        countEndMembers: {
+                            label: 'mis.account_review.fields.count_end_members'|trans,
+                        },
+                        countDisabledAccounts: {
+                            label: 'mis.account_review.fields.count_disabled_accounts'|trans,
+                        },
+                        disabledAccountsComment: {
+                            label: 'mis.account_review.fields.disabled_accounts_comment'|trans,
+                        },
+                        countEnabledAccounts: {
+                            label: 'mis.account_review.fields.count_enabled_accounts'|trans,
+                        },
+                        enabledAccountsComment: {
+                            label: 'mis.account_review.fields.enabled_accounts_comment'|trans,
+                        },
+                        userAccountsConfirmed: {
+                            label: 'mis.account_review.fields.user_accounts_confirmed'|trans,
+                        },
+                        file: {
+                            label: 'menu.file'|trans({}, 'messages'),
+                            link:{
+                                route: 'mis_modules_account_review_file',
+                                fixedParams: {moduleId: module.id},
+                                params: {accountReviewId: 'id', id : 'mainFile.id'},
+                                class : 'text-center',
+                                content: '<span class="btn btn-warning btn-sm"><i class="fa fa-download fa-fw"></i></span>',
+                            }
+                        },
+                    },
+                    title: 'mis.account_review.title'|trans,
+                    data: accountReview
+                },
+            }, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

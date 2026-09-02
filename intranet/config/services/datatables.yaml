@@ -1,0 +1,80 @@
+services:
+    _defaults:
+        autowire: true
+
+    AppBundle\DataTable\Request\ApiHttpFoundationRequestHandler: ~
+
+    AppBundle\DataTable\Type\:
+        resource: '../../src/AppBundle/DataTable/Type/'
+        tags: ['kreyu_data_table.type']
+
+    AppBundle\DataTable\Filter\Type\:
+        resource: '../../src/AppBundle/DataTable/Filter/Type/'
+        tags: [ 'kreyu_data_table.filter.type' ]
+
+    AppBundle\DataTable\Twig\DataTableExtension:
+        decorates: kreyu_data_table.twig.data_table_extension
+        arguments:
+            - '@.inner'
+        public: false
+
+    AppBundle\DataTable\Query\ApiProxyQueryFactory:
+        tags: ['kreyu_data_table.proxy_query.factory']
+
+    AppBundle\DataTable\Exporter\Type\:
+        resource: '../../src/AppBundle/DataTable/Exporter/Type/'
+        tags: ['kreyu_data_table.exporter.type']
+
+    AppBundle\DataTable\Column\Type\:
+        resource: '../../src/AppBundle/DataTable/Column/Type/'
+        tags: [ 'kreyu_data_table.column.type' ]
+
+    AppBundle\DataTable\Action\Type\:
+        resource: '../../src/AppBundle/DataTable/Action/Type/'
+        tags: [ 'kreyu_data_table.action.type' ]
+
+    app.data_table.persistence.user_settings:
+        class: AppBundle\DataTable\Persistence\UserSettingsPersistenceAdapter
+        abstract: true
+
+    app.data_table.personalization.persistence.user_settings:
+        parent: app.data_table.persistence.user_settings
+        arguments:
+            $prefix: personalization
+        tags:
+            - { name: kreyu_data_table.personalization.persistence.adapter }
+
+    app.data_table.filtration.persistence.user_settings:
+        parent: app.data_table.persistence.user_settings
+        arguments:
+            $prefix: filtration
+        tags:
+            - { name: kreyu_data_table.filtration.persistence.adapter }
+
+    app.data_table.sorting.persistence.user_settings:
+        parent: app.data_table.persistence.user_settings
+        arguments:
+            $prefix: sorting
+        tags:
+            - { name: kreyu_data_table.sorting.persistence.adapter }
+
+    app.data_table.pagination.persistence.user_settings:
+        parent: app.data_table.persistence.user_settings
+        arguments:
+            $prefix: pagination
+        tags:
+            - { name: kreyu_data_table.pagination.persistence.adapter }
+
+    app.data_table.persistence.subject_provider.user_settings:
+        class: AppBundle\DataTable\Persistence\UserSettingsPersistenceSubjectProvider
+        tags:
+            - { name: kreyu_data_table.persistence.subject_provider }
+
+    app.data_table.persistence.clearer.cache.datatable:
+        class: AppBundle\DataTable\Persistence\DataTablePersistenceClearer
+        arguments:
+            - '@kreyu_data_table.persistence.cache.default'
+        tags:
+            - { name: kreyu_data_table.persistence.clearer }
+
+    AppBundle\DataTable\Persistence\DataTablePersistenceClearerInterface: '@app.data_table.persistence.clearer.cache.datatable'

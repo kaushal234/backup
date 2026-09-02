@@ -1,0 +1,105 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/sales/sales_forecasts$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/sales_forecasts/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "sso": {
+            "type": "string"
+          },
+          "factory": {
+            "type": "string"
+          },
+          "asm": {
+            "type": "string"
+          },
+          "buyer": {
+            "type": "string"
+          },
+          "endUser": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "product": {
+            "type": "string"
+          },
+          "airport": {
+            "type": "string"
+          },
+          "estimatedSaleDate": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "customerSuccessPercentage": {
+            "type": "integer"
+          },
+          "successPercentage": {
+            "type": "integer"
+          },
+          "alvestSuccessPercentage": {
+            "type": "integer"
+          },
+          "tier": {
+            "type": "string"
+          },
+          "lastCommentedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "lastComment": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "status",
+          "sso",
+          "factory",
+          "asm",
+          "buyer",
+          "endUser",
+          "country",
+          "product",
+          "airport",
+          "estimatedSaleDate",
+          "quantity",
+          "customerSuccessPercentage",
+          "successPercentage",
+          "alvestSuccessPercentage",
+          "lastCommentedAt",
+          "lastComment",
+          "createdAt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "minItems": 1
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

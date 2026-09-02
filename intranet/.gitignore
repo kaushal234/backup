@@ -1,0 +1,59 @@
+/legacy/templates_c/*
+!legacy/templates_c/.gitkeep
+/legacy/uploads/*
+!/legacy/uploads/.gitkeep
+/popup_notice.dat
+/legacy/popup_notice.dat
+/public/bundles/
+/public/dist/
+/node_modules/
+/var/
+!var/cache/.gitkeep
+!var/log/.gitkeep
+/vendor/
+/bin/symfony_requirements
+/.web-server-pid
+/config/jwt/*.pem
+intranet
+
+###> behat/symfony2-extension ###
+behat.yml
+###< behat/symfony2-extension ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+!/.env.dev.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+
+###> friends-of-behat/symfony-extension ###
+/behat.yml
+###< friends-of-behat/symfony-extension ###
+
+/eslint-report.json
+/assets/coverage/

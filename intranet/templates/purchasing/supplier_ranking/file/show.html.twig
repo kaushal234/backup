@@ -1,0 +1,205 @@
+{% extends 'purchasing/supplier_ranking/layout.html.twig' %}
+{% trans_default_domain 'supplier_ranking' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="widget bg-body">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-suitcase fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ supplierRanking.supplier.name }}</span>
+                        <h3 class="font-bold">{{ supplierRanking.supplier.code }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="widget bg-body">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-euro fa-3x"></i>
+                    </div>
+                    <div class="col-8 text-end">
+                        <span>{{ 'fields.revenue'|trans }}</span>
+                        <h3 class="font-bold">
+                            {% if supplierRanking.revenue %}
+                                {{ supplierRanking.revenue|number_format(0, '.', ',') }}
+                                {% if supplierRanking.supplier.currency %}
+                                    {{ supplierRanking.supplier.currency.name }}
+                                {% endif %}
+                            {% endif %}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            {% if supplierRanking.classification.color %}
+            <div class="widget" style="background-color: {{ supplierRanking.classification.color }}; color: #FFF;">
+                {% else %}
+                <div class="widget bg-body">
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fa fa-check-square fa-3x"></i>
+                        </div>
+                        <div class="col-8 text-end">
+                            <span>{{ 'fields.classification'|trans }}</span>
+                            <h3 class="font-bold">{{ supplierRanking.classification.name }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-xxl-6">
+            {% embed 'helper/_ibox.html.twig' with {
+                title: 'Supplier Ranking'
+            } %}
+                {% trans_default_domain 'supplier_ranking' %}
+                {% block card_content %}
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            {{ include('helper/_association_table.html.twig', {
+                                associationData: {
+                                    search: false,
+                                    title: 'title' | trans,
+                                    items: {
+                                        id: {label: 'fields.id'|trans},
+                                        supplierCode: {
+                                            label: 'fields.supplier_number'|trans,
+                                            properties: ['supplier.code']
+                                        },
+                                        supplierName: {
+                                            label: 'fields.supplier_name'|trans,
+                                            properties: ['supplier.name']
+                                        },
+                                        location: {
+                                            label: 'fields.location'|trans,
+                                            properties: ['location.name']
+                                        },
+                                        buyer: {
+                                            properties: ['supplier.masterBuyer.lastname', 'supplier.masterBuyer.firstname'],
+                                            label: 'fields.buyer'|trans,
+                                            link: {
+                                                'route': 'directory_people_show',
+                                                'params': {'id':'supplier.masterBuyer.@id'}
+                                            }
+                                        },
+                                        expertiseLevel: {
+                                            label: 'fields.expertise_level'|trans,
+                                            properties: ['expertiseLevel.name']
+                                        },
+                                        classification: {
+                                            label: 'fields.classification'|trans,
+                                            template: 'purchasing/supplier_ranking/partial/_column_classification.html.twig',
+                                            templateParams: {
+                                                value: supplierRanking.classification
+                                            }
+                                        },
+                                        revenue: {
+                                            label: 'fields.revenue'|trans,
+                                            filters: "number_format(0, '.', ',')",
+                                            preserveNull: true
+                                        },
+                                        supplierApproved: {
+                                            label: 'fields.supplier_approved'|trans,
+                                            template: 'purchasing/supplier_ranking/partial/_column_supplier_approved.html.twig',
+                                            templateParams: {
+                                                value: supplierRanking.supplierApproved
+                                            }
+                                        },
+                                        lastReviewAt: {
+                                            label: 'fields.last_review_at'|trans,
+                                            filters: 'date("Y-m-d")',
+                                            preserveNull: true,
+                                        },
+                                        lastReviewBy: {
+                                            properties: ['lastReviewBy.lastname', 'lastReviewBy.firstname'],
+                                            label: 'fields.last_review_by'|trans,
+                                            link: {
+                                                'route': 'directory_people_show',
+                                                'params': {'id':'lastReviewBy.@id'}
+                                            }
+                                        },
+                                        nextReviewAt: {
+                                            label: 'fields.next_review_at'|trans,
+                                            filters: 'date("Y-m-d")',
+                                            preserveNull: true,
+                                        },
+                                        lastScreeningAt: {
+                                            label: 'fields.last_screening_at'|trans,
+                                            filters: 'date("Y-m-d")',
+                                            preserveNull: true,
+                                        },
+                                        lastScreeningBy: {
+                                            properties: ['lastScreeningBy.lastname', 'lastScreeningBy.firstname'],
+                                            label: 'fields.last_screening_by'|trans,
+                                            link: {
+                                                'route': 'directory_people_show',
+                                                'params': {'id':'lastScreeningBy.@id'}
+                                            }
+                                        },
+                                    },
+                                    data: supplierRanking,
+                                    options: {card: false},
+                                }
+                            }, with_context = false) }}
+                        </div>
+                    </div>
+                {% endblock card_content %}
+            {% endembed %}
+        </div>
+        <div class="col-12 col-xxl-6">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        filePath: {
+                            label: 'fields.file'|trans,
+                        },
+                        category: {
+                            label: 'fields.category'|trans,
+                            properties: ['category.name'],
+                        },
+                        expiredAt: {
+                            label: 'fields.expired_at'|trans,
+                            filters: 'date("Y-m-d")',
+                            preserveNull: true,
+                        },
+                        createdAt: {
+                            label: 'fields.created_at'|trans,
+                            filters: 'date("Y-m-d")',
+                            preserveNull: true,
+                        },
+                        download: {
+                            label: 'menu.download'|trans({}, 'messages') | capitalize,
+                            link:{
+                                route: 'supplier_rankings_files_download',
+                                params: {'fileId':'@id'},
+                                fixedParams: {'id': supplierRanking.id},
+                                content: '<span class="btn btn-primary btn-sm"><i class="fa fa-download fa-fw"></i></span>',
+                            }
+                        },
+                        delete: {
+                            label: 'menu.delete'|trans({}, 'messages') | capitalize,
+                            link:{
+                                route: 'supplier_rankings_files_delete',
+                                params: {'fileId':'@id'},
+                                fixedParams: {'id': supplierRanking.id},
+                                content: '<span class="btn btn-danger btn-sm"><i class="fa fa-trash fa-fw popup"></i></span>',
+                            }
+                        }
+                    },
+                    title: 'submenu.files'|trans,
+                    data: supplierRanking.files,
+                    search: false,
+                    pagination: 50,
+                },
+            }) }}
+        </div>
+    </div>
+{% endblock content %}

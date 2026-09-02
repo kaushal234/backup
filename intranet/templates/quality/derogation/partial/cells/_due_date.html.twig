@@ -1,0 +1,18 @@
+<td>
+    {% if item.status == 'OPEN' and is_granted('FEATURE_DEROGATION_DUE_DATE_ADMIN_VOTER', item['@id']) %}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-md-8">
+                {{ form_widget(form.dueDate) }}
+                {{ form_errors(form.dueDate) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.submit) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    {% else %}
+        {{ item.dueDate | date('Y-m-d') }}
+    {% endif %}
+</td>

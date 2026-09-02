@@ -1,0 +1,71 @@
+{% extends 'mis/trouble_ticket/layout.html.twig' %}
+{% trans_default_domain 'trouble_ticket' %}
+
+{% block content %}
+    <twig:SubscriptionComponent key="tts.subscriptions">
+        <div class="row">
+            <div class="col-md-12">
+                {{ include('helper/_report_table.html.twig', {
+                    reportTable: {
+                        items: {
+                            id: {
+                                label: 'display.table.scar.headers.id'|trans([], 'messages')|capitalize,
+                                link: {
+                                    route: 'trouble_ticket_show',
+                                    params: {'id': '@id'},
+                                },
+                                sortable: false,
+                            },
+                            status: {
+                                label: 'fields.status'|trans({}, 'messages'),
+                            },
+                            type: {
+                                label: 'trouble_ticket.fields.type'|trans({}, 'trouble_ticket'),
+                                properties: ['type.type']
+                            },
+                            createdAt: {
+                                label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                                filters: 'date("Y-m-d")',
+                            },
+                            createdBy: {
+                                properties: ['createdBy.lastname', 'createdBy.firstname'],
+                                label: 'fields.created_by'|trans({}, 'messages'),
+                                link: {
+                                    route: 'directory_people_show',
+                                    params: {'id': 'createdBy.@id'}
+                                }
+                            },
+                            assignee: {
+                                properties: ['assignee.lastname', 'assignee.firstname'],
+                                label: 'tasks.assignee'|trans({}, 'messages'),
+                                link: {
+                                    route: 'directory_people_show',
+                                    params: {'id': 'createdBy.@id'}
+                                }
+                            },
+                            shortDescription: {
+                                label: 'trouble_ticket.fields.short_description'|trans({}, 'trouble_ticket'),
+                            },
+                            module: {
+                                properties: ['module.application.name', 'module.name'],
+                                glue: ' - ',
+                                label: 'mis.changelog.fields.module'|trans({}, 'mis'),
+                                link: {
+                                    route: 'mis_modules_show',
+                                    params: {'id': 'module.@id'},
+                                },
+                            },
+                            indiceFactor: {
+                                label: 'fields.ifactor'|trans({}, 'messages'),
+                                template: 'mis/trouble_ticket/partial/cell/_indice_factor.html.twig',
+                            }
+                        },
+                        title: 'TTS',
+                        data: items,
+                        initialSorting: false
+                    }
+                }, with_context = false) }}
+            </div>
+        </div>
+    </twig:SubscriptionComponent>
+{% endblock %}

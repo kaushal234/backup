@@ -1,0 +1,25 @@
+api_token:
+    path: /token
+
+api_doc:
+    path: /docs
+    controller: App\Controller\DocumentationController
+
+mcp:
+    resource: .
+    type: mcp
+
+#front:
+#    resource: routing_front.yaml
+
+when@test:
+    test_route_simple:
+        path: /meow
+
+    test_route_one_param:
+        path: /kittens/{id}
+        requirements:
+            id: '\d+'
+
+    test_route_two_params:
+        path: /boxes/{boxRef}/kittens/{id}

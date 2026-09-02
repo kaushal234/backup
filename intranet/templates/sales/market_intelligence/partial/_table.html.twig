@@ -1,0 +1,66 @@
+{% trans_default_domain 'market_intelligence' %}
+
+<div class="row">
+    <div class="col-lg-12">
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    id: {
+                        label: 'market_intelligence.fields.id'|trans,
+                        link:{
+                            route: 'market_intelligence_show',
+                            params: {'id':'@id'},
+                        }
+                    },
+                    type: {
+                        label: 'market_intelligence.fields.type'|trans,
+                        properties: ['type.name'],
+                    },
+                    createdAt: {
+                        label: 'customers.fields.created_at'|trans({}, 'sales_customers')|capitalize,
+                        filters: 'date("Y-m-d")'
+                    },
+                    shortDescription: {
+                        label: 'competitors.fields.short_description'|trans({}, 'sales_competitors')|capitalize,
+                    },
+                    productTypes: {
+                        label: 'market_intelligence.fields.productTypes'|trans|capitalize,
+                        template: 'sales/market_intelligence/partial/cells/_product_types.html.twig'
+                    },
+                    poster: {
+                        properties: ['poster.lastname', 'poster.firstname'],
+                        label: 'market_intelligence.fields.poster'|trans|capitalize,
+                        link: {
+                            route: 'directory_people_show',
+                            params: {'id':'poster.@id'}
+                        }
+                    },
+                    customers: {
+                        label: 'market_intelligence.fields.customers'|trans|capitalize,
+                        template: 'sales/market_intelligence/partial/cells/_customers.html.twig'
+                    },
+                    competitors: {
+                        label: 'market_intelligence.fields.competitors'|trans|capitalize,
+                        template: 'sales/market_intelligence/partial/cells/_competitors.html.twig'
+                    },
+                    suppliers: {
+                        label: 'market_intelligence.fields.suppliers'|trans|capitalize,
+                        template: 'sales/market_intelligence/partial/cells/_suppliers.html.twig'
+                    },
+                    marketIntelligencesLinked: {
+                        label: 'market_intelligence.report_title.linked'|trans,
+                        template: 'sales/market_intelligence/partial/cells/_mim_linked.html.twig'
+                    },
+                    marketIntelligenceFiles: {
+                        label: 'market_intelligence.file_title'|trans,
+                        template: 'sales/market_intelligence/partial/cells/_mim_files.html.twig'
+                    }
+                },
+                initialSorting: false,
+                search: searchTable,
+                title: reportTitle|trans,
+                data: marketIntelligences,
+            }
+        }, with_context = false) }}
+    </div>
+</div>

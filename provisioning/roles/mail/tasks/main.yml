@@ -1,0 +1,18 @@
+- name: Ensure US mail certificate is installed
+  become: true
+  ansible.builtin.template:
+    src: templates/winapp12.crt
+    dest: /usr/local/share/ca-certificates
+  when: (inventory_file | basename) == "production.yml"
+
+- name: Ensure Europe mail certificate is installed
+  become: true
+  ansible.builtin.template:
+    src: templates/emeapp05.crt
+    dest: /usr/local/share/ca-certificates
+  when: (inventory_file | basename) == "production.yml"
+
+- name: Ensure certificate is added to the local store
+  become: true
+  ansible.builtin.command: update-ca-certificates -v
+  when: (inventory_file | basename) == "production.yml"

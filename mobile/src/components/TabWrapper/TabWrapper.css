@@ -1,0 +1,28 @@
+.cui .tab_wrapper__form_wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cui .tab_wrapper__wrapper > .MuiBox-root {
+  border-bottom: none;
+}
+
+.cui .tab_wrapper__wrapper .MuiTab-root {
+  min-width: auto;
+}
+
+.cui .tab_wrapper__wrapper .MuiBadge-badge {
+  right: -3px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.cui.dark .tab_wrapper__wrapper .MuiBadge-badge {
+  right: -3px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.cui .tab_wrapper__wrapper .Mui-selected .MuiBadge-badge {
+  background-color: var(--mui-palette-primary-main);
+}

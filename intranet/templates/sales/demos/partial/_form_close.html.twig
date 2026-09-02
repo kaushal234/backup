@@ -1,0 +1,27 @@
+{% block content %}
+    {% form_theme form 'form_theme_horizontal.html.twig' %}
+
+    {{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-md-8 animated">
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart">
+                    {{ 'demo.close_demo' | trans({}, 'demo') }}
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.status) }}
+                    {{ form_row(form.closingComment) }}
+                    {{ form_row(form.futureDemo) }}
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+
+{% endblock %}

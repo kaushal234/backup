@@ -1,0 +1,147 @@
+{% trans_default_domain 'legal' %}
+
+<div>
+    {{ include('helper/_association_table.html.twig', {
+        associationData: {
+            items: {
+                id: {
+                    label: 'display.table.rfq.headers.id' | trans({}, 'messages'),
+                },
+                createdBy: {
+                    properties: ['createdBy.firstname', 'createdBy.lastname'],
+                    label: 'fields.poster' | trans({}, 'messages'),
+                    link:{
+                        route: 'directory_people_show',
+                        params: {'id':'createdBy.@id'},
+                    },
+                },
+                owner: {
+                    properties: ['owner.firstname', 'owner.lastname'],
+                    label: 'shopfloor_columns.owner' | trans({}, 'pio'),
+                    link:{
+                        route: 'directory_people_show',
+                        params: {'id':'owner.@id'},
+                    },
+                },
+                shortDescription: {
+                    label: 'legal.fields.title' | trans | capitalize,
+                },
+                description: {
+                    label: 'legal.fields.description' | trans | capitalize,
+                },
+                subCategory: {
+                    properties: ['subCategory.category.name', 'subCategory.name'],
+                    glue: ' - ',
+                    label: 'legal.fields.subCategory' | trans | capitalize,
+                },
+                createdAt: {
+                    label: 'fields.created_at'|trans({}, 'messages')|capitalize,
+                    filters: 'date("Y-m-d")'
+                },
+                startDate: {
+                    label: 'service.maintenance_contract.fields.start_date'|trans({}, 'service')|capitalize,
+                    filters: 'date("Y-m-d")'
+                },
+                expirationDate: {
+                    label: 'service.maintenance_contract.fields.expiration_date'|trans({}, 'service')|capitalize,
+                    filters: 'date("Y-m-d")',
+                    preserveNull: true
+                },
+                status: {
+                    label: 'fields.status' | trans({}, 'messages') | capitalize,
+                },
+                confidential: {
+                    label: 'contract.form.general.confidential.label' | trans({}, 'contract') | capitalize,
+                },
+                observationStatus: {
+                    label: 'legal.fields.observation_status' | trans | capitalize,
+                },
+                indefinitePeriodType: {
+                    label: 'legal.fields.indefinite_period_type' | trans | capitalize,
+                },
+                automaticRenewal: {
+                    label: 'legal.fields.automatic_renewal' | trans | capitalize,
+                },
+                renewalPeriod: {
+                    label: 'legal.fields.renewal_period' | trans | capitalize,
+                },
+                renewalUnit: {
+                    label: 'legal.fields.renewal_unit' | trans | capitalize,
+                },
+                observationTerm: {
+                    label: 'legal.fields.observation_term' | trans | capitalize,
+                },
+                externalParty: {
+                    label: 'legal.fields.external_party' | trans | capitalize,
+                },
+                jurisdiction: {
+                    label: 'legal.fields.jurisdiction' | trans | capitalize,
+                },
+                value: {
+                    label: 'legal.fields.value' | trans | capitalize,
+                },
+                currency: {
+                    properties: ['currency.name'],
+                    label: 'legal.fields.currency' | trans | capitalize,
+                },
+                observationValue: {
+                    label: 'legal.fields.observation_value' | trans | capitalize,
+                },
+                parentContract: {
+                    properties: ['parentContract.name'],
+                    label: 'legal.fields.parent_contract' | trans | capitalize,
+                    link:{
+                        route: 'contract_show',
+                        params: {'id':'parentContract.@id'},
+                    },
+                },
+                childContracts: {
+                    label: 'legal.fields.child_contract' | trans | capitalize,
+                    template: '/legal/contract/partial/cells/_child_contracts_list.html.twig',
+                    templateParams: {childContracts: contract.childContracts}
+                },
+                divisions: {
+                    label: 'legal.fields.division' | trans | capitalize,
+                    template: '/legal/contract/partial/cells/_divisions_list.html.twig',
+                    templateParams: {divisions: contract.divisions}
+                },
+                regions: {
+                    label: 'legal.fields.region' | trans | capitalize,
+                    template: '/legal/contract/partial/cells/_regions_list.html.twig',
+                    templateParams: {regions: contract.regions}
+                },
+                businessUnits: {
+                    label: 'legal.fields.business_unit' | trans | capitalize,
+                    template: '/legal/contract/partial/cells/_business_units_list.html.twig',
+                    templateParams: {businessUnits: contract.businessUnits}
+                },
+                customers: {
+                    label: 'legal.fields.customer' | trans | capitalize,
+                    template: '/legal/contract/partial/cells/_customers_list.html.twig',
+                    templateParams: {customers: contract.customers}
+                },
+                premises: {
+                    label: 'legal.fields.premise' | trans | capitalize,
+                    template: '/legal/contract/partial/cells/_premises_list.html.twig',
+                    templateParams: {premises: contract.premises}
+                },
+                internalParty: {
+                    label: 'legal.fields.internal_party' | trans | capitalize,
+                    template: '/legal/contract/partial/cells/_internal_party_list.html.twig',
+                    templateParams: {internalParty: contract.internalParty}
+                },
+                otherPartySignatories: {
+                    label: 'legal.fields.other_party_signatories' | trans | capitalize,
+                    template: '/legal/contract/partial/cells/_other_party_signatories_list.html.twig',
+                    templateParams: {otherPartySignatories: contract.otherPartySignatories}
+                },
+                comment: {
+                    label: 'legal.fields.comment' | trans,
+                },
+            },
+            title: contract.shortDescription,
+            data: contract,
+            card:false,
+        }
+    }, with_context  = false) }}
+</div>

@@ -1,0 +1,38 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.purchase_order'|trans }}{% endblock %}
+
+{% block main %}
+    {% embed '_components/association_table.html.twig' with {
+        associationData: {
+            items: {
+                id: {label: 'display.table.purchase_order.headers.id'|trans},
+                supplierNumber: {label: 'display.table.purchase_order.headers.supplier_number'|trans},
+                orderDate: {
+                    label: 'display.table.purchase_order.headers.order_date'|trans,
+                    filters: ["date('Y-m-d')"]
+                },
+                referenceA: {label: 'display.table.purchase_order.headers.reference_a'|trans},
+                referenceB: {label: 'display.table.purchase_order.headers.reference_b'|trans},
+            },
+            title: 'display.table.purchase_order.caption.id'|trans({'id': order.id}),
+            data: order
+        }
+    } %}
+    {% block card_header_after %}
+        <div class="col d-flex justify-content-end">
+            <div>
+                <a href="{{ path('purchase-order:download_drawings_and_documents', {id: order.id, erp: order.erp}) }}"
+                   class="btn btn-outline-primary float-end">{{ 'display.table.purchase_order.caption.downloadDrawingsAndDocuments'|trans }}</a>
+            </div>
+            <div class="ps-2">
+                {% include 'purchase-order/components/modal/labels.html.twig' %}
+            </div>
+        </div>
+    {% endblock %}
+    {% endembed %}
+
+    {% include 'purchase-order/components/lines.html.twig' %}
+    {% include 'purchase-order/components/purchase_order_comments.html.twig' %}
+
+{% endblock %}

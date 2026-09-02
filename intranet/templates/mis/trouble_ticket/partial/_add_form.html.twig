@@ -1,0 +1,10 @@
+{% extends 'mis/trouble_ticket/partial/_form.html.twig' %}
+
+{# Add page: editable description + CCs. #}
+{% block fields %}
+    <div class="text-uppercase small text-muted fw-semibold border-bottom pb-2 mt-4 mb-3">{{ 'trouble_ticket.fields.details'|trans({}, 'trouble_ticket') }}</div>
+    {{ form_row(form.url) }}
+    {{ form_row(form.shortDescription) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.ccs) }}
+{% endblock %}

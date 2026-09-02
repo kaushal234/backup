@@ -1,0 +1,40 @@
+forecast_closures:
+    module: FCR
+    title: Forecast Closure Records
+    title_cpr_form: Add New CPR
+    title_cpr_fcr_form: Add New CPR FCR
+    files: Files
+    report: FCR by reason
+    unknown_competitor: Unknown
+    errors:
+        not_allowed_edit: You are not allowed to edit this FCR
+        create_fail: Something went wrong and one of the FCR could not be created
+        same_status: Statuses of the two FCR must be different, one PARTIAL LOST and the other PARTIAL ORDERED
+    fields:
+        sfr_quantity: SFR Quantity
+        ordered_quantity: Ordered Quantity to TLD
+        lost_quantity: Lost Quantity by TLD
+        quantity: Quantity
+        fcr_date: FCR Created date
+        sfr_date: SFR date
+        sfr_date_creation: SFR Opened Date
+        sfr_date_closure: SFR Closed Date
+        status: Closing type
+        fcr_status: FCR Status
+        sfr_status: SFR Status
+        winning_party: Winning Party
+        reason: Reason
+        price: EXW Price
+    form:
+        submit_and_new: Submit & create another CPR
+        submit_and_back: Submit & go back to FCR
+    messages:
+        delete_confirm: Are you sure you want to delete this FCR?
+        success_edit: The FCR has successfully been edited
+        success_delete: The FCR has successfully been deleted
+        error_delete: Something went wrong and the FCR could not be deleted
+        not_allowed_delete: You are not allowed to delete this FCR
+        success_new_cpr: A new CPR has successfully been created
+        success_create: The FCR has been successfully created
+    info_cpr: This step is for creating a Competitor Pricing Records (CPR) to include other competitors that were also bidding on the project.
+    finish: If you have no CPR's to enter, please click here to finish.

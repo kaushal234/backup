@@ -1,0 +1,26 @@
+{% trans_default_domain "pdfs" %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <style type="text/css">
+                {{ include('Pdf/fonts/opensans.css.twig') }}
+                {{ source('@css/pdf.css') }}
+            </style>
+            {% include 'Pdf/jsWkhtmltopdf.html.twig' %}
+        {% endblock head %}
+    </head>
+
+    <body class="fixed-width" onload="subst()">
+        <br/>
+        <div class="container" id="footer">
+            <div class="row">
+                <div class="col-md-12 text-left">
+                    <span>Page </span><span class="page"></span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

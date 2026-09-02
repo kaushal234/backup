@@ -1,0 +1,233 @@
+{% extends 'datatable_theme.html.twig' %}
+
+{% block table %}
+    <div class="frame-loading-show">
+        <twig:LoadingSpinner />
+        <div class="row row-cols-xxl-6 row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-col-1 g-2">
+            {{ block('table_body', theme) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block table_body %}
+    {{ block('table_body_row', theme) }}
+{% endblock %}
+
+{% block table_body_row_results %}
+    {% for value_row in value_rows %}
+        <div class="col">
+            <div class="card h-100">
+                {{ data_table_value_row(value_row) }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block kreyu_data_table_value_row %}
+    <div class="card-body px-0 py-3">
+        {% for column_value in row %}
+            {{- data_table_column_value(column_value) -}}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block column_actions_value -%}
+    <div class="d-flex justify-content-end gap-2 border-top border-dashed px-3 pt-3 mt-2">
+        {% for action in actions %}
+            {{ data_table_action(action) }}
+        {% endfor %}
+    </div>
+{%- endblock %}
+
+{% block column_value -%}
+    <div class="px-3 mt-1">
+        {{ parent() }}
+    </div>
+{%- endblock %}
+
+{% block column_template_value -%}
+    <div class="px-3 mt-1">
+        {{ parent() }}
+    </div>
+{%- endblock %}
+
+{% block action_bar %}
+    {% set display_filter_action = filtration_enabled and filters|length > 0 and filtration_form.children|length > 0 %}
+    {% set display_export_action = exporting_enabled and exporters|length > 0 %}
+
+    {% if actions is not empty or display_filter_action or display_export_action or personalization_enabled %}
+
+        <div class="d-inline-block w-auto ms-2">
+            <div class="input-group">
+                {% if display_filter_action %}
+                    {{ block('action_filter') }}
+                {% endif %}
+
+                {% if display_export_action %}
+                    {{ block('action_export') }}
+                {% endif %}
+
+                {% if personalization_enabled %}
+                    {{ block('action_personalize') }}
+                {% endif %}
+
+                {{ block('action_reset') }}
+            </div>
+        </div>
+
+        {% if display_export_action %}
+            {{ block('export_modal') }}
+        {% endif %}
+
+        {% if personalization_enabled %}
+            {{ block('personalization_modal') }}
+        {% endif %}
+
+        {{ block('reset_modal') }}
+
+    {% endif %}
+{% endblock %}
+
+{% block batch_action_bar_actions %}
+    <div class="d-flex flex-row gap-1">
+        {% for action in batch_actions %}
+            <div>
+                {{ data_table_action(action) }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block kreyu_data_table %}
+    {% set stimulus_controllers = ['kreyu--data-table-bundle--state'] %}
+
+    {% if has_batch_actions %}
+        {% set stimulus_controllers = stimulus_controllers|merge(['kreyu--data-table-bundle--batch']) %}
+    {% endif %}
+
+    <turbo-frame id="kreyu_data_table_{{ name }}" target="_top" data-turbo="true" data-turbo-prefetch="false">
+        <div
+                data-controller="{{ stimulus_controllers|join(' ') }}"
+                data-kreyu--data-table-bundle--state-url-query-parameters-value="{{ url_query_parameters|default({})|json_encode }}"
+        >
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center flex-lg-row flex-column gap-2">
+                        {% if filtration_enabled and filtration_form and filtration_form.vars.search_fields|length > 0 %}
+                            {{ block('action_search') }}
+                        {% endif %}
+
+                        {% if has_batch_actions %}
+                            {{ block('batch_action_bar', theme) }}
+                        {% endif %}
+
+                        <div class="d-flex col justify-content-end">
+                            {{ block('action_bar', theme) }}
+
+                            {% for action in actions %}
+                                <div class="ms-1">
+                                    {{ data_table_action(action) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if filtration_enabled and filtration_form and filters|length > 0 %}
+                        <div class="collapse" id="{{ filtration_form.vars.id }}__collapse">
+                            <div class="hr-line-dashed mt-2 mb-2"></div>
+                            {{ data_table_filters_form(filtration_form) }}
+                        </div>
+                    {% endif %}
+
+                    {% if has_active_filters %}
+                        <div class="hr-line-dashed mt-2 mb-2"></div>
+                        {{ block('active_filters') }}
+                    {% endif %}
+
+                </div>
+            </div>
+
+            {{ block('table', theme) }}
+
+            {% if pagination_enabled %}
+                <div class="pagination d-flex flex-wrap justify-content-between align-items-center flex-lg-row flex-column gap-2 mt-4">
+                    {{ data_table_items_per_page(pagination) }}
+                    {{ data_table_pagination(pagination) }}
+                </div>
+            {% endif %}
+        </div>
+    </turbo-frame>
+{% endblock %}
+
+{% block action_personalize %}
+    {% set attr = {
+        'class': 'btn btn-white',
+        'type': 'button',
+        'data-bs-toggle': 'tooltip',
+        'data-bs-placement': 'top',
+        'title': 'Personalize'|trans({}, 'KreyuDataTable'),
+    }|merge(attr|default({})) %}
+
+    <span data-bs-toggle="modal" data-bs-target="#{{ personalization_form.vars.id }}__modal">
+        <a {{ block('attributes') }}>{{ block('action_personalize_icon') }}</a>
+    </span>
+{% endblock %}
+
+{% block action_filter %}
+    {% set attr = {
+        'class': 'btn btn-white',
+        'type': 'button',
+        'data-bs-toggle': 'collapse',
+        'data-bs-target': '#' ~ filtration_form.vars.id ~ '__collapse',
+        'aria-expanded': 'false',
+        'aria-controls': filtration_form.vars.id ~ '__collapse',
+        'title': 'Filter'|trans({}, 'KreyuDataTable'),
+    }|merge(attr|default({})) %}
+
+    <button {{ block('attributes') }}>{{ block('action_filter_icon') }}</button>
+{% endblock %}
+
+{% block action_export %}
+    {% set attr = {
+        'class': 'btn btn-white',
+        'type': 'button',
+        'data-bs-toggle': 'tooltip',
+        'data-bs-placement': 'top',
+        'title': 'Export'|trans({}, 'KreyuDataTable'),
+    }|merge(attr|default({})) %}
+
+    <span data-bs-toggle="modal" data-bs-target="#{{ export_form.vars.id }}__modal">
+        <a {{ block('attributes') }}>{{ block('action_export_icon') }}</a>
+    </span>
+{% endblock %}
+
+{% block action_confirmation_modal %}
+    {{ parent() }}
+{% endblock %}
+
+{% block action_reset %}
+    {% set attr = {
+        'class': 'btn btn-white',
+        'type': 'button',
+        'data-bs-toggle': 'tooltip',
+        'data-bs-placement': 'top',
+        'title': 'Reset'|trans({}, 'KreyuDataTable'),
+    }|merge(attr|default({})) %}
+
+    <span data-bs-toggle="modal" data-bs-target="#{{ data_table.vars.name }}_reset_modal">
+        <a {{ block('attributes') }}>{{ block('action_reset_icon') }}</a>
+    </span>
+{% endblock %}
+
+{% block action_search %}
+    {% form_theme filtration_form with [_self, 'form_theme_horizontal.html.twig'] %}
+
+    <div class="d-inline-block w-auto">
+        <div class="input-group">
+            {% for child in filtration_form.vars.search_fields %}
+                {{ form_widget(child.value, { attr: { form: filtration_form.vars.id, class: 'form-control-sm', style: 'border-color: #dee2e6;' } }) }}
+            {% endfor %}
+            <input class="btn btn-white" type="submit" form="{{ filtration_form.vars.id }}" data-turbo-action="advance" data-turbo-frame="_self" value="Search">
+        </div>
+    </div>
+{% endblock %}

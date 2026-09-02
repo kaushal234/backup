@@ -1,0 +1,125 @@
+{% extends '/support/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'support.reports.titles.odp_stability' | trans() }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('support/on_time_delivery_planning/partial/_stability_matrix.html.twig', {stabilityReport: stabilityReport}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'support.reports.titles.odp_overview' | trans() }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {% set computed = matrix(overviewReport, columnsOrder, []) %}
+                    {{ include('helper/_matrix_table.html.twig', {
+                        data: overviewReport,
+                        headers: {columns: columnsOrder|filter(col => computed.yTotals[col] is defined)},
+                        showZero: false,
+                        template: 'support/on_time_delivery_planning/partial/cell/_overview_matrix.html.twig',
+                        additionalParams: {columnFilters: columnFilters, location: location},
+                    }, with_context=false) }}
+                </div>
+            </div>
+        </div>
+        <div class="col md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    {{ include('helper/_report_table.html.twig', {
+                        reportTable: {
+                            items: {
+                                legacyId: {
+                                    label: 'demo.fields.equipment_record'|trans([], 'demo')|capitalize,
+                                    link:{
+                                        route: 'legacy_product_support',
+                                        params: {'id':'legacyId'},
+                                        fixedParams: {'m':['equipment', 'view']},
+                                    }
+                                },
+                                serialNumber: {
+                                    label: 'support.equipment_record.fields.serial_number'|trans|capitalize,
+                                },
+                                model: {
+                                    label: 'catalogue.products.product'|trans([], 'catalogue'),
+                                },
+                                type: {
+                                    label: 'support.equipment_record.fields.type'|trans,
+                                },
+                                endUser: {
+                                    label: 'support.equipment_record.fields.end_user'|trans|capitalize,
+                                    properties: ['endUser.name']
+                                },
+                                buyer: {
+                                    label: 'support.equipment_record.fields.buyer'|trans|capitalize,
+                                    properties: ['buyer.name']
+                                },
+                                firstGreenTagDate: {
+                                    label: 'support.equipment_record.fields.first_green_tag_date'|trans|capitalize,
+                                    filters: 'date("Y-m-d")',
+                                    preserveNull: true,
+                                },
+                                estimatedGreenTagDate: {
+                                    label: 'support.equipment_record.fields.estimated_green_tag_date'|trans|capitalize,
+                                    filters: 'date("Y-m-d")',
+                                    preserveNull: true,
+                                },
+                                greenTagDate: {
+                                    label: 'support.equipment_record.fields.green_tag_date'|trans|capitalize,
+                                    filters: 'date("Y-m-d")',
+                                    preserveNull: true,
+                                },
+                                yellowTagDate: {
+                                    label: 'support.equipment_record.fields.yellow_tag_date'|trans|capitalize,
+                                    filters: 'date("Y-m-d")',
+                                    preserveNull: true,
+                                },
+                                odpComment: {
+                                    label: 'support.equipment_record.fields.odp_comment'|trans|capitalize,
+                                },
+                            },
+                            data: lateEquipmentRecord,
+                            title: 'support.reports.titles.late_equipment_record' | trans(),
+                            pagination: false
+                        },
+                    }, with_context = false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col md-12">
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: {
+                        sol:                   { label: 'support.reports.top_late_sols.sol'|trans },
+                        buyer:                 { label: 'support.reports.top_late_sols.buyer'|trans },
+                        endUser:               { label: 'support.reports.top_late_sols.user'|trans },
+                        promiseDate:           { label: 'support.reports.top_late_sols.promise_date'|trans },
+                        estimatedGreenTagDate: { label: 'support.reports.top_late_sols.egt'|trans },
+                        product:               { label: 'support.reports.top_late_sols.product'|trans },
+                        quantity:              { label: 'support.reports.top_late_sols.quantity'|trans, class: 'text-end' },
+                    },
+                    data: topLateSols,
+                    title: 'support.reports.titles.top_late_sols'|trans,
+                    pagination: false,
+                },
+            }, with_context=false) }}
+        </div>
+    </div>
+{% endblock %}

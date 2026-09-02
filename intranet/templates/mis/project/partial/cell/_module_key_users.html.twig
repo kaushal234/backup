@@ -1,0 +1,7 @@
+<td>
+    {% for moduleKeyUser in moduleKeyUsers %}
+        <a href="{{ path('directory_people_show',{id: iri_id(moduleKeyUser)}) }}">
+            {{ moduleKeyUser.firstname }} {{ moduleKeyUser.lastname }}{% if not loop.last %}, {% endif %}
+        </a>
+    {% endfor %}
+</td>

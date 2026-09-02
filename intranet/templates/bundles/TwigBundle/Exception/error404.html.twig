@@ -1,0 +1,14 @@
+{% extends 'error_layout.html.twig' %}
+{% trans_default_domain 'errors' %}
+
+{% block content %}
+    <div class="middle-box text-center animated fadeInDown">
+        <h1>404</h1>
+        <h3 class="font-bold">{{ 'errors.404_title'|trans }}</h3>
+
+        <div class="error-desc m-b-xl">
+            {{ 'errors.404_content'|trans }}
+            <br><a href="{{ path('home') }}" class="btn btn-primary m-t">{{ 'menu.home'|trans([], 'messages') }}</a>
+        </div>
+    </div>
+{% endblock %}

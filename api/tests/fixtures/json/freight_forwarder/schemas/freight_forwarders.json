@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "@id": {"pattern": "^/freight_forwarders$"},
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "@id": {"pattern": "^/freight_forwarders/\\d+$"},
+          "@type": { "type": "string" },
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "language": { "type": "string" },
+          "supplierNumber": { "type": ["string", "null"] },
+          "location": {
+            "oneOf": [
+              {"type": "null"},
+              {"$ref": "../../directory_location/schemas/directory_location_public.json"}
+            ]
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "name",
+          "language",
+          "supplierNumber",
+          "location",
+          "emails"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}

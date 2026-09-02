@@ -1,0 +1,28 @@
+{% extends 'directory/people/layout_people.html.twig' %}
+{% trans_default_domain 'directory' %}
+
+{% set people_id = iri_id(people) %}
+
+{% block title %}{{ parent() }}\{{ 'menu.edit'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    {{ include('directory/people/partial/_username_error.html.twig') }}
+    <div class="row">
+        <div class="col-lg-8">
+            <h3>{{ 'directory.people.title.edit'|trans([], 'directory') }}</h3>
+            {{ include('directory/people/_form.html.twig', {
+                form: form,
+                action: path('directory_people_edit', { id: people_id }),
+                cancel_link: path('legacy_directory_index', { m: ['people'] }),
+                id: people_id
+            }, with_context=false) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        {{ include('directory/people/partial/_people_position_category.js.twig', {classifications: classifications.simpleArrayCopy}, with_context=false) }}
+    </script>
+{% endblock %}

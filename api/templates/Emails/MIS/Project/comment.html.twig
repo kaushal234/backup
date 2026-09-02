@@ -1,0 +1,15 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+
+{% trans_default_domain "emails" %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <columns>
+            <p>{{ 'mis_project.message.commented' | trans({'%id%': project.id, '%project_name%': project.name}) }}:</p>
+            <p>{{ comment | raw }}</p>
+
+            <p><a href="{{ url('project', { 'id': project.id }) }}">{{ 'mis_project.message.generic' | trans }}</a></p>
+        </columns>
+    </row>
+{% endblock %}

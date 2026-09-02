@@ -1,0 +1,18 @@
+{% extends 'Emails/alvest/layout.html.twig' %}
+{% trans_default_domain "task" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <row>
+        <a href="{{ url('calendar', { 'm': ['st', 'view'], 'id': scheduledTask.id }) }}">
+            {{ 'scheduled_task.expiration_notification' | trans({
+                '%id%': scheduledTask.id,
+                '%date%': scheduledTask.date_end|date('Y-m-d')
+            }) }}
+        </a>
+        <p>{{ scheduledTask.description| raw | nl2br }}</p>
+    </row>
+{% endblock %}

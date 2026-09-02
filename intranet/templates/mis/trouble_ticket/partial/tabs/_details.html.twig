@@ -1,0 +1,153 @@
+{% trans_default_domain 'trouble_ticket' %}
+<div class="row g-4">
+    <div class="{{ form is not null ? 'col-12' : 'col-xl-4 col-lg-5' }}">
+        <div class="d-flex flex-column h-100">
+            <div class="bg-white rounded-3 border p-4 shadow-sm">
+                <div class="d-flex justify-content-between align-items-start border-bottom pb-2 mb-3">
+                    <h3 class="fw-bold mb-0">{{ troubleTicket.shortDescription | raw }}</h3>
+                </div>
+                {% set data = {
+                    createdAt: {
+                        label: 'trouble_ticket.fields.created_at' | trans,
+                        filters: 'date("Y-m-d")',
+                    },
+                    dueDate: {
+                        label: 'trouble_ticket.fields.due_date' | trans,
+                        filters: 'date("Y-m-d")',
+                        preserveNull: true
+                    },
+                    id: {
+                        label: 'ID#'
+                    },
+                    location: {
+                        label: 'trouble_ticket.fields.location' | trans,
+                        properties: ['createdBy.location.name'],
+                    },
+                } %}
+                {% if troubleTicket.additionalOwners | length > 0 %}
+                    {% set data = data | merge({
+                        additionalOwners: {
+                            label: 'trouble_ticket.fields.additional_owners' | trans,
+                            template: 'mis/trouble_ticket/partial/cell/_additional_owners.html.twig',
+                            filters: 'date("Y-m-d")',
+                        },
+                    }) %}
+                {% endif %}
+                {% if troubleTicket.createdBy.supportTeam is defined and not null %}
+                    {% set data = data | merge({
+                        premise: {
+                            properties: ['createdBy.supportTeam'],
+                            label: 'trouble_ticket.fields.support' | trans,
+                        },
+                    }) %}
+                {% endif %}
+                {% if is_granted('ACL_GG_MIS') and troubleTicket.supportLevel is defined and troubleTicket.supportLevel is not null %}
+                    {% set data = data | merge({
+                        supportLevel: {
+                            properties: ['supportLevel.level', 'supportLevel.name'],
+                            glue: ' - ',
+                            label: 'trouble_ticket.fields.support_level' | trans,
+                        },
+                    }) %}
+                {% endif %}
+                {% set data = data | merge({
+                    type: {
+                        properties: ['type.type', 'type.description'],
+                        glue: ' - ',
+                        label: 'trouble_ticket.fields.type' | trans({}, 'trouble_ticket'),
+                        template: 'mis/trouble_ticket/partial/cell/_type.html.twig',
+                    },
+                    module: {
+                        label: 'trouble_ticket.fields.module' | trans({}, 'trouble_ticket'),
+                        properties: ['module.application.name' , 'module.name'],
+                        glue: ' - ',
+                        link:{
+                            route: 'mis_modules_show',
+                            params: {'id':'module.@id'},
+                        }
+                    }
+                }) %}
+                {% set data = troubleTicket.issue is null ? data : data | merge({
+                    jiraIssueNumber: {
+                        label: 'trouble_ticket.fields.jira_number' | trans,
+                        template: 'mis/trouble_ticket/partial/cell/_jira_issue_number.html.twig',
+                    },
+                    priority: {
+                        properties: ['issue.priority.name'],
+                        label: 'trouble_ticket.fields.priority' | trans,
+                    },
+                    mis_status: {
+                        properties: ['issue.status'],
+                        label: 'trouble_ticket.fields.mis_status' | trans,
+                    },
+                    startDueDate: {
+                        properties: ['issue.startDueDate'],
+                        label: 'trouble_ticket.fields.jira_sprint_start_date' | trans|capitalize,
+                        filters: ['date("Y-m-d")'],
+                        preserveNull: true
+                    },
+                    endDueDate: {
+                        properties: ['issue.endDueDate'],
+                        label: 'trouble_ticket.fields.jira_sprint_end_date' | trans |capitalize,
+                        filters: ['date("Y-m-d")'],
+                        preserveNull: true
+                    }
+                }) %}
+                {{ include('helper/_association_table.html.twig', {
+                    associationData: {
+                        items: data,
+                        data: troubleTicket,
+                        card: false,
+                        hideTitle: true
+                    }
+                }, with_context  = false) }}
+
+                <div class="text-break p-3 bg-light rounded-3 mb-3">
+                    {{ troubleTicket.description | raw }}
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="{{ form is not null ? 'col-6' : 'col-12' }}">
+                        {% if troubleTicket.files is not null and troubleTicket.files|length > 0 %}
+                            {{ component('Swiper', {
+                                files: troubleTicket.files,
+                                uploadUri: upload_uri,
+                                fileRouteBuilder: (file) => file['@type'] == 'TroubleTicketFile'
+                                ? path('trouble_ticket_files_show', { troubleTicketId: troubleTicket.iriId, id: file.id })
+                                : path('download_comment_file', { id: file.commentId, fileId: file.id })
+                            }) }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="mt-3 d-flex justify-content-center flex-wrap gap-2">
+                    {% if troubleTicket.status not in ['RESOLVED', 'NOT AN ISSUE', 'ALREADY RAISED', 'NOT APPROVED'] %}
+                        {% if app.user.getIriId not in additionalOwners %}
+                            <a href="{{ path('trouble_ticket_add_additional_owner', {id: troubleTicket.id}) }}"
+                               class="btn btn-sm btn-warning shadow-sm fw-bold">
+                                <i class="fa fa-user-plus me-1"></i> {{ 'trouble_ticket.fields.same_issue'| trans }}
+                            </a>
+                        {% else %}
+                            <a href="{{ path('trouble_ticket_remove_additional_owner', {id: troubleTicket.id}) }}"
+                               class="btn btn-sm btn-warning shadow-sm fw-bold">
+                                <i class="fa fa-user-minus me-1"></i> {{ 'trouble_ticket.button.no_more_same_issue'| trans }}
+                            </a>
+                        {% endif %}
+                        {% if canSubscribe %}
+                            <a href="{{ path('trouble_ticket_follow', {id: troubleTicket.id}) }}"
+                               class="btn btn-sm btn-warning shadow-sm fw-bold">
+                                <i class="fa fa-bookmark me-1"></i> {{ 'trouble_ticket.fields.interested'| trans }}
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% if form is null %}
+        <div class="col-xl-8 col-lg-7 border-start-lg">
+            <div class="d-flex flex-column h-100">
+                {{ include('mis/trouble_ticket/partial/_comment.html.twig', {comments: comments}) }}
+            </div>
+        </div>
+    {% endif %}
+</div>

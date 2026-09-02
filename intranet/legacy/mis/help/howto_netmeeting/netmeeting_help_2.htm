@@ -1,0 +1,716 @@
+<HTML>
+<HEAD>
+
+<style TYPE="text/css">
+
+h1
+		{ font-size: 125%; 
+		margin-bottom:" .5em"; clear:both; }
+
+h2
+		{ font-size: 110%;  
+		margin-top: 1.5em;
+		margin-bottom:" .5em"; clear:both; }
+
+h3
+		{ font-size: 100%; 
+		margin-top: 1.2em;  
+		margin-bottom: ".5em"; clear:both; }
+
+h4
+		{ font-size: 100%; 
+		margin-top: "1.2em";  
+		margin-bottom: ".5em"; clear:both; }
+
+h5
+		{ font-size: 100%; 
+		margin-top: "1.2em";  
+		margin-bottom: ".5em"; clear:both; }
+
+h6		{ font-size: 70%; 
+		margin-top: ".2em";  
+		margin-bottom: ".5em"; clear:both; }
+
+
+p
+		{ margin-top:"1.5em"; 
+		margin-bottom: ".6em"; }
+			
+ol
+		{ margin-top: ".5em"; 
+		margin-bottom: 0; 
+		margin-left: "2.1em"; 
+		padding-left: "0em"; }
+	
+ul
+		{ margin-top: ".6em"; 	
+		margin-bottom: 0;
+		list-style-type: disc;
+		margin-left: "1.5em";
+		padding-left: "0em"; }
+		
+li
+		{ margin-bottom: ".7em"; clear:both; }
+
+dd
+		{ margin-bottom: 0; 
+		margin-left: "1.5em"; } 
+
+
+
+body    		{ color: #000000;
+		background: #FFFFFF;  	
+		font-size: 70%;    		
+		font-family: Verdana, Arial, Helvetica, Sans Serif }
+
+A:HOVER {color: #3399FF}
+a:link	{text-decoration	:	none};
+a:visited	{text-decoration	:	none};
+a:active	{text-decoration	:	none};
+</style>
+
+<TITLE>Microsoft Windows NetMeeting 3 Service Pack 2 Readme </TITLE>
+</HEAD>
+<body>
+	
+<font face="Verdana, arial">
+<hr width="80%">
+<h2><center>Microsoft Windows NetMeeting 3 <br>Service Pack 2 Readme</center></h2>
+
+<center>(c) Copyright Microsoft Corporation, 2000</center>
+<hr width="80%">
+<p>This document provides late-breaking information and known issues to supplement existing Help and other NetMeeting documentation.</p>
+
+<p>Information in this document, including URL and other Internet Web site references, is subject to change without notice and is provided for informational purposes only. The entire risk of the use or results of the use of this document remains with the user, and Microsoft Corporation makes no warranties, either express or implied. The example companies, organizations, products, people, and events depicted herein are fictitious. No association with any real company, organization, product, person, or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.</p>
+
+<p>Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.</p>
+
+<p>(c) 2000 Microsoft Corporation. All rights reserved.</p>
+
+<p>DirectSound, DirectX, FrontPage, IntelliMouse, Microsoft, MS-DOS, MSN, NetMeeting,  PowerPoint, WebTV, Windows, and Windows NT are either registered trademarks or trademarks of Microsoft Corporation in the U.S.A. and/or other countries.</p>
+
+<p>The names of actual companies and products mentioned herein may be the trademarks of their respective owners.</p>
+
+<h3><a name="Contents">CONTENTS</a></h3>
+
+<table WIDTH="100%">
+
+<tr>
+<td WIDTH="50%"><h6><a href="#systemrecs">System Requirements and Setup</a></h6></td>
+<td WIDTH="50%"><h6><a href="#Audio" target="_self">Audio</h6></td>
+</tr>
+
+<tr>
+<td width="50%"><h6><a href="#geninfo" target="_self">General Information</a></h6></td>
+<td WIDTH="50%"><h6><a href="#Video" target="_self">Video</a></h6></td>
+</tr>
+
+<tr>
+<td WIDTH="50%"><h6><a href="#GKI" target="_self">General Known Issues</a></h6></td>
+<td WIDTH="50%"><h6><a href="#Gate" target="_self">Gatekeepers and Gateways</a></h6></td>
+</tr>    
+
+<tr>
+<td WIDTH="50%"><h6><a href="#placecall" target="_self">Placing a Call</a></h6></td>
+
+<td WIDTH="50%"><h6><a href="#RDS" target="_self">Remote Desktop Sharing</a></h6></td>
+</tr>
+
+<tr>
+<td WIDTH="50%"><h6><a href="#RecCall" target="_self">Receiving a Call</a></h6></td>
+<td WIDTH="50%"><h6><a href="#Secure" target="_self">Security</a></h6></td>
+</tr>
+
+<tr>
+<td width="50%"><h6><a href="#MID">Microsoft Internet Directory</a></h6></td>
+<td WIDTH="50%"><h6><a href="#NTI" target="_self">Windows NT Issues</a></h6></td></tr>
+
+<tr>
+<td WIDTH="50%"><h6><a href="#ShareAp" target="_self">Program Sharing</a></h6></td>
+<td WIDTH="50%"><h6><a href="#uninstall" target="_self">Uninstalling NetMeeting</a></h6></td>
+</tr>
+
+<tr>
+<td WIDTH="50%"><h6><a href="#WhiteB" target="_self">Whiteboard</a></h6></td>
+<td WIDTH="50%"><h6><a href="#accessibility" target ="_self"">Accessibility</a></h6></td>
+</tr>
+
+<tr>
+<td WIDTH="50%"><h6><a href="#Chat" target="_self">Chat</a></h6></td>
+</tr>
+</table>
+
+
+
+<a name="SystemRecs">
+<h3>System Requirements and Setup</h3>
+</a>
+
+<p>Microsoft Windows NetMeeting enables real-time audio, video, and data communication over the Internet. NetMeeting requires the following minimum configuration:</p>
+
+<blockquote>
+  <ul>
+    <li>Microsoft Windows&nbsp;95 or later</li>
+    <li>90 megahertz (MHz) Pentium processor</li>
+	<li>16 megabytes (MB) of RAM </li>
+	<li>Microsoft Internet Explorer version 4.01 or later</li>
+  </ul>
+  <blockquote>
+ 
+      --or--
+ 
+  </blockquote>
+  <ul>
+    <li>Microsoft Windows&nbsp;NT version 4.0 (Microsoft Windows&nbsp;NT&nbsp;4.0 Service Pack 3 or later is required to enable program sharing on Windows&nbsp;NT.)
+</li>
+    <li>90 MHz Pentium processor</li>
+	<li>24 MB of RAM.</li>
+	<li>Internet Explorer version 4.01 or later</li>
+  </ul>
+</blockquote>
+  
+<p>It is strongly recommended that you uninstall earlier beta versions of Microsoft NetMeeting before installing this version.</p>
+
+<p>If you use special characters when typing the installation location for NetMeeting during Setup, such as &quot;\\&quot;, extended ANSI, or double-byte characters,  NetMeeting may not install correctly.</p>
+<p>If you are dual booting between Windows&nbsp;95 or later and Windows&nbsp;NT, you must install NetMeeting from within each operating system using separate folders. NetMeeting does not run properly from one default installation folder on both operating systems on a dual boot computer.</p>
+
+<p>NetMeeting works best with a fast Internet connection, such as a 56 kilobytes per second (Kbps) or faster modem, or a local area network (LAN).</p>
+
+<p>For best viewing results, use 800x600 resolution or higher. You can also use compact mode.</p>
+
+<p>In NetMeeting packages created with the Resource Kit, the Help documentation may reference user interface elements that don't exist in the customized version of NetMeeting.</p>
+
+<p>You must have a 32-bit TCP/IP stack and Windows sockets interface to use NetMeeting. NetMeeting has been tested with the 32-bit TCP/IP and Windows sockets built into Windows&nbsp;95 or later and Windows&nbsp;NT version 4.0.</p>
+
+<p>NetMeeting does not function properly over Serial Line Internet Protocol (SLIP) connections or other simulated SLIP or Point-to-Point Protocol (PPP) connections.</p>
+
+<p>For information about product support, see the Support.txt file in your Windows folder or NetMeeting folder.</p>
+
+<p>If you're using a preinstalled original equipment manager (OEM) version of Windows 98 Second Edition, you cannot use <b>Add/Remove Programs</b> in <b>Control Panel</b> to uninstall NetMeeting. If you install a stand-alone NetMeeting version, then NetMeeting appears on the <b>Install/Uninstall</b> tab of <b>Add/Remove Programs</b>.</p>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="geninfo"><h3>General Information</h3></a>
+<p>NetMeeting includes support for the H.323 audio and video conferencing standard, and the T.120 data conferencing standard. NetMeeting can be used to place calls to and receive calls from products that are H.323 and T.120 compatible. With appropriate equipment and services from third parties, NetMeeting can place a call to a telephone using an H.323 gateway. NetMeeting also can place calls to H.323 multipoint control units (MCUs) and participate in multipoint audio/video conferences.</p>
+
+<p>In NetMeeting online Help, references to Windows&nbsp;95 or Windows&nbsp;98 also apply to Windows Millennium Edition.</p>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="GKI"><h3>General Known Issues</h3></a>
+
+<p>Here are some of the general issues with the current version of NetMeeting:</p>
+
+<p>When NetMeeting is running, you cannot change the computer's display resolution or color depth. To change these settings, you must first close NetMeeting.</p>
+
+<p>If NetMeeting is running when you start a program that attempts to change the display resolution or color depth (such as a DirectX game), the program may not start because NetMeeting locks the display resolution and color depth. To fix the problem, close NetMeeting before starting other programs.</p>
+
+<p>If you are hosting a meeting and set your preferences so that others cannot share, launch Chat, or use other features of NetMeeting 3.0 or later, these preferences do not prevent computers running NetMeeting 2.<i>x</i> from using these functions.</p>
+
+<p>You cannot run ReachOut 5.0 on computers if NetMeeting is installed.</p>
+
+<p>You can go to Control Panel to find the name that NetMeeting uses for your computer's NetBIOS name. Other people can call you in NetMeeting by using your computer's NetBIOS name.</p>
+
+
+<p><b>To find your computer's NetBIOS name in Windows&nbsp;95 or later or Windows&nbsp;NT</b></p>
+<ol>
+<li>In Control Panel, double-click <b>Network</b>.</li>
+<li>On the <b>Identification</b> tab, note the <b>Computer name</b>, which is the name that NetMeeting uses as your NetBIOS name.</li>
+</ol>
+
+<p>If you use User Profiles for multiple users to maintain your Windows preferences on all the computers on a network, you might have to run the Audio Tuning Wizard again when you switch computers. To run the Audio Tuning Wizard, start NetMeeting, click <b>Tools</b>, and then click <b>Audio Tuning Wizard</b>.</p>
+
+<p>Both Microsoft FrontPage and NetMeeting currently use the same file type
+(.cnf). NetMeeting uses this file type for SpeedDials.</p>
+
+<p>If you're running Windows&nbsp;95 version 4.00.950B, and you cancel the <b>Dial-up Networking</b> dialog box that appears when you start NetMeeting, NetMeeting appears to stop responding but it then begins working properly again after about two minutes. However, you are not logged onto the directory server until you manually connect to your Internet service provider, and then, on the <b>Call </b>menu, choose <b>Log On To</b> (your directory server).</p>
+
+<p>Some Integrated Services Digital Network (ISDN) devices are configured to automatically connect to the network. This might cause the ISDN device to try to connect to the network while NetMeeting is running. To stop this from happening, turn off Auto-Dial on the ISDN device.</p>
+
+<p>You can connect to only one other person with audio and/or video at a time.</p>
+
+<p>Some activities cause large amounts of data to be sent between the computers in your meeting (for example, using audio and sharing several programs while transferring a large file). In some cases, this might cause computers in the meeting to become very slow. To fix this, stop one or more of the meeting activities.</p>
+
+<p>Sharing of Microsoft DirectX, OpenGL, MS-DOS, graphics-intensive games, and .avi files is not supported and might not function properly. </p>
+
+<p>Data sharing, Whiteboard, and Chat might not work properly between computers with different language settings and keyboard layouts.</p>
+
+<p>NetMeeting supports the use of system policies in Windows&nbsp;95 or later, and Windows&nbsp;NT version 4.0 and later to set default configurations in a corporate environment. NetMeeting system policies are documented, and a system policy file is included in the NetMeeting Resource Kit. For more information, see the Business Users section of the Windows NetMeeting Web site at <a href="http://www.microsoft.com/isapi/redir.dll?prd=windows&sbp=netmeeting&ar=reskit">http://www.microsoft.com/Windows/NetMeeting/Corp/reskit/</a>.</p>
+
+<p>If you're using Internet Explorer 4.0 in offline mode and you try to start NetMeeting, NetMeeting does not automatically connect to the Internet. To work around this problem, dial up using Remote Access Service (RAS) (for Windows&nbsp;NT computers) or dial-up networking (for Windows&nbsp;95 and later computers). Or, in Internet Explorer, click the <b>File</b> menu, and then click <b>Work Offline</b> to clear the check mark.</p>
+
+<p>After you've joined a hosted meeting, the <b>Meeting Settings</b> set by the host may prevent you from starting NetMeeting Chat, Whiteboard, and File Transfer during the meeting. However, if you start these programs on your computer before you join the hosted meeting, the <b>Meeting Settings</b> don't prevent the programs from working.</p>
+
+<p>Customers of The Microsoft Network (MSN) who aren't already connected to the MSN service while running NetMeeting may see multiple instances of the MSN logon window when opening the Find Someone dialog box. </p>
+
+<p>NetMeeting 3.0 or later may not support certain TV tuner cards as input sources. Check with the manufacturer of your TV tuner for current drivers.</p>
+
+<p>If you have specified that you should receive only secure calls, be aware that Office 2000 programs do not support secure conferencing. If you close NetMeeting and host a meeting using an Office 2000 program (click <b>Tools</b>, click <b>Online Collaboration</b>, click <b>Meet Now</b>), the meeting will not be secure.</p>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="PlaceCall"><h3>Placing a Call</h3></a>
+
+<p>You can place NetMeeting calls to multiple users and then use NetMeeting features such as Chat or Whiteboard with all of them. However, you can only use audio and video with the first person you call.</p>
+
+<p>Microsoft maintains the Microsoft Internet Directory, which you can use to find other NetMeeting users. To view the Microsoft Internet Directory, click <b>Call</b>, click <b>Directory</b>, and then select the <b>Microsoft Internet Directory</b> from the list.</p>
+
+<p><b>Note&nbsp;</b>&nbsp; You cannot call people on the Internet that you have located on Web-based directory servers if your Internet connection uses a proxy server that does not support NetMeeting. </p>
+
+<P>Additionally, if you cannot connect to someone by using the computer name, try using an Internet Protocol (IP) address.</p>
+
+<p>If you have two active network connections using two separate network cards, you might not be able to connect to a directory service.</p>
+
+<p>If you try to make a call through your local area network (LAN) or a proxy server, and MSN or dial-up networking displays a connection dialog box, you can disable this dialog box. </p>
+<blockquote>
+<p><b>To disable the connection dialog box</b></p>
+<OL>
+<li>In <b>Control Panel</b>, double-click <b>Internet Options</b> (<b>Internet</b> in Windows&nbsp;95).</li>
+<li>On the <b>Connections</b> tab, click <b>Never dial a connection</b>.</li>
+</OL>
+</blockquote>
+<p>Some MCUs are case-sensitive, so, to place a call, you should type the conference name using the correct capitalization.</p>
+
+<p>You may have to log on to a gatekeeper to call an MCU conference using the alias registered with the gatekeeper. A gatekeeper is a computer on your network that helps you find and connect with other people and computers. Gatekeepers control access to the network, allowing or denying calls and controlling the bandwidth of a call. Contact your system administrator for details about using a gatekeeper.</p>
+
+<p>If you specify that you want a gatekeeper to place your calls, you can log on by using either your account name or phone number, or you can specify both options.</p>
+
+<p>Network bandwidth is the network connection speed you use with NetMeeting. You can change the network bandwidth of NetMeeting at any time. However, choosing a different setting may affect the audio or video performance because the coder/decoder (codecs) used depend on the bandwidth setting.</p>
+
+<blockquote>
+<p><b>To set the network bandwidth</b></p>
+<ol>
+<li>
+On the <b>Tools</b> menu, click <b>Options</b>.
+</li>
+<LI>
+On the <B>General</B> tab, click <b>Bandwidth Settings</b>.
+</LI>
+<li>Click one of the following:</LI>
+	<ul>
+	<li><b>14400 bps modem</b></li>
+	<li><b>28800 bps or faster modem</b></li>
+	<li><b>Cable, xDSL or ISDN</b></li>
+	<li><b>Local Area Network</b></li>
+	</ul>
+</OL>
+
+</blockquote>
+
+<p><b>Note</b>&nbsp;&nbsp;Lower bandwidth settings may have an effect on audio and video transmissions.</p>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="RecCall"><h3>Receiving a Call</h3></a>
+
+<p>You are ready to receive incoming calls if you are running NetMeeting and have not selected <b>Do Not Disturb</b> on the <b>Call</b> menu.</p>
+
+<p>You are limited in the number of simultaneous connections you can make, depending on your TCP/IP registry configuration.</p>
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="MID"><h3>Microsoft Internet Directory</h3></a>
+<p>The Microsoft Internet Directory is a NetMeeting feature that supports MSN Messenger Service, an instant messaging program that tells you when your friends and family are online.</p>
+
+<p>People you add to your MSN Messenger Service contact list appear as contacts in the Microsoft Internet Directory in NetMeeting.</p>
+
+<p>With the Microsoft Internet Directory, you can see if your contacts are available (online) for instant communication using either MSN Messenger Service or NetMeeting. You can also place a NetMeeting call to your Hotmail contacts directly from MSN Messenger Service.</p>
+
+<p>To build your customized Microsoft Internet Directory, you must create a Hotmail e-mail account for yourself and install MSN Messenger Service. NetMeeting and MSN Messenger Service work with Hotmail to provide your list of contacts.</p>
+
+<p>To create a Hotmail account, follow the instructions at:<br>
+  <a href="http://www.hotmail.com" target="_new"><b>http://www.hotmail.com/</b></a></p>
+  
+<p>To install MSN Messenger Service, follow the instructions at:<br>
+  <a href="http://messenger.msn.com/" target="_new"><b>http://messenger.msn.com/</b></a></p>
+
+<p>After you have set up your Hotmail account and installed MSN Messenger Service, you can start adding people to your MSN Messenger Service contact list. You can add any person with a Hotmail account to your contact list. The contacts you have added to your MSN Messenger Service are visible from the Microsoft Internet Directory in NetMeeting. </p>
+
+<p>You can make NetMeeting calls to your Hotmail contacts directly from the Microsoft Internet Directory in NetMeeting and directly from MSN Messenger Service.</p>
+
+<p>After you have created your personalized contact list, the names you added are visible in the Microsoft Internet Directory when you log on to MSN Messenger Service. If you are not logged on to MSN Messenger Service, you are prompted to log on.</p>
+
+<p>For more information about using MSN Messenger Service, visit the Web site at: <br>
+<a href="http://messenger.msn.com/" target="_new"><b>http://messenger.msn.com/</b></a></p>
+<blockquote>
+<P><b>To add Hotmail contacts to MSN Messenger Service</b></p>
+
+<ul>
+  <li>In MSN Messenger Service, on the <b>File</b> menu, click <b>Add
+  a Contact</b>, and then follow the instructions that appear.</li>
+</ul>
+  <p><b>Note</b>&nbsp;&nbsp;You can make NetMeeting calls to your Hotmail contacts directly from the Microsoft Internet Directory in NetMeeting and directly from MSN Messenger Service.</p>
+<p><b>Note</b>&nbsp;&nbsp;The people you add to your contact list must have a Hotmail e-mail account.</p>
+
+<p><b>To call a Hotmail contact from NetMeeting</b></p>
+
+<ol>
+<li>In NetMeeting, click <b>Find Someone in a Directory</b>.</li>
+<li>In <b>Select a directory</b>, click <b>Microsoft Internet Directory</b>.</li>
+<li>Under <b>Contacts Currently Online</b>, click the Hotmail contact that you want to call.</li>
+</ol>
+<P><b>To place a NetMeeting call from MSN Messenger Service</b></p>
+
+<ul>
+<li>In MSN Messenger Service, on the <b>Tools</b> menu, point to <b>Send an Invitation</b>, click <b>To Start NetMeeting</b>, and then do one of the following:</li>
+<ul>
+<li>Click a Hotmail contact on the contact list.</li>
+<li>Click <b>Other</b>, type the logon name of the person you want
+to call, and then click <b>OK</b>.</li>
+</ul>
+<p><b>Note</b>&nbsp;&nbsp;If you are using chat through MSN Messenger Service, and you want to start a NetMeeting call to a Hotmail contact, on the <b>File</b> menu, point to <b>Invite</b>, and then click <b>To Start NetMeeting</b>.</p>
+
+</blockquote>
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+<a name="ShareAp"><h3>Program Sharing</h3></a>
+
+<p>Any person in a meeting can share a program with the other participants. When you use the sharing feature, all other participants can see the program. When you allow control, other people can also use the program.</p>
+
+<p>Users running NetMeeting 2.<i>x</i> cannot control programs shared by computers running NetMeeting 3.0 or later.</p>
+
+<p>Using this version of NetMeeting, you can share programs with large numbers of users. However, if a computer running NetMeeting 2.0 is in the conference, and more than three users are sharing, that computer will not be able to share a program. The total number of people who can successfully participate in your meeting depends on available network bandwidth and the speed of the participants' computers.</p>
+
+<p>Windows&nbsp;NT users can share programs only if they have installed Service Pack 3 or later for Windows&nbsp;NT&nbsp;4.0. </p>
+
+<p>If NetMeeting is installed in a folder where the path contains extended characters, program sharing might not work.</p>
+
+<p>Windows&nbsp;95 users: If you share an MS-DOS session, you cannot pass control back and forth between computers with the keyboard. You must use the mouse to take control.</p>
+
+<p>Internet Explorer 4.0 users: If you share a Windows Explorer window and allow control, and the person with whom you are sharing the window closes the window, all programs and windows that you open afterwards are shared. To undo sharing in this situation, open a Windows Explorer window again, open the Sharing dialog box, select the Windows Explorer window, and unshare the Windows Explorer window.</p>
+
+<p>When you share a program and decide to allow someone to control it, remote users can use the <b>File Open </b>and <b>File Save</b> dialog boxes in your program to gain access to or delete files on your computer or network. It is recommended that you do not leave your computer unattended while sharing a program and allowing control.</p>
+
+<p>If you are in control of a shared program and you use shortcut keys, the  shortcut commands are applied to the shared program, not the shared frame menu. Shortcut keys will not work for menus in the shared frame. </p>
+
+<p>When you launch another program from within the program you are sharing (such as a Microsoft Excel spreadsheet from within Microsoft Word), there is a possibility that the newly launched program will not be shared properly. </p>
+
+<p>You cannot drag an object from the desktop to a shared program or drag an object from a shared program to the desktop.</p>
+
+<p>You cannot drag an object from your desktop or a folder on your computer to a shared program, nor can you drag an object from a shared program to your computer or to a folder on your computer</p>
+
+<p>If you are using a Microsoft IntelliMouse and sharing a program, the mouse wheel might not work properly if you resize the sharing frame.</p>
+  
+<p>When you share a program with an Input Method Editor (IME), you should show the IME status bar so that other people can use the mouse to activate  IME.</p>
+
+<p>If IME does not support showing the status bar, or if other people are having difficulty activating IME, you can activate and deactivate  IME for them.</p>
+
+<p>If the IME window fails to redraw during a meeting, you can force it to redraw by clicking anywhere on the desktop.</p>
+
+<p>You may not be able to share programs with NetMeeting on a computer that has another product installed that also has program sharing or remote control features. </p>
+
+<p>While someone else is in control of a shared program, the host's sharing interface (shared frames, sharing dialog boxes, and any shared frames created from other machines) is hidden on the host's desktop.  When the host is in control again, the sharing interface (and any programs shared by others) reappears. </p>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="WhiteB"><h3>Whiteboard</h3></a>
+
+<p>NetMeeting users can draw simultaneously on the Whiteboard.  Everyone in the meeting can see what is drawn on the Whiteboard. When one person in a meeting runs Whiteboard, it appears on everyone's screen.</p>
+
+<p>The Whiteboard does not maximize to full size if you are using an 1152 x 864 or larger desktop resolution. </p>
+
+<p>In conferences between computers that are running Windows&nbsp;NT and computers that are running Windows&nbsp;95 or later, double-byte character set (DBCS) characters may not be translated properly.
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="Chat"><h3>Chat</h3></a>
+
+<p>Chat enables you to type messages that other users can see. When one person in a meeting runs Chat, a chat window appears on everyone's screen, as long as they are using NetMeeting 3.0 or later. </p>
+
+<p>NetMeeting 2.11 Chat participants may not be able to close the Chat window if they are participating in a meeting with a NetMeeting 3.0 or later Chat participant.</p>
+ 
+<p>Chat files can be saved with the .htm file extension, and then opened in an Internet browser.</p>
+
+<p>NetMeeting 2.<i>x</i> Chat does not interoperate with NetMeeting 3.0 or later Chat in some scenarios. </p>
+ 
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="Audio"><h3>Audio</h3></a> 
+
+<p>To use NetMeeting audio features, you need a sound card, speakers, and a microphone.</p>
+
+<p>Audio is only supported for use with one other person.</p>
+
+<p>Sound quality can vary significantly depending on your sound card, microphone, and connection. </p>
+
+<p>If you modify your sound card device driver in any way, such as upgrading to a full-duplex driver, you must run the Audio Tuning Wizard again for NetMeeting to work correctly.</p>
+
+<p>When in a call with a NetMeeting 2.0 user, if audio stops for some reason, the 2.0 user may not be able to restart it. You have to quit your call and start over.</p>
+
+<p>You may receive a message in the Audio Tuning Wizard stating that your sound card is unsupported. This occurs when the sound card does not support some of the features required for use in NetMeeting. The audio features in NetMeeting may work even if you get this message, but you may experience poor audio quality.</p>
+
+<p>If your sound card is unsupported, contact the manufacturer to find out if newer sound card drivers are available.</p>
+
+<p>If you use the ATI All-In-Wonder hardware board for your capture device, it may disable the microphone and audio when you start a call. To work around this, you can re-enable the microphone and audio in NetMeeting.</p>
+<blockquote>
+<p><b>To re-enable the microphone and audio in NetMeeting</b></p>
+<ol>
+<li>In the status area, double-click the speaker icon.</li>
+<li>Click <b>Options</b>, and then click <b>Properties</b>.</li>
+<li>Click <b>Recording</b>, click <b>OK</b>, and then reselect the microphone as the recording input source.</li>
+</ol>
+</blockquote>
+<p>If you are using sound cards made by Turtle Beach, Yamaha, SoundBlaster  (excluding the Ensoniq-based AudioPCI types), Diamond, Crystal, or Microsoft USB speakers, you will benefit from low latency audio by enabling DirectSound. This option is not enabled by default.</p>
+<p>You may experience improved audio quality by enabling DirectSound.</p>
+<blockquote>
+<p><b>To enable DirectSound</b></p>
+<ol>
+<li>On the <b>Tools</b> menu, click <b>Options</b>.</li>
+<li>On the <b>Audio</b> tab, select the <b>Enable Direct Sound for improved audio performance</b> check box.</li>
+</ol>
+</blockquote>
+
+<p>If you experience choppy full-duplex sound quality, switch to half-duplex sound quality in NetMeeting. </p>
+<blockquote>
+<p><b>To switch to half-duplex sound quality in NetMeeting</b></p>
+
+<ol>
+<li>Make sure that you are not in a NetMeeting call.
+
+<li>On the <b>Tools</b> menu, click <b>Options</b>.
+
+<li>On the <b>Audio </b>tab, clear the <b>Enable full-duplex audio so I can speak while receiving audio</b> check box.
+</ol>
+</blockquote>
+
+<p>It is recommended that you not switch back and forth between full-duplex and half-duplex audio while in a meeting with audio.</p>
+
+<p>If you are having problems with your audio quality or sound card when using NetMeeting, the problems could be related to your hardware configuration or driver installation. To get help with these problems, see the latest NetMeeting support information.</p>
+<blockquote>
+<p><b>To get the latest NetMeeting support information</b></p>
+<ul>
+<li>
+On the <b>Help</b> menu, click <b>Online Support</b>.</li>
+</ul>
+</blockquote>
+
+<p>If your computer has more than one audio device, you should make sure that the audio devices selected in the Audio Tuning Wizard match the selections in the Multimedia properties in Control Panel.</p>
+
+<p>If you upgrade your computer's processor, you should run the Audio Tuning Wizard again.</p>
+
+<p>When you are in an audio conference using NetMeeting, a program that has the ability to record sound, such as Microsoft PowerPoint, appears to be recording sound. However, because NetMeeting is already using the sound card, the other program isn't actually recording.</p>
+
+<p>If you adjust the Windows Wave Output Balance control to the right, you may lose all NetMeeting speaker volume.</p> 
+
+<p>If your computer and the computer you are calling each have Windows Driver Model (WDM) audio drivers, you may hear static when you first connect. If this occurs, disable DirectSound.</p>
+<blockquote>
+<p><b>To disable DirectSound</b></p>
+<ol>
+<li>On the <b>Tools</b> menu, click <b>Options</b>. <li>On the <b>Audio</b> tab, clear the <b>Enable Direct Sound for improved audio performance</b> check box.</ol>
+</blockquote>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="Video"><h3>Video</h3> </a>
+
+<p>To send video with NetMeeting, you need either a video-capture card and camera, or a video camera that connects through your computer's parallel (printer) port or USB port. You will not be able to send video on some computers with a processor slower than a Pentium.</p>
+
+<p>Cameras that have a video-capture card use less of your computer's processing resources than cameras that connect through your computer's parallel port. It is recommended that you use a color parallel port camera only if your computer has a Pentium 133 or better processor.</p>
+
+<p>Video is only supported with one other person at a time.</p>
+
+<p>The default setting for video over a 28.8 Kbps modem connection is <b>Better quality</b>. </p>
+<blockquote>
+<p><b>To change the Video quality setting</b></p>
+<ol>
+<li>On the <b>Tools</b> menu, click <b>Options</b>.</li>
+<li>On the <b>Video</b> tab, adjust the <b>Video quality</b> option.</li>
+</ol>
+</blockquote>
+
+<p>The size of the video preview window may not reflect the size that is selected in the Options dialog box. </p>
+
+<p>Running video in a multi-user meeting can reduce the performance of all the computers in the meeting. For example, opening a video window while sharing a program can make it difficult for others to take control of the program.</p>
+
+<p>If you have more than one video device installed, or you have not properly uninstalled a video device that was previously installed, you might not be able to use video. If your video device is not properly uninstalled and you have enabled video in NetMeeting, the remaining camera software may warn you repeatedly that it cannot find the camera.</p>
+
+<p>If you disconnect your camera while you are using the video features in NetMeeting, your
+camera's software may display messages indicating that the camera isn't responding. You can disable these messages from the camera's software.</p>
+<blockquote>
+<p><b>To disable these messages from the camera's software</b></p>
+<ol>
+<li>On the <b>Tools</b> menu, click <b>Options</b>.
+<li>On the <b>Video</b> tab, clear the <b>Automatically send video at the start of each call</b> check box.</li>
+</ol>
+</blockquote>
+<p>If you are running another program that uses video capture, the video functions in NetMeeting may be disabled.</p>
+
+<p>If some areas of your video window contain the wrong colors, your camera might be aimed at an area with insufficient light. Some video drivers provide a low-light filter option.</p>
+
+<p>If you are using the video features in a dark area, some cameras cause your computer to become extremely slow and unresponsive.</p>
+
+<p>If your video capture device fails to preview video, you might not have the correct display codec (e.g., YUV or I420) installed. You can download the latest Intel Indeo Video version from <a href="http://developer.intel.com/ial/indeo/video"> <b>http://developer.intel.com/ial/indeo/video</b></a>.</p>
+
+<p>Audio input for users of Winnov cameras is automatically switched whenever video is in use. If your video is connected using a multimedia extension connector (MXC), the camera input is used for audio. If your video is connected using the Composite or S-Video connection, the line input is used for audio.</p>
+
+<p>With some cameras, you may be able to reduce CPU usage by manually adjusting the
+settings in the <b>Source</b> and <b>Format</b> dialog boxes instead of letting the video driver software do this automatically.</p>
+<blockquote>
+<p><b>To manually adjust the video source and format</b></p>
+<ol>
+<li>On the <b>Tools</b> menu, click <b>Options</b>.
+<li>On the <b>Video</b> tab, click <b>Source</b> or click <b>Format</b>.
+</ol>
+</blockquote>
+<p>If you use WDM drivers for the ATI All-In-Wonder hardware board, you may not have video capability in NetMeeting.</p>
+
+<p>On the <b>Video</b> tab of the <b>Options</b> dialog box, if <b>Show mirror image in preview video window</b> is selected, the image will appear reversed in the My Video window on your computer only. </p>
+<blockquote>
+<p><b>To disable the mirror image</b></p>
+
+<OL>
+<LI>
+On the <B>Tools</B> menu, click <B>Options</B>.
+</LI>
+<LI>
+On the <B>Video</B> tab, click <b>Show mirror image in preview video window</b>.
+</LI>
+</OL>
+</blockquote>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="Gate"><h3>Gatekeepers and Gateways</h3> </a>
+
+<p>It is recommended that you do not change your gatekeeper and registration information during a call.</p>
+
+<p>Certain programs (such as Microsoft WebTV for Windows&nbsp;98), netcards, and PPP adapters assign IP addresses that may interfere with your gatekeeper registration. </p>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="RDS"><h3>Remote Desktop Sharing</h3> </a>
+<p>Using Remote Desktop Sharing (RDS), NetMeeting 3.0 or later can call an unattended computer (host) running the Remote Desktop Sharing service, and then access that computer's shared desktop. After you are connected, you can work in the host's shared desktop and in any program to which the host computer has access.</p>
+
+<p>In Windows&nbsp;95 or later, you should disable advanced power management when you are in an Remote Desktop Sharing session, or you may be disconnected from the session.</p>
+
+<p>Administrators can give users the ability to access computers through Remote Desktop Sharing without giving them accounts with administrator privileges. To do this, the administrator creates a group called "NetMeeting RDS Users" and adds those users' accounts to that group.</p>
+
+<p>To connect to your computer using the RDS service, you must know either the IP address of your computer or the computer name of the computer you are calling. </p>
+<blockquote>
+<p><b>To find the IP address of your computer</b></p>
+<ul>
+<li>On the <b>Help</b> menu, click <b>About Windows NetMeeting</b>.</li>
+</ul>
+<p>The IP address of your computer is displayed at the bottom left of the window.</p>
+</blockquote>
+
+<p>Remote desktop sharing is automatically disabled when you visit a Web page that has NetMeeting embedded in the browser's UI. In this case, RDS must be manually enabled.</p>
+
+<p>If an IP address is dynamically assigned, such as an IP address for dial-up networking, an RDS server cannot resume RDS sessions after the connection with the network is lost. To work around this, complete the following steps.</p>
+<blockquote>
+<p><b>To resume RDS sessions after the connection with the network is lost</b></p>
+<ol>
+<li>Deactivate RDS.
+<li>Run the Windows IP Configuration utility (winipcfg.exe for Windows&nbsp;95 or later, or ipconfig.exe for Windows NT 4.0).</li>
+<li>Click <b>Release All</b> and then click <b>Renew All</b>.</li>
+<li>Reactivate RDS.</li>
+</ol>
+</blockquote>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="Secure"><h3>Security</h3></a>
+
+<p>In a secure data-only call, the audio and video controls and menu items should be dimmed, but currently, they stay active throughout the call.</p>
+
+<p>Windows NetMeeting only works with certificates in the Windows system certificate store. Certificates obtained from browsers that use private certificate stores, such as Netscape Communicator&nbsp;4.5, cannot be used with NetMeeting. Such certificates may be used if they are exported using Netscape Communicator and then imported using Internet Explorer. </p>
+
+<p>NetMeeting may not be able to place secure calls using the NetMeeting Certificate in Windows&nbsp;95 or later if you cancel the Windows Logon dialog box. To work around this, do not cancel the logon prompt when starting Windows&nbsp;95 or later.</p>
+
+<p>If multiple users are logging on to the same Windows&nbsp;95 or later computer, invalid certificates might be issued. To work around this, create separate profiles for each user logging on to the computer. This ensures that the certificates are in separate profiles.</p>
+
+<p>The security check boxes on the <b>Find Someone</b> and <b>Place A Call</b> dialog boxes are disabled when you are in a call. In addition, if a call starts while these dialog boxes are displayed, the check boxes are automatically disabled.</p>
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="NTI"><h3>Windows&nbsp;NT Issues</h3></a>
+
+<p>If you use Windows&nbsp;NT 4.0, you can share programs only if you install Service Pack 3 or later for Windows&nbsp;NT&nbsp;4.0. </p>
+
+<p>When you share a 16-bit program, all the 16-bit programs that are running on your computer are also automatically shared.</p>
+
+<p>Enabling program sharing on Windows&nbsp;NT may negatively affect the performance of your display driver and the rate at which information is drawn on the screen.</p>
+
+<p>Some Creative Labs SoundBlaster drivers (specifically those posted on their Web site January 15, 1997) are not compatible with NetMeeting. SoundBlaster drivers that come with Windows&nbsp;NT&nbsp;4.0 do work with NetMeeting, as do the more recently posted drivers, which also support full-duplex audio. </p>
+
+<p>You may experience problems if you share a 32-bit program, and then insert an object package. This opens the Object Packager, which is automatically shared and subsequently stops responding. The original shared program or NetMeeting will function normally.</p>
+
+<p>If you enabled the floating point workaround during installation of Windows&nbsp;NT on a computer equipped with a flawed Intel Pentium chip, NetMeeting audio quality is poor or doesn't work at all.</p>
+
+<p>If you are using NetMeeting on Windows&nbsp;NT and you cannot receive a call, restart your computer and try again.</p>
+
+<p>If you do not have a sound card, you must manually specify the bandwidth of your connection. </p>
+<blockquote>
+<p><b>To specify the bandwidth of your connection</b></p>
+<ul>
+<li>On the <b>Tools</b> menu, click <b>Options</b>, click <b>Bandwidth Settings</b>, and then under <b>Network Bandwidth</b>, click the bandwidth you want.</li>
+</ul>
+</blockquote>
+
+<p>You may need to uninstall Dial-up Networking to log on to a directory server though a proxy server.</p>
+
+<p>If, after placing a call, a message that NetMeeting is waiting for a response from the other person is displayed for more than one minute, quit and restart NetMeeting, and then try to contact the person again.</p>
+
+<p>If you suspend your computer, or if it is set to suspend automatically, you should quit and then restart NetMeeting after your computer resumes operation.</p>
+
+<p>If you receive a SpeedDial in an e-mail message, your mail program may convert it to a text (.txt) file. You can use this file as a SpeedDial if you rename it with a .cnf extension.</p>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="Uninstall"><h3>Uninstalling NetMeeting </h3></a>
+<p>You can use Add/Remove Programs in Control Panel to uninstall NetMeeting.</p>
+<blockquote>
+<p><b>To uninstall NetMeeting</b></p>
+  <ol>
+    <li>In <b>Control Panel</b>, double-click <b>Add/Remove Programs</b>.</li>
+    <li>On the <b>Install/Uninstall</b> tab, click <b>NetMeeting&nbsp;3.01</b>, and then click <b>Add/Remove</b>.</li>
+    <li>If a dialog box appears asking if you want to restart your computer, click <b>Yes</b>. </li>
+  </ol>
+  </blockquote>
+  
+<p><b>Note</b>&nbsp;&nbsp;If Windows 98 was preinstalled on your computer by an OEM, you cannot use Add/Remove Programs to remove NetMeeting&nbsp;3.</p>
+
+<p>In Windows&nbsp;98, the NetMeeting desktop shortcut and Quick Launch toolbar icons are not removed when NetMeeting is uninstalled.</p>
+
+<p>If you uninstall Windows&nbsp;NT Service Pack 3 after installing NetMeeting, you will receive an alert each time you restart your computer. To prevent this, complete the following steps.</p>
+<blockquote>
+<p><b>To prevent alerts related to uninstalling Windows&nbsp;NT Service&nbsp;Pack&nbsp;3</b></p>
+  <ol>
+    <li>Close the alert.</li>
+    <li>In <b>Display Properties</b>, click <b>Cancel</b>. </li>
+    <li>In <b>Control Panel</b>, click <b>Devices</b>.</li>
+    <li>Click <b>mnmdd</b>, and then click <b>Startup</b>.</li>
+    <li>Change the Startup Type to <b>Disabled</b>, and then click <b>OK</b>.</li>
+    <li>Restart your computer.</li>
+  </ol>
+</blockquote>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+
+<a name="accessibility"><h3>Accessibility</h3></a>
+<p>You can call a voicemail system using NetMeeting and a gateway computer. To use the keyboard to dial voicemail extensions use the following table:</p>
+</font>
+<blockquote>
+<table width = 100%>
+<tr>
+
+<td><h6>To</h6></td>
+<td><h6>Press</h6></td>
+</tr>
+<tr>
+<td><h6>Dial a number</h6></td>
+<td><h6>CTRL + [number] OR<br>CTRL + [keypad number]</h6></td></tr>
+<tr></tr>
+<tr>
+<td><h6>Press the star key</h6></td>
+<td><h6>CTRL + Shift + 8 OR<br>CTRL + [keypad *]</h6></td>
+</tr>
+<tr>
+<td><h6>Press the pound key</h6></td>
+<td><h6>CTRL + Shift + 3</h6></td></tr>
+</table>
+</blockquote>
+
+<p align="right"><a href="#contents" target="_self">Back to Contents</a>
+</font>
+</body>
+
+
+</HTML>

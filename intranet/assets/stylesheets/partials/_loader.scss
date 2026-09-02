@@ -1,0 +1,34 @@
+@use "variables" as tldvars;
+
+turbo-frame {
+  .frame-loading-show {
+    position: relative;
+
+    > .sk-spinner {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      // Turbo removes the `aria-busy` attribute a moment before it swaps in the
+      // new frame content. We delay the spinner fade-out so it stays visible
+      // during that gap; the spinner is then removed together with the old
+      // content when the swap happens.
+      transition: opacity .2s linear .7s, visibility 0s linear .9s;
+
+      .sk-circle::before {
+        background-color: tldvars.$navy;
+      }
+    }
+  }
+
+  &[aria-busy] .frame-loading-show > .sk-spinner {
+    opacity: 1;
+    visibility: visible;
+    // Appear instantly when the request starts.
+    transition: none;
+  }
+}

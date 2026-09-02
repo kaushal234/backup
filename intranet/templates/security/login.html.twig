@@ -1,0 +1,53 @@
+{% extends 'security/layout_login.html.twig' %}
+
+{% block content %}
+
+{% if error.message is defined %}
+    <div class="alert alert-danger">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+{% endif %}
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name"><img class="img-fluid" src="/shared/logos/ALVEST_logo.png"></h1>
+            </div>
+            <h3>{{ 'security.login.welcome'|trans }}</h3>
+
+            <form class="m-t" role="form" method="post" action="{{ path('login') }}" autocomplete="on">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div style="margin-bottom: 15px">
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="{{ 'security.login.username'|trans }}">
+                </div>
+                <div style="margin-bottom: 15px">
+                    <input type="password" id="password" name="_password" required="required" class="form-control" placeholder="{{ 'security.login.password'|trans }}">
+                    <a href='#' class="toggle-password"><i class="far fa-eye"></i>&nbsp;{{ 'security.login.show_password'|trans }}</a>
+                </div>
+                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary full-width mb-2">
+                <button type="button" id="_sso_login" class="btn btn-primary full-width"><i class="fa-brands fa-microsoft"></i>&nbsp;{{ 'security.sso-link'|trans([], 'security') }}</button>
+                <br>
+                <a href="{{ path('security_password_forgot') }}"><small>{{ 'security.forgot-link'|trans([], 'security') }}</small></a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('login') }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ssoButton = document.getElementById('_sso_login');
+
+            if (ssoButton) {
+                ssoButton.addEventListener('click', function () {
+                    const usernameInput = document.getElementById('username');
+                    const username = usernameInput ? usernameInput.value.trim() : '';
+
+                    const url = new URL("{{ path('sso_login') }}", window.location.origin);
+                    url.searchParams.set('email', username);
+
+                    window.location.href = url.toString();
+                });
+            }
+        });
+    </script>
+{% endblock %}

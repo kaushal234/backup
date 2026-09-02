@@ -1,0 +1,151 @@
+{% extends 'datatable_theme.html.twig' %}
+
+{% block action_bar %}
+    {% set display_filter_action = filtration_enabled and filters|length > 0 and filtration_form.children|length > 0 %}
+    {% set display_export_action = exporting_enabled and exporters|length > 0 %}
+
+    {% if title or actions is not empty or has_active_filters or display_filter_action or display_export_action or personalization_enabled %}
+        <div class="ibox-title">
+            <h5>
+                {% if translation_domain is not same as false %}
+                    {{ title|trans(title_translation_parameters, translation_domain) }}
+                {% else %}
+                    {{ title }}
+                {% endif %}
+            </h5>
+
+            <div class="ibox-tools">
+                {% if display_filter_action %}
+                    {{ block('action_filter') }}
+                {% endif %}
+
+                {% if display_export_action %}
+                    {{ block('action_export') }}
+                {% endif %}
+
+                {% if personalization_enabled %}
+                    {{ block('action_personalize') }}
+                {% endif %}
+
+                {{ block('action_reset') }}
+
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+
+            {% if display_export_action %}
+                {{ block('export_modal') }}
+            {% endif %}
+
+            {% if personalization_enabled %}
+                {{ block('personalization_modal') }}
+            {% endif %}
+
+            {{ block('reset_modal') }}
+
+        </div>
+
+        {% if filtration_enabled and filtration_form and filters|length > 0 %}
+            <div class="collapse" id="{{ filtration_form.vars.id }}__collapse">
+                <div class="ibox-content">
+                    {{ data_table_filters_form(filtration_form) }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if has_active_filters %}
+            <div class="ibox-content">
+                {{ block('active_filters') }}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block batch_action_bar_actions %}
+    <div class="ibox-tools">
+        <div class="d-flex flex-row gap-1">
+            {% for action in batch_actions %}
+                <div>
+                    {{ data_table_action(action) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block kreyu_data_table %}
+    {% set stimulus_controllers = ['kreyu--data-table-bundle--state'] %}
+
+    {% if has_batch_actions %}
+        {% set stimulus_controllers = stimulus_controllers|merge(['kreyu--data-table-bundle--batch']) %}
+    {% endif %}
+
+    <turbo-frame id="kreyu_data_table_{{ name }}" target="_top" data-turbo="true" data-turbo-prefetch="false">
+        <div
+                data-controller="{{ stimulus_controllers|join(' ') }}"
+                data-kreyu--data-table-bundle--state-url-query-parameters-value="{{ url_query_parameters|default({})|json_encode }}"
+        >
+            <div class="ibox">
+                {{ block('action_bar', theme) }}
+                <div class="ibox-content">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center flex-lg-row flex-column gap-2">
+                        {% if filtration_enabled and filtration_form and filtration_form.vars.search_fields|length > 0 %}
+                            {{ block('action_search') }}
+                        {% endif %}
+
+                        {% if has_batch_actions %}
+                            {{ block('batch_action_bar', theme) }}
+                        {% endif %}
+
+                        <div class="d-flex col justify-content-end">
+                            {% for action in actions %}
+                                <div class="ms-1">
+                                    {{ data_table_action(action) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                    {{ block('table', theme) }}
+
+                    {% if pagination_enabled %}
+                        <div class="pagination d-flex flex-wrap justify-content-between align-items-center flex-lg-row flex-column gap-2">
+                            {{ data_table_items_per_page(pagination) }}
+                            {{ data_table_pagination(pagination) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </turbo-frame>
+{% endblock %}
+
+{% block action_personalize %}
+    {% set attr = {
+        'data-bs-toggle': 'tooltip',
+        'data-bs-placement': 'top',
+        'title': 'Personalize'|trans({}, 'KreyuDataTable'),
+    }|merge(attr|default({})) %}
+
+    <span data-bs-toggle="modal" data-bs-target="#{{ personalization_form.vars.id }}__modal">
+        <a {{ block('attributes') }}>{{ block('action_personalize_icon') }}</a>
+    </span>
+{% endblock %}
+
+{% block action_confirmation_modal %}
+    {{ parent() }}
+{% endblock %}
+
+{% block action_reset %}
+    {% set attr = {
+        'data-bs-toggle': 'tooltip',
+        'data-bs-placement': 'top',
+        'title': 'Reset'|trans({}, 'KreyuDataTable'),
+    }|merge(attr|default({})) %}
+
+    <span data-bs-toggle="modal" data-bs-target="#{{ data_table.vars.name }}_reset_modal">
+        <a {{ block('attributes') }}>{{ block('action_reset_icon') }}</a>
+    </span>
+{% endblock %}

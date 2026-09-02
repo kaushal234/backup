@@ -1,0 +1,23 @@
+- name: Install htop
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - htop
+    state: present
+
+- name: Install SNMP
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - snmpd
+    state: present
+
+- name: Configure SNMPD community
+  become: true
+  ansible.builtin.template:
+    src: templates/snmpd.conf
+    dest: /etc/snmp/snmpd.conf
+  notify:
+    - Restart SNMPD

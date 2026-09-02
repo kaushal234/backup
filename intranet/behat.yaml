@@ -1,0 +1,419 @@
+suite_defaults: &suite_defaults
+  paths:
+    - '%paths.base%/features'
+  contexts:
+    - Tests\Behat\Context\FeatureContext
+    - Tests\Behat\Context\PatchedBrowserContext:
+        timeout: 30
+
+default:
+  suites:
+    default:
+      <<: *suite_defaults
+
+    #########
+    #   A   #
+    #########
+
+    # AR
+    account-receivable:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/account-receivable' ]
+
+    acronym:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/acronym' ]
+
+    activity:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/activity' ]
+
+    # AC
+    aircraft-compatibility:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/aircraft-compatibility' ]
+
+    #########
+    #   C   #
+    #########
+
+    # CT
+    calibrated-tool:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/calibrated-tool' ]
+
+    # CAT
+    catalog:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/catalog' ]
+
+    cleanliness:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/cleanliness' ]
+
+    # COR
+    competitors-organisation-record:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/competitors-organisation-record' ]
+
+    contact:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/contact' ]
+
+    communication:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/communication' ]
+
+    # CRAB
+    crab:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/crab' ]
+
+    # XU CUNO
+    customer:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/customer' ]
+
+    # CRT
+    customer-relationship-team:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/customer-relationship-team' ]
+
+    # CSR
+    customer-service-request:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/customer-service-request' ]
+
+    # Contract
+    contract:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/legal' ]
+
+    #########
+    #   D   #
+    #########
+
+    demo:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/demo' ]
+
+    derogation:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/derogation' ]
+
+    directory:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/directory' ]
+
+    #########
+    #   E   #
+    #########
+
+    # ESM
+    employee-staffing:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/employee-staffing' ]
+
+    equipment-serial:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/equipment-serial' ]
+
+    # ESR
+    equipment-shipping-record:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/equipment-shipping-record' ]
+
+    errors:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/errors' ]
+
+    event:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/event' ]
+
+    #########
+    #   F   #
+    #########
+
+    first-article-qualification:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/first-article-qualification' ]
+
+    followed-topics:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/followed-topics' ]
+
+    forex:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/forex' ]
+
+    freight:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/freight' ]
+
+    #########
+    #   I   #
+    #########
+
+    iata:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/iata' ]
+
+    #########
+    #   J   #
+    #########
+
+    job:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/job' ]
+
+    #########
+    #   L   #
+    #########
+
+    legacy:
+      << : *suite_defaults
+      paths: [ '%paths.base%/src/LegacyBundle/features' ]
+
+    #########
+    #   M   #
+    #########
+
+    manual:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/manual' ]
+
+    manufacturing:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/manufacturing' ]
+
+    # MIM
+    market-intelligence:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/market-intelligence' ]
+
+    materials:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/materials' ]
+
+    # MOM
+    minutes-of-meeting:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/minutes-of-meeting' ]
+
+    mis:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/mis' ]
+
+    #########
+    #   N   #
+    #########
+
+    news:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/news' ]
+
+    notification:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/notification' ]
+
+    # NCR
+    non-conformity-record:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/non-conformity-record' ]
+
+    #########
+    #   O   #
+    #########
+
+    # ODP
+    on-time-delivery-planning:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/on-time-delivery-planning' ]
+
+    #########
+    #   P   #
+    #########
+
+    # SPH
+    # Test previously ignored in the behat suites test
+    # Todo: Fix tests & re-enable it
+#    parts:
+#      << : *suite_defaults
+#      paths: [ '%paths.base%/features/parts' ]
+
+    pictogram:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/engineering/pictogram' ]
+
+    powerbi:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/powerbi' ]
+
+    print:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/print' ]
+
+    printer:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/printer' ]
+
+    #########
+    #   Q   #
+    #########
+
+    qhse:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/demo' ]
+
+    #########
+    #   S   #
+    #########
+
+    sage-parts-tools:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/sage-parts-tools' ]
+
+    sales-area:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/sales-area' ]
+
+    # SFR
+    sales-forecast-record:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/sales-forecast-record' ]
+
+    # SOR
+    sales-order-record:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/sales-order-record' ]
+
+    # SPQ
+    spare-parts-quote:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/spare-parts-quote' ]
+
+    # SPR
+    spare-parts-request:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/spare-parts-request' ]
+
+    specification:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/specification' ]
+
+    # SMW
+    subsidiary-meeting-week:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/subsidiary-meeting-week' ]
+
+    #supplier
+    supplier:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/supplier' ]
+
+    # SCAR
+    supplier-corrective-action-request:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/supplier-corrective-action-request' ]
+
+    # SRM VEN
+    supplier-ranking:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/supplier-ranking' ]
+
+    # SRV
+    survey:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/survey' ]
+
+    #########
+    #   T   #
+    #########
+
+    task:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/task' ]
+
+    toc:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/technician_on_call' ]
+
+    service-areas:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/service-areas' ]
+
+    transport:
+      << : *suite_defaults
+      paths: [ '%paths.base%/features/transport' ]
+
+    document-translation:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/document-translation' ]
+
+    #########
+    #   U   #
+    #########
+
+    user:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/user' ]
+
+    #########
+    #   V   #
+    #########
+
+    vendor-user:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/vendor-user' ]
+
+    # VWC
+    vendor-warranty-claim:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/vendor-warranty-claim' ]
+
+    #########
+    #   W   #
+    #########
+
+    warehouse:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/warehouse' ]
+
+    #########
+    #   X   #
+    #########
+
+    xref:
+      <<: *suite_defaults
+      paths: [ '%paths.base%/features/xref' ]
+
+  extensions:
+    FriendsOfBehat\SymfonyExtension: ~
+    Behat\MinkExtension:
+      files_path: "%paths.base%/features/fixtures/files/"
+      base_url: "https://host.docker.internal"
+      sessions:
+        default:
+          symfony: ~
+        javascript:
+          selenium2: # Session overrided on context
+            wd_host: "http://tld-selenium-1:4444/wd/hub"
+            browser: chrome
+      javascript_session: javascript
+      default_session: default
+
+ci:
+  extensions:
+    FriendsOfBehat\SymfonyExtension: ~
+    Behat\MinkExtension:
+      base_url: "http://gse"
+      sessions:
+        default:
+          symfony: ~
+        javascript:
+          selenium2:
+            wd_host: "http://selenium:4444/wd/hub"
+            browser: chrome
+      javascript_session: javascript
+      default_session: default

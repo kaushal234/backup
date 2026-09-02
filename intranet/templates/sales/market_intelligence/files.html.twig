@@ -1,0 +1,14 @@
+{% extends 'sales/market_intelligence/layout.html.twig' %}
+{% trans_default_domain 'market_intelligence' %}
+
+{% block title %}{{ parent() }}\{{ 'menu.view'|trans([], 'messages') }}{% endblock %}
+
+{% block content %}
+    <div id="react" class="m-b-lg"></div>
+    <div class="row">
+        <div class="col-md-9" id="files">
+            {{ include('sales/market_intelligence/files_ajax.html.twig', {marketIntelligence: marketIntelligence} )}}
+        </div>
+    </div>
+{% endblock %}
+

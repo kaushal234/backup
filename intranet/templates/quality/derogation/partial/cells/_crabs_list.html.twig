@@ -1,0 +1,5 @@
+<td>
+    {% for crab in crabs %}
+        <a href="{{ path('crab_show', {id: iri_id(crab)}) }}">{{ iri_id(crab) }}</a><br>
+    {% endfor %}
+</td>

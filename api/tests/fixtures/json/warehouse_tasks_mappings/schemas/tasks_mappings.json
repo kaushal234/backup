@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@id": {
+      "type": "string",
+      "pattern": "^/materials/warehouse/tasks_mappings$"
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "@id",
+          "@type",
+          "location",
+          "inboundTasks",
+          "outboundTasks",
+          "administrativeTasks",
+          "excludedTasks"
+        ],
+        "properties": {
+          "@id": {"type": "string", "pattern": "^/materials/warehouse/tasks_mappings/\\d+$"},
+          "@type": {"type": "string", "pattern": "^TasksMapping$"},
+          "location": {"$ref": "../../directory_location/schemas/directory_location_public.json"},
+          "inboundTasks": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "\\d{1,4}"
+            }
+          },
+          "outboundTasks": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items":  {
+              "type": "string",
+              "pattern": "\\d{1,4}"
+            }
+          },
+          "administrativeTasks": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items":  {
+              "type": "string",
+              "pattern": "\\d{1,4}"
+            }
+          },
+          "excludedTasks": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items":  {
+              "type": "string",
+              "pattern": "\\d{1,4}"
+            }
+          }
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ]
+}

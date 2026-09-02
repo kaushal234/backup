@@ -1,0 +1,35 @@
+{% block content %}
+    {% form_theme form 'form_theme_horizontal.html.twig' %}
+
+    {{ form_start(form, { action: action }) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-md-6 animated">
+            <div class="mail-box-header clearfix">
+                <h2 class="float-sart">
+                    {{ 'catalogue.main_info' | trans({}, 'catalogue') }}
+                </h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.family) }}
+                    {{ form_row(form.erpLocation) }}
+                    {{ form_row(form.financeFamily) }}
+                    {{ form_row(form.manufacturingFamily) }}
+                    {{ form_row(form.innovativeLevel) }}
+                    {{ form_row(form.productStandardItems) }}
+                    {{ form_row(form.hidden) }}
+                    {{ form_row(form.light) }}
+                    <hr class="hr-line-dashed">
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+
+{% endblock %}

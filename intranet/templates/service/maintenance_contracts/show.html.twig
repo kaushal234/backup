@@ -1,0 +1,151 @@
+{% extends 'service/maintenance_contracts/layout.html.twig' %}
+{% trans_default_domain 'service' %}
+
+{% set id = iri_id(contract) %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="column wrapper-content">
+            <h3>{{ 'contacts.fields.contact_status' |trans([], 'contacts') }}</h3>
+            {% if date() < date(contract.startDate) %}
+                <span class="btn btn-warning">{{ 'service.maintenance_contract.status.not_started'|trans|upper }}</span>
+            {% elseif date() > date(contract.expirationDate) %}
+                <span class="btn btn-danger">{{ 'service.maintenance_contract.status.expired'|trans|upper }}</span>
+            {% else %}
+                <span class="btn btn-info">{{ 'service.maintenance_contract.status.active'|trans|upper }}</span>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-lg-6">
+    {{ include('helper/_association_table.html.twig', {
+        'associationData': {
+            'items': {
+                '@id': {label: 'MCM#', filters: 'iri_id'},
+                description: {label: 'fields.description'|trans([], 'messages')|capitalize},
+                startDate: {
+                    label: 'service.maintenance_contract.fields.start_date'|trans|capitalize,
+                    filters: 'date("Y-m-d")'
+                },
+                expirationDate: {
+                    label: 'service.maintenance_contract.fields.expiration_date'|trans|capitalize,
+                    filters: 'date("Y-m-d")'
+                },
+                buyer: {
+                    label: 'service.equipment_record.fields.buyer'|trans|capitalize,
+                    properties: ['buyer.name'],
+                    link:{
+                        route: 'sales_customers_show',
+                        params: {'id':'buyer.@id'},
+                    }
+                },
+                endUser: {
+                    label: 'service.equipment_record.fields.end_user'|trans|capitalize,
+                    properties: ['endUser.name'],
+                    link:{
+                        route: 'sales_customers_show',
+                        params: {'id':'endUser.@id'},
+                    }
+                },
+                representative: {
+                    label: 'directory.location.fields.representative'|trans([], 'directory')|capitalize,
+                    properties: ['representative.lastname', 'representative.firstname'],
+                    link:{
+                        route: 'directory_people_show',
+                        params: {'id':'representative.@id'},
+                    }
+                },
+            },
+            'title': 'service.maintenance_contract.title'|trans,
+            'data': contract},
+    }, with_context = false) }}
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    serialNumber: {
+                        label: 'service.equipment_record.fields.serial_number'|trans|capitalize,
+                        link: {
+                            route: 'legacy_product_support',
+                            fixedParams: {m: ['equipment', 'view']},
+                            params: {id: 'legacyId'},
+                        }
+                    },
+                    type: {label: 'service.equipment_record.fields.type'|trans|capitalize},
+                    model: {label: 'service.equipment_record.fields.model'|trans|capitalize},
+                    airport: {
+                        label: 'support.iata.fields.airport'|trans([], 'support')|capitalize,
+                        properties: ['airport.code'],
+                        link: {
+                            route: 'support_iata_code_show',
+                            params: {'id':'airport.@id'},
+                        }
+                    },
+                    edit: {
+                        label: 'List reports',
+                        link: {
+                            route: 'service_maintenance_follow_up_reports_list_by_equipment',
+                            params: {'id': '@id'},
+                            fixedParams: {'after': contract.startDate|date('Y-m-d'), 'before': contract.expirationDate|date('Y-m-d')},
+                            content: '<span class="btn btn-info btn-sm"><i class="fa fa-table fa-fw"></i></span>',
+                        },
+                        class: 'text-end'
+                    }
+                },
+                title: 'service.maintenance_contract.fields.equipment_records'|trans,
+                data: contract.equipmentRecords,
+                pagination: false,
+            }
+        }, with_context = false) }}
+    </div>
+    <div class="col-lg-6">
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    name: {
+                        label: 'fields.fullname'|trans([], 'messages')|capitalize,
+                        properties: ['lastname', 'firstname'],
+                        link:{
+                            route: 'sales_contact_show',
+                            params: {'id':'@id'},
+                        }
+                    },
+                    email: {label: 'directory.people.fields.email'|trans([], 'directory')|capitalize},
+                },
+                title: 'service.maintenance_contract.fields.buyer_representative'|trans,
+                data: contract.buyerRepresentatives,
+                pagination: false,
+            }
+        }, with_context = false) }}
+        {{ include('helper/_report_table.html.twig', {
+            reportTable: {
+                items: {
+                    name: {
+                        label: 'fields.fullname'|trans([], 'messages')|capitalize,
+                        properties: ['lastname', 'firstname'],
+                        link:{
+                            route: 'sales_contact_show',
+                            params: {'id':'@id'},
+                        }
+                    },
+                    email: {label: 'directory.people.fields.email'|trans([], 'directory')|capitalize},
+                },
+                title: 'service.maintenance_contract.fields.end_user_representative'|trans,
+                data: contract.endUserRepresentatives,
+                pagination: false,
+            }
+        }, with_context = false) }}
+    </div>
+</div>
+
+    {% if is_granted('FEATURE_MAINTENANCE_CONTRACT_WRITE') %}
+        <div class="ibox-content">
+            <div class="logs-block" data-resource="{{ contract['@id'] }}" data-show-comment-form="true"></div>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block translations %}
+    <script src="{{ path('bazinga_jstranslation_js', { 'domain': 'messages' }) }}"></script>
+{% endblock %}
+

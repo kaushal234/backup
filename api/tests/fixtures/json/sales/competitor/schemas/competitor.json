@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/sales/competitors/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "legacyId": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "url": {
+      "type": ["string", "null"]
+    },
+    "productTypes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {"pattern": "^/sales/product_types/\\d+$"},
+          "@type": {
+            "type": "string"
+          },
+          "legacyId": {
+            "type": "integer"
+          },
+          "englishName": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "englishName"
+        ],
+        "additionalProperties": false,
+        "minItems": 1
+      }
+    },
+    "logo": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "../../../shared/schemas/file.json" }
+      ]
+    },
+    "competitorFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "../../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": ["@context", "@id", "@type", "id", "legacyId", "name", "shortDescription", "description", "logo", "url"],
+  "additionalProperties": false
+}

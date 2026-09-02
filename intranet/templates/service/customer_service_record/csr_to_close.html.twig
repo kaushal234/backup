@@ -1,0 +1,50 @@
+{% extends 'service/customer_service_record/layout.html.twig' %}
+{% trans_default_domain 'customer_service_record' %}
+
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-12">
+            {% set items = {
+                id: {
+                    label: 'CSR#' ,
+                    link:{
+                        route: 'customer_service_record_show',
+                        params: {'id':'@id'},
+                    }
+                },
+                completedAt: {
+                    label: 'fields.completed_at' | trans({}, 'messages')|capitalize,
+                    filters: 'date("Y-m-d")',
+                    template: 'partial/cells/_nullable_date.html.twig',
+                },
+                type: {
+                    label: 'csr.fields.type' | trans(),
+                    filters: 'upper'
+                },
+                title: { label: 'tasks.description' | trans({}, 'messages')},
+            } %}
+
+            {% set items = items|merge({
+                closed: {
+                    label: 'to closed',
+                    template: 'service/customer_service_record/partial/_form_checkbox.html.twig',
+                    templateParams: {form: form}
+                },
+            }) %}
+
+            {{ include('helper/_report_table.html.twig', {
+                reportTable: {
+                    items: items,
+                    initialSorting: false,
+                    search: true,
+                    title: 'csr.title.csr_to_be_closed' | trans,
+                    data: completedCustomerServiceRecords,
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

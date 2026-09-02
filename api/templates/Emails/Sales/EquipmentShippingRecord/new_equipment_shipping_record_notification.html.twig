@@ -1,0 +1,23 @@
+{% extends 'Emails/alvest/layout_condensed.html.twig' %}
+{% trans_default_domain "emails" %}
+
+{% block banner %}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <p>
+        {{ 'equipment_shipping_record.created.message'|trans }} :
+        <a href="{{ path('equipment_shipping_record', { id: equipmentShippingRecord.id }) }}">
+            ESR#{{ equipmentShippingRecord.id }}
+        </a>
+    </p>
+
+    {% if equipmentShippingRecord.equipmentShippingRecordLines|length > 0 %}
+        {% include 'Emails/Sales/EquipmentShippingRecord/_partials/_lines_table.html.twig' with {
+            equipmentShippingRecord: equipmentShippingRecord
+        } only %}
+    {% else %}
+        <p>{{ 'equipment_shipping_record.created.empty'|trans }}</p>
+    {% endif %}
+{% endblock %}

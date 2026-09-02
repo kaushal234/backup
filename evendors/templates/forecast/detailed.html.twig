@@ -1,0 +1,36 @@
+{% extends 'wide.html.twig' %}
+
+{% block title %}{{ 'title.detailed_forecast'|trans }}{% endblock %}
+
+{% block main %}
+    {% embed '_components/report_table.html.twig' with {
+        reportTable: {
+            items: {
+                erp: {
+                    label: 'display.table.mrp.headers.erp'|trans,
+                    template: '_components/datatable/company.html.twig',
+                },
+                partNumber: {label: 'display.table.mrp.headers.part_number'|trans},
+                supplierPartNumber: {label: 'display.table.mrp.headers.vendor_part_number'|trans},
+                revision: {label: 'display.table.mrp.headers.revision'|trans},
+                description: {label: 'display.table.mrp.headers.description'|trans},
+                orderedQuantity: {label: 'display.table.mrp.headers.ordered_quantity'|trans},
+                price: {
+                    label: 'display.table.mrp.headers.price'|trans,
+                    template: 'forecast/components/datatable/ordered_price_detailed.html.twig',
+                },
+                plannedOrderDate: {label: 'display.table.mrp.headers.planned_order_date'|trans},
+                plannedDeliveryDate: {label: 'display.table.mrp.headers.planned_delivery_date'|trans},
+            },
+            title: 'display.table.mrp.caption.title'|trans,
+            id: 'forecast-table',
+            data: plannings,
+        }
+    } %}
+        {% block card_header_after %}
+            <div class="col me-1">
+                <a href="{{ path('forecast:download:detailed') }}" class="btn btn-outline-primary float-end">{{ 'display.table.mrp.caption.download_xlsx'|trans }}</a>
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

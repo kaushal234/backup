@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/equipment_accidents/\\d+$"},
+    "@type": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "humanInjuries": {
+      "type": "boolean"
+    },
+    "planeDamages": {
+      "type": "boolean"
+    },
+    "environmentDamages": {
+      "type": "boolean"
+    },
+    "equipmentDamages": {
+      "type": "boolean"
+    },
+    "accidentFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "../../shared/schemas/file.json"
+      },
+      "uniqueItems": true
+    },
+    "followUpReport": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "@id",
+    "@type",
+    "id",
+    "date",
+    "comment",
+    "humanInjuries",
+    "planeDamages",
+    "environmentDamages",
+    "equipmentDamages",
+    "accidentFiles"
+  ]
+}

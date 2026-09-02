@@ -1,0 +1,12 @@
+{% trans_default_domain('sales_orders') %}
+{% set erp = item.sso.erp %}
+<td>
+    {% for orderNumber in item.baanOrderNumbers%}
+        {% if erp is not same as(null) %}
+            <a href="{{ path('legacy_finance', {m: ['so', 'view'], erp: erp, id: orderNumber|trim }) }}">SO#{{ orderNumber }}</a>
+        {% else %}
+            SO#{{ orderNumber }}
+        {% endif %}
+        <br />
+    {% endfor %}
+</td>

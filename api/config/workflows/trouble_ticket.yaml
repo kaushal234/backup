@@ -1,0 +1,116 @@
+framework:
+    workflows:
+        trouble_ticket:
+            type: state_machine
+            marking_store:
+                type: method
+                property: status
+            supports:
+                - App\Entity\MIS\TroubleTicket\TroubleTicket
+            places:
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER_MOO
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED_MOO
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_ALREADY_RAISED
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_NOT_AN_ISSUE
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_SOLVED
+                - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_NOT_APPROVED
+            transitions:
+                from_awaiting_user_to_pending:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                from_pending_moo_to_pending:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                from_solution_proposed_moo_to_pending_moo:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED_MOO
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                from_awaiting_user_moo_to_pending_moo:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER_MOO
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                to_awaiting_user:
+                    from:
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER
+                to_moo_awaiting_user:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER_MOO
+                to_moo_solution_proposed:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED_MOO
+                from_pending_to_in_progress:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                from_solution_proposed_to_in_progress:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                from_awaiting_user_to_in_progress:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                to_solution_proposed:
+                    from:
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER_MOO
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED
+                from_solution_proposed_moo_to_closed_solved:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED_MOO
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_SOLVED
+                from_solution_proposed_to_closed_solved:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_SOLVED
+                from_awaiting_user_to_closed_solved:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_SOLVED
+                to_closed_not_an_issue:
+                    from:
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER_MOO
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED_MOO
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_NOT_AN_ISSUE
+                to_closed_already_raised:
+                    from:
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::AWAITING_USER_MOO
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED_MOO
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::SOLUTION_PROPOSED
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_ALREADY_RAISED
+                to_closed_not_approved:
+                    from: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_NOT_APPROVED
+                from_closed_to_pending:
+                    from:
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_NOT_AN_ISSUE
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_ALREADY_RAISED
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_SOLVED
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                from_in_progress_to_pending:
+                    from:
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING
+                from_closed_to_in_progress:
+                    from:
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_NOT_AN_ISSUE
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_ALREADY_RAISED
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_SOLVED
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::IN_PROGRESS
+                from_closed_to_pending_moo:
+                    from:
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_NOT_APPROVED
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_NOT_AN_ISSUE
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_ALREADY_RAISED
+                        - !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::CLOSED_SOLVED
+                    to: !php/const App\Entity\MIS\TroubleTicket\TroubleTicket::PENDING_MOO

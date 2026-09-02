@@ -1,0 +1,25 @@
+<div id="anchor">
+    {% if chartType.xAxis is defined %}
+        <div class="row">
+            <div class="col-md-12 highcharts" data-options="{{ chartType|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+        </div>
+        <br>
+    {% endif %}
+    {% if chartDepartment.xAxis is defined %}
+        <div class="row">
+            <div class="col-md-12 highcharts" data-options="{{ chartDepartment|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+        </div>
+        <br>
+    {% endif %}
+    {% if chartCode.xAxis is defined %}
+        <div class="row">
+            <div class="col-md-12 highcharts" data-options="{{ chartCode|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+        </div>
+        <br>
+    {% endif %}
+    {% if chartFamily.xAxis is defined %}
+        <div class="row">
+            <div class="col-md-12 highcharts" data-options="{{ chartFamily|json_encode }}" style="min-width: 400px; height: 500px;"></div>
+        </div>
+    {% endif %}
+</div>

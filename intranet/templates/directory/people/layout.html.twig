@@ -1,0 +1,173 @@
+{% extends 'directory/layout.html.twig' %}
+{% trans_default_domain 'directory_people' %}
+
+{% block title %}Directory\People{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="directory_people_add" :security="is_granted('ACL_SUPERUSER')"/>
+        <twig:NavItem:Search translationKey="nav_link.by_number" route="directory_people_search_id"/>
+        <twig:NavItem translationKey="directory_people.nav_link.download_directory" domain="directory_people"
+                      icon="material-symbols:download-rounded"
+                      route="directory_people_download"/>
+        <twig:NavItem translationKey="directory_people.nav_link.premise" domain="directory_people"
+                      route="directory_premise_list"
+                      :security="app.request.pathInfo is same as '/directory/people/map'" icon="mynaui:list"/>
+        {% if paginationUrl.parameters is defined %}
+            {% if peoples is not null and peoples|length > 0 %}
+                {% if  is_granted('FEATURE_DOWNLOAD_DIRECTORY') or is_granted('FEATURE_DOWNLOAD_DIRECTORY_CONFIDENTIAL') %}
+                    <twig:NavItem translationKey="directory_people.nav_link.csv_version" domain="directory_people"
+                                  route="directory_people_search_download" :routeParameters="paginationUrl.parameters"
+                                  icon="material-symbols:download-rounded"/>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        {% if people is defined %}
+            <twig:NavItem translationKey="directory_people.nav_link.v_card" domain="directory_people"
+                          route="directory_people_vcard"
+                          :routeParameters="{id: iri_id(people)}" icon="material-symbols:download-rounded"/>
+            <twig:Dropdown translationKey="directory_people.nav_link.people_infos" domain="directory_people">
+                <twig:NavItem translationKey="directory_people.nav_link.task_and_sequence" domain="directory_people"
+                              route="legacy_directory_index"
+                              icon="material-symbols:task-outline-rounded"
+                              :routeParameters="{m: ['people', 'view', 'seqAndUserTask'], id: people.legacyId }"/>
+                <twig:NavItem translationKey="directory_people.nav_link.supervisor" domain="directory_people"
+                              route="directory_people_show"
+                              :routeParameters="{ id: people.supervisor['@id'] is defined ? iri_id(people.supervisor['@id']) : iri_id(people.supervisor) }"
+                              icon="mdi:user-outline" :security="people.supervisor is not null"/>
+                <twig:NavItem translationKey="directory_people.nav_link.subordinates" domain="directory_people"
+                              route="directory_people_team_members"
+                              :routeParameters="{ id: iri_id(people['@id']) }"
+                              icon="material-symbols:group-outline-rounded"/>
+                <twig:NavItem translationKey="directory_people.nav_link.mentoring" domain="directory_people"
+                              route="directory_people_mentoring"
+                              :routeParameters="{ id: iri_id(people['@id']) }" icon="mdi:user-outline"/>
+                <twig:NavItem translationKey="directory_people.nav_link.sfr" domain="directory_people"
+                              route="sales_forecasts_dashboard_asm"
+                              :routeParameters="{ asm: people['@id'] }" icon="mdi:network-point-of-sale"
+                              :security="is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_ADMIN') or is_granted('ACL_ROLE_SA') or is_granted('ACL_ROLE_EVP') or (people.supervisor is not null and app.user.id == iri_id(people.supervisor['@id']))"/>
+                {% if is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_MIS') or is_granted('ACL_GG_ADMIN') %}
+                    <twig:LegacyNavItem
+                            translationKey="directory_people.nav_link.it_equipment" domain="directory_people"
+                            icon="solar:laptop-outline"
+                            url="/en/private/mis/mis.php?m[0]=inventory&m[1]=reports&m[2]=byUserID&id={{ people.legacyId }}"
+                    />
+                    <twig:LegacyNavItem
+                            translationKey="directory_people.nav_link.calendar" domain="directory_people"
+                            icon="mdi-light:calendar"
+                            url="/en/private/calendar/calendar.php?m[0]=tasks&m[1]=taskList&m[2]=byUser&userid={{ people.legacyId }}"
+                    />
+                {% endif %}
+                <twig:NavItem translationKey="directory_people.nav_link.groups" domain="directory_people"
+                              route="directory_people_acls"
+                              :routeParameters="{ id: iri_id(people) }"
+                              :security="is_granted('FEATURE_PEOPLE_ACL_VOTER', people['@id']) or is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_MIS') or is_granted('MOO')"
+                              icon="material-symbols:group-outline-rounded"/>
+                <twig:NavItem translationKey="directory_people.nav_link.third_party_app" domain="directory_people"
+                              route="directory_people_third_party_app" :routeParameters="{ id: iri_id(people) }"
+                              icon="mynaui:list"/>
+                <twig:NavItem translationKey="directory_people.nav_link.logs" domain="directory_people"
+                              route="directory_people_logs"
+                              :routeParameters="{ id: iri_id(people) }" :security="is_granted('ACL_SUPERUSER')"
+                              icon="material-symbols:info-outline-rounded"/>
+                <twig:NavItem translationKey="directory_people.nav_link.check_activity" domain="directory_people"
+                              route="directory_people_activity"
+                              :routeParameters="{ id: iri_id(people) }" :security="is_granted('ACL_SUPERUSER')"
+                              icon="material-symbols:info-outline-rounded"/>
+                <twig:NavItem translationKey="directory_people.nav_link.ai_history" domain="directory_people"
+                              route="ai_log_history"
+                              :routeParameters="{ id: iri_id(people) }" :security="is_granted('FEATURE_AI_LOG_HISTORY')"
+                              icon="material-symbols:info-outline-rounded"/>
+
+            </twig:Dropdown>
+            <twig:Dropdown translationKey="directory_people.nav_link.people_actions" domain="directory_people">
+                <twig:NavItem:Edit route="directory_people_edit" :routeParameters="{ id: iri_id(people['@id']) }"
+                                   :security="is_granted('FEATURE_PEOPLE_UPDATE_VOTER', people['@id'])"/>
+                <twig:NavItem translationKey="directory_people.nav_link.set_password" domain="directory_people"
+                              route="directory_people_define_password" :routeParameters="{ id: iri_id(people['@id']) }"
+                              :security="is_granted('PEOPLE_PARTIAL_UPDATE_VOTER', people['@id']) or is_granted('ACL_SUPERUSER')"
+                              icon="teenyicons:password-outline"
+                              class="action-warning"/>
+                <twig:NavItem translationKey="directory_people.nav_link.duplicate" domain="directory_people"
+                              route="directory_people_duplicate" :routeParameters="{ id: iri_id(people['@id']) }"
+                              :security="is_granted('ACL_SUPERUSER')"
+                              icon="teenyicons:password-outline"
+                              class="action-danger"/>
+                <twig:LegacyNavItem translationKey="directory_people.nav_link.impersonate" domain="directory_people"
+                                    url="?_switch_to={{ people['@id'] }}&_username={{ people['username'] }}"
+                                    :security="is_granted('ACL_SUPERUSER')"
+                                    icon="mdi:user-outline" class="action-danger"/>
+                <twig:NavItem translationKey="directory_people.nav_link.transfer_and_disable" domain="directory_people"
+                              route="legacy_directory_index"
+                              :routeParameters="{ m: ['people', 'view', 'transferDisable'], id: people.legacyId }"
+                              :security="is_granted('ACL_SUPERUSER')" icon="bi:arrow-left-right" class="action-danger"/>
+                <twig:NavItem translationKey="directory_people.nav_link.transfer_crt" domain="directory_people"
+                              route="directory_people_transfer_crt"
+                              :routeParameters="{ id: iri_id(people['@id']) }"
+                              :security="is_granted('FEATURE_PEOPLE_UPDATE')" icon="bi:arrow-left-right"
+                              class="action-danger"/>
+                <twig:NavItem translationKey="directory_people.nav_link.edit_my_account" domain="directory_people"
+                              route="account_edit"
+                              :routeParameters="{ id: iri_id(people['@id']) }"
+                              :security="app.user.id is same as(iri_id(people['@id']))" icon="bi:arrow-left-right"
+                              class="action-warning"/>
+                {% if app.request.attributes.get('_route') === "directory_people_third_party_app" %}
+                    <twig:NavItem
+                            translationKey="mis.update_task.buttons.sync_update_tasks"
+                            domain="mis"
+                            route="directory_people_third_party_app_sync_tasks"
+                            :routeParameters="{ id: iri_id(people['@id']) }"
+                            :security="is_granted('FEATURE_MODULE_WRITE')"
+                            icon="bi:arrow-left-right"
+                            class="action-warning"/>
+                {% endif %}
+            </twig:Dropdown>
+        {% endif %}
+        {% if userId is defined %}
+            <twig:Dropdown translationKey="directory_people.nav_link.acl_actions" domain="directory_people">
+                <twig:NavItem:Add translationKey="directory_people.nav_link.add_acl" domain="directory_people"
+                                  route="directory_people_add_acl" :routeParameters="{id: userId}"/>
+                <twig:NavItem translationKey="directory_people.nav_link.delegate_groups" domain="directory_people"
+                              icon="material-symbols:group-outline-rounded" route="directory_people_delegate_acl"
+                              :routeParameters="{id: userId}"
+                              :security="is_granted('FEATURE_PEOPLE_ADD_ACL_VOTER', people['@id'])"/>
+                <twig:NavItem translationKey="directory_people.nav_link.import" domain="directory_people"
+                              icon="material-symbols:download-rounded" route="directory_people_import_acl"
+                              :routeParameters="{id: userId}"/>
+            </twig:Dropdown>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}
+
+{% block quick_action_bar %}
+        <twig:NavBar:Container>
+        <li>
+            <span class="nav-link m-0 d-flex align-items-center bg-white">
+                <span class="ms-1">Quick Action :</span>
+            </span>
+            </li>
+            <twig:NavItem:Search route="directory_people_search"/>
+    {% if people is defined %}
+            <twig:NavItem translationKey="directory_people.nav_link.task_and_sequence" domain="directory_people"
+                      route="legacy_directory_index"
+                      icon="material-symbols:task-outline-rounded"
+                      :routeParameters="{m: ['people', 'view', 'seqAndUserTask'], id: people.legacyId }"/>
+            <twig:NavItem translationKey="directory_people.nav_link.groups" domain="directory_people"
+                          route="directory_people_acls"
+                          :routeParameters="{ id: iri_id(people) }"
+                          :security="is_granted('FEATURE_PEOPLE_ACL_VOTER', people['@id']) or is_granted('ACL_SUPERUSER') or is_granted('ACL_GG_MIS') or is_granted('MOO')"
+                          icon="material-symbols:group-outline-rounded"/>
+            <twig:NavItem translationKey="directory_people.nav_link.third_party_app" domain="directory_people"
+                          route="directory_people_third_party_app" :routeParameters="{ id: iri_id(people) }"
+                          icon="mynaui:list"/>
+            <twig:NavItem translationKey="directory_people.nav_link.subordinates" domain="directory_people"
+                          route="directory_people_team_members"
+                          :routeParameters="{ id: iri_id(people['@id']) }"
+                          icon="material-symbols:group-outline-rounded"/>
+            <twig:LegacyNavItem translationKey="directory_people.nav_link.impersonate" domain="directory_people"
+                            url="?_switch_to={{ people['@id'] }}&_username={{ people['username'] }}"
+                            :security="is_granted('ACL_SUPERUSER')"
+                            icon="mdi:user-outline" class="action-danger"/>
+    {% endif %}
+        </twig:NavBar:Container>
+{% endblock %}

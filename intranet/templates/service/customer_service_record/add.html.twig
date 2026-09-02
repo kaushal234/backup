@@ -1,0 +1,33 @@
+{% extends 'service/customer_service_record/layout.html.twig' %}
+{% trans_default_domain 'customer_service_record' %}
+{% form_theme form with ['form_theme_vertical.html.twig', _self] %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'csr.title.add' | trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <style>
+                        .tempus-dominus-widget .today:before {
+                            display: none !important;
+                        }
+                        .tempus-dominus-widget .today:not(.active) {
+                            border: 1px solid grey;
+                        }
+                    </style>
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    {{ form_row(form.equipmentRecord) }}
+                    {{ form_row(form.airport) }}
+                    {{ form_row(form.hourmeter) }}
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.description) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

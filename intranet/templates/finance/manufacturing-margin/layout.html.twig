@@ -1,0 +1,31 @@
+{% extends 'finance/layout.html.twig' %}
+{% trans_default_domain 'manufacturing_margin' %}
+
+{% block title %}{{ parent() }} \ {{ 'manufacturing_margin.title' | trans }}{% endblock %}
+
+{% block top_navigation_bar %}
+    <twig:NavBar:Container>
+        <twig:NavItem:Add route="manufacturing_margin_add"
+                          :security="is_granted('FEATURE_MANUFACTURING_MARGIN_CREATE')"/>
+        <twig:NavItem translationKey="manufacturing_margin.nav_link.upload" domain="manufacturing_margin"
+                      icon="material-symbols:download-rounded" route="manufacturing_margin_upload"
+                      :security="is_granted('FEATURE_MANUFACTURING_MARGIN_CREATE')"/>
+        <twig:NavItem:Reports route="manufacturing_margin_reports"
+                              :security="is_granted('FEATURE_MANUFACTURING_MARGIN_VIEW_FULL') or is_granted('FEATURE_MANUFACTURING_MARGIN_VIEW_LOCATION')"/>
+        <twig:Dropdown translationKey="manufacturing_margin.nav_link.download" domain="manufacturing_margin"
+                       :security="is_granted('FEATURE_MANUFACTURING_MARGIN_VIEW_FULL') or is_granted('FEATURE_MANUFACTURING_MARGIN_VIEW_LOCATION')">
+            <twig:NavItem translationKey="manufacturing_margin.nav_link.by_er" domain="manufacturing_margin"
+                          icon="mdi:ticket-outline" route="manufacturing_margin_download_by_er"/>
+            <twig:NavItem translationKey="manufacturing_margin.nav_link.by_finance_family" domain="manufacturing_margin"
+                          icon="mynaui:list" route="manufacturing_margin_download_by_finance_family"/>
+        </twig:Dropdown>
+        {% if manufacturingMargin is defined %}
+            <twig:NavItem:Edit route="manufacturing_margin_edit"
+                               :routeParameters="{ id: manufacturingMargin.getIriId() }"
+                               :security="is_granted('MANUFACTURING_MARGIN_EDIT_VOTER', manufacturingMargin['@id'])"/>
+            <twig:NavItem:Delete route="manufacturing_margin_delete"
+                                 :routeParameters="{ id: manufacturingMargin.getIriId() }"
+                                 :security="is_granted('FEATURE_MANUFACTURING_MARGIN_DELETE')"/>
+        {% endif %}
+    </twig:NavBar:Container>
+{% endblock %}

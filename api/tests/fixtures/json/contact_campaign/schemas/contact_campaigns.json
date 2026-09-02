@@ -1,0 +1,205 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {
+      "pattern": "^/contact_campaigns"
+    },
+    "@type": {
+      "type": "string"
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    },
+    "hydra:search": {
+      "type": "object",
+      "properties": {
+        "@type": { "type": "string" },
+        "hydra:template": { "type": "string" },
+        "hydra:variableRepresentation": { "type": "string" },
+        "hydra:mapping": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@type": { "type": "string" },
+              "variable": { "type": "string" },
+              "property": { "type": "string" },
+              "required": { "type": "boolean" }
+            },
+            "required": ["@type", "variable", "property", "required"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["@type", "hydra:template", "hydra:mapping"],
+      "additionalProperties": false
+    },
+    "hydra:member": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/contact_campaigns/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "startedAt": {
+            "type": "string"
+          },
+          "endedAt": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "pattern": "^/sales/extranet_users/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "firstname": {
+                  "type": "string"
+                },
+                "lastname": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id",
+                "@type",
+                "username",
+                "email",
+                "firstname",
+                "lastname"
+              ]
+            }
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "businessUnits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "pattern": "^/business_units/\\d+$"
+                },
+                "@type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": "string"
+                },
+                "representative": {
+                  "$ref": "../../directory_people/schemas/directory_people_public_photo.json"
+                },
+                "location": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "pattern": "^/locations/\\d+$"
+                    },
+                    "@type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "company": {
+                      "type": "string"
+                    },
+                    "erp": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "@id",
+                    "@type",
+                    "name",
+                    "company",
+                    "erp"
+                  ]
+                },
+                "region": {
+                  "type": "string"
+                }
+
+              },
+              "required": [
+                "@id",
+                "@type",
+                "id",
+                "name",
+                "domain",
+                "representative",
+                "location",
+                "region"
+              ]
+            }
+          },
+          "id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "name",
+          "startedAt",
+          "endedAt",
+          "status",
+          "description",
+          "owner",
+          "contacts",
+          "createdAt",
+          "businessUnits",
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:totalItems",
+    "hydra:member",
+    "hydra:search"
+  ],
+  "additionalProperties": false
+}

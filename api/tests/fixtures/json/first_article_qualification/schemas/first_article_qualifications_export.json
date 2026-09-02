@@ -1,0 +1,148 @@
+{
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "string"
+    },
+    "@id": {"pattern": "^/quality/first_article_qualifications$"},
+    "@type": {
+      "type": "string"
+    },
+    "hydra:member": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "pattern": "^/quality/first_article_qualifications/\\d+$"
+          },
+          "@type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "location": {
+            "type": "string"
+          },
+          "partNumbers": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "supplierNumber": {
+            "type": "string"
+          },
+          "supplierName": {
+            "type": "string"
+          },
+          "buyer": {
+            "type": ["string", "null"]
+          },
+          "poster": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "productFamily": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "completedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "planDefinitionCompletedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "planDefinitionDueDate": {
+            "type": "string"
+          },
+          "deliverablesDueDate": {
+            "type": ["string", "null"]
+          },
+          "dueDate": {
+            "type": "string"
+          },
+          "iFactor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "eap": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "meap": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "planApprovalStatus": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "@id",
+          "@type",
+          "id",
+          "location",
+          "partNumbers",
+          "tags",
+          "supplierNumber",
+          "supplierName",
+          "buyer",
+          "poster",
+          "owner",
+          "createdAt",
+          "completedAt",
+          "planDefinitionCompletedAt",
+          "planDefinitionDueDate",
+          "deliverablesDueDate",
+          "dueDate",
+          "eap",
+          "meap",
+          "status",
+          "planApprovalStatus",
+          "iFactor",
+          "productFamily"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "hydra:totalItems": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "hydra:member"
+  ]
+}
+

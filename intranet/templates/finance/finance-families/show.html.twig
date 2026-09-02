@@ -1,0 +1,81 @@
+{% extends 'finance/finance-families/layout.html.twig' %}
+{% trans_default_domain 'finance' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            {{ include('helper/_association_table.html.twig', {
+                associationData: {
+                    search: false,
+                    title: 'finance.finance_family.information' | trans,
+                    items: {
+                        id: {
+                            label: 'finance.finance_family.id'|trans|upper
+                        },
+                        name: {
+                            label: 'finance.finance_family.name'|trans,
+                        },
+                    },
+                    data: financeFamily
+                }
+            }, with_context = false) }}
+        </div>
+    </div>
+
+    {{ include('helper/_report_table.html.twig', {
+        reportTable: {
+            search: true,
+            items: {
+                id: {
+                    label: 'catalogue.products.id'|trans([], 'catalogue')|upper,
+                    link:{
+                        route: 'sales_catalogue_product_show',
+                        params: {'id':'@id'},
+                    },
+                },
+                name: {
+                    label: 'catalogue.products.name'|trans([], 'catalogue')|capitalize,
+                    class: 'text-center',
+                    link: {
+                        route: 'sales_catalogue_product_show',
+                        params: {'id':'@id'}
+                    }
+                },
+                erpLocation: {
+                    label: 'catalogue.products.erp'|trans([], 'catalogue'),
+                    properties: ['erpLocation.erp'],
+                    class: 'text-center',
+                    link: {
+                        route: 'directory_locations_show',
+                        params: {'id':'erpLocation.@id'}
+                    }
+                },
+                hidden: {
+                    label: 'catalogue.products.visibility'|trans([], 'catalogue')|capitalize,
+                    class : 'text-center',
+                    boolean: {
+                        'true': '<button type="button" class="btn btn-warning btn-sm mx-auto">Hidden</button>',
+                        'false': '<button type="button" class="btn btn-green btn-sm mx-auto">Not Hidden</button>'
+                    }
+                },
+                edit: {
+                    label: 'menu.edit'|trans([], 'messages')|capitalize,
+                    link:{
+                        route: 'sales_catalogue_product_edit',
+                        params: {'id':'@id'},
+                        content: '<span class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt fa-fw"></i></span>',
+                    },
+                    sortable: false,
+                    class : 'text-center'
+                }
+            },
+            initialSorting: false,
+            title: 'finance.finance_family.product_linked'|trans,
+            data: products,
+            pagination: false
+        }
+    }, with_context = false) }}
+{% endblock %}
+
+
+

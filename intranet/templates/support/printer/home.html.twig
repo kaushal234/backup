@@ -1,0 +1,60 @@
+{% extends 'support/printer/layout.html.twig' %}
+{% trans_default_domain 'support' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    {% set items = {
+                        companyName: {
+                            label: 'catalogue.products.name'|trans({}, 'catalogue')|capitalize,
+                        },
+                        email: {
+                            label: 'directory.people.fields.email'|trans({}, 'directory')|capitalize,
+                        },
+                        view: {
+                            label: 'menu.view'|trans([], 'messages')|capitalize,
+                            link:{
+                                route: 'printer_show',
+                                params: {id:'id'},
+                                content: '<span class="btn btn-primary btn-sm"><i class="fa fa-eye fa-fw"></i></span>',
+                            },
+                            sortable: false,
+                            class : 'text-end'
+                        }
+                    } %}
+                    {% if is_granted('FEATURE_PRINTER_WRITE') %}
+                        {% set items = items | merge ({
+                            edit: {
+                                label: 'menu.edit'|trans([], 'messages')|capitalize,
+                                class: 'text-end',
+                                link:{
+                                    route: 'printer_edit',
+                                    params: {'id':'@id'},
+                                    content: '<span class="btn btn-warning btn-sm text-capitalize"><i class="fa fa-pencil-alt"></i></span>',
+                                },
+                            },
+                            delete: {
+                                label: 'menu.delete'|trans([], 'messages')|capitalize,
+                                class: 'text-end',
+                                link:{
+                                    route: 'printer_delete',
+                                    params: {'id':'@id'},
+                                    content: '<span class="btn btn-danger btn-sm text-capitalize"><i class="fa fa-trash-alt"></i></span>',
+                                },
+                            }
+                        }) %}
+                    {% endif %}
+                    {{ include('helper/_report_table.html.twig', {
+                        reportTable: {
+                            items: items,
+                            title: 'support.printer.printers'|trans|capitalize,
+                            data: printers
+                        }
+                    }, with_context = false) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
